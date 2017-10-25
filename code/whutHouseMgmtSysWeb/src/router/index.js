@@ -19,7 +19,14 @@ const routes = [
     redirect: '/index',
     children: [
       {path: '/index', component: HelloWorld, name: 'index', menuShow: true},
-      {path: '/paramSet', component: paramSet, name: 'paramSet', menuShow: true}
+      { path: '/paramSet',
+        component: paramSet,
+        name: 'paramSet',
+        menuShow: true,
+        children: [
+          {path: '/index', component: HelloWorld, name: 'index', menuShow: true}
+        ]
+      }
     ]
   }
 ]
