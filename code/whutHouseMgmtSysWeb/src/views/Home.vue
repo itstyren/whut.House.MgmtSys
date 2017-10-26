@@ -221,6 +221,7 @@ import * as types from '../store/mutation-types'
         
       } //top-bar-warp包裹
 
+      // 中间部分
       .body-containers{
         display: -webkit-box;
         display: -webkit-flex;

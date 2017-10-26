@@ -9,7 +9,7 @@
       </el-breadcrumb>
   </el-col>
   <!-- 下方主体内容 -->
-  <el-row class="warp-main" >
+  <el-row class="warp-main" :gutter="20">
     <!-- 左侧树形菜单 -->
     <el-col :span="4">
       <el-form :inline="true" style="margin-bottom:15px">
@@ -43,6 +43,7 @@ import houseType from './houseType'
          // 住房参数
          {
            label:'住房参数',
+           disabled:true,
            children:[
             {
               id:'houseType',
@@ -97,7 +98,7 @@ import houseType from './houseType'
            children:[
              {
                id:'ordORnew',
-               label:'新老职工时间分界点'
+               label:'新老职工分界点'
              }
            ]
          }
@@ -116,6 +117,7 @@ import houseType from './houseType'
        return data.label.indexOf(value) !== -1;
       },
       handleNodeClick(data,node,vuecomponent){
+        if(data.label=='住房参数'||data.label=='职工参数'||data.label=='租赁参数'||data.label=='维修参数'||data.label=='租金参数')  return 
         this.componentId=data.id
       }  
    },
@@ -126,6 +128,9 @@ import houseType from './houseType'
 </script>
 
 <style scoped lang="scss">
+.warp-main{
+  margin: 30px
+}
 .el-tree{
   text-align: left;
   padding-left: 20px;
