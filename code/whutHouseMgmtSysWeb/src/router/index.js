@@ -22,10 +22,7 @@ const routes = [
       { path: '/paramSet',
         component: paramSet,
         name: 'paramSet',
-        menuShow: true,
-        children: [
-          {path: '/index', component: HelloWorld, name: 'index', menuShow: true}
-        ]
+        menuShow: true
       }
     ]
   }

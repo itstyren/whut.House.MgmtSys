@@ -52,7 +52,7 @@
           </svg>
       </div>
       <!-- 主菜单 -->
-      <el-menu  :collapse="isCollapse" :default-active="$route.path" router>
+      <el-menu  :collapse="isCollapse" :default-active="$route.path" :router="true">
         <!-- 首页 -->
         <el-menu-item index="/" > 
           <svg class="icon" aria-hidden="true" >
@@ -69,21 +69,6 @@
           </svg>
             <span slot="title"> 系统管理</span>
           </template>
-          <!-- 二级目录 -->
-          <!-- 参数设置 -->
-          <!-- <el-submenu index="paramSet">
-            <template slot="title">
-          <svg class="icon" aria-hidden="true" >
-            <use xlink:href="#icon-param"></use>
-          </svg>
-              <span slot="title">参数设置</span>
-            </template>
-              <el-menu-item index="/ParamSet/houseParam">住房参数</el-menu-item>
-              <el-menu-item index="/ParamSet/clientParam">职工参数</el-menu-item>
-              <el-menu-item index="/ParamSet/leaseParam">租赁参数</el-menu-item>
-              <el-menu-item index="/ParamSet/fixParam">维修参数</el-menu-item>
-              <el-menu-item index="/ParamSet/rentParam">租金参数</el-menu-item>        
-          </el-submenu> -->
           <el-menu-item index="/paramSet">
              <svg class="icon" aria-hidden="true" >
                <use xlink:href="#icon-param"></use>
@@ -120,13 +105,11 @@
 
     <!-- 右侧内容区 -->
     <section class="main-containers">
-      <div>
         <el-col :span="24" class="main-warp">
         <transition name="fade" model="out-in" >
           <router-view></router-view>
         </transition>
-        </el-col>
-      </div>     
+        </el-col>  
     </section>
       <!-- 底部栏 -->
       <!-- <el-col :span="24" class="bottom-containers">
@@ -282,8 +265,8 @@ import * as types from '../store/mutation-types'
         padding-bottom: 1px;
         
         .main-warp{
-           background-color: #000000 red;
            box-sizing: border-box;
+            height: 100%;
         }
               //底部样式
       // .bottom-containers{

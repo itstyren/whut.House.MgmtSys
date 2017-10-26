@@ -64,5 +64,20 @@ body {
   text-align: center
 }
 
+//参数设置页相关样式
+.topic{
+  height: 30px;
 
- 
+  h1{
+    text-align: center;
+  }
+}
+.right-main{
+  float: left;
+  // border-radius: 5px;
+  // border: 1px solid #eaeaea;
+  // box-shadow: 0 0 25px #cac6c6;
+  margin: 5px 20px 0 0px;
+  padding: 5px 45px 15px 45px;
+  width: 100%;
+} 
