@@ -3,3 +3,5 @@ config/*.js
 src/views/*.vue
 src/assets/icons/*js
 src/store/*.js
+
+src/components/sysManage/paramSet/*.vue

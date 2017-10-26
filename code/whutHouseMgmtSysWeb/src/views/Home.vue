@@ -16,11 +16,11 @@
       <el-dropdown trigger="click" > 
         <span class="el-dropdown-main">
           <svg class="icon" aria-hidden="true">
-            <use xlink:href="#honor-account"></use>
+            <use xlink:href="#icon-account"></use>
             </svg>
             <span>{{RoleName}}</span>
             <svg class="icon" aria-hidden="true">
-            <use xlink:href="#honor-moreunfold"></use>
+            <use xlink:href="#icon-more_unfold"></use>
             </svg>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -45,33 +45,58 @@
       <!-- 展开关闭按钮 -->
       <div class="asid-button" @click.prevent="collapse">
           <svg class="icon" aria-hidden="true" v-show="isCollapse">
-            <use xlink:href="#honor-more"></use>
+            <use xlink:href="#icon-next"></use>
           </svg>
           <svg class="icon" aria-hidden="true" v-show="!isCollapse">
-            <use xlink:href="#honor-back"></use>
+            <use xlink:href="#icon-pre"></use>
           </svg>
       </div>
       <!-- 主菜单 -->
       <el-menu  :collapse="isCollapse" :default-active="$route.path" router>
         <!-- 首页 -->
         <el-menu-item index="/" > 
-          <i class="el-icon-menu "></i>
-          <span slot="title">首页</span>
+          <svg class="icon" aria-hidden="true" >
+            <use xlink:href="#icon-home1"></use>
+          </svg>
+          <span slot="title"> 首页</span>
         </el-menu-item>
+        <!-- 一级目录 -->
         <!-- 系统管理 -->
         <el-submenu index="SysManage">
           <template slot="title">
-            <i class="el-icon-edit "></i>
-            <span slot="title">系统管理</span>
+          <svg class="icon" aria-hidden="true" >
+            <use xlink:href="#icon-set1"></use>
+          </svg>
+            <span slot="title"> 系统管理</span>
           </template>
-          <el-menu-item index="/system/acclist">
-            账户管理
+          <!-- 二级目录 -->
+          <!-- 参数设置 -->
+          <!-- <el-submenu index="paramSet">
+            <template slot="title">
+          <svg class="icon" aria-hidden="true" >
+            <use xlink:href="#icon-param"></use>
+          </svg>
+              <span slot="title">参数设置</span>
+            </template>
+              <el-menu-item index="/ParamSet/houseParam">住房参数</el-menu-item>
+              <el-menu-item index="/ParamSet/clientParam">职工参数</el-menu-item>
+              <el-menu-item index="/ParamSet/leaseParam">租赁参数</el-menu-item>
+              <el-menu-item index="/ParamSet/fixParam">维修参数</el-menu-item>
+              <el-menu-item index="/ParamSet/rentParam">租金参数</el-menu-item>        
+          </el-submenu> -->
+          <el-menu-item index="/paramSet">
+             <svg class="icon" aria-hidden="true" >
+               <use xlink:href="#icon-param"></use>
+               </svg>
+              <span>参数设置</span>
           </el-menu-item>
-          <el-menu-item index="/system/Role">
-            角色管理
-          </el-menu-item>
-          <el-menu-item index="PassWord">
-            密码管理
+          <!-- 二级目录 -->
+          <!-- 修改密码 -->
+          <el-menu-item index="/PassWord">
+          <svg class="icon" aria-hidden="true" >
+            <use xlink:href="#icon-change_pwd"></use>
+          </svg>
+            <span>修改密码</span>
           </el-menu-item>
         </el-submenu>
         <!-- 基础数据 -->
@@ -120,7 +145,7 @@ import * as types from '../store/mutation-types'
    data() {
 	 return {
       isCollapse: false,
-      RoleName:this.$store.state.Name
+      RoleName:'任天宇'||this.$store.state.Name
 	 }
 
    },
@@ -240,6 +265,7 @@ import * as types from '../store/mutation-types'
       }
       .el-menu {
         width: 180px;
+        background-color: #333744;
       }
       .el-menu--collapse {
         width: 60px;
