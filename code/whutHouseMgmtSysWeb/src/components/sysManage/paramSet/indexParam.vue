@@ -13,19 +13,19 @@
   <!-- 下方主体内容 -->
   <el-row class="main-body" >
     <!-- 左侧树形菜单 -->
-    <el-col :span="5" class="left-tree">
+    <el-col :span="24" >
       <div class="left-body">
       <el-form :inline="true" style="text-align:center;margin-bottom:20px">
         <el-input placeholder="输入参数关键词" v-model="filterText" icon="search" type="text" size="small"></el-input>
       </el-form>
       <el-tree :data="paramData" :props="props" ref="paramData" :filter-node-method="filterNode"   @node-click="handleNodeClick" :highlight-current="true"></el-tree>
     </div>
-    </el-col>
     <!-- 右侧内容区域 -->
-    <el-col :span="19" >
+    <section class="right-body">
       <transition name="fade" model="out-in" >
         <component :is="componentId"></component>
       </transition>
+    </section>
     </el-col>
   </el-row>
 </el-row>
@@ -177,23 +177,32 @@ import houseType from './houseType'
 }
 
 .el-tree{
-  position: relative;
-  max-height: 100%;
+  height: 100%;
   width: 100%;
   text-align: left;
   padding-left: 20px;
 
 }
 .left-body{
-  position: relative;
-  height: 500px;
-  width: 100%;
+  position: absolute;
+  top:20px;
+  bottom: 20px;
+  width: 20%;
   overflow-y: auto;
   overflow-x: hidden;
+  margin: 18px;
   padding: 15px 0px 0 0px;
    border: 2px solid #333744;
+  box-shadow: 0 0 5px #333744;
    border-radius: 5px
    
+}
+.right-body{
+  position: absolute;
+  top:20px;
+  bottom: 20px;
+  right: 0px;
+  width: 80%
 }
 .warp{
   height: inherit;
