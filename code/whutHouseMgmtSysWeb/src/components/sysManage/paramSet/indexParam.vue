@@ -22,9 +22,7 @@
     </div>
     <!-- 右侧内容区域 -->
     <section class="right-body">
-      <transition name="fade" model="out-in" >
         <component :is="componentId"></component>
-      </transition>
     </section>
     </el-col>
   </el-row>
@@ -32,7 +30,16 @@
 </template>
 
 <script type="text/ecmascript-6">
-import houseType from './houseType'
+// 异步加载--住房参数
+const houseType = () => import(/* webpackChunkName: "houseParam" */ './houseParam/houseType')
+const houseLayout = () => import(/* webpackChunkName: "houseParam" */ './houseParam/houseLayout')
+const houseStatus = () => import(/* webpackChunkName: "houseParam" */ './houseParam/houseStatus')
+const houseStruct = () => import(/* webpackChunkName: "houseParam" */ './houseParam/houseStruct')
+
+import staffDept from './staffParam/staffDept'
+import staffPost from './staffParam/staffPost'
+import staffTitle from './staffParam/staffTitle' 
+import staffClass from './staffParam/staffClass'
  export default {
    // 监视输入框参数值
     watch: {
@@ -63,7 +70,7 @@ import houseType from './houseType'
               label:'使用状态'
             },
             {
-              id:'housestruct',
+              id:'houseStruct',
               label:'住房结构'
             }]
           },
@@ -72,9 +79,29 @@ import houseType from './houseType'
            label:'职工参数',
            children:[
              {
-               id:'department',
+               id:'staffDept',
                label:'工作部门'
-             }
+             },
+             {
+               id:'staffPost',
+               label:'职务'
+             },
+             {
+               id:'staffTitle',
+               label:'职称'
+             },
+             {
+               id:'staffClass',
+               label:'职工类别'
+             },
+             {
+               id:'staffStatus',
+               label:'工作状态'
+             },
+             {
+               id:'staffSpouse',
+               label:'配偶单位性质'
+             },             
            ]
          },
          // 租赁参数
@@ -87,7 +114,7 @@ import houseType from './houseType'
              },
              {
                id:'mianji',
-               label:'享受 面积'
+               label:'享受面积'
              },
              {
                id:'111',
@@ -159,7 +186,10 @@ import houseType from './houseType'
       }  
    },
    components: {
-     houseType
+     // 住房参数组件
+     houseType,houseLayout,houseStatus,houseStruct,
+     // 职工参数组件
+     staffDept,staffPost,staffTitle,staffClassc 
    }
  }
 </script>
@@ -177,7 +207,7 @@ import houseType from './houseType'
 }
 
 .el-tree{
-  height: 100%;
+  height: 100%; 
   width: 100%;
   text-align: left;
   padding-left: 20px;

@@ -5,3 +5,5 @@ src/assets/icons/*js
 src/store/*.js
 
 src/components/sysManage/paramSet/*.vue
+src/components/sysManage/paramSet/houseParam/*.vue 
+src/components/sysManage/paramSet/staffParam/*.vue

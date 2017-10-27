@@ -2,11 +2,11 @@
 <div>
 <!-- 右侧主要内容 -->
 <el-col :span="24" class="right-main">
-  <el-col :span="24" class="topic"><h1>住房类型参数</h1></el-col>
+  <el-col :span="24" class="topic"><h1>住房结构参数</h1></el-col>
   <!-- 工具条 -->
   <el-col :span="24" class="toolBar" >    
     <el-form :inline="true" style="margin-bottom:15px">
-      <el-button type="primary" @click="addFormVisible = true" >新增类型</el-button>
+      <el-button type="primary" @click="addFormVisible = true" >新增结构</el-button>
     </el-form>
   </el-col>
   <!-- 表格区域 -->
@@ -14,7 +14,7 @@
     <el-table :data="typeData" border style="width:100%" v-loading="listLoading">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
-      <el-table-column prop="houseType" label="住房类型" sortable align="center" ></el-table-column>
+      <el-table-column prop="houseStruct" label="住房结构" sortable align="center" ></el-table-column>
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope" >
             <el-button  size="small" @click="showModifyDialog(scope.$index,scope.row)" >编辑</el-button>
@@ -30,10 +30,10 @@
   </el-col>
 </el-col>
     <!-- 新增表单 -->
-    <el-dialog title="新增住房类型" :visible.sync="addFormVisible" v-loading="submitLoading" >
+    <el-dialog title="新增住房结构" :visible.sync="addFormVisible" v-loading="submitLoading" >
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="住房类型" prop="houseType">
-          <el-input v-model="addFormBody.houseType" placeholder="请输入住房类型"  ></el-input>
+        <el-form-item label="住房结构" prop="houseStruct">
+          <el-input v-model="addFormBody.houseStruct" placeholder="请输入住房结构"  ></el-input>
         </el-form-item>     
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -43,10 +43,10 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑住房类型" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
+    <el-dialog title="编辑住房结构" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules" >
-        <el-form-item label="住房类型" prop="houseType"  >
-          <el-input v-model="modifyFromBody.houseType" placeholder="请输入住房类型"  ></el-input>
+        <el-form-item label="住房结构" prop="houseStruct"  >
+          <el-input v-model="modifyFromBody.houseStruct" placeholder="请输入住房结构"  ></el-input>
         </el-form-item>   
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -58,32 +58,39 @@
 </template>
 
 <script type="text/ecmascript-6">
- export default {
+export default {
    data() {
      return {
        // 用户令牌
        access_token:'',
        // 表格数据
        typeData: [
-         {houseType:'任天宇的南4'}
+         {houseStruct:'破茅草屋'}
        ],
        listLoading:false,
        totalNum:1,
        page:1,
        size:10,
 
+       // 表单规则验证
+       rules:{
+         houseStruct:{
+           required: true, message: '住房结构不能为空' , trigger: 'blur' 
+         },
+       },
+
        //编辑表单相关数据
        modifyFormVisible:false,
        modifyLoading:false,
        modifyFromBody:{
-         houseType:''
+         houseStruct:''
        },
       
       // 新增表单相关数据
        submitLoading:false,       
        addFormVisible: false,
        addFormBody:{
-         houseType:''
+         houseStruct:''
        }
      }
 
@@ -92,11 +99,6 @@
 
    },
    methods:{
-     //显示编辑
-     showModifyDialog (index,row) {
-
-       },
-
     //删除功能
     delectType(){
 
