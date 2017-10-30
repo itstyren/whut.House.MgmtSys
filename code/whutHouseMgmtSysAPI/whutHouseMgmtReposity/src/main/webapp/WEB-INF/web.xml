@@ -66,5 +66,14 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!-- 配置添加响应头的自定义filter -->
+	<filter>
+		<filter-name>ResponseHeaderFilter</filter-name>
+		<filter-class>com.computerdesign.whutHouseMgmt.filter.ResponseHeaderFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ResponseHeaderFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 </web-app>

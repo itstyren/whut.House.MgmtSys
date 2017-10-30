@@ -2,19 +2,19 @@
 <div>
 <!-- 右侧主要内容 -->
 <el-col :span="24" class="right-main">
-  <el-col :span="24" class="topic"><h1>工作部门参数</h1></el-col>
+  <el-col :span="24" class="topic"><h1>配偶单位性质参数</h1></el-col>
   <!-- 工具条 -->
   <el-col :span="24" class="toolBar" >    
     <el-form :inline="true" style="margin-bottom:15px">
-      <el-button type="primary" @click="addFormVisible = true" >新增部门</el-button>
+      <el-button type="primary" @click="addFormVisible = true" >新增单位</el-button>
     </el-form>
   </el-col>
   <!-- 表格区域 -->
   <el-col :span="24">
-    <el-table :data="deptData" border style="width:100%" v-loading="listLoading">
+    <el-table :data="typeData" border style="width:100%" v-loading="listLoading">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
-      <el-table-column prop="employeeParamName" label="工作部门" sortable align="center" ></el-table-column>
+      <el-table-column prop="staffSpouse" label="单位性质" sortable align="center" ></el-table-column>
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope" >
             <el-button  size="small" @click="showModifyDialog(scope.$index,scope.row)" >编辑</el-button>
@@ -30,10 +30,10 @@
   </el-col>
 </el-col>
     <!-- 新增表单 -->
-    <el-dialog title="新增工作部门" :visible.sync="addFormVisible" v-loading="submitLoading" >
+    <el-dialog title="新增单位性质" :visible.sync="addFormVisible" v-loading="submitLoading" >
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="工作部门" prop="employeeParamName">
-          <el-input v-model="addFormBody.employeeParamName" placeholder="请输入工作部门"  ></el-input>
+        <el-form-item label="单位性质" prop="staffSpouse">
+          <el-input v-model="addFormBody.staffSpouse" placeholder="请输入单位性质"  ></el-input>
         </el-form-item>     
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -43,10 +43,10 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑工作部门" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
+    <el-dialog title="编辑单位性质" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules" >
-        <el-form-item label="工作部门" prop="employeeParamName"  >
-          <el-input v-model="modifyFromBody.employeeParamName" placeholder="请输入工作部门"  ></el-input>
+        <el-form-item label="单位性质" prop="staffSpouse"  >
+          <el-input v-model="modifyFromBody.staffSpouse" placeholder="请输入单位性质"  ></el-input>
         </el-form-item>   
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -58,15 +58,14 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {getStaffDept} from '@/api/api'
 export default {
    data() {
      return {
        // 用户令牌
        access_token:'',
        // 表格数据
-       deptData: [
-         {employeeParamName:''}
+       typeData: [
+         {staffSpouse:'萨阿迪'}
        ],
        listLoading:false,
        totalNum:1,
@@ -75,8 +74,8 @@ export default {
 
        // 表单规则验证
        rules:{
-         employeeParamName:{
-           required: true, message: '工作部门不能为空' , trigger: 'blur' 
+         staffSpouse:{
+           required: true, message: '单位性质不能为空' , trigger: 'blur' 
          },
        },
 
@@ -84,14 +83,14 @@ export default {
        modifyFormVisible:false,
        modifyLoading:false,
        modifyFromBody:{
-         employeeParamName:''
+         staffSpouse:''
        },
       
       // 新增表单相关数据
        submitLoading:false,       
        addFormVisible: false,
        addFormBody:{
-         employeeParamName:''
+         staffSpouse:''
        }
      }
 
@@ -99,26 +98,8 @@ export default {
    components: {
 
    },
-   // 声明时期调用
-   mounted () {
-     this.getList()
-   },
    methods:{
-     // 获取职工部门
-     getList(){
-       this.listLoading=true
-       let param = {
-         page : this.page,
-         size : this.size
-       }
-       getStaffDept(param).then((res)=>{
-         this.deptData=res.data.data.empParamsResult
-         this.listLoading=false
-       }).catch((err)=>{
-         console.log(err)
-       })
-     },
-    // 删除功能
+    //删除功能
     delectType(){
 
     },
