@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.service.impl;
+package com.computerdesign.whutHouseMgmt.service.base;
 
 import java.util.List;
 

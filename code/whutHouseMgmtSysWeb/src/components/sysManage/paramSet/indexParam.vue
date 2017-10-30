@@ -189,7 +189,7 @@ import staffClass from './staffParam/staffClass'
      // 住房参数组件
      houseType,houseLayout,houseStatus,houseStruct,
      // 职工参数组件
-     staffDept,staffPost,staffTitle,staffClassc 
+     staffDept,staffPost,staffTitle,staffClass
    }
  }
 </script>

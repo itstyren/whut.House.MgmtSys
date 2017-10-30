@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.bean;
+package com.computerdesign.whutHouseMgmt.bean.paramclass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -231,6 +231,76 @@ public class ParamClassExample {
 
         public Criteria andParamTypeNameNotBetween(String value1, String value2) {
             addCriterion("ParamTypeName not between", value1, value2, "paramTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameIsNull() {
+            addCriterion("ParamTypeIName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameIsNotNull() {
+            addCriterion("ParamTypeIName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameEqualTo(String value) {
+            addCriterion("ParamTypeIName =", value, "paramTypeIName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameNotEqualTo(String value) {
+            addCriterion("ParamTypeIName <>", value, "paramTypeIName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameGreaterThan(String value) {
+            addCriterion("ParamTypeIName >", value, "paramTypeIName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameGreaterThanOrEqualTo(String value) {
+            addCriterion("ParamTypeIName >=", value, "paramTypeIName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameLessThan(String value) {
+            addCriterion("ParamTypeIName <", value, "paramTypeIName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameLessThanOrEqualTo(String value) {
+            addCriterion("ParamTypeIName <=", value, "paramTypeIName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameLike(String value) {
+            addCriterion("ParamTypeIName like", value, "paramTypeIName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameNotLike(String value) {
+            addCriterion("ParamTypeIName not like", value, "paramTypeIName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameIn(List<String> values) {
+            addCriterion("ParamTypeIName in", values, "paramTypeIName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameNotIn(List<String> values) {
+            addCriterion("ParamTypeIName not in", values, "paramTypeIName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameBetween(String value1, String value2) {
+            addCriterion("ParamTypeIName between", value1, value2, "paramTypeIName");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamTypeINameNotBetween(String value1, String value2) {
+            addCriterion("ParamTypeIName not between", value1, value2, "paramTypeIName");
             return (Criteria) this;
         }
 

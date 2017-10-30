@@ -1,9 +1,11 @@
-package com.computerdesign.whutHouseMgmt.bean;
+package com.computerdesign.whutHouseMgmt.bean.paramclass;
 
 public class ParamClass {
     private Integer paramTypeId;
 
     private String paramTypeName;
+
+    private String paramTypeIName;
 
     private String paramClassId;
 
@@ -23,6 +25,14 @@ public class ParamClass {
 
     public void setParamTypeName(String paramTypeName) {
         this.paramTypeName = paramTypeName == null ? null : paramTypeName.trim();
+    }
+
+    public String getParamTypeIName() {
+        return paramTypeIName;
+    }
+
+    public void setParamTypeIName(String paramTypeIName) {
+        this.paramTypeIName = paramTypeIName == null ? null : paramTypeIName.trim();
     }
 
     public String getParamClassId() {
