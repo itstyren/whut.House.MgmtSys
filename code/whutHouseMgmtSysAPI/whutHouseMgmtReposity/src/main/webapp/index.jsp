@@ -48,42 +48,42 @@
 	}
 	
 	$(function () {
-		$("#staffWorkDeptPramaGet").click(function () {
+		$("#staffWorkDeptParamGet").click(function () {
 			ajaxRequestGet("staffParam/get/5");
 		})
 		
-		$("#staffDutyPramaGet").click(function () {
+		$("#staffDutyParamGet").click(function () {
 			ajaxRequestGet("staffParam/get/6");
 		})
 		
-		$("#staffJobTitlePramaGet").click(function () {
+		$("#staffJobTitleParamGet").click(function () {
 			ajaxRequestGet("staffParam/get/7");
 		})
 		
-		$("#staffTypePramaGet").click(function () {
+		$("#staffTypeParamGet").click(function () {
 			ajaxRequestGet("staffParam/get/8");
 		})
 		
-		$("#staffWorkStatusPramaGet").click(function () {
+		$("#staffWorkStatusParamGet").click(function () {
 			ajaxRequestGet("staffParam/get/9");
 		})
 		
-		$("#staffSpouseDeptNaturePramaGet").click(function () {
+		$("#staffSpouseDeptNatureParamGet").click(function () {
 			ajaxRequestGet("staffParam/get/10");
 		})
 		
-		$("#staffPramaDelete").click(function () {
+		$("#staffParamDelete").click(function () {
 			ajaxRequestPostType("staffParam/delete/3","DELETE",null);
 		})
 		
-		$("#staffPramaAdd").click(function () {
-			var data={'staffParamName':'党员', 'paramTypeId':5, 'paramTypeName':'工作部门'};
-			ajaxRequestPostType("staffParam/add","POST",data);
+		$("#staffParamAdd").click(function () {
+			var data={'staffParamName':'党员'};
+			ajaxRequestPostType("staffParam/add/5","POST",data);
 		})
 		
-		$("#staffPramaModify").click(function () {
-			var data={'staffParamId':165, 'staffParamName':'修改测试', 'paramTypeId':5, 'paramTypeName':'工作部门'};
-			ajaxRequestPostType("staffParam/modify","PUT",data);
+		$("#staffParamModify").click(function () {
+			var data={'staffParamName':'修改测试3'};
+			ajaxRequestPostType("staffParam/modify/160","PUT",data);
 		})
 	})
 	
@@ -93,27 +93,27 @@
 </head>
 <body>
 	<h4>StaffParameterGetTest</h4>
-	<input type="button" value="StaffWorkDeptPramaGet" id="staffWorkDeptPramaGet" />
+	<input type="button" value="StaffWorkDeptParamGet" id="staffWorkDeptParamGet" />
 	<br>
 	<br>
-	<input type="button" value="StaffDutyPramaGet" id="staffDutyPramaGet" />
+	<input type="button" value="StaffDutyParamGet" id="staffDutyParamGet" />
 	<br>
 	<br>
-	<input type="button" value="StaffJobTitlePramaGet" id="staffJobTitlePramaGet" />
+	<input type="button" value="StaffJobTitleParamGet" id="staffJobTitleParamGet" />
 	<br>
 	<br>
-	<input type="button" value="StaffTypePramaGet" id="staffTypePramaGet" />
+	<input type="button" value="StaffTypeParamGet" id="staffTypeParamGet" />
 	<br>
 	<br>
-	<input type="button" value="StaffWorkStatusPramaGet" id="staffWorkStatusPramaGet" />
+	<input type="button" value="StaffWorkStatusParamGet" id="staffWorkStatusParamGet" />
 	<br>
 	<br>
-	<input type="button" value="StaffSpouseDeptNaturePramaGet" id="staffSpouseDeptNaturePramaGet" />
+	<input type="button" value="StaffSpouseDeptNatureParamGet" id="staffSpouseDeptNatureParamGet" />
 	<h4>StaffParameterDeleteTest</h4>
-	<input type="button" value="StaffPramaDelete" id="staffPramaDelete" />
+	<input type="button" value="StaffParamDelete" id="staffParamDelete" />
 	<h4>StaffParameterAddTest</h4>
-	<input type="button" value="StaffPramaAdd" id="staffPramaAdd" />
+	<input type="button" value="StaffParamAdd" id="staffParamAdd" />
 	<h4>StaffParameterModifyTest</h4>
-	<input type="button" value="StaffPramaModify" id="staffPramaModify" />
+	<input type="button" value="StaffParamModify" id="staffParamModify" />
 </body>
 </html>
