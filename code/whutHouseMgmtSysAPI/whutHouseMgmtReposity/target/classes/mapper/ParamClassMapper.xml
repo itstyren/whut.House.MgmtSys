@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.ParamClassMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.ParamClass">
+    <id column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
+    <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
+    <result column="ParamClassId" jdbcType="VARCHAR" property="paramClassId" />
+    <result column="ParamClassName" jdbcType="VARCHAR" property="paramClassName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ParamTypeId, ParamTypeName, ParamClassId, ParamClassName
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClassExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pm_paramclass
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pm_paramclass
+    where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pm_paramclass
+    where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClassExample">
+    delete from pm_paramclass
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClass">
+    insert into pm_paramclass (ParamTypeId, ParamTypeName, ParamClassId, 
+      ParamClassName)
+    values (#{paramTypeId,jdbcType=INTEGER}, #{paramTypeName,jdbcType=VARCHAR}, #{paramClassId,jdbcType=VARCHAR}, 
+      #{paramClassName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClass">
+    insert into pm_paramclass
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paramTypeId != null">
+        ParamTypeId,
+      </if>
+      <if test="paramTypeName != null">
+        ParamTypeName,
+      </if>
+      <if test="paramClassId != null">
+        ParamClassId,
+      </if>
+      <if test="paramClassName != null">
+        ParamClassName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paramTypeId != null">
+        #{paramTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="paramTypeName != null">
+        #{paramTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramClassId != null">
+        #{paramClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="paramClassName != null">
+        #{paramClassName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClassExample" resultType="java.lang.Long">
+    select count(*) from pm_paramclass
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pm_paramclass
+    <set>
+      <if test="record.paramTypeId != null">
+        ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paramTypeName != null">
+        ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramClassId != null">
+        ParamClassId = #{record.paramClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramClassName != null">
+        ParamClassName = #{record.paramClassName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pm_paramclass
+    set ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
+      ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
+      ParamClassId = #{record.paramClassId,jdbcType=VARCHAR},
+      ParamClassName = #{record.paramClassName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClass">
+    update pm_paramclass
+    <set>
+      <if test="paramTypeName != null">
+        ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramClassId != null">
+        ParamClassId = #{paramClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="paramClassName != null">
+        ParamClassName = #{paramClassName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClass">
+    update pm_paramclass
+    set ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
+      ParamClassId = #{paramClassId,jdbcType=VARCHAR},
+      ParamClassName = #{paramClassName,jdbcType=VARCHAR}
+    where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>
