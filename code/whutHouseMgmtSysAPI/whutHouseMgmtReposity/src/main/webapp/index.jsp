@@ -92,7 +92,7 @@
 
 </head>
 <body>
-	<h4>StaffParameterGetTest</h4>
+	<h4>获取职工参数</h4>
 	<input type="button" value="StaffWorkDeptParamGet" id="staffWorkDeptParamGet" />
 	<br>
 	<br>
@@ -109,11 +109,11 @@
 	<br>
 	<br>
 	<input type="button" value="StaffSpouseDeptNatureParamGet" id="staffSpouseDeptNatureParamGet" />
-	<h4>StaffParameterDeleteTest</h4>
+	<h4>删除职工参数</h4>
 	<input type="button" value="StaffParamDelete" id="staffParamDelete" />
-	<h4>StaffParameterAddTest</h4>
+	<h4>添加职工参数</h4>
 	<input type="button" value="StaffParamAdd" id="staffParamAdd" />
-	<h4>StaffParameterModifyTest</h4>
+	<h4>修改职工参数</h4>
 	<input type="button" value="StaffParamModify" id="staffParamModify" />
 </body>
 </html>

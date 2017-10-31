@@ -12,19 +12,20 @@ import java.util.Map;
 public class Msg {
 
 	// 状态码 假设100表示成功，200表示失败
-	private int code;
+	private String status;
 
 	private String message;
 
 	// 用户要返回给浏览器的数据
 	private Map<String, Object> data = new HashMap<String, Object>();
 
-	public int getCode() {
-		return code;
+
+	public String getStatus() {
+		return status;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getMessage() {
@@ -46,7 +47,7 @@ public class Msg {
 	// 处理成功
 	public static Msg success() {
 		Msg result = new Msg();
-		result.setCode(100);
+		result.setStatus("success");
 		result.setMessage("处理成功");
 		return result;
 	}
@@ -54,7 +55,7 @@ public class Msg {
 	// 自定义message,处理成功
 	public static Msg success(String message) {
 		Msg result = new Msg();
-		result.setCode(100);
+		result.setStatus("success");
 		result.setMessage(message);
 		return result;
 	}
@@ -62,7 +63,7 @@ public class Msg {
 	// 处理失败
 	public static Msg error() {
 		Msg result = new Msg();
-		result.setCode(200);
+		result.setStatus("error");
 		result.setMessage("处理失败");
 		return result;
 	}
@@ -70,7 +71,7 @@ public class Msg {
 	// 自定义message,处理失败
 	public static Msg error(String message) {
 		Msg result = new Msg();
-		result.setCode(200);
+		result.setStatus("error");
 		result.setMessage(message);
 		return result;
 	}

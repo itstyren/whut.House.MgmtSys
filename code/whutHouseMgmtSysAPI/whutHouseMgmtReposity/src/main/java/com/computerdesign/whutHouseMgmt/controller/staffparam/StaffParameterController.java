@@ -59,7 +59,7 @@ public class StaffParameterController {
 			try {
 				staffParameter.setStaffParamName(staffParameterModel.getStaffParamName());
 				staffParameterService.update(staffParameter);
-				return Msg.success().add("modifiedStaffParameter", staffParameter);
+				return Msg.success().add("data", staffParameter);
 			} catch (Exception e) {
 				return Msg.error();
 			}
@@ -84,7 +84,7 @@ public class StaffParameterController {
 		if (staffParameter.getStaffParamName() != null && staffParameter.getParamTypeId() != null
 				&& staffParameter.getParamTypeName() != null) {
 			staffParameterService.add(staffParameter);
-			return Msg.success().add("addedEmpParam", staffParameter);
+			return Msg.success().add("data", staffParameter);
 		} else {
 			return Msg.error("必要信息不完整，添加失败");
 		}
@@ -106,7 +106,7 @@ public class StaffParameterController {
 		} else {
 			try {
 				staffParameterService.delete(staffParamId);
-				return Msg.success().add("deletedStaffParam", staffParameter);
+				return Msg.success().add("data", staffParameter);
 			} catch (Exception e) {
 				return Msg.error();
 			}
@@ -135,7 +135,7 @@ public class StaffParameterController {
 		}
 
 		if (staffParamsResult != null) {
-			return Msg.success().add("staffParamsResult", staffParamsResult);
+			return Msg.success().add("data", staffParamsResult);
 		} else {
 			return Msg.error();
 		}
