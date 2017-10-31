@@ -21,20 +21,20 @@
 		</javaTypeResolver>
 
 		<!-- 指定javabean的生成位置 -->
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.paramclass"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.fixparam"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
 		<!-- 指定sql映射文件的生成位置 -->
-		<sqlMapGenerator targetPackage="mapper.paramclass" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper.fixparam" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.paramclass" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.fixparam" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -42,7 +42,7 @@
 		<!-- <table tableName="pm_stafftype" domainObjectName="StaffParameter">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="pm_paramclass" domainObjectName="ParamClass">
+		<table tableName="PM_FixType" domainObjectName="FixParameter">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 

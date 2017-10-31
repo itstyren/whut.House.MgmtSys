@@ -34,7 +34,12 @@ public class HouseParameterController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="get/{paramTypeId}",method = RequestMethod.GET)
+<<<<<<< HEAD
+	public Msg getHouseParameter(@PathVariable("paramTypeId")Integer paramTypeId,@RequestParam(value="pn",defaultValue="1")Integer pn){
+		System.out.println("当前页:" + pn);
+=======
 	public Msg getHouseParameter(@PathVariable("paramTypeId")Integer paramTypeId,@RequestParam(value="page",defaultValue="1")Integer page,@RequestParam(value="size",defaultValue="10")Integer size){
+>>>>>>> Terry-Ren/master
 		//分页查询
 		PageHelper.startPage(page,size);
 		//根据paramTypeId来查找
@@ -57,6 +62,7 @@ public class HouseParameterController {
 	@ResponseBody
 	@RequestMapping(value="add",method=RequestMethod.POST)
 	public Msg addHouseParameter(@RequestBody HouseParameter houseParameter){
+		System.out.println("aaa");
 		//房屋参数名为空
 		if(houseParameter.getHouseParamName()!=null){
 			//房屋类别ID为空
