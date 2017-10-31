@@ -51,7 +51,7 @@
 		
 	$(function () {
 		$("#houseParamGet").click(function () {
-			ajaxRequestGet("houseParam/get/1");
+			ajaxRequestGet("houseParam/get/2?pn=5");
 		})
 		
 		$("#houseParamDelete").click(function () {
@@ -69,6 +69,26 @@
 		})
 	})
 	
+	$(function () {
+		$("#fixParamGet").click(function () {
+			ajaxRequestGet("fixParam/get/20?pn=1");
+		})
+		
+		$("#fixParamDelete").click(function () {
+			ajaxRequestPostType("fixParam/delete/3","DELETE",null);
+		})
+		
+		$("#fixParamAdd").click(function () {
+			var data={'fixParamName':'测试维修', 'paramTypeId':20, 'paramTypeName':'维修内容'};
+			ajaxRequestPostType("fixParam/add","POST",data);
+		})
+		
+		$("#fixParamModify").click(function () {
+			var data={'fixParamId':1, 'fixParamName':'修改测试', 'paramTypeId':20, 'paramTypeName':'维修内容'};
+			ajaxRequestPostType("fixParam/modify","PUT",data);
+		})
+	})
+	
 	
 </script>
 
@@ -82,5 +102,13 @@
 	<input type="button" value="HouseParamAdd" id="houseParamAdd" />
 	<h4>HouseParameterModifyTest</h4>
 	<input type="button" value="HouseParamModify" id="houseParamModify" />
+	
+	<hr>
+	<h4>FixParameterGetTest</h4>
+	<input type="button" value="FixParamGet" id="fixParamGet" />
+	<input type="button" value="FixParamDelete" id="fixParamDelete" />
+	<input type="button" value="FixParamAdd" id="fixParamAdd" />
+	<input type="button" value="FixParamModify" id="fixParamModify" />
+	
 </body>
 </html>
