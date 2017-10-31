@@ -80,4 +80,19 @@ public class StaffParameter {
     public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
     }
+
+	public StaffParameter() {
+		super();
+	}
+
+	public StaffParameter(String staffParamName, Integer paramTypeId, String paramTypeName, Boolean isDelete) {
+		super();
+		this.staffParamName = staffParamName;
+		this.paramTypeId = paramTypeId;
+		this.paramTypeName = paramTypeName;
+		this.isDelete = isDelete;
+	}
+    
+	
+	
 }
