@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.houseparam.HouseParameterMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter">
+    <id column="HouseParamId" jdbcType="INTEGER" property="houseParamId" />
+    <result column="HouseParamName" jdbcType="VARCHAR" property="houseParamName" />
+    <result column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
+    <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
+    <result column="HouseParamRelation" jdbcType="VARCHAR" property="houseParamRelation" />
+    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    HouseParamId, HouseParamName, ParamTypeId, ParamTypeName, HouseParamRelation, IsDelete
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PM_HouseType
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PM_HouseType
+    where HouseParamId = #{houseParamId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from PM_HouseType
+    where HouseParamId = #{houseParamId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample">
+    delete from PM_HouseType
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter">
+    insert into PM_HouseType (HouseParamId, HouseParamName, ParamTypeId, 
+      ParamTypeName, HouseParamRelation, IsDelete
+      )
+    values (#{houseParamId,jdbcType=INTEGER}, #{houseParamName,jdbcType=VARCHAR}, #{paramTypeId,jdbcType=INTEGER}, 
+      #{paramTypeName,jdbcType=VARCHAR}, #{houseParamRelation,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter">
+    insert into PM_HouseType
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="houseParamId != null">
+        HouseParamId,
+      </if>
+      <if test="houseParamName != null">
+        HouseParamName,
+      </if>
+      <if test="paramTypeId != null">
+        ParamTypeId,
+      </if>
+      <if test="paramTypeName != null">
+        ParamTypeName,
+      </if>
+      <if test="houseParamRelation != null">
+        HouseParamRelation,
+      </if>
+      <if test="isDelete != null">
+        IsDelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="houseParamId != null">
+        #{houseParamId,jdbcType=INTEGER},
+      </if>
+      <if test="houseParamName != null">
+        #{houseParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramTypeId != null">
+        #{paramTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="paramTypeName != null">
+        #{paramTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseParamRelation != null">
+        #{houseParamRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample" resultType="java.lang.Long">
+    select count(*) from PM_HouseType
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update PM_HouseType
+    <set>
+      <if test="record.houseParamId != null">
+        HouseParamId = #{record.houseParamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseParamName != null">
+        HouseParamName = #{record.houseParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramTypeId != null">
+        ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paramTypeName != null">
+        ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseParamRelation != null">
+        HouseParamRelation = #{record.houseParamRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null">
+        IsDelete = #{record.isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update PM_HouseType
+    set HouseParamId = #{record.houseParamId,jdbcType=INTEGER},
+      HouseParamName = #{record.houseParamName,jdbcType=VARCHAR},
+      ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
+      ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
+      HouseParamRelation = #{record.houseParamRelation,jdbcType=VARCHAR},
+      IsDelete = #{record.isDelete,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter">
+    update PM_HouseType
+    <set>
+      <if test="houseParamName != null">
+        HouseParamName = #{houseParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramTypeId != null">
+        ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="paramTypeName != null">
+        ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseParamRelation != null">
+        HouseParamRelation = #{houseParamRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        IsDelete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where HouseParamId = #{houseParamId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter">
+    update PM_HouseType
+    set HouseParamName = #{houseParamName,jdbcType=VARCHAR},
+      ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
+      ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
+      HouseParamRelation = #{houseParamRelation,jdbcType=VARCHAR},
+      IsDelete = #{isDelete,jdbcType=BIT}
+    where HouseParamId = #{houseParamId,jdbcType=INTEGER}
+  </update>
+</mapper>
