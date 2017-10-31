@@ -1,16 +1,16 @@
-package com.computerdesign.whutHouseMgmt.bean;
+package com.computerdesign.whutHouseMgmt.bean.staffparam;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeParameterExample {
+public class StaffParameterExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public EmployeeParameterExample() {
+    public StaffParameterExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,133 +104,133 @@ public class EmployeeParameterExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andEmployeeParamIdIsNull() {
-            addCriterion("EmployeeParamId is null");
+        public Criteria andStaffParamIdIsNull() {
+            addCriterion("StaffParamId is null");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamIdIsNotNull() {
-            addCriterion("EmployeeParamId is not null");
+        public Criteria andStaffParamIdIsNotNull() {
+            addCriterion("StaffParamId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamIdEqualTo(Integer value) {
-            addCriterion("EmployeeParamId =", value, "employeeParamId");
+        public Criteria andStaffParamIdEqualTo(Integer value) {
+            addCriterion("StaffParamId =", value, "staffParamId");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamIdNotEqualTo(Integer value) {
-            addCriterion("EmployeeParamId <>", value, "employeeParamId");
+        public Criteria andStaffParamIdNotEqualTo(Integer value) {
+            addCriterion("StaffParamId <>", value, "staffParamId");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamIdGreaterThan(Integer value) {
-            addCriterion("EmployeeParamId >", value, "employeeParamId");
+        public Criteria andStaffParamIdGreaterThan(Integer value) {
+            addCriterion("StaffParamId >", value, "staffParamId");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("EmployeeParamId >=", value, "employeeParamId");
+        public Criteria andStaffParamIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("StaffParamId >=", value, "staffParamId");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamIdLessThan(Integer value) {
-            addCriterion("EmployeeParamId <", value, "employeeParamId");
+        public Criteria andStaffParamIdLessThan(Integer value) {
+            addCriterion("StaffParamId <", value, "staffParamId");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamIdLessThanOrEqualTo(Integer value) {
-            addCriterion("EmployeeParamId <=", value, "employeeParamId");
+        public Criteria andStaffParamIdLessThanOrEqualTo(Integer value) {
+            addCriterion("StaffParamId <=", value, "staffParamId");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamIdIn(List<Integer> values) {
-            addCriterion("EmployeeParamId in", values, "employeeParamId");
+        public Criteria andStaffParamIdIn(List<Integer> values) {
+            addCriterion("StaffParamId in", values, "staffParamId");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamIdNotIn(List<Integer> values) {
-            addCriterion("EmployeeParamId not in", values, "employeeParamId");
+        public Criteria andStaffParamIdNotIn(List<Integer> values) {
+            addCriterion("StaffParamId not in", values, "staffParamId");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamIdBetween(Integer value1, Integer value2) {
-            addCriterion("EmployeeParamId between", value1, value2, "employeeParamId");
+        public Criteria andStaffParamIdBetween(Integer value1, Integer value2) {
+            addCriterion("StaffParamId between", value1, value2, "staffParamId");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("EmployeeParamId not between", value1, value2, "employeeParamId");
+        public Criteria andStaffParamIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("StaffParamId not between", value1, value2, "staffParamId");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameIsNull() {
-            addCriterion("EmployeeParamName is null");
+        public Criteria andStaffParamNameIsNull() {
+            addCriterion("StaffParamName is null");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameIsNotNull() {
-            addCriterion("EmployeeParamName is not null");
+        public Criteria andStaffParamNameIsNotNull() {
+            addCriterion("StaffParamName is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameEqualTo(String value) {
-            addCriterion("EmployeeParamName =", value, "employeeParamName");
+        public Criteria andStaffParamNameEqualTo(String value) {
+            addCriterion("StaffParamName =", value, "staffParamName");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameNotEqualTo(String value) {
-            addCriterion("EmployeeParamName <>", value, "employeeParamName");
+        public Criteria andStaffParamNameNotEqualTo(String value) {
+            addCriterion("StaffParamName <>", value, "staffParamName");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameGreaterThan(String value) {
-            addCriterion("EmployeeParamName >", value, "employeeParamName");
+        public Criteria andStaffParamNameGreaterThan(String value) {
+            addCriterion("StaffParamName >", value, "staffParamName");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameGreaterThanOrEqualTo(String value) {
-            addCriterion("EmployeeParamName >=", value, "employeeParamName");
+        public Criteria andStaffParamNameGreaterThanOrEqualTo(String value) {
+            addCriterion("StaffParamName >=", value, "staffParamName");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameLessThan(String value) {
-            addCriterion("EmployeeParamName <", value, "employeeParamName");
+        public Criteria andStaffParamNameLessThan(String value) {
+            addCriterion("StaffParamName <", value, "staffParamName");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameLessThanOrEqualTo(String value) {
-            addCriterion("EmployeeParamName <=", value, "employeeParamName");
+        public Criteria andStaffParamNameLessThanOrEqualTo(String value) {
+            addCriterion("StaffParamName <=", value, "staffParamName");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameLike(String value) {
-            addCriterion("EmployeeParamName like", value, "employeeParamName");
+        public Criteria andStaffParamNameLike(String value) {
+            addCriterion("StaffParamName like", value, "staffParamName");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameNotLike(String value) {
-            addCriterion("EmployeeParamName not like", value, "employeeParamName");
+        public Criteria andStaffParamNameNotLike(String value) {
+            addCriterion("StaffParamName not like", value, "staffParamName");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameIn(List<String> values) {
-            addCriterion("EmployeeParamName in", values, "employeeParamName");
+        public Criteria andStaffParamNameIn(List<String> values) {
+            addCriterion("StaffParamName in", values, "staffParamName");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameNotIn(List<String> values) {
-            addCriterion("EmployeeParamName not in", values, "employeeParamName");
+        public Criteria andStaffParamNameNotIn(List<String> values) {
+            addCriterion("StaffParamName not in", values, "staffParamName");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameBetween(String value1, String value2) {
-            addCriterion("EmployeeParamName between", value1, value2, "employeeParamName");
+        public Criteria andStaffParamNameBetween(String value1, String value2) {
+            addCriterion("StaffParamName between", value1, value2, "staffParamName");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamNameNotBetween(String value1, String value2) {
-            addCriterion("EmployeeParamName not between", value1, value2, "employeeParamName");
+        public Criteria andStaffParamNameNotBetween(String value1, String value2) {
+            addCriterion("StaffParamName not between", value1, value2, "staffParamName");
             return (Criteria) this;
         }
 
@@ -364,183 +364,183 @@ public class EmployeeParameterExample {
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraIsNull() {
-            addCriterion("EmployeeParamFra is null");
+        public Criteria andStaffParamFraIsNull() {
+            addCriterion("StaffParamFra is null");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraIsNotNull() {
-            addCriterion("EmployeeParamFra is not null");
+        public Criteria andStaffParamFraIsNotNull() {
+            addCriterion("StaffParamFra is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraEqualTo(Integer value) {
-            addCriterion("EmployeeParamFra =", value, "employeeParamFra");
+        public Criteria andStaffParamFraEqualTo(Integer value) {
+            addCriterion("StaffParamFra =", value, "staffParamFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraNotEqualTo(Integer value) {
-            addCriterion("EmployeeParamFra <>", value, "employeeParamFra");
+        public Criteria andStaffParamFraNotEqualTo(Integer value) {
+            addCriterion("StaffParamFra <>", value, "staffParamFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraGreaterThan(Integer value) {
-            addCriterion("EmployeeParamFra >", value, "employeeParamFra");
+        public Criteria andStaffParamFraGreaterThan(Integer value) {
+            addCriterion("StaffParamFra >", value, "staffParamFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraGreaterThanOrEqualTo(Integer value) {
-            addCriterion("EmployeeParamFra >=", value, "employeeParamFra");
+        public Criteria andStaffParamFraGreaterThanOrEqualTo(Integer value) {
+            addCriterion("StaffParamFra >=", value, "staffParamFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraLessThan(Integer value) {
-            addCriterion("EmployeeParamFra <", value, "employeeParamFra");
+        public Criteria andStaffParamFraLessThan(Integer value) {
+            addCriterion("StaffParamFra <", value, "staffParamFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraLessThanOrEqualTo(Integer value) {
-            addCriterion("EmployeeParamFra <=", value, "employeeParamFra");
+        public Criteria andStaffParamFraLessThanOrEqualTo(Integer value) {
+            addCriterion("StaffParamFra <=", value, "staffParamFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraIn(List<Integer> values) {
-            addCriterion("EmployeeParamFra in", values, "employeeParamFra");
+        public Criteria andStaffParamFraIn(List<Integer> values) {
+            addCriterion("StaffParamFra in", values, "staffParamFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraNotIn(List<Integer> values) {
-            addCriterion("EmployeeParamFra not in", values, "employeeParamFra");
+        public Criteria andStaffParamFraNotIn(List<Integer> values) {
+            addCriterion("StaffParamFra not in", values, "staffParamFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraBetween(Integer value1, Integer value2) {
-            addCriterion("EmployeeParamFra between", value1, value2, "employeeParamFra");
+        public Criteria andStaffParamFraBetween(Integer value1, Integer value2) {
+            addCriterion("StaffParamFra between", value1, value2, "staffParamFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamFraNotBetween(Integer value1, Integer value2) {
-            addCriterion("EmployeeParamFra not between", value1, value2, "employeeParamFra");
+        public Criteria andStaffParamFraNotBetween(Integer value1, Integer value2) {
+            addCriterion("StaffParamFra not between", value1, value2, "staffParamFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraIsNull() {
-            addCriterion("EmployeeParamSpouseFra is null");
+        public Criteria andStaffParamSpouseFraIsNull() {
+            addCriterion("StaffParamSpouseFra is null");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraIsNotNull() {
-            addCriterion("EmployeeParamSpouseFra is not null");
+        public Criteria andStaffParamSpouseFraIsNotNull() {
+            addCriterion("StaffParamSpouseFra is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraEqualTo(Integer value) {
-            addCriterion("EmployeeParamSpouseFra =", value, "employeeParamSpouseFra");
+        public Criteria andStaffParamSpouseFraEqualTo(Integer value) {
+            addCriterion("StaffParamSpouseFra =", value, "staffParamSpouseFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraNotEqualTo(Integer value) {
-            addCriterion("EmployeeParamSpouseFra <>", value, "employeeParamSpouseFra");
+        public Criteria andStaffParamSpouseFraNotEqualTo(Integer value) {
+            addCriterion("StaffParamSpouseFra <>", value, "staffParamSpouseFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraGreaterThan(Integer value) {
-            addCriterion("EmployeeParamSpouseFra >", value, "employeeParamSpouseFra");
+        public Criteria andStaffParamSpouseFraGreaterThan(Integer value) {
+            addCriterion("StaffParamSpouseFra >", value, "staffParamSpouseFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraGreaterThanOrEqualTo(Integer value) {
-            addCriterion("EmployeeParamSpouseFra >=", value, "employeeParamSpouseFra");
+        public Criteria andStaffParamSpouseFraGreaterThanOrEqualTo(Integer value) {
+            addCriterion("StaffParamSpouseFra >=", value, "staffParamSpouseFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraLessThan(Integer value) {
-            addCriterion("EmployeeParamSpouseFra <", value, "employeeParamSpouseFra");
+        public Criteria andStaffParamSpouseFraLessThan(Integer value) {
+            addCriterion("StaffParamSpouseFra <", value, "staffParamSpouseFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraLessThanOrEqualTo(Integer value) {
-            addCriterion("EmployeeParamSpouseFra <=", value, "employeeParamSpouseFra");
+        public Criteria andStaffParamSpouseFraLessThanOrEqualTo(Integer value) {
+            addCriterion("StaffParamSpouseFra <=", value, "staffParamSpouseFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraIn(List<Integer> values) {
-            addCriterion("EmployeeParamSpouseFra in", values, "employeeParamSpouseFra");
+        public Criteria andStaffParamSpouseFraIn(List<Integer> values) {
+            addCriterion("StaffParamSpouseFra in", values, "staffParamSpouseFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraNotIn(List<Integer> values) {
-            addCriterion("EmployeeParamSpouseFra not in", values, "employeeParamSpouseFra");
+        public Criteria andStaffParamSpouseFraNotIn(List<Integer> values) {
+            addCriterion("StaffParamSpouseFra not in", values, "staffParamSpouseFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraBetween(Integer value1, Integer value2) {
-            addCriterion("EmployeeParamSpouseFra between", value1, value2, "employeeParamSpouseFra");
+        public Criteria andStaffParamSpouseFraBetween(Integer value1, Integer value2) {
+            addCriterion("StaffParamSpouseFra between", value1, value2, "staffParamSpouseFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamSpouseFraNotBetween(Integer value1, Integer value2) {
-            addCriterion("EmployeeParamSpouseFra not between", value1, value2, "employeeParamSpouseFra");
+        public Criteria andStaffParamSpouseFraNotBetween(Integer value1, Integer value2) {
+            addCriterion("StaffParamSpouseFra not between", value1, value2, "staffParamSpouseFra");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaIsNull() {
-            addCriterion("EmployeeParamHouseArea is null");
+        public Criteria andStaffParamHouseAreaIsNull() {
+            addCriterion("StaffParamHouseArea is null");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaIsNotNull() {
-            addCriterion("EmployeeParamHouseArea is not null");
+        public Criteria andStaffParamHouseAreaIsNotNull() {
+            addCriterion("StaffParamHouseArea is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaEqualTo(Float value) {
-            addCriterion("EmployeeParamHouseArea =", value, "employeeParamHouseArea");
+        public Criteria andStaffParamHouseAreaEqualTo(Float value) {
+            addCriterion("StaffParamHouseArea =", value, "staffParamHouseArea");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaNotEqualTo(Float value) {
-            addCriterion("EmployeeParamHouseArea <>", value, "employeeParamHouseArea");
+        public Criteria andStaffParamHouseAreaNotEqualTo(Float value) {
+            addCriterion("StaffParamHouseArea <>", value, "staffParamHouseArea");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaGreaterThan(Float value) {
-            addCriterion("EmployeeParamHouseArea >", value, "employeeParamHouseArea");
+        public Criteria andStaffParamHouseAreaGreaterThan(Float value) {
+            addCriterion("StaffParamHouseArea >", value, "staffParamHouseArea");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaGreaterThanOrEqualTo(Float value) {
-            addCriterion("EmployeeParamHouseArea >=", value, "employeeParamHouseArea");
+        public Criteria andStaffParamHouseAreaGreaterThanOrEqualTo(Float value) {
+            addCriterion("StaffParamHouseArea >=", value, "staffParamHouseArea");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaLessThan(Float value) {
-            addCriterion("EmployeeParamHouseArea <", value, "employeeParamHouseArea");
+        public Criteria andStaffParamHouseAreaLessThan(Float value) {
+            addCriterion("StaffParamHouseArea <", value, "staffParamHouseArea");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaLessThanOrEqualTo(Float value) {
-            addCriterion("EmployeeParamHouseArea <=", value, "employeeParamHouseArea");
+        public Criteria andStaffParamHouseAreaLessThanOrEqualTo(Float value) {
+            addCriterion("StaffParamHouseArea <=", value, "staffParamHouseArea");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaIn(List<Float> values) {
-            addCriterion("EmployeeParamHouseArea in", values, "employeeParamHouseArea");
+        public Criteria andStaffParamHouseAreaIn(List<Float> values) {
+            addCriterion("StaffParamHouseArea in", values, "staffParamHouseArea");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaNotIn(List<Float> values) {
-            addCriterion("EmployeeParamHouseArea not in", values, "employeeParamHouseArea");
+        public Criteria andStaffParamHouseAreaNotIn(List<Float> values) {
+            addCriterion("StaffParamHouseArea not in", values, "staffParamHouseArea");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaBetween(Float value1, Float value2) {
-            addCriterion("EmployeeParamHouseArea between", value1, value2, "employeeParamHouseArea");
+        public Criteria andStaffParamHouseAreaBetween(Float value1, Float value2) {
+            addCriterion("StaffParamHouseArea between", value1, value2, "staffParamHouseArea");
             return (Criteria) this;
         }
 
-        public Criteria andEmployeeParamHouseAreaNotBetween(Float value1, Float value2) {
-            addCriterion("EmployeeParamHouseArea not between", value1, value2, "employeeParamHouseArea");
+        public Criteria andStaffParamHouseAreaNotBetween(Float value1, Float value2) {
+            addCriterion("StaffParamHouseArea not between", value1, value2, "staffParamHouseArea");
             return (Criteria) this;
         }
 

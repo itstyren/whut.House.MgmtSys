@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computerdesign.whutHouseMgmt.dao.ParamClassMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.ParamClass">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.paramclass.ParamClassMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass">
     <id column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
     <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
+    <result column="ParamTypeIName" jdbcType="VARCHAR" property="paramTypeIName" />
     <result column="ParamClassId" jdbcType="VARCHAR" property="paramClassId" />
     <result column="ParamClassName" jdbcType="VARCHAR" property="paramClassName" />
   </resultMap>
@@ -66,9 +67,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ParamTypeId, ParamTypeName, ParamClassId, ParamClassName
+    ParamTypeId, ParamTypeName, ParamTypeIName, ParamClassId, ParamClassName
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClassExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClassExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -92,19 +93,19 @@
     delete from pm_paramclass
     where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClassExample">
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClassExample">
     delete from pm_paramclass
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClass">
-    insert into pm_paramclass (ParamTypeId, ParamTypeName, ParamClassId, 
-      ParamClassName)
-    values (#{paramTypeId,jdbcType=INTEGER}, #{paramTypeName,jdbcType=VARCHAR}, #{paramClassId,jdbcType=VARCHAR}, 
-      #{paramClassName,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass">
+    insert into pm_paramclass (ParamTypeId, ParamTypeName, ParamTypeIName, 
+      ParamClassId, ParamClassName)
+    values (#{paramTypeId,jdbcType=INTEGER}, #{paramTypeName,jdbcType=VARCHAR}, #{paramTypeIName,jdbcType=VARCHAR}, 
+      #{paramClassId,jdbcType=VARCHAR}, #{paramClassName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClass">
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass">
     insert into pm_paramclass
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="paramTypeId != null">
@@ -112,6 +113,9 @@
       </if>
       <if test="paramTypeName != null">
         ParamTypeName,
+      </if>
+      <if test="paramTypeIName != null">
+        ParamTypeIName,
       </if>
       <if test="paramClassId != null">
         ParamClassId,
@@ -127,6 +131,9 @@
       <if test="paramTypeName != null">
         #{paramTypeName,jdbcType=VARCHAR},
       </if>
+      <if test="paramTypeIName != null">
+        #{paramTypeIName,jdbcType=VARCHAR},
+      </if>
       <if test="paramClassId != null">
         #{paramClassId,jdbcType=VARCHAR},
       </if>
@@ -135,7 +142,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClassExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClassExample" resultType="java.lang.Long">
     select count(*) from pm_paramclass
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -149,6 +156,9 @@
       </if>
       <if test="record.paramTypeName != null">
         ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramTypeIName != null">
+        ParamTypeIName = #{record.paramTypeIName,jdbcType=VARCHAR},
       </if>
       <if test="record.paramClassId != null">
         ParamClassId = #{record.paramClassId,jdbcType=VARCHAR},
@@ -165,17 +175,21 @@
     update pm_paramclass
     set ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
+      ParamTypeIName = #{record.paramTypeIName,jdbcType=VARCHAR},
       ParamClassId = #{record.paramClassId,jdbcType=VARCHAR},
       ParamClassName = #{record.paramClassName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClass">
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass">
     update pm_paramclass
     <set>
       <if test="paramTypeName != null">
         ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramTypeIName != null">
+        ParamTypeIName = #{paramTypeIName,jdbcType=VARCHAR},
       </if>
       <if test="paramClassId != null">
         ParamClassId = #{paramClassId,jdbcType=VARCHAR},
@@ -186,9 +200,10 @@
     </set>
     where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.ParamClass">
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass">
     update pm_paramclass
     set ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
+      ParamTypeIName = #{paramTypeIName,jdbcType=VARCHAR},
       ParamClassId = #{paramClassId,jdbcType=VARCHAR},
       ParamClassName = #{paramClassName,jdbcType=VARCHAR}
     where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}

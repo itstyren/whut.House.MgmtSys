@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computerdesign.whutHouseMgmt.dao.EmployeeParameterMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.EmployeeParameter">
-    <id column="EmployeeParamId" jdbcType="INTEGER" property="employeeParamId" />
-    <result column="EmployeeParamName" jdbcType="VARCHAR" property="employeeParamName" />
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.staffparam.StaffParameterMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter">
+    <id column="StaffParamId" jdbcType="INTEGER" property="staffParamId" />
+    <result column="StaffParamName" jdbcType="VARCHAR" property="staffParamName" />
     <result column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
     <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
-    <result column="EmployeeParamFra" jdbcType="INTEGER" property="employeeParamFra" />
-    <result column="EmployeeParamSpouseFra" jdbcType="INTEGER" property="employeeParamSpouseFra" />
-    <result column="EmployeeParamHouseArea" jdbcType="REAL" property="employeeParamHouseArea" />
+    <result column="StaffParamFra" jdbcType="INTEGER" property="staffParamFra" />
+    <result column="StaffParamSpouseFra" jdbcType="INTEGER" property="staffParamSpouseFra" />
+    <result column="StaffParamHouseArea" jdbcType="REAL" property="staffParamHouseArea" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -70,16 +70,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    EmployeeParamId, EmployeeParamName, ParamTypeId, ParamTypeName, EmployeeParamFra, 
-    EmployeeParamSpouseFra, EmployeeParamHouseArea, IsDelete
+    StaffParamId, StaffParamName, ParamTypeId, ParamTypeName, StaffParamFra, StaffParamSpouseFra, 
+    StaffParamHouseArea, IsDelete
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.EmployeeParameterExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from pm_employeetype
+    from pm_stafftype
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,37 +90,35 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from pm_employeetype
-    where EmployeeParamId = #{employeeParamId,jdbcType=INTEGER}
+    from pm_stafftype
+    where StaffParamId = #{staffParamId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from pm_employeetype
-    where EmployeeParamId = #{employeeParamId,jdbcType=INTEGER}
+    delete from pm_stafftype
+    where StaffParamId = #{staffParamId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.EmployeeParameterExample">
-    delete from pm_employeetype
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample">
+    delete from pm_stafftype
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.EmployeeParameter">
-    insert into pm_employeetype (EmployeeParamId, EmployeeParamName, 
-      ParamTypeId, ParamTypeName, EmployeeParamFra, 
-      EmployeeParamSpouseFra, EmployeeParamHouseArea, 
-      IsDelete)
-    values (#{employeeParamId,jdbcType=INTEGER}, #{employeeParamName,jdbcType=VARCHAR}, 
-      #{paramTypeId,jdbcType=INTEGER}, #{paramTypeName,jdbcType=VARCHAR}, #{employeeParamFra,jdbcType=INTEGER}, 
-      #{employeeParamSpouseFra,jdbcType=INTEGER}, #{employeeParamHouseArea,jdbcType=REAL}, 
-      #{isDelete,jdbcType=BIT})
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter">
+    insert into pm_stafftype (StaffParamId, StaffParamName, ParamTypeId, 
+      ParamTypeName, StaffParamFra, StaffParamSpouseFra, 
+      StaffParamHouseArea, IsDelete)
+    values (#{staffParamId,jdbcType=INTEGER}, #{staffParamName,jdbcType=VARCHAR}, #{paramTypeId,jdbcType=INTEGER}, 
+      #{paramTypeName,jdbcType=VARCHAR}, #{staffParamFra,jdbcType=INTEGER}, #{staffParamSpouseFra,jdbcType=INTEGER}, 
+      #{staffParamHouseArea,jdbcType=REAL}, #{isDelete,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.EmployeeParameter">
-    insert into pm_employeetype
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter">
+    insert into pm_stafftype
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="employeeParamId != null">
-        EmployeeParamId,
+      <if test="staffParamId != null">
+        StaffParamId,
       </if>
-      <if test="employeeParamName != null">
-        EmployeeParamName,
+      <if test="staffParamName != null">
+        StaffParamName,
       </if>
       <if test="paramTypeId != null">
         ParamTypeId,
@@ -128,25 +126,25 @@
       <if test="paramTypeName != null">
         ParamTypeName,
       </if>
-      <if test="employeeParamFra != null">
-        EmployeeParamFra,
+      <if test="staffParamFra != null">
+        StaffParamFra,
       </if>
-      <if test="employeeParamSpouseFra != null">
-        EmployeeParamSpouseFra,
+      <if test="staffParamSpouseFra != null">
+        StaffParamSpouseFra,
       </if>
-      <if test="employeeParamHouseArea != null">
-        EmployeeParamHouseArea,
+      <if test="staffParamHouseArea != null">
+        StaffParamHouseArea,
       </if>
       <if test="isDelete != null">
         IsDelete,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="employeeParamId != null">
-        #{employeeParamId,jdbcType=INTEGER},
+      <if test="staffParamId != null">
+        #{staffParamId,jdbcType=INTEGER},
       </if>
-      <if test="employeeParamName != null">
-        #{employeeParamName,jdbcType=VARCHAR},
+      <if test="staffParamName != null">
+        #{staffParamName,jdbcType=VARCHAR},
       </if>
       <if test="paramTypeId != null">
         #{paramTypeId,jdbcType=INTEGER},
@@ -154,34 +152,34 @@
       <if test="paramTypeName != null">
         #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="employeeParamFra != null">
-        #{employeeParamFra,jdbcType=INTEGER},
+      <if test="staffParamFra != null">
+        #{staffParamFra,jdbcType=INTEGER},
       </if>
-      <if test="employeeParamSpouseFra != null">
-        #{employeeParamSpouseFra,jdbcType=INTEGER},
+      <if test="staffParamSpouseFra != null">
+        #{staffParamSpouseFra,jdbcType=INTEGER},
       </if>
-      <if test="employeeParamHouseArea != null">
-        #{employeeParamHouseArea,jdbcType=REAL},
+      <if test="staffParamHouseArea != null">
+        #{staffParamHouseArea,jdbcType=REAL},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=BIT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.EmployeeParameterExample" resultType="java.lang.Long">
-    select count(*) from pm_employeetype
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample" resultType="java.lang.Long">
+    select count(*) from pm_stafftype
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update pm_employeetype
+    update pm_stafftype
     <set>
-      <if test="record.employeeParamId != null">
-        EmployeeParamId = #{record.employeeParamId,jdbcType=INTEGER},
+      <if test="record.staffParamId != null">
+        StaffParamId = #{record.staffParamId,jdbcType=INTEGER},
       </if>
-      <if test="record.employeeParamName != null">
-        EmployeeParamName = #{record.employeeParamName,jdbcType=VARCHAR},
+      <if test="record.staffParamName != null">
+        StaffParamName = #{record.staffParamName,jdbcType=VARCHAR},
       </if>
       <if test="record.paramTypeId != null">
         ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
@@ -189,14 +187,14 @@
       <if test="record.paramTypeName != null">
         ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.employeeParamFra != null">
-        EmployeeParamFra = #{record.employeeParamFra,jdbcType=INTEGER},
+      <if test="record.staffParamFra != null">
+        StaffParamFra = #{record.staffParamFra,jdbcType=INTEGER},
       </if>
-      <if test="record.employeeParamSpouseFra != null">
-        EmployeeParamSpouseFra = #{record.employeeParamSpouseFra,jdbcType=INTEGER},
+      <if test="record.staffParamSpouseFra != null">
+        StaffParamSpouseFra = #{record.staffParamSpouseFra,jdbcType=INTEGER},
       </if>
-      <if test="record.employeeParamHouseArea != null">
-        EmployeeParamHouseArea = #{record.employeeParamHouseArea,jdbcType=REAL},
+      <if test="record.staffParamHouseArea != null">
+        StaffParamHouseArea = #{record.staffParamHouseArea,jdbcType=REAL},
       </if>
       <if test="record.isDelete != null">
         IsDelete = #{record.isDelete,jdbcType=BIT},
@@ -207,24 +205,24 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update pm_employeetype
-    set EmployeeParamId = #{record.employeeParamId,jdbcType=INTEGER},
-      EmployeeParamName = #{record.employeeParamName,jdbcType=VARCHAR},
+    update pm_stafftype
+    set StaffParamId = #{record.staffParamId,jdbcType=INTEGER},
+      StaffParamName = #{record.staffParamName,jdbcType=VARCHAR},
       ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
-      EmployeeParamFra = #{record.employeeParamFra,jdbcType=INTEGER},
-      EmployeeParamSpouseFra = #{record.employeeParamSpouseFra,jdbcType=INTEGER},
-      EmployeeParamHouseArea = #{record.employeeParamHouseArea,jdbcType=REAL},
+      StaffParamFra = #{record.staffParamFra,jdbcType=INTEGER},
+      StaffParamSpouseFra = #{record.staffParamSpouseFra,jdbcType=INTEGER},
+      StaffParamHouseArea = #{record.staffParamHouseArea,jdbcType=REAL},
       IsDelete = #{record.isDelete,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.EmployeeParameter">
-    update pm_employeetype
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter">
+    update pm_stafftype
     <set>
-      <if test="employeeParamName != null">
-        EmployeeParamName = #{employeeParamName,jdbcType=VARCHAR},
+      <if test="staffParamName != null">
+        StaffParamName = #{staffParamName,jdbcType=VARCHAR},
       </if>
       <if test="paramTypeId != null">
         ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
@@ -232,30 +230,30 @@
       <if test="paramTypeName != null">
         ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="employeeParamFra != null">
-        EmployeeParamFra = #{employeeParamFra,jdbcType=INTEGER},
+      <if test="staffParamFra != null">
+        StaffParamFra = #{staffParamFra,jdbcType=INTEGER},
       </if>
-      <if test="employeeParamSpouseFra != null">
-        EmployeeParamSpouseFra = #{employeeParamSpouseFra,jdbcType=INTEGER},
+      <if test="staffParamSpouseFra != null">
+        StaffParamSpouseFra = #{staffParamSpouseFra,jdbcType=INTEGER},
       </if>
-      <if test="employeeParamHouseArea != null">
-        EmployeeParamHouseArea = #{employeeParamHouseArea,jdbcType=REAL},
+      <if test="staffParamHouseArea != null">
+        StaffParamHouseArea = #{staffParamHouseArea,jdbcType=REAL},
       </if>
       <if test="isDelete != null">
         IsDelete = #{isDelete,jdbcType=BIT},
       </if>
     </set>
-    where EmployeeParamId = #{employeeParamId,jdbcType=INTEGER}
+    where StaffParamId = #{staffParamId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.EmployeeParameter">
-    update pm_employeetype
-    set EmployeeParamName = #{employeeParamName,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter">
+    update pm_stafftype
+    set StaffParamName = #{staffParamName,jdbcType=VARCHAR},
       ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
-      EmployeeParamFra = #{employeeParamFra,jdbcType=INTEGER},
-      EmployeeParamSpouseFra = #{employeeParamSpouseFra,jdbcType=INTEGER},
-      EmployeeParamHouseArea = #{employeeParamHouseArea,jdbcType=REAL},
+      StaffParamFra = #{staffParamFra,jdbcType=INTEGER},
+      StaffParamSpouseFra = #{staffParamSpouseFra,jdbcType=INTEGER},
+      StaffParamHouseArea = #{staffParamHouseArea,jdbcType=REAL},
       IsDelete = #{isDelete,jdbcType=BIT}
-    where EmployeeParamId = #{employeeParamId,jdbcType=INTEGER}
+    where StaffParamId = #{staffParamId,jdbcType=INTEGER}
   </update>
 </mapper>
