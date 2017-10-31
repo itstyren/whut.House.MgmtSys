@@ -6,7 +6,7 @@
     <result column="HouseParamName" jdbcType="VARCHAR" property="houseParamName" />
     <result column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
     <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
-    <result column="HouseParamRelation" jdbcType="VARCHAR" property="houseParamRelation" />
+    <result column="HouseParamRel" jdbcType="VARCHAR" property="houseParamRel" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    HouseParamId, HouseParamName, ParamTypeId, ParamTypeName, HouseParamRelation, IsDelete
+    HouseParamId, HouseParamName, ParamTypeId, ParamTypeName, HouseParamRel, IsDelete
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample" resultMap="BaseResultMap">
     select
@@ -102,10 +102,10 @@
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter">
     insert into PM_HouseType (HouseParamId, HouseParamName, ParamTypeId, 
-      ParamTypeName, HouseParamRelation, IsDelete
+      ParamTypeName, HouseParamRel, IsDelete
       )
     values (#{houseParamId,jdbcType=INTEGER}, #{houseParamName,jdbcType=VARCHAR}, #{paramTypeId,jdbcType=INTEGER}, 
-      #{paramTypeName,jdbcType=VARCHAR}, #{houseParamRelation,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
+      #{paramTypeName,jdbcType=VARCHAR}, #{houseParamRel,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter">
@@ -123,8 +123,8 @@
       <if test="paramTypeName != null">
         ParamTypeName,
       </if>
-      <if test="houseParamRelation != null">
-        HouseParamRelation,
+      <if test="houseParamRel != null">
+        HouseParamRel,
       </if>
       <if test="isDelete != null">
         IsDelete,
@@ -143,8 +143,8 @@
       <if test="paramTypeName != null">
         #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="houseParamRelation != null">
-        #{houseParamRelation,jdbcType=VARCHAR},
+      <if test="houseParamRel != null">
+        #{houseParamRel,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=BIT},
@@ -172,8 +172,8 @@
       <if test="record.paramTypeName != null">
         ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.houseParamRelation != null">
-        HouseParamRelation = #{record.houseParamRelation,jdbcType=VARCHAR},
+      <if test="record.houseParamRel != null">
+        HouseParamRel = #{record.houseParamRel,jdbcType=VARCHAR},
       </if>
       <if test="record.isDelete != null">
         IsDelete = #{record.isDelete,jdbcType=BIT},
@@ -189,7 +189,7 @@
       HouseParamName = #{record.houseParamName,jdbcType=VARCHAR},
       ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
-      HouseParamRelation = #{record.houseParamRelation,jdbcType=VARCHAR},
+      HouseParamRel = #{record.houseParamRel,jdbcType=VARCHAR},
       IsDelete = #{record.isDelete,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -207,8 +207,8 @@
       <if test="paramTypeName != null">
         ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="houseParamRelation != null">
-        HouseParamRelation = #{houseParamRelation,jdbcType=VARCHAR},
+      <if test="houseParamRel != null">
+        HouseParamRel = #{houseParamRel,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         IsDelete = #{isDelete,jdbcType=BIT},
@@ -221,7 +221,7 @@
     set HouseParamName = #{houseParamName,jdbcType=VARCHAR},
       ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
-      HouseParamRelation = #{houseParamRelation,jdbcType=VARCHAR},
+      HouseParamRel = #{houseParamRel,jdbcType=VARCHAR},
       IsDelete = #{isDelete,jdbcType=BIT}
     where HouseParamId = #{houseParamId,jdbcType=INTEGER}
   </update>
