@@ -9,7 +9,7 @@ public class HouseParameter {
 
     private String paramTypeName;
 
-    private String houseParamRelation;
+    private String houseParamRel;
 
     private Boolean isDelete;
 
@@ -46,11 +46,11 @@ public class HouseParameter {
     }
 
     public String getHouseParamRelation() {
-        return houseParamRelation;
+        return houseParamRel;
     }
 
-    public void setHouseParamRelation(String houseParamRelation) {
-        this.houseParamRelation = houseParamRelation == null ? null : houseParamRelation.trim();
+    public void setHouseParamRelation(String houseParamRel) {
+        this.houseParamRel = houseParamRel == null ? null : houseParamRel.trim();
     }
 
     public Boolean getIsDelete() {

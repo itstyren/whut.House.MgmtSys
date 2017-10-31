@@ -364,73 +364,73 @@ public class HouseParameterExample {
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationIsNull() {
-            addCriterion("HouseParamRelation is null");
+        public Criteria andHouseParamRelIsNull() {
+            addCriterion("HouseParamRel is null");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationIsNotNull() {
-            addCriterion("HouseParamRelation is not null");
+        public Criteria andHouseParamRelIsNotNull() {
+            addCriterion("HouseParamRel is not null");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationEqualTo(String value) {
-            addCriterion("HouseParamRelation =", value, "houseParamRelation");
+        public Criteria andHouseParamRelEqualTo(String value) {
+            addCriterion("HouseParamRel =", value, "houseParamRel");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationNotEqualTo(String value) {
-            addCriterion("HouseParamRelation <>", value, "houseParamRelation");
+        public Criteria andHouseParamRelNotEqualTo(String value) {
+            addCriterion("HouseParamRel <>", value, "houseParamRel");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationGreaterThan(String value) {
-            addCriterion("HouseParamRelation >", value, "houseParamRelation");
+        public Criteria andHouseParamRelGreaterThan(String value) {
+            addCriterion("HouseParamRel >", value, "houseParamRel");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationGreaterThanOrEqualTo(String value) {
-            addCriterion("HouseParamRelation >=", value, "houseParamRelation");
+        public Criteria andHouseParamRelGreaterThanOrEqualTo(String value) {
+            addCriterion("HouseParamRel >=", value, "houseParamRel");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationLessThan(String value) {
-            addCriterion("HouseParamRelation <", value, "houseParamRelation");
+        public Criteria andHouseParamRelLessThan(String value) {
+            addCriterion("HouseParamRel <", value, "houseParamRel");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationLessThanOrEqualTo(String value) {
-            addCriterion("HouseParamRelation <=", value, "houseParamRelation");
+        public Criteria andHouseParamRelLessThanOrEqualTo(String value) {
+            addCriterion("HouseParamRel <=", value, "houseParamRel");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationLike(String value) {
-            addCriterion("HouseParamRelation like", value, "houseParamRelation");
+        public Criteria andHouseParamRelLike(String value) {
+            addCriterion("HouseParamRel like", value, "houseParamRel");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationNotLike(String value) {
-            addCriterion("HouseParamRelation not like", value, "houseParamRelation");
+        public Criteria andHouseParamRelNotLike(String value) {
+            addCriterion("HouseParamRel not like", value, "houseParamRel");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationIn(List<String> values) {
-            addCriterion("HouseParamRelation in", values, "houseParamRelation");
+        public Criteria andHouseParamRelIn(List<String> values) {
+            addCriterion("HouseParamRel in", values, "houseParamRel");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationNotIn(List<String> values) {
-            addCriterion("HouseParamRelation not in", values, "houseParamRelation");
+        public Criteria andHouseParamRelNotIn(List<String> values) {
+            addCriterion("HouseParamRel not in", values, "houseParamRel");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationBetween(String value1, String value2) {
-            addCriterion("HouseParamRelation between", value1, value2, "houseParamRelation");
+        public Criteria andHouseParamRelBetween(String value1, String value2) {
+            addCriterion("HouseParamRel between", value1, value2, "houseParamRel");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamRelationNotBetween(String value1, String value2) {
-            addCriterion("HouseParamRelation not between", value1, value2, "houseParamRelation");
+        public Criteria andHouseParamRelNotBetween(String value1, String value2) {
+            addCriterion("HouseParamRel not between", value1, value2, "houseParamRel");
             return (Criteria) this;
         }
 

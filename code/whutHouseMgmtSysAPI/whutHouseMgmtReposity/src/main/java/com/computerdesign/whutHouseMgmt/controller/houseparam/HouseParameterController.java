@@ -34,9 +34,9 @@ public class HouseParameterController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="get/{paramTypeId}",method = RequestMethod.GET)
-	public Msg getHouseParameter(@PathVariable("paramTypeId")Integer paramTypeId,@RequestParam(value="pn",defaultValue="1")Integer pn){
+	public Msg getHouseParameter(@PathVariable("paramTypeId")Integer paramTypeId,@RequestParam(value="page",defaultValue="1")Integer page,@RequestParam(value="size",defaultValue="10")Integer size){
 		//分页查询
-		PageHelper.startPage(pn,5);
+		PageHelper.startPage(page,size);
 		//根据paramTypeId来查找
 		List<HouseParameter> houseParams=houseParamService.getAll(paramTypeId);
 		//

@@ -51,7 +51,7 @@
 		
 	$(function () {
 		$("#houseParamGet").click(function () {
-			ajaxRequestGet("houseParam/get/1");
+			ajaxRequestGet("houseParam/get/1?page=2&size=2");
 		})
 		
 		$("#houseParamDelete").click(function () {
