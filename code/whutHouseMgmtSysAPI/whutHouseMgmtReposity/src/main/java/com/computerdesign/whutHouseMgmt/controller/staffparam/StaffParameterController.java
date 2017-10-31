@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
-import com.computerdesign.whutHouseMgmt.controller.paramclass.ParamClassService;
+import com.computerdesign.whutHouseMgmt.service.paramclass.ParamClassService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
 
 @RequestMapping("/staffParam/")

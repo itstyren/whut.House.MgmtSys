@@ -24,7 +24,7 @@ import com.github.pagehelper.PageInfo;
 public class HouseParameterController {
 
 	@Autowired
-	HouseParamService houseParamService;
+	private HouseParamService houseParamService;
 	
 	/**
 	 * 
