@@ -103,7 +103,7 @@ export default {
      this.getList()
    },
    methods:{
-     // 获取职工部门
+     // 获取职工职务
      getList(){
        this.listLoading=true
        let param = {
@@ -120,7 +120,7 @@ export default {
      },
     // 删除功能
     delectPost(index,row){
-      this.$confirm('此操作将删除该职称','提示',{
+      this.$confirm('此操作将删除该职务','提示',{
         confirmButtonText:'确定',
         cancelButtonText:'取消',
         type:'warning'
@@ -170,7 +170,6 @@ export default {
     //编辑提交
     modifySubmit(){
       this.$refs['modifyFrom'].validate((valid)=>{
-        console.log('success')
         if(valid){
           this.modifyLoading=true
           let param=Object.assign({},this.modifyFromBody)
