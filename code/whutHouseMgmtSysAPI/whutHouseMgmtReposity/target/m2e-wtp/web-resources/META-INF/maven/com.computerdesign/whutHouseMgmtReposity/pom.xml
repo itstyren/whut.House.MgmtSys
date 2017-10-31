@@ -9,6 +9,14 @@
 	<!-- 引入项目依赖的jar包 -->
 	<dependencies>
 
+		<!-- 导入pageHelper类 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>5.0.0</version>
+		</dependency>
+		
+		
 		<!-- 导入Servlet和jsp 的jar包 -->
 		<dependency>
 			<groupId>javax</groupId>
