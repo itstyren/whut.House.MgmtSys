@@ -10,15 +10,15 @@
     </el-form>
   </el-col>
   <!-- 表格区域 -->
-  <el-col :span="24">
-    <el-table :data="typeData" border style="width:100%" v-loading="listLoading">
+  <el-col :span="24" >
+    <el-table :data="deptData" border style="width:100%" v-loading="listLoading"  max-height="450">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
-      <el-table-column prop="staffDept" label="工作部门" sortable align="center" ></el-table-column>
+      <el-table-column prop="staffParamName" label="工作部门" sortable align="center" ></el-table-column>
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope" >
             <el-button  size="small" @click="showModifyDialog(scope.$index,scope.row)" >编辑</el-button>
-            <el-button type="danger" size="small"  >删除</el-button>
+            <el-button type="danger" size="small" @click="delectDept(scope.$index,scope.row)" >删除</el-button>
           </template>
         </el-table-column>      
     </el-table>
@@ -32,8 +32,8 @@
     <!-- 新增表单 -->
     <el-dialog title="新增工作部门" :visible.sync="addFormVisible" v-loading="submitLoading" >
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="工作部门" prop="staffDept">
-          <el-input v-model="addFormBody.staffDept" placeholder="请输入工作部门"  ></el-input>
+        <el-form-item label="工作部门" prop="staffParamName">
+          <el-input v-model="addFormBody.staffParamName" placeholder="请输入工作部门"  ></el-input>
         </el-form-item>     
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -45,8 +45,8 @@
     <!-- 编辑表单 -->
     <el-dialog title="编辑工作部门" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules" >
-        <el-form-item label="工作部门" prop="staffDept"  >
-          <el-input v-model="modifyFromBody.staffDept" placeholder="请输入工作部门"  ></el-input>
+        <el-form-item label="工作部门" prop="staffParamName"  >
+          <el-input v-model="modifyFromBody.staffParamName" placeholder="请输入工作部门"  ></el-input>
         </el-form-item>   
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -58,14 +58,17 @@
 </template>
 
 <script type="text/ecmascript-6">
+import {getStaffParam,deleteStaffParam,postStaffParam,putStaffParam} from '@/api/api'
+import common from '@/common/util.js'
 export default {
    data() {
      return {
+        paramClass:5,
        // 用户令牌
        access_token:'',
        // 表格数据
-       typeData: [
-         {staffDept:'校长就是我'}
+       deptData: [
+         {staffParamName:''}
        ],
        listLoading:false,
        totalNum:1,
@@ -74,23 +77,24 @@ export default {
 
        // 表单规则验证
        rules:{
-         staffDept:{
+         staffParamName:{
            required: true, message: '工作部门不能为空' , trigger: 'blur' 
          },
        },
 
        //编辑表单相关数据
+       selectStaffParamId:'',
        modifyFormVisible:false,
        modifyLoading:false,
        modifyFromBody:{
-         staffDept:''
+         staffParamName:''
        },
       
       // 新增表单相关数据
        submitLoading:false,       
        addFormVisible: false,
        addFormBody:{
-         staffDept:''
+         staffParamName:''
        }
      }
 
@@ -98,25 +102,91 @@ export default {
    components: {
 
    },
+   // 声明时期调用
+   mounted () {
+     this.getList()
+   },
    methods:{
-    //删除功能
-    delectType(){
-
-    },
+     // 获取职工部门
+     getList(){
+       this.listLoading=true
+       let param = {
+         page : this.page,
+         size : this.size
+       }
+       getStaffParam(param,this.paramClass).then((res)=>{
+         this.deptData=res.data.data.data
+         this.listLoading=false
+       }).catch((err)=>{
+         console.log(err)
+       })
+     },
+    // 删除功能
+    delectDept(index,row){
+      this.$confirm('此操作将删除该职称','提示',{
+        confirmButtonText:'确定',
+        cancelButtonText:'取消',
+        type:'warning'
+      }).then(()=>{
+        let param=''
+        let staffParamId=row.staffParamId
+        this.listLoading=true
+        deleteStaffParam(param,staffParamId).then((res)=>{
+          // 公共提示方法
+          common.statusinfo(this,res.data)
+          this.getList()
+          }).catch((err)=>{
+            console.log(err)
+            })
+        }).catch(()=>{
+          this.$message({
+            type: 'info',
+            message:'已取消删除'
+          });
+        });
+      },
     // 新增提交
     addSubmit(){
-
+      this.$refs['addForm'].validate((valid)=>{
+        if(valid){
+          this.submitLoadinga=true
+          let param=Object.assign({},this.addFormBody)
+          postStaffParam(param,this.paramClass).then((res)=>{
+            // 公共提示方法
+            common.statusinfo(this,res.data)
+            this.$refs['addForm'].resetFields()
+            this.submitLoading=false
+            this.addFormVisible=false
+            this.getList()
+          })
+        }
+      })
     },
     //显示编辑
     showModifyDialog (index,row) {
       this.modifyFormVisible=true
       this.modifyFromBody= Object.assign({},row)
       this.selectRowIndex=index
+      this.selectStaffParamId=row.staffParamId
       //console.log(this.selectRowIndex)
     },
     //编辑提交
     modifySubmit(){
+      this.$refs['modifyFrom'].validate((valid)=>{
+        if(valid){
+          this.modifyLoading=true
+          let param =Object.assign({},this.modifyFromBody)
+          putStaffParam(param,this.selectStaffParamId).then((res)=>{
+            // 公共提示方法
+            common.statusinfo(this,res.data)
+            this.$refs['modifyFrom'].resetFields()
+            this.modifyLoading=false
+            this.modifyFormVisible=false
+            this.getList()
 
+          })
+        }
+      })
     },
     //更换每页数量
     SizeChangeEvent(val){

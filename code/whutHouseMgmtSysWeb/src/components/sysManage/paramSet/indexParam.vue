@@ -40,6 +40,9 @@ import staffDept from './staffParam/staffDept'
 import staffPost from './staffParam/staffPost'
 import staffTitle from './staffParam/staffTitle' 
 import staffClass from './staffParam/staffClass'
+import staffStatus from './staffParam/staffStatus'
+import staffSpouse from './staffParam/staffSpouse'
+
  export default {
    // 监视输入框参数值
     watch: {
@@ -189,7 +192,7 @@ import staffClass from './staffParam/staffClass'
      // 住房参数组件
      houseType,houseLayout,houseStatus,houseStruct,
      // 职工参数组件
-     staffDept,staffPost,staffTitle,staffClass
+     staffDept,staffPost,staffTitle,staffClass,staffStatus,staffSpouse,
    }
  }
 </script>
