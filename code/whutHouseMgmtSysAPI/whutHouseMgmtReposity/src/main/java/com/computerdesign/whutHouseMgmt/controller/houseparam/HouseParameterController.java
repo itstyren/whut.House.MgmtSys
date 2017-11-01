@@ -60,7 +60,6 @@ public class HouseParameterController {
 	@ResponseBody
 	@RequestMapping(value="add",method=RequestMethod.POST)
 	public Msg addHouseParameter(@RequestBody HouseParameter houseParameter){
-		System.out.println("aaa");
 		//房屋参数名为空
 		if(houseParameter.getHouseParamName()!=null){
 			//房屋类别ID为空
@@ -81,8 +80,8 @@ public class HouseParameterController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="delete",method=RequestMethod.DELETE)
-	public Msg deleteHouseParam(@PathVariable("houseParamId")Integer houseParamId){
+	@RequestMapping(value="delete/{houseParamId}",method=RequestMethod.DELETE)
+	public Msg deleteHouseParam(@PathVariable("houseParamId") Integer houseParamId){
 		//houseParamId不存在
 		HouseParameter houseParameter=houseParamService.get(houseParamId);
 		if(houseParameter!=null){
