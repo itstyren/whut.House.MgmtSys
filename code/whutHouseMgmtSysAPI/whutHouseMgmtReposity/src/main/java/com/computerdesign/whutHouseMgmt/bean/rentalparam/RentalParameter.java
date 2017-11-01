@@ -1,30 +1,30 @@
-package com.computerdesign.whutHouseMgmt.bean.fixparam;
+package com.computerdesign.whutHouseMgmt.bean.rentalparam;
 
-public class FixParameter {
-    private Integer fixParamId;
+public class RentalParameter {
+    private Integer rentalParamId;
 
-    private String fixParamName;
+    private String rentalParamName;
 
     private Integer paramTypeId;
 
     private String paramTypeName;
 
     private Boolean isDelete;
-    
-    public Integer getFixParamId() {
-        return fixParamId;
+
+    public Integer getRentalParamId() {
+        return rentalParamId;
     }
 
-    public void setFixParamId(Integer fixParamId) {
-        this.fixParamId = fixParamId;
+    public void setRentalParamId(Integer rentalParamId) {
+        this.rentalParamId = rentalParamId;
     }
 
-    public String getFixParamName() {
-        return fixParamName;
+    public String getRentalParamName() {
+        return rentalParamName;
     }
 
-    public void setFixParamName(String fixParamName) {
-        this.fixParamName = fixParamName == null ? null : fixParamName.trim();
+    public void setRentalParamName(String rentalParamName) {
+        this.rentalParamName = rentalParamName == null ? null : rentalParamName.trim();
     }
 
     public Integer getParamTypeId() {
