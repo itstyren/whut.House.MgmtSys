@@ -77,17 +77,17 @@ public class HouseParameterController {
 	
 	/**
 	 * 根据houseParamId删除一条记录
-	 * @param houseParamId
+	 * @param houseParameter
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="delete/{houseParamId}",method=RequestMethod.DELETE)
-	public Msg deleteHouseParam(@PathVariable("houseParamId")Integer houseParamId){
+	@RequestMapping(value="delete",method=RequestMethod.DELETE)
+	public Msg deleteHouseParam(@RequestBody HouseParameter houseParameter){
 		//houseParamId不存在
-		HouseParameter houseParameter = houseParamService.get(houseParamId);
-		if(houseParameter!=null){
+		HouseParameter houseParameterDelete=houseParamService.get(houseParameter.getHouseParamId());
+		if(houseParameterDelete!=null){
 			try {
-				houseParamService.delete(houseParamId);
+				houseParamService.delete(houseParameterDelete.getHouseParamId());
 				return Msg.success().add("data", houseParameter);
 			} catch (Exception e) {
 				// TODO: handle exception

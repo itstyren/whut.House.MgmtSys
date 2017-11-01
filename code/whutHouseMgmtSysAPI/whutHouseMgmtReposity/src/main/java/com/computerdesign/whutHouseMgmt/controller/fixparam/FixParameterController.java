@@ -69,13 +69,18 @@ public class FixParameterController {
 		}
 	}
 	
+	/**
+	 * 删除一条数据
+	 * @param fixParameter
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="delete",method=RequestMethod.DELETE)
-	public Msg deleteFixParameter(@PathVariable("fixParamId")Integer fixParamId){
-		FixParameter fixParameter=fixParamService.get(fixParamId);
-		if(fixParameter!=null){
-			fixParamService.delete(fixParamId);
-			return Msg.success().add("data", fixParameter);
+	public Msg deleteFixParameter(@RequestBody FixParameter fixParameter){
+		FixParameter fixParameterDelete=fixParamService.get(fixParameter.getFixParamId());
+		if(fixParameterDelete!=null){
+			fixParamService.delete(fixParameterDelete.getFixParamId());
+			return Msg.success().add("data", fixParameterDelete);
 		}else{
 			return Msg.error("找不到该fixParamId");
 		}

@@ -51,7 +51,6 @@
 		
 	$(function () {
 		$("#houseParamGet").click(function () {
-
 			ajaxRequestGet("houseParam/get/1?page=2&size=2");
 
 		})
@@ -73,11 +72,11 @@
 	
 	$(function () {
 		$("#fixParamGet").click(function () {
-			ajaxRequestGet("fixParam/get/20?pn=1");
+			ajaxRequestGet("fixParam/get/20");
 		})
 		
 		$("#fixParamDelete").click(function () {
-			ajaxRequestPostType("fixParam/delete/3","DELETE",null);
+			ajaxRequestPostType("fixParam/delete","DELETE",null);
 		})
 		
 		$("#fixParamAdd").click(function () {
@@ -91,6 +90,25 @@
 		})
 	})
 	
+	$(function () {
+		$("#rentalParamGet").click(function () {
+			ajaxRequestGet("rentalParam/get/20");
+		})
+		
+		$("#rentalParamDelete").click(function () {
+			ajaxRequestPostType("rentalParam/delete","DELETE",null);
+		})
+		
+		$("#rentalParamAdd").click(function () {
+			var data={'rentalParamName':'租金参数内容测试', 'paramTypeId':23, 'paramTypeName':'新老职工如何划分'};
+			ajaxRequestPostType("rentalParam/add","POST",data);
+		})
+		
+		$("#rentalParamModify").click(function () {
+			var data={'rentalParamId':1, 'rentalParamName':'修改测试', 'paramTypeId':21, 'paramTypeName':'划分'};
+			ajaxRequestPostType("rentalParam/modify","PUT",data);
+		})
+	})
 	
 </script>
 
@@ -98,11 +116,8 @@
 <body>
 	<h4>HouseParameterGetTest</h4>
 	<input type="button" value="HouseParamGet" id="houseParamGet" />
-	<h4>HouseParameterDeleteTest</h4>
 	<input type="button" value="HouseParamDelete" id="houseParamDelete" />
-	<h4>HouseParameterAddTest</h4>
 	<input type="button" value="HouseParamAdd" id="houseParamAdd" />
-	<h4>HouseParameterModifyTest</h4>
 	<input type="button" value="HouseParamModify" id="houseParamModify" />
 	
 	<hr>
@@ -112,5 +127,11 @@
 	<input type="button" value="FixParamAdd" id="fixParamAdd" />
 	<input type="button" value="FixParamModify" id="fixParamModify" />
 	
+	<hr>
+	<h4>RentalParameterGetTest</h4>
+	<input type="button" value="RentalParamGet" id="rentalParamGet" />
+	<input type="button" value="RentalParamDelete" id="rentalParamDelete" />
+	<input type="button" value="RentalParamAdd" id="rentalParamAdd" />
+	<input type="button" value="RentalParamModify" id="rentalParamModify" />
 </body>
 </html>
