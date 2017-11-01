@@ -43,7 +43,7 @@ public class FixParameterController {
 		
 		PageInfo pageInfo = new PageInfo(fixParameters);
 		if(fixParameters!=null){
-			return Msg.success().add("pageInfo", pageInfo);
+			return Msg.success().add("data", pageInfo);
 		}else{
 			return Msg.error("没有信息");
 		}
@@ -60,7 +60,7 @@ public class FixParameterController {
 		if(fixParameter.getFixParamName()!=null){
 			if (fixParameter.getParamTypeId()!=null) {
 				fixParamService.add(fixParameter);
-				return Msg.success().add("fixParameter", fixParameter);
+				return Msg.success().add("data", fixParameter);
 			}else{
 				return Msg.error("ParamTypeId为空");
 			}
@@ -75,7 +75,7 @@ public class FixParameterController {
 		FixParameter fixParameter=fixParamService.get(fixParamId);
 		if(fixParameter!=null){
 			fixParamService.delete(fixParamId);
-			return Msg.success().add("fixParameter", fixParameter);
+			return Msg.success().add("data", fixParameter);
 		}else{
 			return Msg.error("找不到该fixParamId");
 		}
@@ -86,7 +86,7 @@ public class FixParameterController {
 	public Msg updateFixParameter(@RequestBody FixParameter fixParameter){
 		try {
 			fixParamService.update(fixParameter);
-			return  Msg.success().add("fixParameter", fixParameter);
+			return  Msg.success().add("data", fixParameter);
 		} catch (Exception e) {
 			// TODO: handle exception
 			return Msg.error("修改失败");

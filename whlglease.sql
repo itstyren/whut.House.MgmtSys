@@ -172,7 +172,7 @@ INSERT INTO `PM_RentType` VALUES (5, '选房规则', 19, '选房规则', 0);
 -- ----------------------------
 -- Table structure for PM_RentalType
 -- ----------------------------
-DROP TABLE IF EXISTS `PM_RentalType`;
+DROP TABLE IF EXISTS `PM_RentPayType`;
 CREATE TABLE `PM_RentalType`  (
   `RentalParamId` int(11) NOT NULL AUTO_INCREMENT COMMENT '租金参数编号',
   `RentalParamName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '租金参数名称',
