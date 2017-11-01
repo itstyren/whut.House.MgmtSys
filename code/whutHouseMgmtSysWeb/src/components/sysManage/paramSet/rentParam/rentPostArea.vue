@@ -113,7 +113,8 @@ export default {
        }
        // http请求
        getRentParamAboutStaff(param,this.paramClass).then((res)=>{
-         this.PostValData=res.data.data.data
+         this.PostValData=res.data.data.data.list
+         this.totalNum=res.data.data.data.total
          this.listLoading=false
        }).catch((err)=>{
          console.log(err)
@@ -144,14 +145,13 @@ export default {
     //更换每页数量
     SizeChangeEvent(val){
         this.size = val;
-        //this.getList();
-        PubMethod.logMessage(this.page + "   " + this.size);
+        this.getList();
     },
     //页码切换时
     CurrentChangeEvent(val){
         this.page = val;
-        //this.getList();
-        PubMethod.logMessage(this.page + "   " + this.size);
+        this.getList();
+
     }
    }
  }

@@ -67,8 +67,7 @@ export default {
        // 用户令牌
        access_token:'',
        // 表格数据
-       postData: [
-       ],
+       postData: [],
        listLoading:false,
        totalNum:1,
        page:1,
@@ -112,7 +111,8 @@ export default {
        }
        // http请求
        getStaffParam(param,this.paramClass).then((res)=>{
-         this.postData=res.data.data.data
+         this.postData=res.data.data.data.list
+         this.totalNum=res.data.data.data.total
          this.listLoading=false
        }).catch((err)=>{
          console.log(err)
@@ -185,14 +185,12 @@ export default {
     //更换每页数量
     SizeChangeEvent(val){
         this.size = val;
-        //this.getList();
-        PubMethod.logMessage(this.page + "   " + this.size);
+        this.getList();
     },
     //页码切换时
     CurrentChangeEvent(val){
         this.page = val;
-        //this.getList();
-        PubMethod.logMessage(this.page + "   " + this.size);
+        this.getList();
     }
    }
  }
