@@ -2,23 +2,23 @@
 <div>
 <!-- 右侧主要内容 -->
 <el-col :span="24" class="right-main">
-  <el-col :span="24" class="topic"><h1>住房类型参数</h1></el-col>
+  <el-col :span="24" class="topic"><h1>职务分参数</h1></el-col>
   <!-- 工具条 -->
   <el-col :span="24" class="toolBar" >    
     <el-form :inline="true" style="margin-bottom:15px">
-      <el-button type="primary" @click="addFormVisible = true" >新增类型</el-button>
+      <el-button type="primary" @click="addFormVisible = true" >新增类别</el-button>
     </el-form>
   </el-col>
   <!-- 表格区域 -->
   <el-col :span="24">
-    <el-table :data="typeData" border style="width:100%" v-loading="listLoading">
+    <el-table :data="classData" border style="width:100%" v-loading="listLoading" max-height="450">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
-      <el-table-column prop="houseParamName" label="住房类型" sortable align="center" ></el-table-column>
+      <el-table-column prop="staffParamName" label="职工类别" sortable align="center" ></el-table-column>
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope" >
             <el-button  size="small" @click="showModifyDialog(scope.$index,scope.row)" >编辑</el-button>
-            <el-button type="danger" size="small"  >删除</el-button>
+            <el-button type="danger" size="small" @click="delectClass(scope.$index,scope.row)" >删除</el-button>
           </template>
         </el-table-column>      
     </el-table>
@@ -30,10 +30,10 @@
   </el-col>
 </el-col>
     <!-- 新增表单 -->
-    <el-dialog title="新增住房类型" :visible.sync="addFormVisible" v-loading="submitLoading" >
+    <el-dialog title="新增职工类别" :visible.sync="addFormVisible" v-loading="submitLoading" >
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="住房类型" prop="houseParamName">
-          <el-input v-model="addFormBody.houseParamName" placeholder="请输入住房类型"  ></el-input>
+        <el-form-item label="职工类别" prop="staffParamName">
+          <el-input v-model="addFormBody.staffParamName" placeholder="请输入职工类别"  ></el-input>
         </el-form-item>     
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -43,10 +43,10 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑住房类型" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
+    <el-dialog title="编辑职工类别" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules" >
-        <el-form-item label="住房类型" prop="houseParamName"  >
-          <el-input v-model="modifyFromBody.houseParamName" placeholder="请输入住房类型"  ></el-input>
+        <el-form-item label="职工类别" prop="staffParamName"  >
+          <el-input v-model="modifyFromBody.staffParamName" placeholder="请输入职工类别"  ></el-input>
         </el-form-item>   
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -58,14 +58,17 @@
 </template>
 
 <script type="text/ecmascript-6">
- export default {
+import {getStaffParam,deleteStaffParam,postStaffParam,putStaffParam} from '@/api/api'
+import common from '@/common/util.js'
+export default {
    data() {
      return {
-       paramClass:'1',       
+       paramClass:'8',
        // 用户令牌
        access_token:'',
        // 表格数据
-       typeData: [],
+       classData: [
+       ],
        listLoading:false,
        totalNum:1,
        page:1,
@@ -73,33 +76,33 @@
 
        // 表单规则验证
        rules:{
-         houseParamName:{
-           required: true, message: '住房类型不能为空' , trigger: 'blur' 
+         staffParamName:{
+           required: true, message: '职工类别不能为空' , trigger: 'blur' 
          },
        },
 
        //编辑表单相关数据
-       selectHouseParamId:'',
        modifyFormVisible:false,
        modifyLoading:false,
+       selectStaffParamId:'',
        modifyFromBody:{
-         houseParamName:''
+         staffParamName:''
        },
       
       // 新增表单相关数据
        submitLoading:false,       
        addFormVisible: false,
        addFormBody:{
-         houseParamName:''
+         staffParamName:''
        }
      }
 
    },
- mounted () {
+   mounted () {
      this.getList()
    },
    methods:{
-     // 获取房屋类型
+     // 获取职工职务
      getList(){
        this.listLoading=true
        let param = {
@@ -107,9 +110,8 @@
          size : this.size
        }
        // http请求
-       getHouseParam(param,this.paramClass).then((res)=>{
-         this.typeData=res.data.data.data
-         this.totalNum=res.data.data.total
+       getStaffParam(param,this.paramClass).then((res)=>{
+         this.classData=res.data.data.data
          this.listLoading=false
        }).catch((err)=>{
          console.log(err)
@@ -117,15 +119,15 @@
      },
     // 删除功能
     delectClass(index,row){
-      this.$confirm('此操作将删除该户型选项','提示',{
+      this.$confirm('此操作将删除该职称','提示',{
         confirmButtonText:'确定',
         cancelButtonText:'取消',
         type:'warning'
       }).then(()=>{
         let param=''
-        let houseParamId=row.houseParamId
+        let staffParamId=row.staffParamId
         this.listLoading=true
-        deleteHouseParam(param,houseParamId).then((res)=>{
+        deleteStaffParam(param,staffParamId).then((res)=>{
           // 公共提示方法
           common.statusinfo(this,res.data)
           this.getList()
@@ -145,7 +147,7 @@
           if(valid){
             this.submitLoadinga=true
             let param=Object.assign({},this.addFormBody)
-            postHouseParam(param,this.paramClass).then((res)=>{
+            postStaffParam(param,this.paramClass).then((res)=>{
               // 公共提示方法
               common.statusinfo(this,res.data)
               this.$refs['addForm'].resetFields()
@@ -160,7 +162,7 @@
     showModifyDialog (index,row) {
       this.modifyFormVisible=true
       this.modifyFromBody= Object.assign({},row)
-      this.selectHouseParamId=row.houseParamId
+      this.selectStaffParamId=row.staffParamId
       this.selectRowIndex=index
       //console.log(this.selectRowIndex)
     },
@@ -170,7 +172,7 @@
         if(valid){
           this.modifyLoading=true
           let param=Object.assign({},this.modifyFromBody)
-          putHouseParam(param,this.selectHouseParamId).then((res)=>{
+          putStaffParam(param,this.selectStaffParamId).then((res)=>{
             common.statusinfo(this,res.data)
             this.modifyLoading=false
             this.modifyFormVisible=false
@@ -183,11 +185,13 @@
     SizeChangeEvent(val){
         this.size = val;
         //this.getList();
+        PubMethod.logMessage(this.page + "   " + this.size);
     },
     //页码切换时
     CurrentChangeEvent(val){
         this.page = val;
         //this.getList();
+        PubMethod.logMessage(this.page + "   " + this.size);
     }
    }
  }

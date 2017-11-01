@@ -8,3 +8,4 @@ src/common/*.js
 src/components/sysManage/paramSet/*.vue
 src/components/sysManage/paramSet/houseParam/*.vue 
 src/components/sysManage/paramSet/staffParam/*.vue
+src/components/sysManage/paramSet/rentParam/*.vue
