@@ -22,9 +22,6 @@ public class RentParameterController {
 	@Autowired
 	private RentParameterService rentParameterService;
 	
-	@Autowired
-	private StaffParameterService staffParameterService;
-
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public Msg addRentParam(@RequestBody RentParameter rentParameterModel) {
