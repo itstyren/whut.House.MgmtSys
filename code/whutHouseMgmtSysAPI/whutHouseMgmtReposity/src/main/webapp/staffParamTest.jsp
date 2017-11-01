@@ -49,7 +49,7 @@
 	
 	$(function () {
 		$("#staffWorkDeptParamGet").click(function () {
-			ajaxRequestGet("staffParam/get/5");
+			ajaxRequestGet("staffParam/get/5?page=10&size=3");
 		})
 		
 		$("#staffDutyParamGet").click(function () {
