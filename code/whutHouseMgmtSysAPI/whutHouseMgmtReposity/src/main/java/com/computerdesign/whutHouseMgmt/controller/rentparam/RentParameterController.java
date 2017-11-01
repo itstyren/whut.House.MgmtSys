@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.rentparam.RentParameter;
 import com.computerdesign.whutHouseMgmt.service.rentparam.RentParameterService;
+import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
 
 @RequestMapping("/rentParam/")
 @Controller
