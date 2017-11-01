@@ -11,14 +11,14 @@
   </el-col>
   <!-- 表格区域 -->
   <el-col :span="24">
-    <el-table :data="contentData" border style="width:100%" v-loading="listLoading" max-height="450">
+    <el-table :data="layoutData" border style="width:100%" v-loading="listLoading" max-height="450">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
       <el-table-column prop="fixParamName" label="维修内容" sortable align="center" ></el-table-column>
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope" >
             <el-button  size="small" @click="showModifyDialog(scope.$index,scope.row)" >编辑</el-button>
-            <el-button type="danger" size="small" @click="delectContent(scope.$index,scope.row)" >删除</el-button>
+            <el-button type="danger" size="small" @click="delectLayout(scope.$index,scope.row)" >删除</el-button>
           </template>
         </el-table-column>      
     </el-table>
@@ -58,7 +58,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {getHouseParam,deleteHouseParam,postHouseParam,putHouseParam} from '@/api/api'
+import {getFixParam,deleteFixParam,postFixParam,putFixParam} from '@/api/api'
 import common from '@/common/util.js'
 export default {
    data() {
@@ -67,7 +67,8 @@ export default {
        // 用户令牌
        access_token:'',
        // 表格数据
-       contentData: [],
+       layoutData: [
+       ],
        listLoading:false,
        totalNum:1,
        page:1,
@@ -108,8 +109,8 @@ export default {
          size : this.size
        }
        // http请求
-       getHouseParam(param,this.paramClass).then((res)=>{
-         this.contentData=res.data.data.data.list
+       getFixParam(param,this.paramClass).then((res)=>{
+         this.layoutData=res.data.data.data.list
          this.totalNum=res.data.data.data.total
          this.listLoading=false
        }).catch((err)=>{
@@ -117,16 +118,16 @@ export default {
        })
      },
     // 删除功能
-    delectContent(index,row){
-      this.$confirm('此操作将删除该维修内容','提示',{
+    delectLayout(index,row){
+      this.$confirm('此操作将删除该户型选项','提示',{
         confirmButtonText:'确定',
         cancelButtonText:'取消',
         type:'warning'
       }).then(()=>{
-        let param=''
-        let houseParamId=row.houseParamId
+        let param=row.houseParamId
+        console.log(param)
         this.listLoading=true
-        deleteHouseParam(param,houseParamId).then((res)=>{
+        deleteFixParam(param).then((res)=>{
           // 公共提示方法
           common.statusinfo(this,res.data)
           this.getList()
@@ -147,7 +148,7 @@ export default {
             this.submitLoading=true
             let param=Object.assign({},this.addFormBody)
             param.paramTypeId=this.paramClass
-            postHouseParam(param).then((res)=>{
+            postFixParam(param).then((res)=>{
               // 公共提示方法
               common.statusinfo(this,res.data)
               this.$refs['addForm'].resetFields()
@@ -171,7 +172,7 @@ export default {
         if(valid){
           this.modifyLoading=true
           let param=Object.assign({},this.modifyFromBody)
-          putHouseParam(param).then((res)=>{
+          putFixParam(param).then((res)=>{
             common.statusinfo(this,res.data)
             this.modifyLoading=false
             this.modifyFormVisible=false

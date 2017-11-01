@@ -11,14 +11,14 @@
   </el-col>
   <!-- 表格区域 -->
   <el-col :span="24">
-    <el-table :data="structData" border style="width:100%" v-loading="listLoading">
+    <el-table :data="structData" border style="width:100%" v-loading="listLoading" max-height="450">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
       <el-table-column prop="houseParamName" label="住房结构" sortable align="center" ></el-table-column>
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope" >
             <el-button  size="small" @click="showModifyDialog(scope.$index,scope.row)" >编辑</el-button>
-            <el-button type="danger" size="small"  >删除</el-button>
+            <el-button type="danger" size="small" @click="delectStruct(scope.$index,scope.row)" >删除</el-button>
           </template>
         </el-table-column>      
     </el-table>
@@ -82,7 +82,6 @@ export default {
        },
 
        //编辑表单相关数据
-       selectHouseParamId:'',
        modifyFormVisible:false,
        modifyLoading:false,
        modifyFromBody:{
@@ -111,15 +110,15 @@ export default {
        }
        // http请求
        getHouseParam(param,this.paramClass).then((res)=>{
-         this.structData=res.data.data.data
-         this.totalNum=res.data.data.total
+         this.structData=res.data.data.data.list
+         this.totalNum=res.data.data.data.total
          this.listLoading=false
        }).catch((err)=>{
          console.log(err)
        })
      },
     // 删除功能
-    delectClass(index,row){
+    delectStruct(index,row){
       this.$confirm('此操作将删除该户型选项','提示',{
         confirmButtonText:'确定',
         cancelButtonText:'取消',
@@ -148,7 +147,8 @@ export default {
           if(valid){
             this.submitLoadinga=true
             let param=Object.assign({},this.addFormBody)
-            postHouseParam(param,this.paramClass).then((res)=>{
+            param.paramTypeId=this.paramClass            
+            postHouseParam(param).then((res)=>{
               // 公共提示方法
               common.statusinfo(this,res.data)
               this.$refs['addForm'].resetFields()
@@ -163,7 +163,6 @@ export default {
     showModifyDialog (index,row) {
       this.modifyFormVisible=true
       this.modifyFromBody= Object.assign({},row)
-      this.selectHouseParamId=row.houseParamId
       this.selectRowIndex=index
       //console.log(this.selectRowIndex)
     },
@@ -173,7 +172,7 @@ export default {
         if(valid){
           this.modifyLoading=true
           let param=Object.assign({},this.modifyFromBody)
-          putHouseParam(param,this.selectHouseParamId).then((res)=>{
+          putHouseParam(param).then((res)=>{
             common.statusinfo(this,res.data)
             this.modifyLoading=false
             this.modifyFormVisible=false
@@ -185,12 +184,12 @@ export default {
     //更换每页数量
     SizeChangeEvent(val){
         this.size = val;
-        //this.getList();
+        this.getList();
     },
     //页码切换时
     CurrentChangeEvent(val){
         this.page = val;
-        //this.getList();
+        this.getList();
     }
    }
  }
