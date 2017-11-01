@@ -6,8 +6,8 @@
     <result column="StaffParamName" jdbcType="VARCHAR" property="staffParamName" />
     <result column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
     <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
-    <result column="StaffParamVal" jdbcType="INTEGER" property="staffParamFra" />
-    <result column="StaffParamSpouseVal" jdbcType="INTEGER" property="staffParamSpouseFra" />
+    <result column="StaffParamVal" jdbcType="INTEGER" property="staffParamVal" />
+    <result column="StaffParamSpouseVal" jdbcType="INTEGER" property="staffParamSpouseVal" />
     <result column="StaffParamHouseArea" jdbcType="REAL" property="staffParamHouseArea" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
@@ -108,7 +108,7 @@
       ParamTypeName, StaffParamVal, StaffParamSpouseVal, 
       StaffParamHouseArea, IsDelete)
     values (#{staffParamId,jdbcType=INTEGER}, #{staffParamName,jdbcType=VARCHAR}, #{paramTypeId,jdbcType=INTEGER}, 
-      #{paramTypeName,jdbcType=VARCHAR}, #{staffParamFra,jdbcType=INTEGER}, #{staffParamSpouseFra,jdbcType=INTEGER}, 
+      #{paramTypeName,jdbcType=VARCHAR}, #{staffParamVal,jdbcType=INTEGER}, #{staffParamSpouseVal,jdbcType=INTEGER}, 
       #{staffParamHouseArea,jdbcType=REAL}, #{isDelete,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter">
@@ -126,10 +126,10 @@
       <if test="paramTypeName != null">
         ParamTypeName,
       </if>
-      <if test="staffParamFra != null">
+      <if test="staffParamVal != null">
         StaffParamVal,
       </if>
-      <if test="staffParamSpouseFra != null">
+      <if test="staffParamSpouseVal != null">
         StaffParamSpouseVal,
       </if>
       <if test="staffParamHouseArea != null">
@@ -152,11 +152,11 @@
       <if test="paramTypeName != null">
         #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="staffParamFra != null">
-        #{staffParamFra,jdbcType=INTEGER},
+      <if test="staffParamVal != null">
+        #{staffParamVal,jdbcType=INTEGER},
       </if>
-      <if test="staffParamSpouseFra != null">
-        #{staffParamSpouseFra,jdbcType=INTEGER},
+      <if test="staffParamSpouseVal != null">
+        #{staffParamSpouseVal,jdbcType=INTEGER},
       </if>
       <if test="staffParamHouseArea != null">
         #{staffParamHouseArea,jdbcType=REAL},
@@ -187,11 +187,11 @@
       <if test="record.paramTypeName != null">
         ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.staffParamFra != null">
-        StaffParamVal = #{record.staffParamFra,jdbcType=INTEGER},
+      <if test="record.staffParamVal != null">
+        StaffParamVal = #{record.staffParamVal,jdbcType=INTEGER},
       </if>
-      <if test="record.staffParamSpouseFra != null">
-        StaffParamSpouseVal = #{record.staffParamSpouseFra,jdbcType=INTEGER},
+      <if test="record.staffParamSpouseVal != null">
+        StaffParamSpouseVal = #{record.staffParamSpouseVal,jdbcType=INTEGER},
       </if>
       <if test="record.staffParamHouseArea != null">
         StaffParamHouseArea = #{record.staffParamHouseArea,jdbcType=REAL},
@@ -210,8 +210,8 @@
       StaffParamName = #{record.staffParamName,jdbcType=VARCHAR},
       ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
-      StaffParamVal = #{record.staffParamFra,jdbcType=INTEGER},
-      StaffParamSpouseVal = #{record.staffParamSpouseFra,jdbcType=INTEGER},
+      StaffParamVal = #{record.staffParamVal,jdbcType=INTEGER},
+      StaffParamSpouseVal = #{record.staffParamSpouseVal,jdbcType=INTEGER},
       StaffParamHouseArea = #{record.staffParamHouseArea,jdbcType=REAL},
       IsDelete = #{record.isDelete,jdbcType=BIT}
     <if test="_parameter != null">
@@ -230,11 +230,11 @@
       <if test="paramTypeName != null">
         ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="staffParamFra != null">
-        StaffParamVal = #{staffParamFra,jdbcType=INTEGER},
+      <if test="staffParamVal != null">
+        StaffParamVal = #{staffParamVal,jdbcType=INTEGER},
       </if>
-      <if test="staffParamSpouseFra != null">
-        StaffParamSpouseVal = #{staffParamSpouseFra,jdbcType=INTEGER},
+      <if test="staffParamSpouseVal != null">
+        StaffParamSpouseVal = #{staffParamSpouseVal,jdbcType=INTEGER},
       </if>
       <if test="staffParamHouseArea != null">
         StaffParamHouseArea = #{staffParamHouseArea,jdbcType=REAL},
@@ -250,8 +250,8 @@
     set StaffParamName = #{staffParamName,jdbcType=VARCHAR},
       ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
-      StaffParamVal = #{staffParamFra,jdbcType=INTEGER},
-      StaffParamSpouseVal = #{staffParamSpouseFra,jdbcType=INTEGER},
+      StaffParamVal = #{staffParamVal,jdbcType=INTEGER},
+      StaffParamSpouseVal = #{staffParamSpouseVal,jdbcType=INTEGER},
       StaffParamHouseArea = #{staffParamHouseArea,jdbcType=REAL},
       IsDelete = #{isDelete,jdbcType=BIT}
     where StaffParamId = #{staffParamId,jdbcType=INTEGER}
