@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.controller.paramclass;
+package com.computerdesign.whutHouseMgmt.service.paramclass;
 
 import java.util.List;
 

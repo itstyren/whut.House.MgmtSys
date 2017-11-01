@@ -73,17 +73,18 @@
 		})
 		
 		$("#staffParamDelete").click(function () {
-			ajaxRequestPostType("staffParam/delete/3","DELETE",null);
+			//var data={'staffParamId':189};
+			ajaxRequestPostType("staffParam/delete/189","DELETE",null);
 		})
 		
 		$("#staffParamAdd").click(function () {
-			var data={'staffParamName':'党员'};
-			ajaxRequestPostType("staffParam/add/5","POST",data);
+			var data={'staffParamName':'党员','paramTypeId':5,'paramTypeName':'工作部门'};
+			ajaxRequestPostType("staffParam/add","POST",data);
 		})
 		
 		$("#staffParamModify").click(function () {
-			var data={'staffParamName':'修改测试3'};
-			ajaxRequestPostType("staffParam/modify/160","PUT",data);
+			var data={'staffParamId':187,'staffParamName':'修改测试3','paramTypeId':5,'paramTypeName':'工作部门'};
+			ajaxRequestPostType("staffParam/modify","PUT",data);
 		})
 	})
 	
@@ -92,7 +93,7 @@
 
 </head>
 <body>
-	<h4>StaffParameterGetTest</h4>
+	<h4>获取职工参数</h4>
 	<input type="button" value="StaffWorkDeptParamGet" id="staffWorkDeptParamGet" />
 	<br>
 	<br>
@@ -109,11 +110,11 @@
 	<br>
 	<br>
 	<input type="button" value="StaffSpouseDeptNatureParamGet" id="staffSpouseDeptNatureParamGet" />
-	<h4>StaffParameterDeleteTest</h4>
+	<h4>删除职工参数</h4>
 	<input type="button" value="StaffParamDelete" id="staffParamDelete" />
-	<h4>StaffParameterAddTest</h4>
+	<h4>添加职工参数</h4>
 	<input type="button" value="StaffParamAdd" id="staffParamAdd" />
-	<h4>StaffParameterModifyTest</h4>
+	<h4>修改职工参数</h4>
 	<input type="button" value="StaffParamModify" id="staffParamModify" />
 </body>
 </html>

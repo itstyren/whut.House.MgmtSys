@@ -24,7 +24,7 @@ import com.github.pagehelper.PageInfo;
 public class HouseParameterController {
 
 	@Autowired
-	HouseParamService houseParamService;
+	private HouseParamService houseParamService;
 	
 	/**
 	 * 
@@ -60,7 +60,6 @@ public class HouseParameterController {
 	@ResponseBody
 	@RequestMapping(value="add",method=RequestMethod.POST)
 	public Msg addHouseParameter(@RequestBody HouseParameter houseParameter){
-		System.out.println("aaa");
 		//���ݲ�����Ϊ��
 		if(houseParameter.getHouseParamName()!=null){
 			//�������IDΪ��
@@ -81,8 +80,8 @@ public class HouseParameterController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="delete",method=RequestMethod.DELETE)
-	public Msg deleteHouseParam(@PathVariable("houseParamId")Integer houseParamId){
+	@RequestMapping(value="delete/{houseParamId}",method=RequestMethod.DELETE)
+	public Msg deleteHouseParam(@PathVariable("houseParamId") Integer houseParamId){
 		//houseParamId������
 		HouseParameter houseParameter=houseParamService.get(houseParamId);
 		if(houseParameter!=null){

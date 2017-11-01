@@ -56,7 +56,7 @@
 		})
 		
 		$("#houseParamDelete").click(function () {
-			ajaxRequestPostType("houseParam/delete/1","DELETE",null);
+			ajaxRequestPostType("houseParam/delete/3","DELETE",null);
 		})
 		
 		$("#houseParamAdd").click(function () {
@@ -76,7 +76,7 @@
 		})
 		
 		$("#fixParamDelete").click(function () {
-			ajaxRequestPostType("fixParam/delete/1","DELETE",null);
+			ajaxRequestPostType("fixParam/delete/3","DELETE",null);
 		})
 		
 		$("#fixParamAdd").click(function () {
@@ -96,7 +96,7 @@
 		})
 		
 		$("#rentalParamDelete").click(function () {
-			ajaxRequestPostType("rentalParam/delete","DELETE",null);
+			ajaxRequestPostType("rentalParam/delete/3","DELETE",null);
 		})
 		
 		$("#rentalParamAdd").click(function () {

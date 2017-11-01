@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
+import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample;
+import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.staffparam.StaffParameterMapper;
 import com.computerdesign.whutHouseMgmt.service.base.BaseService;
 
@@ -14,6 +16,13 @@ public class StaffParameterService implements BaseService<StaffParameter> {
 	
 	@Autowired
 	StaffParameterMapper staffParameterMapper;
+		
+	public List<StaffParameter> getAllByParamTypeId(Integer paramTypeId){
+		StaffParameterExample example = new StaffParameterExample();
+		Criteria criteria= example.createCriteria();
+		criteria.andParamTypeIdEqualTo(paramTypeId);
+		return staffParameterMapper.selectByExample(example);
+	}
 	
 	/**
 	 * 获取一个staffParameter对象

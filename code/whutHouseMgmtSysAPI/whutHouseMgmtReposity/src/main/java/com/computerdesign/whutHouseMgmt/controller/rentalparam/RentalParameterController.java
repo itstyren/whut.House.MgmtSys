@@ -57,5 +57,39 @@ public class RentalParameterController {
 			return Msg.error("rentalParamName不存在");
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="delete/{rentalParamId}",method = RequestMethod.DELETE)
+	public Msg deleteRentalParameter(@PathVariable("rentalParamId")Integer rentalParamId){
+		RentalParameter rentalParameter=rentalParamService.get(rentalParamId);
+		if (rentalParameter!=null) {
+			try {
+				rentalParamService.delete(rentalParamId);
+				return Msg.success().add("data", rentalParameter);
+			} catch (Exception e) {
+				// TODO: handle exception
+				return Msg.error("出错，请检查输入数据");
+			}
+			
+		}else{
+			return Msg.error("找不到该rentalParamId");
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="modify",method = RequestMethod.PUT)
+	public Msg updateRentalParameter(@RequestBody RentalParameter rentalParameter){
+		System.out.println("a");
+		if (rentalParameter.getRentalParamName()!=null) {
+			if (rentalParameter.getParamTypeId()!=null) {
+				rentalParamService.update(rentalParameter);
+				return Msg.success().add("data", rentalParameter);
+			}else{
+				return Msg.error("找不到该paramTypeId");
+			}
+		}else{
+			return Msg.error("找不到该rentalParamName");
+		}
+	}
 
 }
