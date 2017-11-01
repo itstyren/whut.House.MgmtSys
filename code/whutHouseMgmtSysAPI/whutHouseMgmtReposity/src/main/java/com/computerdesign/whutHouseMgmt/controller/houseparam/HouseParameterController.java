@@ -77,17 +77,17 @@ public class HouseParameterController {
 	
 	/**
 	 * ����houseParamIdɾ��һ����¼
-	 * @param houseParameter
+	 * @param houseParamId
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value="delete",method=RequestMethod.DELETE)
-	public Msg deleteHouseParam(@RequestBody HouseParameter houseParameter){
+	public Msg deleteHouseParam(@PathVariable("houseParamId")Integer houseParamId){
 		//houseParamId������
-		HouseParameter houseParameterDelete=houseParamService.get(houseParameter.getHouseParamId());
-		if(houseParameterDelete!=null){
+		HouseParameter houseParameter=houseParamService.get(houseParamId);
+		if(houseParameter!=null){
 			try {
-				houseParamService.delete(houseParameterDelete.getHouseParamId());
+				houseParamService.delete(houseParameter.getHouseParamId());
 				return Msg.success().add("data", houseParameter);
 			} catch (Exception e) {
 				// TODO: handle exception

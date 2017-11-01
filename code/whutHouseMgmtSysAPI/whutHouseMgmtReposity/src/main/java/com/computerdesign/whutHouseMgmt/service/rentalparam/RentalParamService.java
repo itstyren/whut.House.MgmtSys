@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameter;
+import com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameterExample;
+import com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameterExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.rentalparam.RentalParameterMapper;
 import com.computerdesign.whutHouseMgmt.service.base.BaseService;
 
@@ -19,6 +21,12 @@ public class RentalParamService implements BaseService<RentalParameter>{
 		return rentalParameterMapper.selectByPrimaryKey(rentalParamId);
 	}
 	
+	public List<RentalParameter> getAll(Integer paramTypeId) {
+		RentalParameterExample example=new RentalParameterExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andParamTypeIdEqualTo(paramTypeId);
+		return rentalParameterMapper.selectByExample(example);
+	}
 	@Override
 	public List<RentalParameter> getAll(){
 		return rentalParameterMapper.selectByExample(null);

@@ -51,12 +51,13 @@
 		
 	$(function () {
 		$("#houseParamGet").click(function () {
-			ajaxRequestGet("houseParam/get/1?page=2&size=2");
+			ajaxRequestGet("houseParam/get/1");
 
 		})
 		
 		$("#houseParamDelete").click(function () {
-			ajaxRequestPostType("houseParam/delete/3","DELETE",null);
+			var data={'houseParamId':5};
+			ajaxRequestPostType("houseParam/delete","DELETE",data);
 		})
 		
 		$("#houseParamAdd").click(function () {
@@ -76,7 +77,8 @@
 		})
 		
 		$("#fixParamDelete").click(function () {
-			ajaxRequestPostType("fixParam/delete","DELETE",null);
+			var data={'fixParamDelete':1};
+			ajaxRequestPostType("fixParam/delete","DELETE",data);
 		})
 		
 		$("#fixParamAdd").click(function () {
@@ -92,11 +94,12 @@
 	
 	$(function () {
 		$("#rentalParamGet").click(function () {
-			ajaxRequestGet("rentalParam/get/20");
+			ajaxRequestGet("rentalParam/get/21");
 		})
 		
 		$("#rentalParamDelete").click(function () {
-			ajaxRequestPostType("rentalParam/delete","DELETE",null);
+			var data={'rentalParamDelete':1};
+			ajaxRequestPostType("rentalParam/delete","DELETE",data);
 		})
 		
 		$("#rentalParamAdd").click(function () {
