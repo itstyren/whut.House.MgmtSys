@@ -11,10 +11,10 @@
   </el-col>
   <!-- 表格区域 -->
   <el-col :span="24">
-    <el-table :data="typeData" border style="width:100%" v-loading="listLoading">
+    <el-table :data="statusData" border style="width:100%" v-loading="listLoading">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
-      <el-table-column prop="houseStatus" label="使用状态" sortable align="center" ></el-table-column>
+      <el-table-column prop="houseParamName" label="使用状态" sortable align="center" ></el-table-column>
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope" >
             <el-button  size="small" @click="showModifyDialog(scope.$index,scope.row)" >编辑</el-button>
@@ -32,8 +32,8 @@
     <!-- 新增表单 -->
     <el-dialog title="新增使用状态" :visible.sync="addFormVisible" v-loading="submitLoading" >
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="使用状态" prop="houseStatus">
-          <el-input v-model="addFormBody.houseStatus" placeholder="请输入使用状态"  ></el-input>
+        <el-form-item label="使用状态" prop="houseParamName">
+          <el-input v-model="addFormBody.houseParamName" placeholder="请输入使用状态"  ></el-input>
         </el-form-item>     
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -45,8 +45,8 @@
     <!-- 编辑表单 -->
     <el-dialog title="编辑使用状态" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules" >
-        <el-form-item label="使用状态" prop="houseStatus"  >
-          <el-input v-model="modifyFromBody.houseStatus" placeholder="请输入使用状态"  ></el-input>
+        <el-form-item label="使用状态" prop="houseParamName"  >
+          <el-input v-model="modifyFromBody.houseParamName" placeholder="请输入使用状态"  ></el-input>
         </el-form-item>   
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -58,14 +58,16 @@
 </template>
 
 <script type="text/ecmascript-6">
+import {getHouseParam,deleteHouseParam,postHouseParam,putHouseParam} from '@/api/api'
+import common from '@/common/util.js'
 export default {
    data() {
      return {
+       paramClass:'3',       
        // 用户令牌
        access_token:'',
        // 表格数据
-       typeData: [
-         {houseStatus:'租给苦逼学生'}
+       statusData: [
        ],
        listLoading:false,
        totalNum:1,
@@ -74,49 +76,110 @@ export default {
 
        // 表单规则验证
        rules:{
-         houseStatus:{
+         houseParamName:{
            required: true, message: '使用状态不能为空' , trigger: 'blur' 
          },
        },
 
        //编辑表单相关数据
+       selectHouseParamId:'',
        modifyFormVisible:false,
        modifyLoading:false,
        modifyFromBody:{
-         houseStatus:''
+         houseParamName:''
        },
       
       // 新增表单相关数据
        submitLoading:false,       
        addFormVisible: false,
        addFormBody:{
-         houseStatus:''
+         houseParamName:''
        }
      }
 
    },
-   components: {
-
+mounted () {
+     this.getList()
    },
    methods:{
-    //删除功能
-    delectType(){
-
-    },
-    // 新增提交
-    addSubmit(){
-
-    },
+     // 获取房屋状态
+     getList(){
+       this.listLoading=true
+       let param = {
+         page : this.page,
+         size : this.size
+       }
+       // http请求
+       getHouseParam(param,this.paramClass).then((res)=>{
+         this.layoutData=res.data.data.data
+         this.listLoading=false
+       }).catch((err)=>{
+         console.log(err)
+       })
+     },
+    // 删除功能
+    delectClass(index,row){
+      this.$confirm('此操作将删除该户型选项','提示',{
+        confirmButtonText:'确定',
+        cancelButtonText:'取消',
+        type:'warning'
+      }).then(()=>{
+        let param=''
+        let houseParamId=row.houseParamId
+        this.listLoading=true
+        deleteHouseParam(param,houseParamId).then((res)=>{
+          // 公共提示方法
+          common.statusinfo(this,res.data)
+          this.getList()
+          }).catch((err)=>{
+            console.log(err)
+            })
+        }).catch(()=>{
+          this.$message({
+            type: 'info',
+            message:'已取消删除'
+          });
+        });
+      },
+      // 新增提交
+      addSubmit(){
+        this.$refs['addForm'].validate((valid)=>{
+          if(valid){
+            this.submitLoadinga=true
+            let param=Object.assign({},this.addFormBody)
+            postHouseParam(param,this.paramClass).then((res)=>{
+              // 公共提示方法
+              common.statusinfo(this,res.data)
+              this.$refs['addForm'].resetFields()
+              this.submitLoading=false
+              this.addFormVisible=false
+              this.getList()
+            })
+          }
+        })
+      },
     //显示编辑
     showModifyDialog (index,row) {
       this.modifyFormVisible=true
       this.modifyFromBody= Object.assign({},row)
+      this.selectHouseParamId=row.houseParamId
       this.selectRowIndex=index
       //console.log(this.selectRowIndex)
     },
     //编辑提交
     modifySubmit(){
-
+      this.$refs['modifyFrom'].validate((valid)=>{
+        if(valid){
+          this.modifyLoading=true
+          let param=Object.assign({},this.modifyFromBody)
+          putHouseParam(param,this.selectHouseParamId).then((res)=>{
+            common.statusinfo(this,res.data)
+            this.modifyLoading=false
+            this.modifyFormVisible=false
+            this.getList()
+          })
+        }
+      })
     },
     //更换每页数量
     SizeChangeEvent(val){

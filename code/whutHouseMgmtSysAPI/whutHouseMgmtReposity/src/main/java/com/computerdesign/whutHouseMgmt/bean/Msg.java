@@ -19,7 +19,6 @@ public class Msg {
 	// 用户要返回给浏览器的数据
 	private Map<String, Object> data = new HashMap<String, Object>();
 
-
 	public String getStatus() {
 		return status;
 	}

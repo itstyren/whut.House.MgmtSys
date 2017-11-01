@@ -52,10 +52,12 @@
 	$(function () {
 		$("#houseParamGet").click(function () {
 			ajaxRequestGet("houseParam/get/1");
+
 		})
 		
 		$("#houseParamDelete").click(function () {
-			ajaxRequestPostType("houseParam/delete/3","DELETE",null);
+			var data={'houseParamId':5};
+			ajaxRequestPostType("houseParam/delete","DELETE",data);
 		})
 		
 		$("#houseParamAdd").click(function () {
@@ -69,6 +71,47 @@
 		})
 	})
 	
+	$(function () {
+		$("#fixParamGet").click(function () {
+			ajaxRequestGet("fixParam/get/20");
+		})
+		
+		$("#fixParamDelete").click(function () {
+			var data={'fixParamDelete':1};
+			ajaxRequestPostType("fixParam/delete","DELETE",data);
+		})
+		
+		$("#fixParamAdd").click(function () {
+			var data={'fixParamName':'测试维修', 'paramTypeId':20, 'paramTypeName':'维修内容'};
+			ajaxRequestPostType("fixParam/add","POST",data);
+		})
+		
+		$("#fixParamModify").click(function () {
+			var data={'fixParamId':1, 'fixParamName':'修改测试', 'paramTypeId':20, 'paramTypeName':'维修内容'};
+			ajaxRequestPostType("fixParam/modify","PUT",data);
+		})
+	})
+	
+	$(function () {
+		$("#rentalParamGet").click(function () {
+			ajaxRequestGet("rentalParam/get/21");
+		})
+		
+		$("#rentalParamDelete").click(function () {
+			var data={'rentalParamDelete':1};
+			ajaxRequestPostType("rentalParam/delete","DELETE",data);
+		})
+		
+		$("#rentalParamAdd").click(function () {
+			var data={'rentalParamName':'租金参数内容测试', 'paramTypeId':23, 'paramTypeName':'新老职工如何划分'};
+			ajaxRequestPostType("rentalParam/add","POST",data);
+		})
+		
+		$("#rentalParamModify").click(function () {
+			var data={'rentalParamId':1, 'rentalParamName':'修改测试', 'paramTypeId':21, 'paramTypeName':'划分'};
+			ajaxRequestPostType("rentalParam/modify","PUT",data);
+		})
+	})
 	
 </script>
 
@@ -76,11 +119,22 @@
 <body>
 	<h4>HouseParameterGetTest</h4>
 	<input type="button" value="HouseParamGet" id="houseParamGet" />
-	<h4>HouseParameterDeleteTest</h4>
 	<input type="button" value="HouseParamDelete" id="houseParamDelete" />
-	<h4>HouseParameterAddTest</h4>
 	<input type="button" value="HouseParamAdd" id="houseParamAdd" />
-	<h4>HouseParameterModifyTest</h4>
 	<input type="button" value="HouseParamModify" id="houseParamModify" />
+	
+	<hr>
+	<h4>FixParameterGetTest</h4>
+	<input type="button" value="FixParamGet" id="fixParamGet" />
+	<input type="button" value="FixParamDelete" id="fixParamDelete" />
+	<input type="button" value="FixParamAdd" id="fixParamAdd" />
+	<input type="button" value="FixParamModify" id="fixParamModify" />
+	
+	<hr>
+	<h4>RentalParameterGetTest</h4>
+	<input type="button" value="RentalParamGet" id="rentalParamGet" />
+	<input type="button" value="RentalParamDelete" id="rentalParamDelete" />
+	<input type="button" value="RentalParamAdd" id="rentalParamAdd" />
+	<input type="button" value="RentalParamModify" id="rentalParamModify" />
 </body>
 </html>

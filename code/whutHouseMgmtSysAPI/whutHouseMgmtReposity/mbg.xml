@@ -21,6 +21,7 @@
 		</javaTypeResolver>
 
 		<!-- 指定javabean的生成位置 -->
+
 		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.rentparam"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
@@ -28,6 +29,7 @@
 		</javaModelGenerator>
 
 		<!-- 指定sql映射文件的生成位置 -->
+
 		<sqlMapGenerator targetPackage="mapper.rentparam" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>

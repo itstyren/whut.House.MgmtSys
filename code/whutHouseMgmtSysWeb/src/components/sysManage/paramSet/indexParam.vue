@@ -43,6 +43,8 @@ import staffClass from './staffParam/staffClass'
 import staffStatus from './staffParam/staffStatus'
 import staffSpouse from './staffParam/staffSpouse'
 
+import rentPostVal from './rentParam/rentPostVal'
+
  export default {
    // 监视输入框参数值
     watch: {
@@ -112,7 +114,7 @@ import staffSpouse from './staffParam/staffSpouse'
            label:'租赁参数',
            children:[
              {
-               id:'position',
+               id:'rentPostVal',
                label:'职务分'
              },
              {
@@ -193,6 +195,8 @@ import staffSpouse from './staffParam/staffSpouse'
      houseType,houseLayout,houseStatus,houseStruct,
      // 职工参数组件
      staffDept,staffPost,staffTitle,staffClass,staffStatus,staffSpouse,
+     // 租赁参数组件
+     rentPostVal,
    }
  }
 </script>

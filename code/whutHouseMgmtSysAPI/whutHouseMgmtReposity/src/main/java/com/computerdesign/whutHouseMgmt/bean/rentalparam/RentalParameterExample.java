@@ -1,16 +1,16 @@
-package com.computerdesign.whutHouseMgmt.bean.houseparam;
+package com.computerdesign.whutHouseMgmt.bean.rentalparam;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HouseParameterExample {
+public class RentalParameterExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public HouseParameterExample() {
+    public RentalParameterExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,133 +104,133 @@ public class HouseParameterExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andHouseParamIdIsNull() {
-            addCriterion("HouseParamId is null");
+        public Criteria andRentalParamIdIsNull() {
+            addCriterion("RentalParamId is null");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamIdIsNotNull() {
-            addCriterion("HouseParamId is not null");
+        public Criteria andRentalParamIdIsNotNull() {
+            addCriterion("RentalParamId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamIdEqualTo(Integer value) {
-            addCriterion("HouseParamId =", value, "houseParamId");
+        public Criteria andRentalParamIdEqualTo(Integer value) {
+            addCriterion("RentalParamId =", value, "rentalParamId");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamIdNotEqualTo(Integer value) {
-            addCriterion("HouseParamId <>", value, "houseParamId");
+        public Criteria andRentalParamIdNotEqualTo(Integer value) {
+            addCriterion("RentalParamId <>", value, "rentalParamId");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamIdGreaterThan(Integer value) {
-            addCriterion("HouseParamId >", value, "houseParamId");
+        public Criteria andRentalParamIdGreaterThan(Integer value) {
+            addCriterion("RentalParamId >", value, "rentalParamId");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("HouseParamId >=", value, "houseParamId");
+        public Criteria andRentalParamIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("RentalParamId >=", value, "rentalParamId");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamIdLessThan(Integer value) {
-            addCriterion("HouseParamId <", value, "houseParamId");
+        public Criteria andRentalParamIdLessThan(Integer value) {
+            addCriterion("RentalParamId <", value, "rentalParamId");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamIdLessThanOrEqualTo(Integer value) {
-            addCriterion("HouseParamId <=", value, "houseParamId");
+        public Criteria andRentalParamIdLessThanOrEqualTo(Integer value) {
+            addCriterion("RentalParamId <=", value, "rentalParamId");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamIdIn(List<Integer> values) {
-            addCriterion("HouseParamId in", values, "houseParamId");
+        public Criteria andRentalParamIdIn(List<Integer> values) {
+            addCriterion("RentalParamId in", values, "rentalParamId");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamIdNotIn(List<Integer> values) {
-            addCriterion("HouseParamId not in", values, "houseParamId");
+        public Criteria andRentalParamIdNotIn(List<Integer> values) {
+            addCriterion("RentalParamId not in", values, "rentalParamId");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamIdBetween(Integer value1, Integer value2) {
-            addCriterion("HouseParamId between", value1, value2, "houseParamId");
+        public Criteria andRentalParamIdBetween(Integer value1, Integer value2) {
+            addCriterion("RentalParamId between", value1, value2, "rentalParamId");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("HouseParamId not between", value1, value2, "houseParamId");
+        public Criteria andRentalParamIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("RentalParamId not between", value1, value2, "rentalParamId");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameIsNull() {
-            addCriterion("HouseParamName is null");
+        public Criteria andRentalParamNameIsNull() {
+            addCriterion("RentalParamName is null");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameIsNotNull() {
-            addCriterion("HouseParamName is not null");
+        public Criteria andRentalParamNameIsNotNull() {
+            addCriterion("RentalParamName is not null");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameEqualTo(String value) {
-            addCriterion("HouseParamName =", value, "houseParamName");
+        public Criteria andRentalParamNameEqualTo(String value) {
+            addCriterion("RentalParamName =", value, "rentalParamName");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameNotEqualTo(String value) {
-            addCriterion("HouseParamName <>", value, "houseParamName");
+        public Criteria andRentalParamNameNotEqualTo(String value) {
+            addCriterion("RentalParamName <>", value, "rentalParamName");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameGreaterThan(String value) {
-            addCriterion("HouseParamName >", value, "houseParamName");
+        public Criteria andRentalParamNameGreaterThan(String value) {
+            addCriterion("RentalParamName >", value, "rentalParamName");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameGreaterThanOrEqualTo(String value) {
-            addCriterion("HouseParamName >=", value, "houseParamName");
+        public Criteria andRentalParamNameGreaterThanOrEqualTo(String value) {
+            addCriterion("RentalParamName >=", value, "rentalParamName");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameLessThan(String value) {
-            addCriterion("HouseParamName <", value, "houseParamName");
+        public Criteria andRentalParamNameLessThan(String value) {
+            addCriterion("RentalParamName <", value, "rentalParamName");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameLessThanOrEqualTo(String value) {
-            addCriterion("HouseParamName <=", value, "houseParamName");
+        public Criteria andRentalParamNameLessThanOrEqualTo(String value) {
+            addCriterion("RentalParamName <=", value, "rentalParamName");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameLike(String value) {
-            addCriterion("HouseParamName like", value, "houseParamName");
+        public Criteria andRentalParamNameLike(String value) {
+            addCriterion("RentalParamName like", value, "rentalParamName");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameNotLike(String value) {
-            addCriterion("HouseParamName not like", value, "houseParamName");
+        public Criteria andRentalParamNameNotLike(String value) {
+            addCriterion("RentalParamName not like", value, "rentalParamName");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameIn(List<String> values) {
-            addCriterion("HouseParamName in", values, "houseParamName");
+        public Criteria andRentalParamNameIn(List<String> values) {
+            addCriterion("RentalParamName in", values, "rentalParamName");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameNotIn(List<String> values) {
-            addCriterion("HouseParamName not in", values, "houseParamName");
+        public Criteria andRentalParamNameNotIn(List<String> values) {
+            addCriterion("RentalParamName not in", values, "rentalParamName");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameBetween(String value1, String value2) {
-            addCriterion("HouseParamName between", value1, value2, "houseParamName");
+        public Criteria andRentalParamNameBetween(String value1, String value2) {
+            addCriterion("RentalParamName between", value1, value2, "rentalParamName");
             return (Criteria) this;
         }
 
-        public Criteria andHouseParamNameNotBetween(String value1, String value2) {
-            addCriterion("HouseParamName not between", value1, value2, "houseParamName");
+        public Criteria andRentalParamNameNotBetween(String value1, String value2) {
+            addCriterion("RentalParamName not between", value1, value2, "rentalParamName");
             return (Criteria) this;
         }
 
@@ -361,76 +361,6 @@ public class HouseParameterExample {
 
         public Criteria andParamTypeNameNotBetween(String value1, String value2) {
             addCriterion("ParamTypeName not between", value1, value2, "paramTypeName");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelIsNull() {
-            addCriterion("HouseParamRel is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelIsNotNull() {
-            addCriterion("HouseParamRel is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelEqualTo(String value) {
-            addCriterion("HouseParamRel =", value, "houseParamRel");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelNotEqualTo(String value) {
-            addCriterion("HouseParamRel <>", value, "houseParamRel");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelGreaterThan(String value) {
-            addCriterion("HouseParamRel >", value, "houseParamRel");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelGreaterThanOrEqualTo(String value) {
-            addCriterion("HouseParamRel >=", value, "houseParamRel");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelLessThan(String value) {
-            addCriterion("HouseParamRel <", value, "houseParamRel");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelLessThanOrEqualTo(String value) {
-            addCriterion("HouseParamRel <=", value, "houseParamRel");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelLike(String value) {
-            addCriterion("HouseParamRel like", value, "houseParamRel");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelNotLike(String value) {
-            addCriterion("HouseParamRel not like", value, "houseParamRel");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelIn(List<String> values) {
-            addCriterion("HouseParamRel in", values, "houseParamRel");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelNotIn(List<String> values) {
-            addCriterion("HouseParamRel not in", values, "houseParamRel");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelBetween(String value1, String value2) {
-            addCriterion("HouseParamRel between", value1, value2, "houseParamRel");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseParamRelNotBetween(String value1, String value2) {
-            addCriterion("HouseParamRel not between", value1, value2, "houseParamRel");
             return (Criteria) this;
         }
 
