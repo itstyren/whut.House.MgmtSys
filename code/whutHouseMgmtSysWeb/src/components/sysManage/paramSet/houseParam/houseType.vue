@@ -123,10 +123,9 @@ import common from '@/common/util.js'
         cancelButtonText:'取消',
         type:'warning'
       }).then(()=>{
-        let param=''
-        let houseParamId=row.houseParamId
+        let param=row.houseParamId
         this.listLoading=true
-        deleteHouseParam(param,houseParamId).then((res)=>{
+        deleteHouseParam(param).then((res)=>{
           // 公共提示方法
           common.statusinfo(this,res.data)
           this.getList()
@@ -183,12 +182,12 @@ import common from '@/common/util.js'
     //更换每页数量
     SizeChangeEvent(val){
         this.size = val;
-        //this.getList();
+        this.getList();
     },
     //页码切换时
     CurrentChangeEvent(val){
         this.page = val;
-        //this.getList();
+        this.getList();
     }
    }
  }

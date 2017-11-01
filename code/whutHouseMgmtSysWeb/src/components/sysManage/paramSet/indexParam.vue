@@ -35,7 +35,7 @@ const houseType = () => import(/* webpackChunkName: "houseParam" */ './housePara
 const houseLayout = () => import(/* webpackChunkName: "houseParam" */ './houseParam/houseLayout')
 const houseStatus = () => import(/* webpackChunkName: "houseParam" */ './houseParam/houseStatus')
 const houseStruct = () => import(/* webpackChunkName: "houseParam" */ './houseParam/houseStruct')
-
+// 异步加载--职工参数
 const staffDept = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffDept')
 const staffPost = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffPost')
 const staffTitle = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffTitle')
@@ -43,14 +43,11 @@ const staffClass = () => import(/* webpackChunkName: "staffParam" */ './staffPar
 const staffStatus = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffStatus')
 const staffSpouse = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffSpouse')
 
-// import staffDept from './staffParam/staffDept'
-// import staffPost from './staffParam/staffPost'
-// import staffTitle from './staffParam/staffTitle' 
-// import staffClass from './staffParam/staffClass'
-// import staffStatus from './staffParam/staffStatus'
-// import staffSpouse from './staffParam/staffSpouse'
 
-import rentPostVal from './rentParam/rentPostVal'
+import rentPostVal from './rentParam/rentPostVal' 
+import rentTitleVal from './rentParam/rentTitleVal'   
+import rentPostArea from './rentParam/rentPostArea'  
+import rentTitleArea from './rentParam/rentTitleArea'  
 
 import fixContent from './fixParam/fixContent'
  export default {
@@ -126,13 +123,38 @@ import fixContent from './fixParam/fixContent'
                label:'职务分'
              },
              {
-               id:'mianji',
-               label:'享受面积'
+               id:'rentTitleVal',
+               label:'职称分'
              },
              {
-               id:'111',
-               label:'测试长度'
+               id:'rentPostArea',
+               label:'职务面积'
+             },             
+             {
+               id:'rentTitleArea',
+               label:'职称面积'
+             },
+             {
+               id:'rentIsOpenSel',
+               label:'是否开启选房'
+             },
+             {
+               id:'rentTimeBegin',
+               label:'选房开始时间'
+             },             
+             {
+               id:'rentTimeRanges',
+               label:'选房时间'
+             },            
+             {
+               id:'rentSelValReq',
+               label:'选房所需积分'
+             },             
+             {
+               id:'rentSelRules',
+               label:'选房规则'
              }
+             
            ]
          },
          // 维修参数
@@ -142,23 +164,7 @@ import fixContent from './fixParam/fixContent'
              {
                id:'fixContent',
                label:'维修内容'
-             },
-             {
-               id:'fixContent',
-               label:'维修内容'
-             },
-              {
-               id:'fixContent',
-               label:'维修内容'
-             },
-                          {
-               id:'fixContent',
-               label:'维修内容'
-             },
-                          {
-               id:'fixContent',
-               label:'维修内容'
-             },            
+             }           
            ]
          },
          // 租金参数
@@ -166,17 +172,21 @@ import fixContent from './fixParam/fixContent'
            label:'租金参数',
            children:[
              {
-               id:'ordORnew',
+               id:'rentalStaffTimeDiv',
                label:'新老职工分界点'
              },
-                          {
-               id:'ordORnew',
-               label:'新老职工分界点'
+             {
+               id:'rentalOldDct',
+               label:'老职工优惠比例'
              },
-                          {
-               id:'ordORnew',
-               label:'新老职工分界点'
-             }
+             {
+               id:'rentalNewDctYear',
+               label:'新职工优惠年限'
+             },             
+             {
+               id:'rentalNewDct',
+               label:'新职工优惠比例'
+             },
            ]
          }
        ],
@@ -204,7 +214,7 @@ import fixContent from './fixParam/fixContent'
      // 职工参数组件
      staffDept,staffPost,staffTitle,staffClass,staffStatus,staffSpouse,
      // 租赁参数组件
-     rentPostVal,
+     rentPostVal,rentTitleVal,rentPostArea,rentTitleArea,
      // 维修参数组件
      fixContent,
    }

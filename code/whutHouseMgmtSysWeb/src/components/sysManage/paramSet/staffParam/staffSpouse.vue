@@ -125,10 +125,9 @@ export default {
         cancelButtonText:'取消',
         type:'warning'
       }).then(()=>{
-        let param=''
-        let staffParamId=row.staffParamId
+        let param=row.staffParamId
         this.listLoading=true
-        deleteStaffParam(param,staffParamId).then((res)=>{
+        deleteStaffParam(param).then((res)=>{
           // 公共提示方法
           common.statusinfo(this,res.data)
           this.getList()
@@ -148,7 +147,8 @@ export default {
           if(valid){
             this.submitLoadinga=true
             let param=Object.assign({},this.addFormBody)
-            postStaffParam(param,this.paramClass).then((res)=>{
+            param.paramTypeId=this.paramClass
+            postStaffParam(param).then((res)=>{
               // 公共提示方法
               common.statusinfo(this,res.data)
               this.$refs['addForm'].resetFields()

@@ -84,7 +84,6 @@ export default {
        //编辑表单相关数据
        modifyFormVisible:false,
        modifyLoading:false,
-       selectStaffParamId:'',
        modifyFromBody:{
          staffParamName:''
        },
@@ -124,10 +123,9 @@ export default {
         cancelButtonText:'取消',
         type:'warning'
       }).then(()=>{
-        let param=''
-        let staffParamId=row.staffParamId
+        let param=row.staffParamId
         this.listLoading=true
-        deleteStaffParam(param,staffParamId).then((res)=>{
+        deleteStaffParam(param).then((res)=>{
           // 公共提示方法
           common.statusinfo(this,res.data)
           this.getList()
@@ -147,7 +145,8 @@ export default {
           if(valid){
             this.submitLoadinga=true
             let param=Object.assign({},this.addFormBody)
-            postStaffParam(param,this.paramClass).then((res)=>{
+            param.paramTypeId=this.paramClass                 
+            postStaffParam(param).then((res)=>{
               // 公共提示方法
               common.statusinfo(this,res.data)
               this.$refs['addForm'].resetFields()
@@ -162,7 +161,6 @@ export default {
     showModifyDialog (index,row) {
       this.modifyFormVisible=true
       this.modifyFromBody= Object.assign({},row)
-      this.selectStaffParamId=row.staffParamId
       this.selectRowIndex=index
       //console.log(this.selectRowIndex)
     },
@@ -172,7 +170,7 @@ export default {
         if(valid){
           this.modifyLoading=true
           let param=Object.assign({},this.modifyFromBody)
-          putStaffParam(param,this.selectStaffParamId).then((res)=>{
+          putStaffParam(param).then((res)=>{
             common.statusinfo(this,res.data)
             this.modifyLoading=false
             this.modifyFormVisible=false
