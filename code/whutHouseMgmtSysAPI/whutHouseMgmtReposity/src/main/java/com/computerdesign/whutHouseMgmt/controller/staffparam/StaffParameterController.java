@@ -29,37 +29,34 @@ public class StaffParameterController {
 	@Autowired
 	private ParamClassService paramClassService;
 
-	/**
-	 * 在所有请求之前执行，查出paramTypeName
-	 * 根据paramTypeId获取ParamClass对象，SpringMVC将其存入Map中，并可以作为目标方法的参数
-	 * 
-	 * @param paramTypeId
-	 */
-	@ModelAttribute
-	public void getParamTypeName(@PathVariable(value = "paramTypeId", required = false) Integer paramTypeId,
-			Map<String, Object> map) {
-		if (paramTypeId != null) {
-			ParamClass paramClass = paramClassService.get(paramTypeId);
-			System.out.println(paramClass.getParamTypeName());
-			map.put("paramClass", paramClass);
-		}
-	}
+//	/**
+//	 * 在所有请求之前执行，查出paramTypeName
+//	 * 根据paramTypeId获取ParamClass对象，SpringMVC将其存入Map中，并可以作为目标方法的参数
+//	 * 
+//	 * @param paramTypeId
+//	 */
+//	@ModelAttribute
+//	public void getParamTypeName(@PathVariable(value = "paramTypeId", required = false) Integer paramTypeId,
+//			Map<String, Object> map) {
+//		if (paramTypeId != null) {
+//			ParamClass paramClass = paramClassService.get(paramTypeId);
+//			System.out.println(paramClass.getParamTypeName());
+//			map.put("paramClass", paramClass);
+//		}
+//	}
 
 	@ResponseBody
-	@RequestMapping(value = "modify/{staffParamId}", method = RequestMethod.PUT)
-	public Msg modifyStaffParameter(@RequestBody StaffParameter staffParameterModel,
-			@PathVariable("staffParamId") Integer staffParamId) {
+	@RequestMapping(value = "modify", method = RequestMethod.PUT)
+	public Msg modifyStaffParameter(@RequestBody StaffParameter staffParameterModel) {
 		// System.out.println(staffParameterModel);
-		// System.out.println(staffParamId);
 		// 根据id获取到需要修改的职工参数
-		StaffParameter staffParameter = staffParameterService.get(staffParamId);
+		StaffParameter staffParameter = staffParameterService.get(staffParameterModel.getStaffParamId());
 		if (staffParameter == null) {
 			return Msg.error("数据库中找不到该记录");
 		} else {
 			try {
-				staffParameter.setStaffParamName(staffParameterModel.getStaffParamName());
-				staffParameterService.update(staffParameter);
-				return Msg.success().add("data", staffParameter);
+				staffParameterService.update(staffParameterModel);
+				return Msg.success().add("data", staffParameterModel);
 			} catch (Exception e) {
 				return Msg.error();
 			}
@@ -73,18 +70,15 @@ public class StaffParameterController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "add/{paramTypeId}", method = RequestMethod.POST)
-	public Msg addStaffParameter(@RequestBody StaffParameter staffParameterModel,
-			@PathVariable("paramTypeId") Integer paramTypeId, ParamClass paramClass) {
+	@RequestMapping(value = "add", method = RequestMethod.POST)
+	public Msg addStaffParameter(@RequestBody StaffParameter staffParameterModel) {
 		// System.out.println(StaffParameter);
 		// System.out.println(paramClass.getParamTypeName());
 		// 将参数封装成StaffParameter对象
-		StaffParameter staffParameter = new StaffParameter(staffParameterModel.getStaffParamName(), paramTypeId,
-				paramClass.getParamTypeName(), false);
-		if (staffParameter.getStaffParamName() != null && staffParameter.getParamTypeId() != null
-				&& staffParameter.getParamTypeName() != null) {
-			staffParameterService.add(staffParameter);
-			return Msg.success().add("data", staffParameter);
+		if (staffParameterModel.getStaffParamName() != null && staffParameterModel.getParamTypeId() != null
+				&& staffParameterModel.getParamTypeName() != null) {
+			staffParameterService.add(staffParameterModel);
+			return Msg.success().add("data", staffParameterModel);
 		} else {
 			return Msg.error("必要信息不完整，添加失败");
 		}
@@ -123,21 +117,24 @@ public class StaffParameterController {
 	@ResponseBody
 	@RequestMapping("get/{paramTypeId}")
 	public Msg getStaffParameter(@PathVariable("paramTypeId") Integer paramTypeId) {
-		// 获取所有参数
-		List<StaffParameter> staffParams = staffParameterService.getAll();
+//		// 获取所有参数
+//		List<StaffParameter> staffParams = staffParameterService.getAll();
+//
+//		// 用于封装结果数据
+//		List<StaffParameter> staffParamsResult = new ArrayList<StaffParameter>();
+//		for (StaffParameter staffParam : staffParams) {
+//			if (staffParam.getParamTypeId() == paramTypeId) {
+//				staffParamsResult.add(staffParam);
+//			}
+//		}
+		
+		//获取对应paramTypeId的参数
+		List<StaffParameter> staffParams = staffParameterService.getAllByParamTypeId(paramTypeId);
 
-		// 用于封装结果数据
-		List<StaffParameter> staffParamsResult = new ArrayList<StaffParameter>();
-		for (StaffParameter staffParam : staffParams) {
-			if (staffParam.getParamTypeId() == paramTypeId) {
-				staffParamsResult.add(staffParam);
-			}
-		}
-
-		if (staffParamsResult != null) {
-			return Msg.success().add("data", staffParamsResult);
+		if (staffParams != null) {
+			return Msg.success().add("data", staffParams);
 		} else {
-			return Msg.error();
+			return Msg.error("无数据");
 		}
 	}
 

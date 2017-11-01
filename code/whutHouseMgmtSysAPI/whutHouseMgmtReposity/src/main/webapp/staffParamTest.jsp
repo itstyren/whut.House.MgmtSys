@@ -73,17 +73,18 @@
 		})
 		
 		$("#staffParamDelete").click(function () {
-			ajaxRequestPostType("staffParam/delete/3","DELETE",null);
+			//var data={'staffParamId':189};
+			ajaxRequestPostType("staffParam/delete/189","DELETE",null);
 		})
 		
 		$("#staffParamAdd").click(function () {
-			var data={'staffParamName':'党员'};
-			ajaxRequestPostType("staffParam/add/5","POST",data);
+			var data={'staffParamName':'党员','paramTypeId':5,'paramTypeName':'工作部门'};
+			ajaxRequestPostType("staffParam/add","POST",data);
 		})
 		
 		$("#staffParamModify").click(function () {
-			var data={'staffParamName':'修改测试3'};
-			ajaxRequestPostType("staffParam/modify/160","PUT",data);
+			var data={'staffParamId':187,'staffParamName':'修改测试3','paramTypeId':5,'paramTypeName':'工作部门'};
+			ajaxRequestPostType("staffParam/modify","PUT",data);
 		})
 	})
 	

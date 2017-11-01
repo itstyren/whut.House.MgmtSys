@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computerdesign.whutHouseMgmt.dao.paramclass.ParamClassMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass">
-    <id column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.rentparam.RentParameterMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.rentparam.RentParameter">
+    <id column="RentParamId" jdbcType="INTEGER" property="rentParamId" />
+    <result column="RentParamName" jdbcType="VARCHAR" property="rentParamName" />
+    <result column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
     <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
-    <result column="ParamTypeIName" jdbcType="VARCHAR" property="paramTypeIName" />
-    <result column="ParamClassId" jdbcType="VARCHAR" property="paramClassId" />
-    <result column="ParamClassName" jdbcType="VARCHAR" property="paramClassName" />
+    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ParamTypeId, ParamTypeName, ParamTypeIName, ParamClassId, ParamClassName
+    RentParamId, RentParamName, ParamTypeId, ParamTypeName, IsDelete
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClassExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentParameterExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from pm_paramclass
+    from pm_renttype
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,85 +86,85 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from pm_paramclass
-    where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}
+    from pm_renttype
+    where RentParamId = #{rentParamId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from pm_paramclass
-    where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}
+    delete from pm_renttype
+    where RentParamId = #{rentParamId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClassExample">
-    delete from pm_paramclass
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentParameterExample">
+    delete from pm_renttype
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass">
-    insert into pm_paramclass (ParamTypeId, ParamTypeName, ParamTypeIName, 
-      ParamClassId, ParamClassName)
-    values (#{paramTypeId,jdbcType=INTEGER}, #{paramTypeName,jdbcType=VARCHAR}, #{paramTypeIName,jdbcType=VARCHAR}, 
-      #{paramClassId,jdbcType=VARCHAR}, #{paramClassName,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentParameter">
+    insert into pm_renttype (RentParamId, RentParamName, ParamTypeId, 
+      ParamTypeName, IsDelete)
+    values (#{rentParamId,jdbcType=INTEGER}, #{rentParamName,jdbcType=VARCHAR}, #{paramTypeId,jdbcType=INTEGER}, 
+      #{paramTypeName,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass">
-    insert into pm_paramclass
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentParameter">
+    insert into pm_renttype
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rentParamId != null">
+        RentParamId,
+      </if>
+      <if test="rentParamName != null">
+        RentParamName,
+      </if>
       <if test="paramTypeId != null">
         ParamTypeId,
       </if>
       <if test="paramTypeName != null">
         ParamTypeName,
       </if>
-      <if test="paramTypeIName != null">
-        ParamTypeIName,
-      </if>
-      <if test="paramClassId != null">
-        ParamClassId,
-      </if>
-      <if test="paramClassName != null">
-        ParamClassName,
+      <if test="isDelete != null">
+        IsDelete,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rentParamId != null">
+        #{rentParamId,jdbcType=INTEGER},
+      </if>
+      <if test="rentParamName != null">
+        #{rentParamName,jdbcType=VARCHAR},
+      </if>
       <if test="paramTypeId != null">
         #{paramTypeId,jdbcType=INTEGER},
       </if>
       <if test="paramTypeName != null">
         #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="paramTypeIName != null">
-        #{paramTypeIName,jdbcType=VARCHAR},
-      </if>
-      <if test="paramClassId != null">
-        #{paramClassId,jdbcType=VARCHAR},
-      </if>
-      <if test="paramClassName != null">
-        #{paramClassName,jdbcType=VARCHAR},
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClassExample" resultType="java.lang.Long">
-    select count(*) from pm_paramclass
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentParameterExample" resultType="java.lang.Long">
+    select count(*) from pm_renttype
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update pm_paramclass
+    update pm_renttype
     <set>
+      <if test="record.rentParamId != null">
+        RentParamId = #{record.rentParamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rentParamName != null">
+        RentParamName = #{record.rentParamName,jdbcType=VARCHAR},
+      </if>
       <if test="record.paramTypeId != null">
         ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
       </if>
       <if test="record.paramTypeName != null">
         ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.paramTypeIName != null">
-        ParamTypeIName = #{record.paramTypeIName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.paramClassId != null">
-        ParamClassId = #{record.paramClassId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.paramClassName != null">
-        ParamClassName = #{record.paramClassName,jdbcType=VARCHAR},
+      <if test="record.isDelete != null">
+        IsDelete = #{record.isDelete,jdbcType=BIT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -172,40 +172,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update pm_paramclass
-    set ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
+    update pm_renttype
+    set RentParamId = #{record.rentParamId,jdbcType=INTEGER},
+      RentParamName = #{record.rentParamName,jdbcType=VARCHAR},
+      ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
-      ParamTypeIName = #{record.paramTypeIName,jdbcType=VARCHAR},
-      ParamClassId = #{record.paramClassId,jdbcType=VARCHAR},
-      ParamClassName = #{record.paramClassName,jdbcType=VARCHAR}
+      IsDelete = #{record.isDelete,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass">
-    update pm_paramclass
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentParameter">
+    update pm_renttype
     <set>
+      <if test="rentParamName != null">
+        RentParamName = #{rentParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramTypeId != null">
+        ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
+      </if>
       <if test="paramTypeName != null">
         ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="paramTypeIName != null">
-        ParamTypeIName = #{paramTypeIName,jdbcType=VARCHAR},
-      </if>
-      <if test="paramClassId != null">
-        ParamClassId = #{paramClassId,jdbcType=VARCHAR},
-      </if>
-      <if test="paramClassName != null">
-        ParamClassName = #{paramClassName,jdbcType=VARCHAR},
+      <if test="isDelete != null">
+        IsDelete = #{isDelete,jdbcType=BIT},
       </if>
     </set>
-    where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}
+    where RentParamId = #{rentParamId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass">
-    update pm_paramclass
-    set ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
-      ParamTypeIName = #{paramTypeIName,jdbcType=VARCHAR},
-      ParamClassId = #{paramClassId,jdbcType=VARCHAR},
-      ParamClassName = #{paramClassName,jdbcType=VARCHAR}
-    where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentParameter">
+    update pm_renttype
+    set RentParamName = #{rentParamName,jdbcType=VARCHAR},
+      ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
+      ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
+      IsDelete = #{isDelete,jdbcType=BIT}
+    where RentParamId = #{rentParamId,jdbcType=INTEGER}
   </update>
 </mapper>

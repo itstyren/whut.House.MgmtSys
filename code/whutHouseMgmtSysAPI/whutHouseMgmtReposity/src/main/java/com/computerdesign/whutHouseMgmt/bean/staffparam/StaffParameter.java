@@ -9,9 +9,9 @@ public class StaffParameter {
 
     private String paramTypeName;
 
-    private Integer staffParamFra;
+    private Integer staffParamVal;
 
-    private Integer staffParamSpouseFra;
+    private Integer staffParamSpouseVal;
 
     private Float staffParamHouseArea;
 
@@ -49,20 +49,20 @@ public class StaffParameter {
         this.paramTypeName = paramTypeName == null ? null : paramTypeName.trim();
     }
 
-    public Integer getStaffParamFra() {
-        return staffParamFra;
+    public Integer getStaffParamVal() {
+        return staffParamVal;
     }
 
-    public void setStaffParamFra(Integer staffParamFra) {
-        this.staffParamFra = staffParamFra;
+    public void setStaffParamVal(Integer staffParamVal) {
+        this.staffParamVal = staffParamVal;
     }
 
-    public Integer getStaffParamSpouseFra() {
-        return staffParamSpouseFra;
+    public Integer getStaffParamSpouseVal() {
+        return staffParamSpouseVal;
     }
 
-    public void setStaffParamSpouseFra(Integer staffParamSpouseFra) {
-        this.staffParamSpouseFra = staffParamSpouseFra;
+    public void setStaffParamSpouseVal(Integer staffParamSpouseVal) {
+        this.staffParamSpouseVal = staffParamSpouseVal;
     }
 
     public Float getStaffParamHouseArea() {
