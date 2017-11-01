@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
@@ -18,6 +19,8 @@ import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.service.paramclass.ParamClassService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @RequestMapping("/staffParam/")
 @Controller
@@ -115,8 +118,10 @@ public class StaffParameterController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("get/{paramTypeId}")
-	public Msg getStaffParameter(@PathVariable("paramTypeId") Integer paramTypeId) {
+	@RequestMapping(value = "get/{paramTypeId}",method=RequestMethod.GET)
+	public Msg getStaffParameter(@PathVariable("paramTypeId") Integer paramTypeId,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
 		// // 获取所有参数
 		// List<StaffParameter> staffParams = staffParameterService.getAll();
 		//
@@ -129,11 +134,15 @@ public class StaffParameterController {
 		// }
 		// }
 
+		PageHelper.startPage(page, size);
+
 		// 获取对应paramTypeId的参数
 		List<StaffParameter> staffParams = staffParameterService.getAllByParamTypeId(paramTypeId);
 
+		PageInfo pageInfo = new PageInfo(staffParams);
+
 		if (staffParams != null) {
-			return Msg.success().add("data", staffParams);
+			return Msg.success().add("data", pageInfo);
 		} else {
 			return Msg.error("无数据");
 		}
