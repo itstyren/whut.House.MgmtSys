@@ -49,19 +49,19 @@ public class StaffParameter {
         this.paramTypeName = paramTypeName == null ? null : paramTypeName.trim();
     }
 
-    public Integer getStaffParamFra() {
+    public Integer getStaffParamVal() {
         return staffParamVal;
     }
 
-    public void setStaffParamFra(Integer staffParamVal) {
+    public void setStaffParamVal(Integer staffParamVal) {
         this.staffParamVal = staffParamVal;
     }
 
-    public Integer getStaffParamSpouseFra() {
+    public Integer getStaffParamSpouseVal() {
         return staffParamSpouseVal;
     }
 
-    public void setStaffParamSpouseFra(Integer staffParamSpouseVal) {
+    public void setStaffParamSpouseVal(Integer staffParamSpouseVal) {
         this.staffParamSpouseVal = staffParamSpouseVal;
     }
 

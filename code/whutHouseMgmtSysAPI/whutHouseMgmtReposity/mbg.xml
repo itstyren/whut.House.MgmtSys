@@ -13,7 +13,7 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql:///whlglease" userId="root" password="qweasd">
+			connectionURL="jdbc:mysql:///whlglease" userId="root" password="XH05250619.">
 		</jdbcConnection>
 
 		<javaTypeResolver>
@@ -21,20 +21,22 @@
 		</javaTypeResolver>
 
 		<!-- 指定javabean的生成位置 -->
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.rentalparam"
+
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.rentparam"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
 		<!-- 指定sql映射文件的生成位置 -->
-		<sqlMapGenerator targetPackage="mapper.rentalparam" targetProject=".\src\main\resources">
+
+		<sqlMapGenerator targetPackage="mapper.rentparam" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.rentalparam" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.rentparam" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -42,7 +44,10 @@
 		<!-- <table tableName="pm_stafftype" domainObjectName="StaffParameter">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="PM_RentalType" domainObjectName="RentalParameter">
+		<!-- <table tableName="pm_paramclass" domainObjectName="ParamClass">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<table tableName="pm_renttype" domainObjectName="RentParameter">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 

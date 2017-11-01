@@ -45,11 +45,11 @@ public class HouseParameter {
         this.paramTypeName = paramTypeName == null ? null : paramTypeName.trim();
     }
 
-    public String getHouseParamRelation() {
+    public String getHouseParamRel() {
         return houseParamRel;
     }
 
-    public void setHouseParamRelation(String houseParamRel) {
+    public void setHouseParamRel(String houseParamRel) {
         this.houseParamRel = houseParamRel == null ? null : houseParamRel.trim();
     }
 
