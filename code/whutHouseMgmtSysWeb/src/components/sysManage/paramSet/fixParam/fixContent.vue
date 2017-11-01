@@ -2,11 +2,11 @@
 <div>
 <!-- 右侧主要内容 -->
 <el-col :span="24" class="right-main">
-  <el-col :span="24" class="topic"><h1>住房户型参数</h1></el-col>
+  <el-col :span="24" class="topic"><h1>维修内容参数</h1></el-col>
   <!-- 工具条 -->
   <el-col :span="24" class="toolBar" >    
     <el-form :inline="true" style="margin-bottom:15px">
-      <el-button type="primary" @click="addFormVisible = true" >新增户型</el-button>
+      <el-button type="primary" @click="addFormVisible = true" >新增内容</el-button>
     </el-form>
   </el-col>
   <!-- 表格区域 -->
@@ -14,7 +14,7 @@
     <el-table :data="layoutData" border style="width:100%" v-loading="listLoading" max-height="450">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
-      <el-table-column prop="houseParamName" label="住房户型" sortable align="center" ></el-table-column>
+      <el-table-column prop="fixParamName" label="维修内容" sortable align="center" ></el-table-column>
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope" >
             <el-button  size="small" @click="showModifyDialog(scope.$index,scope.row)" >编辑</el-button>
@@ -30,10 +30,10 @@
   </el-col>
 </el-col>
     <!-- 新增表单 -->
-    <el-dialog title="新增住房户型" :visible.sync="addFormVisible" v-loading="submitLoading" >
+    <el-dialog title="新增维修内容" :visible.sync="addFormVisible" v-loading="submitLoading" >
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="住房户型" prop="houseParamName">
-          <el-input v-model="addFormBody.houseParamName" placeholder="请输入住房户型"  ></el-input>
+        <el-form-item label="维修内容" prop="fixParamName">
+          <el-input v-model="addFormBody.fixParamName" placeholder="请输入维修内容"  ></el-input>
         </el-form-item>     
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -43,10 +43,10 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑住房类型" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
+    <el-dialog title="编辑维修内容" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules" >
-        <el-form-item label="住房类型" prop="houseParamName"  >
-          <el-input v-model="modifyFromBody.houseParamName" placeholder="请输入住房类型"  ></el-input>
+        <el-form-item label="维修内容" prop="fixParamName"  >
+          <el-input v-model="modifyFromBody.fixParamName" placeholder="请输入维修内容"  ></el-input>
         </el-form-item>   
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -58,12 +58,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {getHouseParam,deleteHouseParam,postHouseParam,putHouseParam} from '@/api/api'
+import {getFixParam,deleteFixParam,postFixParam,putFixParam} from '@/api/api'
 import common from '@/common/util.js'
 export default {
    data() {
      return {
-       paramClass:2,
+       paramClass:20,
        // 用户令牌
        access_token:'',
        // 表格数据
@@ -76,8 +76,8 @@ export default {
 
        // 表单规则验证
        rules:{
-         houseParamName:{
-           required: true, message: '住房户型不能为空' , trigger: 'blur' 
+         fixParamName:{
+           required: true, message: '维修内容不能为空' , trigger: 'blur' 
          },
        },
 
@@ -85,14 +85,14 @@ export default {
        modifyFormVisible:false,
        modifyLoading:false,
        modifyFromBody:{
-         houseParamName:''
+         fixParamName:''
        },
       
       // 新增表单相关数据
        submitLoading:false,       
        addFormVisible: false,
        addFormBody:{
-         houseParamName:''
+         fixParamName:''
        }
      }
 
@@ -109,7 +109,7 @@ export default {
          size : this.size
        }
        // http请求
-       getHouseParam(param,this.paramClass).then((res)=>{
+       getFixParam(param,this.paramClass).then((res)=>{
          this.layoutData=res.data.data.data.list
          this.totalNum=res.data.data.data.total
          this.listLoading=false
@@ -127,7 +127,7 @@ export default {
         let param=row.houseParamId
         console.log(param)
         this.listLoading=true
-        deleteHouseParam(param).then((res)=>{
+        deleteFixParam(param).then((res)=>{
           // 公共提示方法
           common.statusinfo(this,res.data)
           this.getList()
@@ -148,7 +148,7 @@ export default {
             this.submitLoading=true
             let param=Object.assign({},this.addFormBody)
             param.paramTypeId=this.paramClass
-            postHouseParam(param).then((res)=>{
+            postFixParam(param).then((res)=>{
               // 公共提示方法
               common.statusinfo(this,res.data)
               this.$refs['addForm'].resetFields()
@@ -172,7 +172,7 @@ export default {
         if(valid){
           this.modifyLoading=true
           let param=Object.assign({},this.modifyFromBody)
-          putHouseParam(param).then((res)=>{
+          putFixParam(param).then((res)=>{
             common.statusinfo(this,res.data)
             this.modifyLoading=false
             this.modifyFormVisible=false

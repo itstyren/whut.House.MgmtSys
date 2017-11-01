@@ -28,7 +28,7 @@ public class HouseParameterController {
 	
 	/**
 	 * 
-	 * »ñÈ¡ÏàÓ¦µÄ·¿ÎÝÀà±ðÐÅÏ¢
+	 * ï¿½ï¿½È¡ï¿½ï¿½Ó¦ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @param paramTypeId
 	 * @return 
 	 */
@@ -38,9 +38,9 @@ public class HouseParameterController {
 	public Msg getHouseParameter(@PathVariable("paramTypeId")Integer paramTypeId,
 			@RequestParam(value="page",defaultValue="1")Integer page,
 			@RequestParam(value="size",defaultValue="10")Integer size){
-		//·ÖÒ³²éÑ¯
+		//ï¿½ï¿½Ò³ï¿½ï¿½Ñ¯
 		PageHelper.startPage(page,size);
-		//¸ù¾ÝparamTypeIdÀ´²éÕÒ
+		//ï¿½ï¿½ï¿½ï¿½paramTypeIdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		List<HouseParameter> houseParams=houseParamService.getAll(paramTypeId);
 		//
 		PageInfo pageInfo=new PageInfo(houseParams);
@@ -53,36 +53,36 @@ public class HouseParameterController {
 	}
 	
 	/**
-	 * Ìí¼ÓÒ»Ìõ·¿ÎÝ²ÎÊý
+	 * ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½
 	 * @param houseParameter
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value="add",method=RequestMethod.POST)
 	public Msg addHouseParameter(@RequestBody HouseParameter houseParameter){
-		//·¿ÎÝ²ÎÊýÃûÎª¿Õ
+		//ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
 		if(houseParameter.getHouseParamName()!=null){
-			//·¿ÎÝÀà±ðIDÎª¿Õ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDÎªï¿½ï¿½
 			if(houseParameter.getParamTypeId()!=null){
 				houseParamService.add(houseParameter);
 				return  Msg.success().add("data", houseParameter);
 			}else{
-				return Msg.error("·¿ÎÝÀà±ðIDÎª¿Õ");
+				return Msg.error("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDÎªï¿½ï¿½");
 			}
 		}else{
-			return Msg.error("·¿ÎÝ²ÎÊýÃûÎª¿Õ");
+			return Msg.error("ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½");
 		}
 	}
 	
 	/**
-	 * ¸ù¾ÝhouseParamIdÉ¾³ýÒ»Ìõ¼ÇÂ¼
+	 * ï¿½ï¿½ï¿½ï¿½houseParamIdÉ¾ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Â¼
 	 * @param houseParamId
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value="delete/{houseParamId}",method=RequestMethod.DELETE)
 	public Msg deleteHouseParam(@PathVariable("houseParamId") Integer houseParamId){
-		//houseParamId²»´æÔÚ
+		//houseParamIdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		HouseParameter houseParameter=houseParamService.get(houseParamId);
 		if(houseParameter!=null){
 			try {
@@ -94,12 +94,12 @@ public class HouseParameterController {
 			}
 			
 		}else{
-			return  Msg.error("houseParamId²»´æÔÚ");
+			return  Msg.error("houseParamIdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
 	}
 	
 	/**
-	 * ÐÞ¸ÄÒ»Ìõ¼ÇÂ¼
+	 * ï¿½Þ¸ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Â¼
 	 * @param houseParameter
 	 * @return
 	 */

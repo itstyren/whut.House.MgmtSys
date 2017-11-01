@@ -16,8 +16,18 @@ export const putStaffParam = (params, staffParamId) => { return axios.put(`${bas
 // 获取方法
 export const getHouseParam = (params, paramClass) => { return axios.get(`${base}houseParam/get/${paramClass}`, { params: params }) }
 // 删除方法
-export const deleteHouseParam = (params, houseParamId) => { return axios.delete(`${base}houseParam/delete/${houseParamId}`, { params: params }) }
+export const deleteHouseParam = (paramsId) => { return axios.delete(`${base}houseParam/delete/${paramsId}`) }
 // 新增方法
-export const postHouseParam = (params, paramClass) => { return axios.post(`${base}houseParam/add/${paramClass}`, params) }
+export const postHouseParam = (params) => { return axios.post(`${base}houseParam/add`, params) }
 // 编辑方法
-export const putHouseParam = (params, houseParamId) => { return axios.put(`${base}houseParam/modify/${houseParamId}`, params) }
+export const putHouseParam = (params) => { return axios.put(`${base}houseParam/modify`, params) }
+
+// 参数设置--维修参数
+// 获取方法
+export const getFixParam = (params, paramClass) => { return axios.get(`${base}fixParam/get/${paramClass}`, { params: params }) }
+// 删除方法
+export const deleteFixParam = (paramsId) => { return axios.delete(`${base}fixParam/delete/${paramsId}`) }
+// 新增方法
+export const postFixParam = (params) => { return axios.post(`${base}fixParam/add`, params) }
+// 编辑方法
+export const putFixParam = (params) => { return axios.put(`${base}fixParam/modify`, params) }
