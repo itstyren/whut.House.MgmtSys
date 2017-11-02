@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
@@ -18,6 +19,8 @@ import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.service.paramclass.ParamClassService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @RequestMapping("/staffParam/")
 @Controller
@@ -30,8 +33,8 @@ public class StaffParameterController {
 	private ParamClassService paramClassService;
 
 	// /**
-	// * ÔÚËùÓÐÇëÇóÖ®Ç°Ö´ÐÐ£¬²é³öparamTypeName
-	// * ¸ù¾ÝparamTypeId»ñÈ¡ParamClass¶ÔÏó£¬SpringMVC½«Æä´æÈëMapÖÐ£¬²¢¿ÉÒÔ×÷ÎªÄ¿±ê·½·¨µÄ²ÎÊý
+	// * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°Ö´ï¿½Ð£ï¿½ï¿½ï¿½ï¿½paramTypeName
+	// * ï¿½ï¿½ï¿½ï¿½paramTypeIdï¿½ï¿½È¡ParamClassï¿½ï¿½ï¿½ï¿½SpringMVCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Mapï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÄ¿ï¿½ê·½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 	// *
 	// * @param paramTypeId
 	// */
@@ -50,10 +53,10 @@ public class StaffParameterController {
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
 	public Msg modifyStaffParameter(@RequestBody StaffParameter staffParameterModel) {
 		// System.out.println(staffParameterModel);
-		// ¸ù¾Ýid»ñÈ¡µ½ÐèÒªÐÞ¸ÄµÄÖ°¹¤²ÎÊý
+		// ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Òªï¿½Þ¸Äµï¿½Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		StaffParameter staffParameter = staffParameterService.get(staffParameterModel.getStaffParamId());
 		if (staffParameter == null) {
-			return Msg.error("Êý¾Ý¿âÖÐÕÒ²»µ½¸Ã¼ÇÂ¼");
+			return Msg.error("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½Â¼");
 		} else {
 			try {
 				staffParameterService.update(staffParameterModel);
@@ -65,7 +68,7 @@ public class StaffParameterController {
 	}
 
 	/**
-	 * Ìí¼ÓÒ»ÌõÖ°¹¤²ÎÊý¼ÇÂ¼
+	 * ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼
 	 * 
 	 * @param StaffParameter
 	 * @return
@@ -75,18 +78,18 @@ public class StaffParameterController {
 	public Msg addStaffParameter(@RequestBody StaffParameter staffParameterModel) {
 		// System.out.println(StaffParameter);
 		// System.out.println(paramClass.getParamTypeName());
-		// ½«²ÎÊý·â×°³ÉStaffParameter¶ÔÏó
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½StaffParameterï¿½ï¿½ï¿½ï¿½
 		if (staffParameterModel.getStaffParamName() != null && staffParameterModel.getParamTypeId() != null) {
 			staffParameterService.add(staffParameterModel);
 			return Msg.success().add("data", staffParameterModel);
 		} else {
-			return Msg.error("±ØÒªÐÅÏ¢²»ÍêÕû£¬Ìí¼ÓÊ§°Ü");
+			return Msg.error("ï¿½ï¿½Òªï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 		}
 
 	}
 
 	/**
-	 * ¸ù¾ÝStaffParamIdÉ¾³ý¶ÔÓ¦¼ÇÂ¼
+	 * ï¿½ï¿½ï¿½ï¿½StaffParamIdÉ¾ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Â¼
 	 * 
 	 * @param StaffParamId
 	 * @return
@@ -96,7 +99,7 @@ public class StaffParameterController {
 	public Msg deleteStaffParameter(@PathVariable("staffParamId") Integer staffParamId) {
 		StaffParameter staffParameter = staffParameterService.get(staffParamId);
 		if (staffParameter == null) {
-			return Msg.error("Êý¾Ý¿âÖÐÎÞ¸Ã¼ÇÂ¼");
+			return Msg.error("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Þ¸Ã¼ï¿½Â¼");
 		} else {
 			try {
 				staffParameterService.delete(staffParamId);
@@ -109,18 +112,20 @@ public class StaffParameterController {
 	}
 
 	/**
-	 * ¸ù¾ÝparamTypeId»ñÈ¡¶ÔÓ¦ÀàÐÍÖ°¹¤²ÎÊý
+	 * ï¿½ï¿½ï¿½ï¿½paramTypeIdï¿½ï¿½È¡ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param paramTypeId
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("get/{paramTypeId}")
-	public Msg getStaffParameter(@PathVariable("paramTypeId") Integer paramTypeId) {
-		// // »ñÈ¡ËùÓÐ²ÎÊý
+	@RequestMapping(value = "get/{paramTypeId}",method=RequestMethod.GET)
+	public Msg getStaffParameter(@PathVariable("paramTypeId") Integer paramTypeId,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		// // ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½
 		// List<StaffParameter> staffParams = staffParameterService.getAll();
 		//
-		// // ÓÃÓÚ·â×°½á¹ûÊý¾Ý
+		// // ï¿½ï¿½ï¿½Ú·ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		// List<StaffParameter> staffParamsResult = new
 		// ArrayList<StaffParameter>();
 		// for (StaffParameter staffParam : staffParams) {
@@ -129,13 +134,17 @@ public class StaffParameterController {
 		// }
 		// }
 
-		// »ñÈ¡¶ÔÓ¦paramTypeIdµÄ²ÎÊý
+		PageHelper.startPage(page, size);
+
+		// ï¿½ï¿½È¡ï¿½ï¿½Ó¦paramTypeIdï¿½Ä²ï¿½ï¿½ï¿½
 		List<StaffParameter> staffParams = staffParameterService.getAllByParamTypeId(paramTypeId);
 
+		PageInfo pageInfo = new PageInfo(staffParams);
+
 		if (staffParams != null) {
-			return Msg.success().add("data", staffParams);
+			return Msg.success().add("data", pageInfo);
 		} else {
-			return Msg.error("ÎÞÊý¾Ý");
+			return Msg.error("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
 	}
 

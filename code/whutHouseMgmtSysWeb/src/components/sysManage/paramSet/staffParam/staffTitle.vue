@@ -111,7 +111,8 @@ export default {
        }
        // http请求
        getStaffParam(param,this.paramClass).then((res)=>{
-         this.tittleData=res.data.data.data
+         this.tittleData=res.data.data.data.list
+         this.totalNum=res.data.data.data.total
          this.listLoading=false
        }).catch((err)=>{
          console.log(err)
@@ -124,10 +125,9 @@ export default {
         cancelButtonText:'取消',
         type:'warning'
       }).then(()=>{
-        let param=''
-        let staffParamId=row.staffParamId
+        let param=row.staffParamId
         this.listLoading=true
-        deleteStaffParam(param,staffParamId).then((res)=>{
+        deleteStaffParam(param).then((res)=>{
           // 公共提示方法
           common.statusinfo(this,res.data)
           this.getList()
@@ -147,7 +147,8 @@ export default {
           if(valid){
             this.submitLoadinga=true
             let param=Object.assign({},this.addFormBody)
-            postStaffParam(param,this.paramClass).then((res)=>{
+            param.paramTypeId=this.paramClass
+            postStaffParam(param).then((res)=>{
               // 公共提示方法
               common.statusinfo(this,res.data)
               this.$refs['addForm'].resetFields()
@@ -184,14 +185,12 @@ export default {
     //更换每页数量
     SizeChangeEvent(val){
         this.size = val;
-        //this.getList();
-        PubMethod.logMessage(this.page + "   " + this.size);
+        this.getList();
     },
     //页码切换时
     CurrentChangeEvent(val){
         this.page = val;
-        //this.getList();
-        PubMethod.logMessage(this.page + "   " + this.size);
+        this.getList();
     }
    }
  }

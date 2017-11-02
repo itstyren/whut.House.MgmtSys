@@ -50,7 +50,7 @@
 		
 	$(function () {
 		$("#rentParamAboutStaffGet").click(function () {
-			ajaxRequestGet("rentParamAboutStaff/get/11");
+			ajaxRequestGet("rentParamAboutStaff/get/11?page=2&size=4");
 		})
 		
 		$("#rentParamAboutStaffModify").click(function () {

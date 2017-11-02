@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.rentparam.RentParameter;
 import com.computerdesign.whutHouseMgmt.service.rentparam.RentParameterService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @RequestMapping("/rentParam/")
 @Controller
@@ -21,17 +24,16 @@ public class RentParameterController {
 
 	@Autowired
 	private RentParameterService rentParameterService;
-	
+
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public Msg addRentParam(@RequestBody RentParameter rentParameterModel) {
-		if (rentParameterModel.getRentParamName() != null
-				&& rentParameterModel.getParamTypeId() != null) {
+		if (rentParameterModel.getRentParamName() != null && rentParameterModel.getParamTypeId() != null) {
 			try {
 				rentParameterService.add(rentParameterModel);
 				return Msg.success().add("data", rentParameterModel);
 			} catch (Exception e) {
-				return Msg.error("³öÏÖÒì³££¬´¦ÀíÊ§°Ü");
+				return Msg.error("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 			}
 		} else {
 			return Msg.error();
@@ -48,7 +50,7 @@ public class RentParameterController {
 				rentParameterService.delete(rentParamId);
 				return Msg.success().add("data", rentParameter);
 			} catch (Exception e) {
-				return Msg.error("³öÏÖÒì³££¬´¦ÀíÊ§°Ü");
+				return Msg.error("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 			}
 		} else {
 			return Msg.error();
@@ -65,7 +67,7 @@ public class RentParameterController {
 				rentParameterService.update(rentParameterModel);
 				return Msg.success().add("data", rentParameterModel);
 			} catch (Exception e) {
-				return Msg.error("³öÏÖÒì³££¬´¦ÀíÊ§°Ü");
+				return Msg.error("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 			}
 		} else {
 			return Msg.error();
@@ -75,16 +77,23 @@ public class RentParameterController {
 
 	@ResponseBody
 	@RequestMapping("get/{paramTypeId}")
-	public Msg getRentParam(@PathVariable("paramTypeId") Integer paramTypeId) {
+	public Msg getRentParam(@PathVariable("paramTypeId") Integer paramTypeId,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		
+		PageHelper.startPage(page, size);
+		
 		List<RentParameter> rentParams = rentParameterService.getAllByParamTypeId(paramTypeId);
+		
+		PageInfo pageInfo = new PageInfo(rentParams);
 		if (rentParams != null) {
 			try {
-				return Msg.success().add("data", rentParams);
+				return Msg.success().add("data", pageInfo);
 			} catch (Exception e) {
-				return Msg.error("³öÏÖÒì³££¬´¦ÀíÊ§°Ü");
+				return Msg.error("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 			}
 		} else {
-			return Msg.error("Ã»ÓÐÊý¾Ý");
+			return Msg.error("Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
 	}
 
