@@ -49,7 +49,7 @@
 	
 	$(function () {
 		$("#staffWorkDeptParamGet").click(function () {
-			ajaxRequestGet("staffParam/get/5?page=10&size=3");
+			ajaxRequestGet("staffParam/get/5?page=1&size=3");
 		})
 		
 		$("#staffDutyParamGet").click(function () {
@@ -74,7 +74,7 @@
 		
 		$("#staffParamDelete").click(function () {
 			//var data={'staffParamId':189};
-			ajaxRequestPostType("staffParam/delete/189","DELETE",null);
+			ajaxRequestPostType("staffParam/delete/49","DELETE",null);
 		})
 		
 		$("#staffParamAdd").click(function () {

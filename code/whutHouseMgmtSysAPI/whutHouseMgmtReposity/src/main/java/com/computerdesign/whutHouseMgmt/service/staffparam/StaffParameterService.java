@@ -21,11 +21,12 @@ public class StaffParameterService implements BaseService<StaffParameter> {
 		StaffParameterExample example = new StaffParameterExample();
 		Criteria criteria= example.createCriteria();
 		criteria.andParamTypeIdEqualTo(paramTypeId);
+		criteria.andIsDeleteEqualTo(false);
 		return staffParameterMapper.selectByExample(example);
 	}
 	
 	/**
-	 * 获取一个staffParameter对象
+	 * 锟斤拷取一锟斤拷staffParameter锟斤拷锟斤拷
 	 * @return
 	 */
 	public StaffParameter get(Integer staffParamId){

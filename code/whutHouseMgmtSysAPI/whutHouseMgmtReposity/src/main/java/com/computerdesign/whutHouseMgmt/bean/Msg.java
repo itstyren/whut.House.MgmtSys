@@ -4,19 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 通用的返回类,用于json
+ * 鍏叡绫伙紝鐢ㄤ簬杩斿洖json瀵硅薄
  * 
  * @author Administrator
  *
  */
 public class Msg {
 
-	// 状态码 假设100表示成功，200表示失败
+	//  鐘舵�佺爜
 	private String status;
 
 	private String message;
 
-	// 用户要返回给浏览器的数据
+	//鐢ㄤ簬灏佽鏁版嵁
 	private Map<String, Object> data = new HashMap<String, Object>();
 
 	public String getStatus() {
@@ -43,15 +43,15 @@ public class Msg {
 		this.data = data;
 	}
 
-	// 处理成功
+	//褰撳鐞嗘垚鍔熸椂
 	public static Msg success() {
 		Msg result = new Msg();
 		result.setStatus("success");
-		result.setMessage("处理成功");
+		result.setMessage("澶勭悊鎴愬姛");
 		return result;
 	}
 
-	// 自定义message,处理成功
+	//褰撳鐞嗘垚鍔熸椂锛屽彲闄勫甫message
 	public static Msg success(String message) {
 		Msg result = new Msg();
 		result.setStatus("success");
@@ -59,15 +59,15 @@ public class Msg {
 		return result;
 	}
 
-	// 处理失败
+	//褰撳鐞嗗け璐ユ椂
 	public static Msg error() {
 		Msg result = new Msg();
 		result.setStatus("error");
-		result.setMessage("处理失败");
+		result.setMessage("澶勭悊澶辫触");
 		return result;
 	}
 
-	// 自定义message,处理失败
+	//褰撳鐞嗗け璐ユ椂锛屽彲闄勫甫message
 	public static Msg error(String message) {
 		Msg result = new Msg();
 		result.setStatus("error");
@@ -75,7 +75,7 @@ public class Msg {
 		return result;
 	}
 
-	// 添加需要返回的数据，便于封装
+	//鐢ㄤ簬娣诲姞灏佽鐨勬暟鎹紝瀹炵幇閾惧紡缂栫▼
 	public Msg add(String key, Object value) {
 		this.getData().put(key, value);
 		return this;
