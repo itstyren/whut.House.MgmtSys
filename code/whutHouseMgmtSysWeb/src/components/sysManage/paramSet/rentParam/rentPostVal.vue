@@ -4,21 +4,28 @@
 <el-col :span="24" class="right-main">
   <el-col :span="24" class="topic"><h1>职务分参数</h1></el-col>
   <!-- 工具条 -->
-  <el-col :span="24" class="toolBar" >    
+  <el-col :span="24" class="toolBar" >
+    <el-popover ref="addPopver" width="160" placement="top" v-model="popoverVisible">
+      <p class="margin:0">请在职工参数中新增职务，此处不可新增职务</p>
+      <div style="text-align: right; margin:0">
+        <el-button type="primary" size="mini" @click="popoverVisible=false">确定</el-button>
+      </div>
+    </el-popover>    
     <el-form :inline="true" style="margin-bottom:15px">
-      <el-button type="primary" @click="addFormVisible = true" >新增类别</el-button>
+      <el-button type="primary" v-popover:addPopver >新增职务</el-button>
     </el-form>
   </el-col>
   <!-- 表格区域 -->
   <el-col :span="24">
-    <el-table :data="classData" border style="width:100%" v-loading="listLoading" max-height="450">
+    <el-table :data="PostValData" border style="width:100%" v-loading="listLoading" max-height="450">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
       <el-table-column prop="staffParamName" label="职工类别" sortable align="center" ></el-table-column>
+      <el-table-column prop="staffParamVal" label="职务分" sortable align="center" ></el-table-column>
+      <el-table-column prop="staffParamSpouseVal" label="配偶职务分" sortable align="center" ></el-table-column>
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope" >
             <el-button  size="small" @click="showModifyDialog(scope.$index,scope.row)" >编辑</el-button>
-            <el-button type="danger" size="small" @click="delectClass(scope.$index,scope.row)" >删除</el-button>
           </template>
         </el-table-column>      
     </el-table>
@@ -29,25 +36,18 @@
     </el-pagination>
   </el-col>
 </el-col>
-    <!-- 新增表单 -->
-    <el-dialog title="新增职工类别" :visible.sync="addFormVisible" v-loading="submitLoading" >
-      <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="职工类别" prop="staffParamName">
-          <el-input v-model="addFormBody.staffParamName" placeholder="请输入职工类别"  ></el-input>
-        </el-form-item>     
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click.native=" addFormVisible = false">取消</el-button>
-        <el-button type="primary" @click.native="addSubmit" >提交</el-button>
-      </div>
-    </el-dialog>
-
     <!-- 编辑表单 -->
-    <el-dialog title="编辑职工类别" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
-      <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules" >
+    <el-dialog title="编辑职务分" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
+      <el-form :model="modifyFromBody" label-width="100px" ref="modifyFrom" :rules="rules" >
         <el-form-item label="职工类别" prop="staffParamName"  >
-          <el-input v-model="modifyFromBody.staffParamName" placeholder="请输入职工类别"  ></el-input>
+          <el-input v-model="modifyFromBody.staffParamName" :disabled="true"   ></el-input>
+        </el-form-item>
+        <el-form-item label="职务分" prop="staffParamVal"  >
+          <el-input v-model="modifyFromBody.staffParamVal" placeholder="请输入职务分"  ></el-input>
         </el-form-item>   
+        <el-form-item label="配偶职务分" prop="staffParamSpouseVal"  >
+          <el-input v-model="modifyFromBody.staffParamSpouseVal" placeholder="请输入配偶职务分"  ></el-input>
+        </el-form-item>                      
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" modifyFormVisible = false">取消</el-button>
@@ -58,17 +58,28 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {getStaffParam,deleteStaffParam,postStaffParam,putStaffParam} from '@/api/api'
+import {getRentParamAboutStaff,putRentParamAboutStaff} from '@/api/api'
 import common from '@/common/util.js'
 export default {
    data() {
+       // 正则验证
+       const validateNum = (rule, value, callback)=>{
+           const RULES=/^\d+$/
+           if(value==null){
+               callback(new Error('请输入面积'))
+               }else if(!RULES.test(value)) {
+                   callback(new Error('输入值必须为非负整数'))
+            }else {
+                callback()
+                }
+            }     
      return {
-       paramClass:'8',
+       popoverVisible:false,
+       paramClass:'11',
        // 用户令牌
        access_token:'',
        // 表格数据
-       classData: [
-       ],
+       PostValData: [],
        listLoading:false,
        totalNum:1,
        page:1,
@@ -76,25 +87,19 @@ export default {
 
        // 表单规则验证
        rules:{
-         staffParamName:{
-           required: true, message: '职工类别不能为空' , trigger: 'blur' 
-         },
+         staffParamSpouseVal:{validator:validateNum , trigger:'blur'}
        },
 
        //编辑表单相关数据
        modifyFormVisible:false,
        modifyLoading:false,
-       selectStaffParamId:'',
        modifyFromBody:{
-         staffParamName:''
+         staffParamName:'',
+         staffParamVal:'',
+         staffParamSpouseVal:''
+
        },
       
-      // 新增表单相关数据
-       submitLoading:false,       
-       addFormVisible: false,
-       addFormBody:{
-         staffParamName:''
-       }
      }
 
    },
@@ -110,59 +115,18 @@ export default {
          size : this.size
        }
        // http请求
-       getStaffParam(param,this.paramClass).then((res)=>{
-         this.classData=res.data.data.data
+       getRentParamAboutStaff(param,this.paramClass).then((res)=>{
+         this.PostValData=res.data.data.data.list
+         this.totalNum=res.data.data.data.total
          this.listLoading=false
        }).catch((err)=>{
          console.log(err)
        })
      },
-    // 删除功能
-    delectClass(index,row){
-      this.$confirm('此操作将删除该职称','提示',{
-        confirmButtonText:'确定',
-        cancelButtonText:'取消',
-        type:'warning'
-      }).then(()=>{
-        let param=''
-        let staffParamId=row.staffParamId
-        this.listLoading=true
-        deleteStaffParam(param,staffParamId).then((res)=>{
-          // 公共提示方法
-          common.statusinfo(this,res.data)
-          this.getList()
-          }).catch((err)=>{
-            console.log(err)
-            })
-        }).catch(()=>{
-          this.$message({
-            type: 'info',
-            message:'已取消删除'
-          });
-        });
-      },
-      // 新增提交
-      addSubmit(){
-        this.$refs['addForm'].validate((valid)=>{
-          if(valid){
-            this.submitLoadinga=true
-            let param=Object.assign({},this.addFormBody)
-            postStaffParam(param,this.paramClass).then((res)=>{
-              // 公共提示方法
-              common.statusinfo(this,res.data)
-              this.$refs['addForm'].resetFields()
-              this.submitLoading=false
-              this.addFormVisible=false
-              this.getList()
-            })
-          }
-        })
-      },
     //显示编辑
     showModifyDialog (index,row) {
       this.modifyFormVisible=true
       this.modifyFromBody= Object.assign({},row)
-      this.selectStaffParamId=row.staffParamId
       this.selectRowIndex=index
       //console.log(this.selectRowIndex)
     },
@@ -172,7 +136,7 @@ export default {
         if(valid){
           this.modifyLoading=true
           let param=Object.assign({},this.modifyFromBody)
-          putStaffParam(param,this.selectStaffParamId).then((res)=>{
+          putRentParamAboutStaff(param).then((res)=>{
             common.statusinfo(this,res.data)
             this.modifyLoading=false
             this.modifyFormVisible=false
@@ -184,14 +148,12 @@ export default {
     //更换每页数量
     SizeChangeEvent(val){
         this.size = val;
-        //this.getList();
-        PubMethod.logMessage(this.page + "   " + this.size);
+        this.getList();
     },
     //页码切换时
     CurrentChangeEvent(val){
         this.page = val;
-        //this.getList();
-        PubMethod.logMessage(this.page + "   " + this.size);
+        this.getList();
     }
    }
  }

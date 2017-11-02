@@ -63,7 +63,7 @@ import common from '@/common/util.js'
 export default {
    data() {
      return {
-       paramClass:20,
+       paramClass:16,
        // 用户令牌
        access_token:'',
        // 表格数据
@@ -119,12 +119,12 @@ export default {
      },
     // 删除功能
     delectLayout(index,row){
-      this.$confirm('此操作将删除该户型选项','提示',{
+      this.$confirm('此操作将删除该维修内容','提示',{
         confirmButtonText:'确定',
         cancelButtonText:'取消',
         type:'warning'
       }).then(()=>{
-        let param=row.houseParamId
+        let param=row.fixParamId
         console.log(param)
         this.listLoading=true
         deleteFixParam(param).then((res)=>{

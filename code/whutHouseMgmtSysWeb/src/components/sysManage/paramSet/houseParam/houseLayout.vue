@@ -125,7 +125,6 @@ export default {
         type:'warning'
       }).then(()=>{
         let param=row.houseParamId
-        console.log(param)
         this.listLoading=true
         deleteHouseParam(param).then((res)=>{
           // 公共提示方法

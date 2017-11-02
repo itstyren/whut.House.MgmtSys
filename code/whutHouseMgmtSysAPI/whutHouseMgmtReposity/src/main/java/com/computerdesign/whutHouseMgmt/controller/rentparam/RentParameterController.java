@@ -33,7 +33,7 @@ public class RentParameterController {
 				rentParameterService.add(rentParameterModel);
 				return Msg.success().add("data", rentParameterModel);
 			} catch (Exception e) {
-				return Msg.error("³öÏÖÒì³££¬´¦ÀíÊ§°Ü");
+				return Msg.error("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 			}
 		} else {
 			return Msg.error();
@@ -50,7 +50,7 @@ public class RentParameterController {
 				rentParameterService.delete(rentParamId);
 				return Msg.success().add("data", rentParameter);
 			} catch (Exception e) {
-				return Msg.error("³öÏÖÒì³££¬´¦ÀíÊ§°Ü");
+				return Msg.error("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 			}
 		} else {
 			return Msg.error();
@@ -67,7 +67,7 @@ public class RentParameterController {
 				rentParameterService.update(rentParameterModel);
 				return Msg.success().add("data", rentParameterModel);
 			} catch (Exception e) {
-				return Msg.error("³öÏÖÒì³££¬´¦ÀíÊ§°Ü");
+				return Msg.error("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 			}
 		} else {
 			return Msg.error();
@@ -90,10 +90,10 @@ public class RentParameterController {
 			try {
 				return Msg.success().add("data", pageInfo);
 			} catch (Exception e) {
-				return Msg.error("³öÏÖÒì³££¬´¦ÀíÊ§°Ü");
+				return Msg.error("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 			}
 		} else {
-			return Msg.error("Ã»ÓÐÊý¾Ý");
+			return Msg.error("Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
 	}
 

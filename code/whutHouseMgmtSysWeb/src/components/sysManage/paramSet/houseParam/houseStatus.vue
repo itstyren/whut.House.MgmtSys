@@ -124,10 +124,10 @@ mounted () {
         cancelButtonText:'取消',
         type:'warning'
       }).then(()=>{
-        let param=''
-        let houseParamId=row.houseParamId
+        let param=row.houseParamId
+        // console.log(row.houseParamId)
         this.listLoading=true
-        deleteHouseParam(param,houseParamId).then((res)=>{
+        deleteHouseParam(param).then((res)=>{
           // 公共提示方法
           common.statusinfo(this,res.data)
           this.getList()
