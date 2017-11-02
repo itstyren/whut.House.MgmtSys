@@ -22,13 +22,10 @@ public class RentParameterController {
 	@Autowired
 	private RentParameterService rentParameterService;
 	
-	@Autowired
-	private StaffParameterService staffParameterService;
-
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public Msg addRentParam(@RequestBody RentParameter rentParameterModel) {
-		if (rentParameterModel.getParamTypeName() != null
+		if (rentParameterModel.getRentParamName() != null
 				&& rentParameterModel.getParamTypeId() != null) {
 			try {
 				rentParameterService.add(rentParameterModel);

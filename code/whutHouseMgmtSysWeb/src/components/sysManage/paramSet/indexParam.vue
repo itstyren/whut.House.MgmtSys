@@ -36,15 +36,23 @@ const houseLayout = () => import(/* webpackChunkName: "houseParam" */ './housePa
 const houseStatus = () => import(/* webpackChunkName: "houseParam" */ './houseParam/houseStatus')
 const houseStruct = () => import(/* webpackChunkName: "houseParam" */ './houseParam/houseStruct')
 
-import staffDept from './staffParam/staffDept'
-import staffPost from './staffParam/staffPost'
-import staffTitle from './staffParam/staffTitle' 
-import staffClass from './staffParam/staffClass'
-import staffStatus from './staffParam/staffStatus'
-import staffSpouse from './staffParam/staffSpouse'
+const staffDept = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffDept')
+const staffPost = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffPost')
+const staffTitle = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffTitle')
+const staffClass = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffClass')
+const staffStatus = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffStatus')
+const staffSpouse = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffSpouse')
+
+// import staffDept from './staffParam/staffDept'
+// import staffPost from './staffParam/staffPost'
+// import staffTitle from './staffParam/staffTitle' 
+// import staffClass from './staffParam/staffClass'
+// import staffStatus from './staffParam/staffStatus'
+// import staffSpouse from './staffParam/staffSpouse'
 
 import rentPostVal from './rentParam/rentPostVal'
 
+import fixContent from './fixParam/fixContent'
  export default {
    // 监视输入框参数值
     watch: {
@@ -197,6 +205,8 @@ import rentPostVal from './rentParam/rentPostVal'
      staffDept,staffPost,staffTitle,staffClass,staffStatus,staffSpouse,
      // 租赁参数组件
      rentPostVal,
+     // 维修参数组件
+     fixContent,
    }
  }
 </script>
