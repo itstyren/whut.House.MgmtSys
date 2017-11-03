@@ -56,7 +56,7 @@ public class StaffParameterController {
 		// 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚筰d闁跨喐鏋婚幏宄板絿闁跨喐鏋婚幏鐑芥晸閺傘倖瀚圭憰渚�鏁撻惈顐ｆ暭绾板瀚归懕宀勬晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻弬銈嗗
 		StaffParameter staffParameter = staffParameterService.get(staffParameterModel.getStaffParamId());
 		if (staffParameter == null) {
-			return Msg.error("闁跨喐鏋婚幏鐑芥晸閹瑰嘲灏呴幏鐑芥晸閺傘倖瀚归柨鐔稿疆鐠囇勫闁跨喐鏋婚幏鐑芥晸閻偆銆嬮幏宄扮秿");
+			return Msg.error("数据库中没有找到此条记录，修改失败 ");
 		} else {
 			try {
 				staffParameterService.update(staffParameterModel);
