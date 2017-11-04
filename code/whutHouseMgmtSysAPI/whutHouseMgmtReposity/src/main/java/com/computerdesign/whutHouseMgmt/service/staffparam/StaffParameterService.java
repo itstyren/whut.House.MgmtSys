@@ -26,7 +26,7 @@ public class StaffParameterService implements BaseService<StaffParameter> {
 	}
 	
 	/**
-	 * ��ȡһ��staffParameter����
+	 * 根据staffParamId获取一个职工参数
 	 * @return
 	 */
 	public StaffParameter get(Integer staffParamId){
