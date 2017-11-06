@@ -38,7 +38,7 @@ public class RentalParameterController {
 			PageInfo pageInfo=new PageInfo(rentalParameters);
 			return Msg.success().add("date", pageInfo);
 		}else{
-			return Msg.error("²éÕÒ²»µ½Êı¾İ");
+			return Msg.error("æŸ¥æ‰¾å¤±è´¥");
 		}
 	}
 	
@@ -50,11 +50,11 @@ public class RentalParameterController {
 				rentalParamService.add(rentalParameter);
 				return Msg.success().add("data", rentalParameter);
 			}else{
-				return Msg.error("paramTypeId²»´æÔÚ");
+				return Msg.error("paramTypeIdä¸å­˜åœ¨");
 			}
 		}
 		else { 
-			return Msg.error("rentalParamName²»´æÔÚ");
+			return Msg.error("rentalParamNameä¸å­˜åœ¨");
 		}
 	}
 	
@@ -64,15 +64,17 @@ public class RentalParameterController {
 		RentalParameter rentalParameter=rentalParamService.get(rentalParamId);
 		if (rentalParameter!=null) {
 			try {
-				rentalParamService.delete(rentalParamId);
+				rentalParameter.setIsDelete(true);
+				//æ›´æ–°æ“ä½œ
+				rentalParamService.delete(rentalParameter);
 				return Msg.success().add("data", rentalParameter);
 			} catch (Exception e) {
 				// TODO: handle exception
-				return Msg.error("³ö´í£¬Çë¼ì²éÊäÈëÊı¾İ");
+				return Msg.error("åˆ é™¤å¤±è´¥");
 			}
 			
 		}else{
-			return Msg.error("ÕÒ²»µ½¸ÃrentalParamId");
+			return Msg.error("æ‰¾ä¸åˆ°è¯¥id");
 		}
 	}
 	
@@ -85,10 +87,10 @@ public class RentalParameterController {
 				rentalParamService.update(rentalParameter);
 				return Msg.success().add("data", rentalParameter);
 			}else{
-				return Msg.error("ÕÒ²»µ½¸ÃparamTypeId");
+				return Msg.error("æ‰¾ä¸åˆ°è¯¥id");
 			}
 		}else{
-			return Msg.error("ÕÒ²»µ½¸ÃrentalParamName");
+			return Msg.error("æ‰¾ä¸åˆ°è¯¥name");
 		}
 	}
 

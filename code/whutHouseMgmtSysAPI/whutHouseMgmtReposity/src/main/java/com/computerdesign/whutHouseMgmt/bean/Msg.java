@@ -4,19 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Í¨ÓÃµÄ·µ»ØÀà,ÓÃÓÚjson
+ * Í¨ï¿½ÃµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½json
  * 
  * @author Administrator
  *
  */
 public class Msg {
 
-	// ×´Ì¬Âë ¼ÙÉè100±íÊ¾³É¹¦£¬200±íÊ¾Ê§°Ü
+	// ×´Ì¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½100ï¿½ï¿½Ê¾ï¿½É¹ï¿½ï¿½ï¿½200ï¿½ï¿½Ê¾Ê§ï¿½ï¿½
 	private String status;
 
 	private String message;
 
-	// ÓÃ»§Òª·µ»Ø¸øä¯ÀÀÆ÷µÄÊý¾Ý
+	// ï¿½Ã»ï¿½Òªï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private Map<String, Object> data = new HashMap<String, Object>();
 
 	public String getStatus() {
@@ -43,15 +43,15 @@ public class Msg {
 		this.data = data;
 	}
 
-	// ´¦Àí³É¹¦
+	// ï¿½ï¿½ï¿½ï¿½É¹ï¿½
 	public static Msg success() {
 		Msg result = new Msg();
 		result.setStatus("success");
-		result.setMessage("´¦Àí³É¹¦");
+		result.setMessage("");
 		return result;
 	}
 
-	// ×Ô¶¨Òåmessage,´¦Àí³É¹¦
+	// ï¿½Ô¶ï¿½ï¿½ï¿½message,ï¿½ï¿½ï¿½ï¿½É¹ï¿½
 	public static Msg success(String message) {
 		Msg result = new Msg();
 		result.setStatus("success");
@@ -59,15 +59,15 @@ public class Msg {
 		return result;
 	}
 
-	// ´¦ÀíÊ§°Ü
+	// ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 	public static Msg error() {
 		Msg result = new Msg();
 		result.setStatus("error");
-		result.setMessage("´¦ÀíÊ§°Ü");
+		result.setMessage("");
 		return result;
 	}
 
-	// ×Ô¶¨Òåmessage,´¦ÀíÊ§°Ü
+	// ï¿½Ô¶ï¿½ï¿½ï¿½message,ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 	public static Msg error(String message) {
 		Msg result = new Msg();
 		result.setStatus("error");
@@ -75,7 +75,7 @@ public class Msg {
 		return result;
 	}
 
-	// Ìí¼ÓÐèÒª·µ»ØµÄÊý¾Ý£¬±ãÓÚ·â×°
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Ú·ï¿½×°
 	public Msg add(String key, Object value) {
 		this.getData().put(key, value);
 		return this;

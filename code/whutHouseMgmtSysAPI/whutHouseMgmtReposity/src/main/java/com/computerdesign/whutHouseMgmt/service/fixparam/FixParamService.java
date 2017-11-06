@@ -3,6 +3,7 @@ package com.computerdesign.whutHouseMgmt.service.fixparam;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder.In;
+import javax.ws.rs.DELETE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,9 @@ public class FixParamService implements BaseService<FixParameter>{
 		fixParameterMapper.insertSelective(fixParameter);
 	}
 	
+	public void delete(FixParameter fixParameter){
+		fixParameterMapper.updateByPrimaryKeySelective(fixParameter);
+	}
 	@Override
 	public void delete(Integer fixParamId){
 		fixParameterMapper.deleteByPrimaryKey(fixParamId);
