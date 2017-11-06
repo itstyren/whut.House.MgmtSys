@@ -11,45 +11,13 @@
 
 <script type="text/javascript"
 	src="${API_Path }/static/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="${API_Path }/static/js/common.js"></script>
 <script type="text/javascript">
-	//模拟Get请求
-	function ajaxRequestGet(uri) {
-		//alert("${API_Path }/" + uri);
-		$.ajax({
-			url : uri,
-			type:"get",
-			contentType : 'application/json',
-			dataType : 'json',
-			success : function(response) {
-				console.log(response);
-			},
-			error : function() {
-				console.log('Ajax请求失败！');
-			}
-		});
-	}
-	
-	//模拟Post类请求
-	function ajaxRequestPostType(uri,method,data) {
-		//alert("${API_Path }/" + uri);
-		$.ajax({
-			type: method,
-			contentType : 'application/json;charset=UTF-8',
-			dataType : 'json',
-			data : JSON.stringify(data),
-			url : uri,
-			success : function(response) {
-				console.log(response);
-			},
-			error : function() {
-				console.log('Ajax请求失败！');
-			}
-		});
-	}
-	
+
 	$(function () {
 		$("#staffWorkDeptParamGet").click(function () {
-			ajaxRequestGet("staffParam/get/5?page=10&size=3");
+			ajaxRequestGet("staffParam/get/5?page=1&size=3");
 		})
 		
 		$("#staffDutyParamGet").click(function () {
@@ -74,7 +42,7 @@
 		
 		$("#staffParamDelete").click(function () {
 			//var data={'staffParamId':189};
-			ajaxRequestPostType("staffParam/delete/189","DELETE",null);
+			ajaxRequestPostType("staffParam/delete/49","DELETE",null);
 		})
 		
 		$("#staffParamAdd").click(function () {

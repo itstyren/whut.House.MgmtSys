@@ -27,10 +27,10 @@ public class RentParamAboutStaffController {
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
 	public Msg modifyStaffParameter(@RequestBody StaffParameter staffParameterModel) {
-		// ¸ù¾İid»ñÈ¡µ½ĞèÒªĞŞ¸ÄµÄÖ°¹¤²ÎÊı
+		// ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Òªï¿½Ş¸Äµï¿½Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		StaffParameter staffParameter = staffParameterService.get(staffParameterModel.getStaffParamId());
 		if (staffParameter == null) {
-			return Msg.error("Êı¾İ¿âÖĞÕÒ²»µ½¸Ã¼ÇÂ¼");
+			return Msg.error("æ•°æ®åº“æ— æ­¤è®°å½•");
 		} else {
 			try {
 				staffParameterService.update(staffParameterModel);
@@ -47,7 +47,7 @@ public class RentParamAboutStaffController {
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size){
 		//System.out.println(paramTypeId);
-		//paramClass±íÖĞÖ°Îñ·ÖºÍÖ°ÎñÃæ»ıµÄid·Ö±ğÎª11ºÍ13£¬²éstaffType±í
+		//paramClassï¿½ï¿½ï¿½ï¿½Ö°ï¿½ï¿½Öºï¿½Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idï¿½Ö±ï¿½Îª11ï¿½ï¿½13ï¿½ï¿½ï¿½ï¿½staffTypeï¿½ï¿½
 		
 		PageHelper.startPage(page, size);
 		
@@ -57,21 +57,21 @@ public class RentParamAboutStaffController {
 			if(result != null){
 				return Msg.success().add("data", pageInfo);
 			}else{
-				return Msg.error("Êı¾İ¿âÖĞÎŞ¼ÇÂ¼");
+				return Msg.error("æ— è®°å½•");
 			}
 		}
 		
-		//paramClass±íÖĞÖ°³Æ·ÖºÍÖ°³ÆÃæ»ıµÄid·Ö±ğÎª12ºÍ14£¬²éstaffType±í
+		//paramClassï¿½ï¿½ï¿½ï¿½Ö°ï¿½Æ·Öºï¿½Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idï¿½Ö±ï¿½Îª12ï¿½ï¿½14ï¿½ï¿½ï¿½ï¿½staffTypeï¿½ï¿½
 		if(paramTypeId == 12 || paramTypeId == 14){
 			List<StaffParameter> result = staffParameterService.getAllByParamTypeId(7);
 			PageInfo pageInfo = new PageInfo(result);
 			if(result != null){
 				return Msg.success().add("data", pageInfo);
 			}else{
-				return Msg.error("Êı¾İ¿âÖĞÎŞ¼ÇÂ¼");
+				return Msg.error("æ— è®°å½•");
 			}
 		}
-		return Msg.error("paramTypeIdÓĞÎó");
+		return Msg.error("paramTypeIdæœ‰è¯¯");
 	}
 	
 }

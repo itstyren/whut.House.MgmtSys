@@ -4,19 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ͨ�õķ�����,����json
+ * 公共类，用于返回json对象
  * 
  * @author Administrator
  *
  */
 public class Msg {
 
-	// ״̬�� ����100��ʾ�ɹ���200��ʾʧ��
+	//  状态码
 	private String status;
 
 	private String message;
 
-	// �û�Ҫ���ظ������������
+	//用于封装数据
 	private Map<String, Object> data = new HashMap<String, Object>();
 
 	public String getStatus() {
@@ -43,15 +43,15 @@ public class Msg {
 		this.data = data;
 	}
 
-	// ����ɹ�
+	//当处理成功时
 	public static Msg success() {
 		Msg result = new Msg();
 		result.setStatus("success");
-		result.setMessage("");
+		result.setMessage("处理成功");
 		return result;
 	}
 
-	// �Զ���message,����ɹ�
+	//当处理成功时，可附带message
 	public static Msg success(String message) {
 		Msg result = new Msg();
 		result.setStatus("success");
@@ -59,15 +59,15 @@ public class Msg {
 		return result;
 	}
 
-	// ����ʧ��
+	//当处理失败时
 	public static Msg error() {
 		Msg result = new Msg();
 		result.setStatus("error");
-		result.setMessage("");
+		result.setMessage("处理失败");
 		return result;
 	}
 
-	// �Զ���message,����ʧ��
+	//当处理失败时，可附带message
 	public static Msg error(String message) {
 		Msg result = new Msg();
 		result.setStatus("error");
@@ -75,7 +75,7 @@ public class Msg {
 		return result;
 	}
 
-	// �����Ҫ���ص����ݣ����ڷ�װ
+	//用于添加封装的数据，实现链式编程
 	public Msg add(String key, Object value) {
 		this.getData().put(key, value);
 		return this;
