@@ -27,8 +27,6 @@ public class HouseParameterController {
 	private HouseParamService houseParamService;
 
 	/**
-	 * 
-	 * 
 	 * @param paramTypeId
 	 * @return
 	 */
@@ -64,10 +62,10 @@ public class HouseParameterController {
 				
 				return Msg.success().add("data", houseParameter);
 			} else {
-				return Msg.error("æ‰¾ä¸åˆ°ParamTypeId");
+				return Msg.error("±ØÒªĞÅÏ¢²»ÍêÕû£¬Ìí¼ÓÊ§°Ü");
 			}
 		} else {
-			return Msg.error("æ‰¾ä¸åˆ°HouseParamName");
+			return Msg.error("±ØÒªĞÅÏ¢²»ÍêÕû£¬Ìí¼ÓÊ§°Ü");
 		}
 	}
 
@@ -83,7 +81,7 @@ public class HouseParameterController {
 		if (houseParameter != null) {
 			try {
 				houseParameter.setIsDelete(true);
-				//æ›´æ–°æ“ä½œï¼Œä¸”ä¸å¯é€†
+				//¸üĞÂ²Ù×÷£¬ÇÒ²»¿ÉÄæ
 				houseParamService.delete(houseParameter);
 				return Msg.success().add("data", houseParameter);
 			} catch (Exception e) {
@@ -91,7 +89,7 @@ public class HouseParameterController {
 				return Msg.error();
 			}
 		} else {
-			return Msg.error("æ‰¾ä¸åˆ°houseParamId");
+			return Msg.error("ÕÒ²»µ½¸Ãid£¬É¾³ı³ö´í");
 		}
 	}
 
@@ -107,7 +105,7 @@ public class HouseParameterController {
 			return Msg.success().add("data", houseParameter);
 		} catch (Exception e) {
 			// TODO: handle exception
-			return Msg.error();
+			return Msg.error("Êı¾İ¿âÖĞÃ»ÓĞÕÒµ½´ËÌõ¼ÇÂ¼£¬ĞŞ¸ÄÊ§°Ü ");
 		}
 	}
 }
