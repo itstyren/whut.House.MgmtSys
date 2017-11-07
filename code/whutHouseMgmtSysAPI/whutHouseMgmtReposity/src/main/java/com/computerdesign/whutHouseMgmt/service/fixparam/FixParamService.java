@@ -43,9 +43,14 @@ public class FixParamService implements BaseService<FixParameter>{
 		fixParameterMapper.insertSelective(fixParameter);
 	}
 	
+	/**
+	 * 更新操作，将IsDelete设置为1起到删除效果
+	 * @param fixParameter
+	 */
 	public void delete(FixParameter fixParameter){
 		fixParameterMapper.updateByPrimaryKeySelective(fixParameter);
 	}
+	
 	@Override
 	public void delete(Integer fixParamId){
 		fixParameterMapper.deleteByPrimaryKey(fixParamId);
