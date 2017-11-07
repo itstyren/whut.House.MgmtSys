@@ -21,11 +21,12 @@ public class StaffParameterService implements BaseService<StaffParameter> {
 		StaffParameterExample example = new StaffParameterExample();
 		Criteria criteria= example.createCriteria();
 		criteria.andParamTypeIdEqualTo(paramTypeId);
+		criteria.andIsDeleteEqualTo(false);
 		return staffParameterMapper.selectByExample(example);
 	}
 	
 	/**
-	 * »ñÈ¡Ò»¸östaffParameter¶ÔÏó
+	 * æ ¹æ®staffParamIdè·å–ä¸€ä¸ªèŒå·¥å‚æ•°
 	 * @return
 	 */
 	public StaffParameter get(Integer staffParamId){
