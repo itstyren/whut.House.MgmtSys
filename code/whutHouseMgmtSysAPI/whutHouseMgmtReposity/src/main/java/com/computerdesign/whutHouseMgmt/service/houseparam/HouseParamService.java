@@ -3,6 +3,8 @@ package com.computerdesign.whutHouseMgmt.service.houseparam;
 import java.lang.reflect.Parameter;
 import java.util.List;
 
+import javax.ws.rs.DELETE;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,10 @@ public class HouseParamService implements BaseService<HouseParameter>{
 	@Override
 	public void add(HouseParameter houseParameter){
 		houseParameterMapper.insertSelective(houseParameter);
+	}
+	
+	public void delete(HouseParameter houseParameter){
+		houseParameterMapper.updateByPrimaryKeySelective(houseParameter);
 	}
 	
 	@Override

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.building.BuildingMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.building.Building">
+    <id column="BuildingId" jdbcType="INTEGER" property="buildingId" />
+    <result column="BuildingName" jdbcType="VARCHAR" property="buildingName" />
+    <result column="BuildingFinishTime" jdbcType="TIMESTAMP" property="buildingFinishTime" />
+    <result column="BuildingFloorArea" jdbcType="REAL" property="buildingFloorArea" />
+    <result column="BuildingUsedArea" jdbcType="REAL" property="buildingUsedArea" />
+    <result column="BuildingFloorCount" jdbcType="INTEGER" property="buildingFloorCount" />
+    <result column="BuildingRegion" jdbcType="INTEGER" property="buildingRegion" />
+    <result column="BuildingDescription" jdbcType="VARCHAR" property="buildingDescription" />
+    <result column="BuildingSupportFund" jdbcType="DECIMAL" property="buildingSupportFund" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    BuildingId, BuildingName, BuildingFinishTime, BuildingFloorArea, BuildingUsedArea, 
+    BuildingFloorCount, BuildingRegion, BuildingDescription, BuildingSupportFund
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Hs_Building
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Hs_Building
+    where BuildingId = #{buildingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Hs_Building
+    where BuildingId = #{buildingId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample">
+    delete from Hs_Building
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
+    insert into Hs_Building (BuildingId, BuildingName, BuildingFinishTime, 
+      BuildingFloorArea, BuildingUsedArea, BuildingFloorCount, 
+      BuildingRegion, BuildingDescription, BuildingSupportFund
+      )
+    values (#{buildingId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, #{buildingFinishTime,jdbcType=TIMESTAMP}, 
+      #{buildingFloorArea,jdbcType=REAL}, #{buildingUsedArea,jdbcType=REAL}, #{buildingFloorCount,jdbcType=INTEGER}, 
+      #{buildingRegion,jdbcType=INTEGER}, #{buildingDescription,jdbcType=VARCHAR}, #{buildingSupportFund,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
+    insert into Hs_Building
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="buildingId != null">
+        BuildingId,
+      </if>
+      <if test="buildingName != null">
+        BuildingName,
+      </if>
+      <if test="buildingFinishTime != null">
+        BuildingFinishTime,
+      </if>
+      <if test="buildingFloorArea != null">
+        BuildingFloorArea,
+      </if>
+      <if test="buildingUsedArea != null">
+        BuildingUsedArea,
+      </if>
+      <if test="buildingFloorCount != null">
+        BuildingFloorCount,
+      </if>
+      <if test="buildingRegion != null">
+        BuildingRegion,
+      </if>
+      <if test="buildingDescription != null">
+        BuildingDescription,
+      </if>
+      <if test="buildingSupportFund != null">
+        BuildingSupportFund,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="buildingName != null">
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingFinishTime != null">
+        #{buildingFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buildingFloorArea != null">
+        #{buildingFloorArea,jdbcType=REAL},
+      </if>
+      <if test="buildingUsedArea != null">
+        #{buildingUsedArea,jdbcType=REAL},
+      </if>
+      <if test="buildingFloorCount != null">
+        #{buildingFloorCount,jdbcType=INTEGER},
+      </if>
+      <if test="buildingRegion != null">
+        #{buildingRegion,jdbcType=INTEGER},
+      </if>
+      <if test="buildingDescription != null">
+        #{buildingDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingSupportFund != null">
+        #{buildingSupportFund,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample" resultType="java.lang.Long">
+    select count(*) from Hs_Building
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Hs_Building
+    <set>
+      <if test="record.buildingId != null">
+        BuildingId = #{record.buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildingName != null">
+        BuildingName = #{record.buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingFinishTime != null">
+        BuildingFinishTime = #{record.buildingFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.buildingFloorArea != null">
+        BuildingFloorArea = #{record.buildingFloorArea,jdbcType=REAL},
+      </if>
+      <if test="record.buildingUsedArea != null">
+        BuildingUsedArea = #{record.buildingUsedArea,jdbcType=REAL},
+      </if>
+      <if test="record.buildingFloorCount != null">
+        BuildingFloorCount = #{record.buildingFloorCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildingRegion != null">
+        BuildingRegion = #{record.buildingRegion,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildingDescription != null">
+        BuildingDescription = #{record.buildingDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingSupportFund != null">
+        BuildingSupportFund = #{record.buildingSupportFund,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Hs_Building
+    set BuildingId = #{record.buildingId,jdbcType=INTEGER},
+      BuildingName = #{record.buildingName,jdbcType=VARCHAR},
+      BuildingFinishTime = #{record.buildingFinishTime,jdbcType=TIMESTAMP},
+      BuildingFloorArea = #{record.buildingFloorArea,jdbcType=REAL},
+      BuildingUsedArea = #{record.buildingUsedArea,jdbcType=REAL},
+      BuildingFloorCount = #{record.buildingFloorCount,jdbcType=INTEGER},
+      BuildingRegion = #{record.buildingRegion,jdbcType=INTEGER},
+      BuildingDescription = #{record.buildingDescription,jdbcType=VARCHAR},
+      BuildingSupportFund = #{record.buildingSupportFund,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
+    update Hs_Building
+    <set>
+      <if test="buildingName != null">
+        BuildingName = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingFinishTime != null">
+        BuildingFinishTime = #{buildingFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buildingFloorArea != null">
+        BuildingFloorArea = #{buildingFloorArea,jdbcType=REAL},
+      </if>
+      <if test="buildingUsedArea != null">
+        BuildingUsedArea = #{buildingUsedArea,jdbcType=REAL},
+      </if>
+      <if test="buildingFloorCount != null">
+        BuildingFloorCount = #{buildingFloorCount,jdbcType=INTEGER},
+      </if>
+      <if test="buildingRegion != null">
+        BuildingRegion = #{buildingRegion,jdbcType=INTEGER},
+      </if>
+      <if test="buildingDescription != null">
+        BuildingDescription = #{buildingDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingSupportFund != null">
+        BuildingSupportFund = #{buildingSupportFund,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where BuildingId = #{buildingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
+    update Hs_Building
+    set BuildingName = #{buildingName,jdbcType=VARCHAR},
+      BuildingFinishTime = #{buildingFinishTime,jdbcType=TIMESTAMP},
+      BuildingFloorArea = #{buildingFloorArea,jdbcType=REAL},
+      BuildingUsedArea = #{buildingUsedArea,jdbcType=REAL},
+      BuildingFloorCount = #{buildingFloorCount,jdbcType=INTEGER},
+      BuildingRegion = #{buildingRegion,jdbcType=INTEGER},
+      BuildingDescription = #{buildingDescription,jdbcType=VARCHAR},
+      BuildingSupportFund = #{buildingSupportFund,jdbcType=DECIMAL}
+    where BuildingId = #{buildingId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -2,6 +2,8 @@ package com.computerdesign.whutHouseMgmt.service.rentalparam;
 
 import java.util.List;
 
+import javax.ws.rs.DELETE;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,11 @@ public class RentalParamService implements BaseService<RentalParameter>{
 	@Override
 	public void add(RentalParameter rentalParameter){
 		rentalParameterMapper.insertSelective(rentalParameter);		
+	}
+	
+	//IsDelete的修改
+	public void delete(RentalParameter rentalParameter){
+		rentalParameterMapper.updateByPrimaryKeySelective(rentalParameter);
 	}
 	
 	@Override
