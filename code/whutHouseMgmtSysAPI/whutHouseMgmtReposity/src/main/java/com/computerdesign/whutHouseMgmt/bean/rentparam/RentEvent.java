@@ -9,7 +9,7 @@ public class RentEvent {
 
     private String paramTypeName;
 
-    private String rentIsOpenSel;
+    private Boolean rentIsOpenSel;
 
     private Date rentTimeBegin;
 
@@ -45,12 +45,12 @@ public class RentEvent {
         this.paramTypeName = paramTypeName == null ? null : paramTypeName.trim();
     }
 
-    public String getRentIsOpenSel() {
+    public Boolean getRentIsOpenSel() {
         return rentIsOpenSel;
     }
 
-    public void setRentIsOpenSel(String rentIsOpenSel) {
-        this.rentIsOpenSel = rentIsOpenSel == null ? null : rentIsOpenSel.trim();
+    public void setRentIsOpenSel(Boolean rentIsOpenSel) {
+        this.rentIsOpenSel = rentIsOpenSel;
     }
 
     public Date getRentTimeBegin() {

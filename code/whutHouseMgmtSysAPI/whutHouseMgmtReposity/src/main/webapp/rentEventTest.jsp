@@ -15,11 +15,11 @@
 		
 	$(function () {
 		$("#rentEventGet").click(function () {
-			ajaxRequestGet("rentEvent/get?page=1&size=3");
+			ajaxRequestGet("rentEvent/get?page=2&size=5");
 		})
 		
 		$("#rentEventModify").click(function () {
-			var data={"rentEventId":3,"paramTypeId":"15","paramTypeName":"选房选项","rentIsOpenSel":"否","rentTimeBegin":new Date(),"isDelete":"false"}
+			var data={"rentEventId":3,"paramTypeId":"15","paramTypeName":"选房选项","rentTimeBegin":new Date(),"isDelete":"false"}
 			ajaxRequestPostType("rentEvent/modify","PUT",data);
 		})
 		
@@ -29,7 +29,7 @@
 		})
 		
 		$("#rentEventAdd").click(function () {
-			var data={"paramTypeId":"15","paramTypeName":"选房选项","rentIsOpenSel":"否","rentTimeBegin":new Date(),"isDelete":"false"}
+			var data={"paramTypeId":"15","paramTypeName":"选房选项","rentTimeBegin":new Date(),"isDelete":"false"}
 			ajaxRequestPostType("rentEvent/add","POST",data);
 		})
 		
