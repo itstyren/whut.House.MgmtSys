@@ -2,8 +2,6 @@ package com.computerdesign.whutHouseMgmt.service.rentalparam;
 
 import java.util.List;
 
-import javax.ws.rs.DELETE;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,43 +12,24 @@ import com.computerdesign.whutHouseMgmt.dao.rentalparam.RentalParameterMapper;
 import com.computerdesign.whutHouseMgmt.service.base.BaseService;
 
 @Service
-public class RentalParamService implements BaseService<RentalParameter>{
+public class RentalParamService {
 
 	@Autowired
-	RentalParameterMapper rentalParameterMapper;
-	
-	public RentalParameter get(Integer rentalParamId){
-		return rentalParameterMapper.selectByPrimaryKey(rentalParamId);
+	private RentalParameterMapper rentalParameterMapper;
+
+	// 将原数据的IsDelete设置为1，并增添新数据
+	public void update(RentalParameter rentalParameterPre) {
+			rentalParameterMapper.updateByPrimaryKeySelective(rentalParameterPre);
+	}
+
+	public void add(RentalParameter rentalParameter) {
+		rentalParameterMapper.insertSelective(rentalParameter);
 	}
 	
-	public List<RentalParameter> getAll(Integer paramTypeId) {
-		RentalParameterExample example=new RentalParameterExample();
-		Criteria criteria=example.createCriteria();
-		criteria.andParamTypeIdEqualTo(paramTypeId);
+	public List<RentalParameter> getPresentOne() {
+		RentalParameterExample example = new RentalParameterExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(false);
 		return rentalParameterMapper.selectByExample(example);
-	}
-	@Override
-	public List<RentalParameter> getAll(){
-		return rentalParameterMapper.selectByExample(null);
-	}
-	
-	@Override
-	public void add(RentalParameter rentalParameter){
-		rentalParameterMapper.insertSelective(rentalParameter);		
-	}
-	
-	//IsDelete的修改
-	public void delete(RentalParameter rentalParameter){
-		rentalParameterMapper.updateByPrimaryKeySelective(rentalParameter);
-	}
-	
-	@Override
-	public void delete(Integer rentalParamId){
-		rentalParameterMapper.deleteByPrimaryKey(rentalParamId);
-	}
-	
-	@Override
-	public void update(RentalParameter rentalParameter){
-		rentalParameterMapper.updateByPrimaryKeySelective(rentalParameter);
 	}
 }
