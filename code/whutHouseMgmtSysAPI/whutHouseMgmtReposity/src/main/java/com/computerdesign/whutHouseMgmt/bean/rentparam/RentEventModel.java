@@ -2,17 +2,20 @@ package com.computerdesign.whutHouseMgmt.bean.rentparam;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class RentEventModel {
-	 private Integer rentEventId;
+	private Integer rentEventId;
 	//
 	// private Integer paramTypeId;
 	//
 	// private String paramTypeName;
 	//
 	// private Boolean rentIsOpenSel;
-
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date rentTimeBegin;
 
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date rentTimeRanges;
 
 	private String rentSelValReq;
@@ -21,13 +24,13 @@ public class RentEventModel {
 
 	// private Boolean isDelete;
 
-	 public Integer getRentEventId() {
-	 return rentEventId;
-	 }
-	
-	 public void setRentEventId(Integer rentEventId) {
-	 this.rentEventId = rentEventId;
-	 }
+	public Integer getRentEventId() {
+		return rentEventId;
+	}
+
+	public void setRentEventId(Integer rentEventId) {
+		this.rentEventId = rentEventId;
+	}
 	//
 	// public Integer getParamTypeId() {
 	// return paramTypeId;
