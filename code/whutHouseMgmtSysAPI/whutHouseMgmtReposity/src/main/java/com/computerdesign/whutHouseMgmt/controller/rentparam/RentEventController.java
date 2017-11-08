@@ -1,5 +1,8 @@
 package com.computerdesign.whutHouseMgmt.controller.rentparam;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent;
+import com.computerdesign.whutHouseMgmt.bean.rentparam.RentEventModel;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.service.rentparam.RentEventService;
 import com.github.pagehelper.PageHelper;
@@ -66,8 +70,32 @@ public class RentEventController {
 		PageHelper.startPage(page, size);
 		
 		List<RentEvent> rentEvents = rentEventService.getAll();
+		List<RentEventModel> rentEventModels = new ArrayList<RentEventModel>();
+		for (RentEvent rentEvent : rentEvents){
+			String beginDate = null;
+			String endDate = null;
+			if(rentEvent.getRentTimeBegin() != null){				
+				beginDate = new SimpleDateFormat("yyyy-MM-dd").format(rentEvent.getRentTimeBegin());
+			}
+			if(rentEvent.getRentTimeRanges() != null){				
+				endDate = new SimpleDateFormat("yyyy-MM-dd").format(rentEvent.getRentTimeRanges());
+			}
+//			System.out.println(date);
+			RentEventModel rentEventModel = new RentEventModel();
+			rentEventModel.setRentEventId(rentEvent.getRentEventId());
+			rentEventModel.setParamTypeId(rentEvent.getParamTypeId());
+			rentEventModel.setParamTypeName(rentEvent.getParamTypeName());
+			rentEventModel.setRentIsOpenSel(rentEvent.getRentIsOpenSel());
+			rentEventModel.setRentTimeBegin(beginDate);
+			rentEventModel.setRentTimeRanges(endDate);
+			rentEventModel.setRentSelRules(rentEvent.getRentSelRules());
+			rentEventModel.setIsDelete(rentEvent.getIsDelete());
+			rentEventModels.add(rentEventModel);
+		}
 		
 		PageInfo pageInfo = new PageInfo(rentEvents);
+		//将封装好的数据设置到pageInfo返回
+		pageInfo.setList(rentEventModels);
 		if (rentEvents != null) {
 			return Msg.success().add("data", pageInfo);
 		} else {
