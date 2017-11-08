@@ -108,28 +108,18 @@
 
 	$(function() {
 		$("#rentalParamGet").click(function() {
-			ajaxRequestGet("rentalParam/get/18");
+			ajaxRequestGet("rentalParam/get");
 		})
 
-		$("#rentalParamDelete").click(function() {
-			ajaxRequestPostType("rentalParam/delete/3", "DELETE", null);
-		})
-
-		$("#rentalParamAdd").click(function() {
-			var data = {
-				'rentalParamName' : '租金参数内容测试',
-				'paramTypeId' : 20,
-				'paramTypeName' : '新老职工如何划分'
-			};
-			ajaxRequestPostType("rentalParam/add", "POST", data);
-		})
 
 		$("#rentalParamModify").click(function() {
 			var data = {
-				'rentalParamId' : 1,
-				'rentalParamName' : '修改测试',
-				'paramTypeId' : 17,
-				'paramTypeName' : '划分'
+				//可以不设置rentalTypeId
+				'rentalParamId' : 189,
+				'rentalTimeDiv' : 2,
+				'rentalOldDct' : '0.3',
+				'rentalNewDctYear':5,
+				'rentalNewDct':'0.4'
 			};
 			ajaxRequestPostType("rentalParam/modify", "PUT", data);
 		})
@@ -182,8 +172,6 @@
 	<hr>
 	<h4>RentalParameterGetTest</h4>
 	<input type="button" value="RentalParamGet" id="rentalParamGet" />
-	<input type="button" value="RentalParamDelete" id="rentalParamDelete" />
-	<input type="button" value="RentalParamAdd" id="rentalParamAdd" />
 	<input type="button" value="RentalParamModify" id="rentalParamModify" />
 
 	<hr>

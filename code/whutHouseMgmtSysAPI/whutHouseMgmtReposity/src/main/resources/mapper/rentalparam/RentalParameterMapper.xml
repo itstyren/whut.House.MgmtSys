@@ -3,7 +3,10 @@
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.rentalparam.RentalParameterMapper">
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameter">
     <id column="RentalParamId" jdbcType="INTEGER" property="rentalParamId" />
-    <result column="RentalParamName" jdbcType="VARCHAR" property="rentalParamName" />
+    <result column="RentalTimeDiv" jdbcType="INTEGER" property="rentalTimeDiv" />
+    <result column="RentalOldDct" jdbcType="VARCHAR" property="rentalOldDct" />
+    <result column="RentalNewDctYear" jdbcType="INTEGER" property="rentalNewDctYear" />
+    <result column="RentalNewDct" jdbcType="VARCHAR" property="rentalNewDct" />
     <result column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
     <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
@@ -67,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    RentalParamId, RentalParamName, ParamTypeId, ParamTypeName, IsDelete
+    RentalParamId, RentalTimeDiv, RentalOldDct, RentalNewDctYear, RentalNewDct, ParamTypeId, 
+    ParamTypeName, IsDelete
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameterExample" resultMap="BaseResultMap">
     select
@@ -100,9 +104,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameter">
-    insert into PM_RentalType (RentalParamId, RentalParamName, ParamTypeId, 
+    insert into PM_RentalType (RentalParamId, RentalTimeDiv, RentalOldDct, 
+      RentalNewDctYear, RentalNewDct, ParamTypeId, 
       ParamTypeName, IsDelete)
-    values (#{rentalParamId,jdbcType=INTEGER}, #{rentalParamName,jdbcType=VARCHAR}, #{paramTypeId,jdbcType=INTEGER}, 
+    values (#{rentalParamId,jdbcType=INTEGER}, #{rentalTimeDiv,jdbcType=INTEGER}, #{rentalOldDct,jdbcType=VARCHAR}, 
+      #{rentalNewDctYear,jdbcType=INTEGER}, #{rentalNewDct,jdbcType=VARCHAR}, #{paramTypeId,jdbcType=INTEGER}, 
       #{paramTypeName,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameter">
@@ -111,8 +117,17 @@
       <if test="rentalParamId != null">
         RentalParamId,
       </if>
-      <if test="rentalParamName != null">
-        RentalParamName,
+      <if test="rentalTimeDiv != null">
+        RentalTimeDiv,
+      </if>
+      <if test="rentalOldDct != null">
+        RentalOldDct,
+      </if>
+      <if test="rentalNewDctYear != null">
+        RentalNewDctYear,
+      </if>
+      <if test="rentalNewDct != null">
+        RentalNewDct,
       </if>
       <if test="paramTypeId != null">
         ParamTypeId,
@@ -128,8 +143,17 @@
       <if test="rentalParamId != null">
         #{rentalParamId,jdbcType=INTEGER},
       </if>
-      <if test="rentalParamName != null">
-        #{rentalParamName,jdbcType=VARCHAR},
+      <if test="rentalTimeDiv != null">
+        #{rentalTimeDiv,jdbcType=INTEGER},
+      </if>
+      <if test="rentalOldDct != null">
+        #{rentalOldDct,jdbcType=VARCHAR},
+      </if>
+      <if test="rentalNewDctYear != null">
+        #{rentalNewDctYear,jdbcType=INTEGER},
+      </if>
+      <if test="rentalNewDct != null">
+        #{rentalNewDct,jdbcType=VARCHAR},
       </if>
       <if test="paramTypeId != null">
         #{paramTypeId,jdbcType=INTEGER},
@@ -154,8 +178,17 @@
       <if test="record.rentalParamId != null">
         RentalParamId = #{record.rentalParamId,jdbcType=INTEGER},
       </if>
-      <if test="record.rentalParamName != null">
-        RentalParamName = #{record.rentalParamName,jdbcType=VARCHAR},
+      <if test="record.rentalTimeDiv != null">
+        RentalTimeDiv = #{record.rentalTimeDiv,jdbcType=INTEGER},
+      </if>
+      <if test="record.rentalOldDct != null">
+        RentalOldDct = #{record.rentalOldDct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rentalNewDctYear != null">
+        RentalNewDctYear = #{record.rentalNewDctYear,jdbcType=INTEGER},
+      </if>
+      <if test="record.rentalNewDct != null">
+        RentalNewDct = #{record.rentalNewDct,jdbcType=VARCHAR},
       </if>
       <if test="record.paramTypeId != null">
         ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
@@ -174,7 +207,10 @@
   <update id="updateByExample" parameterType="map">
     update PM_RentalType
     set RentalParamId = #{record.rentalParamId,jdbcType=INTEGER},
-      RentalParamName = #{record.rentalParamName,jdbcType=VARCHAR},
+      RentalTimeDiv = #{record.rentalTimeDiv,jdbcType=INTEGER},
+      RentalOldDct = #{record.rentalOldDct,jdbcType=VARCHAR},
+      RentalNewDctYear = #{record.rentalNewDctYear,jdbcType=INTEGER},
+      RentalNewDct = #{record.rentalNewDct,jdbcType=VARCHAR},
       ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
       IsDelete = #{record.isDelete,jdbcType=BIT}
@@ -185,8 +221,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameter">
     update PM_RentalType
     <set>
-      <if test="rentalParamName != null">
-        RentalParamName = #{rentalParamName,jdbcType=VARCHAR},
+      <if test="rentalTimeDiv != null">
+        RentalTimeDiv = #{rentalTimeDiv,jdbcType=INTEGER},
+      </if>
+      <if test="rentalOldDct != null">
+        RentalOldDct = #{rentalOldDct,jdbcType=VARCHAR},
+      </if>
+      <if test="rentalNewDctYear != null">
+        RentalNewDctYear = #{rentalNewDctYear,jdbcType=INTEGER},
+      </if>
+      <if test="rentalNewDct != null">
+        RentalNewDct = #{rentalNewDct,jdbcType=VARCHAR},
       </if>
       <if test="paramTypeId != null">
         ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
@@ -202,7 +247,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameter">
     update PM_RentalType
-    set RentalParamName = #{rentalParamName,jdbcType=VARCHAR},
+    set RentalTimeDiv = #{rentalTimeDiv,jdbcType=INTEGER},
+      RentalOldDct = #{rentalOldDct,jdbcType=VARCHAR},
+      RentalNewDctYear = #{rentalNewDctYear,jdbcType=INTEGER},
+      RentalNewDct = #{rentalNewDct,jdbcType=VARCHAR},
       ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
       IsDelete = #{isDelete,jdbcType=BIT}
