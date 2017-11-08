@@ -48,6 +48,7 @@ import rentPostVal from './rentParam/rentPostVal'
 import rentTitleVal from './rentParam/rentTitleVal'   
 import rentPostArea from './rentParam/rentPostArea'  
 import rentTitleArea from './rentParam/rentTitleArea'  
+import rentOption from './rentParam/rentOption'  
 
 import fixContent from './fixParam/fixContent'
  export default {
@@ -135,26 +136,9 @@ import fixContent from './fixParam/fixContent'
                label:'职称面积'
              },
              {
-               id:'rentIsOpenSel',
-               label:'是否开启选房'
-             },
-             {
-               id:'rentTimeBegin',
-               label:'选房开始时间'
-             },             
-             {
-               id:'rentTimeRanges',
-               label:'选房时间'
+               id:'rentOption',
+               label:'选房选项'
              },            
-             {
-               id:'rentSelValReq',
-               label:'选房所需积分'
-             },             
-             {
-               id:'rentSelRules',
-               label:'选房规则'
-             }
-             
            ]
          },
          // 维修参数
@@ -214,7 +198,7 @@ import fixContent from './fixParam/fixContent'
      // 职工参数组件
      staffDept,staffPost,staffTitle,staffClass,staffStatus,staffSpouse,
      // 租赁参数组件
-     rentPostVal,rentTitleVal,rentPostArea,rentTitleArea,
+     rentPostVal,rentTitleVal,rentPostArea,rentTitleArea,rentOption,
      // 维修参数组件
      fixContent,
    }

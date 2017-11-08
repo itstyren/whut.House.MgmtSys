@@ -25,93 +25,87 @@ public class HouseParameterController {
 
 	@Autowired
 	private HouseParamService houseParamService;
-	
+
 	/**
-	 * 
-	 * ï¿½ï¿½È¡ï¿½ï¿½Ó¦ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @param paramTypeId
-	 * @return 
+	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="get/{paramTypeId}",method = RequestMethod.GET)
+	@RequestMapping(value = "get/{paramTypeId}", method = RequestMethod.GET)
 
-	public Msg getHouseParameter(@PathVariable("paramTypeId")Integer paramTypeId,
-			@RequestParam(value="page",defaultValue="1")Integer page,
-			@RequestParam(value="size",defaultValue="10")Integer size){
-		//ï¿½ï¿½Ò³ï¿½ï¿½Ñ¯
-		PageHelper.startPage(page,size);
-		//ï¿½ï¿½ï¿½ï¿½paramTypeIdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		List<HouseParameter> houseParams=houseParamService.getAll(paramTypeId);
+	public Msg getHouseParameter(@PathVariable("paramTypeId") Integer paramTypeId,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		PageHelper.startPage(page, size);
+		List<HouseParameter> houseParams = houseParamService.getAll(paramTypeId);
 		//
-		PageInfo pageInfo=new PageInfo(houseParams);
-		
-		if(houseParams!=null){
+		PageInfo pageInfo = new PageInfo(houseParams);
+
+		if (houseParams != null) {
 			return Msg.success().add("data", pageInfo);
-		}else{
+		} else {
 			return Msg.error();
 		}
 	}
-	
+
 	/**
-	 * ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½
 	 * @param houseParameter
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="add",method=RequestMethod.POST)
-	public Msg addHouseParameter(@RequestBody HouseParameter houseParameter){
-		//ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
-		if(houseParameter.getHouseParamName()!=null){
-			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDÎªï¿½ï¿½
-			if(houseParameter.getParamTypeId()!=null){
+	@RequestMapping(value = "add", method = RequestMethod.POST)
+	public Msg addHouseParameter(@RequestBody HouseParameter houseParameter) {
+		if (houseParameter.getHouseParamName() != null) {
+			if (houseParameter.getParamTypeId() != null) {
+				
 				houseParamService.add(houseParameter);
-				return  Msg.success().add("data", houseParameter);
-			}else{
-				return Msg.error("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDÎªï¿½ï¿½");
+				
+				return Msg.success().add("data", houseParameter);
+			} else {
+				return Msg.error("±ØÒªÐÅÏ¢²»ÍêÕû£¬Ìí¼ÓÊ§°Ü");
 			}
-		}else{
-			return Msg.error("ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½");
+		} else {
+			return Msg.error("±ØÒªÐÅÏ¢²»ÍêÕû£¬Ìí¼ÓÊ§°Ü");
 		}
 	}
-	
+
+
 	/**
-	 * ï¿½ï¿½ï¿½ï¿½houseParamIdÉ¾ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Â¼
 	 * @param houseParamId
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="delete/{houseParamId}",method=RequestMethod.DELETE)
-	public Msg deleteHouseParam(@PathVariable("houseParamId") Integer houseParamId){
-		//houseParamIdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		HouseParameter houseParameter=houseParamService.get(houseParamId);
-		if(houseParameter!=null){
+	@RequestMapping(value = "delete/{houseParamId}", method = RequestMethod.DELETE)
+	public Msg deleteHouseParam(@PathVariable("houseParamId") Integer houseParamId) {
+		HouseParameter houseParameter = houseParamService.get(houseParamId);
+		if (houseParameter != null) {
 			try {
-				houseParamService.delete(houseParameter.getHouseParamId());
+				houseParameter.setIsDelete(true);
+				//¸üÐÂ²Ù×÷£¬ÇÒ²»¿ÉÄæ
+				houseParamService.delete(houseParameter);
 				return Msg.success().add("data", houseParameter);
 			} catch (Exception e) {
 				// TODO: handle exception
 				return Msg.error();
 			}
-			
-		}else{
-			return  Msg.error("houseParamIdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+		} else {
+			return Msg.error("ÕÒ²»µ½¸Ãid£¬É¾³ý³ö´í");
 		}
 	}
-	
+
 	/**
-	 * ï¿½Þ¸ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Â¼
 	 * @param houseParameter
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="modify",method=RequestMethod.PUT)
-	public Msg modifyHouseParam(@RequestBody HouseParameter houseParameter){
+	@RequestMapping(value = "modify", method = RequestMethod.PUT)
+	public Msg modifyHouseParam(@RequestBody HouseParameter houseParameter) {
 		try {
 			houseParamService.update(houseParameter);
 			return Msg.success().add("data", houseParameter);
 		} catch (Exception e) {
 			// TODO: handle exception
-			return Msg.error();
+			return Msg.error("Êý¾Ý¿âÖÐÃ»ÓÐÕÒµ½´ËÌõ¼ÇÂ¼£¬ÐÞ¸ÄÊ§°Ü ");
 		}
 	}
 }

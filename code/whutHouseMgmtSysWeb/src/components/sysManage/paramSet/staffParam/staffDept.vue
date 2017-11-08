@@ -11,7 +11,7 @@
   </el-col>
   <!-- 表格区域 -->
   <el-col :span="24" >
-    <el-table :data="deptData" border style="width:100%" v-loading="listLoading"  max-height="450">
+    <el-table :data="deptData" border style="width:100%" v-loading="listLoading"  height="450">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
       <el-table-column prop="staffParamName" label="工作部门" sortable align="center" ></el-table-column>
@@ -115,7 +115,8 @@ export default {
          size : this.size
        }
        getStaffParam(param,this.paramClass).then((res)=>{
-         this.deptData=res.data.data.data
+         this.deptData=res.data.data.data.list
+         this.totalNum=res.data.data.data.total
          this.listLoading=false
        }).catch((err)=>{
          console.log(err)
@@ -191,14 +192,12 @@ export default {
     //更换每页数量
     SizeChangeEvent(val){
         this.size = val;
-        //this.getList();
-        PubMethod.logMessage(this.page + "   " + this.size);
+        this.getList();
     },
     //页码切换时
     CurrentChangeEvent(val){
         this.page = val;
-        //this.getList();
-        PubMethod.logMessage(this.page + "   " + this.size);
+        this.getList();
     }
    }
  }

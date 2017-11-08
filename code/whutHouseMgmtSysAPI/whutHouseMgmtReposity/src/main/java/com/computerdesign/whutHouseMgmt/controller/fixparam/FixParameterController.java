@@ -27,7 +27,6 @@ public class FixParameterController {
 	FixParamService fixParamService;
 	
 	/**
-	 * 根据条件查找一类的维修参数
 	 * @param paramTypeId
 	 * @param page
 	 * @param size
@@ -45,12 +44,11 @@ public class FixParameterController {
 		if(fixParameters!=null){
 			return Msg.success().add("data", pageInfo);
 		}else{
-			return Msg.error("没有信息");
+			return Msg.error("鏃犳硶鏌ユ壘");
 		}
 	}
 	
 	/**
-	 * 增加一个房屋修改参数
 	 * @param fixParameter
 	 * @return
 	 */
@@ -62,15 +60,14 @@ public class FixParameterController {
 				fixParamService.add(fixParameter);
 				return Msg.success().add("data", fixParameter);
 			}else{
-				return Msg.error("ParamTypeId为空");
+				return Msg.error("璇疯緭鍏d");
 			}
 		}else{
-			return Msg.error("FixParamName为空");
+			return Msg.error("璇疯緭鍏ame");
 		}
 	}
 	
 	/**
-	 * 删除一条数据
 	 * @param fixParamId
 	 * @return
 	 */
@@ -82,15 +79,17 @@ public class FixParameterController {
 		
 		if(fixParameter!=null){
 			try {
-				fixParamService.delete(fixParameter.getFixParamId());
+				fixParameter.setIsDelete(true);
+				//鏇存柊鎿嶄綔
+				fixParamService.delete(fixParameter);
 				return Msg.success().add("data", fixParameter);
 			} catch (Exception e) {
 				// TODO: handle exception
-				return Msg.error("无法删除");
+				return Msg.error("鍒犻櫎澶辫触");
 			}
 
 		}else{
-			return Msg.error("找不到该fixParamId");
+			return Msg.error("鎵句笉鍒拌ID");
 		}
 	}
 	
@@ -102,7 +101,7 @@ public class FixParameterController {
 			return  Msg.success().add("data", fixParameter);
 		} catch (Exception e) {
 			// TODO: handle exception
-			return Msg.error("修改失败");
+			return Msg.error("鏇存柊澶辫触");
 		}
 	}
 }

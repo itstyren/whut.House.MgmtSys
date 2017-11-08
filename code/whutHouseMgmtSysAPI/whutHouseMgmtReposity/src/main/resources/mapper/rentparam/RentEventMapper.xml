@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computerdesign.whutHouseMgmt.dao.staffparam.StaffParameterMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter">
-    <id column="StaffParamId" jdbcType="INTEGER" property="staffParamId" />
-    <result column="StaffParamName" jdbcType="VARCHAR" property="staffParamName" />
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.rentparam.RentEventMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent">
+    <id column="rentEventId" jdbcType="INTEGER" property="rentEventId" />
     <result column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
     <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
-    <result column="StaffParamVal" jdbcType="INTEGER" property="staffParamVal" />
-    <result column="StaffParamSpouseVal" jdbcType="INTEGER" property="staffParamSpouseVal" />
-    <result column="StaffParamHouseArea" jdbcType="REAL" property="staffParamHouseArea" />
+    <result column="rentIsOpenSel" jdbcType="BIT" property="rentIsOpenSel" />
+    <result column="rentTimeBegin" jdbcType="TIMESTAMP" property="rentTimeBegin" />
+    <result column="rentTimeRanges" jdbcType="TIMESTAMP" property="rentTimeRanges" />
+    <result column="rentSelValReq" jdbcType="VARCHAR" property="rentSelValReq" />
+    <result column="rentSelRules" jdbcType="VARCHAR" property="rentSelRules" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -70,16 +71,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    StaffParamId, StaffParamName, ParamTypeId, ParamTypeName, StaffParamVal, StaffParamSpouseVal, 
-    StaffParamHouseArea, IsDelete
+    rentEventId, ParamTypeId, ParamTypeName, rentIsOpenSel, rentTimeBegin, rentTimeRanges, 
+    rentSelValReq, rentSelRules, IsDelete
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEventExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from pm_stafftype
+    from pm_rentevent
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,35 +91,34 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from pm_stafftype
-    where StaffParamId = #{staffParamId,jdbcType=INTEGER}
+    from pm_rentevent
+    where rentEventId = #{rentEventId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from pm_stafftype
-    where StaffParamId = #{staffParamId,jdbcType=INTEGER}
+    delete from pm_rentevent
+    where rentEventId = #{rentEventId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample">
-    delete from pm_stafftype
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEventExample">
+    delete from pm_rentevent
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter">
-    insert into pm_stafftype (StaffParamId, StaffParamName, ParamTypeId, 
-      ParamTypeName, StaffParamVal, StaffParamSpouseVal, 
-      StaffParamHouseArea, IsDelete)
-    values (#{staffParamId,jdbcType=INTEGER}, #{staffParamName,jdbcType=VARCHAR}, #{paramTypeId,jdbcType=INTEGER}, 
-      #{paramTypeName,jdbcType=VARCHAR}, #{staffParamVal,jdbcType=INTEGER}, #{staffParamSpouseVal,jdbcType=INTEGER}, 
-      #{staffParamHouseArea,jdbcType=REAL}, #{isDelete,jdbcType=BIT})
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent">
+    insert into pm_rentevent (rentEventId, ParamTypeId, ParamTypeName, 
+      rentIsOpenSel, rentTimeBegin, rentTimeRanges, 
+      rentSelValReq, rentSelRules, IsDelete
+      )
+    values (#{rentEventId,jdbcType=INTEGER}, #{paramTypeId,jdbcType=INTEGER}, #{paramTypeName,jdbcType=VARCHAR}, 
+      #{rentIsOpenSel,jdbcType=BIT}, #{rentTimeBegin,jdbcType=TIMESTAMP}, #{rentTimeRanges,jdbcType=TIMESTAMP}, 
+      #{rentSelValReq,jdbcType=VARCHAR}, #{rentSelRules,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter">
-    insert into pm_stafftype
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent">
+    insert into pm_rentevent
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="staffParamId != null">
-        StaffParamId,
-      </if>
-      <if test="staffParamName != null">
-        StaffParamName,
+      <if test="rentEventId != null">
+        rentEventId,
       </if>
       <if test="paramTypeId != null">
         ParamTypeId,
@@ -126,25 +126,28 @@
       <if test="paramTypeName != null">
         ParamTypeName,
       </if>
-      <if test="staffParamVal != null">
-        StaffParamVal,
+      <if test="rentIsOpenSel != null">
+        rentIsOpenSel,
       </if>
-      <if test="staffParamSpouseVal != null">
-        StaffParamSpouseVal,
+      <if test="rentTimeBegin != null">
+        rentTimeBegin,
       </if>
-      <if test="staffParamHouseArea != null">
-        StaffParamHouseArea,
+      <if test="rentTimeRanges != null">
+        rentTimeRanges,
+      </if>
+      <if test="rentSelValReq != null">
+        rentSelValReq,
+      </if>
+      <if test="rentSelRules != null">
+        rentSelRules,
       </if>
       <if test="isDelete != null">
         IsDelete,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="staffParamId != null">
-        #{staffParamId,jdbcType=INTEGER},
-      </if>
-      <if test="staffParamName != null">
-        #{staffParamName,jdbcType=VARCHAR},
+      <if test="rentEventId != null">
+        #{rentEventId,jdbcType=INTEGER},
       </if>
       <if test="paramTypeId != null">
         #{paramTypeId,jdbcType=INTEGER},
@@ -152,34 +155,37 @@
       <if test="paramTypeName != null">
         #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="staffParamVal != null">
-        #{staffParamVal,jdbcType=INTEGER},
+      <if test="rentIsOpenSel != null">
+        #{rentIsOpenSel,jdbcType=BIT},
       </if>
-      <if test="staffParamSpouseVal != null">
-        #{staffParamSpouseVal,jdbcType=INTEGER},
+      <if test="rentTimeBegin != null">
+        #{rentTimeBegin,jdbcType=TIMESTAMP},
       </if>
-      <if test="staffParamHouseArea != null">
-        #{staffParamHouseArea,jdbcType=REAL},
+      <if test="rentTimeRanges != null">
+        #{rentTimeRanges,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentSelValReq != null">
+        #{rentSelValReq,jdbcType=VARCHAR},
+      </if>
+      <if test="rentSelRules != null">
+        #{rentSelRules,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=BIT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample" resultType="java.lang.Long">
-    select count(*) from pm_stafftype
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEventExample" resultType="java.lang.Long">
+    select count(*) from pm_rentevent
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update pm_stafftype
+    update pm_rentevent
     <set>
-      <if test="record.staffParamId != null">
-        StaffParamId = #{record.staffParamId,jdbcType=INTEGER},
-      </if>
-      <if test="record.staffParamName != null">
-        StaffParamName = #{record.staffParamName,jdbcType=VARCHAR},
+      <if test="record.rentEventId != null">
+        rentEventId = #{record.rentEventId,jdbcType=INTEGER},
       </if>
       <if test="record.paramTypeId != null">
         ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
@@ -187,14 +193,20 @@
       <if test="record.paramTypeName != null">
         ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.staffParamVal != null">
-        StaffParamVal = #{record.staffParamVal,jdbcType=INTEGER},
+      <if test="record.rentIsOpenSel != null">
+        rentIsOpenSel = #{record.rentIsOpenSel,jdbcType=BIT},
       </if>
-      <if test="record.staffParamSpouseVal != null">
-        StaffParamSpouseVal = #{record.staffParamSpouseVal,jdbcType=INTEGER},
+      <if test="record.rentTimeBegin != null">
+        rentTimeBegin = #{record.rentTimeBegin,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.staffParamHouseArea != null">
-        StaffParamHouseArea = #{record.staffParamHouseArea,jdbcType=REAL},
+      <if test="record.rentTimeRanges != null">
+        rentTimeRanges = #{record.rentTimeRanges,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rentSelValReq != null">
+        rentSelValReq = #{record.rentSelValReq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rentSelRules != null">
+        rentSelRules = #{record.rentSelRules,jdbcType=VARCHAR},
       </if>
       <if test="record.isDelete != null">
         IsDelete = #{record.isDelete,jdbcType=BIT},
@@ -205,55 +217,60 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update pm_stafftype
-    set StaffParamId = #{record.staffParamId,jdbcType=INTEGER},
-      StaffParamName = #{record.staffParamName,jdbcType=VARCHAR},
+    update pm_rentevent
+    set rentEventId = #{record.rentEventId,jdbcType=INTEGER},
       ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
-      StaffParamVal = #{record.staffParamVal,jdbcType=INTEGER},
-      StaffParamSpouseVal = #{record.staffParamSpouseVal,jdbcType=INTEGER},
-      StaffParamHouseArea = #{record.staffParamHouseArea,jdbcType=REAL},
+      rentIsOpenSel = #{record.rentIsOpenSel,jdbcType=BIT},
+      rentTimeBegin = #{record.rentTimeBegin,jdbcType=TIMESTAMP},
+      rentTimeRanges = #{record.rentTimeRanges,jdbcType=TIMESTAMP},
+      rentSelValReq = #{record.rentSelValReq,jdbcType=VARCHAR},
+      rentSelRules = #{record.rentSelRules,jdbcType=VARCHAR},
       IsDelete = #{record.isDelete,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter">
-    update pm_stafftype
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent">
+    update pm_rentevent
     <set>
-      <if test="staffParamName != null">
-        StaffParamName = #{staffParamName,jdbcType=VARCHAR},
-      </if>
       <if test="paramTypeId != null">
         ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
       </if>
       <if test="paramTypeName != null">
         ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="staffParamVal != null">
-        StaffParamVal = #{staffParamVal,jdbcType=INTEGER},
+      <if test="rentIsOpenSel != null">
+        rentIsOpenSel = #{rentIsOpenSel,jdbcType=BIT},
       </if>
-      <if test="staffParamSpouseVal != null">
-        StaffParamSpouseVal = #{staffParamSpouseVal,jdbcType=INTEGER},
+      <if test="rentTimeBegin != null">
+        rentTimeBegin = #{rentTimeBegin,jdbcType=TIMESTAMP},
       </if>
-      <if test="staffParamHouseArea != null">
-        StaffParamHouseArea = #{staffParamHouseArea,jdbcType=REAL},
+      <if test="rentTimeRanges != null">
+        rentTimeRanges = #{rentTimeRanges,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentSelValReq != null">
+        rentSelValReq = #{rentSelValReq,jdbcType=VARCHAR},
+      </if>
+      <if test="rentSelRules != null">
+        rentSelRules = #{rentSelRules,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         IsDelete = #{isDelete,jdbcType=BIT},
       </if>
     </set>
-    where StaffParamId = #{staffParamId,jdbcType=INTEGER}
+    where rentEventId = #{rentEventId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter">
-    update pm_stafftype
-    set StaffParamName = #{staffParamName,jdbcType=VARCHAR},
-      ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent">
+    update pm_rentevent
+    set ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
-      StaffParamVal = #{staffParamVal,jdbcType=INTEGER},
-      StaffParamSpouseVal = #{staffParamSpouseVal,jdbcType=INTEGER},
-      StaffParamHouseArea = #{staffParamHouseArea,jdbcType=REAL},
+      rentIsOpenSel = #{rentIsOpenSel,jdbcType=BIT},
+      rentTimeBegin = #{rentTimeBegin,jdbcType=TIMESTAMP},
+      rentTimeRanges = #{rentTimeRanges,jdbcType=TIMESTAMP},
+      rentSelValReq = #{rentSelValReq,jdbcType=VARCHAR},
+      rentSelRules = #{rentSelRules,jdbcType=VARCHAR},
       IsDelete = #{isDelete,jdbcType=BIT}
-    where StaffParamId = #{staffParamId,jdbcType=INTEGER}
+    where rentEventId = #{rentEventId,jdbcType=INTEGER}
   </update>
 </mapper>
