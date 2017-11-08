@@ -3,7 +3,7 @@ package com.computerdesign.whutHouseMgmt.bean.rentparam;
 import java.util.Date;
 
 public class RentEventModel {
-	// private Integer rentEventId;
+	 private Integer rentEventId;
 	//
 	// private Integer paramTypeId;
 	//
@@ -21,13 +21,13 @@ public class RentEventModel {
 
 	// private Boolean isDelete;
 
-	// public Integer getRentEventId() {
-	// return rentEventId;
-	// }
-	//
-	// public void setRentEventId(Integer rentEventId) {
-	// this.rentEventId = rentEventId;
-	// }
+	 public Integer getRentEventId() {
+	 return rentEventId;
+	 }
+	
+	 public void setRentEventId(Integer rentEventId) {
+	 this.rentEventId = rentEventId;
+	 }
 	//
 	// public Integer getParamTypeId() {
 	// return paramTypeId;

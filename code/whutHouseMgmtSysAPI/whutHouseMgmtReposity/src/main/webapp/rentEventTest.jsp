@@ -19,7 +19,7 @@
 		})
 		
 		$("#rentEventModify").click(function () {
-			var data={"rentEventId":3,"paramTypeId":"15","paramTypeName":"选房选项","rentTimeBegin":"2017-10-20","rentTimeRanges":"2017-11-4","rentSelValReq":5,"rentSelRules":"无规则","isDelete":"false"}
+			var data={"rentEventId":3,"rentTimeBegin":"2017-10-20","rentTimeRanges":"2017-11-4","rentSelValReq":5,"rentSelRules":"无规则"}
 			ajaxRequestPostType("rentEvent/modify","PUT",data);
 		})
 		
@@ -29,7 +29,7 @@
 		})
 		
 		$("#rentEventAdd").click(function () {
-			var data={"paramTypeId":"15","paramTypeName":"选房选项","rentTimeBegin":"2017-10-30","rentTimeRanges":"2017-11-4","rentSelValReq":5,"rentSelRules":"无规则","isDelete":"false"}
+			var data={"rentTimeBegin":"2017-10-30","rentTimeRanges":"2017-11-4","rentSelValReq":5,"rentSelRules":"无规则"}
 			ajaxRequestPostType("rentEvent/add","POST",data);
 		})
 		
