@@ -11,7 +11,7 @@
   </el-col>
   <!-- 表格区域 -->
   <el-col :span="24" >
-    <el-table :data="deptData" border style="width:100%" v-loading="listLoading"  max-height="450">
+    <el-table :data="deptData" border style="width:100%" v-loading="listLoading"  height="450">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
       <el-table-column prop="staffParamName" label="工作部门" sortable align="center" ></el-table-column>
