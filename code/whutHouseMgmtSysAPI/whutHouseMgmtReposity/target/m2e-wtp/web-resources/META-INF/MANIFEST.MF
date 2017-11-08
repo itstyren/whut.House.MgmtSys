@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: Administrator
 Build-Jdk: 1.8.0_101
+=======
+Built-By: user
+Build-Jdk: 1.8.0_151
+>>>>>>> Terry-Ren/master
 Created-By: Maven Integration for Eclipse
 
