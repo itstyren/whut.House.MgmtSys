@@ -42,13 +42,14 @@ const staffTitle = () => import(/* webpackChunkName: "staffParam" */ './staffPar
 const staffClass = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffClass')
 const staffStatus = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffStatus')
 const staffSpouse = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffSpouse')
+// 异步加载--租赁参数
+const rentPostVal = () => import(/* webpackChunkName: "rentParam" */ './rentParam/rentPostVal')
+const rentTitleVal = () => import(/* webpackChunkName: "rentParam" */ './rentParam/rentTitleVal')
+const rentPostArea = () => import(/* webpackChunkName: "rentParam" */ './rentParam/rentPostArea')
+const rentTitleArea = () => import(/* webpackChunkName: "rentParam" */ './rentParam/rentTitleArea')
+const rentOption = () => import(/* webpackChunkName: "rentParam" */ './rentParam/rentOption')
 
-
-import rentPostVal from './rentParam/rentPostVal' 
-import rentTitleVal from './rentParam/rentTitleVal'   
-import rentPostArea from './rentParam/rentPostArea'  
-import rentTitleArea from './rentParam/rentTitleArea'  
-import rentOption from './rentParam/rentOption'  
+import rentalOption from './rentalParam/rentalOption'  
 
 import fixContent from './fixParam/fixContent'
  export default {
@@ -156,8 +157,8 @@ import fixContent from './fixParam/fixContent'
            label:'租金参数',
            children:[
              {
-               id:'rentalStaffTimeDiv',
-               label:'新老职工分界点'
+               id:'rentalOption',
+               label:'组件选项'
              },
              {
                id:'rentalOldDct',
@@ -201,6 +202,8 @@ import fixContent from './fixParam/fixContent'
      rentPostVal,rentTitleVal,rentPostArea,rentTitleArea,rentOption,
      // 维修参数组件
      fixContent,
+     // 租金参数组件
+     rentalOption,
    }
  }
 </script>

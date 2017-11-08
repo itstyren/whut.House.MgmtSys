@@ -15,7 +15,7 @@
 		
 	$(function () {
 		$("#rentEventGet").click(function () {
-			ajaxRequestGet("rentEvent/get?page=2&size=5");
+			ajaxRequestGet("rentEvent/get?page=1&size=5");
 		})
 		
 		$("#rentEventModify").click(function () {

@@ -12,7 +12,7 @@
   <!-- 表格区域 -->
   <el-card>
   <el-col :span="24">
-    <el-table :data="PostValData" :border="false" style="width:100%" v-loading="listLoading" height="400">
+    <el-table :data="rentOptionData" :border="false" style="width:100%" v-loading="listLoading" height="400">
       <!-- <el-table-column type="selection" width="55"></el-table-column> -->
       <el-table-column type="expand" label="住房规则">
         <template slot-scope="props">
@@ -25,6 +25,7 @@
       </el-table-column>  
       <el-table-column prop="rentTimeBegin" label="开始时间" sortable align="center" ></el-table-column>
       <el-table-column prop="rentTimeRanges" label="结束时间" sortable align="center" ></el-table-column>
+      <el-table-column prop="rentIsOpenSel" label="是否开启" sortable align="center" ></el-table-column>
       <el-table-column prop="rentSelValReq" label="所需积分" sortable align="center" ></el-table-column>  
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope" >
@@ -102,7 +103,7 @@ export default {
        // 用户令牌
        access_token:'',
        // 表格数据
-       PostValData: [],
+       rentOptionData: [],
        listLoading:false,
        totalNum:1,
        page:1,
@@ -178,9 +179,10 @@ export default {
        }
        // http请求
        getRentParamAboutEvent(param).then((res)=>{
-         this.PostValData=res.data.data.data.list
+         this.rentOptionData=res.data.data.data.list
          this.totalNum=res.data.data.data.total
          this.listLoading=false
+         console.log(this.rentOptionData)
        }).catch((err)=>{
          console.log(err)
        })
