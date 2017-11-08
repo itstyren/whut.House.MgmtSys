@@ -29,6 +29,8 @@ export const getRentParamAboutStaff = (params, paramClass) => { return axios.get
 export const putRentParamAboutStaff = (params) => { return axios.put(`${base}rentParamAboutStaff/modify`, params) }
 // 获取方法【选房选项】
 export const getRentParamAboutEvent = (params) => { return axios.get(`${base}rentEvent/get`, { params: params }) }
+// 新增方法【选房选项】
+export const postRentParamAboutEvent = (params) => { return axios.post(`${base}rentEvent/add`, params) }
 // 删除方法【选房选项】
 export const deleteRentParamAboutEvent = (rentEventId) => { return axios.delete(`${base}rentEvent/delete/${rentEventId}`) }
 

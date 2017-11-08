@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,7 +19,7 @@
 		})
 		
 		$("#rentEventModify").click(function () {
-			var data={"rentEventId":3,"paramTypeId":"15","paramTypeName":"选房选项","rentTimeBegin":new Date(),"isDelete":"false"}
+			var data={"rentEventId":3,"paramTypeId":"15","paramTypeName":"选房选项","rentTimeBegin":"2017-10-20","rentTimeRanges":"2017-11-4","rentSelValReq":5,"rentSelRules":"无规则","isDelete":"false"}
 			ajaxRequestPostType("rentEvent/modify","PUT",data);
 		})
 		
@@ -29,7 +29,7 @@
 		})
 		
 		$("#rentEventAdd").click(function () {
-			var data={"paramTypeId":"15","paramTypeName":"选房选项","rentTimeBegin":new Date(),"isDelete":"false"}
+			var data={"paramTypeId":"15","paramTypeName":"选房选项","rentTimeBegin":"2017-10-30","rentTimeRanges":"2017-11-4","rentSelValReq":5,"rentSelRules":"无规则","isDelete":"false"}
 			ajaxRequestPostType("rentEvent/add","POST",data);
 		})
 		
@@ -38,18 +38,18 @@
 </script>
 </head>
 <body>
-	
+
 	<h4>租赁历史获取测试</h4>
-	<input type="button" value="RentEventGet" id="rentEventGet"/>
+	<input type="button" value="RentEventGet" id="rentEventGet" />
 	<br>
 	<h4>租赁历史修改测试</h4>
-	<input type="button" value="RentEventModify" id="rentEventModify"/>
+	<input type="button" value="RentEventModify" id="rentEventModify" />
 	<br>
 	<h4>租赁历史删除测试</h4>
-	<input type="button" value="RentEventDelete" id="rentEventDelete"/>
+	<input type="button" value="RentEventDelete" id="rentEventDelete" />
 	<br>
 	<h4>租赁历史增添测试</h4>
-	<input type="button" value="RentEventAdd" id="rentEventAdd"/>
-	
+	<input type="button" value="RentEventAdd" id="rentEventAdd" />
+
 </body>
 </html>

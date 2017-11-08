@@ -6,8 +6,8 @@
     <result column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
     <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
     <result column="rentIsOpenSel" jdbcType="BIT" property="rentIsOpenSel" />
-    <result column="rentTimeBegin" jdbcType="TIMESTAMP" property="rentTimeBegin" />
-    <result column="rentTimeRanges" jdbcType="TIMESTAMP" property="rentTimeRanges" />
+    <result column="rentTimeBegin" jdbcType="DATE" property="rentTimeBegin" />
+    <result column="rentTimeRanges" jdbcType="DATE" property="rentTimeRanges" />
     <result column="rentSelValReq" jdbcType="VARCHAR" property="rentSelValReq" />
     <result column="rentSelRules" jdbcType="VARCHAR" property="rentSelRules" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
@@ -110,7 +110,7 @@
       rentSelValReq, rentSelRules, IsDelete
       )
     values (#{rentEventId,jdbcType=INTEGER}, #{paramTypeId,jdbcType=INTEGER}, #{paramTypeName,jdbcType=VARCHAR}, 
-      #{rentIsOpenSel,jdbcType=BIT}, #{rentTimeBegin,jdbcType=TIMESTAMP}, #{rentTimeRanges,jdbcType=TIMESTAMP}, 
+      #{rentIsOpenSel,jdbcType=BIT}, #{rentTimeBegin,jdbcType=DATE}, #{rentTimeRanges,jdbcType=DATE}, 
       #{rentSelValReq,jdbcType=VARCHAR}, #{rentSelRules,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
       )
   </insert>
@@ -159,10 +159,10 @@
         #{rentIsOpenSel,jdbcType=BIT},
       </if>
       <if test="rentTimeBegin != null">
-        #{rentTimeBegin,jdbcType=TIMESTAMP},
+        #{rentTimeBegin,jdbcType=DATE},
       </if>
       <if test="rentTimeRanges != null">
-        #{rentTimeRanges,jdbcType=TIMESTAMP},
+        #{rentTimeRanges,jdbcType=DATE},
       </if>
       <if test="rentSelValReq != null">
         #{rentSelValReq,jdbcType=VARCHAR},
@@ -197,10 +197,10 @@
         rentIsOpenSel = #{record.rentIsOpenSel,jdbcType=BIT},
       </if>
       <if test="record.rentTimeBegin != null">
-        rentTimeBegin = #{record.rentTimeBegin,jdbcType=TIMESTAMP},
+        rentTimeBegin = #{record.rentTimeBegin,jdbcType=DATE},
       </if>
       <if test="record.rentTimeRanges != null">
-        rentTimeRanges = #{record.rentTimeRanges,jdbcType=TIMESTAMP},
+        rentTimeRanges = #{record.rentTimeRanges,jdbcType=DATE},
       </if>
       <if test="record.rentSelValReq != null">
         rentSelValReq = #{record.rentSelValReq,jdbcType=VARCHAR},
@@ -222,8 +222,8 @@
       ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
       rentIsOpenSel = #{record.rentIsOpenSel,jdbcType=BIT},
-      rentTimeBegin = #{record.rentTimeBegin,jdbcType=TIMESTAMP},
-      rentTimeRanges = #{record.rentTimeRanges,jdbcType=TIMESTAMP},
+      rentTimeBegin = #{record.rentTimeBegin,jdbcType=DATE},
+      rentTimeRanges = #{record.rentTimeRanges,jdbcType=DATE},
       rentSelValReq = #{record.rentSelValReq,jdbcType=VARCHAR},
       rentSelRules = #{record.rentSelRules,jdbcType=VARCHAR},
       IsDelete = #{record.isDelete,jdbcType=BIT}
@@ -244,10 +244,10 @@
         rentIsOpenSel = #{rentIsOpenSel,jdbcType=BIT},
       </if>
       <if test="rentTimeBegin != null">
-        rentTimeBegin = #{rentTimeBegin,jdbcType=TIMESTAMP},
+        rentTimeBegin = #{rentTimeBegin,jdbcType=DATE},
       </if>
       <if test="rentTimeRanges != null">
-        rentTimeRanges = #{rentTimeRanges,jdbcType=TIMESTAMP},
+        rentTimeRanges = #{rentTimeRanges,jdbcType=DATE},
       </if>
       <if test="rentSelValReq != null">
         rentSelValReq = #{rentSelValReq,jdbcType=VARCHAR},
@@ -266,8 +266,8 @@
     set ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
       rentIsOpenSel = #{rentIsOpenSel,jdbcType=BIT},
-      rentTimeBegin = #{rentTimeBegin,jdbcType=TIMESTAMP},
-      rentTimeRanges = #{rentTimeRanges,jdbcType=TIMESTAMP},
+      rentTimeBegin = #{rentTimeBegin,jdbcType=DATE},
+      rentTimeRanges = #{rentTimeRanges,jdbcType=DATE},
       rentSelValReq = #{rentSelValReq,jdbcType=VARCHAR},
       rentSelRules = #{rentSelRules,jdbcType=VARCHAR},
       IsDelete = #{isDelete,jdbcType=BIT}
