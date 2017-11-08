@@ -27,6 +27,10 @@ export const putHouseParam = (params) => { return axios.put(`${base}houseParam/m
 export const getRentParamAboutStaff = (params, paramClass) => { return axios.get(`${base}rentParamAboutStaff/get/${paramClass}`, { params: params }) }
 // 修改方法【与职工相关】
 export const putRentParamAboutStaff = (params) => { return axios.put(`${base}rentParamAboutStaff/modify`, params) }
+// 获取方法【选房选项】
+export const getRentParamAboutEvent = (params) => { return axios.get(`${base}rentEvent/get`, { params: params }) }
+// 删除方法【选房选项】
+export const deleteRentParamAboutEvent = (rentEventId) => { return axios.delete(`${base}rentEvent/delete/${rentEventId}`) }
 
 // 参数设置--维修参数
 // 获取方法

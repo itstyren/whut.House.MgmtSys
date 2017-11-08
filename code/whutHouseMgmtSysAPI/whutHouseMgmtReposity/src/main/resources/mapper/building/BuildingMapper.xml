@@ -80,7 +80,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Hs_Building
+    from hs_building
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -91,21 +91,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from Hs_Building
+    from hs_building
     where BuildingId = #{buildingId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Hs_Building
+    delete from hs_building
     where BuildingId = #{buildingId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample">
-    delete from Hs_Building
+    delete from hs_building
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
-    insert into Hs_Building (BuildingId, BuildingName, BuildingFinishTime, 
+    insert into hs_building (BuildingId, BuildingName, BuildingFinishTime, 
       BuildingFloorArea, BuildingUsedArea, BuildingFloorCount, 
       BuildingRegion, BuildingDescription, BuildingSupportFund
       )
@@ -115,7 +115,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
-    insert into Hs_Building
+    insert into hs_building
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="buildingId != null">
         BuildingId,
@@ -176,13 +176,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample" resultType="java.lang.Long">
-    select count(*) from Hs_Building
+    select count(*) from hs_building
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Hs_Building
+    update hs_building
     <set>
       <if test="record.buildingId != null">
         BuildingId = #{record.buildingId,jdbcType=INTEGER},
@@ -217,7 +217,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Hs_Building
+    update hs_building
     set BuildingId = #{record.buildingId,jdbcType=INTEGER},
       BuildingName = #{record.buildingName,jdbcType=VARCHAR},
       BuildingFinishTime = #{record.buildingFinishTime,jdbcType=TIMESTAMP},
@@ -232,7 +232,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
-    update Hs_Building
+    update hs_building
     <set>
       <if test="buildingName != null">
         BuildingName = #{buildingName,jdbcType=VARCHAR},
@@ -262,7 +262,7 @@
     where BuildingId = #{buildingId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
-    update Hs_Building
+    update hs_building
     set BuildingName = #{buildingName,jdbcType=VARCHAR},
       BuildingFinishTime = #{buildingFinishTime,jdbcType=TIMESTAMP},
       BuildingFloorArea = #{buildingFloorArea,jdbcType=REAL},

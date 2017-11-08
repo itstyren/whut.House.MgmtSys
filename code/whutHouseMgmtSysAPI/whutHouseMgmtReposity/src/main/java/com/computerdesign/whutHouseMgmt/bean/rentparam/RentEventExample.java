@@ -2,6 +2,7 @@ package com.computerdesign.whutHouseMgmt.bean.rentparam;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class RentEventExample {
@@ -103,6 +104,32 @@ public class RentEventExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andRentEventIdIsNull() {
@@ -305,62 +332,52 @@ public class RentEventExample {
             return (Criteria) this;
         }
 
-        public Criteria andRentIsOpenSelEqualTo(String value) {
+        public Criteria andRentIsOpenSelEqualTo(Boolean value) {
             addCriterion("rentIsOpenSel =", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentIsOpenSelNotEqualTo(String value) {
+        public Criteria andRentIsOpenSelNotEqualTo(Boolean value) {
             addCriterion("rentIsOpenSel <>", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentIsOpenSelGreaterThan(String value) {
+        public Criteria andRentIsOpenSelGreaterThan(Boolean value) {
             addCriterion("rentIsOpenSel >", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentIsOpenSelGreaterThanOrEqualTo(String value) {
+        public Criteria andRentIsOpenSelGreaterThanOrEqualTo(Boolean value) {
             addCriterion("rentIsOpenSel >=", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentIsOpenSelLessThan(String value) {
+        public Criteria andRentIsOpenSelLessThan(Boolean value) {
             addCriterion("rentIsOpenSel <", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentIsOpenSelLessThanOrEqualTo(String value) {
+        public Criteria andRentIsOpenSelLessThanOrEqualTo(Boolean value) {
             addCriterion("rentIsOpenSel <=", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentIsOpenSelLike(String value) {
-            addCriterion("rentIsOpenSel like", value, "rentIsOpenSel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRentIsOpenSelNotLike(String value) {
-            addCriterion("rentIsOpenSel not like", value, "rentIsOpenSel");
-            return (Criteria) this;
-        }
-
-        public Criteria andRentIsOpenSelIn(List<String> values) {
+        public Criteria andRentIsOpenSelIn(List<Boolean> values) {
             addCriterion("rentIsOpenSel in", values, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentIsOpenSelNotIn(List<String> values) {
+        public Criteria andRentIsOpenSelNotIn(List<Boolean> values) {
             addCriterion("rentIsOpenSel not in", values, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentIsOpenSelBetween(String value1, String value2) {
+        public Criteria andRentIsOpenSelBetween(Boolean value1, Boolean value2) {
             addCriterion("rentIsOpenSel between", value1, value2, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentIsOpenSelNotBetween(String value1, String value2) {
+        public Criteria andRentIsOpenSelNotBetween(Boolean value1, Boolean value2) {
             addCriterion("rentIsOpenSel not between", value1, value2, "rentIsOpenSel");
             return (Criteria) this;
         }
@@ -376,52 +393,52 @@ public class RentEventExample {
         }
 
         public Criteria andRentTimeBeginEqualTo(Date value) {
-            addCriterion("rentTimeBegin =", value, "rentTimeBegin");
+            addCriterionForJDBCDate("rentTimeBegin =", value, "rentTimeBegin");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeBeginNotEqualTo(Date value) {
-            addCriterion("rentTimeBegin <>", value, "rentTimeBegin");
+            addCriterionForJDBCDate("rentTimeBegin <>", value, "rentTimeBegin");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeBeginGreaterThan(Date value) {
-            addCriterion("rentTimeBegin >", value, "rentTimeBegin");
+            addCriterionForJDBCDate("rentTimeBegin >", value, "rentTimeBegin");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeBeginGreaterThanOrEqualTo(Date value) {
-            addCriterion("rentTimeBegin >=", value, "rentTimeBegin");
+            addCriterionForJDBCDate("rentTimeBegin >=", value, "rentTimeBegin");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeBeginLessThan(Date value) {
-            addCriterion("rentTimeBegin <", value, "rentTimeBegin");
+            addCriterionForJDBCDate("rentTimeBegin <", value, "rentTimeBegin");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeBeginLessThanOrEqualTo(Date value) {
-            addCriterion("rentTimeBegin <=", value, "rentTimeBegin");
+            addCriterionForJDBCDate("rentTimeBegin <=", value, "rentTimeBegin");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeBeginIn(List<Date> values) {
-            addCriterion("rentTimeBegin in", values, "rentTimeBegin");
+            addCriterionForJDBCDate("rentTimeBegin in", values, "rentTimeBegin");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeBeginNotIn(List<Date> values) {
-            addCriterion("rentTimeBegin not in", values, "rentTimeBegin");
+            addCriterionForJDBCDate("rentTimeBegin not in", values, "rentTimeBegin");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeBeginBetween(Date value1, Date value2) {
-            addCriterion("rentTimeBegin between", value1, value2, "rentTimeBegin");
+            addCriterionForJDBCDate("rentTimeBegin between", value1, value2, "rentTimeBegin");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeBeginNotBetween(Date value1, Date value2) {
-            addCriterion("rentTimeBegin not between", value1, value2, "rentTimeBegin");
+            addCriterionForJDBCDate("rentTimeBegin not between", value1, value2, "rentTimeBegin");
             return (Criteria) this;
         }
 
@@ -436,52 +453,52 @@ public class RentEventExample {
         }
 
         public Criteria andRentTimeRangesEqualTo(Date value) {
-            addCriterion("rentTimeRanges =", value, "rentTimeRanges");
+            addCriterionForJDBCDate("rentTimeRanges =", value, "rentTimeRanges");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeRangesNotEqualTo(Date value) {
-            addCriterion("rentTimeRanges <>", value, "rentTimeRanges");
+            addCriterionForJDBCDate("rentTimeRanges <>", value, "rentTimeRanges");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeRangesGreaterThan(Date value) {
-            addCriterion("rentTimeRanges >", value, "rentTimeRanges");
+            addCriterionForJDBCDate("rentTimeRanges >", value, "rentTimeRanges");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeRangesGreaterThanOrEqualTo(Date value) {
-            addCriterion("rentTimeRanges >=", value, "rentTimeRanges");
+            addCriterionForJDBCDate("rentTimeRanges >=", value, "rentTimeRanges");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeRangesLessThan(Date value) {
-            addCriterion("rentTimeRanges <", value, "rentTimeRanges");
+            addCriterionForJDBCDate("rentTimeRanges <", value, "rentTimeRanges");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeRangesLessThanOrEqualTo(Date value) {
-            addCriterion("rentTimeRanges <=", value, "rentTimeRanges");
+            addCriterionForJDBCDate("rentTimeRanges <=", value, "rentTimeRanges");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeRangesIn(List<Date> values) {
-            addCriterion("rentTimeRanges in", values, "rentTimeRanges");
+            addCriterionForJDBCDate("rentTimeRanges in", values, "rentTimeRanges");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeRangesNotIn(List<Date> values) {
-            addCriterion("rentTimeRanges not in", values, "rentTimeRanges");
+            addCriterionForJDBCDate("rentTimeRanges not in", values, "rentTimeRanges");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeRangesBetween(Date value1, Date value2) {
-            addCriterion("rentTimeRanges between", value1, value2, "rentTimeRanges");
+            addCriterionForJDBCDate("rentTimeRanges between", value1, value2, "rentTimeRanges");
             return (Criteria) this;
         }
 
         public Criteria andRentTimeRangesNotBetween(Date value1, Date value2) {
-            addCriterion("rentTimeRanges not between", value1, value2, "rentTimeRanges");
+            addCriterionForJDBCDate("rentTimeRanges not between", value1, value2, "rentTimeRanges");
             return (Criteria) this;
         }
 
