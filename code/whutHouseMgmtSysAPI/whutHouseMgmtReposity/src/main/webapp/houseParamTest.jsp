@@ -79,7 +79,7 @@
 
 	$(function() {
 		$("#fixParamGet").click(function() {
-			ajaxRequestGet("fixParam/get/20");
+			ajaxRequestGet("fixParam/get/16");
 		})
 
 		$("#fixParamDelete").click(function() {
@@ -89,7 +89,7 @@
 		$("#fixParamAdd").click(function() {
 			var data = {
 				'fixParamName' : '测试维修',
-				'paramTypeId' : 20,
+				'paramTypeId' : 16,
 				'paramTypeName' : '维修内容'
 			};
 			ajaxRequestPostType("fixParam/add", "POST", data);
@@ -99,7 +99,7 @@
 			var data = {
 				'fixParamId' : 1,
 				'fixParamName' : '修改测试',
-				'paramTypeId' : 20,
+				'paramTypeId' : 16,
 				'paramTypeName' : '维修内容'
 			};
 			ajaxRequestPostType("fixParam/modify", "PUT", data);
