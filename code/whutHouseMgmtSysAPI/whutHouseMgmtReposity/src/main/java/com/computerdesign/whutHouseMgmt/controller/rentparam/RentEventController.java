@@ -31,10 +31,14 @@ public class RentEventController {
 
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
-	public Msg modifyRentEvent(@RequestBody RentEvent rentEventModel) {
+	public Msg modifyRentEvent(@RequestBody RentEventModel rentEventModel) {
 		RentEvent rentEvent = rentEventService.get(rentEventModel.getRentEventId());
 		if (rentEvent != null) {
-			rentEventService.update(rentEventModel);
+			rentEvent.setRentSelValReq(rentEventModel.getRentSelValReq());
+			rentEvent.setRentSelRules(rentEventModel.getRentSelRules());
+			rentEvent.setRentTimeBegin(rentEventModel.getRentTimeBegin());
+			rentEvent.setRentTimeRanges(rentEventModel.getRentTimeRanges());
+			rentEventService.update(rentEvent);
 			return Msg.success().add("data", rentEventModel);
 		} else {
 			return Msg.error();
@@ -57,100 +61,113 @@ public class RentEventController {
 
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public Msg addRentEvent(@RequestBody RentEvent rentEventModel) {
-		rentEventService.add(rentEventModel);
-		return Msg.success().add("data", rentEventModel);
+	public Msg addRentEvent(@RequestBody RentEventModel rentEventModel) {
+		RentEvent rentEvent = new RentEvent(15, "选房选项", false, false);
+		exchange(rentEvent, rentEventModel);
+		rentEventService.add(rentEvent);
+		return Msg.success().add("data", rentEvent);
+	}
+
+	public void exchange(RentEvent rentEvent, RentEventModel rentEventModel) {
+		rentEvent.setRentSelValReq(rentEventModel.getRentSelValReq());
+		rentEvent.setRentSelRules(rentEventModel.getRentSelRules());
+		rentEvent.setRentTimeBegin(rentEventModel.getRentTimeBegin());
+		rentEvent.setRentTimeRanges(rentEventModel.getRentTimeRanges());
 	}
 
 	@ResponseBody
 	@RequestMapping("get")
 	public Msg getRentEvent(@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
-		
+
 		PageHelper.startPage(page, size);
-		
+
 		List<RentEvent> rentEvents = rentEventService.getAll();
-		//格式化日期后封装在另一个bean的list
-//		List<RentEventModel> rentEventModels = dateFormat(rentEvents);
-//		isBegin(rentEvents);
-		List<RentEventModel> rentEventModels = isBegin(rentEvents);
-		
+		// 格式化日期后封装在另一个bean的list
+		// List<RentEventModel> rentEventModels = dateFormat(rentEvents);
+		 isBegin(rentEvents);
+//		List<RentEventModel> rentEventModels = isBegin(rentEvents);
+
 		PageInfo pageInfo = new PageInfo(rentEvents);
-		//将封装好的数据设置到pageInfo返回
-		pageInfo.setList(rentEventModels);
-		if (rentEventModels != null) {
+		// 将封装好的数据设置到pageInfo返回
+//		pageInfo.setList(rentEventModels);
+		if (rentEvents != null) {
 			return Msg.success().add("data", pageInfo);
 		} else {
 			return Msg.error("无数据");
 		}
 	}
-	
-	//判断当前日期是否在开始时间和结束时间之间
-	public List<RentEventModel> isBegin(List<RentEvent> rentEvents){
-		List<RentEventModel> rentEventModels = new ArrayList<RentEventModel>();
-		for (RentEvent rentEvent : rentEvents){
-			//获取当前时间
-			Date now =  new Date();
-//			System.out.println(now.getTime());
-			//获取开始时间
+
+	// 判断当前日期是否在开始时间和结束时间之间
+	public void isBegin(List<RentEvent> rentEvents) {
+//		List<RentEventModel> rentEventModels = new ArrayList<RentEventModel>();
+		for (RentEvent rentEvent : rentEvents) {
+			// 获取当前时间
+			Date now = new Date();
+			// System.out.println(now.getTime());
+			// 获取开始时间
 			Date rentTimeBegin = rentEvent.getRentTimeBegin();
-//			System.out.println(rentTimeBegin.getTime());
-			//获取结束时间
+			// System.out.println(rentTimeBegin.getTime());
+			// 获取结束时间
 			Date rentTimeEnd = rentEvent.getRentTimeRanges();
-//			System.out.println(rentTimeEnd.getTime());
-//			System.out.println("--------");
-			if(now.getTime() >= rentTimeBegin.getTime() && now.getTime() <= rentTimeEnd.getTime()){
+			// System.out.println(rentTimeEnd.getTime());
+			// System.out.println("--------");
+			if (now.getTime() >= rentTimeBegin.getTime() && now.getTime() <= rentTimeEnd.getTime()) {
 				rentEvent.setRentIsOpenSel(true);
-				//更新数据库数据
+				// 更新数据库数据
 				rentEventService.update(rentEvent);
 			}
-			RentEventModel rentEventModel = new RentEventModel();
-			rentEventModel.setRentSelRules(rentEvent.getRentSelRules());
-			rentEventModel.setRentSelValReq(rentEvent.getRentSelValReq());
-			rentEventModel.setRentTimeBegin(rentEvent.getRentTimeBegin());
-			rentEventModel.setRentTimeRanges(rentEvent.getRentTimeRanges());
-			rentEventModels.add(rentEventModel);
-		}
-		return rentEventModels;
-	}
-	
-//	//日期格式化: 日期→字符串   并与当前时间进行比较
-//	public List<RentEventModel> dateFormat(List<RentEvent> rentEvents){
-//		List<RentEventModel> rentEventModels = new ArrayList<RentEventModel>();
-//		for (RentEvent rentEvent : rentEvents){
-//			//获取当前时间
-//			Date now =  new Date();
-////			System.out.println(now.getTime());
-//			Date rentTimeBegin = rentEvent.getRentTimeBegin();
-//			Date rentTimeEnd = rentEvent.getRentTimeRanges();
-//			if(now.getTime() >= rentTimeBegin.getTime() && now.getTime() <= rentTimeEnd.getTime()){
-//				rentEvent.setRentIsOpenSel(true);
-//				//更新数据库数据
-//				rentEventService.update(rentEvent);
-//			}
-//			String beginDate = null;
-//			String endDate = null;
-//			if(rentTimeBegin != null){				
-//				beginDate = new SimpleDateFormat("yyyy-MM-dd").format(rentTimeBegin);
-//			}
-//			if(rentTimeEnd != null){				
-//				endDate = new SimpleDateFormat("yyyy-MM-dd").format(rentTimeEnd);
-//			}
-////			System.out.println(date);
 //			RentEventModel rentEventModel = new RentEventModel();
+//			System.out.println(rentEvent.getRentTimeBegin());
+//			System.out.println(rentEvent.getRentTimeRanges());
 //			rentEventModel.setRentEventId(rentEvent.getRentEventId());
-//			rentEventModel.setParamTypeId(rentEvent.getParamTypeId());
-//			rentEventModel.setParamTypeName(rentEvent.getParamTypeName());
-//			rentEventModel.setRentIsOpenSel(rentEvent.getRentIsOpenSel());
-//			rentEventModel.setRentTimeBegin(beginDate);
-//			rentEventModel.setRentTimeRanges(endDate);
 //			rentEventModel.setRentSelRules(rentEvent.getRentSelRules());
-//			rentEventModel.setIsDelete(rentEvent.getIsDelete());
+//			rentEventModel.setRentSelValReq(rentEvent.getRentSelValReq());
+//			rentEventModel.setRentTimeBegin(rentEvent.getRentTimeBegin());
+//			rentEventModel.setRentTimeRanges(rentEvent.getRentTimeRanges());
 //			rentEventModels.add(rentEventModel);
-//		}
-//		
+		}
 //		return rentEventModels;
-//	}
-//	
+	}
+
+	// //日期格式化: 日期→字符串 并与当前时间进行比较
+	// public List<RentEventModel> dateFormat(List<RentEvent> rentEvents){
+	// List<RentEventModel> rentEventModels = new ArrayList<RentEventModel>();
+	// for (RentEvent rentEvent : rentEvents){
+	// //获取当前时间
+	// Date now = new Date();
+	//// System.out.println(now.getTime());
+	// Date rentTimeBegin = rentEvent.getRentTimeBegin();
+	// Date rentTimeEnd = rentEvent.getRentTimeRanges();
+	// if(now.getTime() >= rentTimeBegin.getTime() && now.getTime() <=
+	// rentTimeEnd.getTime()){
+	// rentEvent.setRentIsOpenSel(true);
+	// //更新数据库数据
+	// rentEventService.update(rentEvent);
+	// }
+	// String beginDate = null;
+	// String endDate = null;
+	// if(rentTimeBegin != null){
+	// beginDate = new SimpleDateFormat("yyyy-MM-dd").format(rentTimeBegin);
+	// }
+	// if(rentTimeEnd != null){
+	// endDate = new SimpleDateFormat("yyyy-MM-dd").format(rentTimeEnd);
+	// }
+	//// System.out.println(date);
+	// RentEventModel rentEventModel = new RentEventModel();
+	// rentEventModel.setRentEventId(rentEvent.getRentEventId());
+	// rentEventModel.setParamTypeId(rentEvent.getParamTypeId());
+	// rentEventModel.setParamTypeName(rentEvent.getParamTypeName());
+	// rentEventModel.setRentIsOpenSel(rentEvent.getRentIsOpenSel());
+	// rentEventModel.setRentTimeBegin(beginDate);
+	// rentEventModel.setRentTimeRanges(endDate);
+	// rentEventModel.setRentSelRules(rentEvent.getRentSelRules());
+	// rentEventModel.setIsDelete(rentEvent.getIsDelete());
+	// rentEventModels.add(rentEventModel);
+	// }
+	//
+	// return rentEventModels;
+	// }
+	//
 
 }
