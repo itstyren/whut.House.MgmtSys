@@ -47,7 +47,6 @@
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
         <el-form-item label="所需积分" prop="rentSelValReq">
           <el-input v-model="addFormBody.rentSelValReq" placeholder="请输入积分" style="width:350px" ></el-input>
-          <span>{{addFormBody.timeRanges}}</span>
         </el-form-item>
         <el-form-item label="选房时间" prop="timeRanges">
           <el-date-picker v-model="addFormBody.timeRanges" type="daterange" align="right" :picker-options="pickerOptions"
@@ -65,14 +64,19 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑职务分" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
+    <el-dialog title="编辑选房选项" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
       <el-form :model="modifyFromBody" label-width="100px" ref="modifyFrom" :rules="rules" >
-        <el-form-item label="职务类别" prop="staffParamName"  >
-          <el-input v-model="modifyFromBody.staffParamName" :disabled="true"   ></el-input>
+        <el-form-item label="所需积分" prop="rentSelValReq">
+          <el-input v-model="modifyFromBody.rentSelValReq" placeholder="请输入积分" style="width:350px" ></el-input>
         </el-form-item>
-        <el-form-item label="享受面积" prop="staffParamHouseArea"  >
-          <el-input  v-model="modifyFromBody.staffParamHouseArea" placeholder="请输入享受面积"  ></el-input>
-        </el-form-item>                        
+        <el-form-item label="选房时间" prop="timeRanges">
+          <el-date-picker v-model="modifyFromBody.timeRanges" type="daterange" align="right" :picker-options="pickerOptions"
+                 unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="选房规则" prop="rentSelRules">
+          <el-input type="textarea" :autosize="{minRows:3,maxRows:6}" placeholder="请输入内容" v-model="modifyFromBody.rentSelRules" style="width:350px" > </el-input>          
+        </el-form-item>                         
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" modifyFormVisible = false">取消</el-button>
@@ -121,8 +125,11 @@ export default {
        modifyFormVisible:false,
        modifyLoading:false,
        modifyFromBody:{
-         staffParamName:'',
-         staffParamHouseArea:''
+         rentSelValReq:'',
+         timeRanges:'',
+         rentTimeBegin:'',
+         rentTimeRanges:'',
+         rentSelRules:'' ,  
        },
        
        // 新增表单相关数据
@@ -182,7 +189,6 @@ export default {
      timeRanges(newval){
        this.addFormBody.rentTimeBegin=newval[0]
        this.addFormBody.rentTimeRanges=newval[1]
-       console.log(this.addFormBody)
      }
    },
    // 生命周期调用
@@ -202,7 +208,6 @@ export default {
          this.rentOptionData=res.data.data.data.list
          this.totalNum=res.data.data.data.total
          this.listLoading=false
-         console.log(this.rentOptionData)
        }).catch((err)=>{
          console.log(err)
        })
@@ -213,7 +218,7 @@ export default {
      },
     //显示编辑
     showModifyDialog (index,row) {
-      if(row.rentIsOpenSel=='正在选房'){
+      if(row.rentIsOpenSel==true){
         this.modifyFormVisible=true
         this.modifyFromBody= Object.assign({},row)
         this.selectRowIndex=index

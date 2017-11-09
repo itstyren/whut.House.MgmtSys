@@ -14,12 +14,12 @@
   <el-row class="main-body" >
     <!-- 左侧树形菜单 -->
     <el-col :span="24" >
-      <div class="left-body">
+      <el-card class="left-body">
       <el-form :inline="true" style="text-align:center;margin-bottom:20px">
         <el-input placeholder="输入参数关键词" v-model="filterText" icon="search" type="text" size="small"></el-input>
       </el-form>
       <el-tree :data="paramData" :props="props" ref="paramData" :filter-node-method="filterNode"   @node-click="handleNodeClick" :highlight-current="true"></el-tree>
-    </div>
+    </el-card>
     <!-- 右侧内容区域 -->
     <section class="right-body">
         <component :is="componentId"></component>
@@ -158,19 +158,7 @@ import fixContent from './fixParam/fixContent'
            children:[
              {
                id:'rentalOption',
-               label:'组件选项'
-             },
-             {
-               id:'rentalOldDct',
-               label:'老职工优惠比例'
-             },
-             {
-               id:'rentalNewDctYear',
-               label:'新职工优惠年限'
-             },             
-             {
-               id:'rentalNewDct',
-               label:'新职工优惠比例'
+               label:'租金选项'
              },
            ]
          }
@@ -236,8 +224,8 @@ import fixContent from './fixParam/fixContent'
   overflow-x: hidden;
   margin: 18px;
   padding: 15px 0px 0 0px;
-   border: 2px solid #333744;
-  box-shadow: 0 0 5px #333744;
+  //  border: 2px solid #333744;
+  // -moz-box-shadow:-4px 7px 5px #878787, 0px 2px 3px #333333; -webkit-box-shadow:-4px 7px 5px #878787, 0px 2px 3px #333333; box-shadow:-4px 7px 5px #878787, 0px 2px 3px #333333;
    border-radius: 5px
    
 }

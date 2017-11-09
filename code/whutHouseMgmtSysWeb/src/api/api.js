@@ -43,3 +43,9 @@ export const deleteFixParam = (paramsId) => { return axios.delete(`${base}fixPar
 export const postFixParam = (params) => { return axios.post(`${base}fixParam/add`, params) }
 // 编辑方法
 export const putFixParam = (params) => { return axios.put(`${base}fixParam/modify`, params) }
+
+// 参数设置--租金参数
+// 获取方法
+export const getRentalParam = (params) => { return axios.get(`${base}rentalParam/get`, { params: params }) }
+// 修改方法
+export const putRentalParam = (params) => { return axios.put(`${base}rentalParam/modify`, params) }
