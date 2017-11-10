@@ -80,6 +80,7 @@ public class StaffParameterController {
 		// System.out.println(paramClass.getParamTypeName());
 		// 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻弬銈嗗鐟佸懘鏁撻弬銈嗗StaffParameter闁跨喐鏋婚幏鐑芥晸閺傘倖瀚�
 		if (staffParameterModel.getStaffParamName() != null && staffParameterModel.getParamTypeId() != null) {
+			staffParameterModel.setIsDelete(false);
 			staffParameterService.add(staffParameterModel);
 			return Msg.success().add("data", staffParameterModel);
 		} else {
