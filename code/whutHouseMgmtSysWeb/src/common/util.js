@@ -13,5 +13,8 @@ export default {
           })             
           }
       },
-          
+    
+    transfOpenStatus(row){
+        return row.rentIsOpenSel == true ? '正在选房' : '日期已过'
+    }
 }

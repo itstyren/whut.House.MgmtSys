@@ -16,8 +16,9 @@
     </el-form>
   </el-col>
   <!-- 表格区域 -->
+  <el-card>
   <el-col :span="24">
-    <el-table :data="PostValData" border style="width:100%" v-loading="listLoading" max-height="450">
+    <el-table :data="PostValData"  style="width:100%" v-loading="listLoading" max-height="450">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
       <el-table-column prop="staffParamName" label="职务类别" sortable align="center" ></el-table-column>
@@ -34,6 +35,7 @@
     <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent" :page-size="size" :page-sizes="[10,15,20,25,30]":total="totalNum" >
     </el-pagination>
   </el-col>
+  </el-card>
 </el-col>
     <!-- 编辑表单 -->
     <el-dialog title="编辑职务分" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
