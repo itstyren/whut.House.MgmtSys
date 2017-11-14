@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.staffmanagement.StaffVwMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw">
+    <result column="Id" jdbcType="INTEGER" property="id" />
+    <result column="No" jdbcType="INTEGER" property="no" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Sex" jdbcType="VARCHAR" property="sex" />
+    <result column="MarriageState" jdbcType="VARCHAR" property="marriageState" />
+    <result column="TitleName" jdbcType="VARCHAR" property="titleName" />
+    <result column="PostName" jdbcType="VARCHAR" property="postName" />
+    <result column="TypeName" jdbcType="VARCHAR" property="typeName" />
+    <result column="StatusName" jdbcType="VARCHAR" property="statusName" />
+    <result column="DeptName" jdbcType="VARCHAR" property="deptName" />
+    <result column="Code" jdbcType="VARCHAR" property="code" />
+    <result column="JoinTime" jdbcType="DATE" property="joinTime" />
+    <result column="GoUniversityTime" jdbcType="DATE" property="goUniversityTime" />
+    <result column="RetireTime" jdbcType="DATE" property="retireTime" />
+    <result column="Tel" jdbcType="VARCHAR" property="tel" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="SpouseName" jdbcType="VARCHAR" property="spouseName" />
+    <result column="SpouseCode" jdbcType="VARCHAR" property="spouseCode" />
+    <result column="SpouseTitleName" jdbcType="VARCHAR" property="spouseTitleName" />
+    <result column="SpousePostName" jdbcType="VARCHAR" property="spousePostName" />
+    <result column="SpouseDept" jdbcType="VARCHAR" property="spouseDept" />
+    <result column="SpouseKind" jdbcType="INTEGER" property="spouseKind" />
+    <result column="IsDeptManage" jdbcType="BIT" property="isDeptManage" />
+    <result column="StaffPassword" jdbcType="VARCHAR" property="staffPassword" />
+    <result column="BuyAccount" jdbcType="DECIMAL" property="buyAccount" />
+    <result column="FixFund" jdbcType="DECIMAL" property="fixFund" />
+    <result column="SecondJoinTime" jdbcType="DATE" property="secondJoinTime" />
+    <result column="SecondRetireTime" jdbcType="DATE" property="secondRetireTime" />
+    <result column="StaffDual" jdbcType="VARCHAR" property="staffDual" />
+    <result column="Relation" jdbcType="VARCHAR" property="relation" />
+    <result column="DiscountRate" jdbcType="DOUBLE" property="discountRate" />
+    <result column="FamilyCode" jdbcType="INTEGER" property="familyCode" />
+    <result column="FirstJobTime" jdbcType="DATE" property="firstJobTime" />
+    <result column="UserName" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, No, Name, Sex, MarriageState, TitleName, PostName, TypeName, StatusName, DeptName, 
+    Code, JoinTime, GoUniversityTime, RetireTime, Tel, Remark, SpouseName, SpouseCode, 
+    SpouseTitleName, SpousePostName, SpouseDept, SpouseKind, IsDeptManage, StaffPassword, 
+    BuyAccount, FixFund, SecondJoinTime, SecondRetireTime, StaffDual, Relation, DiscountRate, 
+    FamilyCode, FirstJobTime, UserName
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVwExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from view_hs_staff
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVwExample">
+    delete from view_hs_staff
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw">
+    insert into view_hs_staff (Id, No, Name, 
+      Sex, MarriageState, TitleName, 
+      PostName, TypeName, StatusName, 
+      DeptName, Code, JoinTime, 
+      GoUniversityTime, RetireTime, Tel, 
+      Remark, SpouseName, SpouseCode, 
+      SpouseTitleName, SpousePostName, SpouseDept, 
+      SpouseKind, IsDeptManage, StaffPassword, 
+      BuyAccount, FixFund, SecondJoinTime, 
+      SecondRetireTime, StaffDual, Relation, 
+      DiscountRate, FamilyCode, FirstJobTime, 
+      UserName)
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{marriageState,jdbcType=VARCHAR}, #{titleName,jdbcType=VARCHAR}, 
+      #{postName,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{statusName,jdbcType=VARCHAR}, 
+      #{deptName,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{joinTime,jdbcType=DATE}, 
+      #{goUniversityTime,jdbcType=DATE}, #{retireTime,jdbcType=DATE}, #{tel,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{spouseName,jdbcType=VARCHAR}, #{spouseCode,jdbcType=VARCHAR}, 
+      #{spouseTitleName,jdbcType=VARCHAR}, #{spousePostName,jdbcType=VARCHAR}, #{spouseDept,jdbcType=VARCHAR}, 
+      #{spouseKind,jdbcType=INTEGER}, #{isDeptManage,jdbcType=BIT}, #{staffPassword,jdbcType=VARCHAR}, 
+      #{buyAccount,jdbcType=DECIMAL}, #{fixFund,jdbcType=DECIMAL}, #{secondJoinTime,jdbcType=DATE}, 
+      #{secondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, 
+      #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, #{firstJobTime,jdbcType=DATE}, 
+      #{userName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw">
+    insert into view_hs_staff
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="no != null">
+        No,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="marriageState != null">
+        MarriageState,
+      </if>
+      <if test="titleName != null">
+        TitleName,
+      </if>
+      <if test="postName != null">
+        PostName,
+      </if>
+      <if test="typeName != null">
+        TypeName,
+      </if>
+      <if test="statusName != null">
+        StatusName,
+      </if>
+      <if test="deptName != null">
+        DeptName,
+      </if>
+      <if test="code != null">
+        Code,
+      </if>
+      <if test="joinTime != null">
+        JoinTime,
+      </if>
+      <if test="goUniversityTime != null">
+        GoUniversityTime,
+      </if>
+      <if test="retireTime != null">
+        RetireTime,
+      </if>
+      <if test="tel != null">
+        Tel,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+      <if test="spouseName != null">
+        SpouseName,
+      </if>
+      <if test="spouseCode != null">
+        SpouseCode,
+      </if>
+      <if test="spouseTitleName != null">
+        SpouseTitleName,
+      </if>
+      <if test="spousePostName != null">
+        SpousePostName,
+      </if>
+      <if test="spouseDept != null">
+        SpouseDept,
+      </if>
+      <if test="spouseKind != null">
+        SpouseKind,
+      </if>
+      <if test="isDeptManage != null">
+        IsDeptManage,
+      </if>
+      <if test="staffPassword != null">
+        StaffPassword,
+      </if>
+      <if test="buyAccount != null">
+        BuyAccount,
+      </if>
+      <if test="fixFund != null">
+        FixFund,
+      </if>
+      <if test="secondJoinTime != null">
+        SecondJoinTime,
+      </if>
+      <if test="secondRetireTime != null">
+        SecondRetireTime,
+      </if>
+      <if test="staffDual != null">
+        StaffDual,
+      </if>
+      <if test="relation != null">
+        Relation,
+      </if>
+      <if test="discountRate != null">
+        DiscountRate,
+      </if>
+      <if test="familyCode != null">
+        FamilyCode,
+      </if>
+      <if test="firstJobTime != null">
+        FirstJobTime,
+      </if>
+      <if test="userName != null">
+        UserName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="marriageState != null">
+        #{marriageState,jdbcType=VARCHAR},
+      </if>
+      <if test="titleName != null">
+        #{titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="postName != null">
+        #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="statusName != null">
+        #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null">
+        #{joinTime,jdbcType=DATE},
+      </if>
+      <if test="goUniversityTime != null">
+        #{goUniversityTime,jdbcType=DATE},
+      </if>
+      <if test="retireTime != null">
+        #{retireTime,jdbcType=DATE},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseName != null">
+        #{spouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseCode != null">
+        #{spouseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseTitleName != null">
+        #{spouseTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="spousePostName != null">
+        #{spousePostName,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseDept != null">
+        #{spouseDept,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseKind != null">
+        #{spouseKind,jdbcType=INTEGER},
+      </if>
+      <if test="isDeptManage != null">
+        #{isDeptManage,jdbcType=BIT},
+      </if>
+      <if test="staffPassword != null">
+        #{staffPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="buyAccount != null">
+        #{buyAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="fixFund != null">
+        #{fixFund,jdbcType=DECIMAL},
+      </if>
+      <if test="secondJoinTime != null">
+        #{secondJoinTime,jdbcType=DATE},
+      </if>
+      <if test="secondRetireTime != null">
+        #{secondRetireTime,jdbcType=DATE},
+      </if>
+      <if test="staffDual != null">
+        #{staffDual,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null">
+        #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="discountRate != null">
+        #{discountRate,jdbcType=DOUBLE},
+      </if>
+      <if test="familyCode != null">
+        #{familyCode,jdbcType=INTEGER},
+      </if>
+      <if test="firstJobTime != null">
+        #{firstJobTime,jdbcType=DATE},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVwExample" resultType="java.lang.Long">
+    select count(*) from view_hs_staff
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update view_hs_staff
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.no != null">
+        No = #{record.no,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        Sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marriageState != null">
+        MarriageState = #{record.marriageState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleName != null">
+        TitleName = #{record.titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postName != null">
+        PostName = #{record.postName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeName != null">
+        TypeName = #{record.typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.statusName != null">
+        StatusName = #{record.statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptName != null">
+        DeptName = #{record.deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null">
+        Code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinTime != null">
+        JoinTime = #{record.joinTime,jdbcType=DATE},
+      </if>
+      <if test="record.goUniversityTime != null">
+        GoUniversityTime = #{record.goUniversityTime,jdbcType=DATE},
+      </if>
+      <if test="record.retireTime != null">
+        RetireTime = #{record.retireTime,jdbcType=DATE},
+      </if>
+      <if test="record.tel != null">
+        Tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        Remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spouseName != null">
+        SpouseName = #{record.spouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spouseCode != null">
+        SpouseCode = #{record.spouseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spouseTitleName != null">
+        SpouseTitleName = #{record.spouseTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spousePostName != null">
+        SpousePostName = #{record.spousePostName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spouseDept != null">
+        SpouseDept = #{record.spouseDept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spouseKind != null">
+        SpouseKind = #{record.spouseKind,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDeptManage != null">
+        IsDeptManage = #{record.isDeptManage,jdbcType=BIT},
+      </if>
+      <if test="record.staffPassword != null">
+        StaffPassword = #{record.staffPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyAccount != null">
+        BuyAccount = #{record.buyAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fixFund != null">
+        FixFund = #{record.fixFund,jdbcType=DECIMAL},
+      </if>
+      <if test="record.secondJoinTime != null">
+        SecondJoinTime = #{record.secondJoinTime,jdbcType=DATE},
+      </if>
+      <if test="record.secondRetireTime != null">
+        SecondRetireTime = #{record.secondRetireTime,jdbcType=DATE},
+      </if>
+      <if test="record.staffDual != null">
+        StaffDual = #{record.staffDual,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relation != null">
+        Relation = #{record.relation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discountRate != null">
+        DiscountRate = #{record.discountRate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.familyCode != null">
+        FamilyCode = #{record.familyCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.firstJobTime != null">
+        FirstJobTime = #{record.firstJobTime,jdbcType=DATE},
+      </if>
+      <if test="record.userName != null">
+        UserName = #{record.userName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update view_hs_staff
+    set Id = #{record.id,jdbcType=INTEGER},
+      No = #{record.no,jdbcType=INTEGER},
+      Name = #{record.name,jdbcType=VARCHAR},
+      Sex = #{record.sex,jdbcType=VARCHAR},
+      MarriageState = #{record.marriageState,jdbcType=VARCHAR},
+      TitleName = #{record.titleName,jdbcType=VARCHAR},
+      PostName = #{record.postName,jdbcType=VARCHAR},
+      TypeName = #{record.typeName,jdbcType=VARCHAR},
+      StatusName = #{record.statusName,jdbcType=VARCHAR},
+      DeptName = #{record.deptName,jdbcType=VARCHAR},
+      Code = #{record.code,jdbcType=VARCHAR},
+      JoinTime = #{record.joinTime,jdbcType=DATE},
+      GoUniversityTime = #{record.goUniversityTime,jdbcType=DATE},
+      RetireTime = #{record.retireTime,jdbcType=DATE},
+      Tel = #{record.tel,jdbcType=VARCHAR},
+      Remark = #{record.remark,jdbcType=VARCHAR},
+      SpouseName = #{record.spouseName,jdbcType=VARCHAR},
+      SpouseCode = #{record.spouseCode,jdbcType=VARCHAR},
+      SpouseTitleName = #{record.spouseTitleName,jdbcType=VARCHAR},
+      SpousePostName = #{record.spousePostName,jdbcType=VARCHAR},
+      SpouseDept = #{record.spouseDept,jdbcType=VARCHAR},
+      SpouseKind = #{record.spouseKind,jdbcType=INTEGER},
+      IsDeptManage = #{record.isDeptManage,jdbcType=BIT},
+      StaffPassword = #{record.staffPassword,jdbcType=VARCHAR},
+      BuyAccount = #{record.buyAccount,jdbcType=DECIMAL},
+      FixFund = #{record.fixFund,jdbcType=DECIMAL},
+      SecondJoinTime = #{record.secondJoinTime,jdbcType=DATE},
+      SecondRetireTime = #{record.secondRetireTime,jdbcType=DATE},
+      StaffDual = #{record.staffDual,jdbcType=VARCHAR},
+      Relation = #{record.relation,jdbcType=VARCHAR},
+      DiscountRate = #{record.discountRate,jdbcType=DOUBLE},
+      FamilyCode = #{record.familyCode,jdbcType=INTEGER},
+      FirstJobTime = #{record.firstJobTime,jdbcType=DATE},
+      UserName = #{record.userName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
