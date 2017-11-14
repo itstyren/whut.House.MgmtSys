@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.computerdesign.whutHouseMgmt.bean.building.Building;
 import com.computerdesign.whutHouseMgmt.bean.building.BuildingExample;
@@ -11,11 +12,16 @@ import com.computerdesign.whutHouseMgmt.bean.building.BuildingExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.building.BuildingMapper;
 import com.computerdesign.whutHouseMgmt.service.base.BaseService;
 
+@Transactional
 @Service
 public class BuildingService implements BaseService<Building>{
 
 	@Autowired
 	private BuildingMapper buildingMapper;
+	
+	public Building getById(Integer id) {
+		return buildingMapper.selectByPrimaryKey(id);
+	}
 	
 	@Override
 	public List<Building> getAll(){
@@ -27,10 +33,10 @@ public class BuildingService implements BaseService<Building>{
 	 * @param buildingRegion
 	 * @return
 	 */
-	public List<Building> getAll(Integer buildingRegion) {
+	public List<Building> getAll(Integer RegionId) {
 		BuildingExample example=new BuildingExample();
 		Criteria criteria=example.createCriteria();
-		criteria.andBuildingRegionEqualTo(buildingRegion);
+		criteria.andRegionIdEqualTo(RegionId);
 		return buildingMapper.selectByExample(example);
 	}
 	
@@ -40,8 +46,8 @@ public class BuildingService implements BaseService<Building>{
 	}
 	
 	@Override
-	public void delete(Integer buildingId){
-		buildingMapper.deleteByPrimaryKey(buildingId);
+	public void delete(Integer Id){
+		buildingMapper.deleteByPrimaryKey(Id);
 	}
 	
 	@Override

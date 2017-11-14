@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.region.RegionMapper">
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.region.Region">
-    <id column="RegionId" jdbcType="INTEGER" property="regionId" />
-    <result column="RegionName" jdbcType="VARCHAR" property="regionName" />
-    <result column="RegionDescription" jdbcType="VARCHAR" property="regionDescription" />
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    RegionId, RegionName, RegionDescription
+    Id, Name, Description
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.region.RegionExample" resultMap="BaseResultMap">
     select
@@ -85,11 +85,11 @@
     select 
     <include refid="Base_Column_List" />
     from Hs_Region
-    where RegionId = #{regionId,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Hs_Region
-    where RegionId = #{regionId,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.region.RegionExample">
     delete from Hs_Region
@@ -98,33 +98,33 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.region.Region">
-    insert into Hs_Region (RegionId, RegionName, RegionDescription
+    insert into Hs_Region (Id, Name, Description
       )
-    values (#{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, #{regionDescription,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.region.Region">
     insert into Hs_Region
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="regionId != null">
-        RegionId,
+      <if test="id != null">
+        Id,
       </if>
-      <if test="regionName != null">
-        RegionName,
+      <if test="name != null">
+        Name,
       </if>
-      <if test="regionDescription != null">
-        RegionDescription,
+      <if test="description != null">
+        Description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="regionId != null">
-        #{regionId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="regionName != null">
-        #{regionName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="regionDescription != null">
-        #{regionDescription,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -137,14 +137,14 @@
   <update id="updateByExampleSelective" parameterType="map">
     update Hs_Region
     <set>
-      <if test="record.regionId != null">
-        RegionId = #{record.regionId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.regionName != null">
-        RegionName = #{record.regionName,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        Name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.regionDescription != null">
-        RegionDescription = #{record.regionDescription,jdbcType=VARCHAR},
+      <if test="record.description != null">
+        Description = #{record.description,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -153,9 +153,9 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update Hs_Region
-    set RegionId = #{record.regionId,jdbcType=INTEGER},
-      RegionName = #{record.regionName,jdbcType=VARCHAR},
-      RegionDescription = #{record.regionDescription,jdbcType=VARCHAR}
+    set Id = #{record.id,jdbcType=INTEGER},
+      Name = #{record.name,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -163,19 +163,19 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.region.Region">
     update Hs_Region
     <set>
-      <if test="regionName != null">
-        RegionName = #{regionName,jdbcType=VARCHAR},
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="regionDescription != null">
-        RegionDescription = #{regionDescription,jdbcType=VARCHAR},
+      <if test="description != null">
+        Description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
-    where RegionId = #{regionId,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.region.Region">
     update Hs_Region
-    set RegionName = #{regionName,jdbcType=VARCHAR},
-      RegionDescription = #{regionDescription,jdbcType=VARCHAR}
-    where RegionId = #{regionId,jdbcType=INTEGER}
+    set Name = #{name,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

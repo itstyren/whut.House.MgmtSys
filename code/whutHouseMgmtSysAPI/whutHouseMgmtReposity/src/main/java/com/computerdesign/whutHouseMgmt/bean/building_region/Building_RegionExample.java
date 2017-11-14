@@ -1,17 +1,17 @@
-package com.computerdesign.whutHouseMgmt.bean.building;
+package com.computerdesign.whutHouseMgmt.bean.building_region;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class BuildingExample {
+public class Building_RegionExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public BuildingExample() {
+    public Building_RegionExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -662,6 +662,146 @@ public class BuildingExample {
 
         public Criteria andSupportFundNotBetween(Long value1, Long value2) {
             addCriterion("SupportFund not between", value1, value2, "supportFund");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameIsNull() {
+            addCriterion("RegionName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameIsNotNull() {
+            addCriterion("RegionName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameEqualTo(String value) {
+            addCriterion("RegionName =", value, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameNotEqualTo(String value) {
+            addCriterion("RegionName <>", value, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameGreaterThan(String value) {
+            addCriterion("RegionName >", value, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameGreaterThanOrEqualTo(String value) {
+            addCriterion("RegionName >=", value, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameLessThan(String value) {
+            addCriterion("RegionName <", value, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameLessThanOrEqualTo(String value) {
+            addCriterion("RegionName <=", value, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameLike(String value) {
+            addCriterion("RegionName like", value, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameNotLike(String value) {
+            addCriterion("RegionName not like", value, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameIn(List<String> values) {
+            addCriterion("RegionName in", values, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameNotIn(List<String> values) {
+            addCriterion("RegionName not in", values, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameBetween(String value1, String value2) {
+            addCriterion("RegionName between", value1, value2, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionNameNotBetween(String value1, String value2) {
+            addCriterion("RegionName not between", value1, value2, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionIsNull() {
+            addCriterion("RegionDescription is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionIsNotNull() {
+            addCriterion("RegionDescription is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionEqualTo(String value) {
+            addCriterion("RegionDescription =", value, "regionDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionNotEqualTo(String value) {
+            addCriterion("RegionDescription <>", value, "regionDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionGreaterThan(String value) {
+            addCriterion("RegionDescription >", value, "regionDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("RegionDescription >=", value, "regionDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionLessThan(String value) {
+            addCriterion("RegionDescription <", value, "regionDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("RegionDescription <=", value, "regionDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionLike(String value) {
+            addCriterion("RegionDescription like", value, "regionDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionNotLike(String value) {
+            addCriterion("RegionDescription not like", value, "regionDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionIn(List<String> values) {
+            addCriterion("RegionDescription in", values, "regionDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionNotIn(List<String> values) {
+            addCriterion("RegionDescription not in", values, "regionDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionBetween(String value1, String value2) {
+            addCriterion("RegionDescription between", value1, value2, "regionDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegionDescriptionNotBetween(String value1, String value2) {
+            addCriterion("RegionDescription not between", value1, value2, "regionDescription");
             return (Criteria) this;
         }
     }
