@@ -10,7 +10,7 @@ public interface BuildingMapper {
 
     int deleteByExample(BuildingExample example);
 
-    int deleteByPrimaryKey(Integer buildingId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Building record);
 
@@ -18,7 +18,7 @@ public interface BuildingMapper {
 
     List<Building> selectByExample(BuildingExample example);
 
-    Building selectByPrimaryKey(Integer buildingId);
+    Building selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Building record, @Param("example") BuildingExample example);
 

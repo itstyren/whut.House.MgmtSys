@@ -48,7 +48,7 @@ public class RegionController {
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public Msg addRegion(@RequestBody Region region) {
 		//区域名不能为空
-		if (region.getRegionName() == null) {
+		if (region.getName() == null) {
 			return Msg.error("区域名不能为空");
 		} else {
 			regionService.add(region);
@@ -59,11 +59,11 @@ public class RegionController {
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
 	public Msg modifyRegion(@RequestBody Region region) {
-		if (region.getRegionId() == null) {
+		if (region.getId() == null) {
 			return Msg.error("不存在该项");
 		} else {
 			//区域名不能为空
-			if (region.getRegionName() == null) {
+			if (region.getName() == null) {
 				return Msg.error("区域名不能为空");
 			} else {
 				regionService.update(region);
@@ -73,14 +73,14 @@ public class RegionController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "delete/{regionId}", method = RequestMethod.DELETE)
-	public Msg deleteRegion(@PathVariable("regionId") Integer regionId) {
-		Region region = regionService.get(regionId);
+	@RequestMapping(value = "delete/{Id}", method = RequestMethod.DELETE)
+	public Msg deleteRegion(@PathVariable("Id") Integer Id) {
+		Region region = regionService.get(Id);
 
 		if (region != null) {
 			try {
 				// 外键约束
-				regionService.delete(regionId);
+				regionService.delete(Id);
 				return Msg.success();
 			} catch (Exception e) {
 				// TODO: handle exception

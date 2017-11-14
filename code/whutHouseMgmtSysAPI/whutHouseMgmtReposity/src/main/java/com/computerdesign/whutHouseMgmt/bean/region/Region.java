@@ -1,33 +1,33 @@
 package com.computerdesign.whutHouseMgmt.bean.region;
 
 public class Region {
-    private Integer regionId;
+    private Integer id;
 
-    private String regionName;
+    private String name;
 
-    private String regionDescription;
+    private String description;
 
-    public Integer getRegionId() {
-        return regionId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setRegionId(Integer regionId) {
-        this.regionId = regionId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getRegionName() {
-        return regionName;
+    public String getName() {
+        return name;
     }
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName == null ? null : regionName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public String getRegionDescription() {
-        return regionDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRegionDescription(String regionDescription) {
-        this.regionDescription = regionDescription == null ? null : regionDescription.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 }

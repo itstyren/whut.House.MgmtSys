@@ -21,8 +21,8 @@ public class RegionService implements BaseService<Region>{
 	 * @param regionId
 	 * @return
 	 */
-	public Region get(Integer regionId) {
-		return regionMapper.selectByPrimaryKey(regionId);
+	public Region get(Integer Id) {
+		return regionMapper.selectByPrimaryKey(Id);
 	}
 	
 	@Override
@@ -37,8 +37,8 @@ public class RegionService implements BaseService<Region>{
 	
 
 	@Override
-	public void delete(Integer regionId){
-		regionMapper.deleteByPrimaryKey(regionId);
+	public void delete(Integer Id){
+		regionMapper.deleteByPrimaryKey(Id);
 	}
 	
 	@Override

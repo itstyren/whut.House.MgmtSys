@@ -124,6 +124,7 @@
 		})
 	})
 
+	//租金参数
 	$(function() {
 		$("#rentalParamGet").click(function() {
 			ajaxRequestGet("rentalParam/get");
@@ -142,30 +143,71 @@
 		})
 	})
 
+	//地区
 	$(function() {
 		$("#regionGet").click(function() {
 			ajaxRequestGet("region/get");
 		})
 
 		$("#regionDelete").click(function() {
-			ajaxRequestPostType("region/delete/13", "DELETE", null);
+			ajaxRequestPostType("region/delete/12", "DELETE", null);
 		})
 
 		$("#regionAdd").click(function() {
 			var data = {
-				'regionName' : "南湖",
-				'regionDescription' : '南湖大草原'
+				'name' : "南湖",
+				'description' : '南湖大草原'
 			};
 			ajaxRequestPostType("region/add", "POST", data);
 		})
 
 		$("#regionModify").click(function() {
 			var data = {
-				'regionId' : 1,
-				'regionName' : '北湖',
-				'regionDescription' : '北湖大草原'
+				'id' : 1,
+				'name' : '北湖de南边',
+				'description' : '北湖大草原'
 			};
 			ajaxRequestPostType("region/modify", "PUT", data);
+		})
+	})
+	
+	//楼栋
+	$(function() {
+		$("#buildingGet").click(function() {
+			ajaxRequestGet("building/get/1");
+		})
+
+		$("#buildingDelete").click(function() {
+			ajaxRequestPostType("building/delete/12", "DELETE", null);
+		})
+
+		$("#buildingAdd").click(function() {
+			var data = {
+				'name' : "南湖",
+				'description' : '南湖大草原',
+				'finishTime' : '2017-11-4',
+				'floorArea' : '41.4',
+				'usedArea' : '41.22',
+				'floorCount' : '66',
+				'regionId' : 1
+			};
+			ajaxRequestPostType("building/add", "POST", data);
+		})
+
+		$("#buildingModify").click(function() {
+			var data = {
+				'id' : 1,
+				'name' : '北湖de南边',
+				'description' : '北湖大草原'
+			};
+			ajaxRequestPostType("building/modify", "PUT", data);
+		})
+	})
+	
+	//下拉列表
+	$(function() {
+		$("#building_regionDown").click(function() {
+			ajaxRequestGet("building/getList");
 		})
 	})
 </script>
@@ -189,6 +231,8 @@
 		<li><a href="#fixParam" data-toggle="tab">fixParam</a></li>
 		<li><a href="#rentalParam" data-toggle="tab">rentalParam</a></li>
 		<li><a href="#region" data-toggle="tab">region</a></li>
+		<li><a href="#building" data-toggle="tab">building</a></li>
+		<li><a href="#building_regionDown" data-toggle="tab">building_regionDown</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="houseParam">
@@ -214,7 +258,17 @@
 			<input class="btn btn-info btn-lg" type="button" value="RegionAdd" id="regionAdd" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="RegionModify" id="regionModify" /> <br>
 		</div>
+		<div class="tab-pane fade" id="building">
+			<input class="btn btn-info btn-lg" type="button" value="BuildingGet" id="buildingGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="BuildingDelete" id="buildingDelete" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="BuildingAdd" id="buildingAdd" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="BuildingModify" id="buildingModify" /> <br>
+		</div>
+		<div class="tab-pane fade" id="building_regionDown">
+			<input class="btn btn-info btn-lg" type="button" value="building_regionDownGet" id="building_regionDownGet" /> <br> 
+		</div>
 	</div>
+
 
 
 </body>

@@ -104,203 +104,203 @@ public class RegionExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andRegionIdIsNull() {
-            addCriterion("RegionId is null");
+        public Criteria andIdIsNull() {
+            addCriterion("Id is null");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdIsNotNull() {
-            addCriterion("RegionId is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("Id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdEqualTo(Integer value) {
-            addCriterion("RegionId =", value, "regionId");
+        public Criteria andIdEqualTo(Integer value) {
+            addCriterion("Id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdNotEqualTo(Integer value) {
-            addCriterion("RegionId <>", value, "regionId");
+        public Criteria andIdNotEqualTo(Integer value) {
+            addCriterion("Id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdGreaterThan(Integer value) {
-            addCriterion("RegionId >", value, "regionId");
+        public Criteria andIdGreaterThan(Integer value) {
+            addCriterion("Id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("RegionId >=", value, "regionId");
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("Id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdLessThan(Integer value) {
-            addCriterion("RegionId <", value, "regionId");
+        public Criteria andIdLessThan(Integer value) {
+            addCriterion("Id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdLessThanOrEqualTo(Integer value) {
-            addCriterion("RegionId <=", value, "regionId");
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
+            addCriterion("Id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdIn(List<Integer> values) {
-            addCriterion("RegionId in", values, "regionId");
+        public Criteria andIdIn(List<Integer> values) {
+            addCriterion("Id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdNotIn(List<Integer> values) {
-            addCriterion("RegionId not in", values, "regionId");
+        public Criteria andIdNotIn(List<Integer> values) {
+            addCriterion("Id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdBetween(Integer value1, Integer value2) {
-            addCriterion("RegionId between", value1, value2, "regionId");
+        public Criteria andIdBetween(Integer value1, Integer value2) {
+            addCriterion("Id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("RegionId not between", value1, value2, "regionId");
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("Id not between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameIsNull() {
-            addCriterion("RegionName is null");
+        public Criteria andNameIsNull() {
+            addCriterion("Name is null");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameIsNotNull() {
-            addCriterion("RegionName is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("Name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameEqualTo(String value) {
-            addCriterion("RegionName =", value, "regionName");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("Name =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameNotEqualTo(String value) {
-            addCriterion("RegionName <>", value, "regionName");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("Name <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameGreaterThan(String value) {
-            addCriterion("RegionName >", value, "regionName");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("Name >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameGreaterThanOrEqualTo(String value) {
-            addCriterion("RegionName >=", value, "regionName");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("Name >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameLessThan(String value) {
-            addCriterion("RegionName <", value, "regionName");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("Name <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameLessThanOrEqualTo(String value) {
-            addCriterion("RegionName <=", value, "regionName");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("Name <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameLike(String value) {
-            addCriterion("RegionName like", value, "regionName");
+        public Criteria andNameLike(String value) {
+            addCriterion("Name like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameNotLike(String value) {
-            addCriterion("RegionName not like", value, "regionName");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("Name not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameIn(List<String> values) {
-            addCriterion("RegionName in", values, "regionName");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("Name in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameNotIn(List<String> values) {
-            addCriterion("RegionName not in", values, "regionName");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("Name not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameBetween(String value1, String value2) {
-            addCriterion("RegionName between", value1, value2, "regionName");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("Name between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionNameNotBetween(String value1, String value2) {
-            addCriterion("RegionName not between", value1, value2, "regionName");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("Name not between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionIsNull() {
-            addCriterion("RegionDescription is null");
+        public Criteria andDescriptionIsNull() {
+            addCriterion("Description is null");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionIsNotNull() {
-            addCriterion("RegionDescription is not null");
+        public Criteria andDescriptionIsNotNull() {
+            addCriterion("Description is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionEqualTo(String value) {
-            addCriterion("RegionDescription =", value, "regionDescription");
+        public Criteria andDescriptionEqualTo(String value) {
+            addCriterion("Description =", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionNotEqualTo(String value) {
-            addCriterion("RegionDescription <>", value, "regionDescription");
+        public Criteria andDescriptionNotEqualTo(String value) {
+            addCriterion("Description <>", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionGreaterThan(String value) {
-            addCriterion("RegionDescription >", value, "regionDescription");
+        public Criteria andDescriptionGreaterThan(String value) {
+            addCriterion("Description >", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionGreaterThanOrEqualTo(String value) {
-            addCriterion("RegionDescription >=", value, "regionDescription");
+        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("Description >=", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionLessThan(String value) {
-            addCriterion("RegionDescription <", value, "regionDescription");
+        public Criteria andDescriptionLessThan(String value) {
+            addCriterion("Description <", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionLessThanOrEqualTo(String value) {
-            addCriterion("RegionDescription <=", value, "regionDescription");
+        public Criteria andDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("Description <=", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionLike(String value) {
-            addCriterion("RegionDescription like", value, "regionDescription");
+        public Criteria andDescriptionLike(String value) {
+            addCriterion("Description like", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionNotLike(String value) {
-            addCriterion("RegionDescription not like", value, "regionDescription");
+        public Criteria andDescriptionNotLike(String value) {
+            addCriterion("Description not like", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionIn(List<String> values) {
-            addCriterion("RegionDescription in", values, "regionDescription");
+        public Criteria andDescriptionIn(List<String> values) {
+            addCriterion("Description in", values, "description");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionNotIn(List<String> values) {
-            addCriterion("RegionDescription not in", values, "regionDescription");
+        public Criteria andDescriptionNotIn(List<String> values) {
+            addCriterion("Description not in", values, "description");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionBetween(String value1, String value2) {
-            addCriterion("RegionDescription between", value1, value2, "regionDescription");
+        public Criteria andDescriptionBetween(String value1, String value2) {
+            addCriterion("Description between", value1, value2, "description");
             return (Criteria) this;
         }
 
-        public Criteria andRegionDescriptionNotBetween(String value1, String value2) {
-            addCriterion("RegionDescription not between", value1, value2, "regionDescription");
+        public Criteria andDescriptionNotBetween(String value1, String value2) {
+            addCriterion("Description not between", value1, value2, "description");
             return (Criteria) this;
         }
     }
