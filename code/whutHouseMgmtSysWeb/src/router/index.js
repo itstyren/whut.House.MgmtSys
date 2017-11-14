@@ -2,7 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/views/Home'
+
 import paramSet from '@/components/sysManage/paramSet/indexParam'
+
+import buildingData from '@/components/basiceData/buildingData'
+import region from '@/components/basiceData/regionData'
 
 Vue.use(Router)
 
@@ -18,12 +22,34 @@ const routes = [
     },
     redirect: '/index',
     children: [
-      {path: '/index', component: HelloWorld, name: 'index', menuShow: true},
-      { path: '/paramSet',
-        component: paramSet,
-        name: 'paramSet',
-        menuShow: true
-      }
+      {path: '/index', component: HelloWorld, name: 'index', menuShow: true}
+    ]
+  },
+  // 系统管理
+  {
+    path: '/',
+    component: Home,
+    name: 'sysManage',
+    meta: {
+      requireAuth: true
+    },
+    menuShow: true,
+    children: [
+      {path: '/paramSet', component: paramSet, name: 'paramSet', menuShow: true}
+    ]
+  },
+  // 基础数据
+  {
+    path: '/',
+    component: Home,
+    name: 'basiceData',
+    meta: {
+      requireAuth: true
+    },
+    menuShow: true,
+    children: [
+      { path: '/basic/building', component: buildingData, name: 'buildingData', menuShow: true },
+      { path: '/basic/region', component: region, name: 'region', menuShow: true }
     ]
   }
 ]

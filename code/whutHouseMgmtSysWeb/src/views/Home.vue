@@ -87,17 +87,43 @@
         <!-- 基础数据 -->
         <el-submenu index="JcData">
           <template slot="title">
-            <i class="el-icon-setting"></i>
-            <span slot="title">基础数据</span>
+          <svg class="icon" aria-hidden="true" >
+            <use xlink:href="#icon-basisData"></use>
+          </svg>            
+            <span slot="title"> 基础数据</span>
           </template>
-          <el-menu-item index="/basic/hnrlist" >
-            荣誉项目管理
+          <el-menu-item index="/basic/region" >
+          <svg class="icon" aria-hidden="true" >
+            <use xlink:href="#icon-region"></use>
+          </svg>
+            区域管理
+          </el-menu-item>
+          <el-menu-item index="/basic/building" >
+          <svg class="icon" aria-hidden="true" >
+            <use xlink:href="#icon-building"></use>
+          </svg>
+            楼栋管理
           </el-menu-item>
           <el-menu-item index="/basic/awdlist">
-            竞赛项目管理
+          <svg class="icon" aria-hidden="true" >
+            <use xlink:href="#icon-house"></use>
+          </svg>          
+            住房管理
           </el-menu-item>
           <el-menu-item index="/basic/orglist">
-            单位学院管理
+          <svg class="icon" aria-hidden="true" >
+            <use xlink:href="#icon-staffData"></use>
+          </svg>  
+            职工管理
+          </el-menu-item>
+          <el-menu-item index="/basic/orglist">
+          <svg class="icon" aria-hidden="true" >
+            <use xlink:href="#icon-houseReg"></use>
+          </svg> 
+            住房登记
+          </el-menu-item>
+          <el-menu-item index="/basic/orglist">
+            数据导入
           </el-menu-item>
         </el-submenu>
       </el-menu>
