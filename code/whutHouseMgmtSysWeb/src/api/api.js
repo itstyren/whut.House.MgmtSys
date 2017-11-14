@@ -29,6 +29,8 @@ export const getRentParamAboutStaff = (params, paramClass) => { return axios.get
 export const putRentParamAboutStaff = (params) => { return axios.put(`${base}rentParamAboutStaff/modify`, params) }
 // 获取方法【选房选项】
 export const getRentParamAboutEvent = (params) => { return axios.get(`${base}rentEvent/get`, { params: params }) }
+// 新增方法【选房选项】
+export const postRentParamAboutEvent = (params) => { return axios.post(`${base}rentEvent/add`, params) }
 // 删除方法【选房选项】
 export const deleteRentParamAboutEvent = (rentEventId) => { return axios.delete(`${base}rentEvent/delete/${rentEventId}`) }
 
@@ -41,3 +43,9 @@ export const deleteFixParam = (paramsId) => { return axios.delete(`${base}fixPar
 export const postFixParam = (params) => { return axios.post(`${base}fixParam/add`, params) }
 // 编辑方法
 export const putFixParam = (params) => { return axios.put(`${base}fixParam/modify`, params) }
+
+// 参数设置--租金参数
+// 获取方法
+export const getRentalParam = (params) => { return axios.get(`${base}rentalParam/get`, { params: params }) }
+// 修改方法
+export const putRentalParam = (params) => { return axios.put(`${base}rentalParam/modify`, params) }

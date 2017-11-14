@@ -19,6 +19,7 @@ import com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent;
 import com.computerdesign.whutHouseMgmt.bean.rentparam.RentEventModel;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.service.rentparam.RentEventService;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 

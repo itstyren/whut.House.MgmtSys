@@ -1,8 +1,8 @@
-package com.computerdesign.whutHouseMgmt.bean.building;
+package com.computerdesign.whutHouseMgmt.bean.building_region;
 
 import java.util.Date;
 
-public class Building {
+public class Building_Region {
     private Integer id;
 
     private String name;
@@ -20,6 +20,10 @@ public class Building {
     private String description;
 
     private Long supportFund;
+
+    private String regionName;
+
+    private String regionDescription;
 
     public Integer getId() {
         return id;
@@ -91,5 +95,21 @@ public class Building {
 
     public void setSupportFund(Long supportFund) {
         this.supportFund = supportFund;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName == null ? null : regionName.trim();
+    }
+
+    public String getRegionDescription() {
+        return regionDescription;
+    }
+
+    public void setRegionDescription(String regionDescription) {
+        this.regionDescription = regionDescription == null ? null : regionDescription.trim();
     }
 }

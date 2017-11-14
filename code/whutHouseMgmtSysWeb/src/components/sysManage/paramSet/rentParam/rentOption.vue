@@ -12,7 +12,7 @@
   <!-- 表格区域 -->
   <el-card>
   <el-col :span="24">
-    <el-table :data="PostValData" :border="false" style="width:100%" v-loading="listLoading" height="400">
+    <el-table :data="rentOptionData" :border="false" style="width:100%" v-loading="listLoading" height="400">
       <!-- <el-table-column type="selection" width="55"></el-table-column> -->
       <el-table-column type="expand" label="住房规则">
         <template slot-scope="props">
@@ -25,6 +25,7 @@
       </el-table-column>  
       <el-table-column prop="rentTimeBegin" label="开始时间" sortable align="center" ></el-table-column>
       <el-table-column prop="rentTimeRanges" label="结束时间" sortable align="center" ></el-table-column>
+      <el-table-column prop="rentIsOpenSel" label="是否开启" sortable align="center" :formatter="transfOpenStatus" ></el-table-column>
       <el-table-column prop="rentSelValReq" label="所需积分" sortable align="center" ></el-table-column>  
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope" >
@@ -46,10 +47,9 @@
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
         <el-form-item label="所需积分" prop="rentSelValReq">
           <el-input v-model="addFormBody.rentSelValReq" placeholder="请输入积分" style="width:350px" ></el-input>
-          <span>{{addFormBody.rentTimeBegin}}</span>
         </el-form-item>
-        <el-form-item label="选房时间" prop="rentTimeBegin">
-          <el-date-picker v-model="addFormBody.rentTimeBegin" type="daterange" align="right" :picker-options="pickerOptions"
+        <el-form-item label="选房时间" prop="timeRanges">
+          <el-date-picker v-model="addFormBody.timeRanges" type="daterange" align="right" :picker-options="pickerOptions"
                  unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyyy-MM-dd">
           </el-date-picker>
         </el-form-item> 
@@ -64,14 +64,19 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑职务分" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
+    <el-dialog title="编辑选房选项" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
       <el-form :model="modifyFromBody" label-width="100px" ref="modifyFrom" :rules="rules" >
-        <el-form-item label="职务类别" prop="staffParamName"  >
-          <el-input v-model="modifyFromBody.staffParamName" :disabled="true"   ></el-input>
+        <el-form-item label="所需积分" prop="rentSelValReq">
+          <el-input v-model="modifyFromBody.rentSelValReq" placeholder="请输入积分" style="width:350px" ></el-input>
         </el-form-item>
-        <el-form-item label="享受面积" prop="staffParamHouseArea"  >
-          <el-input  v-model="modifyFromBody.staffParamHouseArea" placeholder="请输入享受面积"  ></el-input>
-        </el-form-item>                        
+        <el-form-item label="选房时间" prop="timeRanges">
+          <el-date-picker v-model="modifyFromBody.timeRanges" type="daterange" align="right" :picker-options="pickerOptions"
+                 unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="选房规则" prop="rentSelRules">
+          <el-input type="textarea" :autosize="{minRows:3,maxRows:6}" placeholder="请输入内容" v-model="modifyFromBody.rentSelRules" style="width:350px" > </el-input>          
+        </el-form-item>                         
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" modifyFormVisible = false">取消</el-button>
@@ -82,7 +87,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {getRentParamAboutEvent,putRentParamAboutStaff,deleteRentParamAboutEvent} from '@/api/api'
+import {getRentParamAboutEvent,putRentParamAboutStaff,deleteRentParamAboutEvent,postRentParamAboutEvent} from '@/api/api'
 import common from '@/common/util.js'
 export default {
    data() {
@@ -102,7 +107,7 @@ export default {
        // 用户令牌
        access_token:'',
        // 表格数据
-       PostValData: [],
+       rentOptionData: [],
        listLoading:false,
        totalNum:1,
        page:1,
@@ -114,26 +119,28 @@ export default {
            {required: true, message: '所需积分不能为空' , trigger: 'blur' },
            {validator:validateNum , trigger:'blur'}
            ],
-         rentTimeBegin:[
-           {required: true, message: '选房时间为必选' , trigger: 'blur' },
-         ]
        },
 
        //编辑表单相关数据
        modifyFormVisible:false,
        modifyLoading:false,
        modifyFromBody:{
-         staffParamName:'',
-         staffParamHouseArea:''
+         rentSelValReq:'',
+         timeRanges:'',
+         rentTimeBegin:'',
+         rentTimeRanges:'',
+         rentSelRules:'' ,  
        },
        
        // 新增表单相关数据
        submitLoading:false,       
        addFormVisible: false,
        addFormBody:{
+         timeRanges:'',
          rentSelValReq:'',
          rentTimeBegin:'',
-         rentSelRules:''    
+         rentTimeRanges:'',
+         rentSelRules:'' ,   
        },
        // 日期自动设置范围
        pickerOptions: {
@@ -165,6 +172,26 @@ export default {
         },
     }
    },
+   // 计算属性
+   computed:{
+     timeRanges(){
+       return this.addFormBody.timeRanges
+     }
+   },
+   // 监听
+   watch:{
+    //  addFormBody : {
+    //     handler: function (newval) {
+    //       console.log(newval)
+    //     },
+    //     deep:true
+    //  },
+     timeRanges(newval){
+       this.addFormBody.rentTimeBegin=newval[0]
+       this.addFormBody.rentTimeRanges=newval[1]
+     }
+   },
+   // 生命周期调用
    mounted () {
      this.getList()
    },
@@ -178,18 +205,31 @@ export default {
        }
        // http请求
        getRentParamAboutEvent(param).then((res)=>{
-         this.PostValData=res.data.data.data.list
+         this.rentOptionData=res.data.data.data.list
          this.totalNum=res.data.data.data.total
          this.listLoading=false
        }).catch((err)=>{
          console.log(err)
        })
      },
+     // 转换开启状态
+     transfOpenStatus(row){
+       return common.transfOpenStatus(row)
+     },
     //显示编辑
     showModifyDialog (index,row) {
-      this.modifyFormVisible=true
-      this.modifyFromBody= Object.assign({},row)
-      this.selectRowIndex=index
+      if(row.rentIsOpenSel==true){
+        this.modifyFormVisible=true
+        this.modifyFromBody= Object.assign({},row)
+        this.selectRowIndex=index
+      }
+      else{
+        this.$message({
+          message:'已过选房阶段，不可编辑',
+          type:'warning'
+        })
+      }
+
       //console.log(this.selectRowIndex)
     },
     //编辑提交
@@ -207,6 +247,23 @@ export default {
         }
       })
     },
+      // 新增提交
+      addSubmit(){
+        this.$refs['addForm'].validate((valid)=>{
+          if(valid){
+            this.submitLoadinga=true
+            let param=Object.assign({},this.addFormBody)               
+            postRentParamAboutEvent(param).then((res)=>{
+              // 公共提示方法
+              common.statusinfo(this,res.data)
+              this.$refs['addForm'].resetFields()
+              this.submitLoading=false
+              this.addFormVisible=false
+              this.getList()
+            })
+          }
+        })
+      },
     // 删除功能
     delectRentEvent(index,row){
       this.$confirm('此操作将删除该历史记录','提示',{

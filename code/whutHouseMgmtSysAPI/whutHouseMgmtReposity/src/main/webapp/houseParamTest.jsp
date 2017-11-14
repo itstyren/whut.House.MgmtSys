@@ -8,10 +8,28 @@
 <%
 	pageContext.setAttribute("API_Path", request.getContextPath());
 %>
+<link
+	href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="http://cdn.static.runoob.com/libs/jquery/2.0.0/jquery.js"></script>
+<script
+	src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript"
 	src="${API_Path }/static/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript">
+	//选项卡
+	$(function() {
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+			// Get the name of active tab
+			var activeTab = $(e.target).text();
+			// Get the name of previous tab
+			var previousTab = $(e.relatedTarget).text();
+			$(".active-tab span").html(activeTab);
+			$(".previous-tab span").html(previousTab);
+		});
+	});
+
 	//模拟Get请求
 	function ajaxRequestGet(uri) {
 		//alert("${API_Path }/" + uri);
@@ -79,7 +97,7 @@
 
 	$(function() {
 		$("#fixParamGet").click(function() {
-			ajaxRequestGet("fixParam/get/20");
+			ajaxRequestGet("fixParam/get/16");
 		})
 
 		$("#fixParamDelete").click(function() {
@@ -89,7 +107,7 @@
 		$("#fixParamAdd").click(function() {
 			var data = {
 				'fixParamName' : '测试维修',
-				'paramTypeId' : 20,
+				'paramTypeId' : 16,
 				'paramTypeName' : '维修内容'
 			};
 			ajaxRequestPostType("fixParam/add", "POST", data);
@@ -99,18 +117,18 @@
 			var data = {
 				'fixParamId' : 1,
 				'fixParamName' : '修改测试',
-				'paramTypeId' : 20,
+				'paramTypeId' : 16,
 				'paramTypeName' : '维修内容'
 			};
 			ajaxRequestPostType("fixParam/modify", "PUT", data);
 		})
 	})
 
+	//租金参数
 	$(function() {
 		$("#rentalParamGet").click(function() {
 			ajaxRequestGet("rentalParam/get");
 		})
-
 
 		$("#rentalParamModify").click(function() {
 			var data = {
@@ -118,37 +136,78 @@
 				'rentalParamId' : 189,
 				'rentalTimeDiv' : 2,
 				'rentalOldDct' : '0.3',
-				'rentalNewDctYear':5,
-				'rentalNewDct':'0.4'
+				'rentalNewDctYear' : 5,
+				'rentalNewDct' : '0.4'
 			};
 			ajaxRequestPostType("rentalParam/modify", "PUT", data);
 		})
 	})
-	
+
+	//地区
 	$(function() {
 		$("#regionGet").click(function() {
 			ajaxRequestGet("region/get");
 		})
 
 		$("#regionDelete").click(function() {
-			ajaxRequestPostType("region/delete/13", "DELETE", null);
+			ajaxRequestPostType("region/delete/12", "DELETE", null);
 		})
 
 		$("#regionAdd").click(function() {
 			var data = {
-				'regionName' : "南湖",
-				'regionDescription' : '南湖大草原'
+				'name' : "南湖",
+				'description' : '南湖大草原'
 			};
 			ajaxRequestPostType("region/add", "POST", data);
 		})
 
 		$("#regionModify").click(function() {
 			var data = {
-				'regionId' : 1,
-				'regionName' : '北湖',
-				'regionDescription' : '北湖大草原'
+				'id' : 1,
+				'name' : '北湖de南边',
+				'description' : '北湖大草原'
 			};
 			ajaxRequestPostType("region/modify", "PUT", data);
+		})
+	})
+	
+	//楼栋
+	$(function() {
+		$("#buildingGet").click(function() {
+			ajaxRequestGet("building/get/1");
+		})
+
+		$("#buildingDelete").click(function() {
+			ajaxRequestPostType("building/delete/12", "DELETE", null);
+		})
+
+		$("#buildingAdd").click(function() {
+			var data = {
+				'name' : "南湖",
+				'description' : '南湖大草原',
+				'finishTime' : '2017-11-4',
+				'floorArea' : '41.4',
+				'usedArea' : '41.22',
+				'floorCount' : '66',
+				'regionId' : 1
+			};
+			ajaxRequestPostType("building/add", "POST", data);
+		})
+
+		$("#buildingModify").click(function() {
+			var data = {
+				'id' : 1,
+				'name' : '北湖de南边',
+				'description' : '北湖大草原'
+			};
+			ajaxRequestPostType("building/modify", "PUT", data);
+		})
+	})
+	
+	//下拉列表
+	$(function() {
+		$("#building_regionDown").click(function() {
+			ajaxRequestGet("building/getList");
 		})
 	})
 </script>
@@ -156,30 +215,61 @@
 </head>
 <body>
 
-	<h4>HouseParameterGetTest</h4>
-	<input type="button" value="HouseParamGet" id="houseParamGet" />
-	<input type="button" value="HouseParamDelete" id="houseParamDelete" />
-	<input type="button" value="HouseParamAdd" id="houseParamAdd" />
-	<input type="button" value="HouseParamModify" id="houseParamModify" />
 
 	<hr>
-	<h4>FixParameterGetTest</h4>
-	<input type="button" value="FixParamGet" id="fixParamGet" />
-	<input type="button" value="FixParamDelete" id="fixParamDelete" />
-	<input type="button" value="FixParamAdd" id="fixParamAdd" />
-	<input type="button" value="FixParamModify" id="fixParamModify" />
+	<script type="text/javascript"
+		src="https://api.lwl12.com/hitokoto/main/get?encode=js&charset=utf-8"></script>
+	<div id="lwlhitokoto">
+		<script>
+			lwlhitokoto()
+		</script>
+	</div>
 
 	<hr>
-	<h4>RentalParameterGetTest</h4>
-	<input type="button" value="RentalParamGet" id="rentalParamGet" />
-	<input type="button" value="RentalParamModify" id="rentalParamModify" />
+	<ul id="myTab" class="nav nav-tabs">
+		<li class="active"><a href="#houseParam" data-toggle="tab">houseParam</a></li>
+		<li><a href="#fixParam" data-toggle="tab">fixParam</a></li>
+		<li><a href="#rentalParam" data-toggle="tab">rentalParam</a></li>
+		<li><a href="#region" data-toggle="tab">region</a></li>
+		<li><a href="#building" data-toggle="tab">building</a></li>
+		<li><a href="#building_regionDown" data-toggle="tab">building_regionDown</a></li>
+	</ul>
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade in active" id="houseParam">
+			<input class="btn btn-info btn-lg" type="button" value="Get" id="houseParamGet" /> <br>
+			<input class="btn btn-info btn-lg"type="button" value="Delete" id="houseParamDelete" /><br>
+			<input class="btn btn-info btn-lg"type="button" value="Add" id="houseParamAdd" /> <br>
+			<input class="btn btn-info btn-lg"type="button" value="Modify" id="houseParamModify" />
+			<br>
+		</div>
+		<div class="tab-pane fade" id="fixParam">
+			<input class="btn btn-info btn-lg" type="button" value="FixParamGet" id="fixParamGet" /> <br>
+			<input class="btn btn-info btn-lg" type="button" value="FixParamDelete" id="fixParamDelete" /> <br>
+			<input class="btn btn-info btn-lg" type="button" value="FixParamAdd" id="fixParamAdd" /> <br>
+			<input class="btn btn-info btn-lg" type="button" value="FixParamModify" id="fixParamModify" /> <br>
+		</div>
+		<div class="tab-pane fade" id="rentalParam">
+			<input class="btn btn-info btn-lg" type="button" value="RentalParamGet" id="rentalParamGet" /> <br>
+			<input class="btn btn-info btn-lg" type="button" value="RentalParamModify" id="rentalParamModify" /><br>
+		</div>
+		<div class="tab-pane fade" id="region">
+			<input class="btn btn-info btn-lg" type="button" value="RegionGet" id="regionGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="RegionDelete" id="regionDelete" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="RegionAdd" id="regionAdd" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="RegionModify" id="regionModify" /> <br>
+		</div>
+		<div class="tab-pane fade" id="building">
+			<input class="btn btn-info btn-lg" type="button" value="BuildingGet" id="buildingGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="BuildingDelete" id="buildingDelete" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="BuildingAdd" id="buildingAdd" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="BuildingModify" id="buildingModify" /> <br>
+		</div>
+		<div class="tab-pane fade" id="building_regionDown">
+			<input class="btn btn-info btn-lg" type="button" value="building_regionDownGet" id="building_regionDownGet" /> <br> 
+		</div>
+	</div>
 
-	<hr>
-	<hr>
-	<h4>RegionGetTest</h4>
-	<input type="button" value="RegionGet" id="regionGet" />
-	<input type="button" value="RegionDelete" id="regionDelete" />
-	<input type="button" value="RegionAdd" id="regionAdd" />
-	<input type="button" value="RegionModify" id="regionModify" />
+
+
 </body>
 </html>

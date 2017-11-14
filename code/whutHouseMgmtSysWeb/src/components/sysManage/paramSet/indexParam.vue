@@ -14,12 +14,12 @@
   <el-row class="main-body" >
     <!-- 左侧树形菜单 -->
     <el-col :span="24" >
-      <div class="left-body">
+      <el-card class="left-body">
       <el-form :inline="true" style="text-align:center;margin-bottom:20px">
         <el-input placeholder="输入参数关键词" v-model="filterText" icon="search" type="text" size="small"></el-input>
       </el-form>
       <el-tree :data="paramData" :props="props" ref="paramData" :filter-node-method="filterNode"   @node-click="handleNodeClick" :highlight-current="true"></el-tree>
-    </div>
+    </el-card>
     <!-- 右侧内容区域 -->
     <section class="right-body">
         <component :is="componentId"></component>
@@ -42,13 +42,14 @@ const staffTitle = () => import(/* webpackChunkName: "staffParam" */ './staffPar
 const staffClass = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffClass')
 const staffStatus = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffStatus')
 const staffSpouse = () => import(/* webpackChunkName: "staffParam" */ './staffParam/staffSpouse')
+// 异步加载--租赁参数
+const rentPostVal = () => import(/* webpackChunkName: "rentParam" */ './rentParam/rentPostVal')
+const rentTitleVal = () => import(/* webpackChunkName: "rentParam" */ './rentParam/rentTitleVal')
+const rentPostArea = () => import(/* webpackChunkName: "rentParam" */ './rentParam/rentPostArea')
+const rentTitleArea = () => import(/* webpackChunkName: "rentParam" */ './rentParam/rentTitleArea')
+const rentOption = () => import(/* webpackChunkName: "rentParam" */ './rentParam/rentOption')
 
-
-import rentPostVal from './rentParam/rentPostVal' 
-import rentTitleVal from './rentParam/rentTitleVal'   
-import rentPostArea from './rentParam/rentPostArea'  
-import rentTitleArea from './rentParam/rentTitleArea'  
-import rentOption from './rentParam/rentOption'  
+import rentalOption from './rentalParam/rentalOption'  
 
 import fixContent from './fixParam/fixContent'
  export default {
@@ -156,20 +157,8 @@ import fixContent from './fixParam/fixContent'
            label:'租金参数',
            children:[
              {
-               id:'rentalStaffTimeDiv',
-               label:'新老职工分界点'
-             },
-             {
-               id:'rentalOldDct',
-               label:'老职工优惠比例'
-             },
-             {
-               id:'rentalNewDctYear',
-               label:'新职工优惠年限'
-             },             
-             {
-               id:'rentalNewDct',
-               label:'新职工优惠比例'
+               id:'rentalOption',
+               label:'租金选项'
              },
            ]
          }
@@ -201,6 +190,8 @@ import fixContent from './fixParam/fixContent'
      rentPostVal,rentTitleVal,rentPostArea,rentTitleArea,rentOption,
      // 维修参数组件
      fixContent,
+     // 租金参数组件
+     rentalOption,
    }
  }
 </script>
@@ -233,8 +224,8 @@ import fixContent from './fixParam/fixContent'
   overflow-x: hidden;
   margin: 18px;
   padding: 15px 0px 0 0px;
-   border: 2px solid #333744;
-  box-shadow: 0 0 5px #333744;
+  //  border: 2px solid #333744;
+  // -moz-box-shadow:-4px 7px 5px #878787, 0px 2px 3px #333333; -webkit-box-shadow:-4px 7px 5px #878787, 0px 2px 3px #333333; box-shadow:-4px 7px 5px #878787, 0px 2px 3px #333333;
    border-radius: 5px
    
 }

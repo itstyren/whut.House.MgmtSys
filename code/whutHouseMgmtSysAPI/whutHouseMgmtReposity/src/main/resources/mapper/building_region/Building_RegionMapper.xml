@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computerdesign.whutHouseMgmt.dao.building.BuildingMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.building.Building">
-    <id column="Id" jdbcType="INTEGER" property="id" />
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.building_region.Building_RegionMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.building_region.Building_Region">
+    <result column="Id" jdbcType="INTEGER" property="id" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="FinishTime" jdbcType="TIMESTAMP" property="finishTime" />
     <result column="FloorArea" jdbcType="REAL" property="floorArea" />
@@ -11,6 +11,8 @@
     <result column="RegionId" jdbcType="INTEGER" property="regionId" />
     <result column="Description" jdbcType="VARCHAR" property="description" />
     <result column="SupportFund" jdbcType="DECIMAL" property="supportFund" />
+    <result column="RegionName" jdbcType="VARCHAR" property="regionName" />
+    <result column="RegionDescription" jdbcType="VARCHAR" property="regionDescription" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,15 +73,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, Name, FinishTime, FloorArea, UsedArea, FloorCount, RegionId, Description, SupportFund
+    Id, Name, FinishTime, FloorArea, UsedArea, FloorCount, RegionId, Description, SupportFund, 
+    RegionName, RegionDescription
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building_region.Building_RegionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Hs_Building
+    from view_hs_build_region
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,34 +90,24 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from Hs_Building
-    where Id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Hs_Building
-    where Id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample">
-    delete from Hs_Building
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building_region.Building_RegionExample">
+    delete from view_hs_build_region
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
-    insert into Hs_Building (Id, Name, FinishTime, 
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.building_region.Building_Region">
+    insert into view_hs_build_region (Id, Name, FinishTime, 
       FloorArea, UsedArea, FloorCount, 
-      RegionId, Description, SupportFund
-      )
+      RegionId, Description, SupportFund, 
+      RegionName, RegionDescription)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{finishTime,jdbcType=TIMESTAMP}, 
       #{floorArea,jdbcType=REAL}, #{usedArea,jdbcType=REAL}, #{floorCount,jdbcType=INTEGER}, 
-      #{regionId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{supportFund,jdbcType=DECIMAL}
-      )
+      #{regionId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{supportFund,jdbcType=DECIMAL}, 
+      #{regionName,jdbcType=VARCHAR}, #{regionDescription,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
-    insert into Hs_Building
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building_region.Building_Region">
+    insert into view_hs_build_region
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
@@ -142,6 +135,12 @@
       </if>
       <if test="supportFund != null">
         SupportFund,
+      </if>
+      <if test="regionName != null">
+        RegionName,
+      </if>
+      <if test="regionDescription != null">
+        RegionDescription,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -172,16 +171,22 @@
       <if test="supportFund != null">
         #{supportFund,jdbcType=DECIMAL},
       </if>
+      <if test="regionName != null">
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionDescription != null">
+        #{regionDescription,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample" resultType="java.lang.Long">
-    select count(*) from Hs_Building
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building_region.Building_RegionExample" resultType="java.lang.Long">
+    select count(*) from view_hs_build_region
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Hs_Building
+    update view_hs_build_region
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
@@ -210,13 +215,19 @@
       <if test="record.supportFund != null">
         SupportFund = #{record.supportFund,jdbcType=DECIMAL},
       </if>
+      <if test="record.regionName != null">
+        RegionName = #{record.regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionDescription != null">
+        RegionDescription = #{record.regionDescription,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Hs_Building
+    update view_hs_build_region
     set Id = #{record.id,jdbcType=INTEGER},
       Name = #{record.name,jdbcType=VARCHAR},
       FinishTime = #{record.finishTime,jdbcType=TIMESTAMP},
@@ -225,51 +236,11 @@
       FloorCount = #{record.floorCount,jdbcType=INTEGER},
       RegionId = #{record.regionId,jdbcType=INTEGER},
       Description = #{record.description,jdbcType=VARCHAR},
-      SupportFund = #{record.supportFund,jdbcType=DECIMAL}
+      SupportFund = #{record.supportFund,jdbcType=DECIMAL},
+      RegionName = #{record.regionName,jdbcType=VARCHAR},
+      RegionDescription = #{record.regionDescription,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
-    update Hs_Building
-    <set>
-      <if test="name != null">
-        Name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="finishTime != null">
-        FinishTime = #{finishTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="floorArea != null">
-        FloorArea = #{floorArea,jdbcType=REAL},
-      </if>
-      <if test="usedArea != null">
-        UsedArea = #{usedArea,jdbcType=REAL},
-      </if>
-      <if test="floorCount != null">
-        FloorCount = #{floorCount,jdbcType=INTEGER},
-      </if>
-      <if test="regionId != null">
-        RegionId = #{regionId,jdbcType=INTEGER},
-      </if>
-      <if test="description != null">
-        Description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="supportFund != null">
-        SupportFund = #{supportFund,jdbcType=DECIMAL},
-      </if>
-    </set>
-    where Id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
-    update Hs_Building
-    set Name = #{name,jdbcType=VARCHAR},
-      FinishTime = #{finishTime,jdbcType=TIMESTAMP},
-      FloorArea = #{floorArea,jdbcType=REAL},
-      UsedArea = #{usedArea,jdbcType=REAL},
-      FloorCount = #{floorCount,jdbcType=INTEGER},
-      RegionId = #{regionId,jdbcType=INTEGER},
-      Description = #{description,jdbcType=VARCHAR},
-      SupportFund = #{supportFund,jdbcType=DECIMAL}
-    where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

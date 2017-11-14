@@ -9,4 +9,6 @@ src/components/sysManage/paramSet/*.vue
 src/components/sysManage/paramSet/houseParam/*.vue 
 src/components/sysManage/paramSet/staffParam/*.vue
 src/components/sysManage/paramSet/rentParam/*.vue 
-src/components/sysManage/paramSet/fixParam/*.vue 
+src/components/sysManage/paramSet/fixParam/*.vue  
+src/components/sysManage/paramSet/rentalParam/*.vue  
+src/components/basiceData/*.vue  
