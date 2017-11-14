@@ -2,6 +2,8 @@ package com.computerdesign.whutHouseMgmt.bean.staffmanagement;
 
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -27,6 +29,7 @@ public class Staff {
 
     private Integer dept;
 
+    @Pattern(regexp="(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)",message="身份证号码为18位或15位，最后一位为校验位，可以为数字或字母X")
     private String code;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -41,12 +44,14 @@ public class Staff {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date retireTime;
 
+    @Pattern(regexp="^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",message="电话号码格式错误")
     private String tel;
 
     private String remark;
 
     private String spouseName;
 
+    @Pattern(regexp="^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",message="电话号码格式错误")
     private String spouseCode;
 
     private Integer spouseTitle;

@@ -30,7 +30,7 @@
 
 		$("#staffAdd").click(function() {
 			var data = {
-				'no' : '4232',
+				'no' : '4234',
 				'name' : 'xh',
 				'sex':'男',
 				'marriageState':'未知',
@@ -39,11 +39,11 @@
 				'type':144,
 				'status':153,
 				'dept':49,
-				'code':'429006198711208754',
+				'code':'4290061987112087',
 				'joinTime':'2017-11-20',
 				'goUniversityTime':'2015-9-6',
 				'retireTime':'2020-11-2',
-				'tel':'13277582789',
+				'tel':'12345678901',
 				'remark':'无',
 				'relation':'active'
 			};

@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,30 +42,44 @@ public class StaffController {
 
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
-	public Msg modifyStaff(@RequestBody Staff staff){
+	public Msg modifyStaff(@RequestBody Staff staff) {
 		staffService.update(staff);
 		return Msg.success("修改成功").add("data", staff);
 	}
-	
+
 	/**
 	 * 新增一个员工
+	 * 
 	 * @param staff
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public Msg addStaff(@RequestBody Staff staff) {
-		//验证员工no是否重复
+	public Msg addStaff(@RequestBody @Valid Staff staff, BindingResult result) {
+		// System.out.println(result.getErrorCount());
+		// System.out.println(result.getFieldError().getDefaultMessage());
+
+		// //获取所有错误信息
+		// for (FieldError error : result.getFieldErrors()){
+		// System.out.println(error.getDefaultMessage());
+		// }
+		// 验证员工no是否重复
 		List<Staff> staffs = staffService.getByStaffNo(staff.getNo());
-		if(staffs.size() == 0){
+		if (staffs.size() == 0) {
+			if (result.getErrorCount() > 0) {
+				//根据JSR303验证获取错误信息，并返回前端
+				String message = result.getFieldError().getDefaultMessage();
+				return Msg.error(message).add("data", staff);
+			}
+
 			if (staff.getName() != null && staff.getCode() != null) {
 				staffService.add(staff);
 				return Msg.success("添加成功").add("data", staff);
 			} else {
-				return Msg.error("必要信息不完整");
+				return Msg.error("必要信息不完整").add("data", staff);
 			}
-		}else{
-			return Msg.error("员工编号No重复");
+		} else {
+			return Msg.error("员工编号No重复").add("data", staff);
 		}
 	}
 
