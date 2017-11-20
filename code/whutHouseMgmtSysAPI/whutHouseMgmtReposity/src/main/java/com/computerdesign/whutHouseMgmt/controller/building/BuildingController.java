@@ -25,8 +25,6 @@ public class BuildingController {
 	@Autowired
 	private BuildingService buildingService;
 
-	
-	
 	@ResponseBody
 	@RequestMapping(value="get/{regionId}",method=RequestMethod.GET)
 	public Msg getBuildings(@PathVariable("regionId")Integer regionId,

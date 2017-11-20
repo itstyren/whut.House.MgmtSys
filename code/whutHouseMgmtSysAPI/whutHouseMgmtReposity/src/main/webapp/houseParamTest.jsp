@@ -174,7 +174,7 @@
 	//楼栋
 	$(function() {
 		$("#buildingGet").click(function() {
-			ajaxRequestGet("building/get/1");
+			ajaxRequestGet("building/get/10");
 		})
 
 		$("#buildingDelete").click(function() {
@@ -201,6 +201,64 @@
 				'description' : '北湖大草原'
 			};
 			ajaxRequestPostType("building/modify", "PUT", data);
+		})
+	})
+	
+	//房屋
+	$(function() {
+		$("#houseGet").click(function() {
+			ajaxRequestGet("house/get/10");
+		})
+		
+		$("#houseGetAllByBuilding").click(function() {
+			ajaxRequestPostType("house/getBuildingHouses/2");
+		})
+
+		$("#houseDelete").click(function() {
+			ajaxRequestPostType("house/delete/12", "DELETE", null);
+		})
+
+		$("#houseAdd").click(function() {
+			var data = {
+				'no' : 40,
+				'type' : 10,
+				'layout' : 19,
+				'status' : 38,
+				'struct' : 29,
+				'buildArea' : 66,
+				'usedArea' : 66,
+				'basementArea' : 66,
+				'address' : '水立方',
+				'buildingId' : 5,
+				'proId' : '66',
+				'remark':'凤梨酥',
+				'rental':'26.9',
+				'finishTime':new Date(),
+				'recordStatus':1
+			};
+			ajaxRequestPostType("house/add", "POST", data);
+		})
+
+		$("#houseModify").click(function() {
+			var data = {
+					'id':7,
+					'no' : 55,
+					'type' : 10,
+					'layout' : 19,
+					'status' : 38,
+					'struct' : 29,
+					'buildArea' : 66,
+					'usedArea' : 66,
+					'basementArea' : 66,
+					'address' : '水立方',
+					'buildingId' : 5,
+					'proId' : '66',
+					'remark':'凤梨酥',
+					'rental':'26.9',
+					'finishTime':new Date(),
+					'recordStatus':1
+			};
+			ajaxRequestPostType("house/modify", "PUT", data);
 		})
 	})
 	
@@ -232,7 +290,7 @@
 		<li><a href="#rentalParam" data-toggle="tab">rentalParam</a></li>
 		<li><a href="#region" data-toggle="tab">region</a></li>
 		<li><a href="#building" data-toggle="tab">building</a></li>
-		<li><a href="#building_regionDown" data-toggle="tab">building_regionDown</a></li>
+		<li><a href="#house" data-toggle="tab">house</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="houseParam">
@@ -264,8 +322,12 @@
 			<input class="btn btn-info btn-lg" type="button" value="BuildingAdd" id="buildingAdd" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="BuildingModify" id="buildingModify" /> <br>
 		</div>
-		<div class="tab-pane fade" id="building_regionDown">
-			<input class="btn btn-info btn-lg" type="button" value="building_regionDownGet" id="building_regionDownGet" /> <br> 
+		<div class="tab-pane fade" id="house">
+			<input class="btn btn-info btn-lg" type="button" value="HouseGet" id="houseGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="houseGetAllByBuilding" id="houseGetAllByBuilding" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="HouseDelete" id="houseDelete" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="HouseAdd" id="houseAdd" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="HouseModify" id="houseModify" /> <br>
 		</div>
 	</div>
 

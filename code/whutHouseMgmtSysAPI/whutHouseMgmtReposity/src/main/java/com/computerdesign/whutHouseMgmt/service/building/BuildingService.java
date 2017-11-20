@@ -29,14 +29,14 @@ public class BuildingService implements BaseService<Building>{
 	}
 	
 	/**
-	 * 根据不同的buildingRegion选出不同Region的Building
+	 * 根据不同的regionId选出不同Region的Building
 	 * @param buildingRegion
 	 * @return
 	 */
-	public List<Building> getAll(Integer RegionId) {
+	public List<Building> getAll(Integer regionId) {
 		BuildingExample example=new BuildingExample();
 		Criteria criteria=example.createCriteria();
-		criteria.andRegionIdEqualTo(RegionId);
+		criteria.andRegionIdEqualTo(regionId);
 		return buildingMapper.selectByExample(example);
 	}
 	
@@ -46,8 +46,8 @@ public class BuildingService implements BaseService<Building>{
 	}
 	
 	@Override
-	public void delete(Integer Id){
-		buildingMapper.deleteByPrimaryKey(Id);
+	public void delete(Integer id){
+		buildingMapper.deleteByPrimaryKey(id);
 	}
 	
 	@Override
