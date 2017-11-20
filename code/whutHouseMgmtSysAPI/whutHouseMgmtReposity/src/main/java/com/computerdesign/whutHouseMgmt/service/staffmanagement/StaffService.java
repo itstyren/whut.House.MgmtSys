@@ -1,0 +1,65 @@
+package com.computerdesign.whutHouseMgmt.service.staffmanagement;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample.Criteria;
+import com.computerdesign.whutHouseMgmt.dao.staffmanagement.StaffMapper;
+import com.computerdesign.whutHouseMgmt.service.base.BaseService;
+
+@Service
+public class StaffService implements BaseService<Staff> {
+
+	@Autowired
+	private StaffMapper staffMapper;
+	
+	/**
+	 * 根据id获取一个staff对象
+	 * @param id
+	 * @return
+	 */
+	public Staff get(Integer id){
+		return staffMapper.selectByPrimaryKey(id);
+	}
+	
+	/**
+	 * 根据员工编号获取员工，用于验证员工编号是否重复
+	 * @param no
+	 * @return
+	 */
+	public List<Staff> getByStaffNo(String no){
+		StaffExample staffExample = new StaffExample();
+		Criteria criteria = staffExample.createCriteria();
+		criteria.andNoEqualTo(no);
+		return staffMapper.selectByExample(staffExample);
+		
+	}
+	
+	@Override
+	public List<Staff> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Integer id) {
+		staffMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public void add(Staff entities) {
+		staffMapper.insertSelective(entities);
+		
+	}
+
+	@Override
+	public void update(Staff entities) {
+		staffMapper.updateByPrimaryKeySelective(entities);
+		
+	}
+
+}

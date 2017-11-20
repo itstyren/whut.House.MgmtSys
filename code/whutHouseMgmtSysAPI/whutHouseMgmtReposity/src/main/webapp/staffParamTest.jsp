@@ -11,73 +11,82 @@
 
 <script type="text/javascript"
 	src="${API_Path }/static/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript"
-	src="${API_Path }/static/js/common.js"></script>
+<script type="text/javascript" src="${API_Path }/static/js/common.js"></script>
 <script type="text/javascript">
-
-	$(function () {
-		$("#staffWorkDeptParamGet").click(function () {
-			ajaxRequestGet("staffParam/get/5?page=1&size=3");
+	$(function() {
+		$("#staffWorkDeptParamGet").click(function() {
+			ajaxRequestGet("staffParam/get/5?page=1&size=25");
 		})
-		
-		$("#staffDutyParamGet").click(function () {
+
+		$("#staffDutyParamGet").click(function() {
 			ajaxRequestGet("staffParam/get/6");
 		})
-		
-		$("#staffJobTitleParamGet").click(function () {
+
+		$("#staffJobTitleParamGet").click(function() {
 			ajaxRequestGet("staffParam/get/7");
 		})
-		
-		$("#staffTypeParamGet").click(function () {
+
+		$("#staffTypeParamGet").click(function() {
 			ajaxRequestGet("staffParam/get/8");
 		})
-		
-		$("#staffWorkStatusParamGet").click(function () {
+
+		$("#staffWorkStatusParamGet").click(function() {
 			ajaxRequestGet("staffParam/get/9");
 		})
-		
-		$("#staffSpouseDeptNatureParamGet").click(function () {
+
+		$("#staffSpouseDeptNatureParamGet").click(function() {
 			ajaxRequestGet("staffParam/get/10");
 		})
-		
-		$("#staffParamDelete").click(function () {
+
+		$("#staffParamDelete").click(function() {
 			//var data={'staffParamId':189};
-			ajaxRequestPostType("staffParam/delete/49","DELETE",null);
+			ajaxRequestPostType("staffParam/delete/49", "DELETE", null);
 		})
-		
-		$("#staffParamAdd").click(function () {
-			var data={'staffParamName':'党员','paramTypeId':5,'paramTypeName':'工作部门'};
-			ajaxRequestPostType("staffParam/add","POST",data);
+
+		$("#staffParamAdd").click(function() {
+			var data = {
+				'staffParamName' : '党员',
+				'paramTypeId' : 5,
+				'paramTypeName' : '工作部门'
+			};
+			ajaxRequestPostType("staffParam/add", "POST", data);
 		})
-		
-		$("#staffParamModify").click(function () {
-			var data={'staffParamId':187,'staffParamName':'修改测试3','paramTypeId':5,'paramTypeName':'工作部门'};
-			ajaxRequestPostType("staffParam/modify","PUT",data);
+
+		$("#staffParamModify").click(function() {
+			var data = {
+				'staffParamId' : 187,
+				'staffParamName' : '修改测试3',
+				'paramTypeId' : 5,
+				'paramTypeName' : '工作部门'
+			};
+			ajaxRequestPostType("staffParam/modify", "PUT", data);
 		})
 	})
-	
-	
 </script>
 
 </head>
 <body>
 	<h4>获取职工参数</h4>
-	<input type="button" value="StaffWorkDeptParamGet" id="staffWorkDeptParamGet" />
+	<input type="button" value="StaffWorkDeptParamGet"
+		id="staffWorkDeptParamGet" />
 	<br>
 	<br>
 	<input type="button" value="StaffDutyParamGet" id="staffDutyParamGet" />
 	<br>
 	<br>
-	<input type="button" value="StaffJobTitleParamGet" id="staffJobTitleParamGet" />
+	<input type="button" value="StaffJobTitleParamGet"
+		id="staffJobTitleParamGet" />
 	<br>
 	<br>
 	<input type="button" value="StaffTypeParamGet" id="staffTypeParamGet" />
 	<br>
 	<br>
-	<input type="button" value="StaffWorkStatusParamGet" id="staffWorkStatusParamGet" />
+	<input type="button" value="StaffWorkStatusParamGet"
+		id="staffWorkStatusParamGet" />
 	<br>
 	<br>
-	<input type="button" value="StaffSpouseDeptNatureParamGet" id="staffSpouseDeptNatureParamGet" />
+	<input type="button" value="StaffSpouseDeptNatureParamGet"
+		id="staffSpouseDeptNatureParamGet" />
 	<h4>删除职工参数</h4>
 	<input type="button" value="StaffParamDelete" id="staffParamDelete" />
 	<h4>添加职工参数</h4>

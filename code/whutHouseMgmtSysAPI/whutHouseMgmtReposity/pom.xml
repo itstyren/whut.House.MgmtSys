@@ -9,6 +9,15 @@
 	<!-- 引入项目依赖的jar包 -->
 	<dependencies>
 
+		<!-- JSR303校验 -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.4.1.Final</version>
+		</dependency>
+
+
 		<!-- 导入pageHelper类 -->
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
@@ -25,20 +34,17 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- jackson  -->
+		<!-- jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.8.8</version>
-		</dependency> 
+		</dependency>
 
 		<!-- fastjson -->
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-		<!-- <dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.38</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.alibaba</groupId> <artifactId>fastjson</artifactId> 
+			<version>1.2.38</version> </dependency> -->
 
 		<!-- springmvc spring -->
 		<dependency>
