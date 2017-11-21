@@ -65,7 +65,14 @@
 		});
 	}
 
+	//房屋参数
 	$(function() {
+		
+		$("#houseTypeParamGet").click(function() {
+			ajaxRequestGet("houseParam/getHouseParamId/2");
+
+		})
+		
 		$("#houseParamGet").click(function() {
 			ajaxRequestGet("houseParam/get/1");
 
@@ -95,6 +102,7 @@
 		})
 	})
 
+	//维修参数
 	$(function() {
 		$("#fixParamGet").click(function() {
 			ajaxRequestGet("fixParam/get/16");
@@ -174,7 +182,7 @@
 	//楼栋
 	$(function() {
 		$("#buildingGet").click(function() {
-			ajaxRequestGet("building/get/10");
+			ajaxRequestGet("building/getAllByRegionId/10");
 		})
 
 		$("#buildingDelete").click(function() {
@@ -196,9 +204,14 @@
 
 		$("#buildingModify").click(function() {
 			var data = {
-				'id' : 1,
-				'name' : '北湖de南边',
-				'description' : '北湖大草原'
+				'id' : 3,
+				'name' : "南湖",
+				'description' : '南湖大草原',
+				'finishTime' : '2017-11-4',
+				'floorArea' : '41.4',
+				'usedArea' : '41.22',
+				'floorCount' : '66',
+				'regionId' : 2
 			};
 			ajaxRequestPostType("building/modify", "PUT", data);
 		})
@@ -211,7 +224,7 @@
 		})
 		
 		$("#houseGetAllByBuilding").click(function() {
-			ajaxRequestPostType("house/getBuildingHouses/2");
+			ajaxRequestPostType("house/getHousesByBuildingId/2");
 		})
 
 		$("#houseDelete").click(function() {
@@ -295,6 +308,7 @@
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="houseParam">
 			<input class="btn btn-info btn-lg" type="button" value="Get" id="houseParamGet" /> <br>
+			<input class="btn btn-info btn-lg" type="button" value="GetHouseType" id="houseTypeParamGet" /> <br>
 			<input class="btn btn-info btn-lg"type="button" value="Delete" id="houseParamDelete" /><br>
 			<input class="btn btn-info btn-lg"type="button" value="Add" id="houseParamAdd" /> <br>
 			<input class="btn btn-info btn-lg"type="button" value="Modify" id="houseParamModify" />

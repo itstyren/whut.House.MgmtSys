@@ -25,14 +25,32 @@ public class BuildingController {
 	@Autowired
 	private BuildingService buildingService;
 
+	
 	@ResponseBody
-	@RequestMapping(value="get/{regionId}",method=RequestMethod.GET)
+	@RequestMapping(value="get/{id}",method = RequestMethod.GET)
+	public Msg getBuilding(@PathVariable("id")Integer id){
+		Building building = buildingService.getBuildingById(id);
+		if(building == null){
+			return Msg.error("差找不到");
+		}else{
+			return Msg.success().add("data", building);
+		}
+	}
+	/**
+	 * 根据regionId获取一个地区的楼栋
+	 * @param regionId
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="getAllByRegionId/{regionId}",method=RequestMethod.GET)
 	public Msg getBuildings(@PathVariable("regionId")Integer regionId,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size){
 		
 		PageHelper.startPage(page, size);
-		List<Building> buildings=buildingService.getAll(regionId);
+		List<Building> buildings=buildingService.getAllByRegionId(regionId);
 		
 		PageInfo pageInfo=new PageInfo(buildings);
 		
@@ -58,7 +76,10 @@ public class BuildingController {
 		}else if (building.getRegionId()==null) {
 			return Msg.error("地区不能为空");
 		}
-		
+		//判断楼栋名称是否已经存在
+		if (buildingService.getAllByName(building.getName()).size()!=0) {
+			return Msg.error("楼栋名称已经存在");
+		}
 		buildingService.add(building);
 		return Msg.success().add("data", building);
 	}
@@ -66,7 +87,7 @@ public class BuildingController {
 	@ResponseBody
 	@RequestMapping(value="delete/{id}",method = RequestMethod.DELETE)
 	public Msg deleteBuilding(@PathVariable("id") Integer id){
-		Building building=buildingService.getById(id);
+		Building building=buildingService.getBuildingById(id);
 		//不存在该id
 		if (building==null) {
 			return Msg.error("删除失败");
@@ -97,6 +118,11 @@ public class BuildingController {
 			return Msg.error("楼层数目不能为空");
 		}else if (building.getRegionId()==null) {
 			return Msg.error("地区不能为空");
+		}
+		
+		//判断楼栋名称是否已经存在
+		if (buildingService.getAllByName(building.getName()).size()!=0) {
+			return Msg.error("楼栋名称已经存在");
 		}
 		
 		buildingService.update(building);

@@ -9,6 +9,8 @@
     <result column="HouseParamRel" jdbcType="VARCHAR" property="houseParamRel" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
+  
+ 
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -70,6 +72,19 @@
   <sql id="Base_Column_List">
     HouseParamId, HouseParamName, ParamTypeId, ParamTypeName, HouseParamRel, IsDelete
   </sql>
+  
+  <!-- 只选出房屋参数id -->
+  <sql id="HouseParam_Type_Id">
+	HouseParamId  
+  </sql>
+  
+  <select id="selectHouseParamId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select
+    <include refid="HouseParam_Type_Id" />
+    from PM_HouseType
+	where ParamTypeId = #{paramTypeId,jdbcType=INTEGER}
+  </select>
+  
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

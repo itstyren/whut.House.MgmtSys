@@ -19,7 +19,7 @@ public class BuildingService implements BaseService<Building>{
 	@Autowired
 	private BuildingMapper buildingMapper;
 	
-	public Building getById(Integer id) {
+	public Building getBuildingById(Integer id) {
 		return buildingMapper.selectByPrimaryKey(id);
 	}
 	
@@ -28,12 +28,18 @@ public class BuildingService implements BaseService<Building>{
 		return buildingMapper.selectByExample(null);
 	}
 	
+	public List<Building> getAllByName(String name) {
+		BuildingExample example=new BuildingExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andNameEqualTo(name);
+		return buildingMapper.selectByExample(example);
+	}
 	/**
 	 * 根据不同的regionId选出不同Region的Building
 	 * @param buildingRegion
 	 * @return
 	 */
-	public List<Building> getAll(Integer regionId) {
+	public List<Building> getAllByRegionId(Integer regionId) {
 		BuildingExample example=new BuildingExample();
 		Criteria criteria=example.createCriteria();
 		criteria.andRegionIdEqualTo(regionId);

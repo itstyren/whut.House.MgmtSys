@@ -6,6 +6,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface HouseParameterMapper {
+	
+	//自己写的Mapper
+	List<Integer> selectHouseParamId(Integer paramTypeId);
+	
     long countByExample(HouseParameterExample example);
 
     int deleteByExample(HouseParameterExample example);

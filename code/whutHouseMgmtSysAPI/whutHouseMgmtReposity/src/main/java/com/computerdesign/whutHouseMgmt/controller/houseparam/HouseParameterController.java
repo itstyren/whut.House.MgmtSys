@@ -26,6 +26,20 @@ public class HouseParameterController {
 	@Autowired
 	private HouseParamService houseParamService;
 
+	
+	
+	/**
+	 * @param paramTypeId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getHouseParamId/{paramTypeId}" , method = RequestMethod.GET)
+	public Msg getHouseTypePar(@PathVariable("paramTypeId") Integer paramTypeId){
+		List<Integer> houseParamIds= houseParamService.getHouseParamId(paramTypeId);
+		return Msg.success().add("data", houseParamIds);
+	}
+	
+	
 	/**
 	 * @param paramTypeId
 	 * @return
