@@ -9,7 +9,7 @@ export default new Vuex.Store({
     state:{
         access_token:'',
         RoleID:'',
-        Name:''
+        Name:'12'
     },
     mutations:{
         // 登录时写入

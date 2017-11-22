@@ -8,6 +8,10 @@ import paramSet from '@/components/sysManage/paramSet/indexParam'
 import buildingData from '@/components/basiceData/buildingData'
 import region from '@/components/basiceData/regionData'
 
+import Text1 from '@/views/Home1'
+import paramSetText from '@/components/sysManage/paramSet/indexParam1'
+import houseType from '@/components/sysManage/paramSet/houseParam/houseType'
+
 Vue.use(Router)
 
 // 定义路由数据
@@ -23,6 +27,21 @@ const routes = [
     redirect: '/index',
     children: [
       {path: '/index', component: HelloWorld, name: 'index', menuShow: true}
+    ]
+  },
+  // 测试
+  {
+    path: '/text',
+    component: Text1,
+    children: [
+      { path: '/paramSet1',
+        component: paramSetText,
+        name: 'paramSetText',
+        children: [
+          { path: '/paramSet1/houseType', component: houseType, name: 'houseType', menuShow: true }
+        ]
+
+      }
     ]
   },
   // 系统管理
