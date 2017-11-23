@@ -37,7 +37,7 @@
                 <template slot="title">
                     <span slot="title">基础资料</span>
                 </template>                  
-                <el-menu-item index="/basic/region">
+                <el-menu-item index="/basic/buildingArea">
                     <span>区域管理</span>
                 </el-menu-item>
                 <el-menu-item index="/basic/building">

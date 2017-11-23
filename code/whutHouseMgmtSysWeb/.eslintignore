@@ -11,4 +11,5 @@ src/components/sysManage/paramSet/staffParam/*.vue
 src/components/sysManage/paramSet/rentParam/*.vue 
 src/components/sysManage/paramSet/fixParam/*.vue  
 src/components/sysManage/paramSet/rentalParam/*.vue  
-src/components/basiceData/*.vue  
+src/components/basiceData/*.vue   
+src/components/basiceData/buildingRegionData/*.vue   

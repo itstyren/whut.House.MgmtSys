@@ -34,6 +34,10 @@ import fixContent from '@/components/sysManage/paramSet/fixParam/fixContent'
 // 租金参数
 import rentalOption from '@/components/sysManage/paramSet/rentalParam/rentalOption'
 
+// 基础数据
+// 楼栋区域
+import indexbldgRgn from '@/components/basiceData/buildingRegionData/indexbldgRgn'
+
 Vue.use(Router)
 
 // 定义路由数据
@@ -108,7 +112,7 @@ const routes = [
   },
   // 基础数据
   {
-    path: '/',
+    path: '/basic',
     component: Home,
     name: 'basiceData',
     meta: {
@@ -117,7 +121,8 @@ const routes = [
     menuShow: true,
     children: [
       { path: '/basic/building', component: buildingData, name: 'buildingData', menuShow: true },
-      { path: '/basic/region', component: region, name: 'region', menuShow: true }
+      { path: '/basic/region', component: region, name: 'region', menuShow: true },
+      { path: 'buildingArea', component: indexbldgRgn, name: 'indexbldgRgn', menuShow: true }
     ]
   }
 ]
