@@ -33,8 +33,6 @@ public class StaffParameterController {
 	private ParamClassService paramClassService;
 
 	// /**
-	// * 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻弬銈嗗闁跨喐鏋婚幏铚傜閸撳秵澧介柨鐔峰建閿濆繑瀚归柨鐔告灮閹风兘鏁撶徊顪amTypeName
-	// * 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚筽aramTypeId闁跨喐鏋婚幏宄板絿ParamClass闁跨喐鏋婚幏鐑芥晸閺傘倖瀚筍pringMVC闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风兘鏁撶徊鍒焢闁跨喎褰ㄩ敐蹇斿闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻弬銈嗗娑撹櫣娲伴柨鐔烘灱閺傚綊鏁撻弬銈嗗闁跨喍鑼庣拠褎瀚归柨鐔告灮閹凤拷
 	// *
 	// * @param paramTypeId
 	// */
@@ -53,7 +51,7 @@ public class StaffParameterController {
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
 	public Msg modifyStaffParameter(@RequestBody StaffParameter staffParameterModel) {
 		// System.out.println(staffParameterModel);
-		// 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚筰d闁跨喐鏋婚幏宄板絿闁跨喐鏋婚幏鐑芥晸閺傘倖瀚圭憰渚�鏁撻惈顐ｆ暭绾板瀚归懕宀勬晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻弬銈嗗
+		// 根据传入的id到数据库查找记录
 		StaffParameter staffParameter = staffParameterService.get(staffParameterModel.getStaffParamId());
 		if (staffParameter == null) {
 			return Msg.error("数据库中没有找到此条记录，修改失败 ");
@@ -68,7 +66,7 @@ public class StaffParameterController {
 	}
 
 	/**
-	 * 闁跨喐鏋婚幏鐑芥晸閹活厺绱幏鐑芥晸鐞涙搴滈幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻弬銈嗗闁跨喖鎽敓锟�
+	 * 添加职工参数
 	 * 
 	 * @param StaffParameter
 	 * @return
@@ -78,7 +76,7 @@ public class StaffParameterController {
 	public Msg addStaffParameter(@RequestBody StaffParameter staffParameterModel) {
 		// System.out.println(StaffParameter);
 		// System.out.println(paramClass.getParamTypeName());
-		// 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻弬銈嗗鐟佸懘鏁撻弬銈嗗StaffParameter闁跨喐鏋婚幏鐑芥晸閺傘倖瀚�
+		// 验证
 		if (staffParameterModel.getStaffParamName() != null && staffParameterModel.getParamTypeId() != null) {
 			staffParameterModel.setIsDelete(false);
 			staffParameterService.add(staffParameterModel);
@@ -90,7 +88,7 @@ public class StaffParameterController {
 	}
 
 	/**
-	 * 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚筍taffParamId閸掔娀鏁撻弬銈嗗闁跨喐鏋婚幏宄扮安闁跨喐鏋婚幏宄扮秿
+	 * 删除职工参数
 	 * 
 	 * @param StaffParamId
 	 * @return
@@ -115,7 +113,7 @@ public class StaffParameterController {
 	}
 
 	/**
-	 * 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚筽aramTypeId闁跨喐鏋婚幏宄板絿闁跨喐鏋婚幏宄扮安闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归懕宀勬晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻弬銈嗗
+	 * 获取职工参数
 	 * 
 	 * @param paramTypeId
 	 * @return
@@ -125,10 +123,10 @@ public class StaffParameterController {
 	public Msg getStaffParameter(@PathVariable("paramTypeId") Integer paramTypeId,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
-		// // 闁跨喐鏋婚幏宄板絿闁跨喐鏋婚幏鐑芥晸閸欘偉顕滈幏鐑芥晸閺傘倖瀚�
+		// // 从数据库获取所有的记录
 		// List<StaffParameter> staffParams = staffParameterService.getAll();
 		//
-		// // 闁跨喐鏋婚幏鐑芥晸閼哄倸鍤栭幏鐤棅闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻敓锟�
+		// // 用于封装特定paramTypeId的所有记录
 		// List<StaffParameter> staffParamsResult = new
 		// ArrayList<StaffParameter>();
 		// for (StaffParameter staffParam : staffParams) {

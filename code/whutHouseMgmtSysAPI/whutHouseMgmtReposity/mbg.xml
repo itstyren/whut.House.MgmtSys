@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration
   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
@@ -13,7 +13,7 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql:///whlglease" userId="root" password="qweasd">
+			connectionURL="jdbc:mysql:///whlglease" userId="root" password="XH05250619.">
 		</jdbcConnection>
 
 		<javaTypeResolver>
@@ -22,7 +22,7 @@
 
 		<!-- 指定javabean的生成位置 -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.building_region"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.house"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -30,13 +30,13 @@
 
 		<!-- 指定sql映射文件的生成位置 -->
 
-		<sqlMapGenerator targetPackage="mapper.building_region" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper.house" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.building_region" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.house" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -47,9 +47,10 @@
 		<!-- <table tableName="pm_paramclass" domainObjectName="ParamClass">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="view_hs_build_region" domainObjectName="Building_Region">
+		<table tableName="Hs_House" domainObjectName="House">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
+		
 
 
 	</context>
