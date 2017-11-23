@@ -9,10 +9,30 @@
     <!-- 下方主内容 --> 
     <div class="warp-body">
       <!-- 工具栏 -->    
-      <div class="toolbal">      
+      <div class="toolbal">  
+            <el-popover ref="addPopver" width="160" placement="top" v-model="popoverVisible">
+      <p class="margin:0">请在职工参数中新增职务，此处不可新增职务</p>
+      <div style="text-align: right; margin:0">
+        <el-button type="primary" size="mini" @click="popoverVisible=false">确定</el-button>
+      </div>
+    </el-popover>    
+    <el-form :inline="true" style="margin-bottom:15px">
+      <el-button type="primary" v-popover:addPopver >新增职务</el-button>
+    </el-form>    
       </div>
       <!-- 表格区 --> 
-      <div class="main-data">    
+      <div class="main-data">   
+          <el-table :data="PostValData"  v-loading="listLoading" height="string">
+      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
+      <el-table-column prop="staffParamName" label="职务类别" sortable align="center" ></el-table-column>
+      <el-table-column prop="staffParamHouseArea" label="享受面积" sortable align="center" ></el-table-column>
+        <el-table-column label="操作" width="200" align="center">
+          <template slot-scope="scope" >
+            <el-button  size="small" @click="showModifyDialog(scope.$index,scope.row)" >编辑</el-button>            
+          </template>
+        </el-table-column>      
+    </el-table> 
       </div>
     </div>
   </div>

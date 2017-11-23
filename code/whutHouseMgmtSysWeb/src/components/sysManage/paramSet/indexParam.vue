@@ -13,7 +13,7 @@
       <!-- 主菜单 -->
       <el-menu :collapse="isCollapse" :default-active="$route.path" router>
         <!-- 住房参数 -->
-        <el-submenu index="ExploreData">
+        <el-submenu index="houseParam">
           <template slot="title">
             <i class="el-icon-search"></i>
             <span slot="title">住房参数</span>
@@ -32,51 +32,54 @@
           </el-menu-item>
         </el-submenu>
         <!-- 职工参数 -->
-        <el-submenu index="recordData">
+        <el-submenu index="staffParam">
           <template slot="title">
             <i class="el-icon-plus"></i>
             <span>职工参数</span>
           </template>
-          <el-menu-item index="/record/honor">
+          <el-menu-item index="/sysmanage/paramSet/staffDept">
             工作部门
           </el-menu-item>
-          <el-menu-item index="/record/award">
+          <el-menu-item index="/sysmanage/paramSet/staffPost">
             职务
           </el-menu-item>
-          <el-menu-item index="/record/honor">
+          <el-menu-item index="/sysmanage/paramSet/staffTitle">
             职称
           </el-menu-item>
-          <el-menu-item index="/record/award">
+          <el-menu-item index="/sysmanage/paramSet/staffClass">
             职工类别
           </el-menu-item>
-          <el-menu-item index="/record/honor">
+          <el-menu-item index="/sysmanage/paramSet/staffStatus">
             工作状态
           </el-menu-item>
-          <el-menu-item index="/record/award">
+          <el-menu-item index="/sysmanage/paramSet/staffSpouse">
             配偶单位性质
           </el-menu-item>
         </el-submenu>
         <!-- 租赁参数 -->
-        <el-submenu index="SysManage">
+        <el-submenu index="rentParam">
           <template slot="title">
             <i class="el-icon-edit "></i>
             <span slot="title">租赁参数</span>
           </template>
-          <el-menu-item index="/system/acclist">
+          <el-menu-item index="/sysmanage/paramSet/rentPostVal">
             职务分
           </el-menu-item>
-          <el-menu-item index="/system/Role">
+          <el-menu-item index="/sysmanage/paramSet/rentTitleVal">
             职称分
           </el-menu-item>
-          <el-menu-item index="/system/Menulist">
+          <el-menu-item index="/sysmanage/paramSet/rentPostArea">
             职务面积
           </el-menu-item>
-          <el-menu-item index="/system/Menulist">
+          <el-menu-item index="/sysmanage/paramSet/rentTitleArea">
+            职务面积
+          </el-menu-item>          
+          <el-menu-item index="/sysmanage/paramSet/rentOption">
             选房选项
           </el-menu-item>
         </el-submenu>
         <!-- 维修参数 -->
-        <el-submenu index="basicData">
+        <el-submenu index="fixParam">
           <template slot="title">
             <i class="el-icon-setting"></i>
             <span slot="title">维修参数</span>
@@ -86,12 +89,12 @@
           </el-menu-item>
         </el-submenu>
         <!-- 租金参数 -->
-        <el-submenu index="accountData">
+        <el-submenu index="rentalParam">
           <template slot="title">
             <i class="el-icon-star-off"></i>
             <span slot="title">租金参数</span>
           </template>
-          <el-menu-item index="/account/info">
+          <el-menu-item index="/sysmanage/paramSet/rentalOption">
             租金选项
           </el-menu-item>
         </el-submenu>

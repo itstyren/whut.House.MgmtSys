@@ -16,8 +16,23 @@ import houseType from '@/components/sysManage/paramSet/houseParam/houseType'
 import houseLayout from '@/components/sysManage/paramSet/houseParam/houseLayout'
 import houseStatus from '@/components/sysManage/paramSet/houseParam/houseStatus'
 import houseStruct from '@/components/sysManage/paramSet/houseParam/houseStruct'
+// 职工参数
+import staffDept from '@/components/sysManage/paramSet/staffParam/staffDept'
+import staffPost from '@/components/sysManage/paramSet/staffParam/staffPost'
+import staffTitle from '@/components/sysManage/paramSet/staffParam/staffTitle'
+import staffClass from '@/components/sysManage/paramSet/staffParam/staffClass'
+import staffStatus from '@/components/sysManage/paramSet/staffParam/staffStatus'
+import staffSpouse from '@/components/sysManage/paramSet/staffParam/staffSpouse'
+// 租赁参数
+import rentOption from '@/components/sysManage/paramSet/rentParam/rentOption'
+import rentPostArea from '@/components/sysManage/paramSet/rentParam/rentPostArea'
+import rentPostVal from '@/components/sysManage/paramSet/rentParam/rentPostVal'
+import rentTitleArea from '@/components/sysManage/paramSet/rentParam/rentTitleArea'
+import rentTitleVal from '@/components/sysManage/paramSet/rentParam/rentTitleVal'
 // 维修参数
 import fixContent from '@/components/sysManage/paramSet/fixParam/fixContent'
+// 租金参数
+import rentalOption from '@/components/sysManage/paramSet/rentalParam/rentalOption'
 
 Vue.use(Router)
 
@@ -33,20 +48,7 @@ const routes = [
     },
     redirect: '/index',
     children: [
-      {path: '/index', component: HelloWorld, name: 'index', menuShow: true},
-      { path: '/paramSet',
-        component: paramSet,
-        name: 'paramSet',
-        children: [
-          // 住房参数
-          { path: '/paramSet/houseType', component: houseType, name: 'houseType', menuShow: true },
-          { path: '/paramSet/houseLayout', component: houseLayout, name: 'houseLayout', menuShow: true },
-          { path: '/paramSet/houseStatus', component: houseStatus, name: 'houseStatus', menuShow: true },
-          { path: '/paramSet/houseStruct', component: houseStruct, name: 'houseStruct', menuShow: true },
-          // 维修参数
-          { path: '/paramSet/fixContent', component: fixContent, name: 'fixContent', menuShow: true }
-        ]
-      }
+      {path: '/index', component: HelloWorld, name: 'index', menuShow: true}
     ]
   },
   // 测试
@@ -58,7 +60,7 @@ const routes = [
         component: paramSetText,
         name: 'paramSetText',
         children: [
-          { path: '/paramSet1/houseType', component: houseType, name: 'houseType', menuShow: true }
+          { path: '/paramSet1/houseType1', component: houseType, name: 'houseType1', menuShow: true }
         ]
 
       }
@@ -83,12 +85,26 @@ const routes = [
           { path: 'houseLayout', component: houseLayout, name: 'houseLayout', menuShow: true },
           { path: 'houseStatus', component: houseStatus, name: 'houseStatus', menuShow: true },
           { path: 'houseStruct', component: houseStruct, name: 'houseStruct', menuShow: true },
+          // 职工参数
+          { path: 'staffDept', component: staffDept, name: 'staffDept', menuShow: true },
+          { path: 'staffPost', component: staffPost, name: 'staffPost', menuShow: true },
+          { path: 'staffTitle', component: staffTitle, name: 'staffTitle', menuShow: true },
+          { path: 'staffClass', component: staffClass, name: 'staffClass', menuShow: true },
+          { path: 'staffStatus', component: staffStatus, name: 'staffStatus', menuShow: true },
+          { path: 'staffSpouse', component: staffSpouse, name: 'staffSpouse', menuShow: true },
+          // 租赁参数
+          { path: 'rentOption', component: rentOption, name: 'rentOption', menuShow: true },
+          { path: 'rentPostArea', component: rentPostArea, name: 'rentPostArea', menuShow: true },
+          { path: 'rentPostVal', component: rentPostVal, name: 'rentPostVal', menuShow: true },
+          { path: 'rentTitleArea', component: rentTitleArea, name: 'rentTitleArea', menuShow: true },
+          { path: 'rentTitleVal', component: rentTitleVal, name: 'rentTitleVal', menuShow: true },
           // 维修参数
-          { path: 'fixContent', component: fixContent, name: 'fixContent', menuShow: true }
+          { path: 'fixContent', component: fixContent, name: 'fixContent', menuShow: true },
+          // 租金参数
+          { path: 'rentalOption', component: rentalOption, name: 'rentalOption', menuShow: true }
         ]
       }
     ]
-    // caseSensitive: false // 匹配规则是否大小写敏感？(默认值：false)
   },
   // 基础数据
   {

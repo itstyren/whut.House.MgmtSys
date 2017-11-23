@@ -25,7 +25,7 @@
                 <template slot="title">
                     <span slot="title">系统管理</span>
                 </template>                  
-                <el-menu-item index="/paramSet">
+                <el-menu-item index="/sysmanage/paramSet">
                     <span>参数设置</span>
                 </el-menu-item>
                 <el-menu-item index="/paramSet">
