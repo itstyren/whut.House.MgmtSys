@@ -75,7 +75,10 @@
 		
 		$("#houseParamGet").click(function() {
 			ajaxRequestGet("houseParam/get/1");
-
+		})
+		
+		$("#houseParamGetWithoutPage").click(function() {
+			ajaxRequestGet("houseParam/getWithoutPage/1");
 		})
 
 		$("#houseParamDelete").click(function() {
@@ -182,7 +185,7 @@
 	//楼栋
 	$(function() {
 		$("#buildingGet").click(function() {
-			ajaxRequestGet("building/getAllByRegionId/10");
+			ajaxRequestGet("building/getAllByRegionId/3");
 		})
 
 		$("#buildingDelete").click(function() {
@@ -223,8 +226,20 @@
 			ajaxRequestGet("house/get/10");
 		})
 		
-		$("#houseGetAllByBuilding").click(function() {
-			ajaxRequestPostType("house/getHousesByBuildingId/2");
+		$("#getHouseByRegionId").click(function() {
+			ajaxRequestPostType("house/getHousesByRegionId/3");
+		})
+		
+		$("#getViewHouseByRegionId").click(function() {
+			ajaxRequestPostType("house/getViewHousesByRegionId/3");
+		})
+		
+		$("#getHouseByBuildingId").click(function() {
+			ajaxRequestPostType("house/getHousesByBuildingId/5");
+		})
+		
+		$("#getViewHouseByBuildingId").click(function() {
+			ajaxRequestPostType("house/getViewHousesByBuildingId/5");
 		})
 
 		$("#houseDelete").click(function() {
@@ -309,6 +324,7 @@
 		<div class="tab-pane fade in active" id="houseParam">
 			<input class="btn btn-info btn-lg" type="button" value="Get" id="houseParamGet" /> <br>
 			<input class="btn btn-info btn-lg" type="button" value="GetHouseType" id="houseTypeParamGet" /> <br>
+			<input class="btn btn-info btn-lg" type="button" value="houseParamGetWithoutPage" id="houseParamGetWithoutPage" /><br>
 			<input class="btn btn-info btn-lg"type="button" value="Delete" id="houseParamDelete" /><br>
 			<input class="btn btn-info btn-lg"type="button" value="Add" id="houseParamAdd" /> <br>
 			<input class="btn btn-info btn-lg"type="button" value="Modify" id="houseParamModify" />
@@ -338,7 +354,9 @@
 		</div>
 		<div class="tab-pane fade" id="house">
 			<input class="btn btn-info btn-lg" type="button" value="HouseGet" id="houseGet" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="houseGetAllByBuilding" id="houseGetAllByBuilding" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByRegionId" id="getViewHouseByRegionId" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="getHouseByBuildingId" id="getHouseByBuildingId" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByRegionId" id="getViewHouseByBuildingId" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="HouseDelete" id="houseDelete" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="HouseAdd" id="houseAdd" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="HouseModify" id="houseModify" /> <br>
