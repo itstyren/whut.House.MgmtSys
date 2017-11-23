@@ -2,12 +2,19 @@
   <div class="third-container">
     <!-- 面包屑导航 -->
     <div class="warp-breadcrum">
+            <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/' }">
+          <b>首页</b>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>参数设置</el-breadcrumb-item>
+        <el-breadcrumb-item>住房类型</el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
     <!-- 下方主内容 -->
     <div class="warp-body">
       <!-- 工具栏 -->
       <div class="toolbal">
-        <el-form :inline="true" style="margin-bottom:15px">
+        <el-form :inline="true" >
           <el-button type="primary" @click="addFormVisible = true">新增类型</el-button>
         </el-form>
       </div>
