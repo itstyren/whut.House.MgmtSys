@@ -223,7 +223,7 @@
 	//房屋
 	$(function() {
 		$("#houseGet").click(function() {
-			ajaxRequestGet("house/get/10");
+			ajaxRequestGet("house/get");
 		})
 		
 		$("#getHouseByRegionId").click(function() {
@@ -356,7 +356,7 @@
 			<input class="btn btn-info btn-lg" type="button" value="HouseGet" id="houseGet" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByRegionId" id="getViewHouseByRegionId" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="getHouseByBuildingId" id="getHouseByBuildingId" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByRegionId" id="getViewHouseByBuildingId" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByBuildingId" id="getViewHouseByBuildingId" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="HouseDelete" id="houseDelete" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="HouseAdd" id="houseAdd" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="HouseModify" id="houseModify" /> <br>

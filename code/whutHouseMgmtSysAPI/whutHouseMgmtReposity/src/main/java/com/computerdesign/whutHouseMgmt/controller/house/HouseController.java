@@ -57,6 +57,17 @@ public class HouseController {
 			return Msg.success().add("data", house);
 		}
 	}
+
+	@RequestMapping(value = "get", method = RequestMethod.GET)
+	@ResponseBody
+	public Msg get() {
+		List<House> houses = houseService.getAll();
+		if (houses == null) {
+			return Msg.error("查找不到数据");
+		} else {
+			return Msg.success().add("data", houses);
+		}
+	}
 	
 	/**
 	 * 根据regionId查找属于某一栋的viewhouse
