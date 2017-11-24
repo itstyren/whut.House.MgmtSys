@@ -5,8 +5,9 @@ import Home from '@/views/Home'
 
 import paramSetText from '@/components/sysManage/paramSet/indexParam1'
 
-import buildingData from '@/components/basiceData/buildingData'
-import region from '@/components/basiceData/regionData'
+import buildingData from '@/components/basiceData/buildingRegionData/buildingData'
+
+import region from '@/components/basiceData/buildingRegionData/regionData'
 
 import Text1 from '@/views/Home1'
 
@@ -121,8 +122,13 @@ const routes = [
     menuShow: true,
     children: [
       { path: '/basic/building', component: buildingData, name: 'buildingData', menuShow: true },
-      { path: '/basic/region', component: region, name: 'region', menuShow: true },
-      { path: 'buildingArea', component: indexbldgRgn, name: 'indexbldgRgn', menuShow: true }
+      { path: 'buildingArea',
+        component: indexbldgRgn,
+        name: 'indexbldgRgn',
+        children: [
+          { path: 'region', component: region, name: 'region', menuShow: true }
+        ],
+        menuShow: true }
     ]
   }
 ]

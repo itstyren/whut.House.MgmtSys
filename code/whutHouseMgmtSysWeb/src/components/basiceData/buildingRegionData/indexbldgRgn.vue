@@ -13,90 +13,15 @@
       <!-- 主菜单 -->
       <el-menu :collapse="isCollapse" :default-active="$route.path" router>
         <!-- 楼栋区域 -->
-        <el-submenu index="houseParam">
+        <el-menu-item index="/basic/buildingArea/region">
+          <span slot="title">区域管理</span>
+        </el-menu-item>
+        <el-submenu index="houseParam" >
           <template slot="title">
             <i class="el-icon-search"></i>
-            <span slot="title">区域管理</span>
+            <span slot="title">楼栋管理</span>
           </template>
-          <el-menu-item index="/sysmanage/paramSet/houseType">
-            住房类型
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/houseLayout">
-            住房户型
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/houseStatus">
-            使用状态
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/houseStruct">
-            住房结构
-          </el-menu-item>
-        </el-submenu>
-        <!-- 职工参数 -->
-        <el-submenu index="staffParam">
-          <template slot="title">
-            <i class="el-icon-plus"></i>
-            <span>职工参数</span>
-          </template>
-          <el-menu-item index="/sysmanage/paramSet/staffDept">
-            工作部门
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/staffPost">
-            职务
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/staffTitle">
-            职称
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/staffClass">
-            职工类别
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/staffStatus">
-            工作状态
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/staffSpouse">
-            配偶单位性质
-          </el-menu-item>
-        </el-submenu>
-        <!-- 租赁参数 -->
-        <el-submenu index="rentParam">
-          <template slot="title">
-            <i class="el-icon-edit "></i>
-            <span slot="title">租赁参数</span>
-          </template>
-          <el-menu-item index="/sysmanage/paramSet/rentPostVal">
-            职务分
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/rentTitleVal">
-            职称分
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/rentPostArea">
-            职务面积
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/rentTitleArea">
-            职务面积
-          </el-menu-item>          
-          <el-menu-item index="/sysmanage/paramSet/rentOption">
-            选房选项
-          </el-menu-item>
-        </el-submenu>
-        <!-- 维修参数 -->
-        <el-submenu index="fixParam">
-          <template slot="title">
-            <i class="el-icon-setting"></i>
-            <span slot="title">维修参数</span>
-          </template>
-          <el-menu-item index="/sysmanage/paramSet/fixContent">
-            维修内容
-          </el-menu-item>
-        </el-submenu>
-        <!-- 租金参数 -->
-        <el-submenu index="rentalParam">
-          <template slot="title">
-            <i class="el-icon-star-off"></i>
-            <span slot="title">租金参数</span>
-          </template>
-          <el-menu-item index="/sysmanage/paramSet/rentalOption">
-            租金选项
-          </el-menu-item>
+          <el-menu-item v-for="region in regionData" :key="region.id" :index="'/baseic/buildingArea/building'+region.id">{{region.name}}</el-menu-item>
         </el-submenu>
       </el-menu>
     </aside>
@@ -116,17 +41,51 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    getRegionData
+  } from "@/api/api";
   export default {
     data() {
       return {
-        isCollapse: false
+        isCollapse: false,
+        regionData: []
       };
     },
     components: {},
+    created() {
+      this.getrigion();
+    },
     methods: {
       //折叠
       collapse: function () {
         this.isCollapse = !this.isCollapse;
+      },
+      getrigion() {
+        this.listLoading = true;
+        let param = {
+          // page: this.page,
+          // size: this.size
+        };
+        getRegionData(param)
+          .then(res => {
+
+            this.regionData = res.data.data.date.list;
+            this.regionData.forEach(region=>{
+              let flag=region.name.indexOf('（')
+              if(flag!=-1){
+              console.log(flag)
+              region.name=region.name.substring(0,flag)
+              }
+
+            })
+            //console.log(typeof this.regionData.name ) 
+            this.totalNum = res.data.data.data.total;
+            // console.log(res.data.data.list)
+            this.listLoading = false;
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
     }
   };
@@ -134,6 +93,11 @@
 </script>
 
 <style scoped lang="scss">
+aside{
+>.el-menu {
+  width: 250px
+    }
+}
 
 
 </style>

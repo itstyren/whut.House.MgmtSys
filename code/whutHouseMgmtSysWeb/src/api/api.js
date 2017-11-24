@@ -49,3 +49,13 @@ export const putFixParam = (params) => { return axios.put(`${base}fixParam/modif
 export const getRentalParam = (params) => { return axios.get(`${base}rentalParam/get`, { params: params }) }
 // 修改方法
 export const putRentalParam = (params) => { return axios.put(`${base}rentalParam/modify`, params) }
+
+// 基础数据--区域管理
+// 获取方法
+export const getRegionData = (params) => { return axios.get(`${base}region/get`, { params: params }) }
+// 删除方法
+export const deleteRegionData = (dataID) => { return axios.delete(`${base}egion/delete/${dataID}`) }
+// 新增方法
+export const postRegionData = (params) => { return axios.post(`${base}region/add`, params) }
+// 修改方法
+export const putRegionData = (params) => { return axios.put(`${base}region/modify`, params) }
