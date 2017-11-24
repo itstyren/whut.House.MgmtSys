@@ -29,6 +29,7 @@ public class HouseParameterController {
 	
 	
 	/**
+	 * 获取全部的houseParamId
 	 * @param paramTypeId
 	 * @return
 	 */
@@ -39,6 +40,23 @@ public class HouseParameterController {
 		return Msg.success().add("data", houseParamIds);
 	}
 	
+	/**
+	 * @param paramTypeId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getWithoutPage/{paramTypeId}", method = RequestMethod.GET)
+
+	public Msg getHouseParameter(@PathVariable("paramTypeId") Integer paramTypeId) {
+		List<HouseParameter> houseParams = houseParamService.getAll(paramTypeId);
+		//
+
+		if (houseParams != null) {
+			return Msg.success().add("data", houseParams);
+		} else {
+			return Msg.error();
+		}
+	}
 	
 	/**
 	 * @param paramTypeId

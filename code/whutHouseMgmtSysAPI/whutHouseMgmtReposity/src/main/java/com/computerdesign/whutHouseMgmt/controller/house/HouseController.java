@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.controller.house;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Path;
@@ -14,10 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.building.Building;
 import com.computerdesign.whutHouseMgmt.bean.house.House;
 import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter;
+import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
+import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
+import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -31,6 +36,11 @@ public class HouseController {
 	@Autowired
 	private HouseParamService houseParamService;
 	
+	@Autowired
+	private BuildingService buildingService;
+	
+	@Autowired
+	private ViewHouseService viewHouseService;
 	/**
 	 * 根据id获取一个House
 	 * 
@@ -48,6 +58,72 @@ public class HouseController {
 		}
 	}
 
+	@RequestMapping(value = "get", method = RequestMethod.GET)
+	@ResponseBody
+	public Msg get() {
+		List<House> houses = houseService.getAll();
+		if (houses == null) {
+			return Msg.error("查找不到数据");
+		} else {
+			return Msg.success().add("data", houses);
+		}
+	}
+	
+	/**
+	 * 根据regionId查找属于某一栋的viewhouse
+	 * @param regionId
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@RequestMapping(value = "getViewHousesByRegionId/{regionId}", method = RequestMethod.GET)
+	@ResponseBody
+	public Msg getViewHouseByRegionId(@PathVariable("regionId") Integer regionId,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		
+		List<Building> buildingsList = buildingService.getAllByRegionId(regionId);
+		List<Integer> buildingIdList = new ArrayList<Integer>();
+		for (Building building : buildingsList) {
+			if (!buildingIdList.contains(building.getId())) {
+				buildingIdList.add(building.getId());
+			}
+		}
+		PageHelper.startPage(page, size);
+		List<ViewHouse> viewHouseList = viewHouseService.getViewHousesByRegionId(buildingIdList);
+		
+		PageInfo pageInfo = new PageInfo(viewHouseList);
+
+		if (viewHouseList == null) {
+			return Msg.error("差找不到数据");
+		}else{
+			return Msg.success().add("data", pageInfo);
+		}
+	}
+	/**
+	 * 根据buildingId查找属于某一栋的viewhouse
+	 * @param buildingId
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@RequestMapping(value = "getViewHousesByBuildingId/{buildingId}", method = RequestMethod.GET)
+	@ResponseBody
+	public Msg getViewHousesByBuildingId(@PathVariable("buildingId") Integer buildingId,
+	@RequestParam(value = "page", defaultValue = "1") Integer page,
+	@RequestParam(value = "size", defaultValue = "10") Integer size){
+		PageHelper.startPage(page,size);
+		List<ViewHouse> viewHouseList = viewHouseService.getViewHousesByBuildingId(buildingId);
+		
+		PageInfo pageInfo = new PageInfo(viewHouseList);
+
+		if (viewHouseList == null) {
+			return Msg.error("差找不到数据");
+		}else{
+			return Msg.success().add("data", pageInfo);
+		}
+	}
+	
 	/**
 	 * 根据buildingId查找属于某一栋的house
 	 * 

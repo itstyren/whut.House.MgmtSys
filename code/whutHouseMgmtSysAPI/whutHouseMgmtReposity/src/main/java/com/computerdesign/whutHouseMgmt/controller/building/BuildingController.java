@@ -36,6 +36,31 @@ public class BuildingController {
 			return Msg.success().add("data", building);
 		}
 	}
+	
+	/**
+	 * get无参代表选取全部的数据
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="get",method=RequestMethod.GET)
+	public Msg getBuildings(
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size){
+		
+		PageHelper.startPage(page, size);
+		List<Building> buildings=buildingService.getAll();
+		
+		PageInfo pageInfo=new PageInfo(buildings);
+		
+		if(buildings!=null){
+			return Msg.success().add("data", pageInfo);
+		}else{
+			return Msg.error("无法获取数据");
+		}
+	}
+	
 	/**
 	 * 根据regionId获取一个地区的楼栋
 	 * @param regionId
@@ -55,7 +80,7 @@ public class BuildingController {
 		PageInfo pageInfo=new PageInfo(buildings);
 		
 		if(buildings!=null){
-			return Msg.success().add("date", pageInfo);
+			return Msg.success().add("data", pageInfo);
 		}else{
 			return Msg.error("无法获取数据");
 		}

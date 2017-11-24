@@ -28,6 +28,19 @@ public class RegionController {
 	private RegionService regionService;
 
 	@ResponseBody
+	@RequestMapping(value = "get/{id}", method = RequestMethod.GET)
+	public Msg getRegions(@PathVariable("id")Integer id) {
+
+		Region region = regionService.get(id);
+
+		if (region == null) {
+			return Msg.error("查找不到数据");
+		} else {
+			return Msg.success().add("data", region);
+		}
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "get", method = RequestMethod.GET)
 	public Msg getRegions(@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
@@ -40,7 +53,7 @@ public class RegionController {
 		if (regions == null) {
 			return Msg.error("查找不到数据");
 		} else {
-			return Msg.success().add("date", pageInfo);
+			return Msg.success().add("data", pageInfo);
 		}
 	}
 
