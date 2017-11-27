@@ -54,7 +54,7 @@ export const putRentalParam = (params) => { return axios.put(`${base}rentalParam
 // 获取方法
 export const getRegionData = (params) => { return axios.get(`${base}region/get`, { params: params }) }
 // 删除方法
-export const deleteRegionData = (dataID) => { return axios.delete(`${base}egion/delete/${dataID}`) }
+export const deleteRegionData = (dataID) => { return axios.delete(`${base}region/delete/${dataID}`) }
 // 新增方法
 export const postRegionData = (params) => { return axios.post(`${base}region/add`, params) }
 // 修改方法

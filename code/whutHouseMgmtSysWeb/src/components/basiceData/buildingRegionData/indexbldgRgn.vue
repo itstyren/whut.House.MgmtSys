@@ -66,10 +66,11 @@
           // page: this.page,
           // size: this.size
         };
+        // 获取区域信息
         getRegionData(param)
           .then(res => {
 
-            this.regionData = res.data.data.date.list;
+            this.regionData = res.data.data.data.list;
             this.regionData.forEach(region=>{
               let flag=region.name.indexOf('（')
               if(flag!=-1){
