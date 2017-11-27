@@ -5,10 +5,6 @@ import Home from '@/views/Home'
 
 import paramSetText from '@/components/sysManage/paramSet/indexParam1'
 
-import buildingData from '@/components/basiceData/buildingRegionData/buildingData'
-
-import region from '@/components/basiceData/buildingRegionData/regionData'
-
 import Text1 from '@/views/Home1'
 
 // 住房参数
@@ -38,6 +34,8 @@ import rentalOption from '@/components/sysManage/paramSet/rentalParam/rentalOpti
 // 基础数据
 // 楼栋区域
 import indexbldgRgn from '@/components/basiceData/buildingRegionData/indexbldgRgn'
+import region from '@/components/basiceData/buildingRegionData/regionData'
+import building from '@/components/basiceData/buildingRegionData/buildingData'
 
 Vue.use(Router)
 
@@ -121,12 +119,12 @@ const routes = [
     },
     menuShow: true,
     children: [
-      { path: '/basic/building', component: buildingData, name: 'buildingData', menuShow: true },
       { path: 'buildingArea',
         component: indexbldgRgn,
         name: 'indexbldgRgn',
         children: [
-          { path: 'region', component: region, name: 'region', menuShow: true }
+          { path: 'region', component: region, name: 'region', menuShow: true },
+          { path: 'building/:id', component: building, name: 'building', menuShow: true }
         ],
         menuShow: true }
     ]

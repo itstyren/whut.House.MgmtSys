@@ -13,7 +13,7 @@
         </div>
         <!-- 主菜单 -->
         <div class="main-menu" :router="true" >
-            <el-menu default-active="/index" mode="horizontal" background-color="#373d41" text-color="#fff" :default-active="$route.path" router >
+            <el-menu default-active="/index" menu-trigger="click" unique-opened  mode="horizontal" background-color="#373d41" text-color="#fff" :default-active="$route.path" router >
               <!-- 首页 -->
               <el-menu-item index="/index">
                 <template slot="title">
@@ -38,7 +38,7 @@
                     <span slot="title">基础资料</span>
                 </template>                  
                 <el-menu-item index="/basic/buildingArea">
-                    <span>区域管理</span>
+                    <span>楼栋区域</span>
                 </el-menu-item>
                 <el-menu-item index="/basic/building">
                     <span>楼栋管理</span>

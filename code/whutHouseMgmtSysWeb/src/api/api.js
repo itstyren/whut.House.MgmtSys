@@ -59,3 +59,13 @@ export const deleteRegionData = (dataID) => { return axios.delete(`${base}region
 export const postRegionData = (params) => { return axios.post(`${base}region/add`, params) }
 // 修改方法
 export const putRegionData = (params) => { return axios.put(`${base}region/modify`, params) }
+
+// 基础数据-楼栋管理
+// 获取方法
+export const getbuildingDataByID = (params, regionID) => { return axios.get(`${base}building/getAllByRegionId/${regionID}`, { params: params }) }
+// 新增方法
+export const postBuildingData = (params) => { return axios.post(`${base}building/add`, params) }
+// 修改方法
+export const putBuildingData = (params) => { return axios.put(`${base}building/modify`, params) }
+// 删除方法
+export const deleteBuildingData = (buildingID) => { return axios.delete(`${base}building/delete/${buildingID}`) }

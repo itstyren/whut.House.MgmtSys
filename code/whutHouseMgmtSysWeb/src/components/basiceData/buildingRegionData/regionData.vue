@@ -90,14 +90,14 @@ export default {
         name: [
           {
             required: true,
-            message: "请输入账号",
+            message: "请输入区域",
             trigger: "blur"
           }
         ],
         description: [
           {
             required: true,
-            message: "请输入姓名",
+            message: "请输入区域描述",
             trigger: "blur"
           },
           {
@@ -106,18 +106,6 @@ export default {
             trigger: "blur"
           }
         ],
-        Tel: [
-          {
-            required: true,
-            message: "请输入电话",
-            trigger: "blur"
-          },
-          {
-            pattern: /^1\d{10}$/,
-            message: "电话号码格式有误！",
-            trigger: "blur"
-          }
-        ]
       },
         //编辑表单相关数据
         modifyFormVisible: false,
@@ -146,14 +134,14 @@ export default {
     getList() {
       this.listLoading = true;
       let param = {
-        // page: this.page,
-        // size: this.size
+         page: this.page,
+         size: this.size
       };
       getRegionData(param)
         .then(res => {
           // console.log(res.data.data)
           this.regionData = res.data.data.data.list;
-          //  this.totalNum = res.data.data.data.total;
+          this.totalNum = res.data.data.data.total;
           // console.log(res.data.data.list)
           this.listLoading = false;
         })

@@ -14,14 +14,19 @@
       <el-menu :collapse="isCollapse" :default-active="$route.path" router>
         <!-- 楼栋区域 -->
         <el-menu-item index="/basic/buildingArea/region">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-link"></use>
+          </svg>
           <span slot="title">区域管理</span>
         </el-menu-item>
-        <el-submenu index="houseParam" >
+        <el-submenu index="houseParam">
           <template slot="title">
-            <i class="el-icon-search"></i>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-building"></use>
+            </svg>
             <span slot="title">楼栋管理</span>
           </template>
-          <el-menu-item v-for="region in regionData" :key="region.id" :index="'/baseic/buildingArea/building'+region.id">{{region.name}}</el-menu-item>
+          <el-menu-item v-for="region in regionData" :key="region.id" :index="'/basic/buildingArea/building/'+region.id">{{region.name}}</el-menu-item>
         </el-submenu>
       </el-menu>
     </aside>
@@ -71,11 +76,11 @@
           .then(res => {
 
             this.regionData = res.data.data.data.list;
-            this.regionData.forEach(region=>{
-              let flag=region.name.indexOf('（')
-              if(flag!=-1){
-              console.log(flag)
-              region.name=region.name.substring(0,flag)
+            this.regionData.forEach(region => {
+              let flag = region.name.indexOf('（')
+              if (flag != -1) {
+                console.log(flag)
+                region.name = region.name.substring(0, flag)
               }
 
             })
@@ -94,11 +99,13 @@
 </script>
 
 <style scoped lang="scss">
-aside{
->.el-menu {
-  width: 250px
+  aside {
+    >.el-menu {
+      width: 250px
     }
-}
-
+    span{
+      padding-left: 20px
+    }
+  }
 
 </style>
