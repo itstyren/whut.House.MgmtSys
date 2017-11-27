@@ -40,8 +40,8 @@
                 <el-menu-item index="/basic/buildingArea">
                     <span>楼栋区域</span>
                 </el-menu-item>
-                <el-menu-item index="/basic/building">
-                    <span>楼栋管理</span>
+                <el-menu-item index="/basic/house">
+                    <span>房屋管理</span>
                 </el-menu-item> 
                 <el-menu-item index="/basic/awdlist">
                     <span>住房管理</span>

@@ -33,9 +33,10 @@ import rentalOption from '@/components/sysManage/paramSet/rentalParam/rentalOpti
 
 // 基础数据
 // 楼栋区域
-import indexbldgRgn from '@/components/basiceData/buildingRegionData/indexbldgRgn'
+import indexbldgRgn from '@/components/basiceData/buildingRegionData/indexNav'
 import region from '@/components/basiceData/buildingRegionData/regionData'
 import building from '@/components/basiceData/buildingRegionData/buildingData'
+import indexHouse from '@/components/basiceData/houseData/indexNav'
 
 Vue.use(Router)
 
@@ -126,7 +127,11 @@ const routes = [
           { path: 'region', component: region, name: 'region', menuShow: true },
           { path: 'building/:id', component: building, name: 'building', menuShow: true }
         ],
-        menuShow: true }
+        menuShow: true },
+      { path: 'house',
+        component: indexHouse,
+        name: 'indexHouse'
+      }
     ]
   }
 ]
