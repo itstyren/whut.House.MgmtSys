@@ -56,9 +56,6 @@ public class HouseParamService implements BaseService<HouseParameter>{
 		houseParameterMapper.insertSelective(houseParameter);
 	}
 	
-	public void delete(HouseParameter houseParameter){
-		houseParameterMapper.updateByPrimaryKeySelective(houseParameter);
-	}
 	
 	@Override
 	public void delete(Integer houseParamId){

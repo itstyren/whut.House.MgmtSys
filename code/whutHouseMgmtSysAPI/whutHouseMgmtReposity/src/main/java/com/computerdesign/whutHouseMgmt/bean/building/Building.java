@@ -98,4 +98,12 @@ public class Building {
     public void setSupportFund(Long supportFund) {
         this.supportFund = supportFund;
     }
+    
+    public boolean equals(Building building) {
+		if (this.getId() == building.getId()) {
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

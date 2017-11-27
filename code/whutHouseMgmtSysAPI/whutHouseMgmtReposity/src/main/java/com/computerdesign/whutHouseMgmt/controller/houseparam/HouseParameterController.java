@@ -25,8 +25,6 @@ public class HouseParameterController {
 
 	@Autowired
 	private HouseParamService houseParamService;
-
-	
 	
 	/**
 	 * 获取全部的houseParamId
@@ -59,6 +57,11 @@ public class HouseParameterController {
 	}
 	
 	/**
+	 * paramTypeId：
+	 * 1-住房类型
+	 * 2-户型
+	 * 3-使用状态
+	 * 4-住房结构
 	 * @param paramTypeId
 	 * @return
 	 */
@@ -114,7 +117,7 @@ public class HouseParameterController {
 			try {
 				houseParameter.setIsDelete(true);
 				//更新操作，且不可逆
-				houseParamService.delete(houseParameter);
+				houseParamService.update(houseParameter);
 				return Msg.success().add("data", houseParameter);
 			} catch (Exception e) {
 				// TODO: handle exception

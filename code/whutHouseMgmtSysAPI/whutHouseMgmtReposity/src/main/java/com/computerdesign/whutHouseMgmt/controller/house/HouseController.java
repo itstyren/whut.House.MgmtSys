@@ -58,6 +58,12 @@ public class HouseController {
 		}
 	}
 
+	/**
+	 * 获取全部的house并且不分页
+	 * @param page
+	 * @param size
+	 * @return
+	 */
 	@RequestMapping(value = "get", method = RequestMethod.GET)
 	@ResponseBody
 	public Msg get(@RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -83,8 +89,8 @@ public class HouseController {
 	@RequestMapping(value = "getViewHousesByRegionId/{regionId}", method = RequestMethod.GET)
 	@ResponseBody
 	public Msg getViewHouseByRegionId(@PathVariable("regionId") Integer regionId,
-			@RequestParam(value = "page", defaultValue = "1") Integer page,
-			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 		
 		List<Building> buildingsList = buildingService.getAllByRegionId(regionId);
 		List<Integer> buildingIdList = new ArrayList<Integer>();
@@ -114,8 +120,8 @@ public class HouseController {
 	@RequestMapping(value = "getViewHousesByBuildingId/{buildingId}", method = RequestMethod.GET)
 	@ResponseBody
 	public Msg getViewHousesByBuildingId(@PathVariable("buildingId") Integer buildingId,
-	@RequestParam(value = "page", defaultValue = "1") Integer page,
-	@RequestParam(value = "size", defaultValue = "10") Integer size){
+	@RequestParam(value = "page", defaultValue = "0") Integer page,
+	@RequestParam(value = "size", defaultValue = "0") Integer size){
 		PageHelper.startPage(page,size);
 		List<ViewHouse> viewHouseList = viewHouseService.getViewHousesByBuildingId(buildingId);
 		
@@ -127,15 +133,8 @@ public class HouseController {
 			return Msg.success().add("data", pageInfo);
 		}
 	}
-	
-	/**
-	 * 根据buildingId查找属于某一栋的house
-	 * 
-	 * @param buildingId
-	 * @param page
-	 * @param size
-	 * @return
-	 */
+	/*
+
 	@RequestMapping(value = "getHousesByBuildingId/{buildingId}", method = RequestMethod.GET)
 	@ResponseBody
 	public Msg getHousesByBuildingId(@PathVariable("buildingId") Integer buildingId,
@@ -152,7 +151,8 @@ public class HouseController {
 			return Msg.success().add("data", pageInfo);
 		}
 	}
-
+	 */
+	
 	/**
 	 * 添加一个house
 	 * 

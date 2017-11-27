@@ -185,11 +185,11 @@
 	//楼栋
 	$(function() {
 		$("#buildingGet").click(function() {
-			ajaxRequestGet("building/getAllByRegionId/3");
+			ajaxRequestGet("building/getAllByRegionId/1");
 		})
 
 		$("#buildingDelete").click(function() {
-			ajaxRequestPostType("building/delete/12", "DELETE", null);
+			ajaxRequestPostType("building/delete/162", "DELETE", null);
 		})
 
 		$("#buildingAdd").click(function() {
@@ -208,7 +208,7 @@
 		$("#buildingModify").click(function() {
 			var data = {
 				'id' : 3,
-				'name' : "南湖",
+				'name' : "2栋",
 				'description' : '南湖大草原',
 				'finishTime' : '2017-11-4',
 				'floorArea' : '41.4',
@@ -226,12 +226,8 @@
 			ajaxRequestGet("house/get");
 		})
 		
-		$("#getHouseByRegionId").click(function() {
-			ajaxRequestPostType("house/getHousesByRegionId/3");
-		})
-		
 		$("#getViewHouseByRegionId").click(function() {
-			ajaxRequestPostType("house/getViewHousesByRegionId/3");
+			ajaxRequestPostType("house/getViewHousesByRegionId/1");
 		})
 		
 		$("#getHouseByBuildingId").click(function() {
@@ -354,7 +350,6 @@
 		<div class="tab-pane fade" id="house">
 			<input class="btn btn-info btn-lg" type="button" value="HouseGet" id="houseGet" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByRegionId" id="getViewHouseByRegionId" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="getHouseByBuildingId" id="getHouseByBuildingId" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByBuildingId" id="getViewHouseByBuildingId" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="HouseDelete" id="houseDelete" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="HouseAdd" id="houseAdd" /> <br> 
