@@ -157,7 +157,7 @@
 	//地区
 	$(function() {
 		$("#regionGet").click(function() {
-			ajaxRequestGet("region/get");
+			ajaxRequestGet("region/get/2");
 		})
 
 		$("#regionDelete").click(function() {
@@ -166,7 +166,7 @@
 
 		$("#regionAdd").click(function() {
 			var data = {
-				'name' : "南湖",
+				'name' : "北冰洋",
 				'description' : '南湖大草原'
 			};
 			ajaxRequestPostType("region/add", "POST", data);

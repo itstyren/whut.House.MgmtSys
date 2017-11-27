@@ -40,10 +40,16 @@ public class RegionController {
 		}
 	}
 	
+	/**
+	 * 不传入page和size 默认获取全部数据
+	 * @param page
+	 * @param size
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "get", method = RequestMethod.GET)
-	public Msg getRegions(@RequestParam(value = "page", defaultValue = "1") Integer page,
-			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+	public Msg getRegions(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 		//分页，下一条语句为查询语句
 		PageHelper.startPage(page, size);
 		List<Region> regions = regionService.getAll();
