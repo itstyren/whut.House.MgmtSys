@@ -71,8 +71,8 @@ public class BuildingController {
 	@ResponseBody
 	@RequestMapping(value = "getAllByRegionId/{regionId}", method = RequestMethod.GET)
 	public Msg getBuildings(@PathVariable("regionId") Integer regionId,
-			@RequestParam(value = "page", defaultValue = "1") Integer page,
-			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 
 		PageHelper.startPage(page, size);
 		List<Building> buildings = buildingService.getAllByRegionId(regionId);
