@@ -157,7 +157,7 @@
 	//地区
 	$(function() {
 		$("#regionGet").click(function() {
-			ajaxRequestGet("region/get/2");
+			ajaxRequestGet("region/get/1?page=1&size=10");
 		})
 
 		$("#regionDelete").click(function() {
@@ -185,6 +185,10 @@
 	//楼栋
 	$(function() {
 		$("#buildingGet").click(function() {
+			ajaxRequestGet("building/get/1?page=1&size=10");
+		})
+		
+		$("#getBuildingByRegionId").click(function() {
 			ajaxRequestGet("building/getAllByRegionId/1");
 		})
 
@@ -343,6 +347,7 @@
 		</div>
 		<div class="tab-pane fade" id="building">
 			<input class="btn btn-info btn-lg" type="button" value="BuildingGet" id="buildingGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="GetBuildingByRegionId" id="getBuildingByRegionId" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="BuildingDelete" id="buildingDelete" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="BuildingAdd" id="buildingAdd" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="BuildingModify" id="buildingModify" /> <br>
