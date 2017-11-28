@@ -157,7 +157,8 @@
 	//地区
 	$(function() {
 		$("#regionGet").click(function() {
-			ajaxRequestGet("region/get/1?page=1&size=10");
+			ajaxRequestGet("region/get/1");
+			//ajaxRequestGet("region/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个 不能加
 		})
 
 		$("#regionDelete").click(function() {
@@ -185,11 +186,13 @@
 	//楼栋
 	$(function() {
 		$("#buildingGet").click(function() {
-			ajaxRequestGet("building/get/1?page=1&size=10");
+			ajaxRequestGet("building/get/1");
+			//ajaxRequestGet("building/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
 		})
 		
 		$("#getBuildingByRegionId").click(function() {
 			ajaxRequestGet("building/getAllByRegionId/1");
+			//不带page=1&size=10默认不分页
 		})
 
 		$("#buildingDelete").click(function() {
@@ -228,18 +231,17 @@
 	$(function() {
 		$("#houseGet").click(function() {
 			ajaxRequestGet("house/get");
+			//ajaxRequestGet("house/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
 		})
 		
 		$("#getViewHouseByRegionId").click(function() {
-			ajaxRequestPostType("house/getViewHousesByRegionId/1");
-		})
-		
-		$("#getHouseByBuildingId").click(function() {
-			ajaxRequestPostType("house/getHousesByBuildingId/5");
+			ajaxRequestPostType("house/getViewHousesByRegionId/1?page=1&size=10");
+			//不带page=1&size=10默认不分页
 		})
 		
 		$("#getViewHouseByBuildingId").click(function() {
-			ajaxRequestPostType("house/getViewHousesByBuildingId/5");
+			ajaxRequestPostType("house/getViewHousesByBuildingId/5?page=1&size=10");
+			//不带page=1&size=10默认不分页
 		})
 
 		$("#houseDelete").click(function() {

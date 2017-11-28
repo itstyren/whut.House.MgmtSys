@@ -9,6 +9,7 @@ import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.house.ViewHouseMapper;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 @Service
 public class ViewHouseService {
@@ -16,6 +17,12 @@ public class ViewHouseService {
 	@Autowired
 	private ViewHouseMapper viewHouseMapper;
 	
+	public ViewHouse get(Integer id) {
+		ViewHouseExample example = new ViewHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(id);
+		return viewHouseMapper.selectByExample(example).get(0);
+	}
 	/**
 	 * 根据楼栋id返回一个楼栋的房屋
 	 * @param buildingId
@@ -39,5 +46,9 @@ public class ViewHouseService {
 		criteria.andBuildingIdIn(buildingIdList);
 		return viewHouseMapper.selectByExample(example);
 		
+	}
+	
+	public List<ViewHouse> getAll(){
+		return viewHouseMapper.selectByExample(null);
 	}
 }
