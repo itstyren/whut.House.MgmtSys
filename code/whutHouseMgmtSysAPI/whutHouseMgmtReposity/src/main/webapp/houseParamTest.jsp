@@ -234,7 +234,7 @@
 	//房屋
 	$(function() {
 		$("#houseGet").click(function() {
-			ajaxRequestGet("house/get");
+			ajaxRequestGet("house/get/1");
 			//ajaxRequestGet("house/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
 		})
 		
