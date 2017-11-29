@@ -156,13 +156,13 @@
 	//地区
 	$(function() {
 		$("#regionGet").click(function() {
-			ajaxRequestGet("region/get");
+			ajaxRequestGet("region/get/1");
 			//ajaxRequestGet("region/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个 不能加
 		})
 		
 		$("#getRegionWithBuildings").click(function() {
-			ajaxRequestGet("region/getRegionWithBuildings");
-			//ajaxRequestGet("region/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个 不能加
+			ajaxRequestGet("region/getRegionWithBuildings/1");
+			//ajaxRequestGet("region/get?page=1&size=10"); 
 		})
 
 		$("#regionDelete").click(function() {
@@ -190,12 +190,12 @@
 	//楼栋
 	$(function() {
 		$("#buildingGet").click(function() {
-			ajaxRequestGet("building/get");
+			ajaxRequestGet("building/get/1");
 			//ajaxRequestGet("building/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
 		})
 		
 		$("#getBuildingByRegionId").click(function() {
-			ajaxRequestGet("building/getAllByRegionId");
+			ajaxRequestGet("building/getAllByRegionId/1");
 			//不带page=1&size=10默认不分页
 		})
 
