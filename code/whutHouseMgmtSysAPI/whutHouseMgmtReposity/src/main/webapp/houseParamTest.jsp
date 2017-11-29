@@ -12,8 +12,7 @@
 	href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
 <script src="http://cdn.static.runoob.com/libs/jquery/2.0.0/jquery.js"></script>
-<script
-	src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script	src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript"
 	src="${API_Path }/static/js/jquery-1.8.3.min.js"></script>
@@ -157,7 +156,12 @@
 	//地区
 	$(function() {
 		$("#regionGet").click(function() {
-			ajaxRequestGet("region/get/1");
+			ajaxRequestGet("region/get");
+			//ajaxRequestGet("region/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个 不能加
+		})
+		
+		$("#getRegionWithBuildings").click(function() {
+			ajaxRequestGet("region/getRegionWithBuildings");
 			//ajaxRequestGet("region/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个 不能加
 		})
 
@@ -186,12 +190,12 @@
 	//楼栋
 	$(function() {
 		$("#buildingGet").click(function() {
-			ajaxRequestGet("building/get/1");
+			ajaxRequestGet("building/get");
 			//ajaxRequestGet("building/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
 		})
 		
 		$("#getBuildingByRegionId").click(function() {
-			ajaxRequestGet("building/getAllByRegionId/1");
+			ajaxRequestGet("building/getAllByRegionId");
 			//不带page=1&size=10默认不分页
 		})
 
@@ -305,13 +309,6 @@
 
 
 	<hr>
-
-	<div id="lwlhitokoto">
-		<script>
-			lwlhitokoto()
-		</script>
-	</div>
-
 	<hr>
 	<ul id="myTab" class="nav nav-tabs">
 		<li class="active"><a href="#houseParam" data-toggle="tab">houseParam</a></li>
@@ -343,6 +340,7 @@
 		</div>
 		<div class="tab-pane fade" id="region">
 			<input class="btn btn-info btn-lg" type="button" value="RegionGet" id="regionGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="GetRegionWithBuildings" id="getRegionWithBuildings" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="RegionDelete" id="regionDelete" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="RegionAdd" id="regionAdd" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="RegionModify" id="regionModify" /> <br>

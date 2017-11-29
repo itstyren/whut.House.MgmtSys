@@ -38,6 +38,45 @@ public class RegionController {
 	public Msg getRegions(@PathVariable("id") Integer id) {
 
 		Region region = regionService.get(id);
+		if (region == null) {
+			return Msg.error("查找不到数据");
+		} else {
+			return Msg.success().add("data", region);
+		}
+	}
+	
+	/**
+	 * 不传入page和size 默认获取全部数据
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "get", method = RequestMethod.GET)
+	public Msg getRegions(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size) {
+		//分页，下一条语句为查询语句
+		PageHelper.startPage(page,size);
+		List<Region> regions = regionService.getAll();
+
+		PageInfo pageInfo = new PageInfo(regions);
+		if (regions == null) {
+			return Msg.error("查找不到数据");
+		} else {
+			return Msg.success().add("data", pageInfo);
+		}
+	}
+	
+	/**
+	 * 根据id获取带有building内容的数据
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getRegionWithBuildings/{id}", method = RequestMethod.GET)
+	public Msg getRegionWithBuildings(@PathVariable("id") Integer id) {
+
+		Region region = regionService.get(id);
 		List<Building> buildingList = buildingService.getAllByRegionId(id);
 
 		RegionWithBuilding regionWithBuilding = new RegionWithBuilding(region, buildingList);
@@ -50,16 +89,15 @@ public class RegionController {
 	}
 
 	/**
-	 * 不传入page和size 默认获取全部数据
+	 * 不传参默认获取全部数据且不分页
 	 * @param page
 	 * @param size
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "get", method = RequestMethod.GET)
-	public Msg getRegions(@RequestParam(value = "page", defaultValue = "0") Integer page,
+	@RequestMapping(value = "getRegionWithBuildings", method = RequestMethod.GET)
+	public Msg getgetRegionWithBuildings(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
-		//分页，下一条语句为查询语句
 		List<Region> regions = regionService.getAll();
 
 		List<Building> buildings = buildingService.getAll();
@@ -74,14 +112,17 @@ public class RegionController {
 			}
 			regionWithBuildings.add(new RegionWithBuilding(region, buildingList));
 		}
+		//分页，下一条语句为查询语句
 		//PageInfo pageInfo = new PageInfo(regionWithBuildings);
 
-		if (regions == null) {
+		if (regionWithBuildings == null) {
 			return Msg.error("查找不到数据");
 		} else {
 			return Msg.success().add("data", regionWithBuildings);
 		}
 	}
+
+	
 
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
@@ -100,15 +141,19 @@ public class RegionController {
 	public Msg modifyRegion(@RequestBody Region region) {
 		if (region.getId() == null) {
 			return Msg.error("不存在该项");
-		} else {
 			// 区域名不能为空
-			if (region.getName() == null) {
-				return Msg.error("区域名不能为空");
-			} else {
-				regionService.update(region);
-				return Msg.success().add("data", region);
+		} else if (region.getName() == null) {
+			return Msg.error("区域名不能为空");
+		}
+		List<Region> regions = regionService.getAllByName(region.getName());
+		Region regionPre = regionService.get(region.getId());
+		if(!regions.isEmpty()){
+			if(regionPre.getId()!=regions.get(0).getId()){
+				return Msg.error("该楼栋名称已存在");
 			}
 		}
+		regionService.update(region);
+		return Msg.success().add("data", region);
 	}
 
 	@ResponseBody
