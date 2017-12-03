@@ -41,6 +41,7 @@ public class HouseController {
 	
 	@Autowired
 	private ViewHouseService viewHouseService;
+	
 	/**
 	 * 根据id获取一个House
 	 * 
@@ -50,11 +51,11 @@ public class HouseController {
 	@RequestMapping(value = "get/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Msg get(@PathVariable("id") Integer id) {
-		House house = houseService.get(id);
-		if (house == null) {
+		ViewHouse viewHouse = viewHouseService.get(id);
+		if (viewHouse == null) {
 			return Msg.error("查找不到数据");
 		} else {
-			return Msg.success().add("data", house);
+			return Msg.success().add("data", viewHouse);
 		}
 	}
 
@@ -68,11 +69,12 @@ public class HouseController {
 	@ResponseBody
 	public Msg get(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
-		PageHelper.startPage(page,size);
-		List<House> houses = houseService.getAll();
-		
-		PageInfo pageInfo = new PageInfo(houses);
-		if (houses == null) {
+
+		PageHelper.startPage(page, size);
+		List<ViewHouse> viewHouseList = viewHouseService.getAll();
+
+		PageInfo pageInfo = new PageInfo(viewHouseList);
+		if (viewHouseList == null) {
 			return Msg.error("查找不到数据");
 		} else {
 			return Msg.success().add("data",pageInfo);
