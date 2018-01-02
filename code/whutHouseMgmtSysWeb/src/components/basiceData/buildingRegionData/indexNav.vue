@@ -46,66 +46,76 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    getRegionData
-  } from "@/api/api";
-  export default {
-    data() {
-      return {
-        isCollapse: false,
-        regionData: []
-      };
-    },
-    components: {},
-    created() {
-      this.getrigion();
-    },
-    methods: {
-      //折叠
-      collapse: function () {
-        this.isCollapse = !this.isCollapse;
-      },
-      getrigion() {
-        this.listLoading = true;
-        let param = {
-          // page: this.page,
-          // size: this.size
-        };
-        // 获取区域信息
-        getRegionData(param)
-          .then(res => {
-
-            this.regionData = res.data.data.data.list;
-            this.regionData.forEach(region => {
-              let flag = region.name.indexOf('（')
-              if (flag != -1) {
-                console.log(flag)
-                region.name = region.name.substring(0, flag)
-              }
-
-            })
-            //console.log(typeof this.regionData.name ) 
-            this.totalNum = res.data.data.data.total;
-            // console.log(res.data.data.list)
-            this.listLoading = false;
-          })
-          .catch(err => {
-            console.log(err);
-          });
+import { getRegionData,getRegionWithBuildings } from "@/api/api";
+export default {
+  data() {
+    return {
+      isCollapse: false,
+      regionData: []
+    };
+  },
+  // 计算属性
+  computed: {
+    regionStatus: function() {
+      return this.$store.state.regionStatus;
+    }
+  },
+  // 监听者
+  watch: {
+    regionStatus: {
+      handler: function(params) {
+        this.getRigion();
       }
     }
-  };
-
+  },
+  components: {},
+  created() {
+    this.getRigion();
+  },
+  methods: {
+    //折叠
+    collapse: function() {
+      this.isCollapse = !this.isCollapse;
+    },
+    // 获取区域信息
+    getRigion() {
+      this.listLoading = true;
+      let param = {};
+      getRegionData(param)
+        .then(res => {
+          this.regionData = res.data.data.data.list;
+          this.regionData.forEach(region => {
+            let flag = region.name.indexOf("（");
+            if (flag != -1) {
+              console.log(flag);
+              region.name = region.name.substring(0, flag);
+            }
+          });
+          this.totalNum = res.data.data.data.total;
+          this.listLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  aside {
-    >.el-menu {
-      width: 250px
-    }
-    span{
-      padding-left: 20px
-    }
+aside {
+  > .el-menu {
+    width: 250px;
   }
-
+  .el-menu--collapse{
+    width: 60px;
+  }
+  span {
+    padding-left: 20px;
+  }
+}
+.el-menu-item.is-active {
+  background-color: rgba($color: #000000, $alpha: 0);
+}
 </style>

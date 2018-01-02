@@ -2,11 +2,13 @@
   <div class="third-container">
     <!-- 面包屑导航 -->
     <div class="warp-breadcrum">
-      <el-breadcrumb-item :to="{ path: '/' }">
-        <b>首页</b>
-      </el-breadcrumb-item>
-      <el-breadcrumb-item>基础数据</el-breadcrumb-item>
-      <el-breadcrumb-item>楼栋管理</el-breadcrumb-item>
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/' }">
+          <b>首页</b>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>基础数据</el-breadcrumb-item>
+        <el-breadcrumb-item>楼栋管理</el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
     <!-- 下方主内容 -->
     <div class="warp-body">

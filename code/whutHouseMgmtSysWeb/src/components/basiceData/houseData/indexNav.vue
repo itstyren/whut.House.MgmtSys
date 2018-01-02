@@ -28,22 +28,23 @@
       <!-- 需要长时间存活的 -->
       <transition>
         <keep-alive>
-          <router-view v-if="$route.meta.keepAlive"></router-view>
+          <router-view v-if="$route.meta.keepAlive" :region-building-data="regionDataWithBuilding"></router-view>
         </keep-alive>
       </transition>
       <!-- 不需要长时间保存的 -->
       <transition mode="out-in">
-        <router-view v-if="!$route.meta.keepAlive"></router-view>
+        <router-view v-if="!$route.meta.keepAlive" :region-building-data="regionDataWithBuilding"></router-view>
       </transition>
     </section>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { getRegionWithBuildings, getbuildingDataByID } from "@/api/api";
+import { getRegionWithBuildings } from "@/api/api";
 export default {
   data() {
     return {
+      sss:'222',
       isCollapse: false,
       // 区域信息
       regionDataWithBuilding: [],
@@ -90,6 +91,9 @@ aside {
   > .el-menu {
     width: 250px;
     height: auto;
+  }
+    .el-menu--collapse{
+    width: 60px;
   }
   span {
     padding-left: 20px;

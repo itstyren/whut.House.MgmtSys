@@ -30,7 +30,7 @@ a {
     .el-menu-item:hover,
     .el-submenu .el-menu-item:hover,
     .el-submenu__title:hover {
-      background-color: #7ed2df;
+      background-color: #df7e7e;
     }
     .el-submenu .el-menu-item {
       background-color: #333744
@@ -161,14 +161,10 @@ a {
       height: 46px;
       line-height: 46px;
     }
-    .el-submenu .el-menu-item:hover {
-      background-color: #4A5064;
-      color: #fff;
-    }
     .el-menu-item:hover,
     .el-submenu .el-menu-item:hover,
     .el-submenu__title:hover {
-      background-color: #7ed2df;
+      background-color: #4A5064;
     }
     .el-submenu .el-menu-item {
       background-color: $background-color
@@ -176,7 +172,13 @@ a {
     .el-submenu .el-menu-item:hover {
       background-color: #4A5064;
       color: #fff;
-    } //激活后的主菜单
+    }
+        .el-submenu .el-menu::before {
+          background-color: #4A5064;
+          color: #fff;
+        }
+
+     //激活后的主菜单
     // .el-menu--horizontal>.el-menu-item.is-active,
     // .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
     //   border-bottom: 2px solid #ffd04b;

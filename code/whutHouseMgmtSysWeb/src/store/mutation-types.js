@@ -6,3 +6,6 @@ export const LOGOUT = 'logout'
 export const REFREST = 'refresh'
 // 401时
 export const DENY= 'deny'
+
+// 区域变更时刷新
+export const REGION_CHANGE ='regionChange'
