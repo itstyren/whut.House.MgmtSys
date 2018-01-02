@@ -7,7 +7,6 @@
       </el-breadcrumb-item>
       <el-breadcrumb-item>基础数据</el-breadcrumb-item>
       <el-breadcrumb-item>楼栋管理</el-breadcrumb-item>
-      </el-breadcrumb>
     </div>
     <!-- 下方主内容 -->
     <div class="warp-body">

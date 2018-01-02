@@ -11,7 +11,7 @@
         </svg>
       </div>
       <!-- 主菜单 -->
-      <el-menu :collapse="isCollapse" :default-active="$route.path" router v-for="region in regionData" :key="region.id">
+      <el-menu :collapse="isCollapse" :default-active="$route.path" router v-for="region in regionDataWithBuilding" :key="region.id">
         <!-- 区域菜单 -->
         <el-submenu index="regionParam" >
           <template slot="title">
@@ -20,7 +20,7 @@
             </svg>
             <span slot="title">{{region.name}}</span>
           </template>
-          <el-menu-item v-for="building in buildingData[region.id]" :key="building.id" :index="building.id">{{building.name}}</el-menu-item>
+          <el-menu-item v-for="building in region.buildingList" :key="building.id" :index="'/basic/house/byBuilding/'+building.id">{{building.name}}</el-menu-item>
         </el-submenu>
       </el-menu>
     </aside>
@@ -40,69 +40,47 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getRegionData, getbuildingDataByID } from "@/api/api";
+import { getRegionWithBuildings, getbuildingDataByID } from "@/api/api";
 export default {
   data() {
     return {
       isCollapse: false,
       // 区域信息
-      regionData: [],
-      // 楼栋信息
-      buildingData: []
+      regionDataWithBuilding: [],
     };
   },
   components: {},
   created() {
-    this.getRegion();
+    this.getRegionWithBuilding();
   },
   methods: {
     //折叠
     collapse: function() {
       this.isCollapse = !this.isCollapse;
     },
-    getRegion() {
+    // 获取区域信息包括楼栋
+    getRegionWithBuilding() {
       this.listLoading = true;
       let param = {
         // page: this.page,
         // size: this.size
       };
-      // 获取区域信息
-      getRegionData(param)
+      getRegionWithBuildings(param)
         .then(res => {
-          this.regionData = res.data.data.data.list;
-          this.regionData.forEach(region => {
+          this.regionDataWithBuilding = res.data.data.data;
+          this.regionDataWithBuilding.forEach(region => {
             let flag = region.name.indexOf("（");
             if (flag != -1) {
-              // console.log(flag)
               region.name = region.name.substring(0, flag);
             }
           });
-          //console.log(typeof this.regionData.name )
           this.totalNum = res.data.data.data.total;
-          // console.log(res.data.data.list)
           this.listLoading = false;
-          console.log(this.regionData)
-          //this.getBuildingData();
         })
         .catch(err => {
           console.log(err);
         });
     },
-    // 获取区域下属楼栋信息
-    getBuildingData() {
-      this.listLoading = true;
-      let param = "";
-      let regionID=1
-        getbuildingDataByID(param, regionID)
-          .then(res => {
-            this.buildingData[regionID] = res.data.data.data.list;
-                        //console.log(regionID)
-            //console.log(this.buildingData[regionID])
-          })
-          .catch(err => {
-            console.log(err);
-      });
-    }
   }
 };
 </script>

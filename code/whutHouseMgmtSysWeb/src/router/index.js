@@ -37,6 +37,7 @@ import indexbldgRgn from '@/components/basiceData/buildingRegionData/indexNav'
 import region from '@/components/basiceData/buildingRegionData/regionData'
 import building from '@/components/basiceData/buildingRegionData/buildingData'
 import indexHouse from '@/components/basiceData/houseData/indexNav'
+import house from '@/components/basiceData/houseData/houseData'
 
 Vue.use(Router)
 
@@ -130,7 +131,10 @@ const routes = [
         menuShow: true },
       { path: 'house',
         component: indexHouse,
-        name: 'indexHouse'
+        name: 'indexHouse',
+        children: [
+          { path: 'byBuilding/:id', component: house, name: 'house', menuShow: true }
+        ]
       }
     ]
   }

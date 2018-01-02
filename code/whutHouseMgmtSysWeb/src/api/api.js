@@ -51,6 +51,8 @@ export const getRentalParam = (params) => { return axios.get(`${base}rentalParam
 export const putRentalParam = (params) => { return axios.put(`${base}rentalParam/modify`, params) }
 
 // 基础数据--区域管理
+// 获取方法with楼栋
+export const getRegionWithBuildings = (params) => { return axios.get(`${base}region/getRegionWithBuildings`, { params: params }) }
 // 获取方法
 export const getRegionData = (params) => { return axios.get(`${base}region/get`, { params: params }) }
 // 删除方法
@@ -69,3 +71,9 @@ export const postBuildingData = (params) => { return axios.post(`${base}building
 export const putBuildingData = (params) => { return axios.put(`${base}building/modify`, params) }
 // 删除方法
 export const deleteBuildingData = (buildingID) => { return axios.delete(`${base}building/delete/${buildingID}`) }
+
+// 基础数据-房屋管理
+// 获取方法
+export const getHouseBybuildingID = (params, buildingID) => { return axios.get(`${base}house/getViewHousesByBuildingId/${buildingID}`, { params: params }) }
+// 删除方法
+export const deleteHouseData = (houseID) => { return axios.delete(`${base}house/delete/${houseID}`) }
