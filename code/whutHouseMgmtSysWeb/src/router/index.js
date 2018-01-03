@@ -38,6 +38,7 @@ import region from '@/components/basiceData/buildingRegionData/regionData'
 import building from '@/components/basiceData/buildingRegionData/buildingData'
 import indexHouse from '@/components/basiceData/houseData/indexNav'
 import house from '@/components/basiceData/houseData/houseData'
+// import houseModify from '@/components/basiceData/houseData/modifyHouseData'
 
 Vue.use(Router)
 
@@ -133,7 +134,11 @@ const routes = [
         component: indexHouse,
         name: 'indexHouse',
         children: [
-          { path: 'byBuilding/:id', component: house, name: 'house', menuShow: true }
+          { path: 'byBuilding/:id',
+            component: house,
+            name: 'house',
+            menuShow: true }
+           // { path: 'detail', component: houseModify, name: 'houseDetail', menuShow: true }
         ]
       }
     ]
