@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.role.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.role.Role">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Description" jdbcType="VARCHAR" property="description" />
+    <result column="IsPublic" jdbcType="VARCHAR" property="isPublic" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, Name, Description, IsPublic
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.role.RoleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Au_Role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Au_Role
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Au_Role
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.role.RoleExample">
+    delete from Au_Role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.role.Role">
+    insert into Au_Role (Id, Name, Description, 
+      IsPublic)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{isPublic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.role.Role">
+    insert into Au_Role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="description != null">
+        Description,
+      </if>
+      <if test="isPublic != null">
+        IsPublic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublic != null">
+        #{isPublic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.role.RoleExample" resultType="java.lang.Long">
+    select count(*) from Au_Role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Au_Role
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        Description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPublic != null">
+        IsPublic = #{record.isPublic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Au_Role
+    set Id = #{record.id,jdbcType=INTEGER},
+      Name = #{record.name,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=VARCHAR},
+      IsPublic = #{record.isPublic,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.role.Role">
+    update Au_Role
+    <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublic != null">
+        IsPublic = #{isPublic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.role.Role">
+    update Au_Role
+    set Name = #{name,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      IsPublic = #{isPublic,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -239,7 +239,7 @@
 		})
 		
 		$("#getViewHouseByRegionId").click(function() {
-			ajaxRequestPostType("house/getViewHousesByRegionId/1?page=1&size=10");
+			ajaxRequestPostType("house/getViewHousesByRegionId/1");
 			//不带page=1&size=10默认不分页
 		})
 		
@@ -254,10 +254,10 @@
 
 		$("#houseAdd").click(function() {
 			var data = {
-				'no' : 40,
+				'no' : 5116,
 				'type' : 10,
 				'layout' : 19,
-				'status' : 38,
+				'status' : 26,
 				'struct' : 29,
 				'buildArea' : 66,
 				'usedArea' : 66,
