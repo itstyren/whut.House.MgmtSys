@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.house.HouseMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.house.House">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="No" jdbcType="INTEGER" property="no" />
+    <result column="Type" jdbcType="INTEGER" property="type" />
+    <result column="Layout" jdbcType="INTEGER" property="layout" />
+    <result column="Struct" jdbcType="INTEGER" property="struct" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="BuildArea" jdbcType="DOUBLE" property="buildArea" />
+    <result column="UsedArea" jdbcType="DOUBLE" property="usedArea" />
+    <result column="BasementArea" jdbcType="DOUBLE" property="basementArea" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
+    <result column="BuildingId" jdbcType="INTEGER" property="buildingId" />
+    <result column="ProId" jdbcType="VARCHAR" property="proId" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="Image" jdbcType="VARCHAR" property="image" />
+    <result column="Rental" jdbcType="DOUBLE" property="rental" />
+    <result column="FinishTime" jdbcType="DATE" property="finishTime" />
+    <result column="RecordStatus" jdbcType="INTEGER" property="recordStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, No, Type, Layout, Struct, Status, BuildArea, UsedArea, BasementArea, Address, 
+    BuildingId, ProId, Remark, Image, Rental, FinishTime, RecordStatus
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.HouseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Hs_House
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Hs_House
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Hs_House
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.HouseExample">
+    delete from Hs_House
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.house.House">
+    insert into Hs_House (Id, No, Type, 
+      Layout, Struct, Status, 
+      BuildArea, UsedArea, BasementArea, 
+      Address, BuildingId, ProId, 
+      Remark, Image, Rental, 
+      FinishTime, RecordStatus)
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{layout,jdbcType=INTEGER}, #{struct,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{buildArea,jdbcType=DOUBLE}, #{usedArea,jdbcType=DOUBLE}, #{basementArea,jdbcType=DOUBLE}, 
+      #{address,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, #{proId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{rental,jdbcType=DOUBLE}, 
+      #{finishTime,jdbcType=DATE}, #{recordStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.house.House">
+    insert into Hs_House
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="no != null">
+        No,
+      </if>
+      <if test="type != null">
+        Type,
+      </if>
+      <if test="layout != null">
+        Layout,
+      </if>
+      <if test="struct != null">
+        Struct,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+      <if test="buildArea != null">
+        BuildArea,
+      </if>
+      <if test="usedArea != null">
+        UsedArea,
+      </if>
+      <if test="basementArea != null">
+        BasementArea,
+      </if>
+      <if test="address != null">
+        Address,
+      </if>
+      <if test="buildingId != null">
+        BuildingId,
+      </if>
+      <if test="proId != null">
+        ProId,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+      <if test="image != null">
+        Image,
+      </if>
+      <if test="rental != null">
+        Rental,
+      </if>
+      <if test="finishTime != null">
+        FinishTime,
+      </if>
+      <if test="recordStatus != null">
+        RecordStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="layout != null">
+        #{layout,jdbcType=INTEGER},
+      </if>
+      <if test="struct != null">
+        #{struct,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="buildArea != null">
+        #{buildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="usedArea != null">
+        #{usedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="basementArea != null">
+        #{basementArea,jdbcType=DOUBLE},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null">
+        #{proId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="rental != null">
+        #{rental,jdbcType=DOUBLE},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=DATE},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.HouseExample" resultType="java.lang.Long">
+    select count(*) from Hs_House
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Hs_House
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.no != null">
+        No = #{record.no,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        Type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.layout != null">
+        Layout = #{record.layout,jdbcType=INTEGER},
+      </if>
+      <if test="record.struct != null">
+        Struct = #{record.struct,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        Status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildArea != null">
+        BuildArea = #{record.buildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.usedArea != null">
+        UsedArea = #{record.usedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.basementArea != null">
+        BasementArea = #{record.basementArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.address != null">
+        Address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingId != null">
+        BuildingId = #{record.buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.proId != null">
+        ProId = #{record.proId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        Remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image != null">
+        Image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rental != null">
+        Rental = #{record.rental,jdbcType=DOUBLE},
+      </if>
+      <if test="record.finishTime != null">
+        FinishTime = #{record.finishTime,jdbcType=DATE},
+      </if>
+      <if test="record.recordStatus != null">
+        RecordStatus = #{record.recordStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Hs_House
+    set Id = #{record.id,jdbcType=INTEGER},
+      No = #{record.no,jdbcType=INTEGER},
+      Type = #{record.type,jdbcType=INTEGER},
+      Layout = #{record.layout,jdbcType=INTEGER},
+      Struct = #{record.struct,jdbcType=INTEGER},
+      Status = #{record.status,jdbcType=INTEGER},
+      BuildArea = #{record.buildArea,jdbcType=DOUBLE},
+      UsedArea = #{record.usedArea,jdbcType=DOUBLE},
+      BasementArea = #{record.basementArea,jdbcType=DOUBLE},
+      Address = #{record.address,jdbcType=VARCHAR},
+      BuildingId = #{record.buildingId,jdbcType=INTEGER},
+      ProId = #{record.proId,jdbcType=VARCHAR},
+      Remark = #{record.remark,jdbcType=VARCHAR},
+      Image = #{record.image,jdbcType=VARCHAR},
+      Rental = #{record.rental,jdbcType=DOUBLE},
+      FinishTime = #{record.finishTime,jdbcType=DATE},
+      RecordStatus = #{record.recordStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.house.House">
+    update Hs_House
+    <set>
+      <if test="no != null">
+        No = #{no,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        Type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="layout != null">
+        Layout = #{layout,jdbcType=INTEGER},
+      </if>
+      <if test="struct != null">
+        Struct = #{struct,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="buildArea != null">
+        BuildArea = #{buildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="usedArea != null">
+        UsedArea = #{usedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="basementArea != null">
+        BasementArea = #{basementArea,jdbcType=DOUBLE},
+      </if>
+      <if test="address != null">
+        Address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null">
+        BuildingId = #{buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null">
+        ProId = #{proId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        Image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="rental != null">
+        Rental = #{rental,jdbcType=DOUBLE},
+      </if>
+      <if test="finishTime != null">
+        FinishTime = #{finishTime,jdbcType=DATE},
+      </if>
+      <if test="recordStatus != null">
+        RecordStatus = #{recordStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.house.House">
+    update Hs_House
+    set No = #{no,jdbcType=INTEGER},
+      Type = #{type,jdbcType=INTEGER},
+      Layout = #{layout,jdbcType=INTEGER},
+      Struct = #{struct,jdbcType=INTEGER},
+      Status = #{status,jdbcType=INTEGER},
+      BuildArea = #{buildArea,jdbcType=DOUBLE},
+      UsedArea = #{usedArea,jdbcType=DOUBLE},
+      BasementArea = #{basementArea,jdbcType=DOUBLE},
+      Address = #{address,jdbcType=VARCHAR},
+      BuildingId = #{buildingId,jdbcType=INTEGER},
+      ProId = #{proId,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR},
+      Image = #{image,jdbcType=VARCHAR},
+      Rental = #{rental,jdbcType=DOUBLE},
+      FinishTime = #{finishTime,jdbcType=DATE},
+      RecordStatus = #{recordStatus,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

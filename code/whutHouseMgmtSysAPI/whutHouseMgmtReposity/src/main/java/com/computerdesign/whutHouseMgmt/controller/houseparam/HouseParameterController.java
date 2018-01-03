@@ -25,8 +25,43 @@ public class HouseParameterController {
 
 	@Autowired
 	private HouseParamService houseParamService;
-
+	
 	/**
+	 * 获取全部的houseParamId
+	 * @param paramTypeId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getHouseParamId/{paramTypeId}" , method = RequestMethod.GET)
+	public Msg getHouseTypePar(@PathVariable("paramTypeId") Integer paramTypeId){
+		List<Integer> houseParamIds= houseParamService.getHouseParamId(paramTypeId);
+		return Msg.success().add("data", houseParamIds);
+	}
+	
+	/**
+	 * @param paramTypeId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getWithoutPage/{paramTypeId}", method = RequestMethod.GET)
+
+	public Msg getHouseParameter(@PathVariable("paramTypeId") Integer paramTypeId) {
+		List<HouseParameter> houseParams = houseParamService.getAll(paramTypeId);
+		//
+
+		if (houseParams != null) {
+			return Msg.success().add("data", houseParams);
+		} else {
+			return Msg.error();
+		}
+	}
+	
+	/**
+	 * paramTypeId：
+	 * 1-住房类型
+	 * 2-户型
+	 * 3-使用状态
+	 * 4-住房结构
 	 * @param paramTypeId
 	 * @return
 	 */
@@ -82,7 +117,7 @@ public class HouseParameterController {
 			try {
 				houseParameter.setIsDelete(true);
 				//更新操作，且不可逆
-				houseParamService.delete(houseParameter);
+				houseParamService.update(houseParameter);
 				return Msg.success().add("data", houseParameter);
 			} catch (Exception e) {
 				// TODO: handle exception

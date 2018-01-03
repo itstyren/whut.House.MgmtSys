@@ -9,7 +9,8 @@ export default new Vuex.Store({
     state:{
         access_token:'',
         RoleID:'',
-        Name:''
+        Name:'12',
+        regionStatus:false
     },
     mutations:{
         // 登录时写入
@@ -39,6 +40,10 @@ export default new Vuex.Store({
         // 401时
         [types.DENY]:(state)=>{
             state.access_token=''
+        },
+        // 区域变更时，写入
+        [types.REGION_CHANGE]:(state)=>{
+            state.regionStatus=!state.regionStatus
         }
     }
 })

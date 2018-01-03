@@ -20,6 +20,10 @@ public class HouseParamService implements BaseService<HouseParameter>{
 	@Autowired
 	HouseParameterMapper houseParameterMapper;
 	
+	public List<Integer> getHouseParamId(Integer paramTypeId) {
+		return houseParameterMapper.selectHouseParamId(paramTypeId);
+	}
+	
 	/**
 	 * 获取一个houseParameter对象
 	 * @return
@@ -52,9 +56,6 @@ public class HouseParamService implements BaseService<HouseParameter>{
 		houseParameterMapper.insertSelective(houseParameter);
 	}
 	
-	public void delete(HouseParameter houseParameter){
-		houseParameterMapper.updateByPrimaryKeySelective(houseParameter);
-	}
 	
 	@Override
 	public void delete(Integer houseParamId){

@@ -12,8 +12,7 @@
 	href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
 <script src="http://cdn.static.runoob.com/libs/jquery/2.0.0/jquery.js"></script>
-<script
-	src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script	src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript"
 	src="${API_Path }/static/js/jquery-1.8.3.min.js"></script>
@@ -65,10 +64,20 @@
 		});
 	}
 
+	//房屋参数
 	$(function() {
+		
+		$("#houseTypeParamGet").click(function() {
+			ajaxRequestGet("houseParam/getHouseParamId/2");
+
+		})
+		
 		$("#houseParamGet").click(function() {
 			ajaxRequestGet("houseParam/get/1");
-
+		})
+		
+		$("#houseParamGetWithoutPage").click(function() {
+			ajaxRequestGet("houseParam/getWithoutPage/1");
 		})
 
 		$("#houseParamDelete").click(function() {
@@ -95,6 +104,7 @@
 		})
 	})
 
+	//维修参数
 	$(function() {
 		$("#fixParamGet").click(function() {
 			ajaxRequestGet("fixParam/get/16");
@@ -146,7 +156,13 @@
 	//地区
 	$(function() {
 		$("#regionGet").click(function() {
-			ajaxRequestGet("region/get");
+			ajaxRequestGet("region/get/1");
+			//ajaxRequestGet("region/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个 不能加
+		})
+		
+		$("#getRegionWithBuildings").click(function() {
+			ajaxRequestGet("region/getRegionWithBuildings/1");
+			//ajaxRequestGet("region/get?page=1&size=10"); 
 		})
 
 		$("#regionDelete").click(function() {
@@ -155,7 +171,7 @@
 
 		$("#regionAdd").click(function() {
 			var data = {
-				'name' : "南湖",
+				'name' : "北冰洋",
 				'description' : '南湖大草原'
 			};
 			ajaxRequestPostType("region/add", "POST", data);
@@ -175,10 +191,16 @@
 	$(function() {
 		$("#buildingGet").click(function() {
 			ajaxRequestGet("building/get/1");
+			//ajaxRequestGet("building/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
+		})
+		
+		$("#getBuildingByRegionId").click(function() {
+			ajaxRequestGet("building/getAllByRegionId/1");
+			//不带page=1&size=10默认不分页
 		})
 
 		$("#buildingDelete").click(function() {
-			ajaxRequestPostType("building/delete/12", "DELETE", null);
+			ajaxRequestPostType("building/delete/162", "DELETE", null);
 		})
 
 		$("#buildingAdd").click(function() {
@@ -196,11 +218,81 @@
 
 		$("#buildingModify").click(function() {
 			var data = {
-				'id' : 1,
-				'name' : '北湖de南边',
-				'description' : '北湖大草原'
+				'id' : 3,
+				'name' : "2栋",
+				'description' : '南湖大草原',
+				'finishTime' : '2017-11-4',
+				'floorArea' : '41.4',
+				'usedArea' : '41.22',
+				'floorCount' : '66',
+				'regionId' : 2
 			};
 			ajaxRequestPostType("building/modify", "PUT", data);
+		})
+	})
+	
+	//房屋
+	$(function() {
+		$("#houseGet").click(function() {
+			ajaxRequestGet("house/get/1");
+			//ajaxRequestGet("house/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
+		})
+		
+		$("#getViewHouseByRegionId").click(function() {
+			ajaxRequestPostType("house/getViewHousesByRegionId/1?page=1&size=10");
+			//不带page=1&size=10默认不分页
+		})
+		
+		$("#getViewHouseByBuildingId").click(function() {
+			ajaxRequestPostType("house/getViewHousesByBuildingId/5?page=1&size=10");
+			//不带page=1&size=10默认不分页
+		})
+
+		$("#houseDelete").click(function() {
+			ajaxRequestPostType("house/delete/12", "DELETE", null);
+		})
+
+		$("#houseAdd").click(function() {
+			var data = {
+				'no' : 40,
+				'type' : 10,
+				'layout' : 19,
+				'status' : 38,
+				'struct' : 29,
+				'buildArea' : 66,
+				'usedArea' : 66,
+				'basementArea' : 66,
+				'address' : '水立方',
+				'buildingId' : 5,
+				'proId' : '66',
+				'remark':'凤梨酥',
+				'rental':'26.9',
+				'finishTime':new Date(),
+				'recordStatus':1
+			};
+			ajaxRequestPostType("house/add", "POST", data);
+		})
+
+		$("#houseModify").click(function() {
+			var data = {
+					'id':7,
+					'no' : 55,
+					'type' : 10,
+					'layout' : 19,
+					'status' : 38,
+					'struct' : 29,
+					'buildArea' : 66,
+					'usedArea' : 66,
+					'basementArea' : 66,
+					'address' : '水立方',
+					'buildingId' : 5,
+					'proId' : '66',
+					'remark':'凤梨酥',
+					'rental':'26.9',
+					'finishTime':new Date(),
+					'recordStatus':1
+			};
+			ajaxRequestPostType("house/modify", "PUT", data);
 		})
 	})
 	
@@ -217,14 +309,6 @@
 
 
 	<hr>
-	<script type="text/javascript"
-		src="https://api.lwl12.com/hitokoto/main/get?encode=js&charset=utf-8"></script>
-	<div id="lwlhitokoto">
-		<script>
-			lwlhitokoto()
-		</script>
-	</div>
-
 	<hr>
 	<ul id="myTab" class="nav nav-tabs">
 		<li class="active"><a href="#houseParam" data-toggle="tab">houseParam</a></li>
@@ -232,11 +316,13 @@
 		<li><a href="#rentalParam" data-toggle="tab">rentalParam</a></li>
 		<li><a href="#region" data-toggle="tab">region</a></li>
 		<li><a href="#building" data-toggle="tab">building</a></li>
-		<li><a href="#building_regionDown" data-toggle="tab">building_regionDown</a></li>
+		<li><a href="#house" data-toggle="tab">house</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="houseParam">
 			<input class="btn btn-info btn-lg" type="button" value="Get" id="houseParamGet" /> <br>
+			<input class="btn btn-info btn-lg" type="button" value="GetHouseType" id="houseTypeParamGet" /> <br>
+			<input class="btn btn-info btn-lg" type="button" value="houseParamGetWithoutPage" id="houseParamGetWithoutPage" /><br>
 			<input class="btn btn-info btn-lg"type="button" value="Delete" id="houseParamDelete" /><br>
 			<input class="btn btn-info btn-lg"type="button" value="Add" id="houseParamAdd" /> <br>
 			<input class="btn btn-info btn-lg"type="button" value="Modify" id="houseParamModify" />
@@ -254,18 +340,25 @@
 		</div>
 		<div class="tab-pane fade" id="region">
 			<input class="btn btn-info btn-lg" type="button" value="RegionGet" id="regionGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="GetRegionWithBuildings" id="getRegionWithBuildings" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="RegionDelete" id="regionDelete" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="RegionAdd" id="regionAdd" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="RegionModify" id="regionModify" /> <br>
 		</div>
 		<div class="tab-pane fade" id="building">
 			<input class="btn btn-info btn-lg" type="button" value="BuildingGet" id="buildingGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="GetBuildingByRegionId" id="getBuildingByRegionId" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="BuildingDelete" id="buildingDelete" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="BuildingAdd" id="buildingAdd" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="BuildingModify" id="buildingModify" /> <br>
 		</div>
-		<div class="tab-pane fade" id="building_regionDown">
-			<input class="btn btn-info btn-lg" type="button" value="building_regionDownGet" id="building_regionDownGet" /> <br> 
+		<div class="tab-pane fade" id="house">
+			<input class="btn btn-info btn-lg" type="button" value="HouseGet" id="houseGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByRegionId" id="getViewHouseByRegionId" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByBuildingId" id="getViewHouseByBuildingId" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="HouseDelete" id="houseDelete" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="HouseAdd" id="houseAdd" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="HouseModify" id="houseModify" /> <br>
 		</div>
 	</div>
 

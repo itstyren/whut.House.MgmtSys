@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.house.ViewHouseMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.house.ViewHouse">
+    <result column="Id" jdbcType="INTEGER" property="id" />
+    <result column="No" jdbcType="INTEGER" property="no" />
+    <result column="Type" jdbcType="INTEGER" property="type" />
+    <result column="TypeName" jdbcType="VARCHAR" property="typeName" />
+    <result column="Layout" jdbcType="INTEGER" property="layout" />
+    <result column="LayoutName" jdbcType="VARCHAR" property="layoutName" />
+    <result column="Struct" jdbcType="INTEGER" property="struct" />
+    <result column="StructName" jdbcType="VARCHAR" property="structName" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="StatusName" jdbcType="VARCHAR" property="statusName" />
+    <result column="BuildArea" jdbcType="DOUBLE" property="buildArea" />
+    <result column="UsedArea" jdbcType="DOUBLE" property="usedArea" />
+    <result column="BasementArea" jdbcType="DOUBLE" property="basementArea" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
+    <result column="BuildingId" jdbcType="INTEGER" property="buildingId" />
+    <result column="BuildingName" jdbcType="VARCHAR" property="buildingName" />
+    <result column="ProId" jdbcType="VARCHAR" property="proId" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="Image" jdbcType="VARCHAR" property="image" />
+    <result column="Rental" jdbcType="DOUBLE" property="rental" />
+    <result column="FinishTime" jdbcType="DATE" property="finishTime" />
+    <result column="RecordStatus" jdbcType="INTEGER" property="recordStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, No, Type, TypeName, Layout, LayoutName, Struct, StructName, Status, StatusName, 
+    BuildArea, UsedArea, BasementArea, Address, BuildingId, BuildingName, ProId, Remark, 
+    Image, Rental, FinishTime, RecordStatus
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from view_pm_house
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample">
+    delete from view_pm_house
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouse">
+    insert into view_pm_house (Id, No, Type, 
+      TypeName, Layout, LayoutName, 
+      Struct, StructName, Status, 
+      StatusName, BuildArea, UsedArea, 
+      BasementArea, Address, BuildingId, 
+      BuildingName, ProId, Remark, 
+      Image, Rental, FinishTime, 
+      RecordStatus)
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{typeName,jdbcType=VARCHAR}, #{layout,jdbcType=INTEGER}, #{layoutName,jdbcType=VARCHAR}, 
+      #{struct,jdbcType=INTEGER}, #{structName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{statusName,jdbcType=VARCHAR}, #{buildArea,jdbcType=DOUBLE}, #{usedArea,jdbcType=DOUBLE}, 
+      #{basementArea,jdbcType=DOUBLE}, #{address,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, 
+      #{buildingName,jdbcType=VARCHAR}, #{proId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR}, #{rental,jdbcType=DOUBLE}, #{finishTime,jdbcType=DATE}, 
+      #{recordStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouse">
+    insert into view_pm_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="no != null">
+        No,
+      </if>
+      <if test="type != null">
+        Type,
+      </if>
+      <if test="typeName != null">
+        TypeName,
+      </if>
+      <if test="layout != null">
+        Layout,
+      </if>
+      <if test="layoutName != null">
+        LayoutName,
+      </if>
+      <if test="struct != null">
+        Struct,
+      </if>
+      <if test="structName != null">
+        StructName,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+      <if test="statusName != null">
+        StatusName,
+      </if>
+      <if test="buildArea != null">
+        BuildArea,
+      </if>
+      <if test="usedArea != null">
+        UsedArea,
+      </if>
+      <if test="basementArea != null">
+        BasementArea,
+      </if>
+      <if test="address != null">
+        Address,
+      </if>
+      <if test="buildingId != null">
+        BuildingId,
+      </if>
+      <if test="buildingName != null">
+        BuildingName,
+      </if>
+      <if test="proId != null">
+        ProId,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+      <if test="image != null">
+        Image,
+      </if>
+      <if test="rental != null">
+        Rental,
+      </if>
+      <if test="finishTime != null">
+        FinishTime,
+      </if>
+      <if test="recordStatus != null">
+        RecordStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="layout != null">
+        #{layout,jdbcType=INTEGER},
+      </if>
+      <if test="layoutName != null">
+        #{layoutName,jdbcType=VARCHAR},
+      </if>
+      <if test="struct != null">
+        #{struct,jdbcType=INTEGER},
+      </if>
+      <if test="structName != null">
+        #{structName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusName != null">
+        #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null">
+        #{buildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="usedArea != null">
+        #{usedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="basementArea != null">
+        #{basementArea,jdbcType=DOUBLE},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="buildingName != null">
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null">
+        #{proId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="rental != null">
+        #{rental,jdbcType=DOUBLE},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=DATE},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample" resultType="java.lang.Long">
+    select count(*) from view_pm_house
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update view_pm_house
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.no != null">
+        No = #{record.no,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        Type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeName != null">
+        TypeName = #{record.typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.layout != null">
+        Layout = #{record.layout,jdbcType=INTEGER},
+      </if>
+      <if test="record.layoutName != null">
+        LayoutName = #{record.layoutName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.struct != null">
+        Struct = #{record.struct,jdbcType=INTEGER},
+      </if>
+      <if test="record.structName != null">
+        StructName = #{record.structName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        Status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.statusName != null">
+        StatusName = #{record.statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildArea != null">
+        BuildArea = #{record.buildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.usedArea != null">
+        UsedArea = #{record.usedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.basementArea != null">
+        BasementArea = #{record.basementArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.address != null">
+        Address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingId != null">
+        BuildingId = #{record.buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildingName != null">
+        BuildingName = #{record.buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proId != null">
+        ProId = #{record.proId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        Remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image != null">
+        Image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rental != null">
+        Rental = #{record.rental,jdbcType=DOUBLE},
+      </if>
+      <if test="record.finishTime != null">
+        FinishTime = #{record.finishTime,jdbcType=DATE},
+      </if>
+      <if test="record.recordStatus != null">
+        RecordStatus = #{record.recordStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update view_pm_house
+    set Id = #{record.id,jdbcType=INTEGER},
+      No = #{record.no,jdbcType=INTEGER},
+      Type = #{record.type,jdbcType=INTEGER},
+      TypeName = #{record.typeName,jdbcType=VARCHAR},
+      Layout = #{record.layout,jdbcType=INTEGER},
+      LayoutName = #{record.layoutName,jdbcType=VARCHAR},
+      Struct = #{record.struct,jdbcType=INTEGER},
+      StructName = #{record.structName,jdbcType=VARCHAR},
+      Status = #{record.status,jdbcType=INTEGER},
+      StatusName = #{record.statusName,jdbcType=VARCHAR},
+      BuildArea = #{record.buildArea,jdbcType=DOUBLE},
+      UsedArea = #{record.usedArea,jdbcType=DOUBLE},
+      BasementArea = #{record.basementArea,jdbcType=DOUBLE},
+      Address = #{record.address,jdbcType=VARCHAR},
+      BuildingId = #{record.buildingId,jdbcType=INTEGER},
+      BuildingName = #{record.buildingName,jdbcType=VARCHAR},
+      ProId = #{record.proId,jdbcType=VARCHAR},
+      Remark = #{record.remark,jdbcType=VARCHAR},
+      Image = #{record.image,jdbcType=VARCHAR},
+      Rental = #{record.rental,jdbcType=DOUBLE},
+      FinishTime = #{record.finishTime,jdbcType=DATE},
+      RecordStatus = #{record.recordStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
