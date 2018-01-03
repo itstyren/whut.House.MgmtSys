@@ -42,11 +42,11 @@ public class StaffController {
 
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
-	public Msg modifyStaff(@RequestBody Staff staff) {
+	public Msg modifyStaff(@RequestBody @Valid Staff staff) {
 		staffService.update(staff);
 		return Msg.success("修改成功").add("data", staff);
 	}
-
+	
 	/**
 	 * 新增一个员工
 	 * 
