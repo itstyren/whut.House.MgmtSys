@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffModel;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterModel;
@@ -114,12 +115,24 @@ public class StaffController {
 		List<StaffParameter> depts = staffParameterSerivce.getAllByParamTypeId(5);
 		List<StaffParameterModel> deptModels = new ArrayList<StaffParameterModel>();
 		for (StaffParameter dept : depts) {
+			
+			List<Staff> staffers = staffService.getByStaffDept(dept.getStaffParamId());
+			List<StaffModel> staffModels = new ArrayList<StaffModel>();
+			for (Staff staff : staffers){
+				StaffModel staffModel = new StaffModel();
+				staffModel.setId(staff.getId());
+				staffModel.setNo(staff.getNo());
+				staffModel.setName(staff.getName());
+				staffModels.add(staffModel);
+			}
+			
 			StaffParameterModel deptModel = new StaffParameterModel();
 			deptModel.setStaffParamId(dept.getStaffParamId());
 			deptModel.setStaffParamName(dept.getStaffParamName());
+			deptModel.setStaffModels(staffModels);
 			deptModels.add(deptModel);
 		}
-		return Msg.success().add("data", deptModels);
+		return Msg.success().add("deptData", deptModels);
 	}
 
 	/**
