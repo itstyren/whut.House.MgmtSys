@@ -196,6 +196,7 @@ public class HouseController {
 		List<Integer> houseStatusParamIds= houseParamService.getHouseParamId(3);
 		List<Integer> houseStructParamIds= houseParamService.getHouseParamId(4);*/
 
+		houseService.add(house);
 		return Msg.success().add("data", house);
 	}
 

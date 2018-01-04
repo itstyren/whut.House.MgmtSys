@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.building.Building;
+import com.computerdesign.whutHouseMgmt.bean.building.ViewBuilding;
 import com.computerdesign.whutHouseMgmt.bean.region.Region;
 import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
+import com.computerdesign.whutHouseMgmt.service.building.ViewBuildingService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -24,15 +26,17 @@ public class BuildingController {
 
 	@Autowired
 	private BuildingService buildingService;
+	@Autowired
+	private ViewBuildingService viewBuildingService;
 
 	@ResponseBody
 	@RequestMapping(value = "get/{id}", method = RequestMethod.GET)
 	public Msg getBuilding(@PathVariable("id") Integer id) {
-		Building building = buildingService.getBuildingById(id);
-		if (building == null) {
+		ViewBuilding viewBuilding = viewBuildingService.getViewBuildingById(id);
+		if (viewBuilding == null) {
 			return Msg.error("差找不到");
 		} else {
-			return Msg.success().add("data", building);
+			return Msg.success().add("data", viewBuilding);
 		}
 	}
 
@@ -49,11 +53,11 @@ public class BuildingController {
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 
 		PageHelper.startPage(page, size);
-		List<Building> buildings = buildingService.getAll();
+		List<ViewBuilding> viewBuildings = viewBuildingService.getAllViewBuilding();
 
-		PageInfo pageInfo = new PageInfo(buildings);
+		PageInfo pageInfo = new PageInfo(viewBuildings);
 
-		if (buildings != null) {
+		if (viewBuildings != null) {
 			return Msg.success().add("data", pageInfo);
 		} else {
 			return Msg.error("无法获取数据");
@@ -75,11 +79,11 @@ public class BuildingController {
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 
 		PageHelper.startPage(page, size);
-		List<Building> buildings = buildingService.getAllByRegionId(regionId);
+		List<ViewBuilding> viewBuildings = viewBuildingService.getAllViewBuildingByRegionId(regionId);
 
-		PageInfo pageInfo = new PageInfo(buildings);
+		PageInfo pageInfo = new PageInfo(viewBuildings);
 
-		if (buildings != null) {
+		if (viewBuildings != null) {
 			return Msg.success().add("data", pageInfo);
 		} else {
 			return Msg.error("无法获取数据");
