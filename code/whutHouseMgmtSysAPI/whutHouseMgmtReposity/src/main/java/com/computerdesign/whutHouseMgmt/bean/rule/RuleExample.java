@@ -164,63 +164,63 @@ public class RuleExample {
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdIsNull() {
-            addCriterion("ObjectId is null");
+        public Criteria andRightIdIsNull() {
+            addCriterion("RightId is null");
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdIsNotNull() {
-            addCriterion("ObjectId is not null");
+        public Criteria andRightIdIsNotNull() {
+            addCriterion("RightId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdEqualTo(Integer value) {
-            addCriterion("ObjectId =", value, "objectId");
+        public Criteria andRightIdEqualTo(Integer value) {
+            addCriterion("RightId =", value, "rightId");
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdNotEqualTo(Integer value) {
-            addCriterion("ObjectId <>", value, "objectId");
+        public Criteria andRightIdNotEqualTo(Integer value) {
+            addCriterion("RightId <>", value, "rightId");
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdGreaterThan(Integer value) {
-            addCriterion("ObjectId >", value, "objectId");
+        public Criteria andRightIdGreaterThan(Integer value) {
+            addCriterion("RightId >", value, "rightId");
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("ObjectId >=", value, "objectId");
+        public Criteria andRightIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("RightId >=", value, "rightId");
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdLessThan(Integer value) {
-            addCriterion("ObjectId <", value, "objectId");
+        public Criteria andRightIdLessThan(Integer value) {
+            addCriterion("RightId <", value, "rightId");
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdLessThanOrEqualTo(Integer value) {
-            addCriterion("ObjectId <=", value, "objectId");
+        public Criteria andRightIdLessThanOrEqualTo(Integer value) {
+            addCriterion("RightId <=", value, "rightId");
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdIn(List<Integer> values) {
-            addCriterion("ObjectId in", values, "objectId");
+        public Criteria andRightIdIn(List<Integer> values) {
+            addCriterion("RightId in", values, "rightId");
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdNotIn(List<Integer> values) {
-            addCriterion("ObjectId not in", values, "objectId");
+        public Criteria andRightIdNotIn(List<Integer> values) {
+            addCriterion("RightId not in", values, "rightId");
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdBetween(Integer value1, Integer value2) {
-            addCriterion("ObjectId between", value1, value2, "objectId");
+        public Criteria andRightIdBetween(Integer value1, Integer value2) {
+            addCriterion("RightId between", value1, value2, "rightId");
             return (Criteria) this;
         }
 
-        public Criteria andObjectIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("ObjectId not between", value1, value2, "objectId");
+        public Criteria andRightIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("RightId not between", value1, value2, "rightId");
             return (Criteria) this;
         }
 

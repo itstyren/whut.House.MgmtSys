@@ -3,7 +3,7 @@
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.rule.RuleMapper">
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.rule.Rule">
     <id column="Id" jdbcType="INTEGER" property="id" />
-    <result column="ObjectId" jdbcType="INTEGER" property="objectId" />
+    <result column="RightId" jdbcType="INTEGER" property="rightId" />
     <result column="RoleId" jdbcType="INTEGER" property="roleId" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, ObjectId, RoleId
+    Id, RightId, RoleId
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rule.RuleExample" resultMap="BaseResultMap">
     select
@@ -98,9 +98,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.rule.Rule">
-    insert into Au_Rule (Id, ObjectId, RoleId
+    insert into Au_Rule (Id, RightId, RoleId
       )
-    values (#{id,jdbcType=INTEGER}, #{objectId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{rightId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rule.Rule">
@@ -109,8 +109,8 @@
       <if test="id != null">
         Id,
       </if>
-      <if test="objectId != null">
-        ObjectId,
+      <if test="rightId != null">
+        RightId,
       </if>
       <if test="roleId != null">
         RoleId,
@@ -120,8 +120,8 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="objectId != null">
-        #{objectId,jdbcType=INTEGER},
+      <if test="rightId != null">
+        #{rightId,jdbcType=INTEGER},
       </if>
       <if test="roleId != null">
         #{roleId,jdbcType=INTEGER},
@@ -140,8 +140,8 @@
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.objectId != null">
-        ObjectId = #{record.objectId,jdbcType=INTEGER},
+      <if test="record.rightId != null">
+        RightId = #{record.rightId,jdbcType=INTEGER},
       </if>
       <if test="record.roleId != null">
         RoleId = #{record.roleId,jdbcType=INTEGER},
@@ -154,7 +154,7 @@
   <update id="updateByExample" parameterType="map">
     update Au_Rule
     set Id = #{record.id,jdbcType=INTEGER},
-      ObjectId = #{record.objectId,jdbcType=INTEGER},
+      RightId = #{record.rightId,jdbcType=INTEGER},
       RoleId = #{record.roleId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -163,8 +163,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rule.Rule">
     update Au_Rule
     <set>
-      <if test="objectId != null">
-        ObjectId = #{objectId,jdbcType=INTEGER},
+      <if test="rightId != null">
+        RightId = #{rightId,jdbcType=INTEGER},
       </if>
       <if test="roleId != null">
         RoleId = #{roleId,jdbcType=INTEGER},
@@ -174,7 +174,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.rule.Rule">
     update Au_Rule
-    set ObjectId = #{objectId,jdbcType=INTEGER},
+    set RightId = #{rightId,jdbcType=INTEGER},
       RoleId = #{roleId,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}
   </update>

@@ -254,16 +254,16 @@
 
 		$("#houseAdd").click(function() {
 			var data = {
-				'no' : 5116,
+				'no' : 51168,
 				'type' : 10,
 				'layout' : 19,
-				'status' : 26,
 				'struct' : 29,
 				'buildArea' : 66,
 				'usedArea' : 66,
 				'basementArea' : 66,
 				'address' : '水立方',
 				'buildingId' : 5,
+				'image':null,
 				'proId' : '66',
 				'remark':'凤梨酥',
 				'rental':'26.9',
@@ -279,13 +279,13 @@
 					'no' : 55,
 					'type' : 10,
 					'layout' : 19,
-					'status' : 38,
 					'struct' : 29,
 					'buildArea' : 66,
 					'usedArea' : 66,
 					'basementArea' : 66,
 					'address' : '水立方',
 					'buildingId' : 5,
+					'image':null,
 					'proId' : '66',
 					'remark':'凤梨酥',
 					'rental':'26.9',
@@ -307,6 +307,14 @@
 		})
 	})
 
+	//角色
+	$(function() {
+		$("#roleGet").click(function() {
+			ajaxRequestGet("role/get");
+		})
+		
+		
+	})
 	
 	//下拉列表
 	$(function() {
@@ -330,7 +338,7 @@
 		<li><a href="#building" data-toggle="tab">building</a></li>
 		<li><a href="#house" data-toggle="tab">house</a></li>
 		<li><a href="#right" data-toggle="tab">right</a></li>
-		
+		<li><a href="#role" data-toggle="tab">role</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="houseParam">
@@ -378,6 +386,10 @@
 			<input class="btn btn-info btn-lg" type="button" value="获取带right的class" id="rightGet" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="获取全部带right的class" id="getAllClassWithRight" /> <br> 
 			
+		</div>
+		<div class="tab-pane fade" id="role">
+			<input class="btn btn-info btn-lg" type="button" value="role" id="roleGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="roleAdd" id="roleAdd" /> <br> 
 		</div>
 	</div>
 
