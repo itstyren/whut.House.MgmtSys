@@ -52,6 +52,19 @@ public class StaffService implements BaseService<Staff> {
 		
 	}
 	
+	/**
+	 * 输入框模糊查询员工
+	 * @param input
+	 * @return
+	 */
+	public List<Staff> getStaffByInput(String input){
+		StaffExample staffExample = new StaffExample();
+		Criteria criteria = staffExample.createCriteria();
+		criteria.andNameLike("%" + input + "%");
+		return staffMapper.selectByExample(staffExample);
+		
+	}
+	
 	@Override
 	public List<Staff> getAll() {
 		// TODO Auto-generated method stub
