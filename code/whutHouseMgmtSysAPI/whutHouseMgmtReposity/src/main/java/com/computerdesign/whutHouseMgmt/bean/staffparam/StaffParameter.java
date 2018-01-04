@@ -92,6 +92,14 @@ public class StaffParameter {
 		this.paramTypeName = paramTypeName;
 		this.isDelete = isDelete;
 	}
+
+	@Override
+	public String toString() {
+		return "StaffParameter [staffParamId=" + staffParamId + ", staffParamName=" + staffParamName + ", paramTypeId="
+				+ paramTypeId + ", paramTypeName=" + paramTypeName + ", staffParamVal=" + staffParamVal
+				+ ", staffParamSpouseVal=" + staffParamSpouseVal + ", staffParamHouseArea=" + staffParamHouseArea
+				+ ", isDelete=" + isDelete + "]";
+	}
     
 	
 	

@@ -156,6 +156,10 @@
 		$("#staffDeptGet").click(function() {
 			ajaxRequestGet("staff/getDepts");
 		})
+		
+		$("#staffByInputGet").click(function() {
+			ajaxRequestGet("staff/getStaffByInput?input=h");
+		})
 
 		$("#staffGet").click(function() {
 			ajaxRequestGet("staff/get/65");
@@ -270,6 +274,8 @@
 		<div class="tab-pane fade" id="staffManagement">
 			<h4>获取所有部门</h4>
 			<input class="btn btn-info btn-lg" type="button" value="staffDeptGet" id="staffDeptGet" /> <br><br> 
+			<h4>模糊查询员工</h4>
+			<input class="btn btn-info btn-lg" type="button" value="staffByInputGet" id="staffByInputGet" /> <br><br> 
 			<h4>根据部门ID获取员工</h4>
 			<input class="btn btn-info btn-lg" type="button" value="staffGet" id="staffGet" /> <br><br>  
 			<h4>删除一个员工</h4>

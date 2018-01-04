@@ -1,8 +1,11 @@
 package com.computerdesign.whutHouseMgmt.controller.staffmanagement;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -15,11 +18,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffModel;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterModel;
@@ -114,14 +119,79 @@ public class StaffController {
 		List<StaffParameter> depts = staffParameterSerivce.getAllByParamTypeId(5);
 		List<StaffParameterModel> deptModels = new ArrayList<StaffParameterModel>();
 		for (StaffParameter dept : depts) {
+			
+			List<Staff> staffers = staffService.getByStaffDept(dept.getStaffParamId());
+			List<StaffModel> staffModels = new ArrayList<StaffModel>();
+			for (Staff staff : staffers){
+				StaffModel staffModel = new StaffModel();
+				staffModel.setId(staff.getId());
+				staffModel.setNo(staff.getNo());
+				staffModel.setName(staff.getName());
+				staffModels.add(staffModel);
+			}
+			
 			StaffParameterModel deptModel = new StaffParameterModel();
 			deptModel.setStaffParamId(dept.getStaffParamId());
 			deptModel.setStaffParamName(dept.getStaffParamName());
+			deptModel.setStaffModels(staffModels);
 			deptModels.add(deptModel);
 		}
-		return Msg.success().add("data", deptModels);
+		return Msg.success().add("deptData", deptModels);
 	}
 
+	/**
+	 * 输入框模糊查询员工
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("getStaffByInput")
+	public Msg getStaffByInput(@RequestParam(value="input") String input) {
+		try {
+			input = new String(input.getBytes("iso8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+//		System.out.println(input);
+		
+		//模糊查询到员工信息
+		List<Staff> staffers = staffService.getStaffByInput(input);
+		//用于封装查询出来的员工所在部门ID
+		Set<Integer> deptID = new HashSet<Integer>();
+		for (Staff staff: staffers){
+			Integer id = staff.getDept();
+			deptID.add(id);
+		}
+//		System.out.println(deptID);
+		//用于封装部门id、部门名称、部门人员
+		List<StaffParameterModel> staffParameterModels = new ArrayList<StaffParameterModel>();
+		
+		for (Integer id : deptID){
+			StaffParameter staffParameter = staffParameterSerivce.get(id);
+			StaffParameterModel staffParameterModel = new StaffParameterModel();
+			staffParameterModel.setStaffParamId(staffParameter.getStaffParamId());
+			staffParameterModel.setStaffParamName(staffParameter.getStaffParamName());
+			
+			//用于封装需要返回的人员信息
+			List<StaffModel> staffModels = new ArrayList<StaffModel>();
+			
+			for (Staff staff: staffers){
+				if(staff.getDept() == id){
+					StaffModel staffModel = new StaffModel();
+					staffModel.setId(staff.getId());
+					staffModel.setNo(staff.getNo());
+					staffModel.setName(staff.getName());
+					staffModels.add(staffModel);
+				}	
+			}
+			staffParameterModel.setStaffModels(staffModels);
+			
+			staffParameterModels.add(staffParameterModel);
+		}
+		
+		return Msg.success().add("data", staffParameterModels);
+	}
+	
 	/**
 	 * 根据部门ID获取所有员工
 	 * 
