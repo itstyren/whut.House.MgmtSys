@@ -73,7 +73,11 @@ export const putBuildingData = (params) => { return axios.put(`${base}building/m
 export const deleteBuildingData = (buildingID) => { return axios.delete(`${base}building/delete/${buildingID}`) }
 
 // 基础数据-房屋管理
-// 获取方法
-export const getHouseBybuildingID = (params, buildingID) => { return axios.get(`${base}house/getViewHousesByBuildingId/${buildingID}`, { params: params }) }
+// 获取方法--可以获取全部的
+export const getHouse = (params) => { return axios.get(`${base}house/get`, { params: params }) }
+// 获取方法--根据楼栋id
+export const getHouseByBuildingID = (params, buildingID) => { return axios.get(`${base}house/getViewHousesByBuildingId/${buildingID}`, { params: params }) }
+// 获取方法--根据区域id
+export const getHouseByRegionID = (params, region) => { return axios.get(`${base}house/getViewHousesByRegionId/${region}`, { params: params }) }
 // 删除方法
 export const deleteHouseData = (houseID) => { return axios.delete(`${base}house/delete/${houseID}`) }
