@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computerdesign.whutHouseMgmt.dao.role.RoleMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.role.Role">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.right.RightClassMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.right.RightClass">
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
-    <result column="Description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, Name, Description
+    Id, Name
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.role.RoleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.right.RightClassExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Au_Role
+    from Au_RightClass
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,36 +83,31 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from Au_Role
+    from Au_RightClass
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Au_Role
+    delete from Au_RightClass
     where Id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.role.RoleExample">
-    delete from Au_Role
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.right.RightClassExample">
+    delete from Au_RightClass
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.role.Role">
-    insert into Au_Role (Id, Name, Description
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.right.RightClass">
+    insert into Au_RightClass (Id, Name)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.role.Role">
-    insert into Au_Role
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.right.RightClass">
+    insert into Au_RightClass
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
       </if>
       <if test="name != null">
         Name,
-      </if>
-      <if test="description != null">
-        Description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -123,19 +117,16 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.role.RoleExample" resultType="java.lang.Long">
-    select count(*) from Au_Role
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.right.RightClassExample" resultType="java.lang.Long">
+    select count(*) from Au_RightClass
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Au_Role
+    update Au_RightClass
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
@@ -143,39 +134,31 @@
       <if test="record.name != null">
         Name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.description != null">
-        Description = #{record.description,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Au_Role
+    update Au_RightClass
     set Id = #{record.id,jdbcType=INTEGER},
-      Name = #{record.name,jdbcType=VARCHAR},
-      Description = #{record.description,jdbcType=VARCHAR}
+      Name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.role.Role">
-    update Au_Role
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.right.RightClass">
+    update Au_RightClass
     <set>
       <if test="name != null">
         Name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="description != null">
-        Description = #{description,jdbcType=VARCHAR},
-      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.role.Role">
-    update Au_Role
-    set Name = #{name,jdbcType=VARCHAR},
-      Description = #{description,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.right.RightClass">
+    update Au_RightClass
+    set Name = #{name,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

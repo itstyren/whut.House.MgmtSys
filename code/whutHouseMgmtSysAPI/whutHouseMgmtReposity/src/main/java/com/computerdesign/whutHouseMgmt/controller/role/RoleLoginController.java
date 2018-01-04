@@ -28,7 +28,7 @@ public class RoleLoginController {
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public Msg get(){
-		List<Role> roles = roleService.get();
+		List<Role> roles = roleService.getAll();
 		List<RoleLogin> roleLogins = new ArrayList<RoleLogin>();
 		for (Role role : roles) {
 			RoleLogin roleLogin = new RoleLogin(role.getId(),role.getName());

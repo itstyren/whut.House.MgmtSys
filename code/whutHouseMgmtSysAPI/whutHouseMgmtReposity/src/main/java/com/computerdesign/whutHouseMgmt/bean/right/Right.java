@@ -1,11 +1,11 @@
-package com.computerdesign.whutHouseMgmt.bean.role;
+package com.computerdesign.whutHouseMgmt.bean.right;
 
-public class Role {
+public class Right {
     private Integer id;
 
     private String name;
 
-    private String description;
+    private Integer classId;
 
     public Integer getId() {
         return id;
@@ -23,11 +23,11 @@ public class Role {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getClassId() {
+        return classId;
     }
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+    public void setClassId(Integer classId) {
+        this.classId = classId;
     }
 }

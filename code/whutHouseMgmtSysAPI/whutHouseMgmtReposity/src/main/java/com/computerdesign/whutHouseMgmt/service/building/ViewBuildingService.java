@@ -18,18 +18,18 @@ public class ViewBuildingService {
 	@Autowired
 	private ViewBuildingMapper viewBuildingMapper;
 	
-	public ViewBuilding getBuildingById(Integer id) {
+	public ViewBuilding getViewBuildingById(Integer id) {
 		ViewBuildingExample example = new ViewBuildingExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(id);
 		return viewBuildingMapper.selectByExample(example).get(0);
 	}
 	
-	public List<ViewBuilding> getAll(){
+	public List<ViewBuilding> getAllViewBuilding(){
 		return viewBuildingMapper.selectByExample(null);
 	}
 	
-	public List<ViewBuilding> getAllByName(String name) {
+	public List<ViewBuilding> getAllViewBuildintByName(String name) {
 		ViewBuildingExample example=new ViewBuildingExample();
 		Criteria criteria=example.createCriteria();
 		criteria.andNameEqualTo(name);
@@ -40,28 +40,12 @@ public class ViewBuildingService {
 	 * @param buildingRegion
 	 * @return
 	 */
-	public List<ViewBuilding> getAllByRegionId(Integer regionId) {
+	public List<ViewBuilding> getAllViewBuildingByRegionId(Integer regionId) {
 		ViewBuildingExample example=new ViewBuildingExample();
 		Criteria criteria=example.createCriteria();
 		criteria.andRegionIdEqualTo(regionId);
 		return viewBuildingMapper.selectByExample(example);
 	}
 	
-	public void add(ViewBuilding building){
-		viewBuildingMapper.insertSelective(building);
-	}
-	
-	public void delete(Integer id){
-		ViewBuildingExample example = new ViewBuildingExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andIdEqualTo(id);
-		viewBuildingMapper.deleteByExample(example);
-	}
-	
-	public void update(ViewBuilding building){
-		ViewBuildingExample example = new ViewBuildingExample();
-		Criteria criteria = example.createCriteria();
-		
-		viewBuildingMapper.updateByExample()
-	}
+
 }

@@ -296,6 +296,18 @@
 		})
 	})
 	
+	//权限right&class
+	$(function() {
+		$("#rightGet").click(function() {
+			ajaxRequestGet("right/getClassWithRights/2");
+		})
+
+		$("#getAllClassWithRight").click(function() {
+			ajaxRequestGet("right/get");
+		})
+	})
+
+	
 	//下拉列表
 	$(function() {
 		$("#building_regionDown").click(function() {
@@ -317,6 +329,8 @@
 		<li><a href="#region" data-toggle="tab">region</a></li>
 		<li><a href="#building" data-toggle="tab">building</a></li>
 		<li><a href="#house" data-toggle="tab">house</a></li>
+		<li><a href="#right" data-toggle="tab">right</a></li>
+		
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="houseParam">
@@ -359,6 +373,11 @@
 			<input class="btn btn-info btn-lg" type="button" value="HouseDelete" id="houseDelete" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="HouseAdd" id="houseAdd" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="HouseModify" id="houseModify" /> <br>
+		</div>
+		<div class="tab-pane fade" id="right">
+			<input class="btn btn-info btn-lg" type="button" value="获取带right的class" id="rightGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="获取全部带right的class" id="getAllClassWithRight" /> <br> 
+			
 		</div>
 	</div>
 

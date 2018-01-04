@@ -1,16 +1,16 @@
-package com.computerdesign.whutHouseMgmt.bean.role;
+package com.computerdesign.whutHouseMgmt.bean.right;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleExample {
+public class RightExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public RoleExample() {
+    public RightExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -234,73 +234,63 @@ public class RoleExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIsNull() {
-            addCriterion("Description is null");
+        public Criteria andClassIdIsNull() {
+            addCriterion("ClassId is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIsNotNull() {
-            addCriterion("Description is not null");
+        public Criteria andClassIdIsNotNull() {
+            addCriterion("ClassId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionEqualTo(String value) {
-            addCriterion("Description =", value, "description");
+        public Criteria andClassIdEqualTo(Integer value) {
+            addCriterion("ClassId =", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotEqualTo(String value) {
-            addCriterion("Description <>", value, "description");
+        public Criteria andClassIdNotEqualTo(Integer value) {
+            addCriterion("ClassId <>", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionGreaterThan(String value) {
-            addCriterion("Description >", value, "description");
+        public Criteria andClassIdGreaterThan(Integer value) {
+            addCriterion("ClassId >", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
-            addCriterion("Description >=", value, "description");
+        public Criteria andClassIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ClassId >=", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLessThan(String value) {
-            addCriterion("Description <", value, "description");
+        public Criteria andClassIdLessThan(Integer value) {
+            addCriterion("ClassId <", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLessThanOrEqualTo(String value) {
-            addCriterion("Description <=", value, "description");
+        public Criteria andClassIdLessThanOrEqualTo(Integer value) {
+            addCriterion("ClassId <=", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLike(String value) {
-            addCriterion("Description like", value, "description");
+        public Criteria andClassIdIn(List<Integer> values) {
+            addCriterion("ClassId in", values, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotLike(String value) {
-            addCriterion("Description not like", value, "description");
+        public Criteria andClassIdNotIn(List<Integer> values) {
+            addCriterion("ClassId not in", values, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIn(List<String> values) {
-            addCriterion("Description in", values, "description");
+        public Criteria andClassIdBetween(Integer value1, Integer value2) {
+            addCriterion("ClassId between", value1, value2, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotIn(List<String> values) {
-            addCriterion("Description not in", values, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionBetween(String value1, String value2) {
-            addCriterion("Description between", value1, value2, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionNotBetween(String value1, String value2) {
-            addCriterion("Description not between", value1, value2, "description");
+        public Criteria andClassIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("ClassId not between", value1, value2, "classId");
             return (Criteria) this;
         }
     }
