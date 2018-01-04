@@ -39,6 +39,19 @@ public class StaffService implements BaseService<Staff> {
 		
 	}
 	
+	/**
+	 * 根据员工部门ID获取员工
+	 * @param no
+	 * @return
+	 */
+	public List<Staff> getByStaffDept(Integer dept){
+		StaffExample staffExample = new StaffExample();
+		Criteria criteria = staffExample.createCriteria();
+		criteria.andDeptEqualTo(dept);
+		return staffMapper.selectByExample(staffExample);
+		
+	}
+	
 	@Override
 	public List<Staff> getAll() {
 		// TODO Auto-generated method stub
