@@ -5,7 +5,6 @@
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="ObjectId" jdbcType="INTEGER" property="objectId" />
     <result column="RoleId" jdbcType="INTEGER" property="roleId" />
-    <result column="AuthorityType" jdbcType="INTEGER" property="authorityType" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, ObjectId, RoleId, AuthorityType
+    Id, ObjectId, RoleId
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rule.RuleExample" resultMap="BaseResultMap">
     select
@@ -99,10 +98,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.rule.Rule">
-    insert into Au_Rule (Id, ObjectId, RoleId, 
-      AuthorityType)
-    values (#{id,jdbcType=INTEGER}, #{objectId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
-      #{authorityType,jdbcType=INTEGER})
+    insert into Au_Rule (Id, ObjectId, RoleId
+      )
+    values (#{id,jdbcType=INTEGER}, #{objectId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rule.Rule">
     insert into Au_Rule
@@ -116,9 +115,6 @@
       <if test="roleId != null">
         RoleId,
       </if>
-      <if test="authorityType != null">
-        AuthorityType,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -129,9 +125,6 @@
       </if>
       <if test="roleId != null">
         #{roleId,jdbcType=INTEGER},
-      </if>
-      <if test="authorityType != null">
-        #{authorityType,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -153,9 +146,6 @@
       <if test="record.roleId != null">
         RoleId = #{record.roleId,jdbcType=INTEGER},
       </if>
-      <if test="record.authorityType != null">
-        AuthorityType = #{record.authorityType,jdbcType=INTEGER},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -165,8 +155,7 @@
     update Au_Rule
     set Id = #{record.id,jdbcType=INTEGER},
       ObjectId = #{record.objectId,jdbcType=INTEGER},
-      RoleId = #{record.roleId,jdbcType=INTEGER},
-      AuthorityType = #{record.authorityType,jdbcType=INTEGER}
+      RoleId = #{record.roleId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -180,17 +169,13 @@
       <if test="roleId != null">
         RoleId = #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="authorityType != null">
-        AuthorityType = #{authorityType,jdbcType=INTEGER},
-      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.rule.Rule">
     update Au_Rule
     set ObjectId = #{objectId,jdbcType=INTEGER},
-      RoleId = #{roleId,jdbcType=INTEGER},
-      AuthorityType = #{authorityType,jdbcType=INTEGER}
+      RoleId = #{roleId,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

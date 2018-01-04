@@ -283,66 +283,6 @@ public class RuleExample {
             addCriterion("RoleId not between", value1, value2, "roleId");
             return (Criteria) this;
         }
-
-        public Criteria andAuthorityTypeIsNull() {
-            addCriterion("AuthorityType is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorityTypeIsNotNull() {
-            addCriterion("AuthorityType is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorityTypeEqualTo(Integer value) {
-            addCriterion("AuthorityType =", value, "authorityType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorityTypeNotEqualTo(Integer value) {
-            addCriterion("AuthorityType <>", value, "authorityType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorityTypeGreaterThan(Integer value) {
-            addCriterion("AuthorityType >", value, "authorityType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorityTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("AuthorityType >=", value, "authorityType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorityTypeLessThan(Integer value) {
-            addCriterion("AuthorityType <", value, "authorityType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorityTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("AuthorityType <=", value, "authorityType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorityTypeIn(List<Integer> values) {
-            addCriterion("AuthorityType in", values, "authorityType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorityTypeNotIn(List<Integer> values) {
-            addCriterion("AuthorityType not in", values, "authorityType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorityTypeBetween(Integer value1, Integer value2) {
-            addCriterion("AuthorityType between", value1, value2, "authorityType");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorityTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("AuthorityType not between", value1, value2, "authorityType");
-            return (Criteria) this;
-        }
     }
 
     public static class Criteria extends GeneratedCriteria {

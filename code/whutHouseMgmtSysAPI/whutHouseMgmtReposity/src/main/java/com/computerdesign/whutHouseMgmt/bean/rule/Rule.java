@@ -7,8 +7,6 @@ public class Rule {
 
     private Integer roleId;
 
-    private Integer authorityType;
-
     public Integer getId() {
         return id;
     }
@@ -31,13 +29,5 @@ public class Rule {
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
-    }
-
-    public Integer getAuthorityType() {
-        return authorityType;
-    }
-
-    public void setAuthorityType(Integer authorityType) {
-        this.authorityType = authorityType;
     }
 }
