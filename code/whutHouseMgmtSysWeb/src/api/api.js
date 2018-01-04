@@ -81,3 +81,5 @@ export const getHouseByBuildingID = (params, buildingID) => { return axios.get(`
 export const getHouseByRegionID = (params, region) => { return axios.get(`${base}house/getViewHousesByRegionId/${region}`, { params: params }) }
 // 删除方法
 export const deleteHouseData = (houseID) => { return axios.delete(`${base}house/delete/${houseID}`) }
+// 新增方法
+export const postHouseData = (params) => { return axios.post(`${base}house/add`, params) }

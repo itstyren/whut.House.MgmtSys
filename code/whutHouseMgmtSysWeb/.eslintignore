@@ -4,6 +4,7 @@ src/views/*.vue
 src/assets/icons/*js
 src/store/*.js
 src/common/*.js
+src/assets/function/*.js
 
 src/components/sysManage/paramSet/*.vue
 src/components/sysManage/paramSet/houseParam/*.vue 
