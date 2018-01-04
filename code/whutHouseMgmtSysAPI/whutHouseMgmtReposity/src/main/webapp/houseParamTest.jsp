@@ -316,6 +316,18 @@
 		
 	})
 	
+	//登陆
+	$(function() {
+		$("#login").click(function() {
+			var data ={
+					'no':'110',
+					'password':'999',
+					'roleId':4
+			};
+			ajaxRequestPostType("login/user", "POST", data);
+		})
+	})
+	
 	//下拉列表
 	$(function() {
 		$("#building_regionDown").click(function() {
@@ -339,6 +351,8 @@
 		<li><a href="#house" data-toggle="tab">house</a></li>
 		<li><a href="#right" data-toggle="tab">right</a></li>
 		<li><a href="#role" data-toggle="tab">role</a></li>
+		<li><a href="#login" data-toggle="tab">login</a></li>
+		
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="houseParam">
@@ -390,6 +404,10 @@
 		<div class="tab-pane fade" id="role">
 			<input class="btn btn-info btn-lg" type="button" value="role" id="roleGet" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="roleAdd" id="roleAdd" /> <br> 
+		</div>
+		<div class="tab-pane fade" id="login">
+		 登陆账号：110  密码：999   用户角色id：4   用户角色：最高级管理员 <br><br>
+			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login" /> <br> 
 		</div>
 	</div>
 

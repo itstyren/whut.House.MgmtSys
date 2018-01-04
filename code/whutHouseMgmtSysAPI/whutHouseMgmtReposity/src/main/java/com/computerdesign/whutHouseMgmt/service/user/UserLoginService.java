@@ -16,7 +16,7 @@ public class UserLoginService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	public List<User> getUser(Integer no,String password) {
+	public List<User> getUser(String no,String password) {
 		UserExample example = new UserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andNoEqualTo(no);

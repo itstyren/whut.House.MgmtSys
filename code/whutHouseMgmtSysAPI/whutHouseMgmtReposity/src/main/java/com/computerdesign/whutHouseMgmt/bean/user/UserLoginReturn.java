@@ -1,6 +1,6 @@
 package com.computerdesign.whutHouseMgmt.bean.user;
 
-public class User {
+public class UserLoginReturn {
     private Integer id;
 
     private String no;
@@ -10,6 +10,8 @@ public class User {
     private String password;
 
     private Integer roleId;
+
+    private String roleName;
 
     public Integer getId() {
         return id;
@@ -49,5 +51,13 @@ public class User {
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName == null ? null : roleName.trim();
     }
 }

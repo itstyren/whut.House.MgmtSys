@@ -46,7 +46,7 @@ public class UserController {
 	public Msg addUser(@RequestBody User user){
 		List<User> userPres = userService.getUserByNo(user.getNo());
 		if(!userPres.isEmpty()){
-			return Msg.error("该房屋编号已经存在");
+			return Msg.error("该用户已经存在");
 		}else{
 			userService.add(user);
 			return Msg.success();

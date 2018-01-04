@@ -2,17 +2,17 @@ package com.computerdesign.whutHouseMgmt.bean.user;
 
 public class UserLogin {
 
-	private Integer no;
+	private String no;
 
     private String password;
 
     private Integer roleId;
 
-	public Integer getNo() {
+	public String getNo() {
 		return no;
 	}
 
-	public void setNo(Integer no) {
+	public void setNo(String no) {
 		this.no = no;
 	}
 
