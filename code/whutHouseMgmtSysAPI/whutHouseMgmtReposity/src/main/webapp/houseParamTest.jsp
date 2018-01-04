@@ -254,7 +254,7 @@
 
 		$("#houseAdd").click(function() {
 			var data = {
-				'no' : 51168,
+				'no' : 565656,
 				'type' : 10,
 				'layout' : 19,
 				'struct' : 29,

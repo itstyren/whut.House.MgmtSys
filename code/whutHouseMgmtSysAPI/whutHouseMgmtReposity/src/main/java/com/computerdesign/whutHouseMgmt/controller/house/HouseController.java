@@ -107,7 +107,7 @@ public class HouseController {
 		PageInfo pageInfo = new PageInfo(viewHouseList);
 
 		if (viewHouseList == null) {
-			return Msg.error("差找不到数据");
+			return Msg.error("查找不到数据");
 		}else{
 			return Msg.success().add("data", pageInfo);
 		}
@@ -124,6 +124,7 @@ public class HouseController {
 	public Msg getViewHousesByBuildingId(@PathVariable("buildingId") Integer buildingId,
 	@RequestParam(value = "page", defaultValue = "0") Integer page,
 	@RequestParam(value = "size", defaultValue = "0") Integer size){
+		
 		PageHelper.startPage(page,size);
 		List<ViewHouse> viewHouseList = viewHouseService.getViewHousesByBuildingId(buildingId);
 		
