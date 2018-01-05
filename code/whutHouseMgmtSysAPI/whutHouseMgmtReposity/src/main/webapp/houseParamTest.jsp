@@ -238,6 +238,11 @@
 			//ajaxRequestGet("house/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
 		})
 		
+		$("#houseGetAll").click(function() {
+			ajaxRequestGet("house/get");
+			//ajaxRequestGet("house/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
+		})
+		
 		$("#getViewHouseByRegionId").click(function() {
 			ajaxRequestPostType("house/getViewHousesByRegionId/1");
 			//不带page=1&size=10默认不分页
@@ -254,8 +259,8 @@
 
 		$("#houseAdd").click(function() {
 			var data = {
-				'no' : 565656,
-				'type' : 10,
+				'no' : 576,
+				'type' : 77,
 				'layout' : 19,
 				'struct' : 29,
 				'buildArea' : 66,
@@ -276,14 +281,14 @@
 		$("#houseModify").click(function() {
 			var data = {
 					'id':7,
-					'no' : 55,
-					'type' : 10,
+					'no' : 5776,
+					'type' : 6,
 					'layout' : 19,
 					'struct' : 29,
 					'buildArea' : 66,
 					'usedArea' : 66,
 					'basementArea' : 66,
-					'address' : '水立方',
+					'address' : '水方',
 					'buildingId' : 5,
 					'image':null,
 					'proId' : '66',
@@ -320,9 +325,9 @@
 	$(function() {
 		$("#login").click(function() {
 			var data ={
-					'no':'110',
-					'password':'999',
-					'roleId':4
+					'no':'8',
+					'password':'123',
+					'roleId':3
 			};
 			ajaxRequestPostType("login/user", "POST", data);
 		})
@@ -389,12 +394,20 @@
 			<input class="btn btn-info btn-lg" type="button" value="BuildingModify" id="buildingModify" /> <br>
 		</div>
 		<div class="tab-pane fade" id="house">
-			<input class="btn btn-info btn-lg" type="button" value="HouseGet" id="houseGet" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByRegionId" id="getViewHouseByRegionId" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByBuildingId" id="getViewHouseByBuildingId" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="HouseDelete" id="houseDelete" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="HouseAdd" id="houseAdd" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="HouseModify" id="houseModify" /> <br>
+		            根据house的id获取一个house <br>
+			<input class="btn btn-info btn-lg" type="button" value="HouseGet" id="houseGet" /> <br> <br>
+			不传参获取全部的house，默认不分页<br>
+			<input class="btn btn-info btn-lg" type="button" value="HouseGetAll" id="houseGetAll" /> <br><br>
+			根据regionId获取一个地区的全部house，默认不分页<br>
+			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByRegionId" id="getViewHouseByRegionId" /> <br><br> 
+			根据buildingId获取一个楼栋中的全部house，默认不分页<br>
+			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByBuildingId" id="getViewHouseByBuildingId" /> <br><br> 
+			删除一个house<br>
+			<input class="btn btn-info btn-lg" type="button" value="HouseDelete" id="houseDelete" /> <br> <br>
+			增加一个house<br>
+			<input class="btn btn-info btn-lg" type="button" value="HouseAdd" id="houseAdd" /> <br> <br>
+			修改一个house<br>
+			<input class="btn btn-info btn-lg" type="button" value="HouseModify" id="houseModify" /> <br><br>
 		</div>
 		<div class="tab-pane fade" id="right">
 			<input class="btn btn-info btn-lg" type="button" value="获取带right的class" id="rightGet" /> <br> 

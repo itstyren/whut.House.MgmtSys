@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.user.UserLoginReturnMapper">
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturn">
-    <result column="Id" jdbcType="INTEGER" property="id" />
     <result column="No" jdbcType="VARCHAR" property="no" />
-    <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="Password" jdbcType="VARCHAR" property="password" />
-    <result column="RoleId" jdbcType="INTEGER" property="roleId" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="RoleId" jdbcType="BIGINT" property="roleId" />
     <result column="RoleName" jdbcType="VARCHAR" property="roleName" />
+    <result column="Status" jdbcType="VARCHAR" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, No, Name, Password, RoleId, RoleName
+    No, Password, Name, RoleId, RoleName, Status
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturnExample" resultMap="BaseResultMap">
     select
@@ -76,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from view_au_login
+    from view_au_all_login
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,33 +85,30 @@
     </if>
   </select>
   <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturnExample">
-    delete from view_au_login
+    delete from view_au_all_login
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturn">
-    insert into view_au_login (Id, No, Name, 
-      Password, RoleId, RoleName
+    insert into view_au_all_login (No, Password, Name, 
+      RoleId, RoleName, Status
       )
-    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}
+    values (#{no,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{roleId,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturn">
-    insert into view_au_login
+    insert into view_au_all_login
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        Id,
-      </if>
       <if test="no != null">
         No,
       </if>
-      <if test="name != null">
-        Name,
-      </if>
       <if test="password != null">
         Password,
+      </if>
+      <if test="name != null">
+        Name,
       </if>
       <if test="roleId != null">
         RoleId,
@@ -119,54 +116,57 @@
       <if test="roleName != null">
         RoleName,
       </if>
+      <if test="status != null">
+        Status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="no != null">
         #{no,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
       <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
+        #{roleId,jdbcType=BIGINT},
       </if>
       <if test="roleName != null">
         #{roleName,jdbcType=VARCHAR},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturnExample" resultType="java.lang.Long">
-    select count(*) from view_au_login
+    select count(*) from view_au_all_login
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update view_au_login
+    update view_au_all_login
     <set>
-      <if test="record.id != null">
-        Id = #{record.id,jdbcType=INTEGER},
-      </if>
       <if test="record.no != null">
         No = #{record.no,jdbcType=VARCHAR},
-      </if>
-      <if test="record.name != null">
-        Name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
         Password = #{record.password,jdbcType=VARCHAR},
       </if>
+      <if test="record.name != null">
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
       <if test="record.roleId != null">
-        RoleId = #{record.roleId,jdbcType=INTEGER},
+        RoleId = #{record.roleId,jdbcType=BIGINT},
       </if>
       <if test="record.roleName != null">
         RoleName = #{record.roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        Status = #{record.status,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -174,13 +174,13 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update view_au_login
-    set Id = #{record.id,jdbcType=INTEGER},
-      No = #{record.no,jdbcType=VARCHAR},
-      Name = #{record.name,jdbcType=VARCHAR},
+    update view_au_all_login
+    set No = #{record.no,jdbcType=VARCHAR},
       Password = #{record.password,jdbcType=VARCHAR},
-      RoleId = #{record.roleId,jdbcType=INTEGER},
-      RoleName = #{record.roleName,jdbcType=VARCHAR}
+      Name = #{record.name,jdbcType=VARCHAR},
+      RoleId = #{record.roleId,jdbcType=BIGINT},
+      RoleName = #{record.roleName,jdbcType=VARCHAR},
+      Status = #{record.status,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

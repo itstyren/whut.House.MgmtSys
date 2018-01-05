@@ -11,6 +11,7 @@
     <result column="Struct" jdbcType="INTEGER" property="struct" />
     <result column="StructName" jdbcType="VARCHAR" property="structName" />
     <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="StatusName" jdbcType="VARCHAR" property="statusName" />
     <result column="BuildArea" jdbcType="DOUBLE" property="buildArea" />
     <result column="UsedArea" jdbcType="DOUBLE" property="usedArea" />
     <result column="BasementArea" jdbcType="DOUBLE" property="basementArea" />
@@ -85,8 +86,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, No, Type, TypeName, Layout, LayoutName, Struct, StructName, Status, BuildArea, 
-    UsedArea, BasementArea, Address, BuildingId, BuildingName, RegionId, RegionName, 
+    Id, No, Type, TypeName, Layout, LayoutName, Struct, StructName, Status, StatusName, 
+    BuildArea, UsedArea, BasementArea, Address, BuildingId, BuildingName, RegionId, RegionName, 
     ProId, Remark, Image, Rental, FinishTime, RecordStatus
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample" resultMap="BaseResultMap">
@@ -95,7 +96,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from view_pm_house
+    from view_hs_house
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -104,31 +105,33 @@
     </if>
   </select>
   <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample">
-    delete from view_pm_house
+    delete from view_hs_house
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouse">
-    insert into view_pm_house (Id, No, Type, 
+    insert into view_hs_house (Id, No, Type, 
       TypeName, Layout, LayoutName, 
       Struct, StructName, Status, 
-      BuildArea, UsedArea, BasementArea, 
-      Address, BuildingId, BuildingName, 
-      RegionId, RegionName, ProId, 
-      Remark, Image, Rental, 
-      FinishTime, RecordStatus)
+      StatusName, BuildArea, UsedArea, 
+      BasementArea, Address, BuildingId, 
+      BuildingName, RegionId, RegionName, 
+      ProId, Remark, Image, 
+      Rental, FinishTime, RecordStatus
+      )
     values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{typeName,jdbcType=VARCHAR}, #{layout,jdbcType=INTEGER}, #{layoutName,jdbcType=VARCHAR}, 
       #{struct,jdbcType=INTEGER}, #{structName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{buildArea,jdbcType=DOUBLE}, #{usedArea,jdbcType=DOUBLE}, #{basementArea,jdbcType=DOUBLE}, 
-      #{address,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, 
-      #{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, #{proId,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{rental,jdbcType=DOUBLE}, 
-      #{finishTime,jdbcType=DATE}, #{recordStatus,jdbcType=INTEGER})
+      #{statusName,jdbcType=VARCHAR}, #{buildArea,jdbcType=DOUBLE}, #{usedArea,jdbcType=DOUBLE}, 
+      #{basementArea,jdbcType=DOUBLE}, #{address,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, 
+      #{buildingName,jdbcType=VARCHAR}, #{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, 
+      #{proId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{rental,jdbcType=DOUBLE}, #{finishTime,jdbcType=DATE}, #{recordStatus,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouse">
-    insert into view_pm_house
+    insert into view_hs_house
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
@@ -156,6 +159,9 @@
       </if>
       <if test="status != null">
         Status,
+      </if>
+      <if test="statusName != null">
+        StatusName,
       </if>
       <if test="buildArea != null">
         BuildArea,
@@ -228,6 +234,9 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
+      <if test="statusName != null">
+        #{statusName,jdbcType=VARCHAR},
+      </if>
       <if test="buildArea != null">
         #{buildArea,jdbcType=DOUBLE},
       </if>
@@ -273,13 +282,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample" resultType="java.lang.Long">
-    select count(*) from view_pm_house
+    select count(*) from view_hs_house
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update view_pm_house
+    update view_hs_house
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
@@ -307,6 +316,9 @@
       </if>
       <if test="record.status != null">
         Status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.statusName != null">
+        StatusName = #{record.statusName,jdbcType=VARCHAR},
       </if>
       <if test="record.buildArea != null">
         BuildArea = #{record.buildArea,jdbcType=DOUBLE},
@@ -356,7 +368,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update view_pm_house
+    update view_hs_house
     set Id = #{record.id,jdbcType=INTEGER},
       No = #{record.no,jdbcType=VARCHAR},
       Type = #{record.type,jdbcType=INTEGER},
@@ -366,6 +378,7 @@
       Struct = #{record.struct,jdbcType=INTEGER},
       StructName = #{record.structName,jdbcType=VARCHAR},
       Status = #{record.status,jdbcType=INTEGER},
+      StatusName = #{record.statusName,jdbcType=VARCHAR},
       BuildArea = #{record.buildArea,jdbcType=DOUBLE},
       UsedArea = #{record.usedArea,jdbcType=DOUBLE},
       BasementArea = #{record.basementArea,jdbcType=DOUBLE},

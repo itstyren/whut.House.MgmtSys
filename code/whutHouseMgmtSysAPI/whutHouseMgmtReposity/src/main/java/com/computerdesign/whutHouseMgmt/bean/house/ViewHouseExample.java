@@ -712,6 +712,76 @@ public class ViewHouseExample {
             return (Criteria) this;
         }
 
+        public Criteria andStatusNameIsNull() {
+            addCriterion("StatusName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameIsNotNull() {
+            addCriterion("StatusName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameEqualTo(String value) {
+            addCriterion("StatusName =", value, "statusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameNotEqualTo(String value) {
+            addCriterion("StatusName <>", value, "statusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameGreaterThan(String value) {
+            addCriterion("StatusName >", value, "statusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameGreaterThanOrEqualTo(String value) {
+            addCriterion("StatusName >=", value, "statusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameLessThan(String value) {
+            addCriterion("StatusName <", value, "statusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameLessThanOrEqualTo(String value) {
+            addCriterion("StatusName <=", value, "statusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameLike(String value) {
+            addCriterion("StatusName like", value, "statusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameNotLike(String value) {
+            addCriterion("StatusName not like", value, "statusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameIn(List<String> values) {
+            addCriterion("StatusName in", values, "statusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameNotIn(List<String> values) {
+            addCriterion("StatusName not in", values, "statusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameBetween(String value1, String value2) {
+            addCriterion("StatusName between", value1, value2, "statusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNameNotBetween(String value1, String value2) {
+            addCriterion("StatusName not between", value1, value2, "statusName");
+            return (Criteria) this;
+        }
+
         public Criteria andBuildAreaIsNull() {
             addCriterion("BuildArea is null");
             return (Criteria) this;

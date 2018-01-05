@@ -47,7 +47,7 @@
 		<!-- <table tableName="pm_paramclass" domainObjectName="ParamClass">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="Au_User" domainObjectName="User">
+		<table tableName="view_au_all_login" domainObjectName="UserLoginReturn">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		

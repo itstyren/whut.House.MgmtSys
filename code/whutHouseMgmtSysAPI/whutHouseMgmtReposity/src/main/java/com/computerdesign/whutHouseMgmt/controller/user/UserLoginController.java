@@ -1,5 +1,7 @@
 package com.computerdesign.whutHouseMgmt.controller.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +14,7 @@ import com.computerdesign.whutHouseMgmt.bean.user.User;
 import com.computerdesign.whutHouseMgmt.bean.user.UserLogin;
 import com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturn;
 import com.computerdesign.whutHouseMgmt.bean.user.UserReturnToken;
+import com.computerdesign.whutHouseMgmt.service.login.LoginService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.user.UserLoginService;
 import com.computerdesign.whutHouseMgmt.service.user.UserReturnTokenService;
@@ -21,31 +24,34 @@ import com.computerdesign.whutHouseMgmt.service.user.UserReturnTokenService;
 public class UserLoginController {
 
 	@Autowired
-	private UserLoginService userLoginService;
-	@Autowired
-	private StaffService staffService;
-	@Autowired
-	private UserReturnTokenService UserReturnTokenService;
+	private LoginService loginService;
 	
+	/**
+	 * 登陆
+	 * @param userLogin
+	 * @return 
+	 */
 	@RequestMapping(value = "user",method = RequestMethod.POST)
 	@ResponseBody
 	public Msg login(@RequestBody UserLogin userLogin){
-		System.out.println("111");
 		String no = userLogin.getNo();
 		String password = userLogin.getPassword();
-		Integer roleId = userLogin.getRoleId();
-		if(roleId == 3){
-			return Msg.error();
+		Long roleId = Long.valueOf(userLogin.getRoleId()).longValue();
+		
+		List<UserLoginReturn> users = loginService.getLogin(no, password, roleId);
+		//判断登陆信息
+		if (users.isEmpty()) {
+			//如果信息不正确，返回失败
+			return Msg.error("请输入正确的信息");	
 		}else{
-			if(!userLoginService.getUser(no,password).isEmpty()){
-				UserLoginReturn userLoginReturn = UserReturnTokenService.getByNo(no);
-				UserReturnToken userReturnToken = new UserReturnToken();
-				userReturnToken.setUserLoginReturn(userLoginReturn);
-				userReturnToken.setTokenAccess(1111);
-				return Msg.success().add("data", userReturnToken);
-			}else{
-				return Msg.error("账号或密码不正确");
-			}
+			UserLoginReturn user = users.get(0);
+		
+			UserReturnToken userReturnToken = new UserReturnToken();
+			//锁定tokenAccess为1111
+			userReturnToken.setTokenAccess(1111);
+			userReturnToken.setUserLoginReturn(user);
+			return Msg.success().add("data", userReturnToken);
 		}
+		
 	}
 }

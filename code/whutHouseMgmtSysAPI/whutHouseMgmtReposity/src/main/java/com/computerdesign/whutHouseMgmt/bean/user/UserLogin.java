@@ -5,7 +5,7 @@ public class UserLogin {
 	private String no;
 
     private String password;
-
+    
     private Integer roleId;
 
 	public String getNo() {
@@ -31,5 +31,6 @@ public class UserLogin {
 	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
+    
     
 }

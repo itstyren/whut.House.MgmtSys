@@ -2,10 +2,6 @@ package com.computerdesign.whutHouseMgmt.bean.house;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class ViewHouse {
     private Integer id;
 
@@ -24,6 +20,8 @@ public class ViewHouse {
     private String structName;
 
     private Integer status;
+
+    private String statusName;
 
     private Double buildArea;
 
@@ -49,8 +47,6 @@ public class ViewHouse {
 
     private Double rental;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date finishTime;
 
     private Integer recordStatus;
@@ -125,6 +121,14 @@ public class ViewHouse {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName == null ? null : statusName.trim();
     }
 
     public Double getBuildArea() {
