@@ -9,7 +9,7 @@ import com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturnExample.Criteri
 import com.computerdesign.whutHouseMgmt.dao.user.UserLoginReturnMapper;
 
 @Service
-public class UserReturnTokenService {
+public class UserReturnService {
 
 	@Autowired
 	private UserLoginReturnMapper userLoginReturnMapper;

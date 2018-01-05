@@ -1,5 +1,12 @@
 package com.computerdesign.whutHouseMgmt.bean.user;
 
+
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class UserLogin {
 
 	private String no;
@@ -7,6 +14,18 @@ public class UserLogin {
     private String password;
     
     private Integer roleId;
+
+    private String token;
+    
+    private Date LastLoginTime;
+    
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	public String getNo() {
 		return no;
@@ -30,6 +49,14 @@ public class UserLogin {
 
 	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
+	}
+
+	public Date getLastLoginTime() {
+		return LastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		LastLoginTime = lastLoginTime;
 	}
     
     

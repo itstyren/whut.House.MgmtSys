@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computerdesign.whutHouseMgmt.dao.user.UserLoginReturnMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturn">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.token.TokenMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.token.Token">
+    <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="No" jdbcType="VARCHAR" property="no" />
-    <result column="Password" jdbcType="VARCHAR" property="password" />
-    <result column="Name" jdbcType="VARCHAR" property="name" />
-    <result column="RoleId" jdbcType="BIGINT" property="roleId" />
-    <result column="RoleName" jdbcType="VARCHAR" property="roleName" />
-    <result column="Status" jdbcType="VARCHAR" property="status" />
     <result column="Token" jdbcType="VARCHAR" property="token" />
     <result column="LastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime" />
   </resultMap>
@@ -70,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    No, Password, Name, RoleId, RoleName, Status, Token, LastLoginTime
+    Id, No, Token, LastLoginTime
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturnExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.token.TokenExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from view_au_all_login
+    from Au_TokenAccess
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,40 +82,36 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturnExample">
-    delete from view_au_all_login
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Au_TokenAccess
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Au_TokenAccess
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.token.TokenExample">
+    delete from Au_TokenAccess
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturn">
-    insert into view_au_all_login (No, Password, Name, 
-      RoleId, RoleName, Status, 
-      Token, LastLoginTime)
-    values (#{no,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{roleId,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{token,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.token.Token">
+    insert into Au_TokenAccess (Id, No, Token, 
+      LastLoginTime)
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturn">
-    insert into view_au_all_login
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.token.Token">
+    insert into Au_TokenAccess
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
       <if test="no != null">
         No,
-      </if>
-      <if test="password != null">
-        Password,
-      </if>
-      <if test="name != null">
-        Name,
-      </if>
-      <if test="roleId != null">
-        RoleId,
-      </if>
-      <if test="roleName != null">
-        RoleName,
-      </if>
-      <if test="status != null">
-        Status,
       </if>
       <if test="token != null">
         Token,
@@ -129,23 +121,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
       <if test="no != null">
         #{no,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=BIGINT},
-      </if>
-      <if test="roleName != null">
-        #{roleName,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
       </if>
       <if test="token != null">
         #{token,jdbcType=VARCHAR},
@@ -155,32 +135,20 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturnExample" resultType="java.lang.Long">
-    select count(*) from view_au_all_login
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.token.TokenExample" resultType="java.lang.Long">
+    select count(*) from Au_TokenAccess
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update view_au_all_login
+    update Au_TokenAccess
     <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.no != null">
         No = #{record.no,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        Password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.name != null">
-        Name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.roleId != null">
-        RoleId = #{record.roleId,jdbcType=BIGINT},
-      </if>
-      <if test="record.roleName != null">
-        RoleName = #{record.roleName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null">
-        Status = #{record.status,jdbcType=VARCHAR},
       </if>
       <if test="record.token != null">
         Token = #{record.token,jdbcType=VARCHAR},
@@ -194,17 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update view_au_all_login
-    set No = #{record.no,jdbcType=VARCHAR},
-      Password = #{record.password,jdbcType=VARCHAR},
-      Name = #{record.name,jdbcType=VARCHAR},
-      RoleId = #{record.roleId,jdbcType=BIGINT},
-      RoleName = #{record.roleName,jdbcType=VARCHAR},
-      Status = #{record.status,jdbcType=VARCHAR},
+    update Au_TokenAccess
+    set Id = #{record.id,jdbcType=INTEGER},
+      No = #{record.no,jdbcType=VARCHAR},
       Token = #{record.token,jdbcType=VARCHAR},
       LastLoginTime = #{record.lastLoginTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.token.Token">
+    update Au_TokenAccess
+    <set>
+      <if test="no != null">
+        No = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        Token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        LastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.token.Token">
+    update Au_TokenAccess
+    set No = #{no,jdbcType=VARCHAR},
+      Token = #{token,jdbcType=VARCHAR},
+      LastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP}
+    where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
