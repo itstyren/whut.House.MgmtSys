@@ -288,7 +288,8 @@ import {
   getHouseByBuildingID,
   getHouseByRegionID,
   getHouseParam,
-  postHouseData
+  postHouseData,
+  deleteHouseData
 } from "@/api/api";
 import { checkNum } from "@/assets/function/validator";
 import common from "@/common/util.js";
@@ -459,7 +460,7 @@ export default {
             //console.log(res.data.data);
             this.addFormParam[paramClass] = res.data.data.data.list;
             // console.log(res.data.data.list)
-            if (this.addFormParam[4]!=null) this.submitLoading = false;
+            if (this.addFormParam[4] != null) this.submitLoading = false;
           })
           .catch(err => {
             console.log(err);
@@ -483,10 +484,11 @@ export default {
             //公共提示方法，传入当前的vue以及res.data
             common.statusinfo(this, res.data);
             this.$refs["addForm"].resetFields();
-            this.addFormVisible=false
+            this.addFormVisible = false;
           });
         }
       });
+      console.log(this.$refs)
     },
     //选择的区域变化时
     selectRegionChange(region) {
@@ -545,7 +547,32 @@ export default {
       console.log(this.addFormBody.image);
     },
     // 删除功能
-    delectRegion(index, row) {},
+    delectHouse(index, row) {
+      this.$confirm("此操作将删除该户型选项", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let param = row.id;
+          this.listLoading = true;
+          deleteHouseData(param)
+            .then(res => {
+              // 公共提示方法
+              common.statusinfo(this, res.data);
+              this.getList();
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
     //更换每页数量
     SizeChangeEvent(val) {
       this.listLoading = true;

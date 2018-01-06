@@ -171,8 +171,6 @@ public class HouseController {
 			return Msg.error("房屋类型不能为空");
 		} else if (house.getLayout() == null) {
 			return Msg.error("户型不能为空");
-		} else if (house.getStatus() == null) {
-			return Msg.error("房屋使用状态不能为空");
 		} else if (house.getStruct() == null) {
 			return Msg.error("房屋结构不能为空");
 		} else if (house.getBuildingId() == null) {
@@ -240,8 +238,6 @@ public class HouseController {
 			return Msg.error("房屋类型不能为空");
 		} else if (house.getLayout() == null) {
 			return Msg.error("户型不能为空");
-		} else if (house.getStatus() == null) {
-			return Msg.error("房屋使用状态不能为空");
 		} else if (house.getStruct() == null) {
 			return Msg.error("房屋结构不能为空");
 		} else if (house.getBuildingId() == null) {
