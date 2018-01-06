@@ -17,6 +17,11 @@ public class ViewHouseService {
 	@Autowired
 	private ViewHouseMapper viewHouseMapper;
 	
+	/**
+	 * 根据id获取一个viewHouse
+	 * @param id
+	 * @return
+	 */
 	public ViewHouse get(Integer id) {
 		ViewHouseExample example = new ViewHouseExample();
 		Criteria criteria = example.createCriteria();
@@ -48,6 +53,10 @@ public class ViewHouseService {
 		
 	}
 	
+	/**
+	 * 获取全部的viewhouse
+	 * @return
+	 */
 	public List<ViewHouse> getAll(){
 		return viewHouseMapper.selectByExample(null);
 	}

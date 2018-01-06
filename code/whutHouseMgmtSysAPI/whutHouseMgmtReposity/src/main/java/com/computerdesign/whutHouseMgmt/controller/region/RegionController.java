@@ -136,6 +136,11 @@ public class RegionController {
 		}
 	}
 
+	/**
+	 * 修改一个region
+	 * @param region
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
 	public Msg modifyRegion(@RequestBody Region region) {
@@ -156,6 +161,11 @@ public class RegionController {
 		return Msg.success().add("data", region);
 	}
 
+	/**
+	 * 根据regionId删除一个region
+	 * @param Id
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "delete/{Id}", method = RequestMethod.DELETE)
 	public Msg deleteRegion(@PathVariable("Id") Integer Id) {

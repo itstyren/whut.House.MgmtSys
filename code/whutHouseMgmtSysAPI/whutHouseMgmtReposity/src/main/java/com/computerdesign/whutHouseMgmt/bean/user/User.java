@@ -3,7 +3,7 @@ package com.computerdesign.whutHouseMgmt.bean.user;
 public class User {
     private Integer id;
 
-    private Integer no;
+    private String no;
 
     private String name;
 
@@ -19,12 +19,12 @@ public class User {
         this.id = id;
     }
 
-    public Integer getNo() {
+    public String getNo() {
         return no;
     }
 
-    public void setNo(Integer no) {
-        this.no = no;
+    public void setNo(String no) {
+        this.no = no == null ? null : no.trim();
     }
 
     public String getName() {

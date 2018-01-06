@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.controller.role;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.javassist.expr.NewArray;
@@ -13,8 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.right.Right;
 import com.computerdesign.whutHouseMgmt.bean.role.Role;
+import com.computerdesign.whutHouseMgmt.bean.role.RoleWithRight;
+import com.computerdesign.whutHouseMgmt.bean.rule.Rule;
+import com.computerdesign.whutHouseMgmt.service.right.RightService;
 import com.computerdesign.whutHouseMgmt.service.role.RoleService;
+import com.computerdesign.whutHouseMgmt.service.rule.RuleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -24,9 +30,14 @@ public class RoleController {
 
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private RuleService ruleService;
+	@Autowired
+	private RightService RightService;
+	
 	
 	/**
-	 * 获取全部的role数据
+	 * 获取全部的带有rightid的role数据
 	 * @param page
 	 * @param size
 	 * @return
@@ -35,11 +46,24 @@ public class RoleController {
 	@ResponseBody
 	public Msg get(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size){
+
+		List<RoleWithRight> list = new ArrayList<RoleWithRight>();
 		
-		PageHelper.startPage(page, size);
 		List<Role> roles = roleService.getAll();
+		//每一个role
+		for (Role role : roles) {
+			//根据role获取rules
+			List<Rule> rules = ruleService.getRulesByRole(role.getId());
+			List<Right> rights = new ArrayList<Right>();
+			//根据每一个rule获取right的id			
+			for (Rule rule : rules) {
+				Right right = RightService.get(rule.getRightId());
+				rights.add(right);
+			}
+			list.add(new RoleWithRight(role, rights));			
+		}
 		
-		PageInfo pageInfo = new PageInfo();
+		PageInfo pageInfo = new PageInfo(list);
 		return Msg.success().add("data", pageInfo); 
 	}
 	
@@ -50,15 +74,17 @@ public class RoleController {
 	 */
 	@RequestMapping(value = "add",method = RequestMethod.POST)
 	@ResponseBody
-	public Msg addRole(@RequestBody Role role) {
+	public Msg addRoleWithRight(@RequestBody RoleWithRight roleWithRight) {
 
-		List<Role> roles = roleService.getRolesByName(role.getName());
-		if(!roles.isEmpty()){
-			return Msg.error("该角色已存在");
-		}else{
-			roleService.addRole(role);
-			return Msg.success().add("data", role);
-		}
+		//新增role
+		Role role = new Role();
+		role.setId(roleWithRight.getId());
+		role.setName(roleWithRight.getName());
+		role.setDescription(roleWithRight.getDescription());
+		roleService.addRole(role);
+		
+		
+		return Msg.success().add("data", roleWithRight);
 	}
 	
 	/**

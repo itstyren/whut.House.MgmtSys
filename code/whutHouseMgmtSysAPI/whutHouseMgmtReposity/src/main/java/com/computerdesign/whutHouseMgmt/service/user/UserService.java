@@ -21,7 +21,7 @@ public class UserService {
 		return userMapper.selectByExample(null);
 	}
 	
-	public List<User> getUserByNo(Integer No) {
+	public List<User> getUserByNo(String No) {
 		UserExample example = new UserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andNoEqualTo(No);

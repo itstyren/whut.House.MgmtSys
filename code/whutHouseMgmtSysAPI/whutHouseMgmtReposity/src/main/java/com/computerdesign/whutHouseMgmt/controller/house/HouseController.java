@@ -42,6 +42,8 @@ public class HouseController {
 	@Autowired
 	private ViewHouseService viewHouseService;
 	
+	
+	
 	/**
 	 * 根据id获取一个House
 	 * 
@@ -107,7 +109,7 @@ public class HouseController {
 		PageInfo pageInfo = new PageInfo(viewHouseList);
 
 		if (viewHouseList == null) {
-			return Msg.error("差找不到数据");
+			return Msg.error("查找不到数据");
 		}else{
 			return Msg.success().add("data", pageInfo);
 		}
@@ -124,6 +126,7 @@ public class HouseController {
 	public Msg getViewHousesByBuildingId(@PathVariable("buildingId") Integer buildingId,
 	@RequestParam(value = "page", defaultValue = "0") Integer page,
 	@RequestParam(value = "size", defaultValue = "0") Integer size){
+		
 		PageHelper.startPage(page,size);
 		List<ViewHouse> viewHouseList = viewHouseService.getViewHousesByBuildingId(buildingId);
 		
@@ -178,6 +181,7 @@ public class HouseController {
 		}
 
 		
+		
 		List<House> housePres = houseService.getHouseByNo(house.getNo());
 		if (!housePres.isEmpty()) {
 			return Msg.error("该房屋编号已经存在").add("error-data", housePres);
@@ -186,14 +190,20 @@ public class HouseController {
 //		2.户型
 //		3.使用状态
 //		4.住房结构
-/*		List<Integer> houseTypeParamIds= houseParamService.getHouseParamId(1);
+		List<Integer> houseTypeParamIds= houseParamService.getHouseParamId(1);
 		if(!houseTypeParamIds.contains(house.getType())){
 			return Msg.error("不存在的住房类型");
 		}
 		List<Integer> houseLayoutParamIds= houseParamService.getHouseParamId(2);
-		List<Integer> houseStatusParamIds= houseParamService.getHouseParamId(3);
-		List<Integer> houseStructParamIds= houseParamService.getHouseParamId(4);*/
+		if(!houseLayoutParamIds.contains(house.getLayout())){
+			return Msg.error("不存在的住房类型");
+		}
 
+		List<Integer> houseStructParamIds= houseParamService.getHouseParamId(4);
+		if(!houseStructParamIds.contains(house.getStruct())){
+			return Msg.error("不存在的住房类型");
+		}
+		
 		houseService.add(house);
 		return Msg.success().add("data", house);
 	}
@@ -238,15 +248,39 @@ public class HouseController {
 			return Msg.error("房屋类型不能为空");
 		} else if (house.getLayout() == null) {
 			return Msg.error("户型不能为空");
+<<<<<<< HEAD
 		} else if (house.getStruct() == null) {
+=======
+		}  else if (house.getStruct() == null) {
+>>>>>>> a874e08b0da8a9a699f0e8d64f684d9560bc045c
 			return Msg.error("房屋结构不能为空");
 		} else if (house.getBuildingId() == null) {
 			return Msg.error("房屋楼栋不能为空");
 		}
 		
+		//根据传入的编号获取数据库中的该house
 		List<House> housePres = houseService.getHouseByNo(house.getNo());
+		//根据传入的id获取数据库中的该house
+		House housePre = houseService.get(house.getId());
 		if (!housePres.isEmpty()) {
-			return Msg.error("该房屋编号已经存在").add("error-data", housePres);
+			//根据id获取的house和根据编号获取的house不一样
+			if(housePre.getId()!=housePres.get(0).getId()){
+				return Msg.error("房屋已经存在");
+			}
+		}
+		
+		List<Integer> houseTypeParamIds= houseParamService.getHouseParamId(1);
+		if(!houseTypeParamIds.contains(house.getType())){
+			return Msg.error("不存在的住房类型");
+		}
+		List<Integer> houseLayoutParamIds= houseParamService.getHouseParamId(2);
+		if(!houseLayoutParamIds.contains(house.getLayout())){
+			return Msg.error("不存在的住房类型");
+		}
+
+		List<Integer> houseStructParamIds= houseParamService.getHouseParamId(4);
+		if(!houseStructParamIds.contains(house.getStruct())){
+			return Msg.error("不存在的住房类型");
 		}
 		
 		try {

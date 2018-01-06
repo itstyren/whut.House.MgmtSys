@@ -3,10 +3,19 @@ package com.computerdesign.whutHouseMgmt.bean.rule;
 public class Rule {
     private Integer id;
 
-    private Integer objectId;
+    private Integer rightId;
 
     private Integer roleId;
 
+    public Rule() {
+		
+	}
+    public Rule(Integer rightId,Integer roleId) {
+		this.roleId = roleId;
+		this.rightId = rightId;
+	}
+    
+    
     public Integer getId() {
         return id;
     }
@@ -15,12 +24,12 @@ public class Rule {
         this.id = id;
     }
 
-    public Integer getObjectId() {
-        return objectId;
+    public Integer getRightId() {
+        return rightId;
     }
 
-    public void setObjectId(Integer objectId) {
-        this.objectId = objectId;
+    public void setRightId(Integer rightId) {
+        this.rightId = rightId;
     }
 
     public Integer getRoleId() {
