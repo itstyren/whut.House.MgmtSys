@@ -18,18 +18,18 @@
           <el-form-item :model="queryOption">
             <el-form-item label="区域" prop="region">
               <el-select v-model="queryOption.regionId" :clearable="true" @clear="clearRegion" placeholder="全部区域" style="width:250px" @change="selectRegionChange">
-                <el-option v-for="region in regionBuildingData"  :key="region.id" :value="region.id" :label="region.name"></el-option>
+                <el-option v-for="region in regionBuildingData" :key="region.id" :value="region.id" :label="region.name"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="房屋" prop="house">
-              <el-select v-model="queryOption.buildingId" :clearable="true"  @clear="clearBuilding" placeholder="全部房屋" style="width:250px">
+              <el-select v-model="queryOption.buildingId" :clearable="true" @clear="clearBuilding" placeholder="全部房屋" style="width:250px">
                 <el-option v-for="building in buildingData" :key="building.id" :value="building.id" :label="building.name"></el-option>
               </el-select>
             </el-form-item>
             <el-button type="primary" @click="queryData">查询</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="addFormVisible = true">新增住房</el-button>
+            <el-button type="primary" @click="showAddForm()">新增住房</el-button>
           </el-form-item>
         </el-form>
 
@@ -38,7 +38,7 @@
       <div class="main-data">
         <el-table :data="houseData" class="table" height="string" v-loading="listLoading">
           <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="id" label="编号" sortable align="center" width="85"></el-table-column>
+          <el-table-column prop="no" label="编号" sortable align="center" width="85"></el-table-column>
           <el-table-column prop="address" label="地址" sortable align="center"></el-table-column>
           <el-table-column prop="typeName" label="住房类型" sortable align="center" width="130"></el-table-column>
           <el-table-column prop="layoutName" label="户型" sortable align="center" width="130"></el-table-column>
@@ -58,115 +58,240 @@
       </el-pagination>
     </div>
 
-    <!-- 详情页面 -->
-    <el-dialog title="详情" :visible.sync="detailFormVisible" v-loading="detailLoading" class="detail-modify">
-      <div class="fromBody">
-        <!-- 左边文字部分 -->
-        <div class="detailFrom">
-          <!-- 上部分 -->
-          <div class="topFrom">
-            <el-form :model="detailData" label-width="110px">
-              <el-form-item label="房屋编号">
-                <el-input v-model="detailData.id" placeholder="请输入房屋标号" :readonly="!ismodify"></el-input>
+    <!-- 详情表单 -->
+    <el-dialog :title="title" :visible.sync="detailFormVisible" v-loading="detailLoading" class="detail-modify" @close="modifyFromClose">
+      <el-form :model="detailData" label-width="110px" ref="modifyFrom" :rules="rules" status-icon>
+        <div class="fromBody">
+          <!-- 左边文字部分 -->
+          <div class="detailFrom">
+            <!-- 上部分 -->
+            <div class="topFrom">
+              <el-form-item label="房屋编号" prop="no">
+                <el-input v-model="detailData.no" placeholder="请输入房屋标号" :readonly="!ismodify"></el-input>
               </el-form-item>
-            </el-form>
-          </div>
-          <!-- 中间部分 -->
-          <div class="mainFrom">
-            <!-- 中间左边 -->
-            <div class="singleFrom">
-              <el-form :model="detailData" label-width="110px">
-                <el-form-item label="住房类型">
+            </div>
+            <!-- 中间部分 -->
+            <div class="mainFrom">
+              <!-- 中间左边 -->
+              <div class="singleFrom">
+                <el-form-item v-if="!ismodify" label="住房类型">
                   <el-input v-model="detailData.typeName" :readonly="!ismodify"></el-input>
                 </el-form-item>
-                <el-form-item label="结构">
-                  <el-input v-model="detailData.structName" :readonly="!ismodify"></el-input>
+                <el-form-item v-if="ismodify" label="住房类型" prop="type">
+                  <el-select v-model="detailData.type" :clearable="true" placeholder="请选择房屋类型">
+                    <el-option v-for="param in addFormParam[1]" :key="param.id" :value="param.houseParamId" :label="param.houseParamName"></el-option>
+                  </el-select>
                 </el-form-item>
-                <el-form-item label="使用面积">
+                <el-form-item v-if="!ismodify" label="结构">
+                  <el-input v-model="detailData.statusName" :readonly="!ismodify"></el-input>
+                </el-form-item>
+                <el-form-item v-if="ismodify" label="结构" prop="struct">
+                  <el-select v-model="detailData.struct" :clearable="true" placeholder="请选择房屋结构">
+                    <el-option v-for="param in addFormParam[4]" :key="param.id" :value="param.houseParamId" :label="param.houseParamName"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="使用面积" prop="usedArea">
                   <el-input v-model="detailData.usedArea" :readonly="!ismodify"></el-input>
                 </el-form-item>
-                <el-form-item label="所属区域">
-                  <el-input v-model="detailData.id" :readonly="!ismodify"></el-input>
+                <el-form-item v-if="!ismodify" label="所属区域">
+                  <el-input v-model="detailData.regionName" :readonly="!ismodify"></el-input>
                 </el-form-item>
-              </el-form>
-            </div>
-            <div class="singleFrom">
-              <!-- 中间右边 -->
-              <el-form :model="detailData" label-width="110px">
-                <el-form-item label="户型">
-                  <el-input v-model="detailData.id" :readonly="!ismodify"></el-input>
+                <el-form-item v-if="ismodify" label="所属区域" prop="region">
+                  <el-select v-model="detailData.regionId" :clearable="true" placeholder="请选择区域">
+                    <el-option v-for="region in regionBuildingData" :key="region.id" :value="region.id" :label="region.name"></el-option>
+                  </el-select>
+                </el-form-item>
+              </div>
+              <div class="singleFrom">
+                <!-- 中间右边 -->
+                <el-form-item v-if="!ismodify" label="户型">
+                  <el-input v-model="detailData.layoutName" :readonly="!ismodify"></el-input>
+                </el-form-item>
+                <el-form-item v-if="ismodify" label="户型" prop="layout">
+                  <el-select v-model="detailData.layout" :clearable="true">
+                    <el-option v-for="param in addFormParam[2]" :key="param.id" placeholder="请选择房屋户型" :value="param.houseParamId" :label="param.houseParamName"></el-option>
+                  </el-select>
                 </el-form-item>
                 <el-form-item label="建筑面积">
-                  <el-input v-model="detailData.id" :readonly="!ismodify"></el-input>
+                  <el-input v-model="detailData.buildArea" :readonly="!ismodify"></el-input>
                 </el-form-item>
                 <el-form-item label="地下室面积">
-                  <el-input v-model="detailData.id" :readonly="!ismodify"></el-input>
+                  <el-input v-model="detailData.basementArea" :readonly="!ismodify"></el-input>
                 </el-form-item>
-                <el-form-item label="所属楼栋">
-                  <el-input v-model="detailData.id" :readonly="!ismodify"></el-input>
+                <el-form-item v-if="!ismodify" label="所属楼栋">
+                  <el-input v-model="detailData.buildingName" :readonly="!ismodify"></el-input>
                 </el-form-item>
-              </el-form>
+                <el-form-item v-if="ismodify" label="所属楼栋" prop="buildingId">
+                  <el-select v-model="detailData.buildingId" :clearable="true" placeholder="请先选择区域">
+                    <el-option v-for="building in regionBuilding" :key="building.id" :value="building.id" :label="building.name"></el-option>
+                  </el-select>
+                </el-form-item>
+              </div>
             </div>
-          </div>
-          <!-- 单行的From -->
-          <div class="singRowFrom">
-            <el-form :model="detailData" label-width="110px">
+            <!-- 单行的From -->
+            <div class="singRowFrom">
               <el-form-item label="住房地址">
                 <el-input v-model="detailData.address" placeholder="请输入住房地址" :readonly="!ismodify"></el-input>
               </el-form-item>
-            </el-form>
-          </div>
-          <!-- 多行的 -->
-          <div class="bottomFrom">
-            <div class="singleFrom">
-              <el-form :model="detailData" label-width="80px">
+            </div>
+            <!-- 多行的 -->
+            <div class="bottomFrom">
+              <div class="singleFrom">
                 <el-form-item label="产权编号">
                   <el-input v-model="detailData.proId" :label='"产权编号"' :readonly="!ismodify" style="width=80px"></el-input>
                 </el-form-item>
-              </el-form>
-            </div>
-            <div class="singleFrom">
-              <el-form :model="detailData" label-width="50px">
+              </div>
+              <div class="singleFrom">
                 <el-form-item label="租金">
                   <el-input v-model="detailData.rental" :readonly="!ismodify"></el-input>
                 </el-form-item>
-              </el-form>
-            </div>
-            <div class="singleFrom">
-              <el-form :model="detailData" label-width="80px">
+              </div>
+              <div class="singleFrom">
                 <el-form-item label="竣工日期">
                   <el-input v-model="detailData.finishTime" :readonly="!ismodify"></el-input>
                 </el-form-item>
-              </el-form>
+              </div>
             </div>
-
           </div>
-        </div>
-        <!-- 右边图片部分 -->
-        <div class="picFrom">
-          <el-form :model="detailData" label-width="110px">
-                          <el-form-item label="相关图片">
-               <img class="file" :src="detailData.image" alt="暂无证明材料">
-              </el-form-item>
-            <el-form-item v-if="!ismodify" label="图片">
+          <!-- 右边图片部分 -->
+          <div class="picFrom">
+            <el-form-item  label="相关图片">
+              <img class="file" :src="detailData.image" alt="暂无证明材料">
+            </el-form-item>
+            <el-form-item v-if="ismodify" label="上传图片">
               <el-upload action="http://upload.qiniu.com/" :data="postData" :on-success="successUpload" :before-upload="beforePicUpload">
                 <el-button size="small" type="primary">点击上传</el-button>
                 <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
               </el-upload>
             </el-form-item>
-                          <el-form-item label="备注">
-                            <el-input v-model="detailData.remark" placeholder="请输入...."  type="textarea" :autosize="{ minRows: 2, maxRows: 4}"  :readonly="!ismodify"></el-input>
-              </el-form-item>
-          </el-form>
-
+            <el-form-item label="备注">
+              <el-input v-model="detailData.remark" placeholder="请输入...." type="textarea" :autosize="{ minRows: 2, maxRows: 4}" :readonly="!ismodify"></el-input>
+            </el-form-item>
+                        <el-form-item v-if="ismodify" label=" " style="margin-top:20px;margin-left:40px">
+              <el-button type="primary" @click.native="modifySubmit">提交</el-button>
+              <el-button @click="cancelAdd">取消</el-button>
+            </el-form-item>
+          </div>
         </div>
-      </div>
+      </el-form>
+    </el-dialog>
+
+    <!-- 新增表单 -->
+    <el-dialog title="新增住房" :visible.sync="addFormVisible" v-loading="submitLoading" class="detail-modify">
+      <el-form :model="addFormBody" label-width="110px" ref="addForm" :rules="rules" status-icon>
+        <div class="fromBody">
+          <!-- 左边文字部分 -->
+          <div class="detailFrom">
+            <!-- 上部分 -->
+            <div class="topFrom">
+              <el-form-item label="房屋编号" prop="no">
+                <el-input v-model="addFormBody.no" placeholder="请输入房屋标号"></el-input>
+              </el-form-item>
+            </div>
+            <!-- 中间部分 -->
+            <div class="mainFrom">
+              <!-- 中间左边 -->
+              <div class="singleFrom">
+                <el-form-item label="住房类型" prop="type">
+                  <el-select v-model="addFormBody.type" :clearable="true" placeholder="请选择房屋类型">
+                    <el-option v-for="param in addFormParam[1]" :key="param.id" :value="param.houseParamId" :label="param.houseParamName"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="结构" prop="struct">
+                  <el-select v-model="addFormBody.struct" :clearable="true" placeholder="请选择房屋结构">
+                    <el-option v-for="param in addFormParam[4]" :key="param.id" :value="param.houseParamId" :label="param.houseParamName"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="使用面积" prop="usedArea">
+                  <el-input v-model="addFormBody.usedArea" placeholder="请输入使用面积"></el-input>
+                </el-form-item>
+                <el-form-item label="所属区域" prop="regionId">
+                  <el-select v-model="addFormBody.regionId" :clearable="true" placeholder="请选择区域">
+                    <el-option v-for="region in regionBuildingData" :key="region.id" :value="region.id" :label="region.name"></el-option>
+                  </el-select>
+                </el-form-item>
+              </div>
+              <div class="singleFrom">
+                <!-- 中间右边 -->
+                <el-form-item label="户型" prop="layout">
+                  <el-select v-model="addFormBody.layout" :clearable="true">
+                    <el-option v-for="param in addFormParam[2]" :key="param.id" placeholder="请选择房屋户型" :value="param.houseParamId" :label="param.houseParamName"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="建筑面积" prop="buildArea">
+                  <el-input v-model="addFormBody.buildArea" placeholder="请输入建筑面积"></el-input>
+                </el-form-item>
+                <el-form-item label="地下室面积" prop="basementArea">
+                  <el-input v-model="addFormBody.basementArea" placeholder="请输入地下室面积"></el-input>
+                </el-form-item>
+                <el-form-item label="所属楼栋" prop="buildingId">
+                  <el-select v-model="addFormBody.buildingId" :clearable="true" placeholder="请先选择区域">
+                    <el-option v-for="building in regionBuilding" :key="building.id" :value="building.id" :label="building.name"></el-option>
+                  </el-select>
+                </el-form-item>
+              </div>
+            </div>
+            <!-- 单行的From -->
+            <div class="singRowFrom">
+              <el-form-item label="住房地址" prop="address">
+                <el-input v-model="addFormBody.address" placeholder="请输入住房地址"></el-input>
+              </el-form-item>
+            </div>
+            <!-- 多行的 -->
+            <div class="bottomFrom">
+              <div class="singleFrom">
+                <el-form-item label="产权编号" prop="proId">
+                  <el-input v-model="addFormBody.proId" :label='"产权编号"' style="width=80px" placeholder="请输入产权编号"></el-input>
+                </el-form-item>
+              </div>
+              <div class="singleFrom">
+                <el-form-item label="租金" prop="rental">
+                  <el-input v-model="addFormBody.rental" placeholder="请输入租金"></el-input>
+                </el-form-item>
+              </div>
+              <div class="singleFrom">
+                <el-form-item label="竣工日期" prop="finishTime">
+                  <el-date-picker v-model="addFormBody.finishTime" placeholder="请选择日期" style="width:150px" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
+                </el-form-item>
+              </div>
+            </div>
+          </div>
+          <!-- 右边图片部分 -->
+          <div class="picFrom">
+            <el-form-item label="上传图片">
+              <el-upload action="http://upload.qiniu.com/" :limit="1" list-type="picture-card" :data="postData" :on-success="successUpload"
+                :before-upload="beforePicUpload">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
+              </el-upload>
+            </el-form-item>
+            <el-form-item label="备注" style="width:350px">
+              <el-input v-model="addFormBody.remark" placeholder="请输入...." type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+            </el-form-item>
+            <el-form-item label=" " style="margin-top:140px;margin-left:40px">
+              <el-button type="primary" @click.native="addSubmit">提交</el-button>
+              <el-button @click="cancelAdd">取消</el-button>
+            </el-form-item>
+          </div>
+        </div>
+      </el-form>
     </el-dialog>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { getHouse, getHouseByBuildingID, getHouseByRegionID } from "@/api/api";
+import {
+  getHouse,
+  getHouseByBuildingID,
+  getHouseByRegionID,
+  getHouseParam,
+  postHouseData,
+  deleteHouseData,
+  putHouseData
+} from "@/api/api";
+import { checkNum, checkNULL } from "@/assets/function/validator";
+import common from "@/common/util.js";
+
 export default {
   data() {
     return {
@@ -194,14 +319,119 @@ export default {
       // 详情表单数据
       detailFormVisible: false,
       detailLoading: false,
-      detailData: [],
+      detailData: {},
+      title: "详情",
+      modified: false,
 
       // 新增表单相关数据
       submitLoading: false,
       addFormVisible: false,
       addFormBody: {
-        description: "",
-        name: ""
+        no: "",
+        type: ""
+      },
+      addFormParam: [],
+      regionBuilding: [],
+      // 表单验证规则
+      rules: {
+        no: [
+          {
+            required: true,
+            message: "请输入住房编号",
+            trigger: "blur"
+          },
+          {
+            validator: checkNum,
+            trigger: "blur"
+          }
+        ],
+        type: [
+          {
+            validator: checkNULL,
+            trigger: "change"
+          }
+        ],
+        struct: {
+          validator: checkNULL,
+          trigger: "change"
+        },
+        usedArea: [
+          {
+            required: true,
+            message: "请输入使用面积",
+            trigger: "blur"
+          },
+          {
+            validator: checkNum,
+            trigger: "blur"
+          }
+        ],
+        regionId: {
+          validator: checkNULL,
+          trigger: "change"
+        },
+        layout: {
+          validator: checkNULL,
+          trigger: "change"
+        },
+        buildArea: [
+          {
+            required: true,
+            message: "请输入建筑面积",
+            trigger: "blur"
+          },
+          {
+            validator: checkNum,
+            trigger: "blur"
+          }
+        ],
+        basementArea: [
+          {
+            required: true,
+            message: "请输入地下室面积",
+            trigger: "blur"
+          },
+          {
+            validator: checkNum,
+            trigger: "blur"
+          }
+        ],
+        buildingId: {
+          validator: checkNULL,
+          trigger: "change"
+        },
+        address: {
+          required: true,
+          message: "请输入地址",
+          trigger: "blur"
+        },
+        proId: [
+          {
+            required: true,
+            message: "请输入使用产权编号",
+            trigger: "blur"
+          },
+          {
+            validator: checkNum,
+            trigger: "blur"
+          }
+        ],
+        rental: [
+          {
+            required: true,
+            message: "请输入使用租金",
+            trigger: "blur"
+          },
+          {
+            validator: checkNum,
+            trigger: "blur"
+          }
+        ],
+        finishTime: {
+          required: true,
+          message: "请选择使用竣工时间",
+          trigger: "blur"
+        }
       }
     };
   },
@@ -211,6 +441,9 @@ export default {
   computed: {
     selectRegion() {
       return this.queryOption.regionId;
+    },
+    addSelectRegion() {
+      return this.addFormBody.regionId || this.detailData.regionId;
     }
   },
   watch: {
@@ -218,6 +451,14 @@ export default {
     selectRegion(newval) {
       for (var region of this.regionBuildingData) {
         if (region.id == newval) this.buildingData = region.buildingList;
+      }
+    },
+    // 监听新增表单区域选择变动
+    addSelectRegion(newval) {
+      // console.log('2')
+      //this.addFormBody.buildingId=null
+      for (var region of this.regionBuildingData) {
+        if (region.id == newval) this.regionBuilding = region.buildingList;
       }
     },
     // 监听路由
@@ -243,7 +484,7 @@ export default {
 
     // 获取房屋列表
     getList() {
-      console.log(this.queryStatus);
+      //console.log(this.queryStatus);
       this.listLoading = true;
       let param = {
         page: this.page,
@@ -261,7 +502,6 @@ export default {
         var switchFunction = getHouseByBuildingID;
         var queryID = this.queryOption.buildingId;
       }
-
       switchFunction(param, queryID)
         .then(res => {
           //console.log(res.data.data);
@@ -275,20 +515,116 @@ export default {
           console.log(err);
         });
     },
+    // 新增表单需要填充的
+    addFromGetList() {
+      this.submitLoading = true;
+      let param,
+        paramNum = 4;
+      for (let paramClass = 1; paramClass <= paramNum; paramClass++) {
+        getHouseParam(param, paramClass)
+          .then(res => {
+            //console.log(res.data.data);
+            this.addFormParam[paramClass] = res.data.data.data.list;
+            // console.log(res.data.data.list)
+            if (this.addFormParam[4] != null) this.submitLoading = false;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    },
+    // 新增表单取消时
+    cancelAdd() {
+      this.$refs["addForm"].resetFields();
+      this.addFormVisible = false;
+    },
+    // 新增表单提交
+    addSubmit() {
+      console.log(this.addFormBody);
+      this.$refs["addForm"].validate(valid => {
+        if (valid) {
+          this.submitLoading = true;
+          //复制字符串
+          let para = Object.assign({}, this.addFormBody);
+          postHouseData(para).then(res => {
+            this.submitLoading = false;
+            //公共提示方法，传入当前的vue以及res.data
+            common.statusinfo(this, res.data);
+            this.$refs["addForm"].resetFields();
+            this.addFormVisible = false;
+          });
+        }
+      });
+      console.log(this.$refs);
+    },
     //选择的区域变化时
     selectRegionChange(region) {
       console.log(region);
       this.buildingData = region.buildingList;
     },
+    // 显示新增页面
+    showAddForm() {
+      // if (this.addFormParam == "")
+      this.addFromGetList();
+      console.log(this.addFormParam);
+      this.addFormVisible = true;
+    },
     // 显示详情页面
     showDetailDialog(index, row) {
+      this.title = "详情";
+      this.ismodify = false;
       this.detailFormVisible = true;
       this.detailData = Object.assign({}, row);
     },
     //显示编辑
     showModifyDialog(index, row) {
-      this.modifyFormVisible = true;
-      this.modifyFromBody = Object.assign({}, row);
+      this.modified = false;
+      this.title = "编辑";
+      this.ismodify = true;
+      if (this.addFormParam.length == 0) {
+        let param,
+          paramNum = 4;
+        for (let paramClass = 1; paramClass <= paramNum; paramClass++) {
+          getHouseParam(param, paramClass)
+            .then(res => {
+              this.addFormParam[paramClass] = res.data.data.data.list;
+              if (this.addFormParam[4] != null) this.submitLoading = false;
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
+      }
+      this.detailFormVisible = true;
+      this.detailData = Object.assign({}, row);
+    },
+    //编辑提交
+    modifySubmit() {
+      this.$refs["modifyFrom"].validate(valid => {
+        if (valid) {
+          this.detailLoading = true;
+          let param = Object.assign({}, this.detailData);
+          param.regionId = this.$route.params.id;
+          putHouseData(param).then(res => {
+            common.statusinfo(this, res.data);
+            this.detailLoading = false;
+            this.$refs["modifyFrom"].resetFields();
+            this.modified = true;
+            this.detailFormVisible = false;
+            this.getList();
+          });
+        }
+      });
+    },
+    // 编辑框关闭时候回调
+    modifyFromClose() {
+      if (this.modified == false&&this.title!='详情') {
+        this.$notify.info({
+          title: "提示",
+          message: "已取消编辑"
+        });
+        this.$refs["modifyFrom"].resetFields();
+      }
     },
     //在图片提交前进行验证
     beforePicUpload(file) {
@@ -307,7 +643,7 @@ export default {
     // 清空搜索的区域时
     clearRegion() {
       this.postData = 1;
-      this.queryOption.buildingId=''
+      this.queryOption.buildingId = "";
     },
     // 清空搜索的楼栋时
     clearBuilding() {
@@ -317,10 +653,38 @@ export default {
     // 上传成功钩子
     successUpload(res, file, fileLis) {
       //console.log(res)
-      this.detailData.FileUrl = this.$store.state.uploadUrl + res.key;
+      if (this.addFormVisible == false) {
+        this.detailData.image = this.$store.state.uploadUrl + res.key;
+      } else this.addFormBody.image = this.$store.state.uploadUrl + res.key;
+      //console.log(this.addFormBody.image);
     },
     // 删除功能
-    delectRegion(index, row) {},
+    delectHouse(index, row) {
+      this.$confirm("此操作将删除该户型选项", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let param = row.id;
+          this.listLoading = true;
+          deleteHouseData(param)
+            .then(res => {
+              // 公共提示方法
+              common.statusinfo(this, res.data);
+              this.getList();
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
     //更换每页数量
     SizeChangeEvent(val) {
       this.listLoading = true;
@@ -354,14 +718,18 @@ export default {
         border-bottom: 1px solid black;
         padding-top: 20px;
         display: flex;
+        flex: 1;
         .singleFrom {
           flex: 1;
+          width: 50%;
+          .el-input {
+            width: 222px;
+          }
         }
       }
       .singRowFrom {
         padding-top: 20px;
-        border-bottom: 1px solid black;
-        //border-right: 1px solid black;
+        border-bottom: 1px solid black; //border-right: 1px solid black;
       }
       .bottomFrom {
         padding-top: 20px;
@@ -370,7 +738,7 @@ export default {
         .singleFrom {
           flex: 1;
           .el-input {
-            width: 130px;
+            width: 140px;
           }
         }
       }
@@ -378,6 +746,7 @@ export default {
     .picFrom {
       border-top: 1px solid black;
       margin-top: 63px;
+      padding-top: 10px;
       flex: 1;
       display: flex;
       flex-direction: column;

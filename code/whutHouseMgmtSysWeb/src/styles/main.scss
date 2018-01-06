@@ -122,8 +122,24 @@ a {
   display: flex;
   >aside {
     $background-color: #373d41;
+    $hover-coloe: #4A5064;
     flex: none;
-    background-color: $background-color;
+    background-color: $background-color; // 树形菜单的样式
+    .filter {
+      .el-input__inner {
+        background-color: $hover-coloe;
+        color: #fff
+      }
+    }
+    >.el-tree {
+      width: 250px;
+      height: auto;
+      background-color: $background-color;
+      color: #fff;
+      .el-tree-node__content:hover {
+        background-color: $hover-coloe;
+      }
+    }
     &::-webkit-scrollbar {
       display: none;
     }
@@ -132,13 +148,13 @@ a {
       overflow-y: auto;
     }
     >.asid-button {
-      background: #4A5064;
+      background: $hover-coloe;
       text-align: center;
       color: white;
       height: 30px;
       line-height: 30px;
       cursor: pointer;
-    }
+    } // 导航菜单样式
     >.el-menu {
       height: 100%;
       /*写给不支持calc()的浏览器*/
@@ -164,21 +180,19 @@ a {
     .el-menu-item:hover,
     .el-submenu .el-menu-item:hover,
     .el-submenu__title:hover {
-      background-color: #4A5064;
+      background-color: $hover-coloe;
     }
     .el-submenu .el-menu-item {
       background-color: $background-color
     }
     .el-submenu .el-menu-item:hover {
-      background-color: #4A5064;
+      background-color: $hover-coloe;
       color: #fff;
     }
-        .el-submenu .el-menu::before {
-          background-color: #4A5064;
-          color: #fff;
-        }
-
-     //激活后的主菜单
+    .el-submenu .el-menu::before {
+      background-color: $hover-coloe;
+      color: #fff;
+    } //激活后的主菜单
     // .el-menu--horizontal>.el-menu-item.is-active,
     // .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
     //   border-bottom: 2px solid #ffd04b;
@@ -232,7 +246,7 @@ a {
   }
 }
 
-.detail-modify .el-dialog{
-  margin-top:12vh  ! important;
-  width: 70%;
+.detail-modify .el-dialog {
+  margin-top: 12vh ! important;
+  width: 80%;
 }

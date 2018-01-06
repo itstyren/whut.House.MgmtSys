@@ -238,8 +238,13 @@
 			//ajaxRequestGet("house/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
 		})
 		
+		$("#houseGetAll").click(function() {
+			ajaxRequestGet("house/get");
+			//ajaxRequestGet("house/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
+		})
+		
 		$("#getViewHouseByRegionId").click(function() {
-			ajaxRequestPostType("house/getViewHousesByRegionId/1?page=1&size=10");
+			ajaxRequestPostType("house/getViewHousesByRegionId/1");
 			//不带page=1&size=10默认不分页
 		})
 		
@@ -254,16 +259,16 @@
 
 		$("#houseAdd").click(function() {
 			var data = {
-				'no' : 40,
-				'type' : 10,
+				'no' : 576,
+				'type' : 77,
 				'layout' : 19,
-				'status' : 38,
 				'struct' : 29,
 				'buildArea' : 66,
 				'usedArea' : 66,
 				'basementArea' : 66,
 				'address' : '水立方',
 				'buildingId' : 5,
+				'image':null,
 				'proId' : '66',
 				'remark':'凤梨酥',
 				'rental':'26.9',
@@ -276,16 +281,16 @@
 		$("#houseModify").click(function() {
 			var data = {
 					'id':7,
-					'no' : 55,
-					'type' : 10,
+					'no' : 5776,
+					'type' : 6,
 					'layout' : 19,
-					'status' : 38,
 					'struct' : 29,
 					'buildArea' : 66,
 					'usedArea' : 66,
 					'basementArea' : 66,
-					'address' : '水立方',
+					'address' : '水方',
 					'buildingId' : 5,
+					'image':null,
 					'proId' : '66',
 					'remark':'凤梨酥',
 					'rental':'26.9',
@@ -296,7 +301,87 @@
 		})
 	})
 	
+<<<<<<< HEAD
 	
+=======
+	//权限right&class
+	$(function() {
+		$("#rightGet").click(function() {
+			ajaxRequestGet("right/getClassWithRights/2");
+		})
+
+		$("#getAllClassWithRight").click(function() {
+			ajaxRequestGet("right/get");
+		})
+	})
+
+	//角色
+	$(function() {
+		$("#roleGet").click(function() {
+			ajaxRequestGet("role/get");
+		})
+		
+		
+	})
+	
+	//登陆
+	$(function() {
+		$("#login1").click(function() {
+			var data ={
+					'no':'8',
+					'password':'123',
+					'roleId':3,
+					'token':'111',
+					'lastLoginTime':'2018-01-05T18:54:05'
+			};
+			ajaxRequestPostType("login/user", "POST", data);
+		})
+		
+		$("#login2").click(function() {
+			var data ={
+					'no':'8',
+					'password':'123',
+					'roleId':3,
+					'token':'',
+					'lastLoginTime':''
+			};
+			ajaxRequestPostType("login/user", "POST", data);
+		})
+		
+		$("#login3").click(function() {
+			var data ={
+					'no':'8',
+					'password':'123',
+					'roleId':3,
+					'token':'1111',
+					'lastLoginTime':'2018-01-05T18:54:05'
+			};
+			ajaxRequestPostType("login/user", "POST", data);
+		})
+		
+		$("#login4").click(function() {
+			var data ={
+					'no':'8',
+					'password':'123',
+					'roleId':3,
+					'token':'111',
+					'lastLoginTime':'2018-01-04T18:54:05'
+			};
+			ajaxRequestPostType("login/user", "POST", data);
+		})
+		
+		$("#login5").click(function() {
+			var data ={
+					'no':'8',
+					'password':'124',
+					'roleId':3,
+					'token':'',
+					'lastLoginTime':''
+			};
+			ajaxRequestPostType("login/user", "POST", data);
+		})
+	})
+>>>>>>> Terry-Ren/master
 	
 	//下拉列表
 	$(function() {
@@ -319,6 +404,10 @@
 		<li><a href="#region" data-toggle="tab">region</a></li>
 		<li><a href="#building" data-toggle="tab">building</a></li>
 		<li><a href="#house" data-toggle="tab">house</a></li>
+		<li><a href="#right" data-toggle="tab">right</a></li>
+		<li><a href="#role" data-toggle="tab">role</a></li>
+		<li><a href="#login" data-toggle="tab">login</a></li>
+		
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="houseParam">
@@ -355,12 +444,42 @@
 			<input class="btn btn-info btn-lg" type="button" value="BuildingModify" id="buildingModify" /> <br>
 		</div>
 		<div class="tab-pane fade" id="house">
-			<input class="btn btn-info btn-lg" type="button" value="HouseGet" id="houseGet" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByRegionId" id="getViewHouseByRegionId" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByBuildingId" id="getViewHouseByBuildingId" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="HouseDelete" id="houseDelete" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="HouseAdd" id="houseAdd" /> <br> 
-			<input class="btn btn-info btn-lg" type="button" value="HouseModify" id="houseModify" /> <br>
+		            根据house的id获取一个house <br>
+			<input class="btn btn-info btn-lg" type="button" value="HouseGet" id="houseGet" /> <br> <br>
+			不传参获取全部的house，默认不分页<br>
+			<input class="btn btn-info btn-lg" type="button" value="HouseGetAll" id="houseGetAll" /> <br><br>
+			根据regionId获取一个地区的全部house，默认不分页<br>
+			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByRegionId" id="getViewHouseByRegionId" /> <br><br> 
+			根据buildingId获取一个楼栋中的全部house，默认不分页<br>
+			<input class="btn btn-info btn-lg" type="button" value="getViewHouseByBuildingId" id="getViewHouseByBuildingId" /> <br><br> 
+			删除一个house<br>
+			<input class="btn btn-info btn-lg" type="button" value="HouseDelete" id="houseDelete" /> <br> <br>
+			增加一个house<br>
+			<input class="btn btn-info btn-lg" type="button" value="HouseAdd" id="houseAdd" /> <br> <br>
+			修改一个house<br>
+			<input class="btn btn-info btn-lg" type="button" value="HouseModify" id="houseModify" /> <br><br>
+		</div>
+		<div class="tab-pane fade" id="right">
+			<input class="btn btn-info btn-lg" type="button" value="获取带right的class" id="rightGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="获取全部带right的class" id="getAllClassWithRight" /> <br> 
+			
+		</div>
+		<div class="tab-pane fade" id="role">
+			<input class="btn btn-info btn-lg" type="button" value="role" id="roleGet" /> <br> 
+			<input class="btn btn-info btn-lg" type="button" value="roleAdd" id="roleAdd" /> <br> 
+		</div>
+		<div class="tab-pane fade" id="login">
+			<div>令牌登陆 <br>
+			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login1" /> <br> <br></div>
+			<div>不用令牌登陆 <br>
+			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login2" /> <br> <br></div>
+			<div>错误的令牌信息登陆 <br>
+			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login3" /> <br> <br></div>
+			<div>超时但账号密码信息正确 <br>
+			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login4" /> <br> <br></div>
+			<div>无令牌切账号密码错误 <br>
+			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login5" /> <br> <br></div>
+			
 		</div>
 		
 	</div>

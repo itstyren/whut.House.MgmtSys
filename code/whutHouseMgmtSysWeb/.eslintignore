@@ -4,6 +4,7 @@ src/views/*.vue
 src/assets/icons/*js
 src/store/*.js
 src/common/*.js
+src/assets/function/*.js
 
 src/components/sysManage/paramSet/*.vue
 src/components/sysManage/paramSet/houseParam/*.vue 
@@ -13,4 +14,5 @@ src/components/sysManage/paramSet/fixParam/*.vue
 src/components/sysManage/paramSet/rentalParam/*.vue  
 src/components/basiceData/*.vue   
 src/components/basiceData/buildingRegionData/*.vue   
-src/components/basiceData/houseData/*.vue   
+src/components/basiceData/houseData/*.vue    
+src/components/basiceData/staffData/*.vue    
