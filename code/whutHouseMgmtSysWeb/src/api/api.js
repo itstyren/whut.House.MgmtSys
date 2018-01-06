@@ -83,3 +83,8 @@ export const getHouseByRegionID = (params, region) => { return axios.get(`${base
 export const deleteHouseData = (houseID) => { return axios.delete(`${base}house/delete/${houseID}`) }
 // 新增方法
 export const postHouseData = (params) => { return axios.post(`${base}house/add`, params) }
+// 修改方法
+export const putHouseData = (params) => { return axios.put(`${base}house/modify`, params) }
+
+// 基础数据-职工管理
+// 获取方法--获取部门带员工信息
