@@ -13,7 +13,7 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql:///whlglease" userId="root" password="qweasd">
+			connectionURL="jdbc:mysql:///whlglease" userId="root" password="XH05250619.">
 		</jdbcConnection>
 
 		<javaTypeResolver>
