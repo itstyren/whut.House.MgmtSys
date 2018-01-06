@@ -3,10 +3,6 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/views/Home'
 
-import paramSetText from '@/components/sysManage/paramSet/indexParam1'
-
-import Text1 from '@/views/Home1'
-
 // 住房参数
 import paramSet from '@/components/sysManage/paramSet/indexParam'
 import houseType from '@/components/sysManage/paramSet/houseParam/houseType'
@@ -36,9 +32,11 @@ import rentalOption from '@/components/sysManage/paramSet/rentalParam/rentalOpti
 import indexbldgRgn from '@/components/basiceData/buildingRegionData/indexNav'
 import region from '@/components/basiceData/buildingRegionData/regionData'
 import building from '@/components/basiceData/buildingRegionData/buildingData'
+// 房屋参数
 import indexHouse from '@/components/basiceData/houseData/indexNav'
 import house from '@/components/basiceData/houseData/houseData'
-// import houseModify from '@/components/basiceData/houseData/modifyHouseData'
+// 职工参数
+import indexStaff from '@/components/basiceData/staffData/indexNav'
 
 Vue.use(Router)
 
@@ -55,21 +53,6 @@ const routes = [
     redirect: '/index',
     children: [
       {path: '/index', component: HelloWorld, name: 'index', menuShow: true}
-    ]
-  },
-  // 测试
-  {
-    path: '/text',
-    component: Text1,
-    children: [
-      { path: '/paramSet1',
-        component: paramSetText,
-        name: 'paramSetText',
-        children: [
-          { path: '/paramSet1/houseType1', component: houseType, name: 'houseType1', menuShow: true }
-        ]
-
-      }
     ]
   },
   // 系统管理
@@ -122,6 +105,7 @@ const routes = [
     },
     menuShow: true,
     children: [
+      // 区域楼栋
       { path: 'buildingArea',
         component: indexbldgRgn,
         name: 'indexbldgRgn',
@@ -130,6 +114,7 @@ const routes = [
           { path: 'building/:id', component: building, name: 'building', menuShow: true }
         ],
         menuShow: true },
+      // 房屋
       { path: 'house',
         component: indexHouse,
         name: 'indexHouse',
@@ -138,7 +123,14 @@ const routes = [
             component: house,
             name: 'house',
             menuShow: true }
-           // { path: 'detail', component: houseModify, name: 'houseDetail', menuShow: true }
+        ]
+      },
+      // 职工
+      {
+        path: 'staff',
+        component: indexStaff,
+        name: 'indexStaff',
+        children: [
         ]
       }
     ]

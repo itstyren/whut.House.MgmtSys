@@ -8,3 +8,12 @@ export const checkNum = (rule, value, callback) => {
     callback();
   }
 };
+
+export const checkNULL = (rule, value, callback) => {
+  console.log(value)
+  if (!value) {
+    callback(new Error(`选项不能为空`));
+  } else {
+    callback();
+  }
+};
