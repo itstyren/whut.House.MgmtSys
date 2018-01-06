@@ -48,6 +48,7 @@
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
 		<table tableName="Hs_Fix" domainObjectName="Fix">
+
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		
