@@ -216,6 +216,42 @@
 			ajaxRequestPostType("staff/modify", "PUT", data);
 		})
 	})
+	
+	//住房登记
+	$(function() {
+		$("#getByMultiCondition").click(function() {
+			var data = {
+					//键的名字与Model属性名一致
+					//'houseType':'周转房342萨达',
+					//'useStatus':'空闲',
+					//'houseZone':'武汉市洪山区工大路20号'
+			};
+			ajaxRequestPostType("house/getByMultiCondition","POST",data);
+		})
+		
+		$("#getByAllMultiCondition").click(function() {
+			var data = {
+					//键的名字与Model属性名一致
+					//'houseType':'周转房342萨达',
+					//'useStatus':'空闲',
+					//'houseZone':'武汉市洪山区工大路20号'
+					//'structName':'砖木',
+					//'areaParameter':{
+						//'areaParamName':'建筑面积',
+						//'minArea':50,
+						//'maxArea':52
+					//},
+					//'finishTime':['2017-01-31','2017-02-02'],
+					'finishTime':{
+						'startTime':'2017-01-31',
+						'endTime':'2017-02-02'
+					}
+			};
+			ajaxRequestPostType("house/getByAllMultiCondition","POST",data);
+		})
+		
+		
+	})
 </script>
 
 </head>
@@ -237,6 +273,7 @@
 		<li><a href="#rentParamAboutStaff" data-toggle="tab">和职工有关的租赁参数</a></li>
 		<li><a href="#staffParam" data-toggle="tab">职工参数</a></li>
 		<li><a href="#staffManagement" data-toggle="tab">职工管理</a></li>
+		<li><a href="#houseRegistration" data-toggle="tab">住房登记</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="rentEvent">
@@ -284,6 +321,13 @@
 			<input class="btn btn-info btn-lg" type="button" value="staffAdd" id="staffAdd" /> <br><br> 
 			<h4>修改员工数据</h4>
 			<input class="btn btn-info btn-lg" type="button" value="staffModify" id="staffModify" /> <br>
+		</div>
+		<div class="tab-pane fade" id="houseRegistration">
+			<h4>多条件查询测试</h4>
+			<input class="btn btn-info btn-lg" type="button" value="GetByMultiCondition" id="getByMultiCondition" /> <br><br> 
+			<h4>全面多条件查询测试</h4> 
+			<input class="btn btn-info btn-lg" type="button" value="GetByAllMultiCondition" id="getByAllMultiCondition" /> <br> 
+			
 		</div>
 	</div>
 

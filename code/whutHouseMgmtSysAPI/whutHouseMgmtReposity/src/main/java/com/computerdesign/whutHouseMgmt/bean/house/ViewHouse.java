@@ -5,7 +5,7 @@ import java.util.Date;
 public class ViewHouse {
     private Integer id;
 
-    private Integer no;
+    private String no;
 
     private Integer type;
 
@@ -35,6 +35,10 @@ public class ViewHouse {
 
     private String buildingName;
 
+    private Integer regionId;
+
+    private String regionName;
+
     private String proId;
 
     private String remark;
@@ -55,12 +59,12 @@ public class ViewHouse {
         this.id = id;
     }
 
-    public Integer getNo() {
+    public String getNo() {
         return no;
     }
 
-    public void setNo(Integer no) {
-        this.no = no;
+    public void setNo(String no) {
+        this.no = no == null ? null : no.trim();
     }
 
     public Integer getType() {
@@ -173,6 +177,22 @@ public class ViewHouse {
 
     public void setBuildingName(String buildingName) {
         this.buildingName = buildingName == null ? null : buildingName.trim();
+    }
+
+    public Integer getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Integer regionId) {
+        this.regionId = regionId;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName == null ? null : regionName.trim();
     }
 
     public String getProId() {

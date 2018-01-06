@@ -296,6 +296,8 @@
 		})
 	})
 	
+	
+	
 	//下拉列表
 	$(function() {
 		$("#building_regionDown").click(function() {
@@ -360,6 +362,7 @@
 			<input class="btn btn-info btn-lg" type="button" value="HouseAdd" id="houseAdd" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="HouseModify" id="houseModify" /> <br>
 		</div>
+		
 	</div>
 
 

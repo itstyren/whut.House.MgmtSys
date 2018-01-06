@@ -47,7 +47,10 @@
 		<!-- <table tableName="pm_paramclass" domainObjectName="ParamClass">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="view_pm_house" domainObjectName="ViewHouse">
+		<!-- <table tableName="view_pm_house" domainObjectName="ViewHouse">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<table tableName="view_hs_house" domainObjectName="ViewHouse">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		
