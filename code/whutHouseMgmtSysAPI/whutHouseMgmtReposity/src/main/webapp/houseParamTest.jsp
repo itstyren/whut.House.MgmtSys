@@ -301,9 +301,6 @@
 		})
 	})
 	
-<<<<<<< HEAD
-	
-=======
 	//权限right&class
 	$(function() {
 		$("#rightGet").click(function() {
@@ -381,7 +378,6 @@
 			ajaxRequestPostType("login/user", "POST", data);
 		})
 	})
->>>>>>> Terry-Ren/master
 	
 	//下拉列表
 	$(function() {
