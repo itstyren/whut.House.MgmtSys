@@ -226,7 +226,7 @@
 					//'useStatus':'空闲',
 					//'houseZone':'武汉市洪山区工大路20号'
 			};
-			ajaxRequestPostType("house/getByMultiCondition","POST",data);
+			ajaxRequestPostType("houseRegister/getByMultiCondition","POST",data);
 		})
 		
 		$("#getByAllMultiCondition").click(function() {
@@ -247,9 +247,12 @@
 						'endTime':'2017-02-02'
 					}
 			};
-			ajaxRequestPostType("house/getByAllMultiCondition","POST",data);
+			ajaxRequestPostType("houseRegister/getByAllMultiCondition","POST",data);
 		})
 		
+		$("#getStaffHouseRel").click(function() {
+			ajaxRequestGet("houseRegister/getStaffHouseRel/1");
+		})
 		
 	})
 </script>
@@ -326,8 +329,9 @@
 			<h4>多条件查询测试</h4>
 			<input class="btn btn-info btn-lg" type="button" value="GetByMultiCondition" id="getByMultiCondition" /> <br><br> 
 			<h4>全面多条件查询测试</h4> 
-			<input class="btn btn-info btn-lg" type="button" value="GetByAllMultiCondition" id="getByAllMultiCondition" /> <br> 
-			
+			<input class="btn btn-info btn-lg" type="button" value="GetByAllMultiCondition" id="getByAllMultiCondition" /> <br><br>
+			<h4>职工房屋关系查询测试</h4> 
+			<input class="btn btn-info btn-lg" type="button" value="GetStaffHouseRel" id="getStaffHouseRel" /> <br> 
 		</div>
 	</div>
 

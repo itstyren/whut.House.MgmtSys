@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.bean.house;
+package com.computerdesign.whutHouseMgmt.bean.houseregister;
 
 /**
  * 用于封装模糊查询查找出来显示的信息,基于视图查询

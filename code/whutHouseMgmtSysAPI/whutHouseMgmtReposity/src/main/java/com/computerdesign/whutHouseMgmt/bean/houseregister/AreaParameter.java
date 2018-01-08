@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.bean.house;
+package com.computerdesign.whutHouseMgmt.bean.houseregister;
 
 import java.util.ArrayList;
 import java.util.List;
