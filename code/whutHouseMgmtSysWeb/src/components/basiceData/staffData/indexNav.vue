@@ -6,17 +6,21 @@
        <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
       </div>
             <!-- 主菜单 -->
-            <el-tree :data="depData"></el-tree>
+            <el-tree :data="depData" :render-content="renderContent"></el-tree>
     </aside>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { getDept } from "@/api/api";
 export default {
   data() {
     return {
       isCollapse: false,
-      depData: [
+      // 部门信息加职工
+      depData: [],
+      filterText: "",
+      depData2: [
         {
           id: 1,
           label: "一级 1",
@@ -68,25 +72,68 @@ export default {
       ]
     };
   },
-  components: {},
+  created() {
+    this.getList();
+  },
   methods: {
     //折叠
     collapse: function() {
       this.isCollapse = !this.isCollapse;
+    },
+    // 获取区域信息包括楼栋
+    getList() {
+      this.listLoading = true;
+      let param = {};
+      getDept(param)
+        .then(res => {
+          let deptData = res.data.data.deptData;
+          deptData.forEach(dept => {
+            this.depData.push({
+              id: dept.staffParamId,
+              label: dept.staffParamName,
+              children: []
+            });
+            let num = 0;
+            dept.staffModels.forEach(staff => {
+              this.depData[num].children.push({
+                id: staff.id,
+                label: staff.name
+              });
+            });
+            num++;
+          });
+          console.log(this.depData);
+          this.totalNum = res.data.data.data.total;
+          this.listLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 渲染函数
+    renderContent(h, { node, data, store }) {
+      return (
+        <span>
+          <span>
+            <span>{node.label} </span>
+          </span>
+        </span>
+      );
     }
   }
 };
+
 </script>
 
 <style scoped lang="scss">
 aside {
-    .asid-button{
-        margin: 10px auto 10px;
-        width: 70%
-    }
-    .el-input__inner{
-        background: #4A5064
-    }
+  .asid-button {
+    margin: 10px auto 10px;
+    width: 70%;
+  }
+  .el-input__inner {
+    background: #4a5064;
+  }
   > .el-tree {
     width: 250px;
     height: auto;

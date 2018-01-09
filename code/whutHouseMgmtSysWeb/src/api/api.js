@@ -88,3 +88,4 @@ export const putHouseData = (params) => { return axios.put(`${base}house/modify`
 
 // 基础数据-职工管理
 // 获取方法--获取部门带员工信息
+export const getDept = (params) => { return axios.get(`${base}staff/getDepts`, { params: params }) }

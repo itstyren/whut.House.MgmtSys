@@ -132,13 +132,22 @@ a {
       }
     }
     >.el-tree {
+      margin-top: 20px;
       width: 250px;
       height: auto;
       background-color: $background-color;
       color: #fff;
+          padding-left: 20px;
+
       .el-tree-node__content:hover {
         background-color: $hover-coloe;
       }
+      .el-tree-node__content{
+        height: 46px;
+            padding-left: 20px;
+
+      }
+
     }
     &::-webkit-scrollbar {
       display: none;
