@@ -18,10 +18,16 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.building.Building;
 import com.computerdesign.whutHouseMgmt.bean.house.House;
 import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllShowModel;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseSelectModel;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseShowModel;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
+import com.computerdesign.whutHouseMgmt.service.houseregister.StaffHouseRelService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -41,8 +47,6 @@ public class HouseController {
 	
 	@Autowired
 	private ViewHouseService viewHouseService;
-	
-	
 	
 	/**
 	 * 根据id获取一个House
