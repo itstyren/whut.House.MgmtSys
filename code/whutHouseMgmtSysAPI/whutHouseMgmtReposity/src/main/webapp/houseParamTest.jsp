@@ -234,7 +234,7 @@
 	//房屋
 	$(function() {
 		$("#houseGet").click(function() {
-			ajaxRequestGet("house/get/1");
+			ajaxRequestGet("house/get/44");
 			//ajaxRequestGet("house/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
 		})
 		
@@ -249,7 +249,7 @@
 		})
 		
 		$("#getViewHouseByBuildingId").click(function() {
-			ajaxRequestPostType("house/getViewHousesByBuildingId/5?page=1&size=10");
+			ajaxRequestPostType("house/getViewHousesByBuildingId/4?page=1&size=10");
 			//不带page=1&size=10默认不分页
 		})
 
