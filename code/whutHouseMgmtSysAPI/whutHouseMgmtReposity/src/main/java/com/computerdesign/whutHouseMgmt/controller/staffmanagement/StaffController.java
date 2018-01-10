@@ -44,6 +44,25 @@ public class StaffController {
 
 	@Autowired
 	private StaffService staffService;
+	
+	/**
+	 * 根据id获取单个员工信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getByID/{id}", method = RequestMethod.GET)
+	public Msg getByID(@PathVariable("id") Integer id) {
+		StaffVw staffVw = staffVwService.getByID(id);
+
+		if (staffVw != null) {
+			return Msg.success().add("data", staffVw);
+		} else {
+			return Msg.error("无信息");
+		}
+
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
