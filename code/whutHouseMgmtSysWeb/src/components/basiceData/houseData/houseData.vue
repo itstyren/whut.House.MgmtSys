@@ -83,7 +83,7 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item v-if="!ismodify" label="结构">
-                  <el-input v-model="detailData.statusName" :readonly="!ismodify"></el-input>
+                  <el-input v-model="detailData.structName" :readonly="!ismodify"></el-input>
                 </el-form-item>
                 <el-form-item v-if="ismodify" label="结构" prop="struct">
                   <el-select v-model="detailData.struct" :clearable="true" placeholder="请选择房屋结构">
