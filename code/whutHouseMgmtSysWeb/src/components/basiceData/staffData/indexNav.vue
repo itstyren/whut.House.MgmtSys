@@ -6,8 +6,20 @@
        <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
       </div>
             <!-- 主菜单 -->
-            <el-tree :data="depData" :render-content="renderContent"></el-tree>
+            <el-tree v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode" @node-expand="nodeExpand"></el-tree>
     </aside>
+        <section class="main-container">
+      <!-- 需要长时间存活的 -->
+      <transition>
+        <keep-alive>
+          <router-view v-if="$route.meta.keepAlive"></router-view>
+        </keep-alive>
+      </transition>
+      <!-- 不需要长时间保存的 -->
+      <transition mode="out-in">
+        <router-view v-if="!$route.meta.keepAlive"></router-view>
+      </transition>
+    </section>
   </div>
 </template>
 
@@ -17,73 +29,32 @@ export default {
   data() {
     return {
       isCollapse: false,
+      // 树控件需要的
+      listLoading:false,
       // 部门信息加职工
       depData: [],
-      filterText: "",
-      depData2: [
-        {
-          id: 1,
-          label: "一级 1",
-          children: [
-            {
-              id: 4,
-              label: "二级 1-1",
-              children: [
-                {
-                  id: 9,
-                  label: "三级 1-1-1"
-                },
-                {
-                  id: 10,
-                  label: "三级 1-1-2"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          id: 2,
-          label: "一级 2",
-          children: [
-            {
-              id: 5,
-              label: "二级 2-1"
-            },
-            {
-              id: 6,
-              label: "二级 2-2"
-            }
-          ]
-        },
-        {
-          id: 3,
-          label: "一级 3",
-          children: [
-            {
-              id: 7,
-              label: "二级 3-1"
-            },
-            {
-              id: 8,
-              label: "二级 3-2"
-            }
-          ]
-        }
-      ]
+      filterText: ""
     };
   },
   created() {
     this.getList();
+  },
+  watch: {
+    // 监听输入值
+    filterText(val) {
+      this.$refs.staffTree.filter(val);
+    }
   },
   methods: {
     //折叠
     collapse: function() {
       this.isCollapse = !this.isCollapse;
     },
-    // 获取区域信息包括楼栋
+    // 获取部门信息包括职工
     getList() {
       this.listLoading = true;
       let param = {};
+      let num = 0;
       getDept(param)
         .then(res => {
           let deptData = res.data.data.deptData;
@@ -93,7 +64,6 @@ export default {
               label: dept.staffParamName,
               children: []
             });
-            let num = 0;
             dept.staffModels.forEach(staff => {
               this.depData[num].children.push({
                 id: staff.id,
@@ -103,7 +73,6 @@ export default {
             num++;
           });
           console.log(this.depData);
-          this.totalNum = res.data.data.data.total;
           this.listLoading = false;
         })
         .catch(err => {
@@ -115,14 +84,31 @@ export default {
       return (
         <span>
           <span>
-            <span>{node.label} </span>
+            <span>
+              {" "}
+              <svg class="icon" aria-hidden="true">
+                <use xlinkHref="#icon-bumen" />
+              </svg>
+              <span class="label">{node.label}</span>{" "}
+            </span>
           </span>
         </span>
       );
+    },
+    // 筛选函数
+    filterNode(value, data) {
+      if (!value) return true;
+      return data.label.indexOf(value) !== -1;
+    },
+    // 节点展开时获取
+    nodeExpand(value, node, component) {
+      console.log(value)
+      this.$router.push({
+        path: '/basic/staff/byDept/'+value.id
+      });
     }
   }
 };
-
 </script>
 
 <style scoped lang="scss">

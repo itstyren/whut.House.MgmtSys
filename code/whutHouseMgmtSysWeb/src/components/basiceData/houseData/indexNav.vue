@@ -89,7 +89,7 @@ export default {
 <style scoped lang="scss">
 aside {
   > .el-menu {
-    width: 250px;
+    width: 280px;
     height: auto;
   }
     .el-menu--collapse{

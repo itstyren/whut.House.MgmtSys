@@ -188,6 +188,7 @@ export default {
     $route: "getList"
   },
   methods: {
+    // 获取列表
     getList() {
       this.listLoading = true;
       let param = {

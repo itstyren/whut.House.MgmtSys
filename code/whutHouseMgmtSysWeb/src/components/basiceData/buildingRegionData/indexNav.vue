@@ -106,7 +106,7 @@ export default {
 <style scoped lang="scss">
 aside {
   > .el-menu {
-    width: 250px;
+    width: 280px;
   }
   .el-menu--collapse{
     width: 60px;
