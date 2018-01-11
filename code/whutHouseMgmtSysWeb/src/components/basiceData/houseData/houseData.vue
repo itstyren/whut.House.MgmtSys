@@ -660,7 +660,7 @@ export default {
     },
     // 删除功能
     delectHouse(index, row) {
-      this.$confirm("此操作将删除该户型选项", "提示", {
+      this.$confirm("此操作将删除该房屋", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"

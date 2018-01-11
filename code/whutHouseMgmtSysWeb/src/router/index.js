@@ -38,6 +38,7 @@ import house from '@/components/basiceData/houseData/houseData'
 // 职工参数
 import indexStaff from '@/components/basiceData/staffData/indexNav'
 import staffData from '@/components/basiceData/staffData/staffData'
+import singleStaffData from '@/components/basiceData/staffData/singleStaffData'
 
 Vue.use(Router)
 
@@ -137,7 +138,13 @@ const routes = [
             component: staffData,
             name: 'staffData',
             menuShow: true
+          }, {
+            path: 'byId/:id',
+            component: singleStaffData,
+            name: 'singleStaffData',
+            menuShow: true
           }
+
         ]
       }
     ]

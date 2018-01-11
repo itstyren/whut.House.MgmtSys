@@ -6,7 +6,7 @@
        <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
       </div>
             <!-- 主菜单 -->
-            <el-tree v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode" @node-expand="nodeExpand"></el-tree>
+            <el-tree v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode" @node-click="nodeClick" ></el-tree>
     </aside>
         <section class="main-container">
       <!-- 需要长时间存活的 -->
@@ -30,7 +30,7 @@ export default {
     return {
       isCollapse: false,
       // 树控件需要的
-      listLoading:false,
+      listLoading: false,
       // 部门信息加职工
       depData: [],
       filterText: ""
@@ -81,31 +81,55 @@ export default {
     },
     // 渲染函数
     renderContent(h, { node, data, store }) {
-      return (
-        <span>
+      // console.log(node);
+      if (node.level == 1) {
+        return (
           <span>
             <span>
-              {" "}
-              <svg class="icon" aria-hidden="true">
-                <use xlinkHref="#icon-bumen" />
-              </svg>
-              <span class="label">{node.label}</span>{" "}
+              <span>
+                {" "}
+                <svg class="icon" aria-hidden="true">
+                  <use xlinkHref="#icon-bumen" />
+                </svg>
+                <span class="label">{node.label}</span>{" "}
+              </span>
             </span>
           </span>
-        </span>
-      );
+        );
+      } else {
+        return (
+          <span>
+            <span>
+              <span>
+                {" "}
+                <svg class="icon" aria-hidden="true">
+                  <use xlinkHref="#icon-account" />
+                </svg>
+                <span class="label">{node.label}</span>{" "}
+              </span>
+            </span>
+          </span>
+        );
+      }
     },
     // 筛选函数
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
     },
-    // 节点展开时获取
-    nodeExpand(value, node, component) {
-      console.log(value)
-      this.$router.push({
-        path: '/basic/staff/byDept/'+value.id
-      });
+    // 节点被点击时的回调
+    nodeClick(object, node, component) {
+      //console.log(node);
+      if (node.level == 1){
+        this.$router.push({
+          path: "/basic/staff/byDept/" + object.id
+        });
+      }else if(node.level ==2 ){
+                this.$router.push({
+          path: "/basic/staff/byId/" + object.id
+        });
+      }
+
     }
   }
 };
