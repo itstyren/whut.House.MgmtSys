@@ -31,6 +31,8 @@ import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterModel;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @RequestMapping("/staff/")
 @Controller
@@ -44,6 +46,25 @@ public class StaffController {
 
 	@Autowired
 	private StaffService staffService;
+	
+	/**
+	 * 根据id获取单个员工信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getByID/{id}", method = RequestMethod.GET)
+	public Msg getByID(@PathVariable("id") Integer id) {
+		StaffVw staffVw = staffVwService.getByID(id);
+
+		if (staffVw != null) {
+			return Msg.success().add("data", staffVw);
+		} else {
+			return Msg.error("无信息");
+		}
+
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
@@ -200,14 +221,19 @@ public class StaffController {
 	 */
 	@ResponseBody
 	@RequestMapping("get/{staffParamId}")
-	public Msg getStaff(@PathVariable("staffParamId") Integer staffParamId) {
+	public Msg getStaff(@PathVariable("staffParamId") Integer staffParamId,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		
 		// 根据staffParamId获取StaffParameter对象
 		StaffParameter staffParameter = staffParameterSerivce.get(staffParamId);
 		// 获取deptName对象
 		String deptName = staffParameter.getStaffParamName();
+		PageHelper.startPage(page, size);
 		List<StaffVw> staffs = staffVwService.getAllByStaffDept(deptName);
+		PageInfo pageInfo = new PageInfo(staffs);
 		if (staffs != null) {
-			return Msg.success().add("data", staffs);
+			return Msg.success().add("data", pageInfo);
 		} else {
 			return Msg.error("无记录");
 		}

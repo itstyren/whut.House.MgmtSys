@@ -153,6 +153,10 @@
 
 	//职工管理
 	$(function() {
+		$("#getByID").click(function() {
+			ajaxRequestGet("staff/getByID/1");
+		})
+		
 		$("#staffDeptGet").click(function() {
 			ajaxRequestGet("staff/getDepts");
 		})
@@ -162,7 +166,7 @@
 		})
 
 		$("#staffGet").click(function() {
-			ajaxRequestGet("staff/get/65");
+			ajaxRequestGet("staff/get/48?page=2&size=2");
 		})
 
 
@@ -312,6 +316,8 @@
 			<input class="btn btn-info btn-lg" type="button" value="staffParamModify" id="staffParamModify" /><br>
 		</div>
 		<div class="tab-pane fade" id="staffManagement">
+			<h4>根据ID获取单个员工信息</h4>
+			<input class="btn btn-info btn-lg" type="button" value="getByID" id="getByID" /> <br><br> 
 			<h4>获取所有部门</h4>
 			<input class="btn btn-info btn-lg" type="button" value="staffDeptGet" id="staffDeptGet" /> <br><br> 
 			<h4>模糊查询员工</h4>
