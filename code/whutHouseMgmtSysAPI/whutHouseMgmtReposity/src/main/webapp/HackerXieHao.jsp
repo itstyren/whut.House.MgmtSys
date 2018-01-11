@@ -166,7 +166,7 @@
 		})
 
 		$("#staffGet").click(function() {
-			ajaxRequestGet("staff/get/65");
+			ajaxRequestGet("staff/get/48?page=2&size=2");
 		})
 
 
