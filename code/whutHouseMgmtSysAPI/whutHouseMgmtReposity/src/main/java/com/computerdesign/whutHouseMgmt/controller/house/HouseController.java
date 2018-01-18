@@ -57,10 +57,10 @@ public class HouseController {
 	@RequestMapping(value = "get/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Msg get(@PathVariable("id") Integer id) {
-		ViewHouse viewHouse = viewHouseService.get(id);
-		if (viewHouse == null) {
+		if (viewHouseService.get(id).isEmpty()) {
 			return Msg.error("查找不到数据");
 		} else {
+			ViewHouse viewHouse = viewHouseService.get(id).get(0);
 			return Msg.success().add("data", viewHouse);
 		}
 	}

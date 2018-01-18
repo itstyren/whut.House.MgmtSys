@@ -14,6 +14,8 @@ public class FixService {
 	@Autowired
 	private FixMapper fixMapper;
 	
+	
+
 	/**
 	 * 增加一个fix
 	 * @param fix
