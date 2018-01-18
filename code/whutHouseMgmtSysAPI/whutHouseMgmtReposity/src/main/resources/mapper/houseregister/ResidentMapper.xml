@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseregister.Resident">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="HouseId" jdbcType="INTEGER" property="houseId" />
+    <result column="HouseRel" jdbcType="INTEGER" property="houseRel" />
+    <result column="BookTime" jdbcType="DATE" property="bookTime" />
+    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
+    <result column="ExpireTime" jdbcType="DATE" property="expireTime" />
+    <result column="RentType" jdbcType="VARCHAR" property="rentType" />
+    <result column="LastRentType" jdbcType="VARCHAR" property="lastRentType" />
+    <result column="FamilyCode" jdbcType="VARCHAR" property="familyCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, StaffId, HouseId, HouseRel, BookTime, IsDelete, ExpireTime, RentType, LastRentType, 
+    FamilyCode
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hs_resident
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hs_resident
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hs_resident
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample">
+    delete from hs_resident
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.Resident">
+    insert into hs_resident (Id, StaffId, HouseId, 
+      HouseRel, BookTime, IsDelete, 
+      ExpireTime, RentType, LastRentType, 
+      FamilyCode)
+    values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
+      #{houseRel,jdbcType=INTEGER}, #{bookTime,jdbcType=DATE}, #{isDelete,jdbcType=BIT}, 
+      #{expireTime,jdbcType=DATE}, #{rentType,jdbcType=VARCHAR}, #{lastRentType,jdbcType=VARCHAR}, 
+      #{familyCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.Resident">
+    insert into hs_resident
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="staffId != null">
+        StaffId,
+      </if>
+      <if test="houseId != null">
+        HouseId,
+      </if>
+      <if test="houseRel != null">
+        HouseRel,
+      </if>
+      <if test="bookTime != null">
+        BookTime,
+      </if>
+      <if test="isDelete != null">
+        IsDelete,
+      </if>
+      <if test="expireTime != null">
+        ExpireTime,
+      </if>
+      <if test="rentType != null">
+        RentType,
+      </if>
+      <if test="lastRentType != null">
+        LastRentType,
+      </if>
+      <if test="familyCode != null">
+        FamilyCode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=INTEGER},
+      </if>
+      <if test="houseRel != null">
+        #{houseRel,jdbcType=INTEGER},
+      </if>
+      <if test="bookTime != null">
+        #{bookTime,jdbcType=DATE},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=DATE},
+      </if>
+      <if test="rentType != null">
+        #{rentType,jdbcType=VARCHAR},
+      </if>
+      <if test="lastRentType != null">
+        #{lastRentType,jdbcType=VARCHAR},
+      </if>
+      <if test="familyCode != null">
+        #{familyCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample" resultType="java.lang.Long">
+    select count(*) from hs_resident
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update hs_resident
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffId != null">
+        StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseId != null">
+        HouseId = #{record.houseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseRel != null">
+        HouseRel = #{record.houseRel,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookTime != null">
+        BookTime = #{record.bookTime,jdbcType=DATE},
+      </if>
+      <if test="record.isDelete != null">
+        IsDelete = #{record.isDelete,jdbcType=BIT},
+      </if>
+      <if test="record.expireTime != null">
+        ExpireTime = #{record.expireTime,jdbcType=DATE},
+      </if>
+      <if test="record.rentType != null">
+        RentType = #{record.rentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastRentType != null">
+        LastRentType = #{record.lastRentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.familyCode != null">
+        FamilyCode = #{record.familyCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update hs_resident
+    set Id = #{record.id,jdbcType=INTEGER},
+      StaffId = #{record.staffId,jdbcType=INTEGER},
+      HouseId = #{record.houseId,jdbcType=INTEGER},
+      HouseRel = #{record.houseRel,jdbcType=INTEGER},
+      BookTime = #{record.bookTime,jdbcType=DATE},
+      IsDelete = #{record.isDelete,jdbcType=BIT},
+      ExpireTime = #{record.expireTime,jdbcType=DATE},
+      RentType = #{record.rentType,jdbcType=VARCHAR},
+      LastRentType = #{record.lastRentType,jdbcType=VARCHAR},
+      FamilyCode = #{record.familyCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.Resident">
+    update hs_resident
+    <set>
+      <if test="staffId != null">
+        StaffId = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="houseId != null">
+        HouseId = #{houseId,jdbcType=INTEGER},
+      </if>
+      <if test="houseRel != null">
+        HouseRel = #{houseRel,jdbcType=INTEGER},
+      </if>
+      <if test="bookTime != null">
+        BookTime = #{bookTime,jdbcType=DATE},
+      </if>
+      <if test="isDelete != null">
+        IsDelete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="expireTime != null">
+        ExpireTime = #{expireTime,jdbcType=DATE},
+      </if>
+      <if test="rentType != null">
+        RentType = #{rentType,jdbcType=VARCHAR},
+      </if>
+      <if test="lastRentType != null">
+        LastRentType = #{lastRentType,jdbcType=VARCHAR},
+      </if>
+      <if test="familyCode != null">
+        FamilyCode = #{familyCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.Resident">
+    update hs_resident
+    set StaffId = #{staffId,jdbcType=INTEGER},
+      HouseId = #{houseId,jdbcType=INTEGER},
+      HouseRel = #{houseRel,jdbcType=INTEGER},
+      BookTime = #{bookTime,jdbcType=DATE},
+      IsDelete = #{isDelete,jdbcType=BIT},
+      ExpireTime = #{expireTime,jdbcType=DATE},
+      RentType = #{rentType,jdbcType=VARCHAR},
+      LastRentType = #{lastRentType,jdbcType=VARCHAR},
+      FamilyCode = #{familyCode,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
