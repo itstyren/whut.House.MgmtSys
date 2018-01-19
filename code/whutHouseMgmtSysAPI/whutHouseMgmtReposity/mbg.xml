@@ -1,13 +1,13 @@
-ï»¿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration
   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
 
-	<!-- é…ç½®æ•°æ®åº“è¿žæŽ¥ -->
+	<!-- ÅäÖÃÊý¾Ý¿âÁ¬½Ó -->
 	<context id="DB2Tables" targetRuntime="MyBatis3">
-		<!-- é…ç½®æ˜¯å¦ç”Ÿæˆæ³¨é‡Š -->
+		<!-- ÅäÖÃÊÇ·ñÉú³É×¢ÊÍ -->
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
@@ -20,7 +20,7 @@
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
-		<!-- æŒ‡å®šjavabeançš„ç”Ÿæˆä½ç½® -->
+		<!-- Ö¸¶¨javabeanµÄÉú³ÉÎ»ÖÃ -->
 
 		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.houseregister"
 			targetProject=".\src\main\java">
@@ -28,19 +28,19 @@
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
-		<!-- æŒ‡å®šsqlæ˜ å°„æ–‡ä»¶çš„ç”Ÿæˆä½ç½® -->
+		<!-- Ö¸¶¨sqlÓ³ÉäÎÄ¼þµÄÉú³ÉÎ»ÖÃ -->
 
 		<sqlMapGenerator targetPackage="mapper.houseregister" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
-		<!-- æŒ‡å®šdaoæŽ¥å£çš„ç”Ÿæˆä½ç½® mapperæŽ¥å£ -->
+		<!-- Ö¸¶¨dao½Ó¿ÚµÄÉú³ÉÎ»ÖÃ mapper½Ó¿Ú -->
 		<javaClientGenerator type="XMLMAPPER"
 			targetPackage="com.computerdesign.whutHouseMgmt.dao.houseregister" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<!-- æ­¤å¤„æ·»åŠ æ–°å»ºçš„è¡¨ -->
+		<!-- ´Ë´¦Ìí¼ÓÐÂ½¨µÄ±í -->
 		<!-- <table tableName="pm_stafftype" domainObjectName="StaffParameter">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
@@ -53,7 +53,10 @@
 		<!-- <table tableName="view_hs_house" domainObjectName="ViewHouse">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="view_hs_staffhouserel" domainObjectName="StaffHouseRel">
+		<!-- <table tableName="view_hs_staffhouserel" domainObjectName="StaffHouseRel">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<table tableName="hs_resident" domainObjectName="Resident">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		

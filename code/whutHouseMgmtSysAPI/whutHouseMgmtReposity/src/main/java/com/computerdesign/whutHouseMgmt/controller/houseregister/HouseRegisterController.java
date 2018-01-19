@@ -22,12 +22,14 @@ import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllShowModel;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseShowModel;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.HouseRegisterSelectService;
+import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.StaffHouseRelService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.github.pagehelper.PageHelper;
@@ -43,6 +45,38 @@ public class HouseRegisterController {
 	@Autowired
 	private StaffHouseRelService staffHouseRelService;
 
+	@Autowired
+	private RegisterService registerService;
+
+	/**
+	 * 住房登记
+	 * @param resident
+	 * @return
+	 */
+	@RequestMapping(value = "register", method = RequestMethod.PUT)
+	@ResponseBody
+	public Msg register(@RequestBody Resident resident){
+		//System.out.println(resident.getStaffId());
+		//System.out.println(registerService.getCount());
+		//根据数据库中的记录数+1
+		resident.setId(registerService.getCount()+1);
+		if(resident.getStaffId() == null){
+			return Msg.error("请选择一个员工");
+		}
+		if(resident.getHouseId() == null){
+			return Msg.error("请选择住房");
+		}
+		//若没有选择住房关系，则默认为全部，返回0，错误提示
+		if(resident.getHouseRel() == 0){
+			return Msg.error("住房关系不能选择全部");
+		}
+		resident.setFamilyCode(resident.getStaffId().toString());
+		//具体可能要见Rent表
+		resident.setRentType("工资");
+		registerService.register(resident);
+		return Msg.success().add("data", resident);
+	}
+	
 	/**
 	 * 职工房屋关系查询
 	 * 

@@ -258,6 +258,16 @@
 			ajaxRequestGet("houseRegister/getStaffHouseRel/1");
 		})
 		
+		$("#register").click(function() {
+			var data = {
+					//键的名字与Model属性名一致
+					'staffId':1,
+					'houseId':1,
+					'houseRel':25
+			};
+			ajaxRequestPostType("houseRegister/register","PUT",data);
+		})
+		
 	})
 </script>
 
@@ -338,6 +348,8 @@
 			<input class="btn btn-info btn-lg" type="button" value="GetByAllMultiCondition" id="getByAllMultiCondition" /> <br><br>
 			<h4>职工房屋关系查询测试</h4> 
 			<input class="btn btn-info btn-lg" type="button" value="GetStaffHouseRel" id="getStaffHouseRel" /> <br> 
+			<h4>登记</h4> 
+			<input class="btn btn-info btn-lg" type="button" value="Register" id="register" /> <br> 
 		</div>
 	</div>
 
