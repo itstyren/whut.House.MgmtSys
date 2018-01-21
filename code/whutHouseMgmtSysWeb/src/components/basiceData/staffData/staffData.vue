@@ -43,7 +43,6 @@
           <el-table-column prop="postName" label="职称" sortable align="center"></el-table-column>
           <el-table-column prop="titleName" label="职务" sortable align="center"></el-table-column>
           <el-table-column prop="statusName" label="工作状态" sortable align="center"></el-table-column>
-
           <el-table-column label="操作" width="300" align="center">
             <template slot-scope="scope">
               <el-button size="small" @click="showDetailDialog(scope.$index,scope.row)">详情</el-button>
@@ -193,7 +192,9 @@ export default {
       });
     },
     //显示编辑
-    showModifyDialog(index, row) {},
+    showModifyDialog(index, row) {
+      
+    },
     // 删除功能
     delectStaff(index, row) {
       this.$confirm("此操作将删除该职工", "提示", {

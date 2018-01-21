@@ -540,7 +540,7 @@ export default {
     },
     // 新增表单提交
     addSubmit() {
-      console.log(this.addFormBody);
+      //console.log(this.addFormBody);
       this.$refs["addForm"].validate(valid => {
         if (valid) {
           this.submitLoading = true;
