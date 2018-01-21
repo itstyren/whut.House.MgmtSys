@@ -91,5 +91,7 @@ export const putHouseData = (params) => { return axios.put(`${base}house/modify`
 export const getDept = (params) => { return axios.get(`${base}staff/getDepts`, { params: params }) }
 // 获取方法--获取单一部门的详细员工信息
 export const getSingleDept = (params, deptID) => { return axios.get(`${base}staff/get/${deptID}`, { params: params }) }
+// 获取方法--根据员工id获取单一员工信息
+export const getStaff = (params, staffID) => { return axios.get(`${base}staff/getByID/${staffID}`, { params: params }) }
 // 删除方法
 export const deleteStaffData = (staffID) => { return axios.delete(`${base}staff/delete/${staffID}`) }

@@ -32,7 +32,6 @@
             <el-button type="primary" @click="showAddForm()">新增住房</el-button>
           </el-form-item>
         </el-form>
-
       </div>
       <!-- 表格区 -->
       <div class="main-data">
@@ -469,6 +468,7 @@ export default {
   },
   mounted() {},
   methods: {
+    // 判定查询的类型
     queryData() {
       if (this.queryOption.regionId == "") {
         this.queryStatus = 1;
@@ -555,11 +555,9 @@ export default {
           });
         }
       });
-      console.log(this.$refs);
     },
     //选择的区域变化时
     selectRegionChange(region) {
-      console.log(region);
       this.buildingData = region.buildingList;
     },
     // 显示新增页面
@@ -642,12 +640,12 @@ export default {
     },
     // 清空搜索的区域时
     clearRegion() {
-      this.postData = 1;
+      this.queryStatus = 1;
       this.queryOption.buildingId = "";
     },
     // 清空搜索的楼栋时
     clearBuilding() {
-      this.postData = 2;
+      this.queryStatus = 2;
     },
 
     // 上传成功钩子
