@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.fix.ViewFixMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.fix.ViewFix">
+    <result column="Id" jdbcType="INTEGER" property="id" />
+    <result column="FixContentId" jdbcType="VARCHAR" property="fixContentId" />
+    <result column="FixContentName" jdbcType="VARCHAR" property="fixContentName" />
+    <result column="Description" jdbcType="VARCHAR" property="description" />
+    <result column="ApplyTime" jdbcType="DATE" property="applyTime" />
+    <result column="FixState" jdbcType="VARCHAR" property="fixState" />
+    <result column="AcceptState" jdbcType="VARCHAR" property="acceptState" />
+    <result column="AcceptNote" jdbcType="VARCHAR" property="acceptNote" />
+    <result column="AcceptTime" jdbcType="DATE" property="acceptTime" />
+    <result column="AcceptMan" jdbcType="VARCHAR" property="acceptMan" />
+    <result column="AgreeState" jdbcType="VARCHAR" property="agreeState" />
+    <result column="AgreeNote" jdbcType="VARCHAR" property="agreeNote" />
+    <result column="AgreeTime" jdbcType="DATE" property="agreeTime" />
+    <result column="AgreeMan" jdbcType="VARCHAR" property="agreeMan" />
+    <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
+    <result column="TitleName" jdbcType="VARCHAR" property="titleName" />
+    <result column="PostName" jdbcType="VARCHAR" property="postName" />
+    <result column="DeptName" jdbcType="VARCHAR" property="deptName" />
+    <result column="HouseId" jdbcType="INTEGER" property="houseId" />
+    <result column="StaffAddress" jdbcType="VARCHAR" property="staffAddress" />
+    <result column="Phone" jdbcType="VARCHAR" property="phone" />
+    <result column="Message" jdbcType="VARCHAR" property="message" />
+    <result column="PriceTime" jdbcType="DATE" property="priceTime" />
+    <result column="PriceMan" jdbcType="VARCHAR" property="priceMan" />
+    <result column="CheckTime" jdbcType="DATE" property="checkTime" />
+    <result column="CheckMan" jdbcType="VARCHAR" property="checkMan" />
+    <result column="FixTime" jdbcType="DATE" property="fixTime" />
+    <result column="FixMoney" jdbcType="VARCHAR" property="fixMoney" />
+    <result column="IsOver" jdbcType="BIT" property="isOver" />
+    <result column="IsCheck" jdbcType="BIT" property="isCheck" />
+    <result column="FeedBack" jdbcType="VARCHAR" property="feedBack" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, FixContentId, FixContentName, Description, ApplyTime, FixState, AcceptState, 
+    AcceptNote, AcceptTime, AcceptMan, AgreeState, AgreeNote, AgreeTime, AgreeMan, StaffId, 
+    StaffName, TitleName, PostName, DeptName, HouseId, StaffAddress, Phone, Message, 
+    PriceTime, PriceMan, CheckTime, CheckMan, FixTime, FixMoney, IsOver, IsCheck, FeedBack, 
+    Email
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.ViewFixExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from view_hs_fix
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.ViewFixExample">
+    delete from view_hs_fix
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.ViewFix">
+    insert into view_hs_fix (Id, FixContentId, FixContentName, 
+      Description, ApplyTime, FixState, 
+      AcceptState, AcceptNote, AcceptTime, 
+      AcceptMan, AgreeState, AgreeNote, 
+      AgreeTime, AgreeMan, StaffId, 
+      StaffName, TitleName, PostName, 
+      DeptName, HouseId, StaffAddress, 
+      Phone, Message, PriceTime, 
+      PriceMan, CheckTime, CheckMan, 
+      FixTime, FixMoney, IsOver, 
+      IsCheck, FeedBack, Email
+      )
+    values (#{id,jdbcType=INTEGER}, #{fixContentId,jdbcType=VARCHAR}, #{fixContentName,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{applyTime,jdbcType=DATE}, #{fixState,jdbcType=VARCHAR}, 
+      #{acceptState,jdbcType=VARCHAR}, #{acceptNote,jdbcType=VARCHAR}, #{acceptTime,jdbcType=DATE}, 
+      #{acceptMan,jdbcType=VARCHAR}, #{agreeState,jdbcType=VARCHAR}, #{agreeNote,jdbcType=VARCHAR}, 
+      #{agreeTime,jdbcType=DATE}, #{agreeMan,jdbcType=VARCHAR}, #{staffId,jdbcType=INTEGER}, 
+      #{staffName,jdbcType=VARCHAR}, #{titleName,jdbcType=VARCHAR}, #{postName,jdbcType=VARCHAR}, 
+      #{deptName,jdbcType=VARCHAR}, #{houseId,jdbcType=INTEGER}, #{staffAddress,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{priceTime,jdbcType=DATE}, 
+      #{priceMan,jdbcType=VARCHAR}, #{checkTime,jdbcType=DATE}, #{checkMan,jdbcType=VARCHAR}, 
+      #{fixTime,jdbcType=DATE}, #{fixMoney,jdbcType=VARCHAR}, #{isOver,jdbcType=BIT}, 
+      #{isCheck,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.ViewFix">
+    insert into view_hs_fix
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="fixContentId != null">
+        FixContentId,
+      </if>
+      <if test="fixContentName != null">
+        FixContentName,
+      </if>
+      <if test="description != null">
+        Description,
+      </if>
+      <if test="applyTime != null">
+        ApplyTime,
+      </if>
+      <if test="fixState != null">
+        FixState,
+      </if>
+      <if test="acceptState != null">
+        AcceptState,
+      </if>
+      <if test="acceptNote != null">
+        AcceptNote,
+      </if>
+      <if test="acceptTime != null">
+        AcceptTime,
+      </if>
+      <if test="acceptMan != null">
+        AcceptMan,
+      </if>
+      <if test="agreeState != null">
+        AgreeState,
+      </if>
+      <if test="agreeNote != null">
+        AgreeNote,
+      </if>
+      <if test="agreeTime != null">
+        AgreeTime,
+      </if>
+      <if test="agreeMan != null">
+        AgreeMan,
+      </if>
+      <if test="staffId != null">
+        StaffId,
+      </if>
+      <if test="staffName != null">
+        StaffName,
+      </if>
+      <if test="titleName != null">
+        TitleName,
+      </if>
+      <if test="postName != null">
+        PostName,
+      </if>
+      <if test="deptName != null">
+        DeptName,
+      </if>
+      <if test="houseId != null">
+        HouseId,
+      </if>
+      <if test="staffAddress != null">
+        StaffAddress,
+      </if>
+      <if test="phone != null">
+        Phone,
+      </if>
+      <if test="message != null">
+        Message,
+      </if>
+      <if test="priceTime != null">
+        PriceTime,
+      </if>
+      <if test="priceMan != null">
+        PriceMan,
+      </if>
+      <if test="checkTime != null">
+        CheckTime,
+      </if>
+      <if test="checkMan != null">
+        CheckMan,
+      </if>
+      <if test="fixTime != null">
+        FixTime,
+      </if>
+      <if test="fixMoney != null">
+        FixMoney,
+      </if>
+      <if test="isOver != null">
+        IsOver,
+      </if>
+      <if test="isCheck != null">
+        IsCheck,
+      </if>
+      <if test="feedBack != null">
+        FeedBack,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fixContentId != null">
+        #{fixContentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fixContentName != null">
+        #{fixContentName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=DATE},
+      </if>
+      <if test="fixState != null">
+        #{fixState,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptState != null">
+        #{acceptState,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptNote != null">
+        #{acceptNote,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptTime != null">
+        #{acceptTime,jdbcType=DATE},
+      </if>
+      <if test="acceptMan != null">
+        #{acceptMan,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeState != null">
+        #{agreeState,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeNote != null">
+        #{agreeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeTime != null">
+        #{agreeTime,jdbcType=DATE},
+      </if>
+      <if test="agreeMan != null">
+        #{agreeMan,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="staffName != null">
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="titleName != null">
+        #{titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="postName != null">
+        #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=INTEGER},
+      </if>
+      <if test="staffAddress != null">
+        #{staffAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="priceTime != null">
+        #{priceTime,jdbcType=DATE},
+      </if>
+      <if test="priceMan != null">
+        #{priceMan,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        #{checkTime,jdbcType=DATE},
+      </if>
+      <if test="checkMan != null">
+        #{checkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="fixTime != null">
+        #{fixTime,jdbcType=DATE},
+      </if>
+      <if test="fixMoney != null">
+        #{fixMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="isOver != null">
+        #{isOver,jdbcType=BIT},
+      </if>
+      <if test="isCheck != null">
+        #{isCheck,jdbcType=BIT},
+      </if>
+      <if test="feedBack != null">
+        #{feedBack,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.ViewFixExample" resultType="java.lang.Long">
+    select count(*) from view_hs_fix
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update view_hs_fix
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.fixContentId != null">
+        FixContentId = #{record.fixContentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fixContentName != null">
+        FixContentName = #{record.fixContentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        Description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyTime != null">
+        ApplyTime = #{record.applyTime,jdbcType=DATE},
+      </if>
+      <if test="record.fixState != null">
+        FixState = #{record.fixState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acceptState != null">
+        AcceptState = #{record.acceptState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acceptNote != null">
+        AcceptNote = #{record.acceptNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acceptTime != null">
+        AcceptTime = #{record.acceptTime,jdbcType=DATE},
+      </if>
+      <if test="record.acceptMan != null">
+        AcceptMan = #{record.acceptMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agreeState != null">
+        AgreeState = #{record.agreeState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agreeNote != null">
+        AgreeNote = #{record.agreeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agreeTime != null">
+        AgreeTime = #{record.agreeTime,jdbcType=DATE},
+      </if>
+      <if test="record.agreeMan != null">
+        AgreeMan = #{record.agreeMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffId != null">
+        StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffName != null">
+        StaffName = #{record.staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleName != null">
+        TitleName = #{record.titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postName != null">
+        PostName = #{record.postName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptName != null">
+        DeptName = #{record.deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseId != null">
+        HouseId = #{record.houseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffAddress != null">
+        StaffAddress = #{record.staffAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        Phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.message != null">
+        Message = #{record.message,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priceTime != null">
+        PriceTime = #{record.priceTime,jdbcType=DATE},
+      </if>
+      <if test="record.priceMan != null">
+        PriceMan = #{record.priceMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkTime != null">
+        CheckTime = #{record.checkTime,jdbcType=DATE},
+      </if>
+      <if test="record.checkMan != null">
+        CheckMan = #{record.checkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fixTime != null">
+        FixTime = #{record.fixTime,jdbcType=DATE},
+      </if>
+      <if test="record.fixMoney != null">
+        FixMoney = #{record.fixMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isOver != null">
+        IsOver = #{record.isOver,jdbcType=BIT},
+      </if>
+      <if test="record.isCheck != null">
+        IsCheck = #{record.isCheck,jdbcType=BIT},
+      </if>
+      <if test="record.feedBack != null">
+        FeedBack = #{record.feedBack,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update view_hs_fix
+    set Id = #{record.id,jdbcType=INTEGER},
+      FixContentId = #{record.fixContentId,jdbcType=VARCHAR},
+      FixContentName = #{record.fixContentName,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=VARCHAR},
+      ApplyTime = #{record.applyTime,jdbcType=DATE},
+      FixState = #{record.fixState,jdbcType=VARCHAR},
+      AcceptState = #{record.acceptState,jdbcType=VARCHAR},
+      AcceptNote = #{record.acceptNote,jdbcType=VARCHAR},
+      AcceptTime = #{record.acceptTime,jdbcType=DATE},
+      AcceptMan = #{record.acceptMan,jdbcType=VARCHAR},
+      AgreeState = #{record.agreeState,jdbcType=VARCHAR},
+      AgreeNote = #{record.agreeNote,jdbcType=VARCHAR},
+      AgreeTime = #{record.agreeTime,jdbcType=DATE},
+      AgreeMan = #{record.agreeMan,jdbcType=VARCHAR},
+      StaffId = #{record.staffId,jdbcType=INTEGER},
+      StaffName = #{record.staffName,jdbcType=VARCHAR},
+      TitleName = #{record.titleName,jdbcType=VARCHAR},
+      PostName = #{record.postName,jdbcType=VARCHAR},
+      DeptName = #{record.deptName,jdbcType=VARCHAR},
+      HouseId = #{record.houseId,jdbcType=INTEGER},
+      StaffAddress = #{record.staffAddress,jdbcType=VARCHAR},
+      Phone = #{record.phone,jdbcType=VARCHAR},
+      Message = #{record.message,jdbcType=VARCHAR},
+      PriceTime = #{record.priceTime,jdbcType=DATE},
+      PriceMan = #{record.priceMan,jdbcType=VARCHAR},
+      CheckTime = #{record.checkTime,jdbcType=DATE},
+      CheckMan = #{record.checkMan,jdbcType=VARCHAR},
+      FixTime = #{record.fixTime,jdbcType=DATE},
+      FixMoney = #{record.fixMoney,jdbcType=VARCHAR},
+      IsOver = #{record.isOver,jdbcType=BIT},
+      IsCheck = #{record.isCheck,jdbcType=BIT},
+      FeedBack = #{record.feedBack,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -5,42 +5,42 @@
 
 <generatorConfiguration>
 
-	<!-- ÅäÖÃÊý¾Ý¿âÁ¬½Ó -->
+	<!-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ -->
 	<context id="DB2Tables" targetRuntime="MyBatis3">
-		<!-- ÅäÖÃÊÇ·ñÉú³É×¢ÊÍ -->
+		<!-- ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ -->
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql:///whlglease" userId="root" password="XH05250619.">
+			connectionURL="jdbc:mysql:///whlglease" userId="root" password="qweasd">
 		</jdbcConnection>
 
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
-		<!-- Ö¸¶¨javabeanµÄÉú³ÉÎ»ÖÃ -->
+		<!-- Ö¸ï¿½ï¿½javabeanï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.houseregister"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.fix"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
-		<!-- Ö¸¶¨sqlÓ³ÉäÎÄ¼þµÄÉú³ÉÎ»ÖÃ -->
+		<!-- Ö¸ï¿½ï¿½sqlÓ³ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ -->
 
-		<sqlMapGenerator targetPackage="mapper.houseregister" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper.fix" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
-		<!-- Ö¸¶¨dao½Ó¿ÚµÄÉú³ÉÎ»ÖÃ mapper½Ó¿Ú -->
+		<!-- Ö¸ï¿½ï¿½daoï¿½Ó¿Úµï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ mapperï¿½Ó¿ï¿½ -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.houseregister" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.fix" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<!-- ´Ë´¦Ìí¼ÓÐÂ½¨µÄ±í -->
+		<!-- ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½Ä±ï¿½ -->
 		<!-- <table tableName="pm_stafftype" domainObjectName="StaffParameter">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
@@ -56,7 +56,7 @@
 		<!-- <table tableName="view_hs_staffhouserel" domainObjectName="StaffHouseRel">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="hs_resident" domainObjectName="Resident">
+		<table tableName="view_hs_fix" domainObjectName="ViewFix">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		

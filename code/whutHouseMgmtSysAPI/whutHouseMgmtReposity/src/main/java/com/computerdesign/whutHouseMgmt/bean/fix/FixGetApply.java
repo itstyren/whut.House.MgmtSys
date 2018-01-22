@@ -10,7 +10,7 @@ public class FixGetApply {
 
 	private Integer id;
 
-    private Integer no;
+    private String no;
 
     private String name;
 
@@ -47,11 +47,11 @@ public class FixGetApply {
 		this.id = id;
 	}
 
-	public Integer getNo() {
+	public String getNo() {
 		return no;
 	}
 
-	public void setNo(Integer no) {
+	public void setNo(String no) {
 		this.no = no;
 	}
 
