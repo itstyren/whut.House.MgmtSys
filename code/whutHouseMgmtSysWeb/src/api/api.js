@@ -95,3 +95,5 @@ export const getSingleDept = (params, deptID) => { return axios.get(`${base}staf
 export const getStaff = (params, staffID) => { return axios.get(`${base}staff/getByID/${staffID}`, { params: params }) }
 // 删除方法
 export const deleteStaffData = (staffID) => { return axios.delete(`${base}staff/delete/${staffID}`) }
+// 编辑方法
+export const putStaffData = (params) => { return axios.put(`${base}staff/modify`, params) }

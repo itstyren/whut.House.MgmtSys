@@ -126,7 +126,7 @@ export default {
       } else if (node.level == 2) {
         this.$router.push({
           path: "/basic/staff/byId/" + object.id
-        });
+        }); 
       }
     }
   }
