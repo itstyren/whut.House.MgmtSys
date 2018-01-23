@@ -60,4 +60,13 @@ public class HouseParameter {
     public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
     }
+
+	@Override
+	public String toString() {
+		return "HouseParameter [houseParamId=" + houseParamId + ", houseParamName=" + houseParamName + ", paramTypeId="
+				+ paramTypeId + ", paramTypeName=" + paramTypeName + ", houseParamRel=" + houseParamRel + ", isDelete="
+				+ isDelete + "]";
+	}
+    
+    
 }

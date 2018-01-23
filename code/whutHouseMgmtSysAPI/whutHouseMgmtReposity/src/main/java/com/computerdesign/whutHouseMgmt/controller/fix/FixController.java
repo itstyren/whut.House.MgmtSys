@@ -61,6 +61,7 @@ public class FixController {
 		
 		StaffVw staffVw = staffVwService.getByID(staffId);
 		FixGetApply fixGetApply = new FixGetApply(staffVw);
+		return null;
 		
 	}
 	
