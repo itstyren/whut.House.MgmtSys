@@ -27,6 +27,17 @@ public class RegisterService{
 	}
 	
 	/**
+	 * 根据staffId获取全部的resident
+	 * @param staffId
+	 * @return
+	 */
+	public List<Resident> getResidentsByStaffId(Integer staffId) {
+		ResidentExample example = new ResidentExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		return residentMapper.selectByExample(example);
+	}
+	/**
 	 * 获取数据库记录数，方便id自增
 	 * @return
 	 */

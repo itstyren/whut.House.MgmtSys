@@ -1,5 +1,7 @@
 package com.computerdesign.whutHouseMgmt.bean.fix;
 
+import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
+
 public class HouseGetApply {
 
 	private Integer id;
@@ -20,6 +22,16 @@ public class HouseGetApply {
     
     private String fixContentName;
 
+    public HouseGetApply(ViewHouse viewHouse) {
+		this.id = viewHouse.getId();
+		this.no = viewHouse.getNo();
+		this.typeName = viewHouse.getTypeName();
+		this.address = viewHouse.getAddress();
+		this.buildArea = viewHouse.getBuildArea();
+		this.usedArea = viewHouse.getUsedArea();
+		this.statusName = viewHouse.getStatusName();
+	}
+    
 	public Integer getId() {
 		return id;
 	}
