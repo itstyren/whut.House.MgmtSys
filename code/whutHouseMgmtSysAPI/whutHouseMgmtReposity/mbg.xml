@@ -13,7 +13,7 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql:///whlglease" userId="root" password="XH05250619.">
+			connectionURL="jdbc:mysql:///whlglease" userId="root" password="qweasd">
 		</jdbcConnection>
 
 		<javaTypeResolver>
@@ -22,7 +22,11 @@
 
 		<!-- ָ��javabean������λ�� -->
 
+<<<<<<< HEAD
 		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.staffmanagement"
+=======
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.fix"
+>>>>>>> Terry-Ren/master
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -30,13 +34,21 @@
 
 		<!-- ָ��sqlӳ���ļ�������λ�� -->
 
+<<<<<<< HEAD
 		<sqlMapGenerator targetPackage="mapper.staffmanagement" targetProject=".\src\main\resources">
+=======
+		<sqlMapGenerator targetPackage="mapper.fix" targetProject=".\src\main\resources">
+>>>>>>> Terry-Ren/master
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- ָ��dao�ӿڵ�����λ�� mapper�ӿ� -->
 		<javaClientGenerator type="XMLMAPPER"
+<<<<<<< HEAD
 			targetPackage="com.computerdesign.whutHouseMgmt.dao.staffmanagement" targetProject=".\src\main\java">
+=======
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.fix" targetProject=".\src\main\java">
+>>>>>>> Terry-Ren/master
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -56,10 +68,14 @@
 		<!-- <table tableName="view_hs_staffhouserel" domainObjectName="StaffHouseRel">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
+<<<<<<< HEAD
 		<!-- <table tableName="hs_resident" domainObjectName="Resident">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
 		<table tableName="view_hs_staff" domainObjectName="StaffVw">
+=======
+		<table tableName="view_hs_fix" domainObjectName="ViewFix">
+>>>>>>> Terry-Ren/master
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		

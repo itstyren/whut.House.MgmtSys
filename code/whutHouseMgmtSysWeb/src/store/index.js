@@ -11,8 +11,11 @@ export default new Vuex.Store({
         RoleID:'',
         Name:'12',
         regionStatus:false,
+        // 七牛云令牌和地址
         uploadToken:'GfDe7p6rupDyEHYhvHfO-NhXvJ0KtxVOBSKxiKtU:Zcw6ifNOcltho7BKwsamkdTgcjo=:eyJzY29wZSI6IndodXRob3VzZW1nbXRzeXMiLCJkZWFkbGluZSI6MTAxNTE0OTc3Njc0fQ==',
         uploadUrl: 'http://p1z72063k.bkt.clouddn.com/',
+        // 单一职工信息
+        staffData:{}
     },
     mutations:{
         // 登录时写入
@@ -46,6 +49,10 @@ export default new Vuex.Store({
         // 区域变更时，写入
         [types.REGION_CHANGE]:(state)=>{
             state.regionStatus=!state.regionStatus
+        },
+        // 写入新的职工信息
+        [types.STAFF_DATA]:(state,staff)=>{
+            state.staffData=staff
         }
     }
 })

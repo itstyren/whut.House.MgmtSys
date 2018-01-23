@@ -9,3 +9,5 @@ export const DENY= 'deny'
 
 // 区域变更时刷新
 export const REGION_CHANGE ='regionChange'
+// 写入新的职工信息
+export const STAFF_DATA = 'staffData'

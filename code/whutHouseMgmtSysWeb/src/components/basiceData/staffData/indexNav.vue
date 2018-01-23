@@ -12,12 +12,12 @@
       <!-- 需要长时间存活的 -->
       <transition>
         <keep-alive>
-          <router-view v-if="$route.meta.keepAlive"></router-view>
+          <router-view v-if="$route.meta.keepAlive" :dep-data="depData"></router-view>
         </keep-alive>
       </transition>
       <!-- 不需要长时间保存的 -->
       <transition mode="out-in">
-        <router-view v-if="!$route.meta.keepAlive"></router-view>
+        <router-view v-if="!$route.meta.keepAlive" :dep-data="depData"></router-view>
       </transition>
     </section>
   </div>
@@ -72,7 +72,6 @@ export default {
             });
             num++;
           });
-          console.log(this.depData);
           this.listLoading = false;
         })
         .catch(err => {
@@ -120,16 +119,15 @@ export default {
     // 节点被点击时的回调
     nodeClick(object, node, component) {
       //console.log(node);
-      if (node.level == 1){
+      if (node.level == 1) {
         this.$router.push({
           path: "/basic/staff/byDept/" + object.id
         });
-      }else if(node.level ==2 ){
-                this.$router.push({
+      } else if (node.level == 2) {
+        this.$router.push({
           path: "/basic/staff/byId/" + object.id
-        });
+        }); 
       }
-
     }
   }
 };
