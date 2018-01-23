@@ -379,6 +379,48 @@
 		})
 	})
 	
+	//维修
+	$(function() {
+		$("#fixGetApply").click(function() {
+			ajaxRequestGet("fix/getApply/1");
+			//ajaxRequestGet("house/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
+		})
+
+		$("#fixAddApply").click(function() {
+			var data = {
+				'fixContentId':4,
+				'description':'有什么东西坏了',
+				'staffId':1,
+				'houseId':1,
+				'phone':'13329911694',
+				'email':'123456@qq.com'
+			};
+			ajaxRequestPostType("fix/addApply", "POST", data);
+		})
+
+		$("#fixModify").click(function() {
+			var data = {
+					'id':7,
+					'no' : 5776,
+					'type' : 6,
+					'layout' : 19,
+					'struct' : 29,
+					'buildArea' : 66,
+					'usedArea' : 66,
+					'basementArea' : 66,
+					'address' : '水方',
+					'buildingId' : 5,
+					'image':null,
+					'proId' : '66',
+					'remark':'凤梨酥',
+					'rental':'26.9',
+					'finishTime':new Date(),
+					'recordStatus':1
+			};
+			ajaxRequestPostType("house/modify", "PUT", data);
+		})
+	})
+	
 	//下拉列表
 	$(function() {
 		$("#building_regionDown").click(function() {
@@ -403,6 +445,7 @@
 		<li><a href="#right" data-toggle="tab">right</a></li>
 		<li><a href="#role" data-toggle="tab">role</a></li>
 		<li><a href="#login" data-toggle="tab">login</a></li>
+		<li><a href="#fix" data-toggle="tab">fix</a></li>
 		
 	</ul>
 	<div id="myTabContent" class="tab-content">
@@ -477,7 +520,14 @@
 			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login5" /> <br> <br></div>
 			
 		</div>
-		
+		<div class="tab-pane fade" id="fix">
+			<div>进入维修申请页面 <br>
+			<input class="btn btn-info btn-lg" type="button" value="维修申请页面" id="fixGetApply" /> <br> <br></div>
+			<div>维修申请 <br>
+			<input class="btn btn-info btn-lg" type="button" value="维修申请" id="fixAddApply" /> <br> <br></div>
+
+			
+		</div>
 	</div>
 
 

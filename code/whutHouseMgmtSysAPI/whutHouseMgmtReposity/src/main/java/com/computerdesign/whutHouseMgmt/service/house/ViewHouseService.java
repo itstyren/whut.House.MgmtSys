@@ -23,15 +23,15 @@ public class ViewHouseService {
 	private ViewHouseMapper viewHouseMapper;
 	
 	/**
-	 * 根据id获取一个viewHouse
+	 * 根据id获取viewHouse
 	 * @param id
 	 * @return
 	 */
-	public ViewHouse get(Integer id) {
+	public List<ViewHouse> get(Integer id) {
 		ViewHouseExample example = new ViewHouseExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(id);
-		return viewHouseMapper.selectByExample(example).get(0);
+		return viewHouseMapper.selectByExample(example);
 	}
 	/**
 	 * 根据楼栋id返回一个楼栋的房屋

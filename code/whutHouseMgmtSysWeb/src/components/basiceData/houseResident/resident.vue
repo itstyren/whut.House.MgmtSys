@@ -22,6 +22,7 @@
               <div class="personal-info">
                   <el-table :data="personalInfo">
                     <el-table-column label=""></el-table-column>
+                    <el-table-column label=""></el-table-column>                   
                   </el-table>
               </div>
           </div>

@@ -3,7 +3,7 @@
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.staffmanagement.StaffVwMapper">
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw">
     <result column="Id" jdbcType="INTEGER" property="id" />
-    <result column="No" jdbcType="INTEGER" property="no" />
+    <result column="No" jdbcType="VARCHAR" property="no" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="Sex" jdbcType="VARCHAR" property="sex" />
     <result column="MarriageState" jdbcType="VARCHAR" property="marriageState" />
@@ -11,6 +11,7 @@
     <result column="PostName" jdbcType="VARCHAR" property="postName" />
     <result column="TypeName" jdbcType="VARCHAR" property="typeName" />
     <result column="StatusName" jdbcType="VARCHAR" property="statusName" />
+    <result column="deptId" jdbcType="INTEGER" property="deptId" />
     <result column="DeptName" jdbcType="VARCHAR" property="deptName" />
     <result column="Code" jdbcType="VARCHAR" property="code" />
     <result column="JoinTime" jdbcType="DATE" property="joinTime" />
@@ -96,11 +97,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, No, Name, Sex, MarriageState, TitleName, PostName, TypeName, StatusName, DeptName, 
-    Code, JoinTime, GoUniversityTime, RetireTime, Tel, Remark, SpouseName, SpouseCode, 
-    SpouseTitleName, SpousePostName, SpouseDept, SpouseKind, IsDeptManage, StaffPassword, 
-    BuyAccount, FixFund, SecondJoinTime, SecondRetireTime, StaffDual, Relation, DiscountRate, 
-    FamilyCode, FirstJobTime, UserName
+    Id, No, Name, Sex, MarriageState, TitleName, PostName, TypeName, StatusName, deptId, 
+    DeptName, Code, JoinTime, GoUniversityTime, RetireTime, Tel, Remark, SpouseName, 
+    SpouseCode, SpouseTitleName, SpousePostName, SpouseDept, SpouseKind, IsDeptManage, 
+    StaffPassword, BuyAccount, FixFund, SecondJoinTime, SecondRetireTime, StaffDual, 
+    Relation, DiscountRate, FamilyCode, FirstJobTime, UserName
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVwExample" resultMap="BaseResultMap">
     select
@@ -126,27 +127,27 @@
     insert into view_hs_staff (Id, No, Name, 
       Sex, MarriageState, TitleName, 
       PostName, TypeName, StatusName, 
-      DeptName, Code, JoinTime, 
-      GoUniversityTime, RetireTime, Tel, 
-      Remark, SpouseName, SpouseCode, 
-      SpouseTitleName, SpousePostName, SpouseDept, 
-      SpouseKind, IsDeptManage, StaffPassword, 
-      BuyAccount, FixFund, SecondJoinTime, 
-      SecondRetireTime, StaffDual, Relation, 
-      DiscountRate, FamilyCode, FirstJobTime, 
-      UserName)
-    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      deptId, DeptName, Code, 
+      JoinTime, GoUniversityTime, RetireTime, 
+      Tel, Remark, SpouseName, 
+      SpouseCode, SpouseTitleName, SpousePostName, 
+      SpouseDept, SpouseKind, IsDeptManage, 
+      StaffPassword, BuyAccount, FixFund, 
+      SecondJoinTime, SecondRetireTime, StaffDual, 
+      Relation, DiscountRate, FamilyCode, 
+      FirstJobTime, UserName)
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{marriageState,jdbcType=VARCHAR}, #{titleName,jdbcType=VARCHAR}, 
       #{postName,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{statusName,jdbcType=VARCHAR}, 
-      #{deptName,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{joinTime,jdbcType=DATE}, 
-      #{goUniversityTime,jdbcType=DATE}, #{retireTime,jdbcType=DATE}, #{tel,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{spouseName,jdbcType=VARCHAR}, #{spouseCode,jdbcType=VARCHAR}, 
-      #{spouseTitleName,jdbcType=VARCHAR}, #{spousePostName,jdbcType=VARCHAR}, #{spouseDept,jdbcType=VARCHAR}, 
-      #{spouseKind,jdbcType=INTEGER}, #{isDeptManage,jdbcType=BIT}, #{staffPassword,jdbcType=VARCHAR}, 
-      #{buyAccount,jdbcType=DECIMAL}, #{fixFund,jdbcType=DECIMAL}, #{secondJoinTime,jdbcType=DATE}, 
-      #{secondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, 
-      #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, #{firstJobTime,jdbcType=DATE}, 
-      #{userName,jdbcType=VARCHAR})
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{joinTime,jdbcType=DATE}, #{goUniversityTime,jdbcType=DATE}, #{retireTime,jdbcType=DATE}, 
+      #{tel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{spouseName,jdbcType=VARCHAR}, 
+      #{spouseCode,jdbcType=VARCHAR}, #{spouseTitleName,jdbcType=VARCHAR}, #{spousePostName,jdbcType=VARCHAR}, 
+      #{spouseDept,jdbcType=VARCHAR}, #{spouseKind,jdbcType=INTEGER}, #{isDeptManage,jdbcType=BIT}, 
+      #{staffPassword,jdbcType=VARCHAR}, #{buyAccount,jdbcType=DECIMAL}, #{fixFund,jdbcType=DECIMAL}, 
+      #{secondJoinTime,jdbcType=DATE}, #{secondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, 
+      #{relation,jdbcType=VARCHAR}, #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, 
+      #{firstJobTime,jdbcType=DATE}, #{userName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw">
     insert into view_hs_staff
@@ -177,6 +178,9 @@
       </if>
       <if test="statusName != null">
         StatusName,
+      </if>
+      <if test="deptId != null">
+        deptId,
       </if>
       <if test="deptName != null">
         DeptName,
@@ -259,7 +263,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="no != null">
-        #{no,jdbcType=INTEGER},
+        #{no,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -281,6 +285,9 @@
       </if>
       <if test="statusName != null">
         #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null">
+        #{deptId,jdbcType=INTEGER},
       </if>
       <if test="deptName != null">
         #{deptName,jdbcType=VARCHAR},
@@ -372,7 +379,7 @@
         Id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.no != null">
-        No = #{record.no,jdbcType=INTEGER},
+        No = #{record.no,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
         Name = #{record.name,jdbcType=VARCHAR},
@@ -394,6 +401,9 @@
       </if>
       <if test="record.statusName != null">
         StatusName = #{record.statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptId != null">
+        deptId = #{record.deptId,jdbcType=INTEGER},
       </if>
       <if test="record.deptName != null">
         DeptName = #{record.deptName,jdbcType=VARCHAR},
@@ -478,7 +488,7 @@
   <update id="updateByExample" parameterType="map">
     update view_hs_staff
     set Id = #{record.id,jdbcType=INTEGER},
-      No = #{record.no,jdbcType=INTEGER},
+      No = #{record.no,jdbcType=VARCHAR},
       Name = #{record.name,jdbcType=VARCHAR},
       Sex = #{record.sex,jdbcType=VARCHAR},
       MarriageState = #{record.marriageState,jdbcType=VARCHAR},
@@ -486,6 +496,7 @@
       PostName = #{record.postName,jdbcType=VARCHAR},
       TypeName = #{record.typeName,jdbcType=VARCHAR},
       StatusName = #{record.statusName,jdbcType=VARCHAR},
+      deptId = #{record.deptId,jdbcType=INTEGER},
       DeptName = #{record.deptName,jdbcType=VARCHAR},
       Code = #{record.code,jdbcType=VARCHAR},
       JoinTime = #{record.joinTime,jdbcType=DATE},
