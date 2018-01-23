@@ -28,7 +28,7 @@
             </el-form-item>
             <el-button type="primary" @click="queryData">查询</el-button>
           <el-form-item>
-            <el-button type="primary" @click="showAddForm()">新增员工</el-button>
+            <el-button type="primary" @click="addStaff()">新增员工</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -187,13 +187,24 @@ export default {
     // 显示详情页面
     showDetailDialog(index, row) {
       this.$store.commit(types.STAFF_DATA, row);
+      this.$store.commit(types.STAFF_MODIFY, false);
       this.$router.push({
         path: `/basic/staff/byId/${row.id}`
       });
     },
-    //显示编辑
+    //切换到编辑
     showModifyDialog(index, row) {
-      
+      this.$store.commit(types.STAFF_DATA, row);
+      this.$store.commit(types.STAFF_MODIFY, true);
+      this.$router.push({
+        path: `/basic/staff/byId/${row.id}`
+      });
+    },
+    // 切换到新增页面
+    addStaff(){
+      this.$router.push({
+        path: `/basic/staff/add`
+      });
     },
     // 删除功能
     delectStaff(index, row) {

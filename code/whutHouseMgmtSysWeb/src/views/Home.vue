@@ -47,7 +47,7 @@
             <el-menu-item index="/basic/staff">
               <span>职工管理</span>
             </el-menu-item>
-            <el-menu-item index="/basic/awdlist">
+            <el-menu-item index="/basic/houseResident">
               <span>住房登记</span>
             </el-menu-item>
             <el-menu-item index="/basic/orglist">

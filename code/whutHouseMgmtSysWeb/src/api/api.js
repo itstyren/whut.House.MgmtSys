@@ -97,3 +97,5 @@ export const getStaff = (params, staffID) => { return axios.get(`${base}staff/ge
 export const deleteStaffData = (staffID) => { return axios.delete(`${base}staff/delete/${staffID}`) }
 // 编辑方法
 export const putStaffData = (params) => { return axios.put(`${base}staff/modify`, params) }
+// 新增方法
+export const postStaffData = (params) => { return axios.post(`${base}staff/add`, params) }

@@ -15,7 +15,9 @@ export default new Vuex.Store({
         uploadToken:'GfDe7p6rupDyEHYhvHfO-NhXvJ0KtxVOBSKxiKtU:Zcw6ifNOcltho7BKwsamkdTgcjo=:eyJzY29wZSI6IndodXRob3VzZW1nbXRzeXMiLCJkZWFkbGluZSI6MTAxNTE0OTc3Njc0fQ==',
         uploadUrl: 'http://p1z72063k.bkt.clouddn.com/',
         // 单一职工信息
-        staffData:{}
+        staffData:{},
+        // 职工信息编辑状态
+        staffModify:false,
     },
     mutations:{
         // 登录时写入
@@ -53,6 +55,10 @@ export default new Vuex.Store({
         // 写入新的职工信息
         [types.STAFF_DATA]:(state,staff)=>{
             state.staffData=staff
+        },
+        //职工是否处于编辑状态
+        [types.STAFF_MODIFY]: (state,status) => {
+            state.staffModify = status
         }
     }
 })

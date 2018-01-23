@@ -11,3 +11,5 @@ export const DENY= 'deny'
 export const REGION_CHANGE ='regionChange'
 // 写入新的职工信息
 export const STAFF_DATA = 'staffData'
+//员工编辑状态
+export const STAFF_MODIFY = 'staffModify'
