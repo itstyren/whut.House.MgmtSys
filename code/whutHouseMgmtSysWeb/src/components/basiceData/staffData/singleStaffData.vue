@@ -169,7 +169,7 @@
 
 <script type="text/ecmascript-6">
 import { getStaff, getStaffParam, putStaffData } from "@/api/api";
-import { checkNum, checkNULL,checkTel } from "@/assets/function/validator";
+import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
 import * as OPTION from "@/assets/data/formOption";
 import common from "@/common/util.js";
 export default {
@@ -233,7 +233,7 @@ export default {
             trigger: "blur"
           }
         ],
-        buyAccount:{
+        buyAccount: {
           validator: checkNum,
           trigger: "blur"
         },
@@ -321,9 +321,9 @@ export default {
         });
       });
     },
-        // 路由返回
-    routerBack(){
-        this.$router.go(-1)
+    // 路由返回
+    routerBack() {
+      this.$router.go(-1);
     }
   }
 };
@@ -332,33 +332,37 @@ export default {
 <style scoped lang="scss">
 .main-data {
   position: relative;
+  // 隐藏滚动条
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .from {
     position: absolute;
     top: 20px;
-    bottom: 20px;
+    bottom: 10px;
     left: 20px;
     right: 20px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    border: 1px solid black;
+    border: 1px solid #eaeaea;
+    -webkit-box-shadow: 0 0 25px #cac6c6;
+    box-shadow: 0 0 25px #cac6c6;
     .el-select {
       display: inline-block;
       position: relative;
       width: 205px;
     } // 员工主表
     h1 {
-      margin-left: 10px;
+      margin-left: 15px;
     }
     .staff-from {
       margin: 10px auto 0px;
       display: flex;
       flex-direction: row;
       .single-staff-from {
-        margin-left: 2px;
-        margin-right: 2px;
         padding-top: 10px;
-        border: 1px solid black;
+        // border: 1px solid black;
         align-items: center;
         width: 33.3%; //margin: 10px;
         display: flex;

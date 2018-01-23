@@ -35,11 +35,14 @@ import building from '@/components/basiceData/buildingRegionData/buildingData'
 // 房屋参数
 import indexHouse from '@/components/basiceData/houseData/indexNav'
 import house from '@/components/basiceData/houseData/houseData'
-// 职工参数
+// 职工管理
 import indexStaff from '@/components/basiceData/staffData/indexNav'
 import staffData from '@/components/basiceData/staffData/staffData'
 import singleStaffData from '@/components/basiceData/staffData/singleStaffData'
 import addStaff from '@/components/basiceData/staffData/addStaff'
+// 住房登记
+import indexResident from '@/components/basiceData/houseResident/indexNav'
+import houseResident from '@/components/basiceData/houseResident/resident'
 
 Vue.use(Router)
 
@@ -150,7 +153,20 @@ const routes = [
             name: 'addStaff',
             menuShow: true
           }
-
+        ]
+      },
+      // 住房登记
+      {
+        path: 'houseResident',
+        component: indexResident,
+        name: 'indexResident',
+        children: [
+          {
+            path: ':id',
+            component: houseResident,
+            name: 'houseResident',
+            menuShow: true
+          }
         ]
       }
     ]

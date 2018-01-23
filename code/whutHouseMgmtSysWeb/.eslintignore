@@ -17,3 +17,4 @@ src/components/basiceData/*.vue
 src/components/basiceData/buildingRegionData/*.vue   
 src/components/basiceData/houseData/*.vue    
 src/components/basiceData/staffData/*.vue    
+src/components/basiceData/houseResident/*.vue    
