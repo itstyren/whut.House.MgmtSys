@@ -153,6 +153,10 @@
 
 	//职工管理
 	$(function() {
+		$("#resetPassword").click(function() {
+			ajaxRequestPostType("staff/resetPassword/1", "PUT", null);
+		})
+		
 		$("#getByID").click(function() {
 			ajaxRequestGet("staff/getByID/1");
 		})
@@ -186,11 +190,11 @@
 				'type':144,
 				'status':153,
 				'dept':49,
-				'code':'4290061987112087',
+				'code':'429006198711208702',
 				'joinTime':'2017-11-20',
 				'goUniversityTime':'2015-9-6',
 				'retireTime':'2020-11-2',
-				'tel':'12345678901',
+				'tel':'13129917437',
 				'remark':'无',
 				'relation':'active'
 			};
@@ -204,7 +208,7 @@
 					'name' : 'xh',
 					'sex':'男',
 					'marriageState':'未知',
-					'title':95,
+					//'title':95,
 					'post':89,
 					'type':144,
 					'status':153,
@@ -326,6 +330,8 @@
 			<input class="btn btn-info btn-lg" type="button" value="staffParamModify" id="staffParamModify" /><br>
 		</div>
 		<div class="tab-pane fade" id="staffManagement">
+			<h4>根据ID重置该员工密码</h4>
+			<input class="btn btn-info btn-lg" type="button" value="resetPassword" id="resetPassword" /> <br><br> 
 			<h4>根据ID获取单个员工信息</h4>
 			<input class="btn btn-info btn-lg" type="button" value="getByID" id="getByID" /> <br><br> 
 			<h4>获取所有部门</h4>

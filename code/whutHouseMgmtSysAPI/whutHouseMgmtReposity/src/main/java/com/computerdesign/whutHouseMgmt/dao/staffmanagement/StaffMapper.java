@@ -13,9 +13,11 @@ public interface StaffMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Staff record);
-
+    
     int insertSelective(Staff record);
 
+    void batchInsertSelective(List<Staff> list);
+    
     List<Staff> selectByExample(StaffExample example);
 
     Staff selectByPrimaryKey(Integer id);

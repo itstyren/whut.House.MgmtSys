@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class StaffVw {
     private Integer id;
 
-    private Integer no;
+    private String no;
 
     private String name;
 
@@ -25,20 +25,22 @@ public class StaffVw {
 
     private String statusName;
 
+    private Integer deptId;
+
     private String deptName;
 
     private String code;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date joinTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date goUniversityTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date retireTime;
 
     private String tel;
@@ -66,11 +68,11 @@ public class StaffVw {
     private Long fixFund;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date secondJoinTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date secondRetireTime;
 
     private String staffDual;
@@ -82,7 +84,7 @@ public class StaffVw {
     private Integer familyCode;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date firstJobTime;
 
     private String userName;
@@ -95,12 +97,12 @@ public class StaffVw {
         this.id = id;
     }
 
-    public Integer getNo() {
+    public String getNo() {
         return no;
     }
 
-    public void setNo(Integer no) {
-        this.no = no;
+    public void setNo(String no) {
+        this.no = no == null ? null : no.trim();
     }
 
     public String getName() {
@@ -157,6 +159,14 @@ public class StaffVw {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName == null ? null : statusName.trim();
+    }
+
+    public Integer getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
     }
 
     public String getDeptName() {

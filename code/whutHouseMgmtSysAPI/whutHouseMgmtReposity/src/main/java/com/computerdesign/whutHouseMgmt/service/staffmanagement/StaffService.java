@@ -18,6 +18,14 @@ public class StaffService implements BaseService<Staff> {
 	private StaffMapper staffMapper;
 	
 	/**
+	 * 根据id重置该员工密码
+	 * @param id
+	 */
+	public void resetPassword(Staff staff){
+		staffMapper.updateByPrimaryKey(staff);
+	}
+	
+	/**
 	 * 根据id获取一个staff对象
 	 * @param id
 	 * @return
@@ -84,8 +92,7 @@ public class StaffService implements BaseService<Staff> {
 
 	@Override
 	public void update(Staff entities) {
-		staffMapper.updateByPrimaryKeySelective(entities);
-		
+		staffMapper.updateByPrimaryKeySelective(entities);		
 	}
 
 }
