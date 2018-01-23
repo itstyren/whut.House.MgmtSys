@@ -290,7 +290,6 @@ import {
 } from "@/api/api";
 import { checkNum, checkNULL } from "@/assets/function/validator";
 import common from "@/common/util.js";
-
 export default {
   data() {
     return {

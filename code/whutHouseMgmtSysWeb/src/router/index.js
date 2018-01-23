@@ -39,6 +39,7 @@ import house from '@/components/basiceData/houseData/houseData'
 import indexStaff from '@/components/basiceData/staffData/indexNav'
 import staffData from '@/components/basiceData/staffData/staffData'
 import singleStaffData from '@/components/basiceData/staffData/singleStaffData'
+import addStaff from '@/components/basiceData/staffData/addStaff'
 
 Vue.use(Router)
 
@@ -142,6 +143,11 @@ const routes = [
             path: 'byId/:id',
             component: singleStaffData,
             name: 'singleStaffData',
+            menuShow: true
+          }, {
+            path: 'add',
+            component: addStaff,
+            name: 'addStaff',
             menuShow: true
           }
 
