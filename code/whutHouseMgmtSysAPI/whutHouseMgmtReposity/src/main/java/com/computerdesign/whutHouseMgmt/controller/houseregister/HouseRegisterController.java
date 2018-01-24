@@ -47,7 +47,39 @@ public class HouseRegisterController {
 
 	@Autowired
 	private RegisterService registerService;
+	
+	/**
+	 * 登记关系设置，提交修改的登记关系
+	 * @return
+	 */
+	@RequestMapping(value = "updateRegisterRel", method = RequestMethod.POST)
+	@ResponseBody
+	public Msg updateRegisterRel(@RequestBody HouseParameter houseParameter){
+		if(houseParameter == null){
+			return Msg.error("数据封装错误");
+		}
+		if(houseParameter.getHouseParamId() == null){
+			return Msg.error("需要传递id");
+		}
+		registerService.updateRegisterRel(houseParameter);
+		//显示HouseParamName和修改后的HouseParamRel
+		return Msg.success().add("name", houseParameter.getHouseParamName()).add("rel", houseParameter.getHouseParamRel());
+	}
 
+	/**
+	 * 登记关系设置，获取所有登记关系，使用pm_housetype表，paramTypeId为1
+	 * @return
+	 */
+	@RequestMapping(value = "getRegisterRel", method = RequestMethod.GET)
+	@ResponseBody
+	public Msg getRegisterRel(){
+		List<HouseParameter> houseParameters = registerService.getRegisterRel();
+		if(houseParameters == null){
+			return Msg.error("数据库中无数据或被删除");
+		}
+		return Msg.success().add("data", houseParameters);
+	}
+	
 	/**
 	 * 住房登记
 	 * @param resident
