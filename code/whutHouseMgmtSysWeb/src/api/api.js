@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let base = 'http://localhost:8080/whutHouseMgmtReposity/'
+let base = 'http://localhost:8787/whutHouseMgmtReposity/'
 
 // 参数设置--职工参数
 // 获取方法
@@ -99,3 +99,9 @@ export const deleteStaffData = (staffID) => { return axios.delete(`${base}staff/
 export const putStaffData = (params) => { return axios.put(`${base}staff/modify`, params) }
 // 新增方法
 export const postStaffData = (params) => { return axios.post(`${base}staff/add`, params) }
+// 重置密码
+export const putResetStaffPwd = (params, staffID) => { return axios.put(`${base}staff/resetPassword/${staffID}`, params) }
+
+// 基础数据-房屋登记
+// 获取方法--获取职工房屋关系
+export const getStaffHouseRel = (staffID, params) => { return axios.get(`${base}houseRegister/getStaffHouseRel/${staffID}`, { params: params }) }

@@ -8,7 +8,7 @@
         </el-breadcrumb-item>
         <el-breadcrumb-item>基础数据</el-breadcrumb-item>
         <el-breadcrumb-item>职工管理</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: `/basic/staff/byDept/48` }">{{staffForm.deptName}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: `/basic/staff/byDept/${staffForm.deptId}` }">{{staffForm.deptName}}</el-breadcrumb-item>
         <el-breadcrumb-item>职工</el-breadcrumb-item>
 
       </el-breadcrumb>

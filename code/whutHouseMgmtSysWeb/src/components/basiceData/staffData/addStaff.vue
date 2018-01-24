@@ -55,28 +55,28 @@
               </div>
               <!-- 中间信息 -->
               <div class="single-staff-from">
-                <el-form-item label="职称" prop="titleName">
-                  <el-select v-model="staffForm.titleName" clearable placeholder="请选择职称">
+                <el-form-item label="职称" prop="title">
+                  <el-select v-model="staffForm.title" clearable placeholder="请选择职称">
                     <el-option v-for="param in staffParam[7]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="职务" prop="postName">
-                  <el-select v-model="staffForm.postName" clearable placeholder="请选择职务">
+                <el-form-item label="职务" prop="post">
+                  <el-select v-model="staffForm.post" clearable placeholder="请选择职务">
                     <el-option v-for="param in staffParam[6]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="职工类别" prop="typeName">
-                  <el-select v-model="staffForm.typeName" clearable placeholder="请选择职工类别">
+                <el-form-item label="职工类别" prop="type">
+                  <el-select v-model="staffForm.type" clearable placeholder="请选择职工类别">
                     <el-option v-for="param in staffParam[8]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="工作状态" prop="statusName">
-                  <el-select v-model="staffForm.statusName" clearable placeholder="请选择工作状态">
+                <el-form-item label="工作状态" prop="status">
+                  <el-select v-model="staffForm.status" clearable placeholder="请选择工作状态">
                     <el-option v-for="param in staffParam[9]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="工作部门" prop="deptName">
-                  <el-select v-model="staffForm.deptName" clearable filterable placeholder="请选择工作部门">
+                <el-form-item label="工作部门" prop="dept">
+                  <el-select v-model="staffForm.dept" clearable filterable placeholder="请选择工作部门">
                     <el-option v-for="param in staffParam[5]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
@@ -125,7 +125,7 @@
               </div>
               <div class="single-staff-from">
                 <el-form-item label="单位性质">
-                  <el-select v-model="staffForm.spouseKind" placeholder="请选择职称">
+                  <el-select v-model="staffForm.spouseKind" placeholder="请选择单位性质">
                     <el-option v-for="param in staffParam[10]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
@@ -135,12 +135,12 @@
               </div>
               <div class="single-staff-from">
                 <el-form-item label="职称">
-                  <el-select v-model="staffForm.spouseTitleName" placeholder="请选择职称">
+                  <el-select v-model="staffForm.spouseTitle" placeholder="请选择职称">
                     <el-option v-for="param in staffParam[7]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="职务">
-                  <el-select v-model="staffForm.spousePostName" placeholder="请选择职务">
+                  <el-select v-model="staffForm.spousePost" placeholder="请选择职务">
                     <el-option v-for="param in staffParam[6]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
@@ -230,23 +230,23 @@
             validator: checkNum,
             trigger: "blur"
           },
-          titleName: {
+          title: {
             required: true,
             message: "请选择职称",
           },
-          postName: {
+          post: {
             required: true,
             message: "请选择职务",
           },
-          typeName: {
+          type: {
             required: true,
             message: "请选择类别",
           },
-          statusName: {
+          status: {
             required: true,
             message: "请选择工作状态",
           },
-          deptName: {
+          dept: {
             required: true,
             message: "请选择工作部门",
           }

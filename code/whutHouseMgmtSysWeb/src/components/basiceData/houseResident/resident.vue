@@ -19,47 +19,58 @@
       <div class="main-data">    
           <!-- 个人信息区 -->
           <div class="before-info">
-              <div class="personal-info">
-                  <el-table :data="personalInfo">
-                    <el-table-column label=""></el-table-column>
-                    <el-table-column label=""></el-table-column>                   
-                  </el-table>
+                  <personal-info-table ></personal-info-table>
+              <div class="house-rel">
+                  <staff-house-rel></staff-house-rel>
               </div>
           </div>
+                <!-- 住房登记区 -->
+      <div class="house-resident"></div>
       </div>
     </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
- export default {
-   data() {
-     return {
-personalInfo:[]
-     }
-
-   },
-   components: {
-
-   }
- }
+import personalInfoTable from "./personalInfoTable";
+import staffHouseRel from "./staffHouseRel";
+export default {
+  data() {
+    return {};
+  },
+  // 组件信息
+  components: {
+    //个人信息区域
+    personalInfoTable,
+    staffHouseRel
+  }
+};
 </script>
 
 <style scoped lang="scss">
-.main-data{
+.main-data {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .before-info {
+    //position: absolute;
     display: flex;
-    flex-direction: column;
-    .before-info{
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        height: 30%;
-        background-color: rgb(118, 129, 129);
-    .personal-info{
-        width: 40%;
-        height: 100%;
-        background-color: aquamarine;
-    }}
+    flex-direction: row;
+    width: 100%;
+    height: 40%;
+    .personal-info {
+      width: 50%;
+      height: 100%;
+      background-color: aquamarine;
+    }
+    .house-rel {
+      flex: 1;
+    }
+  }
+  .house-resident {
+      width: 100%;
+      height: 20%;
+      background-color: antiquewhite;
+  }
 }
- 
 </style>

@@ -230,7 +230,7 @@
 		$("#getByMultiCondition").click(function() {
 			var data = {
 					//键的名字与Model属性名一致
-					//'houseType':'周转房342萨达',
+					'houseType':'周转房342萨达',
 					//'useStatus':'空闲',
 					//'houseZone':'武汉市洪山区工大路20号'
 			};
@@ -267,7 +267,7 @@
 					//键的名字与Model属性名一致
 					'staffId':1,
 					'houseId':1,
-					'houseRel':25
+					'houseRel':26
 			};
 			ajaxRequestPostType("houseRegister/register","PUT",data);
 		})

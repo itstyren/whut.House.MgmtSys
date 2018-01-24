@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/views/Home'
+import login from '@/views/login'
 
 // 住房参数
 import paramSet from '@/components/sysManage/paramSet/indexParam'
@@ -48,6 +49,15 @@ Vue.use(Router)
 
 // 定义路由数据
 const routes = [
+// 登录
+  {
+    path: '/login',
+    name: 'login',
+    component: login,
+    meta: {
+      requireAuth: true
+    }
+  },
 // 首页
   {
     path: '/',

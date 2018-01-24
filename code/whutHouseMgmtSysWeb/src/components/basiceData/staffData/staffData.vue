@@ -8,7 +8,7 @@
         </el-breadcrumb-item>
         <el-breadcrumb-item>基础数据</el-breadcrumb-item>
         <el-breadcrumb-item>职工管理</el-breadcrumb-item>
-        <el-breadcrumb-item>部门</el-breadcrumb-item>
+        <el-breadcrumb-item>{{depName}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <!-- 下方主内容 -->
@@ -47,7 +47,7 @@
             <template slot-scope="scope">
               <el-button size="small" @click="showDetailDialog(scope.$index,scope.row)">详情</el-button>
               <el-button type="success" size="small" @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
-              <el-button type="warning" size="small" @click="showModifyDialog(scope.$index,scope.row)">重置</el-button>             
+              <el-button type="warning" size="small" @click="resetStaffPwd(scope.$index,scope.row)">重置</el-button>             
               <el-button type="danger" size="small" @click="delectStaff(scope.$index,scope.row)">删除</el-button>
             </template>
           </el-table-column>
@@ -61,7 +61,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getSingleDept, getStaff, deleteStaffData } from "@/api/api";
+import {
+  getSingleDept,
+  getStaff,
+  deleteStaffData,
+  putResetStaffPwd
+} from "@/api/api";
 import { checkNum, checkNULL } from "@/assets/function/validator";
 import common from "@/common/util.js";
 import * as types from "../../../store/mutation-types";
@@ -70,6 +75,7 @@ export default {
     return {
       // 表格数据
       deptStaffData: [],
+      depName: "",
       listLoading: false,
       totalNum: 0,
       page: 1,
@@ -177,6 +183,8 @@ export default {
             this.deptStaffData = [];
             this.deptStaffData[0] = res.data.data.data;
           } else this.deptStaffData = res.data.data.data.list;
+          //console.log(this.deptStaffData)
+          this.depName = this.deptStaffData[0].deptName;
           this.totalNum = res.data.data.data.total;
           this.listLoading = false;
         })
@@ -201,10 +209,38 @@ export default {
       });
     },
     // 切换到新增页面
-    addStaff(){
+    addStaff() {
       this.$router.push({
         path: `/basic/staff/add`
       });
+    },
+    // 重置密码
+    resetStaffPwd(index, row) {
+      this.$confirm(`此操作将重置职工【${row.name}】的系统密码`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let param = {};
+          let staffId=row.id
+          this.listLoading = true;
+          putResetStaffPwd(param,staffId)
+            .then(res => {
+              // 公共提示方法
+              common.statusinfo(this, res.data);
+              this.getList();
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消重置"
+          });
+        });
     },
     // 删除功能
     delectStaff(index, row) {
