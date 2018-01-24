@@ -78,9 +78,9 @@ public class FixController {
 		
 		StaffVw staffVw = staffVwService.getByID(staffId);
 		FixGetApply fixGetApply = new FixGetApply(staffVw);
-		return null;
 		
-		//根据staffId获取该员工全部的resident信息
+		
+		//根据staffId获取该员工全部的resident信息 
 		List<Resident> listResident = registerService.getResidentsByStaffId(staffId);
 
 		if (listResident.isEmpty()) {

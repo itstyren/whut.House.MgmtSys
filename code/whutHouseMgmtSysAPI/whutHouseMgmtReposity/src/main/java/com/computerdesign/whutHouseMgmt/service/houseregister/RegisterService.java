@@ -64,7 +64,7 @@ public class RegisterService{
 	 */
 	public List<Resident> getResidentsByStaffId(Integer staffId) {
 		ResidentExample example = new ResidentExample();
-		Criteria criteria = example.createCriteria();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
 		criteria.andStaffIdEqualTo(staffId);
 		return residentMapper.selectByExample(example);
 	}
