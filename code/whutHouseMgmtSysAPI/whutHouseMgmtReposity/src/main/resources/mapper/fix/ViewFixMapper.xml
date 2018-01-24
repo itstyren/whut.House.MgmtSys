@@ -17,12 +17,14 @@
     <result column="AgreeTime" jdbcType="DATE" property="agreeTime" />
     <result column="AgreeMan" jdbcType="VARCHAR" property="agreeMan" />
     <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
     <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
     <result column="TitleName" jdbcType="VARCHAR" property="titleName" />
     <result column="PostName" jdbcType="VARCHAR" property="postName" />
     <result column="DeptName" jdbcType="VARCHAR" property="deptName" />
     <result column="HouseId" jdbcType="INTEGER" property="houseId" />
     <result column="StaffAddress" jdbcType="VARCHAR" property="staffAddress" />
+    <result column="HouseNo" jdbcType="VARCHAR" property="houseNo" />
     <result column="Phone" jdbcType="VARCHAR" property="phone" />
     <result column="Message" jdbcType="VARCHAR" property="message" />
     <result column="PriceTime" jdbcType="DATE" property="priceTime" />
@@ -97,9 +99,9 @@
   <sql id="Base_Column_List">
     Id, FixContentId, FixContentName, Description, ApplyTime, FixState, AcceptState, 
     AcceptNote, AcceptTime, AcceptMan, AgreeState, AgreeNote, AgreeTime, AgreeMan, StaffId, 
-    StaffName, TitleName, PostName, DeptName, HouseId, StaffAddress, Phone, Message, 
-    PriceTime, PriceMan, CheckTime, CheckMan, FixTime, FixMoney, IsOver, IsCheck, FeedBack, 
-    Email
+    StaffNo, StaffName, TitleName, PostName, DeptName, HouseId, StaffAddress, HouseNo, 
+    Phone, Message, PriceTime, PriceMan, CheckTime, CheckMan, FixTime, FixMoney, IsOver, 
+    IsCheck, FeedBack, Email
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.ViewFixExample" resultMap="BaseResultMap">
     select
@@ -127,25 +129,25 @@
       AcceptState, AcceptNote, AcceptTime, 
       AcceptMan, AgreeState, AgreeNote, 
       AgreeTime, AgreeMan, StaffId, 
-      StaffName, TitleName, PostName, 
-      DeptName, HouseId, StaffAddress, 
-      Phone, Message, PriceTime, 
-      PriceMan, CheckTime, CheckMan, 
-      FixTime, FixMoney, IsOver, 
-      IsCheck, FeedBack, Email
-      )
+      StaffNo, StaffName, TitleName, 
+      PostName, DeptName, HouseId, 
+      StaffAddress, HouseNo, Phone, 
+      Message, PriceTime, PriceMan, 
+      CheckTime, CheckMan, FixTime, 
+      FixMoney, IsOver, IsCheck, 
+      FeedBack, Email)
     values (#{id,jdbcType=INTEGER}, #{fixContentId,jdbcType=VARCHAR}, #{fixContentName,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{applyTime,jdbcType=DATE}, #{fixState,jdbcType=VARCHAR}, 
       #{acceptState,jdbcType=VARCHAR}, #{acceptNote,jdbcType=VARCHAR}, #{acceptTime,jdbcType=DATE}, 
       #{acceptMan,jdbcType=VARCHAR}, #{agreeState,jdbcType=VARCHAR}, #{agreeNote,jdbcType=VARCHAR}, 
       #{agreeTime,jdbcType=DATE}, #{agreeMan,jdbcType=VARCHAR}, #{staffId,jdbcType=INTEGER}, 
-      #{staffName,jdbcType=VARCHAR}, #{titleName,jdbcType=VARCHAR}, #{postName,jdbcType=VARCHAR}, 
-      #{deptName,jdbcType=VARCHAR}, #{houseId,jdbcType=INTEGER}, #{staffAddress,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{priceTime,jdbcType=DATE}, 
-      #{priceMan,jdbcType=VARCHAR}, #{checkTime,jdbcType=DATE}, #{checkMan,jdbcType=VARCHAR}, 
-      #{fixTime,jdbcType=DATE}, #{fixMoney,jdbcType=VARCHAR}, #{isOver,jdbcType=BIT}, 
-      #{isCheck,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
-      )
+      #{staffNo,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, #{titleName,jdbcType=VARCHAR}, 
+      #{postName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{houseId,jdbcType=INTEGER}, 
+      #{staffAddress,jdbcType=VARCHAR}, #{houseNo,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{message,jdbcType=VARCHAR}, #{priceTime,jdbcType=DATE}, #{priceMan,jdbcType=VARCHAR}, 
+      #{checkTime,jdbcType=DATE}, #{checkMan,jdbcType=VARCHAR}, #{fixTime,jdbcType=DATE}, 
+      #{fixMoney,jdbcType=VARCHAR}, #{isOver,jdbcType=BIT}, #{isCheck,jdbcType=BIT}, 
+      #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.ViewFix">
     insert into view_hs_fix
@@ -195,6 +197,9 @@
       <if test="staffId != null">
         StaffId,
       </if>
+      <if test="staffNo != null">
+        StaffNo,
+      </if>
       <if test="staffName != null">
         StaffName,
       </if>
@@ -212,6 +217,9 @@
       </if>
       <if test="staffAddress != null">
         StaffAddress,
+      </if>
+      <if test="houseNo != null">
+        HouseNo,
       </if>
       <if test="phone != null">
         Phone,
@@ -296,6 +304,9 @@
       <if test="staffId != null">
         #{staffId,jdbcType=INTEGER},
       </if>
+      <if test="staffNo != null">
+        #{staffNo,jdbcType=VARCHAR},
+      </if>
       <if test="staffName != null">
         #{staffName,jdbcType=VARCHAR},
       </if>
@@ -313,6 +324,9 @@
       </if>
       <if test="staffAddress != null">
         #{staffAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNo != null">
+        #{houseNo,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
@@ -406,6 +420,9 @@
       <if test="record.staffId != null">
         StaffId = #{record.staffId,jdbcType=INTEGER},
       </if>
+      <if test="record.staffNo != null">
+        StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+      </if>
       <if test="record.staffName != null">
         StaffName = #{record.staffName,jdbcType=VARCHAR},
       </if>
@@ -423,6 +440,9 @@
       </if>
       <if test="record.staffAddress != null">
         StaffAddress = #{record.staffAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseNo != null">
+        HouseNo = #{record.houseNo,jdbcType=VARCHAR},
       </if>
       <if test="record.phone != null">
         Phone = #{record.phone,jdbcType=VARCHAR},
@@ -482,12 +502,14 @@
       AgreeTime = #{record.agreeTime,jdbcType=DATE},
       AgreeMan = #{record.agreeMan,jdbcType=VARCHAR},
       StaffId = #{record.staffId,jdbcType=INTEGER},
+      StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       StaffName = #{record.staffName,jdbcType=VARCHAR},
       TitleName = #{record.titleName,jdbcType=VARCHAR},
       PostName = #{record.postName,jdbcType=VARCHAR},
       DeptName = #{record.deptName,jdbcType=VARCHAR},
       HouseId = #{record.houseId,jdbcType=INTEGER},
       StaffAddress = #{record.staffAddress,jdbcType=VARCHAR},
+      HouseNo = #{record.houseNo,jdbcType=VARCHAR},
       Phone = #{record.phone,jdbcType=VARCHAR},
       Message = #{record.message,jdbcType=VARCHAR},
       PriceTime = #{record.priceTime,jdbcType=DATE},

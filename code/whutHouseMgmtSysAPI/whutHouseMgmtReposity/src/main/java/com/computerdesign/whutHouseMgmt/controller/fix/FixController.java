@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.text.View;
+import javax.ws.rs.Path;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.fix.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixAddAccept;
+import com.computerdesign.whutHouseMgmt.bean.fix.FixAddAgree;
+import com.computerdesign.whutHouseMgmt.bean.fix.FixAddCheck;
+import com.computerdesign.whutHouseMgmt.bean.fix.FixAddPrice;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetAccept;
+import com.computerdesign.whutHouseMgmt.bean.fix.FixGetAgree;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetApply;
+import com.computerdesign.whutHouseMgmt.bean.fix.FixGetCheck;
+import com.computerdesign.whutHouseMgmt.bean.fix.FixSetTime;
 import com.computerdesign.whutHouseMgmt.bean.fix.HouseGetApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.ViewFix;
 import com.computerdesign.whutHouseMgmt.bean.house.House;
@@ -69,10 +78,10 @@ public class FixController {
 		
 		StaffVw staffVw = staffVwService.getByID(staffId);
 		FixGetApply fixGetApply = new FixGetApply(staffVw);
+		
 		//根据staffId获取该员工全部的resident信息
 		List<Resident> listResident = registerService.getResidentsByStaffId(staffId);
-		
-		
+
 		if (listResident.isEmpty()) {
 			return Msg.success("没有房子").add("data", fixGetApply);
 		}else {
@@ -154,7 +163,8 @@ public class FixController {
 			fix.setAcceptNote(fixAddAccept.getAcceptNote());
 			fix.setAcceptTime(new Date());
 			//维修状态改变
-			fix.setFixState("未受理");
+			fix.setFixState("受理拒绝");
+			fix.setIsOver(true);
 			fixService.update(fix);
 			return Msg.success().add("data", fix);
 			
@@ -174,6 +184,11 @@ public class FixController {
 		}
 	}
 	
+	/**
+	 * 获取维修审核页面的信息
+	 * @param agreeState
+	 * @return
+	 */
 	@RequestMapping(value = "getAgree/{agreeState}",method = RequestMethod.GET)
 	@ResponseBody
 	public Msg getFixAgree(@PathVariable("agreeState")Integer agreeState){
@@ -181,14 +196,123 @@ public class FixController {
 			return Msg.error("请检查你的网络");
 		}else if(0 == agreeState){
 			List<ViewFix> list = viewFixService.getAcceptUntil();
-			
-			return Msg.success("获取全部的未审核信息").add("data", list);
+			List<FixGetAgree> listFixGetAgree = new ArrayList<FixGetAgree>();
+			for (ViewFix viewFix : list) {
+				listFixGetAgree.add(new FixGetAgree(viewFix));
+			}
+			return Msg.success("获取全部的未审核信息").add("data", listFixGetAgree);
 		}else if (1 == agreeState) {
 			List<ViewFix> list = viewFixService.getAcceptHasBeen();
-			return Msg.success("获取全部的已审核信息").add("data", list);
+			List<FixGetAgree> listFixGetAgree = new ArrayList<FixGetAgree>();
+			for (ViewFix viewFix : list) {
+				listFixGetAgree.add(new FixGetAgree(viewFix));
+			}
+			return Msg.success("获取全部的已审核信息").add("data", listFixGetAgree);
 		}else{
 			return Msg.error("请检查你的网络");
 		}
 	}
 	
+	/**
+	 * 维修审核
+	 * @param fixAddAgree
+	 * @return
+	 */
+	@RequestMapping(value = "addAgree",method = RequestMethod.PUT)
+	@ResponseBody
+	public Msg addFixAgree(@RequestBody FixAddAgree fixAddAgree){
+		if ("拒绝".equals(fixAddAgree.getAgreeState())) {
+			Fix fix = fixService.get(fixAddAgree.getId());
+			fix.setAgreeMan(fixAddAgree.getAgreeMan());
+			fix.setAgreeState(fixAddAgree.getAgreeState());
+			fix.setAgreeNote(fixAddAgree.getAgreeNote());
+			fix.setAgreeTime(new Date());
+			//维修状态改变
+			fix.setFixState("审核拒绝");
+			fix.setIsOver(true);
+			fixService.update(fix);
+			return Msg.success().add("data", fix);
+			
+		}else if ("通过".equals(fixAddAgree.getAgreeState())) {
+			//根据传递的id获取一个Fix对象
+			Fix fix = fixService.get(fixAddAgree.getId());
+			fix.setAgreeMan(fixAddAgree.getAgreeMan());
+			fix.setAgreeState(fixAddAgree.getAgreeState());
+			fix.setAgreeNote(fixAddAgree.getAgreeNote());
+			fix.setIsOver(true);
+			fix.setAgreeTime(new Date());
+			//维修状态改变
+			fix.setFixState("已审核");
+			fixService.update(fix);
+			return Msg.success().add("data", fix);
+		}else  {
+			return Msg.error("请输入正确的信息");
+		}
+	}
+	
+	
+	/**
+	 * 获取结算页面信息
+	 * @return
+	 */
+	@RequestMapping(value = "getCheck",method = RequestMethod.GET)
+	@ResponseBody
+	public Msg getFixCheck() {
+		List<ViewFix> list = viewFixService.getAll();
+		return Msg.success().add("data", list);
+	}
+	
+//	@RequestMapping(value = "getCheck",method = RequestMethod.GET)
+//	@ResponseBody
+//	public Msg getFixCheck(@PathVariable FixSetTime fixSetTime){
+//		
+//		Date startTime = fixSetTime.getStartTime();
+//		Date endTime = fixSetTime.getEndTime();	
+//		List<ViewFix> list =  viewFixService.getByTime(startTime, endTime);
+//		return Msg.success().add("data", list);
+//	}
+	
+	/**
+	 * 结算页面按条件查询
+	 * @param fixGetCheck
+	 * @return
+	 */
+	@RequestMapping(value = "getCheckByAllMultiCondition",method = RequestMethod.POST)
+	@ResponseBody
+	public Msg getFixCheck(@RequestBody FixGetCheck fixGetCheck){
+		List<ViewFix> list = viewFixService.getByMultiCondition(fixGetCheck);
+		return Msg.success().add("data", list);
+	}
+	
+	/**
+	 * 维修定价
+	 * @param fixAddPrice
+	 * @return
+	 */
+	@RequestMapping(value = "addPrice",method = RequestMethod.PUT)
+	@ResponseBody
+	public Msg addFixPrice(@RequestBody FixAddPrice fixAddPrice){
+		
+			Fix fix = fixService.get(fixAddPrice.getId());
+			fix.setPriceMan(fixAddPrice.getPriceMan());
+			fix.setFixMoney(fixAddPrice.getPrice());
+			fix.setPriceTime(new Date());
+			//维修状态改变
+			fixService.update(fix);
+			return Msg.success().add("data", fix);
+			
+	}
+	
+	@RequestMapping(value = "addCheck",method = RequestMethod.PUT)
+	@ResponseBody
+	public Msg addFixCheck(@RequestBody FixAddCheck fixAddCheck){
+		
+		Fix fix = fixService.get(fixAddCheck.getId());
+		fix.setCheckMan(fixAddCheck.getCheckMan());
+		fix.setCheckTime(new Date());
+		fix.setIsCheck(true);
+		//维修状态改变
+		fixService.update(fix);
+		return Msg.success().add("data", fix);
+	}
 }
