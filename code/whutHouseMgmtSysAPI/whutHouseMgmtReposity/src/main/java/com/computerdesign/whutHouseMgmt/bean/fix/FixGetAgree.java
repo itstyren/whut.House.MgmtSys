@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class FixGetAccept {
+public class FixGetAgree {
 
 	private Integer id;
 
@@ -32,7 +32,17 @@ public class FixGetAccept {
     
     private String staffAddress;
     
-    public FixGetAccept(ViewFix viewFix){
+    private String acceptState;
+
+    private String acceptNote;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date acceptTime;
+
+    private String acceptMan;
+
+    public FixGetAgree(ViewFix viewFix) {
     	this.id = viewFix.getId();
     	this.fixContentId = viewFix.getFixContentId();
     	this.fixContentName = viewFix.getFixContentName();
@@ -44,8 +54,12 @@ public class FixGetAccept {
     	this.deptName = viewFix.getDeptName();
     	this.phone = viewFix.getPhone();
     	this.staffAddress = viewFix.getStaffAddress();
-    }
-
+    	this.acceptMan = viewFix.getAcceptMan();
+    	this.acceptNote = viewFix.getAcceptNote();
+    	this.acceptState = viewFix.getAcceptState();
+    	this.acceptTime = viewFix.getAcceptTime();
+	}
+    
 	public Integer getId() {
 		return id;
 	}
@@ -132,6 +146,38 @@ public class FixGetAccept {
 
 	public void setStaffAddress(String staffAddress) {
 		this.staffAddress = staffAddress;
+	}
+
+	public String getAcceptState() {
+		return acceptState;
+	}
+
+	public void setAcceptState(String acceptState) {
+		this.acceptState = acceptState;
+	}
+
+	public String getAcceptNote() {
+		return acceptNote;
+	}
+
+	public void setAcceptNote(String acceptNote) {
+		this.acceptNote = acceptNote;
+	}
+
+	public Date getAcceptTime() {
+		return acceptTime;
+	}
+
+	public void setAcceptTime(Date acceptTime) {
+		this.acceptTime = acceptTime;
+	}
+
+	public String getAcceptMan() {
+		return acceptMan;
+	}
+
+	public void setAcceptMan(String acceptMan) {
+		this.acceptMan = acceptMan;
 	}
     
     

@@ -4,6 +4,8 @@ public class FixAddAccept {
 
 	private Integer id;
 	
+	private String acceptState;
+	
 	private String acceptNote;
 	
 	private String acceptMan;
@@ -16,6 +18,14 @@ public class FixAddAccept {
 		this.id = id;
 	}
 
+	public String getAcceptState() {
+		return acceptState;
+	}
+
+	public void setAcceptState(String acceptState) {
+		this.acceptState = acceptState;
+	}
+	
 	public String getAcceptNote() {
 		return acceptNote;
 	}

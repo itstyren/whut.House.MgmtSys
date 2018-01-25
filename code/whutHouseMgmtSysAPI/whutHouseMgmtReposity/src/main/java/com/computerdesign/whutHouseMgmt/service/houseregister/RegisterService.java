@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.service.houseregister;
+﻿package com.computerdesign.whutHouseMgmt.service.houseregister;
 
 import java.util.List;
 

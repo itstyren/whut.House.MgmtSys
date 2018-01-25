@@ -383,41 +383,73 @@
 	$(function() {
 		$("#fixGetApply").click(function() {
 			ajaxRequestGet("fix/getApply/1");
-			//ajaxRequestGet("house/get?page=1&size=10"); 不带参数的才能加page和size 带参数的时候只获取一个，不能加page和size
 		})
 
 		$("#fixAddApply").click(function() {
 			var data = {
 				'fixContentId':4,
 				'description':'有什么东西坏了',
-				'staffId':1,
-				'houseId':1,
+				'staffId':4,
+				'houseId':4,
 				'phone':'13329911694',
 				'email':'123456@qq.com'
 			};
 			ajaxRequestPostType("fix/addApply", "POST", data);
 		})
+		
+		$("#fixGetAccept").click(function() {
+			ajaxRequestGet("fix/getAccept/1");
+		})
 
-		$("#fixModify").click(function() {
+		$("#fixAddAccept").click(function() {
 			var data = {
-					'id':7,
-					'no' : 5776,
-					'type' : 6,
-					'layout' : 19,
-					'struct' : 29,
-					'buildArea' : 66,
-					'usedArea' : 66,
-					'basementArea' : 66,
-					'address' : '水方',
-					'buildingId' : 5,
-					'image':null,
-					'proId' : '66',
-					'remark':'凤梨酥',
-					'rental':'26.9',
-					'finishTime':new Date(),
-					'recordStatus':1
+				'id':19,
+				'acceptState':'通过',
+				'acceptNote':'先给他同意，先给他同意',
+				'acceptMan':'任天宇'
 			};
-			ajaxRequestPostType("house/modify", "PUT", data);
+			ajaxRequestPostType("fix/addAccept", "PUT", data);
+		})
+		
+		$("#fixGetAgree").click(function() {
+			ajaxRequestGet("fix/getAgree/1");
+		})
+		
+		$("#fixGetCheck").click(function() {
+			var data = {
+				'conditionId':1,
+				'conditionContent':'20',
+				'startTime':'2017-01-31',
+				'endTime':'2018-02-27'
+			};
+			ajaxRequestPostType("fix/getCheckByAllMultiCondition", "POST", data);
+		})
+		
+		$("#fixAddAgree").click(function() {
+			var data = {
+				'id':19,
+				'agreeState':'通过',
+				'agreeNote':'先给他同意，先给他同意',
+				'agreeMan':'任天宇'
+			};
+			ajaxRequestPostType("fix/addAgree", "PUT", data);
+		})
+		
+		$("#fixAddPrice").click(function() {
+			var data = {
+				'id':19,
+				'price':'20.5',
+				'priceMan':'任天宇1'
+			};
+			ajaxRequestPostType("fix/addPrice", "PUT", data);
+		})
+		
+		$("#fixAddCheck").click(function() {
+			var data = {
+				'id':19	,
+				'checkMan':'任天宇1'
+			};
+			ajaxRequestPostType("fix/addCheck", "PUT", data);
 		})
 	})
 	
@@ -525,8 +557,21 @@
 			<input class="btn btn-info btn-lg" type="button" value="维修申请页面" id="fixGetApply" /> <br> <br></div>
 			<div>维修申请 <br>
 			<input class="btn btn-info btn-lg" type="button" value="维修申请" id="fixAddApply" /> <br> <br></div>
-
+			<div>进入维修受理页面  0代表未经受理流程的全部信息，1代表受理过程结束的全部信息，包括同意受理和拒绝受理的<br>
+			<input class="btn btn-info btn-lg" type="button" value="维修受理页面" id="fixGetAccept" /> <br> <br></div>
+			<div>维修受理   acceptMan为当前登录人的姓名，acceptState只能为'通过'或者'拒绝'<br>
+			<input class="btn btn-info btn-lg" type="button" value="维修受理" id="fixAddAccept" /> <br> <br></div>
+			<div>进入维修审核页面  0代表未经审核流程的全部信息，1代表审核过程结束的全部信息，包括同意审核和拒绝审核的<br>
+			<input class="btn btn-info btn-lg" type="button" value="维修审核页面" id="fixGetAgree" /> <br> <br></div>
+			<div>维修审核   agreeMan为当前登录人的姓名，agreeState只能为'通过'或者'拒绝'<br>
+			<input class="btn btn-info btn-lg" type="button" value="维修审核" id="fixAddAgree" /> <br> <br></div>
+			<div>维修结算  conditionId=1，单据号； conditionId=2，职工号； conditionId=3，住房号；conditionId=4，员工姓名；<br>
+			<input class="btn btn-info btn-lg" type="button" value="维修结算页面" id="fixGetCheck" /> <br> <br></div>
 			
+			<div>维修定价   priceMan为当前登录人的姓名<br>
+			<input class="btn btn-info btn-lg" type="button" value="维修定价" id="fixAddPrice" /> <br> <br></div>
+			<div>维修结算   checkMan为当前登录人的姓名<br>
+			<input class="btn btn-info btn-lg" type="button" value="维修结算" id="fixAddCheck" /> <br> <br></div>
 		</div>
 	</div>
 
