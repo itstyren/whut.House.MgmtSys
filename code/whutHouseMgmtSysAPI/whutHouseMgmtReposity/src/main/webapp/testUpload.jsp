@@ -14,11 +14,16 @@
 	</form>
 	
 	<form action="dataImport/staffDataImport" method="post" enctype="multipart/form-data">
-		File:<input type="file" name="file">
+		StaffFile:<input type="file" name="staffFile">
 		<input type="submit" value="Submit">
 	</form>
 	
-	<form action="dataImport/saveStaffData" method="post">
+	<form action="dataImport/houseDataImport" method="post" enctype="multipart/form-data">
+		HouseFile:<input type="file" name="houseFile">
+		<input type="submit" value="Submit">
+	</form>
+	
+	<form action="dataImport/saveData" method="post">
 		<input type="submit" value="保存">
 	</form>
 	

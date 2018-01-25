@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="downLoad">下载</a>
+	<a href="dataImport/staffDownLoad">职工模板下载</a>
+	<br><br>
+	<a href="dataImport/houseDownLoad">住房模板下载</a>
 </body>
 </html>

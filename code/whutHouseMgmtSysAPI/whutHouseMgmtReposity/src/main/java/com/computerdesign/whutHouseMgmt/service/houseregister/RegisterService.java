@@ -42,6 +42,19 @@ public class RegisterService{
 	private ResidentVwMapper residentVwMapper;
 	
 	/**
+	 * 根据staffId获取全部的resident
+	 * @param staffId
+	 * @return
+	 */
+	public List<Resident> getResidentsByStaffId(Integer staffId) {
+		ResidentExample example = new ResidentExample();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		return residentMapper.selectByExample(example);
+	}
+
+	
+	/**
 	 * 删除住房登记历史记录
 	 * @param residentId
 	 */
