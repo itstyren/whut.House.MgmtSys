@@ -1,6 +1,8 @@
 package com.computerdesign.whutHouseMgmt.bean.houseregister;
 
 public class StaffHouseRel {
+    private Integer residentId;
+
     private String staffNo;
 
     private String staffName;
@@ -8,6 +10,16 @@ public class StaffHouseRel {
     private String houseRel;
 
     private String address;
+
+    private Boolean isDelete;
+
+    public Integer getResidentId() {
+        return residentId;
+    }
+
+    public void setResidentId(Integer residentId) {
+        this.residentId = residentId;
+    }
 
     public String getStaffNo() {
         return staffNo;
@@ -39,5 +51,13 @@ public class StaffHouseRel {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
     }
 }

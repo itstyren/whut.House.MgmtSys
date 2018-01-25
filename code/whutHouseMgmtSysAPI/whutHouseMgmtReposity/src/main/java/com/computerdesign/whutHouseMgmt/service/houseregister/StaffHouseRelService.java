@@ -25,6 +25,7 @@ public class StaffHouseRelService {
 		StaffHouseRelExample example = new StaffHouseRelExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStaffNoEqualTo(staffNo);
+		criteria.andIsDeleteEqualTo(false);
 		return staffHouseRelMapper.selectByExample(example);
 	}
 	
