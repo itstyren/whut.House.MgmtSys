@@ -259,7 +259,7 @@
 
 		$("#houseAdd").click(function() {
 			var data = {
-				'no' : 576,
+				'no' : '576',
 				'type' : 77,
 				'layout' : 19,
 				'struct' : 29,
@@ -281,7 +281,7 @@
 		$("#houseModify").click(function() {
 			var data = {
 					'id':7,
-					'no' : 5776,
+					'no' : '5776',
 					'type' : 6,
 					'layout' : 19,
 					'struct' : 29,
