@@ -104,6 +104,66 @@ public class StaffHouseRelExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andResidentIdIsNull() {
+            addCriterion("ResidentId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andResidentIdIsNotNull() {
+            addCriterion("ResidentId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andResidentIdEqualTo(Integer value) {
+            addCriterion("ResidentId =", value, "residentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResidentIdNotEqualTo(Integer value) {
+            addCriterion("ResidentId <>", value, "residentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResidentIdGreaterThan(Integer value) {
+            addCriterion("ResidentId >", value, "residentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResidentIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ResidentId >=", value, "residentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResidentIdLessThan(Integer value) {
+            addCriterion("ResidentId <", value, "residentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResidentIdLessThanOrEqualTo(Integer value) {
+            addCriterion("ResidentId <=", value, "residentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResidentIdIn(List<Integer> values) {
+            addCriterion("ResidentId in", values, "residentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResidentIdNotIn(List<Integer> values) {
+            addCriterion("ResidentId not in", values, "residentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResidentIdBetween(Integer value1, Integer value2) {
+            addCriterion("ResidentId between", value1, value2, "residentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResidentIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("ResidentId not between", value1, value2, "residentId");
+            return (Criteria) this;
+        }
+
         public Criteria andStaffNoIsNull() {
             addCriterion("StaffNo is null");
             return (Criteria) this;
@@ -381,6 +441,66 @@ public class StaffHouseRelExample {
 
         public Criteria andAddressNotBetween(String value1, String value2) {
             addCriterion("Address not between", value1, value2, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNull() {
+            addCriterion("IsDelete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNotNull() {
+            addCriterion("IsDelete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteEqualTo(Boolean value) {
+            addCriterion("IsDelete =", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotEqualTo(Boolean value) {
+            addCriterion("IsDelete <>", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThan(Boolean value) {
+            addCriterion("IsDelete >", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("IsDelete >=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThan(Boolean value) {
+            addCriterion("IsDelete <", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThanOrEqualTo(Boolean value) {
+            addCriterion("IsDelete <=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIn(List<Boolean> values) {
+            addCriterion("IsDelete in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotIn(List<Boolean> values) {
+            addCriterion("IsDelete not in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteBetween(Boolean value1, Boolean value2) {
+            addCriterion("IsDelete between", value1, value2, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("IsDelete not between", value1, value2, "isDelete");
             return (Criteria) this;
         }
     }

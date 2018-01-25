@@ -2,10 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.houseregister.StaffHouseRelMapper">
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel">
+    <result column="ResidentId" jdbcType="INTEGER" property="residentId" />
     <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
     <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
     <result column="HouseRel" jdbcType="VARCHAR" property="houseRel" />
     <result column="Address" jdbcType="VARCHAR" property="address" />
+    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    StaffNo, StaffName, HouseRel, Address
+    ResidentId, StaffNo, StaffName, HouseRel, Address, IsDelete
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRelExample" resultMap="BaseResultMap">
     select
@@ -89,14 +91,19 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel">
-    insert into view_hs_staffhouserel (StaffNo, StaffName, HouseRel, 
-      Address)
-    values (#{staffNo,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, #{houseRel,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR})
+    insert into view_hs_staffhouserel (ResidentId, StaffNo, StaffName, 
+      HouseRel, Address, IsDelete
+      )
+    values (#{residentId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, 
+      #{houseRel,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel">
     insert into view_hs_staffhouserel
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="residentId != null">
+        ResidentId,
+      </if>
       <if test="staffNo != null">
         StaffNo,
       </if>
@@ -109,8 +116,14 @@
       <if test="address != null">
         Address,
       </if>
+      <if test="isDelete != null">
+        IsDelete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="residentId != null">
+        #{residentId,jdbcType=INTEGER},
+      </if>
       <if test="staffNo != null">
         #{staffNo,jdbcType=VARCHAR},
       </if>
@@ -123,6 +136,9 @@
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRelExample" resultType="java.lang.Long">
@@ -134,6 +150,9 @@
   <update id="updateByExampleSelective" parameterType="map">
     update view_hs_staffhouserel
     <set>
+      <if test="record.residentId != null">
+        ResidentId = #{record.residentId,jdbcType=INTEGER},
+      </if>
       <if test="record.staffNo != null">
         StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       </if>
@@ -146,6 +165,9 @@
       <if test="record.address != null">
         Address = #{record.address,jdbcType=VARCHAR},
       </if>
+      <if test="record.isDelete != null">
+        IsDelete = #{record.isDelete,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -153,10 +175,12 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update view_hs_staffhouserel
-    set StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+    set ResidentId = #{record.residentId,jdbcType=INTEGER},
+      StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       StaffName = #{record.staffName,jdbcType=VARCHAR},
       HouseRel = #{record.houseRel,jdbcType=VARCHAR},
-      Address = #{record.address,jdbcType=VARCHAR}
+      Address = #{record.address,jdbcType=VARCHAR},
+      IsDelete = #{record.isDelete,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

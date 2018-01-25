@@ -1,6 +1,7 @@
 package com.computerdesign.whutHouseMgmt.controller.houseregister;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Path;
@@ -23,6 +24,8 @@ import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllShowModel;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseShowModel;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentHistory;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
@@ -47,6 +50,46 @@ public class HouseRegisterController {
 
 	@Autowired
 	private RegisterService registerService;
+	
+	/**
+	 * 删除住房关系，即删除住房关系，但是保存住房登记历史记录
+	 * @return
+	 */
+	@RequestMapping(value = "deleteHouseRel/{residentId}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public Msg deleteHouseRel(@PathVariable("residentId") Integer residentId){
+		//获取该住房登记记录
+		Resident resident = registerService.getResident(residentId);
+		if(resident == null){
+			return Msg.error("无该id的记录");
+		}
+		//删除，即设置isDelete字段为1
+		resident.setIsDelete(true);
+		registerService.deleteResident(resident);
+		
+		return Msg.success("删除成功");
+	}
+	
+	/**
+	 * 解除住房关系，即删除住房关系和住房登记历史记录
+	 * @return
+	 */
+	@RequestMapping(value = "relieveHouseRel/{residentId}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public Msg relieveHouseRel(@PathVariable("residentId") Integer residentId){
+		//获取该住房登记记录
+		Resident resident = registerService.getResident(residentId);
+		if(resident == null){
+			return Msg.error("无该id的记录");
+		}
+		//删除，即设置isDelete字段为1
+		resident.setIsDelete(true);
+		registerService.deleteResident(resident);
+		
+		//删除住房登记历史记录
+		registerService.deleteResidentHistory(residentId);
+		return Msg.success("解除成功");
+	}
 	
 	/**
 	 * 登记关系设置，提交修改的登记关系
@@ -81,6 +124,29 @@ public class HouseRegisterController {
 	}
 	
 	/**
+	 * 判断该住房是否已有人登记居住
+	 * @param resident
+	 * @return
+	 */
+	@RequestMapping(value = "isRegistered", method = RequestMethod.POST)
+	@ResponseBody
+	public Msg isRegistered(@RequestBody Resident resident){
+		if(registerService.getCountByHouseId(resident.getHouseId()) > 0){
+			List<ResidentVw> residentVws = registerService.getResidentVwByHouseId(resident.getHouseId());
+			String message = "";
+			for (ResidentVw residentVw : residentVws){
+				String name = residentVw.getStaffName();
+				String dept = residentVw.getStaffDeptName();
+				String sex = residentVw.getStaffSex();
+				message = message + "姓名：" + name +","+
+						"单位：" + dept + ",性别" + sex + ";";
+			}
+			return Msg.success("该住房已经有人入住," + message + ",您确定继续登记吗?");
+		}
+		return null;
+	}
+	
+	/**
 	 * 住房登记
 	 * @param resident
 	 * @return
@@ -91,7 +157,8 @@ public class HouseRegisterController {
 		//System.out.println(resident.getStaffId());
 		//System.out.println(registerService.getCount());
 		//根据数据库中的记录数+1
-		resident.setId(registerService.getCount()+1);
+//		resident.setId(registerService.getCount()+1);
+		resident.setIsDelete(false);
 		if(resident.getStaffId() == null){
 			return Msg.error("请选择一个员工");
 		}
@@ -102,10 +169,33 @@ public class HouseRegisterController {
 		if(resident.getHouseRel() == 0){
 			return Msg.error("住房关系不能选择全部");
 		}
+		
 		resident.setFamilyCode(resident.getStaffId().toString());
 		//具体可能要见Rent表
 		resident.setRentType("工资");
+		
+		if(registerService.getCountByHouseId(resident.getHouseId()) > 0){
+			List<Resident> residents = registerService.getResidentByHouseId(resident.getHouseId());
+			if(residents.contains(resident)){
+				return Msg.error("该职工与该住房已进行过登记,请您核对……");
+			}
+		}
+		
 		registerService.register(resident);
+		
+		Resident residentHaveId = registerService.getByAllField(resident);
+		
+		ResidentHistory residentHistory = new ResidentHistory();
+		residentHistory.setResidentId(residentHaveId.getId());
+		residentHistory.setStaffId(resident.getStaffId());
+		residentHistory.setHouseId(resident.getHouseId());
+		residentHistory.setHouseRelation(resident.getHouseRel());
+		//先默认是初始登记，待修改
+		residentHistory.setIsBook(true);
+		residentHistory.setBookTime(resident.getBookTime());
+		residentHistory.setSysTime(new Date());
+		registerService.registerHistory(residentHistory);
+		
 		return Msg.success().add("data", resident);
 	}
 	

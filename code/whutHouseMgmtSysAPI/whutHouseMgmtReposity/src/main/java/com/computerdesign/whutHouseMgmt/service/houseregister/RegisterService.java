@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.service.houseregister;
+﻿package com.computerdesign.whutHouseMgmt.service.houseregister;
 
 import java.util.List;
 
@@ -10,10 +10,16 @@ import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample;
 import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample.Criteria;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentHistory;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentHistoryExample;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentModel;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample;
 import com.computerdesign.whutHouseMgmt.dao.house.HouseMapper;
 import com.computerdesign.whutHouseMgmt.dao.houseparam.HouseParameterMapper;
+import com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentHistoryMapper;
 import com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentMapper;
+import com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentVwMapper;
 
 /**
  * 住房登记，使用hs_resident表
@@ -28,6 +34,78 @@ public class RegisterService{
 
 	@Autowired
 	private HouseParameterMapper houseParameterMapper;
+	
+	@Autowired
+	private ResidentHistoryMapper residentHistoryMapper;
+	
+	@Autowired
+	private ResidentVwMapper residentVwMapper;
+	
+	/**
+	 * 删除住房登记历史记录
+	 * @param residentId
+	 */
+	public void deleteResidentHistory(Integer residentId){
+		//删除住房登记历史记录
+		ResidentHistoryExample example = new ResidentHistoryExample();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentHistoryExample.Criteria criteria = example.createCriteria();
+		criteria.andResidentIdEqualTo(residentId);
+		residentHistoryMapper.deleteByExample(example);
+	}
+	
+	/**
+	 * 删除住房记录，即设置isDelete字段为1
+	 * @param resident
+	 */
+	public void deleteResident(Resident resident){
+		residentMapper.updateByPrimaryKey(resident);
+	}
+	public Resident getResident(Integer residentId){
+		return residentMapper.selectByPrimaryKey(residentId);
+	}
+	
+	/**
+	 * 根据所有条件定位到某一个resident记录，
+	 * 用于获取hs_resident数据库自增生成的主键，方便residentHistory的residentId对应
+	 * @param resident
+	 * @return
+	 */
+	public Resident getByAllField(Resident resident){
+		ResidentExample example = new ResidentExample();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(resident.getStaffId());
+		criteria.andHouseIdEqualTo(resident.getHouseId());
+		criteria.andHouseRelEqualTo(resident.getHouseRel());
+		criteria.andBookTimeEqualTo(resident.getBookTime());
+		criteria.andIsDeleteEqualTo(resident.getIsDelete());
+		criteria.andRentTypeEqualTo(resident.getRentType());
+		criteria.andFamilyCodeEqualTo(resident.getFamilyCode());
+		return residentMapper.selectByExample(example).get(0); 
+	}
+	
+	/**
+	 * 使用hs_resident,根据houseId获取该房屋的所有居民，用于住房登记，判断是否重复登记
+	 * @param houseId
+	 * @return
+	 */
+	public List<Resident> getResidentByHouseId(Integer houseId){
+		ResidentExample example = new ResidentExample();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
+		criteria.andHouseIdEqualTo(houseId);
+		return residentMapper.selectByExample(example); 
+	}
+	
+	/**
+	 * 使用view_hs_resident,根据houseId获取该房屋的所有居民，用于住房登记，当住房已有人登记时显示提示信息
+	 * @param houseId
+	 * @return
+	 */
+	public List<ResidentVw> getResidentVwByHouseId(Integer houseId){
+		ResidentVwExample example = new ResidentVwExample();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample.Criteria criteria = example.createCriteria();
+		criteria.andHouseIdEqualTo(houseId);
+		return residentVwMapper.selectByExample(example);
+	}
 	
 	/**
 	 * 登记关系设置，提交修改的登记关系
@@ -56,26 +134,35 @@ public class RegisterService{
 	public void register(Resident resident){
 		residentMapper.insertSelective(resident);
 	}
+	/**
+	 * 插入登记历史
+	 */
+	public void registerHistory(ResidentHistory residentHistory){
+		residentHistoryMapper.insertSelective(residentHistory);
+	}
 	
 	/**
-	 * 根据staffId获取全部的resident
-	 * @param staffId
+	 * 根据houseId查找记录数，用于确认住房是否已有人入住
+	 * @param houseId
 	 * @return
 	 */
-	public List<Resident> getResidentsByStaffId(Integer staffId) {
+	public long getCountByHouseId(Integer houseId){
 		ResidentExample example = new ResidentExample();
 		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
-		criteria.andStaffIdEqualTo(staffId);
-		return residentMapper.selectByExample(example);
+		criteria.andHouseIdEqualTo(houseId);
+		return residentMapper.countByExample(example);
 	}
+	
+	
+	
 	/**
 	 * 获取数据库记录数，方便id自增
 	 * @return
 	 */
-	public int getCount(){
-		ResidentExample example = new ResidentExample();
-		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
-		return residentMapper.selectByExample(example).size();
-	}
+//	public int getCount(){
+//		ResidentExample example = new ResidentExample();
+//		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
+//		return residentMapper.selectByExample(example).size();
+//	}
 	
 }

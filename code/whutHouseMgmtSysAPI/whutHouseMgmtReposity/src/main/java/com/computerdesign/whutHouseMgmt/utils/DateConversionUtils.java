@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,9 +17,16 @@ public class DateConversionUtils {
 	 * @param pattern
 	 * @return
 	 */
-	public static Date stringToDate(String date, String pattern){
+	public static Date stringToDate(String dateStr, String pattern){
 		
-		return null;
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		Date date = null;
+		try {
+			date = sdf.parse(dateStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
 	}
 	
 	/**

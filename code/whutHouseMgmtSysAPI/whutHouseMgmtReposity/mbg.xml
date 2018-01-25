@@ -42,7 +42,10 @@
 
 		<table tableName="hs_house" domainObjectName="House">
 			<property name="useActualColumnNames" value="true"></property>
-		</table>
+		</table> -->
+		<!-- <table tableName="view_hs_resident" domainObjectName="ResidentVw">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
 		
 
 

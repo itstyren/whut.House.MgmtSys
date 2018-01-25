@@ -35,10 +35,10 @@ public class DataImportService {
 		return staffParameter.getStaffParamId();
 	}
 	
-	//批量插入
-	public void batchInsertStaff(List<Staff> list){
-		staffMapper.batchInsertSelective(list);
-	}
+//	//批量插入
+//	public void batchInsertStaff(List<Staff> list){
+//		staffMapper.batchInsertSelective(list);
+//	}
 	
 	public void insertStaff(Staff staff){
 		staffMapper.insertSelective(staff);

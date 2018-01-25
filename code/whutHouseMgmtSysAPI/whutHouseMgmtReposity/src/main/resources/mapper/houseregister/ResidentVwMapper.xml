@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentVwMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw">
+    <result column="ResidentId" jdbcType="INTEGER" property="residentId" />
+    <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="HouseId" jdbcType="INTEGER" property="houseId" />
+    <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
+    <result column="HouseRel" jdbcType="VARCHAR" property="houseRel" />
+    <result column="BookTime" jdbcType="DATE" property="bookTime" />
+    <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
+    <result column="StaffSex" jdbcType="VARCHAR" property="staffSex" />
+    <result column="StaffDeptId" jdbcType="INTEGER" property="staffDeptId" />
+    <result column="StaffDeptName" jdbcType="VARCHAR" property="staffDeptName" />
+    <result column="HouseNo" jdbcType="VARCHAR" property="houseNo" />
+    <result column="HouseType" jdbcType="INTEGER" property="houseType" />
+    <result column="BuildArea" jdbcType="DOUBLE" property="buildArea" />
+    <result column="UsedArea" jdbcType="DOUBLE" property="usedArea" />
+    <result column="FamilyCode" jdbcType="INTEGER" property="familyCode" />
+    <result column="ExpireTime" jdbcType="DATE" property="expireTime" />
+    <result column="LastRentType" jdbcType="VARCHAR" property="lastRentType" />
+    <result column="RentType" jdbcType="VARCHAR" property="rentType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ResidentId, StaffId, HouseId, StaffName, Address, HouseRel, BookTime, StaffNo, StaffSex, 
+    StaffDeptId, StaffDeptName, HouseNo, HouseType, BuildArea, UsedArea, FamilyCode, 
+    ExpireTime, LastRentType, RentType
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from view_hs_resident
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample">
+    delete from view_hs_resident
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw">
+    insert into view_hs_resident (ResidentId, StaffId, HouseId, 
+      StaffName, Address, HouseRel, 
+      BookTime, StaffNo, StaffSex, 
+      StaffDeptId, StaffDeptName, HouseNo, 
+      HouseType, BuildArea, UsedArea, 
+      FamilyCode, ExpireTime, LastRentType, 
+      RentType)
+    values (#{residentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
+      #{staffName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{houseRel,jdbcType=VARCHAR}, 
+      #{bookTime,jdbcType=DATE}, #{staffNo,jdbcType=VARCHAR}, #{staffSex,jdbcType=VARCHAR}, 
+      #{staffDeptId,jdbcType=INTEGER}, #{staffDeptName,jdbcType=VARCHAR}, #{houseNo,jdbcType=VARCHAR}, 
+      #{houseType,jdbcType=INTEGER}, #{buildArea,jdbcType=DOUBLE}, #{usedArea,jdbcType=DOUBLE}, 
+      #{familyCode,jdbcType=INTEGER}, #{expireTime,jdbcType=DATE}, #{lastRentType,jdbcType=VARCHAR}, 
+      #{rentType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw">
+    insert into view_hs_resident
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="residentId != null">
+        ResidentId,
+      </if>
+      <if test="staffId != null">
+        StaffId,
+      </if>
+      <if test="houseId != null">
+        HouseId,
+      </if>
+      <if test="staffName != null">
+        StaffName,
+      </if>
+      <if test="address != null">
+        Address,
+      </if>
+      <if test="houseRel != null">
+        HouseRel,
+      </if>
+      <if test="bookTime != null">
+        BookTime,
+      </if>
+      <if test="staffNo != null">
+        StaffNo,
+      </if>
+      <if test="staffSex != null">
+        StaffSex,
+      </if>
+      <if test="staffDeptId != null">
+        StaffDeptId,
+      </if>
+      <if test="staffDeptName != null">
+        StaffDeptName,
+      </if>
+      <if test="houseNo != null">
+        HouseNo,
+      </if>
+      <if test="houseType != null">
+        HouseType,
+      </if>
+      <if test="buildArea != null">
+        BuildArea,
+      </if>
+      <if test="usedArea != null">
+        UsedArea,
+      </if>
+      <if test="familyCode != null">
+        FamilyCode,
+      </if>
+      <if test="expireTime != null">
+        ExpireTime,
+      </if>
+      <if test="lastRentType != null">
+        LastRentType,
+      </if>
+      <if test="rentType != null">
+        RentType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="residentId != null">
+        #{residentId,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=INTEGER},
+      </if>
+      <if test="staffName != null">
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="houseRel != null">
+        #{houseRel,jdbcType=VARCHAR},
+      </if>
+      <if test="bookTime != null">
+        #{bookTime,jdbcType=DATE},
+      </if>
+      <if test="staffNo != null">
+        #{staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSex != null">
+        #{staffSex,jdbcType=VARCHAR},
+      </if>
+      <if test="staffDeptId != null">
+        #{staffDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="staffDeptName != null">
+        #{staffDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNo != null">
+        #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null">
+        #{houseType,jdbcType=INTEGER},
+      </if>
+      <if test="buildArea != null">
+        #{buildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="usedArea != null">
+        #{usedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="familyCode != null">
+        #{familyCode,jdbcType=INTEGER},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=DATE},
+      </if>
+      <if test="lastRentType != null">
+        #{lastRentType,jdbcType=VARCHAR},
+      </if>
+      <if test="rentType != null">
+        #{rentType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample" resultType="java.lang.Long">
+    select count(*) from view_hs_resident
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update view_hs_resident
+    <set>
+      <if test="record.residentId != null">
+        ResidentId = #{record.residentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffId != null">
+        StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseId != null">
+        HouseId = #{record.houseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffName != null">
+        StaffName = #{record.staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        Address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseRel != null">
+        HouseRel = #{record.houseRel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookTime != null">
+        BookTime = #{record.bookTime,jdbcType=DATE},
+      </if>
+      <if test="record.staffNo != null">
+        StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffSex != null">
+        StaffSex = #{record.staffSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffDeptId != null">
+        StaffDeptId = #{record.staffDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffDeptName != null">
+        StaffDeptName = #{record.staffDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseNo != null">
+        HouseNo = #{record.houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseType != null">
+        HouseType = #{record.houseType,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildArea != null">
+        BuildArea = #{record.buildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.usedArea != null">
+        UsedArea = #{record.usedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.familyCode != null">
+        FamilyCode = #{record.familyCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.expireTime != null">
+        ExpireTime = #{record.expireTime,jdbcType=DATE},
+      </if>
+      <if test="record.lastRentType != null">
+        LastRentType = #{record.lastRentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rentType != null">
+        RentType = #{record.rentType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update view_hs_resident
+    set ResidentId = #{record.residentId,jdbcType=INTEGER},
+      StaffId = #{record.staffId,jdbcType=INTEGER},
+      HouseId = #{record.houseId,jdbcType=INTEGER},
+      StaffName = #{record.staffName,jdbcType=VARCHAR},
+      Address = #{record.address,jdbcType=VARCHAR},
+      HouseRel = #{record.houseRel,jdbcType=VARCHAR},
+      BookTime = #{record.bookTime,jdbcType=DATE},
+      StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+      StaffSex = #{record.staffSex,jdbcType=VARCHAR},
+      StaffDeptId = #{record.staffDeptId,jdbcType=INTEGER},
+      StaffDeptName = #{record.staffDeptName,jdbcType=VARCHAR},
+      HouseNo = #{record.houseNo,jdbcType=VARCHAR},
+      HouseType = #{record.houseType,jdbcType=INTEGER},
+      BuildArea = #{record.buildArea,jdbcType=DOUBLE},
+      UsedArea = #{record.usedArea,jdbcType=DOUBLE},
+      FamilyCode = #{record.familyCode,jdbcType=INTEGER},
+      ExpireTime = #{record.expireTime,jdbcType=DATE},
+      LastRentType = #{record.lastRentType,jdbcType=VARCHAR},
+      RentType = #{record.rentType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

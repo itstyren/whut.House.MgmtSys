@@ -406,8 +406,13 @@ public class Staff {
 
 	@Override
 	public String toString() {
-		return "Staff [no=" + no + ", name=" + name + ", sex=" + sex + "]";
+		return "Staff [id=" + id + ", no=" + no + ", name=" + name + ", sex=" + sex + ", marriageState=" + marriageState
+				+ "]";
 	}
+
+	
+
+	
     
     
 }
