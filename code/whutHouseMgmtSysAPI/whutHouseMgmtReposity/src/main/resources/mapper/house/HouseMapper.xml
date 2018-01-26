@@ -3,7 +3,7 @@
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.house.HouseMapper">
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.house.House">
     <id column="Id" jdbcType="INTEGER" property="id" />
-    <result column="No" jdbcType="INTEGER" property="no" />
+    <result column="No" jdbcType="VARCHAR" property="no" />
     <result column="Type" jdbcType="INTEGER" property="type" />
     <result column="Layout" jdbcType="INTEGER" property="layout" />
     <result column="Struct" jdbcType="INTEGER" property="struct" />
@@ -119,7 +119,7 @@
       Address, BuildingId, ProId, 
       Remark, Image, Rental, 
       FinishTime, RecordStatus)
-    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{layout,jdbcType=INTEGER}, #{struct,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{buildArea,jdbcType=DOUBLE}, #{usedArea,jdbcType=DOUBLE}, #{basementArea,jdbcType=DOUBLE}, 
       #{address,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, #{proId,jdbcType=VARCHAR}, 
@@ -186,7 +186,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="no != null">
-        #{no,jdbcType=INTEGER},
+        #{no,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
@@ -248,7 +248,7 @@
         Id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.no != null">
-        No = #{record.no,jdbcType=INTEGER},
+        No = #{record.no,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null">
         Type = #{record.type,jdbcType=INTEGER},
@@ -303,7 +303,7 @@
   <update id="updateByExample" parameterType="map">
     update Hs_House
     set Id = #{record.id,jdbcType=INTEGER},
-      No = #{record.no,jdbcType=INTEGER},
+      No = #{record.no,jdbcType=VARCHAR},
       Type = #{record.type,jdbcType=INTEGER},
       Layout = #{record.layout,jdbcType=INTEGER},
       Struct = #{record.struct,jdbcType=INTEGER},
@@ -327,7 +327,7 @@
     update Hs_House
     <set>
       <if test="no != null">
-        No = #{no,jdbcType=INTEGER},
+        No = #{no,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         Type = #{type,jdbcType=INTEGER},
@@ -379,7 +379,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.house.House">
     update Hs_House
-    set No = #{no,jdbcType=INTEGER},
+    set No = #{no,jdbcType=VARCHAR},
       Type = #{type,jdbcType=INTEGER},
       Layout = #{layout,jdbcType=INTEGER},
       Struct = #{struct,jdbcType=INTEGER},

@@ -33,6 +33,8 @@ public class ViewFix {
 
     private Integer staffId;
 
+    private String staffNo;
+
     private String staffName;
 
     private String titleName;
@@ -44,6 +46,8 @@ public class ViewFix {
     private Integer houseId;
 
     private String staffAddress;
+
+    private String houseNo;
 
     private String phone;
 
@@ -189,6 +193,14 @@ public class ViewFix {
         this.staffId = staffId;
     }
 
+    public String getStaffNo() {
+        return staffNo;
+    }
+
+    public void setStaffNo(String staffNo) {
+        this.staffNo = staffNo == null ? null : staffNo.trim();
+    }
+
     public String getStaffName() {
         return staffName;
     }
@@ -235,6 +247,14 @@ public class ViewFix {
 
     public void setStaffAddress(String staffAddress) {
         this.staffAddress = staffAddress == null ? null : staffAddress.trim();
+    }
+
+    public String getHouseNo() {
+        return houseNo;
+    }
+
+    public void setHouseNo(String houseNo) {
+        this.houseNo = houseNo == null ? null : houseNo.trim();
     }
 
     public String getPhone() {

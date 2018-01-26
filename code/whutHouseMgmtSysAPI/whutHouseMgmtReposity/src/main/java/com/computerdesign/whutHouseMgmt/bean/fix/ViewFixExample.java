@@ -1132,6 +1132,76 @@ public class ViewFixExample {
             return (Criteria) this;
         }
 
+        public Criteria andStaffNoIsNull() {
+            addCriterion("StaffNo is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoIsNotNull() {
+            addCriterion("StaffNo is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoEqualTo(String value) {
+            addCriterion("StaffNo =", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoNotEqualTo(String value) {
+            addCriterion("StaffNo <>", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoGreaterThan(String value) {
+            addCriterion("StaffNo >", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoGreaterThanOrEqualTo(String value) {
+            addCriterion("StaffNo >=", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoLessThan(String value) {
+            addCriterion("StaffNo <", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoLessThanOrEqualTo(String value) {
+            addCriterion("StaffNo <=", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoLike(String value) {
+            addCriterion("StaffNo like", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoNotLike(String value) {
+            addCriterion("StaffNo not like", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoIn(List<String> values) {
+            addCriterion("StaffNo in", values, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoNotIn(List<String> values) {
+            addCriterion("StaffNo not in", values, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoBetween(String value1, String value2) {
+            addCriterion("StaffNo between", value1, value2, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoNotBetween(String value1, String value2) {
+            addCriterion("StaffNo not between", value1, value2, "staffNo");
+            return (Criteria) this;
+        }
+
         public Criteria andStaffNameIsNull() {
             addCriterion("StaffName is null");
             return (Criteria) this;
@@ -1539,6 +1609,76 @@ public class ViewFixExample {
 
         public Criteria andStaffAddressNotBetween(String value1, String value2) {
             addCriterion("StaffAddress not between", value1, value2, "staffAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoIsNull() {
+            addCriterion("HouseNo is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoIsNotNull() {
+            addCriterion("HouseNo is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoEqualTo(String value) {
+            addCriterion("HouseNo =", value, "houseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoNotEqualTo(String value) {
+            addCriterion("HouseNo <>", value, "houseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoGreaterThan(String value) {
+            addCriterion("HouseNo >", value, "houseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoGreaterThanOrEqualTo(String value) {
+            addCriterion("HouseNo >=", value, "houseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoLessThan(String value) {
+            addCriterion("HouseNo <", value, "houseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoLessThanOrEqualTo(String value) {
+            addCriterion("HouseNo <=", value, "houseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoLike(String value) {
+            addCriterion("HouseNo like", value, "houseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoNotLike(String value) {
+            addCriterion("HouseNo not like", value, "houseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoIn(List<String> values) {
+            addCriterion("HouseNo in", values, "houseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoNotIn(List<String> values) {
+            addCriterion("HouseNo not in", values, "houseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoBetween(String value1, String value2) {
+            addCriterion("HouseNo between", value1, value2, "houseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseNoNotBetween(String value1, String value2) {
+            addCriterion("HouseNo not between", value1, value2, "houseNo");
             return (Criteria) this;
         }
 

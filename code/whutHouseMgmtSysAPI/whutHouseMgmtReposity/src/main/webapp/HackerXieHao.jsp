@@ -65,38 +65,75 @@
 		});
 	}
 
+	//数据导入的Post类请求
+	function ajaxRequestPostTypeForDataImport(uri, method, data) {
+		//alert("${API_Path }/" + uri);
+		$.ajax({
+			type : method,
+			contentType : 'multipart/form-data;charset=UTF-8',
+			dataType : 'json',
+			data : JSON.stringify(data),
+			url : uri,
+			success : function(response) {
+				console.log(response);
+			},
+			error : function() {
+				console.log('Ajax请求失败！');
+			}
+		});
+	}
+
 	//租赁历史
 	$(function() {
-		$("#rentEventGet").click(function () {
+		$("#rentEventGet").click(function() {
 			ajaxRequestGet("rentEvent/get?page=1&size=5");
 		})
-		
-		$("#rentEventModify").click(function () {
-			var data={"rentEventId":3,"rentTimeBegin":"2017-10-20","rentTimeRanges":"2017-11-4","rentSelValReq":5,"rentSelRules":"无规则"}
-			ajaxRequestPostType("rentEvent/modify","PUT",data);
+
+		$("#rentEventModify").click(function() {
+			var data = {
+				"rentEventId" : 3,
+				"rentTimeBegin" : "2017-10-20",
+				"rentTimeRanges" : "2017-11-4",
+				"rentSelValReq" : 5,
+				"rentSelRules" : "无规则"
+			}
+			ajaxRequestPostType("rentEvent/modify", "PUT", data);
 		})
-		
-		$("#rentEventDelete").click(function () {
+
+		$("#rentEventDelete").click(function() {
 			//var data={"rentParamId":2}
-			ajaxRequestPostType("rentEvent/delete/2","DELETE",null);
+			ajaxRequestPostType("rentEvent/delete/2", "DELETE", null);
 		})
-		
-		$("#rentEventAdd").click(function () {
-			var data={"rentTimeBegin":"2017-10-30","rentTimeRanges":"2017-11-4","rentSelValReq":5,"rentSelRules":"无规则"}
-			ajaxRequestPostType("rentEvent/add","POST",data);
+
+		$("#rentEventAdd").click(function() {
+			var data = {
+				"rentTimeBegin" : "2017-10-30",
+				"rentTimeRanges" : "2017-11-4",
+				"rentSelValReq" : 5,
+				"rentSelRules" : "无规则"
+			}
+			ajaxRequestPostType("rentEvent/add", "POST", data);
 		})
-		
+
 	})
 
 	//和职工有关的租赁参数
 	$(function() {
-		$("#rentParamAboutStaffGet").click(function () {
+		$("#rentParamAboutStaffGet").click(function() {
 			ajaxRequestGet("rentParamAboutStaff/get/11?page=2&size=4");
 		})
-		
-		$("#rentParamAboutStaffModify").click(function () {
-			var data={"staffParamId":88,"staffParamName":"否","paramTypeId":6,"paramTypeName":"职务","staffParamVal":70,"staffParamSpouseVal":3,"isDelete":"false"}
-			ajaxRequestPostType("rentParamAboutStaff/modify","PUT",data);
+
+		$("#rentParamAboutStaffModify").click(function() {
+			var data = {
+				"staffParamId" : 88,
+				"staffParamName" : "否",
+				"paramTypeId" : 6,
+				"paramTypeName" : "职务",
+				"staffParamVal" : 70,
+				"staffParamSpouseVal" : 3,
+				"isDelete" : "false"
+			}
+			ajaxRequestPostType("rentParamAboutStaff/modify", "PUT", data);
 		})
 	})
 
@@ -156,15 +193,15 @@
 		$("#resetPassword").click(function() {
 			ajaxRequestPostType("staff/resetPassword/1", "PUT", null);
 		})
-		
+
 		$("#getByID").click(function() {
 			ajaxRequestGet("staff/getByID/1");
 		})
-		
+
 		$("#staffDeptGet").click(function() {
 			ajaxRequestGet("staff/getDepts");
 		})
-		
+
 		$("#staffByInputGet").click(function() {
 			ajaxRequestGet("staff/getStaffByInput?input=h");
 		})
@@ -172,7 +209,6 @@
 		$("#staffGet").click(function() {
 			ajaxRequestGet("staff/get/48?page=2&size=2");
 		})
-
 
 		$("#staffDelete").click(function() {
 			//var data={'staffParamId':189};
@@ -183,95 +219,144 @@
 			var data = {
 				'no' : '4234',
 				'name' : 'xh',
-				'sex':'男',
-				'marriageState':'未知',
-				'title':95,
-				'post':89,
-				'type':144,
-				'status':153,
-				'dept':49,
-				'code':'429006198711208702',
-				'joinTime':'2017-11-20',
-				'goUniversityTime':'2015-9-6',
-				'retireTime':'2020-11-2',
-				'tel':'13129917437',
-				'remark':'无',
-				'relation':'active'
+				'sex' : '男',
+				'marriageState' : '未知',
+				'title' : 95,
+				'post' : 89,
+				'type' : 144,
+				'status' : 153,
+				'dept' : 49,
+				'code' : '429006198711208702',
+				'joinTime' : '2017-11-20',
+				'goUniversityTime' : '2015-9-6',
+				'retireTime' : '2020-11-2',
+				'tel' : '13129917437',
+				'remark' : '无',
+				'relation' : 'active'
 			};
 			ajaxRequestPostType("staff/add", "POST", data);
 		})
 
 		$("#staffModify").click(function() {
 			var data = {
-					'id':14,
-					'no' : '4330',
-					'name' : 'xh',
-					'sex':'男',
-					'marriageState':'未知',
-					//'title':95,
-					'post':89,
-					'type':144,
-					'status':153,
-					'dept':49,
-					'code':'429006198711208754',
-					'joinTime':'2017-11-20',
-					'goUniversityTime':'2015-9-6',
-					'retireTime':'2020-11-2',
-					'tel':'13277582789',
-					'remark':'无',
-					'relation':'active'
+				'id' : 14,
+				'no' : '4330',
+				'name' : 'xh',
+				'sex' : '男',
+				'marriageState' : '未知',
+				//'title':95,
+				'post' : 89,
+				'type' : 144,
+				'status' : 153,
+				'dept' : 49,
+				'code' : '429006198711208754',
+				'joinTime' : '2017-11-20',
+				'goUniversityTime' : '2015-9-6',
+				'retireTime' : '2020-11-2',
+				'tel' : '13277582789',
+				'remark' : '无',
+				'relation' : 'active'
 			};
 			ajaxRequestPostType("staff/modify", "PUT", data);
 		})
 	})
-	
+
 	//住房登记
 	$(function() {
-		$("#getByMultiCondition").click(function() {
-			var data = {
+		$("#getByMultiCondition").click(
+				function() {
+					var data = {
 					//键的名字与Model属性名一致
 					'houseType':'周转房342萨达',
-					//'useStatus':'空闲',
-					//'houseZone':'武汉市洪山区工大路20号'
-			};
-			ajaxRequestPostType("houseRegister/getByMultiCondition","POST",data);
-		})
-		
-		$("#getByAllMultiCondition").click(function() {
-			var data = {
-					//键的名字与Model属性名一致
-					//'houseType':'周转房342萨达',
-					//'useStatus':'空闲',
-					//'houseZone':'武汉市洪山区工大路20号'
-					//'structName':'砖木',
-					//'areaParameter':{
-						//'areaParamName':'建筑面积',
-						//'minArea':50,
-						//'maxArea':52
-					//},
-					//'finishTime':['2017-01-31','2017-02-02'],
-					'finishTime':{
-						'startTime':'2017-01-31',
-						'endTime':'2017-02-02'
-					}
-			};
-			ajaxRequestPostType("houseRegister/getByAllMultiCondition","POST",data);
-		})
-		
+					'useStatus':'空闲',
+					'houseZone':'武汉市洪山区工大路20号',
+					'building':'1栋（原鉴湖401栋）'
+					};
+					ajaxRequestPostType("houseRegister/getByMultiCondition",
+							"POST", data);
+				})
+
+		$("#getByAllMultiCondition").click(
+				function() {
+					var data = {
+						//键的名字与Model属性名一致
+						'houseType':'周转房342萨达',
+						'useStatus':'空闲',
+						'houseZone':'武汉市洪山区工大路20号',
+						'building':'1栋（原鉴湖401栋）',
+						'structName':'砖木',
+						'layoutName':'两室',
+						'areaParameter':{
+							'areaParamName':'建筑面积',
+							'minArea':35,
+							'maxArea':38
+						},
+						//'finishTime':['2017-01-31','2017-02-02'],
+						'finishTime' : {
+							'startTime' : '2017-01-31',
+							'endTime' : '2017-02-02'
+						}
+					};
+					ajaxRequestPostType("houseRegister/getByAllMultiCondition",
+							"POST", data);
+				})
+
 		$("#getStaffHouseRel").click(function() {
 			ajaxRequestGet("houseRegister/getStaffHouseRel/1");
 		})
-		
+
 		$("#register").click(function() {
 			var data = {
-					//键的名字与Model属性名一致
-					'staffId':1,
-					'houseId':1,
-					'houseRel':26
+				//键的名字与Model属性名一致
+				'staffId' : 3,
+				'houseId' : 1,
+				'houseRel' : 25,
+				'bookTime':'2018-01-23'
 			};
-			ajaxRequestPostType("houseRegister/register","PUT",data);
+			ajaxRequestPostType("houseRegister/register", "PUT", data);
 		})
 		
+		$("#isRegistered").click(function() {
+			var data = {
+				//键的名字与Model属性名一致
+				'staffId' : 3,
+				'houseId' : 1,
+				'houseRel' : 25,
+				'bookTime':'2018-01-23'
+			};
+			ajaxRequestPostType("houseRegister/isRegistered", "POST", data);
+		})
+		
+		$("#relieveHouseRel").click(function() {
+			ajaxRequestPostType("houseRegister/relieveHouseRel/23", "DELETE", null);
+		})
+		
+		$("#deleteHouseRel").click(function() {
+			ajaxRequestPostType("houseRegister/deleteHouseRel/24", "DELETE", null);
+		})
+
+		$("#getRegisterRel").click(function() {
+			ajaxRequestGet("houseRegister/getRegisterRel");
+		})
+
+		$("#updateRegisterRel").click(
+				function() {
+					var data = {
+						'houseParamId' : 6,
+						'houseParamName' : '周转房342萨达',
+						//'paramTypeId' : 1,
+						//'paramTypeName' : '住房类型',
+						'houseParamRel' : '购买,空闲,租赁',
+					//'isDelete' : false
+					};
+					ajaxRequestPostType("houseRegister/updateRegisterRel",
+							"POST", data);
+				})
+
+	})
+
+	//数据导入
+	$(function() {
 	})
 </script>
 
@@ -295,67 +380,116 @@
 		<li><a href="#staffParam" data-toggle="tab">职工参数</a></li>
 		<li><a href="#staffManagement" data-toggle="tab">职工管理</a></li>
 		<li><a href="#houseRegistration" data-toggle="tab">住房登记</a></li>
+		<li><a href="#dataImport" data-toggle="tab">数据导入</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="rentEvent">
 			<h4>租赁历史获取测试</h4>
-			<input class="btn btn-info btn-lg" type="button" value="Get" id="rentEventGet" /> <br><br>
+			<input class="btn btn-info btn-lg" type="button" value="Get"
+				id="rentEventGet" /> <br> <br>
 			<h4>租赁历史删除测试</h4>
-			<input class="btn btn-info btn-lg"type="button" value="Delete" id="rentEventDelete" /><br><br>
+			<input class="btn btn-info btn-lg" type="button" value="Delete"
+				id="rentEventDelete" /><br> <br>
 			<h4>租赁历史增添测试</h4>
-			<input class="btn btn-info btn-lg"type="button" value="Add" id="rentEventAdd" /> <br><br>
+			<input class="btn btn-info btn-lg" type="button" value="Add"
+				id="rentEventAdd" /> <br> <br>
 			<h4>租赁历史修改测试</h4>
-			<input class="btn btn-info btn-lg"type="button" value="Modify" id="rentEventModify" />
-			<br>
+			<input class="btn btn-info btn-lg" type="button" value="Modify"
+				id="rentEventModify" /> <br>
 		</div>
 		<div class="tab-pane fade" id="rentParamAboutStaff">
 			<h4>和职工有关的租赁参数获取测试</h4>
-			<input class="btn btn-info btn-lg" type="button" value="rentParamAboutStaffGet" id="rentParamAboutStaffGet" /> <br><br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="rentParamAboutStaffGet" id="rentParamAboutStaffGet" /> <br>
+			<br>
 			<h4>和职工有关的租赁参数修改测试</h4>
-			<input class="btn btn-info btn-lg" type="button" value="rentParamAboutStaffModify" id="rentParamAboutStaffModify" /> <br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="rentParamAboutStaffModify" id="rentParamAboutStaffModify" />
+			<br>
 		</div>
 		<div class="tab-pane fade" id="staffParam">
 			<h4>获取职工参数</h4>
-			<input class="btn btn-info btn-lg" type="button" value="staffWorkDeptParamGet" id="staffWorkDeptParamGet" /> <br>
-			<input class="btn btn-info btn-lg" type="button" value="staffDutyParamGet" id="staffDutyParamGet" /><br>
-			<input class="btn btn-info btn-lg" type="button" value="staffJobTitleParamGet" id="staffJobTitleParamGet" /><br>
-			<input class="btn btn-info btn-lg" type="button" value="staffTypeParamGet" id="staffTypeParamGet" /><br>
-			<input class="btn btn-info btn-lg" type="button" value="staffWorkStatusParamGet" id="staffWorkStatusParamGet" /><br>
-			<input class="btn btn-info btn-lg" type="button" value="staffSpouseDeptNatureParamGet" id="staffSpouseDeptNatureParamGet" /><br><br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="staffWorkDeptParamGet" id="staffWorkDeptParamGet" /> <br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="staffDutyParamGet" id="staffDutyParamGet" /><br> <input
+				class="btn btn-info btn-lg" type="button"
+				value="staffJobTitleParamGet" id="staffJobTitleParamGet" /><br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="staffTypeParamGet" id="staffTypeParamGet" /><br> <input
+				class="btn btn-info btn-lg" type="button"
+				value="staffWorkStatusParamGet" id="staffWorkStatusParamGet" /><br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="staffSpouseDeptNatureParamGet"
+				id="staffSpouseDeptNatureParamGet" /><br> <br>
 			<h4>删除职工参数</h4>
-			<input class="btn btn-info btn-lg" type="button" value="staffParamDelete" id="staffParamDelete" /><br><br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="staffParamDelete" id="staffParamDelete" /><br> <br>
 			<h4>添加职工参数</h4>
-			<input class="btn btn-info btn-lg" type="button" value="staffParamAdd" id="staffParamAdd" /><br><br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="staffParamAdd" id="staffParamAdd" /><br> <br>
 			<h4>修改职工参数</h4>
-			<input class="btn btn-info btn-lg" type="button" value="staffParamModify" id="staffParamModify" /><br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="staffParamModify" id="staffParamModify" /><br>
 		</div>
 		<div class="tab-pane fade" id="staffManagement">
 			<h4>根据ID重置该员工密码</h4>
-			<input class="btn btn-info btn-lg" type="button" value="resetPassword" id="resetPassword" /> <br><br> 
+			<input class="btn btn-info btn-lg" type="button"
+				value="resetPassword" id="resetPassword" /> <br> <br>
 			<h4>根据ID获取单个员工信息</h4>
-			<input class="btn btn-info btn-lg" type="button" value="getByID" id="getByID" /> <br><br> 
+			<input class="btn btn-info btn-lg" type="button" value="getByID"
+				id="getByID" /> <br> <br>
 			<h4>获取所有部门</h4>
-			<input class="btn btn-info btn-lg" type="button" value="staffDeptGet" id="staffDeptGet" /> <br><br> 
+			<input class="btn btn-info btn-lg" type="button" value="staffDeptGet"
+				id="staffDeptGet" /> <br> <br>
 			<h4>模糊查询员工</h4>
-			<input class="btn btn-info btn-lg" type="button" value="staffByInputGet" id="staffByInputGet" /> <br><br> 
+			<input class="btn btn-info btn-lg" type="button"
+				value="staffByInputGet" id="staffByInputGet" /> <br> <br>
 			<h4>根据部门ID获取员工</h4>
-			<input class="btn btn-info btn-lg" type="button" value="staffGet" id="staffGet" /> <br><br>  
+			<input class="btn btn-info btn-lg" type="button" value="staffGet"
+				id="staffGet" /> <br> <br>
 			<h4>删除一个员工</h4>
-			<input class="btn btn-info btn-lg" type="button" value="staffDelete" id="staffDelete" /> <br><br> 
+			<input class="btn btn-info btn-lg" type="button" value="staffDelete"
+				id="staffDelete" /> <br> <br>
 			<h4>添加一个员工</h4>
-			<input class="btn btn-info btn-lg" type="button" value="staffAdd" id="staffAdd" /> <br><br> 
+			<input class="btn btn-info btn-lg" type="button" value="staffAdd"
+				id="staffAdd" /> <br> <br>
 			<h4>修改员工数据</h4>
-			<input class="btn btn-info btn-lg" type="button" value="staffModify" id="staffModify" /> <br>
+			<input class="btn btn-info btn-lg" type="button" value="staffModify"
+				id="staffModify" /> <br>
 		</div>
 		<div class="tab-pane fade" id="houseRegistration">
 			<h4>多条件查询测试</h4>
-			<input class="btn btn-info btn-lg" type="button" value="GetByMultiCondition" id="getByMultiCondition" /> <br><br> 
-			<h4>全面多条件查询测试</h4> 
-			<input class="btn btn-info btn-lg" type="button" value="GetByAllMultiCondition" id="getByAllMultiCondition" /> <br><br>
-			<h4>职工房屋关系查询测试</h4> 
-			<input class="btn btn-info btn-lg" type="button" value="GetStaffHouseRel" id="getStaffHouseRel" /> <br> 
-			<h4>登记</h4> 
-			<input class="btn btn-info btn-lg" type="button" value="Register" id="register" /> <br> 
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetByMultiCondition" id="getByMultiCondition" /> <br> <br>
+			<h4>全面多条件查询测试</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetByAllMultiCondition" id="getByAllMultiCondition" /> <br>
+			<br>
+			<h4>职工房屋关系查询测试</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetStaffHouseRel" id="getStaffHouseRel" /> <br>
+			<h4>登记</h4>
+			<input class="btn btn-info btn-lg" type="button" value="Register"
+				id="register" /> <br>
+			<h4>判断住房是否已有居民登记</h4>
+			<input class="btn btn-info btn-lg" type="button" value="IsRegistered"
+				id="isRegistered" /> <br>
+			<h4>解除登记关系：不保留历史记录</h4>
+			<input class="btn btn-info btn-lg" type="button" value="RelieveHouseRel"
+				id="relieveHouseRel" /> <br>
+			<h4>删除登记关系：保留历史记录</h4>
+			<input class="btn btn-info btn-lg" type="button" value="DeleteHouseRel"
+				id="deleteHouseRel" /> <br>
+			<h4>登记关系设置:获取所有登记关系</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetRegisterRel" id="getRegisterRel" /> <br>
+			<h4>登记关系设置:更新修改的登记关系</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="UpdateRegisterRel" id="updateRegisterRel" /> <br>
+		</div>
+		<div class="tab-pane fade" id="dataImport">
+			<!-- 数据导入 -->
 		</div>
 	</div>
 

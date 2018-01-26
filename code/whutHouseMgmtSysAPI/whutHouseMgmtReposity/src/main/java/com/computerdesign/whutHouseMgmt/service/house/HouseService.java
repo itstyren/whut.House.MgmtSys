@@ -42,7 +42,7 @@ public class HouseService implements BaseService<House>{
 		return houseMapper.selectByExample(example);
 	}
 	
-	public List<House> getHouseByNo(Integer No) {
+	public List<House> getHouseByNo(String No) {
 		HouseExample example = new HouseExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andNoEqualTo(No);

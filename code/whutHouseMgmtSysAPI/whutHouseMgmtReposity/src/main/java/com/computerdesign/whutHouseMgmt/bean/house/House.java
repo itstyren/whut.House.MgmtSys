@@ -2,14 +2,10 @@ package com.computerdesign.whutHouseMgmt.bean.house;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class House {
     private Integer id;
 
-    private Integer no;
+    private String no;
 
     private Integer type;
 
@@ -51,12 +47,12 @@ public class House {
         this.id = id;
     }
 
-    public Integer getNo() {
+    public String getNo() {
         return no;
     }
 
-    public void setNo(Integer no) {
-        this.no = no;
+    public void setNo(String no) {
+        this.no = no == null ? null : no.trim();
     }
 
     public Integer getType() {
@@ -178,4 +174,15 @@ public class House {
     public void setRecordStatus(Integer recordStatus) {
         this.recordStatus = recordStatus;
     }
+
+	@Override
+	public String toString() {
+		return "House [id=" + id + ", no=" + no + ", type=" + type + ", layout=" + layout + ", struct=" + struct
+				+ ", status=" + status + ", buildArea=" + buildArea + ", usedArea=" + usedArea + ", basementArea="
+				+ basementArea + ", address=" + address + ", buildingId=" + buildingId + ", proId=" + proId
+				+ ", remark=" + remark + ", image=" + image + ", rental=" + rental + ", finishTime=" + finishTime
+				+ ", recordStatus=" + recordStatus + "]";
+	}
+    
+    
 }

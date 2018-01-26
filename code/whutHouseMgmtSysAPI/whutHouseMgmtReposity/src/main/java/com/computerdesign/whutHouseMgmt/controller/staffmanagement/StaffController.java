@@ -60,7 +60,7 @@ public class StaffController {
 		if (staff != null) {
 			staff.setStaffPassword("123456");
 			staffService.resetPassword(staff);
-			return Msg.success("重置密码成功");
+			return Msg.success("重置密码为123456");
 		} else {
 			return Msg.error("该员工不存在");
 		}
