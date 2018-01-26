@@ -88,14 +88,17 @@
             维修内容
           </el-menu-item>
         </el-submenu>
-        <!-- 租金参数 -->
+        <!-- 租赁参数 -->
         <el-submenu index="rentalParam">
           <template slot="title">
             <i class="el-icon-star-off"></i>
-            <span slot="title">租金参数</span>
+            <span slot="title">租赁参数</span>
           </template>
           <el-menu-item index="/sysmanage/paramSet/rentalOption">
             租金选项
+          </el-menu-item>
+                    <el-menu-item index="/sysmanage/paramSet/residentRel">
+            登记关系
           </el-menu-item>
         </el-submenu>
       </el-menu>

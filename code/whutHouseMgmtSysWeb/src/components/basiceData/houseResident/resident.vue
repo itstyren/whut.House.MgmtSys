@@ -28,6 +28,9 @@
       <div class="house-resident">
         <house-resident></house-resident>
       </div>
+      <div class="conditionalQuery">
+        <h1>住房类型</h1>
+      </div>
       </div>
     </div>
     </div>
@@ -72,9 +75,15 @@ export default {
     }
   }
   .house-resident {
-      width: 100%;
-      height: 20%;
-      background-color: antiquewhite;
+    position: relative;
+    width: 100%;
+    height: 20%;
+    background-color:#eee;
+  }
+  .conditionalQuery{
+        width: 100%;
+    height: 20%;
+    background-color:aquamarine;
   }
 }
 </style>
