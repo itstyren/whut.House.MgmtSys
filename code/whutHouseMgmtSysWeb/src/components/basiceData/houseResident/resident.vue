@@ -25,7 +25,9 @@
               </div>
           </div>
                 <!-- 住房登记区 -->
-      <div class="house-resident"></div>
+      <div class="house-resident">
+        <house-resident></house-resident>
+      </div>
       </div>
     </div>
     </div>
@@ -34,6 +36,7 @@
 <script type="text/ecmascript-6">
 import personalInfoTable from "./personalInfoTable";
 import staffHouseRel from "./staffHouseRel";
+import houseResident from "./houseResident";
 export default {
   data() {
     return {};
@@ -42,7 +45,8 @@ export default {
   components: {
     //个人信息区域
     personalInfoTable,
-    staffHouseRel
+    staffHouseRel,
+    houseResident
   }
 };
 </script>

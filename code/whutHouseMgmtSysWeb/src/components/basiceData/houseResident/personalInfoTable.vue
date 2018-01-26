@@ -21,7 +21,9 @@ export default {
       //console.log(this.staffID);
     }
   },
-  created() {},
+  created() {
+    this.getList();
+  },
   components: {},
   methods: {
     // 获取单一员工
