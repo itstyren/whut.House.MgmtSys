@@ -2,6 +2,10 @@ package com.computerdesign.whutHouseMgmt.bean.house;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class House {
     private Integer id;
 

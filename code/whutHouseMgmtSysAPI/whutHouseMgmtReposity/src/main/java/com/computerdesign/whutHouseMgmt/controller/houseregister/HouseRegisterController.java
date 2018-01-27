@@ -97,16 +97,26 @@ public class HouseRegisterController {
 	 */
 	@RequestMapping(value = "updateRegisterRel", method = RequestMethod.POST)
 	@ResponseBody
-	public Msg updateRegisterRel(@RequestBody HouseParameter houseParameter){
-		if(houseParameter == null){
-			return Msg.error("数据封装错误");
+	public Msg updateRegisterRel(@RequestBody HouseParameter[] houseParameters){
+//		if(houseParameters == null){
+//			return Msg.error("数据封装错误");
+//		}
+		
+		if(houseParameters.length == 0){
+			return Msg.error("您没有做任何修改");
 		}
-		if(houseParameter.getHouseParamId() == null){
-			return Msg.error("需要传递id");
+		
+		for (HouseParameter houseParameter : houseParameters){
+			if(houseParameter.getHouseParamId() == null){
+				return Msg.error("需要传递id");
+			}
+			//可能需要加事务处理优化
+			registerService.updateRegisterRel(houseParameter);
+//			System.out.println(houseParameter);
 		}
-		registerService.updateRegisterRel(houseParameter);
+		
 		//显示HouseParamName和修改后的HouseParamRel
-		return Msg.success().add("name", houseParameter.getHouseParamName()).add("rel", houseParameter.getHouseParamRel());
+		return Msg.success("设置成功");
 	}
 
 	/**
