@@ -25,6 +25,7 @@
 
 <script type="text/ecmascript-6">
 import { getDept } from "@/api/api";
+import * as types from "../../../store/mutation-types";
 export default {
   data() {
     return {
@@ -125,6 +126,8 @@ export default {
         // });
         return
       } else if (node.level == 2) {
+        //console.log(object)
+        this.$store.commit(types.RESIDENT_STAFF, object);
         this.$router.push({
           path: "/basic/houseResident/" + object.id
         }); 

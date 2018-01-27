@@ -27,6 +27,7 @@ import rentTitleVal from '@/components/sysManage/paramSet/rentParam/rentTitleVal
 import fixContent from '@/components/sysManage/paramSet/fixParam/fixContent'
 // 租金参数
 import rentalOption from '@/components/sysManage/paramSet/rentalParam/rentalOption'
+import residentRel from '@/components/sysManage/paramSet/rentalParam/residentRel'
 
 // 基础数据
 // 楼栋区域
@@ -106,7 +107,8 @@ const routes = [
           // 维修参数
           { path: 'fixContent', component: fixContent, name: 'fixContent', menuShow: true },
           // 租金参数
-          { path: 'rentalOption', component: rentalOption, name: 'rentalOption', menuShow: true }
+          { path: 'rentalOption', component: rentalOption, name: 'rentalOption', menuShow: true },
+          { path: 'residentRel', component: residentRel, name: 'residentRel', menuShow: true }
         ]
       }
     ]

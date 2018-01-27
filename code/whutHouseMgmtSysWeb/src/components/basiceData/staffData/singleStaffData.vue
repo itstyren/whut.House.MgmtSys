@@ -307,19 +307,26 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      }).then(() => {
-        this.$refs["staffForm"].validate(valid => {
-          if (valid) {
-            this.listLoading = true;
-            let param = Object.assign({}, this.staffForm);
-            putStaffData(param).then(res => {
-              common.statusinfo(this, res.data);
-              this.detailLoading = false;
-              this.$refs["staffForm"].resetFields();
-            });
-          }
+      })
+        .then(() => {
+          this.$refs["staffForm"].validate(valid => {
+            if (valid) {
+              this.listLoading = true;
+              let param = Object.assign({}, this.staffForm);
+              putStaffData(param).then(res => {
+                common.statusinfo(this, res.data);
+                this.detailLoading = false;
+                this.$refs["staffForm"].resetFields();
+              });
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消修改"
+          });
         });
-      });
     },
     // 路由返回
     routerBack() {

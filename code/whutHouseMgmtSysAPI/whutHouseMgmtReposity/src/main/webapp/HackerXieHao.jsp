@@ -310,7 +310,7 @@
 				//键的名字与Model属性名一致
 				'staffId' : 3,
 				'houseId' : 1,
-				'houseRel' : 25,
+				'houseRel' : 26,
 				'bookTime':'2018-01-23'
 			};
 			ajaxRequestPostType("houseRegister/register", "PUT", data);
@@ -321,7 +321,7 @@
 				//键的名字与Model属性名一致
 				'staffId' : 3,
 				'houseId' : 1,
-				'houseRel' : 25,
+				'houseRel' : 26,
 				'bookTime':'2018-01-23'
 			};
 			ajaxRequestPostType("houseRegister/isRegistered", "POST", data);
@@ -341,14 +341,25 @@
 
 		$("#updateRegisterRel").click(
 				function() {
-					var data = {
-						'houseParamId' : 6,
-						'houseParamName' : '周转房342萨达',
-						//'paramTypeId' : 1,
-						//'paramTypeName' : '住房类型',
-						'houseParamRel' : '购买,空闲,租赁',
-					//'isDelete' : false
-					};
+					var data = [
+						//前台提交的应该是发生修改的数据
+						{
+							'houseParamId' : 6,
+							'houseParamName' : '周转房342萨达',
+							//'paramTypeId' : 1,
+							//'paramTypeName' : '住房类型',
+							'houseParamRel' : '购买,租赁',
+						//'isDelete' : false
+						},
+						{
+							'houseParamId' : 7,
+							'houseParamName' : '房改房萨达',
+							//'paramTypeId' : 1,
+							//'paramTypeName' : '住房类型',
+							'houseParamRel' : '购买,空闲,租赁',
+						//'isDelete' : false
+						} 
+					];
 					ajaxRequestPostType("houseRegister/updateRegisterRel",
 							"POST", data);
 				})

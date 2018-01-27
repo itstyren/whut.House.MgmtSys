@@ -6,7 +6,7 @@
         <el-breadcrumb-item :to="{ path: '/' }">
           <b>首页</b>
         </el-breadcrumb-item>
-        <el-breadcrumb-item>租金参数</el-breadcrumb-item>
+        <el-breadcrumb-item>租赁参数</el-breadcrumb-item>
         <el-breadcrumb-item>租金选项</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -54,109 +54,110 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    getRentalParam,
-    putRentalParam
-  } from '@/api/api'
-  import common from '@/common/util.js'
-  export default {
-    data() {
-      return {
-        // 表格数据
-        listLoading: 'false',
-        rentalOption: [],
-        rentalData: [],
-        // 编辑表单相关数据
-        submitLoading: false,
-        modifyFormVisible: false,
-        modifyFromBody: {
-          rentalTimeDiv: '',
-          rentalOldDct: '',
-          rentTimeBegin: '',
-          rentalNewDctYear: '',
-          rentalNewDct: '',
-        },
+import { getRentalParam, putRentalParam } from "@/api/api";
+import common from "@/common/util.js";
+export default {
+  data() {
+    return {
+      // 表格数据
+      listLoading: "false",
+      rentalOption: [],
+      rentalData: [],
+      // 编辑表单相关数据
+      submitLoading: false,
+      modifyFormVisible: false,
+      modifyFromBody: {
+        rentalTimeDiv: "",
+        rentalOldDct: "",
+        rentTimeBegin: "",
+        rentalNewDctYear: "",
+        rentalNewDct: ""
       }
-    },
-    // 计算属性
-    watch: {
-      rentalOption: {
-        handler: function (newVal) {
-          this.rentalData.push({
-            param: '新老职工时间分界点',
-            paramVal: newVal.rentalTimeDiv
-          })
-          this.rentalData.push({
-            param: '老职工优惠比例',
-            paramVal: newVal.rentalOldDct
-          })
-          this.rentalData.push({
-            param: '新职工优惠年限',
-            paramVal: newVal.rentalNewDctYear
-          })
-          this.rentalData.push({
-            param: '新职工优惠比例',
-            paramVal: newVal.rentalNewDct
-          })
-        },
-        deep: true
-      }
-    },
-    // 声明周期调用
-    mounted() {
-      this.getList()
-    },
-    methods: {
-      // 获取职工职务
-      getList() {
-        this.listLoading = true
-        let param = {}
-        // http请求
-        getRentalParam(param).then((res) => {
-          this.rentalOption = res.data.data.data
-          console.log(this.rentalOption)
-          this.listLoading = false
-        }).catch((err) => {
-          console.log(err)
+    };
+  },
+  // 计算属性
+  watch: {
+    rentalOption: {
+      handler: function(newVal) {
+        this.rentalData.push({
+          param: "新老职工时间分界点",
+          paramVal: newVal.rentalTimeDiv
+        });
+        this.rentalData.push({
+          param: "老职工优惠比例",
+          paramVal: newVal.rentalOldDct
+        });
+        this.rentalData.push({
+          param: "新职工优惠年限",
+          paramVal: newVal.rentalNewDctYear
+        });
+        this.rentalData.push({
+          param: "新职工优惠比例",
+          paramVal: newVal.rentalNewDct
+        });
+      },
+      deep: true
+    }
+  },
+  // 声明周期调用
+  mounted() {
+    this.getList();
+  },
+  methods: {
+    // 获取职工职务
+    getList() {
+      this.listLoading = true;
+      let param = {};
+      // http请求
+      getRentalParam(param)
+        .then(res => {
+          this.rentalOption = res.data.data.data;
+          //console.log(this.rentalOption);
+          this.listLoading = false;
         })
-      },
-      //显示编辑
-      showModifyDialog() {
-        this.modifyFormVisible = true
-        this.modifyFromBody = Object.assign({}, this.rentalOption)
-        this.modifyFromBody.rentalNewDct = Number(this.modifyFromBody.rentalNewDct)
-        this.modifyFromBody.rentalOldDct = Number(this.modifyFromBody.rentalOldDct)
-        console.log(this.modifyFromBody)
-      },
-      //编辑提交
-      modifySubmit() {
-        if (true) {
-          this.modifyLoading = true
-          let param = Object.assign({}, this.modifyFromBody)
-          putRentalParam(param).then((res) => {
-            common.statusinfo(this, res.data)
-            this.modifyLoading = false
-            this.modifyFormVisible = false
-            this.rentalData.splice(0, 4)
-            this.getList()
-          })
-        }
-      },
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    //显示编辑
+    showModifyDialog() {
+      this.modifyFormVisible = true;
+      this.modifyFromBody = Object.assign({}, this.rentalOption);
+      this.modifyFromBody.rentalNewDct = Number(
+        this.modifyFromBody.rentalNewDct
+      );
+      this.modifyFromBody.rentalOldDct = Number(
+        this.modifyFromBody.rentalOldDct
+      );
+      console.log(this.modifyFromBody);
+    },
+    //编辑提交
+    modifySubmit() {
+      if (true) {
+        this.modifyLoading = true;
+        let param = Object.assign({}, this.modifyFromBody);
+        putRentalParam(param).then(res => {
+          common.statusinfo(this, res.data);
+          this.modifyLoading = false;
+          this.modifyFormVisible = false;
+          this.rentalData.splice(0, 4);
+          this.getList();
+        });
+      }
     }
   }
-
+};
 </script>
 
 <style scoped lang="scss">
-  .rentalCard {
-    width: 60%;
-    height: 60%;
-    margin: 100px auto;
-    padding: 200px auto;
+.rentalCard {
+  width: 60%;
+  height: 60%;
+  margin: 100px auto;
+  padding: 200px auto;
 
-    .rentalCard-text {
-      margin: 10px 50px;
-    }
+  .rentalCard-text {
+    margin: 10px 50px;
   }
-
+}
 </style>

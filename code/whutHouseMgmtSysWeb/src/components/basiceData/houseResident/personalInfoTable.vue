@@ -35,7 +35,7 @@ export default {
       getStaff(param, staffID)
         .then(res => {
           let resData = res.data.data.data;
-          console.log(resData);
+          // console.log(resData);
           this.personalInfo.push(
             {
               index: "姓名",
