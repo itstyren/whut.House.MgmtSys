@@ -20,7 +20,7 @@
         <el-card class="resident-rel-card">
           <div slot="header">
             <span>当前关系</span>
-            <el-button type="text" style="float:right; padding:3px 0" @click="click">点击设置</el-button>
+            <el-button type="text" style="float:right; padding:3px 0" @click="submit">修改并提交</el-button>
           </div>
           <div class="rel-form">
             <el-table :data="residentRelData" v-loading="listLoading" style="width:100%">
@@ -42,82 +42,93 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    getResident,
-    getHouseParam
-  } from "@/api/api";
-  export default {
-    data() {
-      return {
-        // 表格数据
-        listLoading: "false",
-        // 表格数据--房屋和登记关系
-        residentRelData: [],
-        // 房屋使用状态
-        statusData: [],
-        // 选择的关系
-        checked: false
-      };
-    },
-    components: {},
-    // 声明周期调用
-    mounted() {
-      this.getList();
-      this.getHouseStatus();
-    },
-    methods: {
-      // 获取职工职务
-      getList() {
-        this.listLoading = true;
-        let param = {};
-        // http请求
-        getResident(param)
-          .then(res => {
-            this.residentRelData = res.data.data.data;
-            this.residentRelData.forEach(item => {
-              item.checkedStatus = [];
-            });
-            //console.log(this.residentRelData)
-            this.listLoading = false;
-          })
-          .catch(err => {
-            console.log(err);
+import { getResident, getHouseParam } from "@/api/api";
+export default {
+  data() {
+    return {
+      // 表格数据
+      listLoading: "false",
+      // 表格数据--房屋和登记关系
+      residentRelData: [],
+      // 房屋使用状态
+      statusData: [],
+      // 选择的关系
+      checked: false
+    };
+  },
+  components: {},
+  // 声明周期调用
+  mounted() {
+    this.getList();
+    this.getHouseStatus();
+  },
+  methods: {
+    // 获取职工职务
+    getList() {
+      this.listLoading = true;
+      let param = {};
+      // http请求
+      getResident(param)
+        .then(res => {
+          this.residentRelData = res.data.data.data;
+          this.residentRelData.forEach(item => {
+            if (item.houseParamRel != null)
+              item.checkedStatus = item.houseParamRel.split(",");
+            //console.log(item)
           });
-      },
-      // 获取房屋状态
-      getHouseStatus() {
-        this.listLoading = true;
-        let param = {};
-        // http请求
-        getHouseParam(param, 3)
-          .then(res => {
-            let data = res.data.data.data.list;
-            data.forEach(status => {
-              this.statusData.push(status.houseParamName);
-            });
-            //this.statusData = res.data.data.data.list;
-            //console.log(this.statusData);
-            this.listLoading = false;
-          })
-          .catch(err => {
-            console.log(err);
+          //console.log(this.residentRelData)
+          this.listLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 获取房屋状态
+    getHouseStatus() {
+      this.listLoading = true;
+      let param = {};
+      // http请求
+      getHouseParam(param, 3)
+        .then(res => {
+          let data = res.data.data.data.list;
+          data.forEach(status => {
+            this.statusData.push(status.houseParamName);
           });
-      },
-      click() {
-        console.log(this.residentRelData);
-      }
+          //this.statusData = res.data.data.data.list;
+          //console.log(this.statusData);
+          this.listLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    submit() {
+      this.$confirm("此操作将修改房屋关系并提交", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          console.log("11");
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消修改"
+          });
+        });
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  .resident-rel-card {
-    width: 60%;
-    height: 60%;
-    margin: 100px auto;
-    padding: 200px auto;
-    .rel-form {}
+.resident-rel-card {
+  width: 60%;
+  height: 60%;
+  margin: 100px auto;
+  padding: 200px auto;
+  .rel-form {
   }
-
+}
 </style>
