@@ -74,7 +74,7 @@ export default {
       getHouseParam(param, 3)
         .then(res => {
           this.statusData = res.data.data.data.list;
-          console.log(this.statusData);
+          //console.log(this.statusData);
           this.listLoading = false;
         })
         .catch(err => {

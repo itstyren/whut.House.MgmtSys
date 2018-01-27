@@ -54,6 +54,7 @@ export const putRentalParam = (params) => { return axios.put(`${base}rentalParam
 // 获取方法
 export const getResident = (params) => { return axios.get(`${base}houseRegister/getRegisterRel`, { params: params }) }
 // 修改方法
+export const postResident = (params) => { return axios.post(`${base}houseRegister/updateRegisterRel`, params) }
 
 // 基础数据--区域管理
 // 获取方法with楼栋

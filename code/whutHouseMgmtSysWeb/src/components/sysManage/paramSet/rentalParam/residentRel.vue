@@ -42,7 +42,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getResident, getHouseParam } from "@/api/api";
+import { getResident, getHouseParam, postResident } from "@/api/api";
+import common from "@/common/util.js";
 export default {
   data() {
     return {
@@ -74,6 +75,7 @@ export default {
           this.residentRelData.forEach(item => {
             if (item.houseParamRel != null)
               item.checkedStatus = item.houseParamRel.split(",");
+            else item.checkedStatus = [];
             //console.log(item)
           });
           //console.log(this.residentRelData)
@@ -102,6 +104,7 @@ export default {
           console.log(err);
         });
     },
+    // 提交修改并保存
     submit() {
       this.$confirm("此操作将修改房屋关系并提交", "提示", {
         confirmButtonText: "确定",
@@ -109,7 +112,24 @@ export default {
         type: "warning"
       })
         .then(() => {
-          console.log("11");
+          // 遍历方法，处理数组
+          this.residentRelData.forEach(resident => {
+            delete resident.isDelete;
+            delete resident.paramTypeName;
+            delete resident.paramTypeId;
+            resident.houseParamRel = resident.checkedStatus.join(",");
+            delete resident.checkedStatus;
+          });
+          //console.log(this.residentRelData);
+          this.listLoading = true;
+          let param = this.residentRelData;
+          postResident(param).then(res => {
+            // 公共提示方法
+            common.statusinfo(this, res.data);
+            this.listLoading = false;
+            this.getList();
+          });
+          //console.log(this.residentRelData);
         })
         .catch(() => {
           this.$message({

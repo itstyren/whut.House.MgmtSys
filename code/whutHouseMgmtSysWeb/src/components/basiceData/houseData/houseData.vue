@@ -465,7 +465,6 @@ export default {
       this.getList();
     }
   },
-  mounted() {},
   methods: {
     // 判定查询的类型
     queryData() {
