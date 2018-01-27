@@ -323,60 +323,16 @@
 	
 	//登陆
 	$(function() {
-		$("#login1").click(function() {
+		$("#login").click(function() {
 			var data ={
 					'no':'8',
 					'password':'123',
-					'roleId':3,
-					'token':'111',
-					'lastLoginTime':'2018-01-05T18:54:05'
+					'roleId':3
 			};
 			ajaxRequestPostType("login/user", "POST", data);
 		})
 		
-		$("#login2").click(function() {
-			var data ={
-					'no':'8',
-					'password':'123',
-					'roleId':3,
-					'token':'',
-					'lastLoginTime':''
-			};
-			ajaxRequestPostType("login/user", "POST", data);
-		})
 		
-		$("#login3").click(function() {
-			var data ={
-					'no':'8',
-					'password':'123',
-					'roleId':3,
-					'token':'1111',
-					'lastLoginTime':'2018-01-05T18:54:05'
-			};
-			ajaxRequestPostType("login/user", "POST", data);
-		})
-		
-		$("#login4").click(function() {
-			var data ={
-					'no':'8',
-					'password':'123',
-					'roleId':3,
-					'token':'111',
-					'lastLoginTime':'2018-01-04T18:54:05'
-			};
-			ajaxRequestPostType("login/user", "POST", data);
-		})
-		
-		$("#login5").click(function() {
-			var data ={
-					'no':'8',
-					'password':'124',
-					'roleId':3,
-					'token':'',
-					'lastLoginTime':''
-			};
-			ajaxRequestPostType("login/user", "POST", data);
-		})
 	})
 	
 	//维修
@@ -540,16 +496,8 @@
 			<input class="btn btn-info btn-lg" type="button" value="roleAdd" id="roleAdd" /> <br> 
 		</div>
 		<div class="tab-pane fade" id="login">
-			<div>令牌登陆 <br>
-			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login1" /> <br> <br></div>
-			<div>不用令牌登陆 <br>
-			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login2" /> <br> <br></div>
-			<div>错误的令牌信息登陆 <br>
-			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login3" /> <br> <br></div>
-			<div>超时但账号密码信息正确 <br>
-			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login4" /> <br> <br></div>
-			<div>无令牌切账号密码错误 <br>
-			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login5" /> <br> <br></div>
+			<div>登陆 <br>
+			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login" /> <br> <br></div>
 			
 		</div>
 		<div class="tab-pane fade" id="fix">

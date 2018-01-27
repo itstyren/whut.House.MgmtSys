@@ -50,31 +50,8 @@ public class UserLoginController {
 		String no = userLogin.getNo();
 		String password = userLogin.getPassword();
 		Long roleId = Long.valueOf(userLogin.getRoleId()).longValue();
-		String tokenAccess = userLogin.getToken();
-		Date lastLoginTime = userLogin.getLastLoginTime();
 		
-		//判断是否有令牌,判断时效是否已过
-		if(tokenAccess!=null && tokenAccess.length()>0 && lastLoginTime!= null && (new Date().getTime()-lastLoginTime.getTime()<TimeLimit)){
-			//有正确令牌，可直接进入
-			if (!loginService.getNoAndToken(no, tokenAccess).isEmpty()) {
-				Token token =new Token();
-				token.setNo(no);
-				//更新上次登陆时间
-				token.setLastLoginTime(new Date());
-				tokenService.update(token);
-				UserLoginReturn userLoginReturn = userReturnService.getByNo(no);
-				return Msg.success("令牌登陆成功").add("data", userLoginReturn);
-			//有令牌，但是令牌和账号不匹配
-			}else{
-				Token token =new Token();
-				token.setNo(no);
-				token.setToken("");
-				tokenService.update(token);
-				return Msg.error("系统超时，请重新登陆");
-			}
-		}
-		
-		//无令牌，确认账号密码等信息
+		userReturnService.getByNo(no);
 		List<UserLoginReturn> users = loginService.getLogin(no, password, roleId);
 		//判断登陆信息
 		if (users.isEmpty()) {
@@ -83,24 +60,62 @@ public class UserLoginController {
 		}else{
 			
 			UserLoginReturn user = users.get(0);
-			if(!tokenService.get(user.getNo()).isEmpty()){
-				Token token =new Token();
-				token.setNo(user.getNo());
-				token.setToken("111");
-				token.setLastLoginTime(new Date());
-				tokenService.update(token);
-			} else {
-				Token token = new Token();
-				token.setNo(user.getNo());
-				token.setToken("111");
-				token.setLastLoginTime(new Date());
-				tokenService.add(token);
-			}
+			String token = "111";
 			UserLoginReturn userLoginReturn = userReturnService.getByNo(no);
 
+			
 			return Msg.success().add("data", userLoginReturn);
 
 		}
+		
+//		//判断是否有令牌,判断时效是否已过
+//		if(tokenAccess!=null && tokenAccess.length()>0 && lastLoginTime!= null && (new Date().getTime()-lastLoginTime.getTime()<TimeLimit)){
+//			//有正确令牌，可直接进入
+//			if (!loginService.getNoAndToken(no, tokenAccess).isEmpty()) {
+//				Token token =new Token();
+//				token.setNo(no);
+//				//更新上次登陆时间
+//				token.setLastLoginTime(new Date());
+//				tokenService.update(token);
+//				UserLoginReturn userLoginReturn = userReturnService.getByNo(no);
+//				return Msg.success("令牌登陆成功").add("data", userLoginReturn);
+//			//有令牌，但是令牌和账号不匹配
+//			}else{
+//				Token token =new Token();
+//				token.setNo(no);
+//				token.setToken("");
+//				tokenService.update(token);
+//				return Msg.error("系统超时，请重新登陆");
+//			}
+//		}
+//		
+//		//无令牌，确认账号密码等信息
+//		List<UserLoginReturn> users = loginService.getLogin(no, password, roleId);
+//		//判断登陆信息
+//		if (users.isEmpty()) {
+//			//如果信息不正确，返回失败
+//			return Msg.error("请输入正确的信息");	
+//		}else{
+//			
+//			UserLoginReturn user = users.get(0);
+//			if(!tokenService.get(user.getNo()).isEmpty()){
+//				Token token =new Token();
+//				token.setNo(user.getNo());
+//				token.setToken("111");
+//				token.setLastLoginTime(new Date());
+//				tokenService.update(token);
+//			} else {
+//				Token token = new Token();
+//				token.setNo(user.getNo());
+//				token.setToken("111");
+//				token.setLastLoginTime(new Date());
+//				tokenService.add(token);
+//			}
+//			UserLoginReturn userLoginReturn = userReturnService.getByNo(no);
+//
+//			return Msg.success().add("data", userLoginReturn);
+//
+//		}
 		
 	}
 }
