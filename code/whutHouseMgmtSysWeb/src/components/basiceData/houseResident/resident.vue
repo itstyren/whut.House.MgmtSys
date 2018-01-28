@@ -26,43 +26,48 @@
         </div>
         <!-- 住房登记区 -->
         <div class="house-resident">
-          <house-resident></house-resident>
+          <house-resident :select-house="selectHouse" :select-house-id="selectHouseId"></house-resident>
         </div>
         <!-- 房屋查询区 -->
         <div class="conditionalQuery">
           <div class="tool">
-          <el-form :model="simpleQueryForm" :inline="true">
-            <el-form-item label="住房类型">
-              <el-select v-model="simpleQueryForm.houseType" size="small"  style="width:150px" :clearable="true" placeholder="全部结构">
-                <el-option v-for="struct in houseStruct" :key="struct.houseParamId" :value="struct.houseParamId" :label="struct.houseParamName"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="使用状况">
-              <el-select v-model="simpleQueryForm.useStatus"  size="small" style="width:150px" :clearable="true" placeholder="全部状态">
-                <el-option v-for="status in statusData" :key="status.houseParamId" :value="status.houseParamId" :label="status.houseParamName"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="住房区域">
-              <el-select v-model="simpleQueryForm.regionId"  size="small"  :clearable="true" placeholder="全部区域">
-                <el-option v-for="region in regionDataWithBuilding" :key="region.id" :value="region.id" :label="region.name"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="楼栋">
-              <el-select v-model="simpleQueryForm.buildingId"  size="small"  :clearable="true" placeholder="全部房屋">
-                <el-option v-for="building in buildingData" :key="building.id" :value="building.id" :label="building.name"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-button type="primary" @click="simpleQuery "  size="small">筛选</el-button>
-            <el-button type="primary" @click="simpleQuery "  size="small">详细查找</el-button>            
-          </el-form>
+            <el-form :model="simpleQueryForm" :inline="true">
+              <el-form-item label="住房类型">
+                <el-select v-model="simpleQueryForm.houseType" size="small" style="width:150px" :clearable="true" placeholder="全部结构">
+                  <el-option v-for="struct in houseStruct" :key="struct.houseParamId" :value="struct.houseParamName" :label="struct.houseParamName"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="使用状况">
+                <el-select v-model="simpleQueryForm.useStatus" size="small" style="width:150px" :clearable="true" placeholder="全部状态">
+                  <el-option v-for="status in statusData" :key="status.houseParamId" :value="status.houseParamName" :label="status.houseParamName"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="住房区域">
+                <el-select v-model="simpleQueryForm.houseZone" size="small" :clearable="true" placeholder="全部区域">
+                  <el-option v-for="region in regionDataWithBuilding" :key="region.id" :value="region.name" :label="region.name"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="楼栋">
+                <el-select v-model="simpleQueryForm.building" size="small" :clearable="true" placeholder="全部房屋">
+                  <el-option v-for="building in buildingData" :key="building.id" :value="building.name" :label="building.name"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-button type="primary" @click="simpleQuery " size="small">筛选</el-button>
+              <el-button type="primary" @click="simpleQuery " size="small">详细查找</el-button>
+            </el-form>
           </div>
         </div>
         <!-- 查询相应区 -->
         <div class="queryTable">
-           <el-table :data="houseData" class="table" height="string" v-loading="listLoading">
-          <el-table-column type="selection" ></el-table-column>
-          <el-table-column prop="no" label="编号" sortable align="center"></el-table-column>
-        </el-table>
+          <el-table :data="houseData" class="table" height="string" v-loading="listLoading" @cell-click="cellClick">
+            <el-table-column prop="houseNo" label="住房号" sortable width="90" align="center"></el-table-column>
+            <el-table-column prop="houseSort" label="住房类型" sortable width="140" align="center"></el-table-column>
+            <el-table-column prop="houseType" label="户型" sortable width="120" align="center"></el-table-column>
+            <el-table-column prop="useStatus" label="状态" sortable width="90" align="center"></el-table-column>
+            <el-table-column prop="address" label="地址" align="center"></el-table-column>
+            <el-table-column prop="zoneName" label="所属区域" align="center"></el-table-column>
+            <el-table-column prop="buildingName" label="所属楼栋" align="center"></el-table-column>
+          </el-table>
         </div>
       </div>
     </div>
@@ -75,17 +80,21 @@
   import personalInfoTable from "./personalInfoTable";
   import staffHouseRel from "./staffHouseRel";
   import houseResident from "./houseResident";
+  import common from "@/common/util.js";
   import {
     getHouseParam,
-    getRegionWithBuildings
+    getRegionWithBuildings,
+    getHouseByMultiCondition
   } from "@/api/api";
   export default {
     data() {
       return {
         // 最下面查找需要的相关
         simpleQueryForm: {
-          regionId: "",
-          buildingId: ""
+          houseZone: "",
+          building: "",
+          useStatus: "",
+          houseType: ""
         },
         regionDataWithBuilding: [],
         buildingData: [],
@@ -93,7 +102,9 @@
         houseStruct: [],
         listLoading: false,
         //表格相应区域
-        houseData:[]
+        houseData: [],
+        selectHouse:'',
+        selectHouseId:'',
       };
     },
     // 组件信息
@@ -106,16 +117,16 @@
     // 计算属性
     computed: {
       selectRegion() {
-        return this.simpleQueryForm.regionId;
+        return this.simpleQueryForm.houseZone;
       }
     },
     watch: {
       // 监听选项的变动
       selectRegion(newval) {
         for (var region of this.regionDataWithBuilding) {
-          if (region.id == newval) this.buildingData = region.buildingList;
+          if (region.name == newval) this.buildingData = region.buildingList;
         }
-      }
+      },
     },
     created() {
       this.getRegionWithBuilding();
@@ -142,7 +153,6 @@
         getHouseParam(param, 4)
           .then(res => {
             this.houseStruct = res.data.data.data.list;
-            console.log(this.houseStruct);
             this.listLoading = false;
           })
           .catch(err => {
@@ -165,7 +175,6 @@
                 region.name = region.name.substring(0, flag);
               }
             });
-            console.log(this.regionDataWithBuilding);
             this.listLoading = false;
           })
           .catch(err => {
@@ -173,12 +182,24 @@
           });
       },
       simpleQuery() {
-        console.log(this.simpleQueryForm);
+        for (let query in this.simpleQueryForm) {
+          if (this.simpleQueryForm[query] == "")
+            delete this.simpleQueryForm[query];
+        }
+        let param = this.simpleQueryForm;
+        this.listLoading = true
+        getHouseByMultiCondition(param).then(res => {
+          // 公共提示方法
+          common.statusinfo(this, res.data);
+          this.listLoading = false;
+          this.houseData = res.data.data.data
+          //console.log(res.data.data.data)
+        });
+      },
+      cellClick(row, column, cell, event) {
+        this.selectHouse=`【${row.houseSort}】,【${row.houseType}】,${row.address}`
+        this.selectHouseId=row.houseNo
       }
-      //选择的区域变化时
-      // selectRegionChange(region) {
-      //   this.buildingData = region.buildingList;
-      // }
     }
   };
 
@@ -194,9 +215,9 @@
       display: flex;
       flex-direction: row;
       width: 100%;
-      height: 40%;
+      height: 35%;
       .personal-info {
-        width: 50%;
+        width: 30%;
         height: 100%;
         background-color: aquamarine;
       }
@@ -209,23 +230,23 @@
       width: 100%;
       height: 20%;
       background-color: #eee;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;  
     }
     .conditionalQuery {
-      border-top: 1px solid #000;
+            border-bottom: 1px solid #000;      
       padding-top: 20px;
       width: 100%;
       height: auto;
       background-color: #eee;
-      .tool{
-        text-align: center
+      .tool {
+        text-align: center;
       }
     }
-    .queryTable{
+    .queryTable {
       flex: 1;
       width: 100%;
       background-color: #eee;
-      
-
     }
   }
 
