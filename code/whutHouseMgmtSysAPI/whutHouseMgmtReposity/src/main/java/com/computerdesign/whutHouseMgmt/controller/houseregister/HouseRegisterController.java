@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.ws.rs.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +98,7 @@ public class HouseRegisterController {
 	 */
 	@RequestMapping(value = "updateRegisterRel", method = RequestMethod.POST)
 	@ResponseBody
+	@Transactional
 	public Msg updateRegisterRel(@RequestBody HouseParameter[] houseParameters){
 //		if(houseParameters == null){
 //			return Msg.error("数据封装错误");
@@ -243,6 +245,7 @@ public class HouseRegisterController {
 		// 给需要返回显示的数据赋值
 		for (ViewHouse viewHouse : viewHouses) {
 			HouseAllShowModel houseAllShowModel = new HouseAllShowModel();
+			houseAllShowModel.setHouseId(viewHouse.getId());
 			houseAllShowModel.setHouseNo(viewHouse.getNo());
 			houseAllShowModel.setHouseSort(viewHouse.getTypeName());
 			houseAllShowModel.setHouseType(viewHouse.getLayoutName());
@@ -279,6 +282,7 @@ public class HouseRegisterController {
 		// 给需要返回显示的数据赋值
 		for (ViewHouse viewHouse : viewHouses) {
 			HouseShowModel houseShowModel = new HouseShowModel();
+			houseShowModel.setHouseId(viewHouse.getId());
 			houseShowModel.setHouseNo(viewHouse.getNo());
 			houseShowModel.setHouseSort(viewHouse.getTypeName());
 			houseShowModel.setHouseType(viewHouse.getLayoutName());
