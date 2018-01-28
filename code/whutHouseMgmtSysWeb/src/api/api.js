@@ -50,6 +50,11 @@ export const getRentalParam = (params) => { return axios.get(`${base}rentalParam
 // 修改方法
 export const putRentalParam = (params) => { return axios.put(`${base}rentalParam/modify`, params) }
 
+// 参数设置--登记关系
+// 获取方法
+export const getResident = (params) => { return axios.get(`${base}houseRegister/getRegisterRel`, { params: params }) }
+// 修改方法
+
 // 基础数据--区域管理
 // 获取方法with楼栋
 export const getRegionWithBuildings = (params) => { return axios.get(`${base}region/getRegionWithBuildings`, { params: params }) }

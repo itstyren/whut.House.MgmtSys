@@ -18,6 +18,7 @@ export default new Vuex.Store({
         staffData:{},
         // 职工信息编辑状态
         staffModify:false,
+        residentStaffData:{},
     },
     mutations:{
         // 登录时写入
@@ -56,9 +57,13 @@ export default new Vuex.Store({
         [types.STAFF_DATA]:(state,staff)=>{
             state.staffData=staff
         },
-        //职工是否处于编辑状态
+        // 职工是否处于编辑状态
         [types.STAFF_MODIFY]: (state,status) => {
             state.staffModify = status
+        },
+        // 房屋登记将点击的员工的简单信息存储
+        [types.RESIDENT_STAFF]:(state,staffData)=>{
+            state.residentStaffData=staffData
         }
     }
 })

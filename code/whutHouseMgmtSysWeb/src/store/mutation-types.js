@@ -13,3 +13,7 @@ export const REGION_CHANGE ='regionChange'
 export const STAFF_DATA = 'staffData'
 //员工编辑状态
 export const STAFF_MODIFY = 'staffModify'
+
+//房屋登记选择的员工
+export const RESIDENT_STAFF = 'residentStaff'
+

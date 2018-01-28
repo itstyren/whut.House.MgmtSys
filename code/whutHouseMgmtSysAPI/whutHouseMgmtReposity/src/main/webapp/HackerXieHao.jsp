@@ -310,7 +310,7 @@
 				//键的名字与Model属性名一致
 				'staffId' : 3,
 				'houseId' : 1,
-				'houseRel' : 25,
+				'houseRel' : 26,
 				'bookTime':'2018-01-23'
 			};
 			ajaxRequestPostType("houseRegister/register", "PUT", data);
@@ -321,7 +321,7 @@
 				//键的名字与Model属性名一致
 				'staffId' : 3,
 				'houseId' : 1,
-				'houseRel' : 25,
+				'houseRel' : 26,
 				'bookTime':'2018-01-23'
 			};
 			ajaxRequestPostType("houseRegister/isRegistered", "POST", data);
