@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.naming.TimeLimitExceededException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,7 @@ public class UserLoginController {
 	 */
 	@RequestMapping(value = "user",method = RequestMethod.POST)
 	@ResponseBody
-	public Msg login(@RequestBody UserLogin userLogin){
+	public Msg login(@RequestBody UserLogin userLogin,HttpServletRequest request){
 		
 		String no = userLogin.getNo();
 		String password = userLogin.getPassword();
@@ -60,12 +61,18 @@ public class UserLoginController {
 		}else{
 			
 			UserLoginReturn user = users.get(0);
+//			//tokenManager
+//			DefaultTokenManager tokenManager = new DefaultTokenManager();
+//			//生成token
+//			String token =tokenManager.createToken(no);
 			String token = "111";
+			
 			UserLoginReturn userLoginReturn = userReturnService.getByNo(no);
-
+			userLoginReturn.setToken(token);
+			
+			request.getSession().setAttribute("isLogin","yes");
 			
 			return Msg.success().add("data", userLoginReturn);
-
 		}
 		
 //		//判断是否有令牌,判断时效是否已过
