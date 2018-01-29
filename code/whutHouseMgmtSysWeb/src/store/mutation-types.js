@@ -16,4 +16,5 @@ export const STAFF_MODIFY = 'staffModify'
 
 //房屋登记选择的员工
 export const RESIDENT_STAFF = 'residentStaff'
-
+// 房屋登记成功后状态判断
+export const RESIDENT_SUCCESS = 'residentSuccess'

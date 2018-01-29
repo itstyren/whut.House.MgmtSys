@@ -6,6 +6,9 @@ package com.computerdesign.whutHouseMgmt.bean.houseregister;
  *
  */
 public class HouseShowModel {
+	
+	//住房id
+	private Integer houseId;
 
 	//住房号
 	private String houseNo;
@@ -31,6 +34,14 @@ public class HouseShowModel {
 	//所属楼栋
 	private String buildingName;
 
+	public Integer getHouseId() {
+		return houseId;
+	}
+
+	public void setHouseId(Integer houseId) {
+		this.houseId = houseId;
+	}
+	
 	public String getHouseNo() {
 		return houseNo;
 	}
