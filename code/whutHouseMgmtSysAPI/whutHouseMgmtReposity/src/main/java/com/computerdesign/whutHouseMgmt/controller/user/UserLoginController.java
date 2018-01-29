@@ -61,10 +61,9 @@ public class UserLoginController {
 		}else{
 			
 			UserLoginReturn user = users.get(0);
-//			//tokenManager
-//			DefaultTokenManager tokenManager = new DefaultTokenManager();
-//			//生成token
-//			String token =tokenManager.createToken(no);
+			if (user.getStatus()!="active") {
+				return Msg.error("该账号已冻结，请联系管理员解冻");
+			}
 			String token = "111";
 			
 			UserLoginReturn userLoginReturn = userReturnService.getByNo(no);
