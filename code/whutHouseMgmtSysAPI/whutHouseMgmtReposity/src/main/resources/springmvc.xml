@@ -35,7 +35,7 @@
 			<!--拦截后台页面的请求 -->
 			<mvc:mapping path="/**" />
 			<!--不拦截登录页和登录的请求 -->
-			<mvc:exclude-mapping path="/login/**" />
+			<mvc:exclude-mapping path="/userLogin/**" />
 			<bean class="com.computerdesign.whutHouseMgmt.utils.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

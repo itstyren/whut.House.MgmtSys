@@ -4,9 +4,9 @@
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-	<!-- �������ݿ����� -->
+	<!-- 配置数据库连接 -->
 	<context id="DB2Tables" targetRuntime="MyBatis3">
-		<!-- �����Ƿ�����ע�� -->
+		<!-- 配置是否生成注释 -->  
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
@@ -19,7 +19,7 @@
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
-		<!-- ָ��javabean������λ�� -->
+		<!-- 指定javabean的生成位置 -->
 
 		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.user"
 			targetProject=".\src\main\java">
@@ -27,21 +27,22 @@
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
-		<!-- ָ��sqlӳ���ļ�������λ�� -->
+		<!-- 指定sql映射文件的生成位置 -->
 
 		<sqlMapGenerator targetPackage="mapper.user" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
-		<!-- ָ��dao�ӿڵ�����λ�� mapper�ӿ� -->
+		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
 			targetPackage="com.computerdesign.whutHouseMgmt.dao.user" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-
+		
+		<!-- 此处添加新建的表 -->
 		<table tableName="view_au_all_login" domainObjectName="UserLoginReturn">
 			<property name="useActualColumnNames" value="true"></property>
-		</table> -->
+		</table> 
 		<!-- <table tableName="view_hs_resident" domainObjectName="ResidentVw">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->

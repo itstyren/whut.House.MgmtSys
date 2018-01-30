@@ -329,9 +329,12 @@
 					'password':'123',
 					'roleId':3
 			};
-			ajaxRequestPostType("login/user", "POST", data);
+			ajaxRequestPostType("userLogin/login", "POST", data);
 		})
 		
+		$("#logout").click(function() {
+			ajaxRequestGet("userLogin/logout")
+		})
 		
 	})
 	
@@ -432,7 +435,7 @@
 		<li><a href="#house" data-toggle="tab">house</a></li>
 		<li><a href="#right" data-toggle="tab">right</a></li>
 		<li><a href="#role" data-toggle="tab">role</a></li>
-		<li><a href="#login" data-toggle="tab">login</a></li>
+		<li><a href="#userlogin" data-toggle="tab">login</a></li>
 		<li><a href="#fix" data-toggle="tab">fix</a></li>
 		
 	</ul>
@@ -495,10 +498,13 @@
 			<input class="btn btn-info btn-lg" type="button" value="role" id="roleGet" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="roleAdd" id="roleAdd" /> <br> 
 		</div>
-		<div class="tab-pane fade" id="login">
+		<div class="tab-pane fade" id="userlogin">
+			<br><div>
 			<div>登陆 <br>
 			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login" /> <br> <br></div>
-			
+			</div>
+			<div>退出登陆 <br>
+			<input class="btn btn-info btn-lg" type="button" value="退出" id="logout" /> <br> <br></div>
 		</div>
 		<div class="tab-pane fade" id="fix">
 			<div>进入维修申请页面 <br>

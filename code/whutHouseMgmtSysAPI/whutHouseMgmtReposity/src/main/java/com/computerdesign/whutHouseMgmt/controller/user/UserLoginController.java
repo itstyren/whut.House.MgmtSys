@@ -6,6 +6,7 @@ import java.util.List;
 import javax.naming.TimeLimitExceededException;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ import com.computerdesign.whutHouseMgmt.service.token.TokenService;
 import com.computerdesign.whutHouseMgmt.service.user.UserLoginService;
 import com.computerdesign.whutHouseMgmt.service.user.UserReturnService;
 
-@RequestMapping(value = "/login/")
+@RequestMapping(value = "/userLogin/")
 @Controller
 public class UserLoginController {
 
@@ -39,12 +40,13 @@ public class UserLoginController {
 	
 	@Autowired
 	private UserReturnService  userReturnService;
+	
 	/**
 	 * 登陆
 	 * @param userLogin
 	 * @return 
 	 */
-	@RequestMapping(value = "user",method = RequestMethod.POST)
+	@RequestMapping(value = "login",method = RequestMethod.POST)
 	@ResponseBody
 	public Msg login(@RequestBody UserLogin userLogin,HttpServletRequest request){
 		
@@ -61,18 +63,61 @@ public class UserLoginController {
 		}else{
 			
 			UserLoginReturn user = users.get(0);
-			if (user.getStatus()!="active") {
+			if (!user.getStatus().equals("active")) {
 				return Msg.error("该账号已冻结，请联系管理员解冻");
+			} else {
+
+				UserLoginReturn userLoginReturn = userReturnService.getByNo(no);
+
+				request.getSession().setAttribute("isLogin", "yes");
+
+				return Msg.success("登陆成功").add("data", userLoginReturn);
 			}
-			String token = "111";
-			
-			UserLoginReturn userLoginReturn = userReturnService.getByNo(no);
-			userLoginReturn.setToken(token);
-			
-			request.getSession().setAttribute("isLogin","yes");
-			
-			return Msg.success().add("data", userLoginReturn);
 		}
+		
+	}
+	
+	@RequestMapping(value = "logout",method = RequestMethod.GET)
+	@ResponseBody
+	public Msg logout(HttpServletRequest request){
+		request.getSession().removeAttribute("isLogin");
+		return Msg.success("退出登陆");
+	}
+		
+//		@Controller
+//		@RequestMapping("/backend")
+//		public class BackendController {
+//		 
+//		  @RequestMapping(value = "/loginPage", method = {RequestMethod.GET})
+//		  public String loginPage(HttpServletRequest request,String account, String password){
+//		    return "login";
+//		  }
+//		 
+//		  @RequestMapping(value = "/login", method = {RequestMethod.POST})
+//		  public String login(HttpServletRequest request,RedirectAttributes model, String account, String password){
+//		    //验证账号密码，如果符合则改变session里的状态，并重定向到主页
+//		    if ("jack".equals(account)&&"jack2017".equals(password)){
+//		      request.getSession().setAttribute("isLogin","yes");
+//		      return "redirect:IndexPage";
+//		    }else {
+//		      //密码错误则重定向回登录页，并返回错误，因为是重定向所要要用到RedirectAttributes
+//		      model.addFlashAttribute("error","密码错误");
+//		      return "redirect:loginPage";
+//		    }
+//		  }
+//		  //登出，移除登录状态并重定向的登录页
+//		  @RequestMapping(value = "/loginOut", method = {RequestMethod.GET})
+//		  public String loginOut(HttpServletRequest request) {
+//		    request.getSession().removeAttribute("isLogin");
+//		    return "redirect:loginPage";
+//		  }
+//		  @RequestMapping(value = "/IndexPage", method = {RequestMethod.GET})
+//		  public String IndexPage(HttpServletRequest request){
+//		    return "Index";
+//		  }
+//		 
+//		}
+		
 		
 //		//判断是否有令牌,判断时效是否已过
 //		if(tokenAccess!=null && tokenAccess.length()>0 && lastLoginTime!= null && (new Date().getTime()-lastLoginTime.getTime()<TimeLimit)){
@@ -123,5 +168,5 @@ public class UserLoginController {
 //
 //		}
 		
-	}
+	
 }
