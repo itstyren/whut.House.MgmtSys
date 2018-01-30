@@ -18,3 +18,6 @@ src/components/basiceData/buildingRegionData/*.vue
 src/components/basiceData/houseData/*.vue    
 src/components/basiceData/staffData/*.vue    
 src/components/basiceData/houseResident/*.vue    
+src/components/basiceData/houseResident/components/*.vue    
+src/components/fixManage/*.vue   
+src/components/fixManage/components/*.vue   

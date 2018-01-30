@@ -1,7 +1,7 @@
 <template>
   <div class="components" v-loading="listLoading">
     <div class="form-header">
-      <span>住房登记</span>
+      <!-- <span>住房登记</span> -->
     </div>
     <div class="from-body">
       <el-form :model="residentForm" inline :rules="rules" ref="residentForm">
@@ -37,7 +37,7 @@
 
 <script type="text/ecmascript-6">
 import { getHouseParam, putHouseRegister } from "@/api/api";
-import * as types from "../../../store/mutation-types";
+import * as types from "@/store/mutation-types";
 import common from "@/common/util.js";
 export default {
   data() {
@@ -149,11 +149,6 @@ export default {
 
 <style scoped lang="scss">
 .components {
-  position: absolute;
-  top: 10px;
-  left: 20px;
-  right: 20px;
-  bottom: 25px;
   display: flex;
   flex-direction: row;
   .form-header {
@@ -172,7 +167,6 @@ export default {
     display: flex;
     flex-direction: column;
     flex: 1; //flex: 1;
-    padding-left: 0%;
     .row {
       display: flex;
       justify-content: left;

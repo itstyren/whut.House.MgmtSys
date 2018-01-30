@@ -1,15 +1,17 @@
 <template>
+<div class="table">
   <el-table :data="houseRel" border stripe class="table" height="string" v-loading="listLoading">
     <el-table-column prop="staffName" width="90" align="center" label="姓名"></el-table-column>
     <el-table-column prop="houseRel" width="70" align="center" label="关系"></el-table-column>
     <el-table-column prop="address" align="center" label="地址"></el-table-column>
-    <el-table-column label="操作" width="150" align="center">
+    <el-table-column label="操作" width="180" align="center">
       <template slot-scope="scope">
         <el-button type="warning" size="mini" @click="removeLog(scope.$index,scope.row)">解除</el-button>
         <el-button type="danger" size="mini"  @click="deleteLog(scope.$index,scope.row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -121,5 +123,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.table{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 </style>

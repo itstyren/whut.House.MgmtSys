@@ -145,10 +145,9 @@ a {
         height: 46px;
         padding-left: 20px;
       }
-      .label{
+      .label {
         margin-left: 15px;
       }
-
     }
     &::-webkit-scrollbar {
       display: none;
@@ -263,8 +262,13 @@ a {
 
 // 住房登记组件
 .before-info {
-.el-table__body-wrapper{
-  overflow-x: hidden;
+  .el-table__body-wrapper {
+    overflow-x: hidden;
+  }
 }
 
+.query-table {
+  .el-table__body-wrapper {
+    overflow-x: hidden;
+  }
 }
