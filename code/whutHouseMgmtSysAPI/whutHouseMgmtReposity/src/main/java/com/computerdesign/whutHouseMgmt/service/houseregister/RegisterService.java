@@ -50,6 +50,7 @@ public class RegisterService{
 		ResidentExample example = new ResidentExample();
 		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
 		criteria.andStaffIdEqualTo(staffId);
+		criteria.andIsDeleteEqualTo(false);
 		return residentMapper.selectByExample(example);
 	}
 
