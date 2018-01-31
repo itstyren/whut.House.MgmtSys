@@ -26,19 +26,18 @@
 	<!-- 两个标准配置 -->
 	<!-- 将springmvc不能处理的资源交给tomcat -->
 	<mvc:default-servlet-handler />
-	
-	
+ 
 	<!-- 配置拦截器 -->
-	<mvc:interceptors>
-		<!-- 配置登陆拦截器 -->
+	<!-- <mvc:interceptors>
+		配置登陆拦截器
 		<mvc:interceptor>
-			<!--拦截后台页面的请求 -->
+			拦截后台页面的请求
 			<mvc:mapping path="/**" />
-			<!--不拦截登录页和登录的请求 -->
+			不拦截登录页和登录的请求
 			<mvc:exclude-mapping path="/userLogin/**" />
 			<bean class="com.computerdesign.whutHouseMgmt.utils.LoginInterceptor"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors> -->
 
 	<!-- 能支持springmvc更高级的一些功能，JSR303校验，快捷的ajax -->
 	<mvc:annotation-driven>
