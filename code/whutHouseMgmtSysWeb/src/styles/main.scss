@@ -272,3 +272,11 @@ a {
     overflow-x: hidden;
   }
 }
+
+// 边框效果
+.card {
+  margin: 10px;
+  border: 1px solid #e6ebf5;
+  background-color: #fff;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}

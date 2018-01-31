@@ -119,3 +119,9 @@ export const putHouseRegister = (params) => { return axios.put(`${base}houseRegi
 export const removeResidentLog = (staffID) => { return axios.delete(`${base}houseRegister/relieveHouseRel/${staffID}`) }
 // 房屋关系删除--保留历史记录
 export const deleteResidentLog = (staffID) => { return axios.delete(`${base}houseRegister/deleteHouseRel/${staffID}`) }
+
+// 维修管理--维修申请
+// 获取方法--获取员工个人信息
+export const getStaffInfo = (staffID, params) => { return axios.get(`${base}fix/getApply/${staffID}`, { params: params }) }
+// 维修申请提交
+export const postFixApply = (params) => { return axios.post(`${base}fix/addApply`, params) }

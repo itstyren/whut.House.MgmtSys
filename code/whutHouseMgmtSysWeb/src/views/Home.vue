@@ -70,7 +70,7 @@
             <el-menu-item index="/basic/awdlist">
               <span>维修直批</span>
             </el-menu-item>
-            <el-menu-item index="/basic/orglist">
+            <el-menu-item index="/fixManage/fixApply">
               <span>维修申请</span>
             </el-menu-item>
           </el-submenu>

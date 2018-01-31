@@ -209,12 +209,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.card {
-  margin: 10px;
-  border: 1px solid #e6ebf5;
-  background-color: #fff;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-}
 .main-data {
   display: flex;
   flex-direction: column;

@@ -3,6 +3,7 @@ config/*.js
 src/views/*.vue
 src/assets/icons/*js
 src/store/*.js
+src/router/*js
 src/common/*.js
 src/assets/function/*.js
 src/assets/data/*.js

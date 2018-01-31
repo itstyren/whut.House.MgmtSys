@@ -27,3 +27,14 @@ export const checkNULL = (rule, value, callback) => {
     callback();
   }
 };
+
+export const checkEmail = (rule, value, callback) => {
+  const RULES = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+  if (!value) {
+    callback();
+  } else if (!RULES.test(value)) {
+    callback(new Error("邮箱格式不正确"));
+  } else {
+    callback();
+  }
+};
