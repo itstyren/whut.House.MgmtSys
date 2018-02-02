@@ -394,6 +394,26 @@
 			ajaxRequestPostType("fix/addAgree", "PUT", data);
 		})
 		
+		
+		$("#fixGetDirectApplyByStaffId").click(function() {
+			ajaxRequestGet("fix/getDirectApplyByStaffId/2");
+		})
+		
+		$("#fixGetDirectApplyByStaffName").click(function() {
+			ajaxRequestGet("fix/getDirectApplyByStaffName/'任天宇'");
+		})
+		
+		$("#fixAddDirectApply").click(function() {
+			var data = {
+				'directApplyMan':'任天宇1',
+				'staffId':1,
+				'houseId':1,
+				'fixContentId':4,
+				'fixDirectApplyNote':'直批直批'
+			};
+			ajaxRequestPostType("fix/addDirectApply", "POST", data);
+		})
+		
 		$("#fixAddPrice").click(function() {
 			var data = {
 				'id':19,
@@ -519,6 +539,14 @@
 			<input class="btn btn-info btn-lg" type="button" value="维修审核页面" id="fixGetAgree" /> <br> <br></div>
 			<div>维修审核   agreeMan为当前登录人的姓名，agreeState只能为'通过'或者'拒绝'<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修审核" id="fixAddAgree" /> <br> <br></div>
+			
+			<div>维修直批页面  根据员工Id获取<br>
+			<input class="btn btn-info btn-lg" type="button" value="维修直批页面" id="fixGetDirectApplyByStaffId" /> <br> <br></div>
+			<div>维修直批页面  根据员工姓名获取 <br>
+			<input class="btn btn-info btn-lg" type="button" value="维修直批页面" id="fixGetDirectApplyByStaffName" /> <br> <br></div>
+			<div>维修直批 <br>
+			<input class="btn btn-info btn-lg" type="button" value="维修直批" id="fixAddDirectApply" /> <br> <br></div>
+			
 			<div>维修结算  conditionId=1，单据号； conditionId=2，职工号； conditionId=3，住房号；conditionId=4，员工姓名；<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修结算页面" id="fixGetCheck" /> <br> <br></div>
 			
