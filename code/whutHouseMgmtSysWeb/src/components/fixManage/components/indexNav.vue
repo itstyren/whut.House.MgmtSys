@@ -11,7 +11,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getDept, getAccept } from "@/api/api";
+import { getAccept, getFixReview } from "@/api/api";
 export default {
   data() {
     return {
@@ -22,8 +22,12 @@ export default {
       fixData: []
     };
   },
+  // 获取父组件传递的数据
+  props: ["fixStatus"],
   created() {
-    this.getList();
+    //console.log(this.fixStatus)
+    if (this.fixStatus == "hangding") this.getHandingList();
+    else this.getReviewList();
   },
   watch: {
     // 监听输入值
@@ -32,12 +36,8 @@ export default {
     }
   },
   methods: {
-    //折叠
-    collapse: function() {
-      this.isCollapse = !this.isCollapse;
-    },
     // 获取所有需要受理信息
-    getList() {
+    getHandingList() {
       this.listLoading = true;
       let param = {};
       // 获取未受理的
@@ -53,8 +53,8 @@ export default {
             this.fixData[0].children.push({
               id: data.fixContentId,
               label: data.fixContentName + "【" + data.staffName + "】",
-              content:data,
-              status:false
+              content: data,
+              status: false
             });
           });
           // 获取已经受理的
@@ -70,8 +70,55 @@ export default {
                 this.fixData[1].children.push({
                   id: data.fixContentId,
                   label: data.fixContentName + "【" + data.staffName + "】",
-                  content:data,
-                  status:true
+                  content: data,
+                  status: true
+                });
+              });
+              this.listLoading = false;
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getReviewList() {
+      this.listLoading = true;
+      let param = {};
+      // 获取未受理的
+      getFixReview(0, param)
+        .then(res => {
+          let fixData = res.data.data.data;
+          this.fixData.push({
+            id: 0,
+            label: "待审核业务",
+            children: []
+          });
+          fixData.forEach(data => {
+            this.fixData[0].children.push({
+              id: data.fixContentId,
+              label: data.fixContentName + "【" + data.staffName + "】",
+              content: data,
+              status: false
+            });
+          });
+          // 获取已经受理的
+          getFixReview(1, param)
+            .then(res => {
+              let fixData = res.data.data.data;
+              this.fixData.push({
+                id: 1,
+                label: "已审核业务",
+                children: []
+              });
+              fixData.forEach(data => {
+                this.fixData[1].children.push({
+                  id: data.fixContentId,
+                  label: data.fixContentName + "【" + data.staffName + "】",
+                  content: data,
+                  status: true
                 });
               });
               this.listLoading = false;
@@ -125,6 +172,7 @@ export default {
       if (node.level == 1) {
         return;
       } else if (node.level == 2) {
+        console.log(object);
         this.$emit("emit-form", object);
       }
     }

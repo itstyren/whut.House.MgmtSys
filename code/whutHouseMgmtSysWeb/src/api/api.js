@@ -129,3 +129,5 @@ export const postFixApply = (params) => { return axios.post(`${base}fix/addApply
 export const getAccept = (type, params) => { return axios.get(`${base}fix/getAccept/${type}`, { params: params }) }
 // 维修受理审核
 export const putFixAccept = (params) => { return axios.put(`${base}fix/addAccept`, params) }
+// 需要审核信息获取
+export const getFixReview = (type, params) => { return axios.get(`${base}fix/getAgree/${type}`, { params: params }) }

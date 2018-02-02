@@ -1,6 +1,6 @@
 <template>
   <div class="second-container">
-    <indexNav @emit-form="getList"></indexNav>
+    <indexNav :fix-status="fixstatus" @emit-form="getList"></indexNav>
     <section class="main-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
@@ -10,7 +10,7 @@
               <b>首页</b>
             </el-breadcrumb-item>
             <el-breadcrumb-item>维修管理</el-breadcrumb-item>
-            <el-breadcrumb-item>维修申请</el-breadcrumb-item>
+            <el-breadcrumb-item>维修受理</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
         <!-- 下方主内容 -->
@@ -118,6 +118,7 @@ export default {
       listLoading: false,
       acceptForm: {},
       acceptStatus: false,
+      fixstatus:'hangding',
       // 表单验证规则
       rules: {
         acceptNote: {

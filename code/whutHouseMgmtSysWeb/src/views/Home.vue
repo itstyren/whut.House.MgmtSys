@@ -61,7 +61,7 @@
             <el-menu-item index="/fixManage/fixHanding">
               <span>维修受理</span>
             </el-menu-item>
-            <el-menu-item index="/basic/house">
+            <el-menu-item index="/fixManage/fixReview">
               <span>维修审核</span>
             </el-menu-item>
             <el-menu-item index="/basic/staff">

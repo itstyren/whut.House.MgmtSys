@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/views/Home'
 import login from '@/views/login'
+import noPageFound from '@/views/404'
 
 // 住房参数
 import paramSet from '@/components/sysManage/paramSet/indexParam'
@@ -50,11 +51,19 @@ import houseResident from '@/components/basiceData/houseResident/resident'
 // 维修申请
 import fixApply from '@/components/fixManage/fixApply'
 import fixHanding from '@/components/fixManage/fixHanding'
+import fixReview from '@/components/fixManage/fixReview'
 
 Vue.use(Router)
 
 // 定义路由数据
 const routes = [
+  // 404页面
+  {
+    path: '*',
+    name: 'Error',
+    component: noPageFound
+  },
+
   // 登录
   {
     path: '/login',
@@ -298,17 +307,24 @@ const routes = [
     },
     menuShow: true,
     children: [{
-      path: 'fixApply',
-      component: fixApply,
-      name: 'fixApply',
-      menuShow: true
-    },
-  {
-    path: 'fixHanding',
-    component: fixHanding,
-    name: 'fixHanding',
-    menuShow: true,
-  } ]
+        path: 'fixApply',
+        component: fixApply,
+        name: 'fixApply',
+        menuShow: true
+      },
+      {
+        path: 'fixHanding',
+        component: fixHanding,
+        name: 'fixHanding',
+        menuShow: true,
+      }, {
+        path: 'fixReview',
+        component: fixReview,
+        name: 'fixReview',
+        menuShow: true,
+      }
+
+    ]
   }
 ]
 
