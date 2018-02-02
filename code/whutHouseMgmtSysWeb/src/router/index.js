@@ -49,6 +49,7 @@ import houseResident from '@/components/basiceData/houseResident/resident'
 // 维修管理
 // 维修申请
 import fixApply from '@/components/fixManage/fixApply'
+import fixHanding from '@/components/fixManage/fixHanding'
 
 Vue.use(Router)
 
@@ -301,7 +302,13 @@ const routes = [
       component: fixApply,
       name: 'fixApply',
       menuShow: true
-    }, ]
+    },
+  {
+    path: 'fixHanding',
+    component: fixHanding,
+    name: 'fixHanding',
+    menuShow: true,
+  } ]
   }
 ]
 

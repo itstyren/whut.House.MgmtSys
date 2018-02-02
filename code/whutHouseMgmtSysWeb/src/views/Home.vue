@@ -58,7 +58,7 @@
             <template slot="title">
               <span slot="title">公房维修</span>
             </template>
-            <el-menu-item index="/basic/buildingArea">
+            <el-menu-item index="/fixManage/fixHanding">
               <span>维修受理</span>
             </el-menu-item>
             <el-menu-item index="/basic/house">

@@ -154,197 +154,197 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getStaffParam, postStaffData } from "@/api/api";
-import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
-import * as OPTION from "@/assets/data/formOption";
-import common from "@/common/util.js";
-export default {
-  data() {
-    return {
-      // 表单需要的信息
-      staffForm: {},
-      listLoading: false,
-      // 一些不需要后台获取的静态数据
-      formOption: OPTION,
-      // 编辑时候需要填充的数据
-      staffParam: [],
-      // 表单验证规则
-      rules: {
-        no: [
-          {
+  import { getStaffParam, postStaffData } from "@/api/api";
+  import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
+  import * as OPTION from "@/assets/data/formOption";
+  import common from "@/common/util.js";
+  export default {
+    data() {
+      return {
+        // 表单需要的信息
+        staffForm: {},
+        listLoading: false,
+        // 一些不需要后台获取的静态数据
+        formOption: OPTION,
+        // 编辑时候需要填充的数据
+        staffParam: [],
+        // 表单验证规则
+        rules: {
+          no: [
+            {
+              required: true,
+              message: "请输入职工编号",
+              trigger: "blur"
+            },
+            {
+              validator: checkNum,
+              trigger: "blur"
+            }
+          ],
+          name: {
             required: true,
-            message: "请输入职工编号",
+            message: "请输入姓名",
             trigger: "blur"
           },
-          {
+          sex: {
+            required: true,
+            message: "请选择",
+            trigger: "blur"
+          },
+          marriageState: {
+            required: true,
+            message: "请选择",
+            trigger: "blur"
+          },
+          code: [
+            {
+              required: true,
+              message: "请输入身份证号",
+              trigger: "blur"
+            },
+            {
+              validator: checkNum,
+              trigger: "blur"
+            }
+          ],
+          tel: [
+            {
+              required: true,
+              message: "请输入手机号",
+              trigger: "blur"
+            },
+            {
+              validator: checkTel,
+              trigger: "blur"
+            }
+          ],
+          buyAccount: {
             validator: checkNum,
             trigger: "blur"
-          }
-        ],
-        name: {
-          required: true,
-          message: "请输入姓名",
-          trigger: "blur"
-        },
-        sex: {
-          required: true,
-          message: "请选择",
-          trigger: "blur"
-        },
-        marriageState: {
-          required: true,
-          message: "请选择",
-          trigger: "blur"
-        },
-        code: [
-          {
-            required: true,
-            message: "请输入身份证号",
-            trigger: "blur"
           },
-          {
+          spouseCode: {
             validator: checkNum,
             trigger: "blur"
-          }
-        ],
-        tel: [
-          {
-            required: true,
-            message: "请输入手机号",
-            trigger: "blur"
           },
-          {
-            validator: checkTel,
-            trigger: "blur"
+          title: {
+            required: true,
+            message: "请选择职称"
+          },
+          post: {
+            required: true,
+            message: "请选择职务"
+          },
+          type: {
+            required: true,
+            message: "请选择类别"
+          },
+          status: {
+            required: true,
+            message: "请选择工作状态"
+          },
+          dept: {
+            required: true,
+            message: "请选择工作部门"
           }
-        ],
-        buyAccount: {
-          validator: checkNum,
-          trigger: "blur"
-        },
-        spouseCode: {
-          validator: checkNum,
-          trigger: "blur"
-        },
-        title: {
-          required: true,
-          message: "请选择职称"
-        },
-        post: {
-          required: true,
-          message: "请选择职务"
-        },
-        type: {
-          required: true,
-          message: "请选择类别"
-        },
-        status: {
-          required: true,
-          message: "请选择工作状态"
-        },
-        dept: {
-          required: true,
-          message: "请选择工作部门"
         }
-      }
-    };
-  },
-  // 监听
-  watch: {},
-  created() {
-    this.getParam();
-  },
-  // 方法集合
-  methods: {
-    // 编辑时候需要获取的数据
-    getParam() {
-      if (this.staffParam[5] != null) return;
-      this.submitLoading = true;
-      let param,
-        // 职工时候是5-10
-        paramNum = 10;
-      for (let paramClass = 5; paramClass <= paramNum; paramClass++) {
-        getStaffParam(param, paramClass)
-          .then(res => {
-            //console.log(res.data.data);
-            this.staffParam[paramClass] = res.data.data.data.list;
-            //console.log(this.staffParam)
-            if (this.staffParam[10] != null) this.submitLoading = false;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
+      };
     },
-    // 新增提交
-    addSubmit() {
-      this.$confirm("此操作新增职工", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        this.$refs["staffForm"].validate(valid => {
-          if (valid) {
-            this.listLoading = true;
-            let param = Object.assign({}, this.staffForm);
-            postStaffData(param).then(res => {
-              common.statusinfo(this, res.data);
-              this.detailLoading = false;
-              if (res.data.status == "success")
-                this.$refs["staffForm"].resetFields();
+    // 监听
+    watch: {},
+    created() {
+      this.getParam();
+    },
+    // 方法集合
+    methods: {
+      // 编辑时候需要获取的数据
+      getParam() {
+        if (this.staffParam[5] != null) return;
+        this.submitLoading = true;
+        let param,
+          // 职工时候是5-10
+          paramNum = 10;
+        for (let paramClass = 5; paramClass <= paramNum; paramClass++) {
+          getStaffParam(param, paramClass)
+            .then(res => {
+              //console.log(res.data.data);
+              this.staffParam[paramClass] = res.data.data.data.list
+              //console.log(this.staffParam)
+              if (this.staffParam[10] != null) this.submitLoading = false
+            })
+            .catch(err => {
+              console.log(err);
             });
-          }
+        }
+      },
+      // 新增提交
+      addSubmit() {
+        this.$confirm("此操作新增职工", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }).then(() => {
+          this.$refs["staffForm"].validate(valid => {
+            if (valid) {
+              this.listLoading = true;
+              let param = Object.assign({}, this.staffForm);
+              postStaffData(param).then(res => {
+                common.statusinfo(this, res.data);
+                this.detailLoading = false;
+                if (res.data.status == "success")
+                  this.$refs["staffForm"].resetFields();
+              });
+            }
+          });
         });
-      });
-    },
-    // 路由返回
-    routerBack() {
-      this.$router.go(-1);
+      },
+      // 路由返回
+      routerBack() {
+        this.$router.go(-1);
+      }
     }
-  }
-};
+  };
 </script>
 
 <style scoped lang="scss">
-.main-data {
-  position: relative;
-  .from {
-    position: absolute;
-    top: 20px;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    border: 1px solid black;
-    .el-select {
-      display: inline-block;
-      position: relative;
-      width: 205px;
-    } // 员工主表
-    h1 {
-      margin-left: 10px;
-    }
-    .staff-from {
-      margin: 10px auto 0px;
+  .main-data {
+    position: relative;
+    .from {
+      position: absolute;
+      top: 20px;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
       display: flex;
-      flex-direction: row;
-      .single-staff-from {
-        margin-left: 2px;
-        margin-right: 2px;
-        padding-top: 10px;
-        border: 1px solid black;
-        align-items: center;
-        width: 33.3%; //margin: 10px;
+      flex-direction: column;
+      overflow-y: auto;
+      border: 1px solid black;
+      .el-select {
+        display: inline-block;
+        position: relative;
+        width: 205px;
+      } // 员工主表
+      h1 {
+        margin-left: 10px;
+      }
+      .staff-from {
+        margin: 10px auto 0px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        .single-staff-from {
+          margin-left: 2px;
+          margin-right: 2px;
+          padding-top: 10px;
+          border: 1px solid black;
+          align-items: center;
+          width: 33.3%; //margin: 10px;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+        }
+      } // 员工配偶表单
+      .staff-spouse-from {
         flex: 1;
       }
-    } // 员工配偶表单
-    .staff-spouse-from {
-      flex: 1;
     }
   }
-}
 </style>

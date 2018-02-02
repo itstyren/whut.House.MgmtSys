@@ -125,3 +125,7 @@ export const deleteResidentLog = (staffID) => { return axios.delete(`${base}hous
 export const getStaffInfo = (staffID, params) => { return axios.get(`${base}fix/getApply/${staffID}`, { params: params }) }
 // 维修申请提交
 export const postFixApply = (params) => { return axios.post(`${base}fix/addApply`, params) }
+// 受理信息获取
+export const getAccept = (type, params) => { return axios.get(`${base}fix/getAccept/${type}`, { params: params }) }
+// 维修受理审核
+export const putFixAccept = (params) => { return axios.put(`${base}fix/addAccept`, params) }
