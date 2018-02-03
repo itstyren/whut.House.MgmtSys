@@ -323,60 +323,19 @@
 	
 	//登陆
 	$(function() {
-		$("#login1").click(function() {
+		$("#login").click(function() {
 			var data ={
 					'no':'8',
 					'password':'123',
-					'roleId':3,
-					'token':'111',
-					'lastLoginTime':'2018-01-05T18:54:05'
+					'roleId':3
 			};
-			ajaxRequestPostType("login/user", "POST", data);
+			ajaxRequestPostType("userLogin/login", "POST", data);
 		})
 		
-		$("#login2").click(function() {
-			var data ={
-					'no':'8',
-					'password':'123',
-					'roleId':3,
-					'token':'',
-					'lastLoginTime':''
-			};
-			ajaxRequestPostType("login/user", "POST", data);
+		$("#logout").click(function() {
+			ajaxRequestGet("userLogin/logout")
 		})
 		
-		$("#login3").click(function() {
-			var data ={
-					'no':'8',
-					'password':'123',
-					'roleId':3,
-					'token':'1111',
-					'lastLoginTime':'2018-01-05T18:54:05'
-			};
-			ajaxRequestPostType("login/user", "POST", data);
-		})
-		
-		$("#login4").click(function() {
-			var data ={
-					'no':'8',
-					'password':'123',
-					'roleId':3,
-					'token':'111',
-					'lastLoginTime':'2018-01-04T18:54:05'
-			};
-			ajaxRequestPostType("login/user", "POST", data);
-		})
-		
-		$("#login5").click(function() {
-			var data ={
-					'no':'8',
-					'password':'124',
-					'roleId':3,
-					'token':'',
-					'lastLoginTime':''
-			};
-			ajaxRequestPostType("login/user", "POST", data);
-		})
 	})
 	
 	//维修
@@ -435,6 +394,26 @@
 			ajaxRequestPostType("fix/addAgree", "PUT", data);
 		})
 		
+		
+		$("#fixGetDirectApplyByStaffId").click(function() {
+			ajaxRequestGet("fix/getDirectApplyByStaffId/2");
+		})
+		
+		$("#fixGetDirectApplyByStaffName").click(function() {
+			ajaxRequestGet("fix/getDirectApplyByStaffName/'任天宇'");
+		})
+		
+		$("#fixAddDirectApply").click(function() {
+			var data = {
+				'directApplyMan':'任天宇1',
+				'staffId':1,
+				'houseId':1,
+				'fixContentId':4,
+				'fixDirectApplyNote':'直批直批'
+			};
+			ajaxRequestPostType("fix/addDirectApply", "POST", data);
+		})
+		
 		$("#fixAddPrice").click(function() {
 			var data = {
 				'id':19,
@@ -476,7 +455,7 @@
 		<li><a href="#house" data-toggle="tab">house</a></li>
 		<li><a href="#right" data-toggle="tab">right</a></li>
 		<li><a href="#role" data-toggle="tab">role</a></li>
-		<li><a href="#login" data-toggle="tab">login</a></li>
+		<li><a href="#userlogin" data-toggle="tab">login</a></li>
 		<li><a href="#fix" data-toggle="tab">fix</a></li>
 		
 	</ul>
@@ -539,18 +518,13 @@
 			<input class="btn btn-info btn-lg" type="button" value="role" id="roleGet" /> <br> 
 			<input class="btn btn-info btn-lg" type="button" value="roleAdd" id="roleAdd" /> <br> 
 		</div>
-		<div class="tab-pane fade" id="login">
-			<div>令牌登陆 <br>
-			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login1" /> <br> <br></div>
-			<div>不用令牌登陆 <br>
-			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login2" /> <br> <br></div>
-			<div>错误的令牌信息登陆 <br>
-			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login3" /> <br> <br></div>
-			<div>超时但账号密码信息正确 <br>
-			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login4" /> <br> <br></div>
-			<div>无令牌切账号密码错误 <br>
-			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login5" /> <br> <br></div>
-			
+		<div class="tab-pane fade" id="userlogin">
+			<br><div>
+			<div>登陆 <br>
+			<input class="btn btn-info btn-lg" type="button" value="登陆" id="login" /> <br> <br></div>
+			</div>
+			<div>退出登陆 <br>
+			<input class="btn btn-info btn-lg" type="button" value="退出" id="logout" /> <br> <br></div>
 		</div>
 		<div class="tab-pane fade" id="fix">
 			<div>进入维修申请页面 <br>
@@ -565,6 +539,14 @@
 			<input class="btn btn-info btn-lg" type="button" value="维修审核页面" id="fixGetAgree" /> <br> <br></div>
 			<div>维修审核   agreeMan为当前登录人的姓名，agreeState只能为'通过'或者'拒绝'<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修审核" id="fixAddAgree" /> <br> <br></div>
+			
+			<div>维修直批页面  根据员工Id获取<br>
+			<input class="btn btn-info btn-lg" type="button" value="维修直批页面" id="fixGetDirectApplyByStaffId" /> <br> <br></div>
+			<div>维修直批页面  根据员工姓名获取 <br>
+			<input class="btn btn-info btn-lg" type="button" value="维修直批页面" id="fixGetDirectApplyByStaffName" /> <br> <br></div>
+			<div>维修直批 <br>
+			<input class="btn btn-info btn-lg" type="button" value="维修直批" id="fixAddDirectApply" /> <br> <br></div>
+			
 			<div>维修结算  conditionId=1，单据号； conditionId=2，职工号； conditionId=3，住房号；conditionId=4，员工姓名；<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修结算页面" id="fixGetCheck" /> <br> <br></div>
 			

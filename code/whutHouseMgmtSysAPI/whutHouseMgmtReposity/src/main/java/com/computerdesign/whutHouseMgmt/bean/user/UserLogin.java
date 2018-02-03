@@ -15,17 +15,6 @@ public class UserLogin {
     
     private Integer roleId;
 
-    private String token;
-    
-    private Date LastLoginTime;
-    
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 	public String getNo() {
 		return no;
@@ -51,13 +40,7 @@ public class UserLogin {
 		this.roleId = roleId;
 	}
 
-	public Date getLastLoginTime() {
-		return LastLoginTime;
-	}
 
-	public void setLastLoginTime(Date lastLoginTime) {
-		LastLoginTime = lastLoginTime;
-	}
     
     
 }

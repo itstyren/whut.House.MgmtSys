@@ -18,6 +18,19 @@ public class StaffVwService implements BaseService<StaffVw> {
 	private StaffVwMapper staffVwMapper;
 	
 	/**
+	 * R新增
+	 * 根据姓名获取全部的员工信息，获取一个数组
+	 * @param StaffName
+	 * @return
+	 */
+	public List<StaffVw> getByStaffName(String StaffName) {
+		StaffVwExample staffVwExample = new StaffVwExample();
+		Criteria criteria = staffVwExample.createCriteria();
+		criteria.andNameEqualTo(StaffName);
+		return staffVwMapper.selectByExample(staffVwExample);
+	}
+	
+	/**
 	 * 根据id获取单个员工信息
 	 * @param id
 	 * @return

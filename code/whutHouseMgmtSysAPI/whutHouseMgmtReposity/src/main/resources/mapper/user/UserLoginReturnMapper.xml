@@ -8,7 +8,6 @@
     <result column="RoleId" jdbcType="BIGINT" property="roleId" />
     <result column="RoleName" jdbcType="VARCHAR" property="roleName" />
     <result column="Status" jdbcType="VARCHAR" property="status" />
-    <result column="Token" jdbcType="VARCHAR" property="token" />
     <result column="LastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -70,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    No, Password, Name, RoleId, RoleName, Status, Token, LastLoginTime
+    No, Password, Name, RoleId, RoleName, Status, LastLoginTime
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturnExample" resultMap="BaseResultMap">
     select
@@ -95,10 +94,10 @@
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturn">
     insert into view_au_all_login (No, Password, Name, 
       RoleId, RoleName, Status, 
-      Token, LastLoginTime)
+      LastLoginTime)
     values (#{no,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{roleId,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{token,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP})
+      #{lastLoginTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturn">
     insert into view_au_all_login
@@ -120,9 +119,6 @@
       </if>
       <if test="status != null">
         Status,
-      </if>
-      <if test="token != null">
-        Token,
       </if>
       <if test="lastLoginTime != null">
         LastLoginTime,
@@ -146,9 +142,6 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="token != null">
-        #{token,jdbcType=VARCHAR},
       </if>
       <if test="lastLoginTime != null">
         #{lastLoginTime,jdbcType=TIMESTAMP},
@@ -182,9 +175,6 @@
       <if test="record.status != null">
         Status = #{record.status,jdbcType=VARCHAR},
       </if>
-      <if test="record.token != null">
-        Token = #{record.token,jdbcType=VARCHAR},
-      </if>
       <if test="record.lastLoginTime != null">
         LastLoginTime = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       </if>
@@ -201,7 +191,6 @@
       RoleId = #{record.roleId,jdbcType=BIGINT},
       RoleName = #{record.roleName,jdbcType=VARCHAR},
       Status = #{record.status,jdbcType=VARCHAR},
-      Token = #{record.token,jdbcType=VARCHAR},
       LastLoginTime = #{record.lastLoginTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
