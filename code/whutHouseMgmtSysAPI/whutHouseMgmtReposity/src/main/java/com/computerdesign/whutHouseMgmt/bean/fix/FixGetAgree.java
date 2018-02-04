@@ -41,6 +41,16 @@ public class FixGetAgree {
     private Date acceptTime;
 
     private String acceptMan;
+    
+    private String agreeState;
+
+    private String agreeNote;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date agreeTime;
+
+    private String agreeMan;
 
     public FixGetAgree(ViewFix viewFix) {
     	this.id = viewFix.getId();
@@ -58,6 +68,10 @@ public class FixGetAgree {
     	this.acceptNote = viewFix.getAcceptNote();
     	this.acceptState = viewFix.getAcceptState();
     	this.acceptTime = viewFix.getAcceptTime();
+    	this.agreeMan = viewFix.getAgreeMan();
+    	this.agreeNote = viewFix.getAgreeNote();
+    	this.agreeState = viewFix.getAgreeState();
+    	this.agreeTime = viewFix.getAgreeTime();
 	}
     
 	public Integer getId() {
@@ -178,6 +192,38 @@ public class FixGetAgree {
 
 	public void setAcceptMan(String acceptMan) {
 		this.acceptMan = acceptMan;
+	}
+
+	public String getAgreeState() {
+		return agreeState;
+	}
+
+	public void setAgreeState(String agreeState) {
+		this.agreeState = agreeState;
+	}
+
+	public String getAgreeNote() {
+		return agreeNote;
+	}
+
+	public void setAgreeNote(String agreeNote) {
+		this.agreeNote = agreeNote;
+	}
+
+	public Date getAgreeTime() {
+		return agreeTime;
+	}
+
+	public void setAgreeTime(Date agreeTime) {
+		this.agreeTime = agreeTime;
+	}
+
+	public String getAgreeMan() {
+		return agreeMan;
+	}
+
+	public void setAgreeMan(String agreeMan) {
+		this.agreeMan = agreeMan;
 	}
     
     
