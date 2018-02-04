@@ -89,7 +89,7 @@
                   </el-row>
                   <el-row>
                     <el-col :span="8" :offset="1">
-                      <el-form-item label="审核状态">
+                      <el-form-item label="受理状态">
                         <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝" inactive-text="通过" inactive-value="通过"></el-switch>
                       </el-form-item>
                     </el-col>
@@ -110,7 +110,7 @@
 <script type="text/ecmascript-6">
 import { putFixAccept } from "@/api/api";
 import indexNav from "./components/indexNav";
-import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
+import {  checkNULL, checkTel } from "@/assets/function/validator";
 import common from "@/common/util.js";
 export default {
   data() {
@@ -123,7 +123,7 @@ export default {
       rules: {
         acceptNote: {
           required: true,
-          message: "请输入审核意见",
+          message: "请输入受理意见",
           trigger: "blur"
         }
       }

@@ -172,7 +172,6 @@ export default {
       if (node.level == 1) {
         return;
       } else if (node.level == 2) {
-        console.log(object);
         this.$emit("emit-form", object);
       }
     }

@@ -58,6 +58,79 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <el-row>
+                    <el-col :span="7" :offset="1">
+                      <el-form-item label="工作部门">
+                        <el-input v-model="reviewForm.deptName" readonly></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="14">
+                      <el-form-item label="住房地址">
+                        <el-input v-model="reviewForm.staffAddress" readonly></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="7" :offset="1">
+                      <el-form-item label="受理人">
+                        <el-input v-model="reviewForm.acceptMan" readonly placeholder="受理人未知"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                      <el-form-item label="受理状态">
+                        <el-input v-model="reviewForm.acceptState" readonly placeholder="状态未知"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                      <el-form-item label="受理时间">
+                        <el-input v-model="reviewForm.acceptTime" readonly placeholder="受理时间未知"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="9" :offset="1">
+                      <el-form-item label="受理说明">
+                        <el-input v-model="reviewForm.acceptNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row v-if="!agreeState">
+                    <div class="line"></div>
+                  </el-row>
+                  <el-row type="flex" justify="center" v-if="!agreeState">
+                    <el-col :span="8">
+                      <el-form-item label="审核意见" prop="agreeNote">
+                        <el-input v-model="reviewForm.agreeNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row type="flex" justify="center" v-if="!agreeState">
+                    <el-col :span="7">
+                      <el-form-item label="审核状态" prop="agreeState">
+                        <el-switch v-model="reviewForm.agreeState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
+                          inactive-text="通过" inactive-value="通过"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="1">
+                      <el-button type="primary" @click="reviewSubmit">提交</el-button>
+                    </el-col>
+                  </el-row>
+                  <el-row v-if="agreeState">
+                    <el-col :span="7" :offset="1">
+                      <el-form-item label="审核意见">
+                        <el-input v-model="reviewForm.agreeNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row v-if="agreeState">
+                    <el-col :span="7" :offset="1">
+                      <el-form-item label="审核状态">
+                        <el-switch v-model="reviewForm.agreeState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
+                          inactive-text="通过" inactive-value="通过"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+
                 </el-form>
               </div>
             </div>
@@ -70,12 +143,29 @@
 
 <script type="text/ecmascript-6">
   import indexNav from "./components/indexNav";
+  import {
+    putFixReview
+  } from "@/api/api";
+  import {
+    checkNULL,
+    checkTel
+  } from "@/assets/function/validator";
+  import common from "@/common/util.js";
   export default {
     data() {
       return {
         listLoading: false,
         fixstatus: "review",
-        reviewForm: {}
+        reviewForm: {},
+        agreeState: false,
+        // 表单验证规则
+        rules: {
+          agreeNote: {
+            required: true,
+            message: "请输入审核意见",
+            trigger: "blur"
+          }
+        }
       };
     },
     components: {
@@ -84,6 +174,43 @@
     methods: {
       getList(object) {
         this.reviewForm = object.content;
+        this.agreeState = object.status
+      },
+      // 维修审核提交
+      reviewSubmit() {
+        if (!this.reviewForm.hasOwnProperty("agreeState"))
+          this.reviewForm.agreeState = "通过";
+        this.$confirm("确认通过审核", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            this.$refs["reviewForm"].validate(valid => {
+              if (valid) {
+                this.listLoading = true;
+                let reviewForm = this.reviewForm;
+                let param = {
+                  agreeMan: reviewForm.acceptMan,
+                  agreeNote: reviewForm.agreeNote,
+                  agreeState: reviewForm.agreeState,
+                  id: reviewForm.id
+                };
+                putFixReview(param).then(res => {
+                  common.statusinfo(this, res.data);
+                  this.listLoading = false;
+                  if (res.data.status == "success")
+                    this.$refs["reviewForm"].resetFields();
+                });
+              }
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消审核"
+            });
+          });
       }
     }
   };
@@ -91,6 +218,13 @@
 </script>
 
 <style scoped lang="scss">
+  .line {
+    margin: 10px;
+    border: 1px solid #e6ebf5;
+    background-color: #fff;
+    margin-bottom: 20px;
+  }
+
   .main-data {
     padding-top: 20px;
   }

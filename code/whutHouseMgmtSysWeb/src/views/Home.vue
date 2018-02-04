@@ -67,7 +67,7 @@
             <el-menu-item index="/basic/staff">
               <span>维修结算</span>
             </el-menu-item>
-            <el-menu-item index="/basic/awdlist">
+            <el-menu-item index="/fixManage/fixSuper">
               <span>维修直批</span>
             </el-menu-item>
             <el-menu-item index="/fixManage/fixApply">
