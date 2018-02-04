@@ -3,6 +3,7 @@ config/*.js
 src/views/*.vue
 src/assets/icons/*js
 src/store/*.js
+src/router/*js
 src/common/*.js
 src/assets/function/*.js
 src/assets/data/*.js
@@ -18,3 +19,6 @@ src/components/basiceData/buildingRegionData/*.vue
 src/components/basiceData/houseData/*.vue    
 src/components/basiceData/staffData/*.vue    
 src/components/basiceData/houseResident/*.vue    
+src/components/basiceData/houseResident/components/*.vue    
+src/components/fixManage/*.vue   
+src/components/fixManage/components/*.vue   

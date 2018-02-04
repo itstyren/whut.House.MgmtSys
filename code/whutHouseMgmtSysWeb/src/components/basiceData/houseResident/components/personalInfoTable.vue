@@ -1,8 +1,10 @@
 <template>
+<div class="">
   <el-table :data="personalInfo" border  stripe class="table" height="string" v-loading="listLoading">
     <el-table-column prop="index"   align="center" label="信息项"></el-table-column>
     <el-table-column prop="value"   align="center" label="信息值"></el-table-column>
   </el-table>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -103,5 +105,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.table{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 </style>

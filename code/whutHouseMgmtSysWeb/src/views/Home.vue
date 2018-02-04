@@ -13,8 +13,7 @@
       </div>
       <!-- 主菜单 -->
       <div class="main-menu" :router="true">
-        <el-menu default-active="/index" menu-trigger="click" unique-opened mode="horizontal" background-color="#373d41" text-color="#fff"
-          :default-active="$route.path" router>
+        <el-menu default-active="/index" menu-trigger="click" unique-opened mode="horizontal" background-color="#373d41" text-color="#fff" :default-active="$route.path" router>
           <!-- 首页 -->
           <el-menu-item index="/index">
             <template slot="title">
@@ -59,10 +58,10 @@
             <template slot="title">
               <span slot="title">公房维修</span>
             </template>
-            <el-menu-item index="/basic/buildingArea">
+            <el-menu-item index="/fixManage/fixHanding">
               <span>维修受理</span>
             </el-menu-item>
-            <el-menu-item index="/basic/house">
+            <el-menu-item index="/fixManage/fixReview">
               <span>维修审核</span>
             </el-menu-item>
             <el-menu-item index="/basic/staff">
@@ -71,7 +70,7 @@
             <el-menu-item index="/basic/awdlist">
               <span>维修直批</span>
             </el-menu-item>
-            <el-menu-item index="/basic/orglist">
+            <el-menu-item index="/fixManage/fixApply">
               <span>维修申请</span>
             </el-menu-item>
           </el-submenu>

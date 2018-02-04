@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/views/Home'
 import login from '@/views/login'
+import noPageFound from '@/views/404'
 
 // 住房参数
 import paramSet from '@/components/sysManage/paramSet/indexParam'
@@ -46,11 +47,24 @@ import addStaff from '@/components/basiceData/staffData/addStaff'
 import indexResident from '@/components/basiceData/houseResident/indexNav'
 import houseResident from '@/components/basiceData/houseResident/resident'
 
+// 维修管理
+// 维修申请
+import fixApply from '@/components/fixManage/fixApply'
+import fixHanding from '@/components/fixManage/fixHanding'
+import fixReview from '@/components/fixManage/fixReview'
+
 Vue.use(Router)
 
 // 定义路由数据
 const routes = [
-// 登录
+  // 404页面
+  {
+    path: '*',
+    name: 'Error',
+    component: noPageFound
+  },
+
+  // 登录
   {
     path: '/login',
     name: 'login',
@@ -59,7 +73,7 @@ const routes = [
       requireAuth: true
     }
   },
-// 首页
+  // 首页
   {
     path: '/',
     name: 'Home',
@@ -68,9 +82,12 @@ const routes = [
       requireAuth: true
     },
     redirect: '/index',
-    children: [
-      {path: '/index', component: HelloWorld, name: 'index', menuShow: true}
-    ]
+    children: [{
+      path: '/index',
+      component: HelloWorld,
+      name: 'index',
+      menuShow: true
+    }]
   },
   // 系统管理
   {
@@ -81,37 +98,126 @@ const routes = [
       requireAuth: true
     },
     menuShow: true,
-    children: [
-      { path: 'paramSet',
-        component: paramSet,
-        name: 'paramSet',
-        children: [
-          // 住房参数
-          { path: 'houseType', component: houseType, name: 'houseType', menuShow: true },
-          { path: 'houseLayout', component: houseLayout, name: 'houseLayout', menuShow: true },
-          { path: 'houseStatus', component: houseStatus, name: 'houseStatus', menuShow: true },
-          { path: 'houseStruct', component: houseStruct, name: 'houseStruct', menuShow: true },
-          // 职工参数
-          { path: 'staffDept', component: staffDept, name: 'staffDept', menuShow: true },
-          { path: 'staffPost', component: staffPost, name: 'staffPost', menuShow: true },
-          { path: 'staffTitle', component: staffTitle, name: 'staffTitle', menuShow: true },
-          { path: 'staffClass', component: staffClass, name: 'staffClass', menuShow: true },
-          { path: 'staffStatus', component: staffStatus, name: 'staffStatus', menuShow: true },
-          { path: 'staffSpouse', component: staffSpouse, name: 'staffSpouse', menuShow: true },
-          // 租赁参数
-          { path: 'rentOption', component: rentOption, name: 'rentOption', menuShow: true },
-          { path: 'rentPostArea', component: rentPostArea, name: 'rentPostArea', menuShow: true },
-          { path: 'rentPostVal', component: rentPostVal, name: 'rentPostVal', menuShow: true },
-          { path: 'rentTitleArea', component: rentTitleArea, name: 'rentTitleArea', menuShow: true },
-          { path: 'rentTitleVal', component: rentTitleVal, name: 'rentTitleVal', menuShow: true },
-          // 维修参数
-          { path: 'fixContent', component: fixContent, name: 'fixContent', menuShow: true },
-          // 租金参数
-          { path: 'rentalOption', component: rentalOption, name: 'rentalOption', menuShow: true },
-          { path: 'residentRel', component: residentRel, name: 'residentRel', menuShow: true }
-        ]
-      }
-    ]
+    children: [{
+      path: 'paramSet',
+      component: paramSet,
+      name: 'paramSet',
+      children: [
+        // 住房参数
+        {
+          path: 'houseType',
+          component: houseType,
+          name: 'houseType',
+          menuShow: true
+        },
+        {
+          path: 'houseLayout',
+          component: houseLayout,
+          name: 'houseLayout',
+          menuShow: true
+        },
+        {
+          path: 'houseStatus',
+          component: houseStatus,
+          name: 'houseStatus',
+          menuShow: true
+        },
+        {
+          path: 'houseStruct',
+          component: houseStruct,
+          name: 'houseStruct',
+          menuShow: true
+        },
+        // 职工参数
+        {
+          path: 'staffDept',
+          component: staffDept,
+          name: 'staffDept',
+          menuShow: true
+        },
+        {
+          path: 'staffPost',
+          component: staffPost,
+          name: 'staffPost',
+          menuShow: true
+        },
+        {
+          path: 'staffTitle',
+          component: staffTitle,
+          name: 'staffTitle',
+          menuShow: true
+        },
+        {
+          path: 'staffClass',
+          component: staffClass,
+          name: 'staffClass',
+          menuShow: true
+        },
+        {
+          path: 'staffStatus',
+          component: staffStatus,
+          name: 'staffStatus',
+          menuShow: true
+        },
+        {
+          path: 'staffSpouse',
+          component: staffSpouse,
+          name: 'staffSpouse',
+          menuShow: true
+        },
+        // 租赁参数
+        {
+          path: 'rentOption',
+          component: rentOption,
+          name: 'rentOption',
+          menuShow: true
+        },
+        {
+          path: 'rentPostArea',
+          component: rentPostArea,
+          name: 'rentPostArea',
+          menuShow: true
+        },
+        {
+          path: 'rentPostVal',
+          component: rentPostVal,
+          name: 'rentPostVal',
+          menuShow: true
+        },
+        {
+          path: 'rentTitleArea',
+          component: rentTitleArea,
+          name: 'rentTitleArea',
+          menuShow: true
+        },
+        {
+          path: 'rentTitleVal',
+          component: rentTitleVal,
+          name: 'rentTitleVal',
+          menuShow: true
+        },
+        // 维修参数
+        {
+          path: 'fixContent',
+          component: fixContent,
+          name: 'fixContent',
+          menuShow: true
+        },
+        // 租金参数
+        {
+          path: 'rentalOption',
+          component: rentalOption,
+          name: 'rentalOption',
+          menuShow: true
+        },
+        {
+          path: 'residentRel',
+          component: residentRel,
+          name: 'residentRel',
+          menuShow: true
+        }
+      ]
+    }]
   },
   // 基础数据
   {
@@ -124,63 +230,100 @@ const routes = [
     menuShow: true,
     children: [
       // 区域楼栋
-      { path: 'buildingArea',
+      {
+        path: 'buildingArea',
         component: indexbldgRgn,
         name: 'indexbldgRgn',
-        children: [
-          { path: 'region', component: region, name: 'region', menuShow: true },
-          { path: 'building/:id', component: building, name: 'building', menuShow: true }
+        children: [{
+            path: 'region',
+            component: region,
+            name: 'region',
+            menuShow: true
+          },
+          {
+            path: 'building/:id',
+            component: building,
+            name: 'building',
+            menuShow: true
+          }
         ],
-        menuShow: true },
+        menuShow: true
+      },
       // 房屋
-      { path: 'house',
+      {
+        path: 'house',
         component: indexHouse,
         name: 'indexHouse',
-        children: [
-          { path: 'byBuilding/:id',
-            component: house,
-            name: 'house',
-            menuShow: true }
-        ]
+        children: [{
+          path: 'byBuilding/:id',
+          component: house,
+          name: 'house',
+          menuShow: true
+        }]
       },
       // 职工
       {
         path: 'staff',
         component: indexStaff,
         name: 'indexStaff',
-        children: [
-          {
-            path: 'byDept/:id',
-            component: staffData,
-            name: 'staffData',
-            menuShow: true
-          }, {
-            path: 'byId/:id',
-            component: singleStaffData,
-            name: 'singleStaffData',
-            menuShow: true
-          }, {
-            path: 'add',
-            component: addStaff,
-            name: 'addStaff',
-            menuShow: true
-          }
-        ]
+        children: [{
+          path: 'byDept/:id',
+          component: staffData,
+          name: 'staffData',
+          menuShow: true
+        }, {
+          path: 'byId/:id',
+          component: singleStaffData,
+          name: 'singleStaffData',
+          menuShow: true
+        }, {
+          path: 'add',
+          component: addStaff,
+          name: 'addStaff',
+          menuShow: true
+        }]
       },
       // 住房登记
       {
         path: 'houseResident',
         component: indexResident,
         name: 'indexResident',
-        children: [
-          {
-            path: ':id',
-            component: houseResident,
-            name: 'houseResident',
-            menuShow: true
-          }
-        ]
+        children: [{
+          path: ':id',
+          component: houseResident,
+          name: 'houseResident',
+          menuShow: true
+        }]
       }
+    ]
+  },
+  // 维修管理
+  {
+    path: '/fixManage',
+    component: Home,
+    name: 'fixManage',
+    meta: {
+      requireAuth: true
+    },
+    menuShow: true,
+    children: [{
+        path: 'fixApply',
+        component: fixApply,
+        name: 'fixApply',
+        menuShow: true
+      },
+      {
+        path: 'fixHanding',
+        component: fixHanding,
+        name: 'fixHanding',
+        menuShow: true,
+      }, {
+        path: 'fixReview',
+        component: fixReview,
+        name: 'fixReview',
+        menuShow: true,
+      }
+
     ]
   }
 ]
