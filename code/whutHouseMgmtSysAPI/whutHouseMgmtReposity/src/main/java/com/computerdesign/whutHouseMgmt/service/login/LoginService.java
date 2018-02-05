@@ -26,16 +26,14 @@ public class LoginService {
 	private UserLoginReturnMapper userLoginReturnMapper;
 	
 	/**
-	 * 根据No和Token信息获取账号信息
+	 * 根据No信息获取账号信息
 	 * @param no
-	 * @param token
 	 * @return
 	 */
-	public List<UserLoginReturn> getNoAndToken(String no,String token) {
+	public List<UserLoginReturn> getNoAndToken(String no) {
 		UserLoginReturnExample example = new UserLoginReturnExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andNoEqualTo(no);
-		criteria.andTokenEqualTo(token);
 		return userLoginReturnMapper.selectByExample(example);
 	}
 	

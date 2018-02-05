@@ -20,21 +20,26 @@ import com.computerdesign.whutHouseMgmt.bean.fix.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixAddAccept;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixAddAgree;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixAddCheck;
+import com.computerdesign.whutHouseMgmt.bean.fix.FixAddDirectApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixAddPrice;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetAccept;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetAgree;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetCheck;
+import com.computerdesign.whutHouseMgmt.bean.fix.FixGetDirectApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixSetTime;
 import com.computerdesign.whutHouseMgmt.bean.fix.HouseGetApply;
+import com.computerdesign.whutHouseMgmt.bean.fix.HouseGetDirectApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.ViewFix;
 import com.computerdesign.whutHouseMgmt.bean.house.House;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
+import com.computerdesign.whutHouseMgmt.service.houseregister.HouseRegisterSelectService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.StaffHouseRelService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
@@ -251,7 +256,129 @@ public class FixController {
 		}
 	}
 	
+	/**
+	 * 根据员工姓名获取维修直批页面
+	 * @param staffName
+	 * @return
+	 */
+	@RequestMapping(value = "getDirectApplyByStaffName/{staffName}",method = RequestMethod.GET)
+	@ResponseBody
+	public Msg getDirectApplyByName(@PathVariable("staffName")String staffName){
+//		System.out.println(staffName);
+		List<StaffVw> listStaffVw = staffVwService.getByStaffName(staffName);
+		if (listStaffVw.isEmpty()) {
+			return Msg.error("无该员工");
+		}
+		if (listStaffVw.size()>1) {
+			return Msg.error("该姓名员工对应有多个");
+		}
+			StaffVw staffVw = listStaffVw.get(0);
+		
+			//将员工信息绑入到model中，其中有FixGetDitectApply(StaffVw)构造器的使用
+			FixGetDirectApply fixGetDirectApply = new FixGetDirectApply(staffVw);
+			
+			//根据staffId获取该员工全部的residentVw信息 
+			List<ResidentVw> listResidentVw = registerService.getResidentVwByStaffId(staffVw.getId());
+			
+			//房屋数组信息
+			List<HouseGetDirectApply> listHouseGetDirectApply = new ArrayList<HouseGetDirectApply>();
+			
+			
+			if (listResidentVw.isEmpty()) {
+				return Msg.success("没有房子").add("data", fixGetDirectApply);
+			} else {
+				// 根据每一个房屋登记信息获取每一个house
+				for (ResidentVw residentVw : listResidentVw) {
+					if (viewHouseService.get(residentVw.getHouseId()).isEmpty()) {
+						return Msg.error("没有房子");
+					}
+					ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
+					HouseGetDirectApply houseGetDirectApply = new HouseGetDirectApply();
+					
+					houseGetDirectApply.setBookTime(residentVw.getBookTime());
+					houseGetDirectApply.setHouseRel(residentVw.getHouseRel());
+
+					houseGetDirectApply.setAddress(viewHouse.getAddress());
+					houseGetDirectApply.setHouseId(viewHouse.getId());
+					houseGetDirectApply.setLayoutName(viewHouse.getLayoutName());
+					houseGetDirectApply.setUsedArea(viewHouse.getUsedArea());
+					
+					listHouseGetDirectApply.add(houseGetDirectApply);
+				}
+				fixGetDirectApply.setHouseList(listHouseGetDirectApply);
+				
+				return Msg.success().add("data", fixGetDirectApply);
+			}
+	}
 	
+	/**
+	 * 根据员工Id获取维修直批页面
+	 * @param staffId
+	 * @return
+	 */
+	@RequestMapping(value = "getDirectApplyByStaffId/{staffId}",method = RequestMethod.GET)
+	@ResponseBody
+	public Msg getDirectApplyByStaffId(@PathVariable("staffId")Integer staffId){
+		StaffVw staffVw = staffVwService.getByID(staffId);
+		//将员工信息绑入到model中，其中有FixGetDitectApply(StaffVw)构造器的使用
+		FixGetDirectApply fixGetDirectApply = new FixGetDirectApply(staffVw);
+		
+		//根据staffId获取该员工全部的residentVw信息 
+		List<ResidentVw> listResidentVw = registerService.getResidentVwByStaffId(staffId);
+		
+		//房屋数组信息
+		List<HouseGetDirectApply> listHouseGetDirectApply = new ArrayList<HouseGetDirectApply>();
+		
+		
+		if (listResidentVw.isEmpty()) {
+			return Msg.success("没有房子").add("data", fixGetDirectApply);
+		} else {
+			// 根据每一个房屋登记信息获取每一个house
+			for (ResidentVw residentVw : listResidentVw) {
+				if (viewHouseService.get(residentVw.getHouseId()).isEmpty()) {
+					return Msg.error("没有房子");
+				}
+				ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
+				HouseGetDirectApply houseGetDirectApply = new HouseGetDirectApply();
+				
+				houseGetDirectApply.setBookTime(residentVw.getBookTime());
+				houseGetDirectApply.setHouseRel(residentVw.getHouseRel());
+
+				houseGetDirectApply.setAddress(viewHouse.getAddress());
+				houseGetDirectApply.setHouseId(viewHouse.getId());
+				houseGetDirectApply.setLayoutName(viewHouse.getLayoutName());
+				houseGetDirectApply.setUsedArea(viewHouse.getUsedArea());
+				
+				listHouseGetDirectApply.add(houseGetDirectApply);
+			}
+			fixGetDirectApply.setHouseList(listHouseGetDirectApply);
+			
+			return Msg.success().add("data", fixGetDirectApply);
+		}
+	}
+	
+	@RequestMapping(value = "addDirectApply",method = RequestMethod.POST)
+	@ResponseBody
+	public Msg addDirectApply(@RequestBody FixAddDirectApply fixAddDirectApply){
+		Fix fix = new Fix();
+		fix.setFixContentId(fixAddDirectApply.getFixContentId());
+		fix.setApplyTime(new Date());
+		fix.setFixState("已审核");
+		fix.setAcceptState("通过");
+		fix.setAcceptNote("直批");
+		fix.setAcceptMan(fixAddDirectApply.getDirectApplyMan());
+		fix.setAcceptTime(new Date());
+		fix.setAgreeState("通过");
+		fix.setAgreeNote("直批");
+		fix.setAgreeMan(fixAddDirectApply.getDirectApplyMan());
+		fix.setAgreeTime(new Date());
+		fix.setStaffId(fixAddDirectApply.getStaffId());
+		fix.setHouseId(fixAddDirectApply.getHouseId());
+		fix.setMessage("直批");
+		
+		fixService.add(fix);
+		return Msg.success("直批成功");
+	}
 	/**
 	 * 获取结算页面信息
 	 * @return

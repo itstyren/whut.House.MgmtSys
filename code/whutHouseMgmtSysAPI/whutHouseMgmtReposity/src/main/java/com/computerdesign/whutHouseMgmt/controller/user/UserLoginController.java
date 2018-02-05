@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.naming.TimeLimitExceededException;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +25,7 @@ import com.computerdesign.whutHouseMgmt.service.token.TokenService;
 import com.computerdesign.whutHouseMgmt.service.user.UserLoginService;
 import com.computerdesign.whutHouseMgmt.service.user.UserReturnService;
 
-@RequestMapping(value = "/login/")
+@RequestMapping(value = "/userLogin/")
 @Controller
 public class UserLoginController {
 
@@ -38,43 +40,21 @@ public class UserLoginController {
 	
 	@Autowired
 	private UserReturnService  userReturnService;
+	
 	/**
 	 * 登陆
 	 * @param userLogin
 	 * @return 
 	 */
-	@RequestMapping(value = "user",method = RequestMethod.POST)
+	@RequestMapping(value = "login",method = RequestMethod.POST)
 	@ResponseBody
-	public Msg login(@RequestBody UserLogin userLogin){
+	public Msg login(@RequestBody UserLogin userLogin,HttpServletRequest request){
 		
 		String no = userLogin.getNo();
 		String password = userLogin.getPassword();
 		Long roleId = Long.valueOf(userLogin.getRoleId()).longValue();
-		String tokenAccess = userLogin.getToken();
-		Date lastLoginTime = userLogin.getLastLoginTime();
 		
-		//判断是否有令牌,判断时效是否已过
-		if(tokenAccess!=null && tokenAccess.length()>0 && lastLoginTime!= null && (new Date().getTime()-lastLoginTime.getTime()<TimeLimit)){
-			//有正确令牌，可直接进入
-			if (!loginService.getNoAndToken(no, tokenAccess).isEmpty()) {
-				Token token =new Token();
-				token.setNo(no);
-				//更新上次登陆时间
-				token.setLastLoginTime(new Date());
-				tokenService.update(token);
-				UserLoginReturn userLoginReturn = userReturnService.getByNo(no);
-				return Msg.success("令牌登陆成功").add("data", userLoginReturn);
-			//有令牌，但是令牌和账号不匹配
-			}else{
-				Token token =new Token();
-				token.setNo(no);
-				token.setToken("");
-				tokenService.update(token);
-				return Msg.error("系统超时，请重新登陆");
-			}
-		}
-		
-		//无令牌，确认账号密码等信息
+		userReturnService.getByNo(no);
 		List<UserLoginReturn> users = loginService.getLogin(no, password, roleId);
 		//判断登陆信息
 		if (users.isEmpty()) {
@@ -83,24 +63,24 @@ public class UserLoginController {
 		}else{
 			
 			UserLoginReturn user = users.get(0);
-			if(!tokenService.get(user.getNo()).isEmpty()){
-				Token token =new Token();
-				token.setNo(user.getNo());
-				token.setToken("111");
-				token.setLastLoginTime(new Date());
-				tokenService.update(token);
+			if (!user.getStatus().equals("active")) {
+				return Msg.error("该账号已冻结，请联系管理员解冻");
 			} else {
-				Token token = new Token();
-				token.setNo(user.getNo());
-				token.setToken("111");
-				token.setLastLoginTime(new Date());
-				tokenService.add(token);
+
+				UserLoginReturn userLoginReturn = userReturnService.getByNo(no);
+
+				request.getSession().setAttribute("isLogin", "yes");
+
+				return Msg.success("登陆成功").add("data", userLoginReturn);
 			}
-			UserLoginReturn userLoginReturn = userReturnService.getByNo(no);
-
-			return Msg.success().add("data", userLoginReturn);
-
 		}
 		
+	}
+	
+	@RequestMapping(value = "logout",method = RequestMethod.GET)
+	@ResponseBody
+	public Msg logout(HttpServletRequest request){
+		request.getSession().removeAttribute("isLogin");
+		return Msg.success("退出登陆");
 	}
 }

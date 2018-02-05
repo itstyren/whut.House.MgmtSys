@@ -154,15 +154,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    getStaffParam,
-    postStaffData
-  } from "@/api/api";
-  import {
-    checkNum,
-    checkNULL,
-    checkTel
-  } from "@/assets/function/validator";
+  import { getStaffParam, postStaffData } from "@/api/api";
+  import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
   import * as OPTION from "@/assets/data/formOption";
   import common from "@/common/util.js";
   export default {
@@ -177,7 +170,8 @@
         staffParam: [],
         // 表单验证规则
         rules: {
-          no: [{
+          no: [
+            {
               required: true,
               message: "请输入职工编号",
               trigger: "blur"
@@ -202,7 +196,8 @@
             message: "请选择",
             trigger: "blur"
           },
-          code: [{
+          code: [
+            {
               required: true,
               message: "请输入身份证号",
               trigger: "blur"
@@ -212,7 +207,8 @@
               trigger: "blur"
             }
           ],
-          tel: [{
+          tel: [
+            {
               required: true,
               message: "请输入手机号",
               trigger: "blur"
@@ -232,23 +228,23 @@
           },
           title: {
             required: true,
-            message: "请选择职称",
+            message: "请选择职称"
           },
           post: {
             required: true,
-            message: "请选择职务",
+            message: "请选择职务"
           },
           type: {
             required: true,
-            message: "请选择类别",
+            message: "请选择类别"
           },
           status: {
             required: true,
-            message: "请选择工作状态",
+            message: "请选择工作状态"
           },
           dept: {
             required: true,
-            message: "请选择工作部门",
+            message: "请选择工作部门"
           }
         }
       };
@@ -271,9 +267,9 @@
           getStaffParam(param, paramClass)
             .then(res => {
               //console.log(res.data.data);
-              this.staffParam[paramClass] = res.data.data.data.list;
+              this.staffParam[paramClass] = res.data.data.data.list
               //console.log(this.staffParam)
-              if (this.staffParam[10] != null) this.submitLoading = false;
+              if (this.staffParam[10] != null) this.submitLoading = false
             })
             .catch(err => {
               console.log(err);
@@ -307,7 +303,6 @@
       }
     }
   };
-
 </script>
 
 <style scoped lang="scss">
@@ -352,5 +347,4 @@
       }
     }
   }
-
 </style>

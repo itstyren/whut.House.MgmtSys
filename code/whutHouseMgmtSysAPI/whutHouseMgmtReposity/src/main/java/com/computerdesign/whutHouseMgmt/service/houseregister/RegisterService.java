@@ -50,6 +50,7 @@ public class RegisterService{
 		ResidentExample example = new ResidentExample();
 		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
 		criteria.andStaffIdEqualTo(staffId);
+		criteria.andIsDeleteEqualTo(false);
 		return residentMapper.selectByExample(example);
 	}
 
@@ -120,6 +121,18 @@ public class RegisterService{
 		return residentVwMapper.selectByExample(example);
 	}
 	
+	/**
+	 * R新增
+	 * 使用view_hs_resident,根据staffId获取信息
+	 * @param staffId
+	 * @return
+	 */
+	public List<ResidentVw> getResidentVwByStaffId(Integer staffId) {
+		ResidentVwExample example = new ResidentVwExample();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample.Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		return residentVwMapper.selectByExample(example);
+	}
 	/**
 	 * 登记关系设置，提交修改的登记关系
 	 * @return

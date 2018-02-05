@@ -73,7 +73,7 @@
           </el-menu-item>
           <el-menu-item index="/sysmanage/paramSet/rentTitleArea">
             职务面积
-          </el-menu-item>          
+          </el-menu-item>
           <el-menu-item index="/sysmanage/paramSet/rentOption">
             选房选项
           </el-menu-item>
@@ -97,7 +97,7 @@
           <el-menu-item index="/sysmanage/paramSet/rentalOption">
             租金选项
           </el-menu-item>
-                    <el-menu-item index="/sysmanage/paramSet/residentRel">
+          <el-menu-item index="/sysmanage/paramSet/residentRel">
             登记关系
           </el-menu-item>
         </el-submenu>
@@ -119,24 +119,22 @@
 </template>
 
 <script type="text/ecmascript-6">
-  export default {
-    data() {
-      return {
-        isCollapse: false
-      };
-    },
-    components: {},
-    methods: {
-      //折叠
-      collapse: function () {
-        this.isCollapse = !this.isCollapse;
-      }
+export default {
+  data() {
+    return {
+      isCollapse: false
+    };
+  },
+  components: {},
+  methods: {
+    //折叠
+    collapse: function() {
+      this.isCollapse = !this.isCollapse;
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-
 
 </style>

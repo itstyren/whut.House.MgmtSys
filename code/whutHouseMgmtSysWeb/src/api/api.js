@@ -54,6 +54,7 @@ export const putRentalParam = (params) => { return axios.put(`${base}rentalParam
 // 获取方法
 export const getResident = (params) => { return axios.get(`${base}houseRegister/getRegisterRel`, { params: params }) }
 // 修改方法
+export const postResident = (params) => { return axios.post(`${base}houseRegister/updateRegisterRel`, params) }
 
 // 基础数据--区域管理
 // 获取方法with楼栋
@@ -110,3 +111,23 @@ export const putResetStaffPwd = (params, staffID) => { return axios.put(`${base}
 // 基础数据-房屋登记
 // 获取方法--获取职工房屋关系
 export const getStaffHouseRel = (staffID, params) => { return axios.get(`${base}houseRegister/getStaffHouseRel/${staffID}`, { params: params }) }
+// 获取方法--简单条件获取
+export const getHouseByMultiCondition = (params) => { return axios.post(`${base}houseRegister/getByMultiCondition`, params) }
+// 住房登记
+export const putHouseRegister = (params) => { return axios.put(`${base}houseRegister/register`, params) }
+// 房屋关系解除--不保留历史记录
+export const removeResidentLog = (staffID) => { return axios.delete(`${base}houseRegister/relieveHouseRel/${staffID}`) }
+// 房屋关系删除--保留历史记录
+export const deleteResidentLog = (staffID) => { return axios.delete(`${base}houseRegister/deleteHouseRel/${staffID}`) }
+
+// 维修管理--维修申请
+// 获取方法--获取员工个人信息
+export const getStaffInfo = (staffID, params) => { return axios.get(`${base}fix/getApply/${staffID}`, { params: params }) }
+// 维修申请提交
+export const postFixApply = (params) => { return axios.post(`${base}fix/addApply`, params) }
+// 受理信息获取
+export const getAccept = (type, params) => { return axios.get(`${base}fix/getAccept/${type}`, { params: params }) }
+// 维修受理审核
+export const putFixAccept = (params) => { return axios.put(`${base}fix/addAccept`, params) }
+// 需要审核信息获取
+export const getFixReview = (type, params) => { return axios.get(`${base}fix/getAgree/${type}`, { params: params }) }

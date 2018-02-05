@@ -3,12 +3,13 @@
     <aside :class="{showSidebar:!isCollapse}">
       <!-- 展开关闭按钮 -->
       <div class="asid-button">
-       <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
+        <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
       </div>
-            <!-- 主菜单 -->
-            <el-tree v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode" @node-click="nodeClick" ></el-tree>
+      <!-- 主菜单 -->
+      <el-tree v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode"
+        @node-click="nodeClick"></el-tree>
     </aside>
-        <section class="main-container">
+    <section class="main-container">
       <!-- 需要长时间存活的 -->
       <transition>
         <keep-alive>
@@ -126,7 +127,7 @@ export default {
       } else if (node.level == 2) {
         this.$router.push({
           path: "/basic/staff/byId/" + object.id
-        }); 
+        });
       }
     }
   }
