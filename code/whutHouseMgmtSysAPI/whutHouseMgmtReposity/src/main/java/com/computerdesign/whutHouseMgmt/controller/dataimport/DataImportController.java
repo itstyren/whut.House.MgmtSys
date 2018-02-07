@@ -297,7 +297,7 @@ public class DataImportController {
 				}
 			}
 		} catch (Exception e) {
-			return Msg.error("导入失败");
+			return Msg.error("导入失败,可能有数据在数据库中不存在或删除");
 		}
 
 		setStaffList(staffs);
@@ -464,7 +464,7 @@ public class DataImportController {
 	@RequestMapping("staffDownLoad")
 	public void staffDownLoad(HttpServletResponse response) {
 		try {
-			DownloadUtils.downloadSolve("D:\\职工数据模板20180118051344.xls","职工模板.xls", response);
+			DownloadUtils.downloadSolve("D:\\staffImport.xls","职工模板.xls", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

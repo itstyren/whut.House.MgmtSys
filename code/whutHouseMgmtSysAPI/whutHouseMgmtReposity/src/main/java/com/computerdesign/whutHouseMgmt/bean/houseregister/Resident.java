@@ -115,7 +115,6 @@ public class Resident {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((bookTime == null) ? 0 : bookTime.hashCode());
 		result = prime * result + ((expireTime == null) ? 0 : expireTime.hashCode());
 		result = prime * result + ((familyCode == null) ? 0 : familyCode.hashCode());
 		result = prime * result + ((houseId == null) ? 0 : houseId.hashCode());
@@ -136,11 +135,6 @@ public class Resident {
 		if (getClass() != obj.getClass())
 			return false;
 		Resident other = (Resident) obj;
-		if (bookTime == null) {
-			if (other.bookTime != null)
-				return false;
-		} else if (!bookTime.equals(other.bookTime))
-			return false;
 		if (expireTime == null) {
 			if (other.expireTime != null)
 				return false;
