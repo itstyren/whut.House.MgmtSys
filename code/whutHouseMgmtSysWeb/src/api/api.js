@@ -127,7 +127,12 @@ export const getStaffInfo = (staffID, params) => { return axios.get(`${base}fix/
 export const postFixApply = (params) => { return axios.post(`${base}fix/addApply`, params) }
 // 受理信息获取
 export const getAccept = (type, params) => { return axios.get(`${base}fix/getAccept/${type}`, { params: params }) }
-// 维修受理审核
+// 维修受理操作
 export const putFixAccept = (params) => { return axios.put(`${base}fix/addAccept`, params) }
 // 需要审核信息获取
 export const getFixReview = (type, params) => { return axios.get(`${base}fix/getAgree/${type}`, { params: params }) }
+// 维修审核操作
+export const putFixReview = (params) => { return axios.put(`${base}fix/addAgree`, params) }
+// 维修直批-获取职工
+export const getFixStaffById = (staffId, params) => { return axios.get(`${base}fix/getDirectApplyByStaffId/${staffId}`, { params: params }) }
+export const getFixStaffByName = (staffName, params) => { return axios.get(`${base}fix/getDirectApplyByStaffName/${staffName}`, { params: params }) }
