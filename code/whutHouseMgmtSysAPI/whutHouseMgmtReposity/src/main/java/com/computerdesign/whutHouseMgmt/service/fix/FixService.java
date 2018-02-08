@@ -44,6 +44,9 @@ public class FixService {
 		fixMapper.updateByPrimaryKeySelective(fix);
 	}
 	
+	public void updateStrict(Fix fix){
+		fixMapper.updateByPrimaryKey(fix);
+	}
 	public void getRegister(String staffId) {
 		ResidentExample example = new ResidentExample();
 		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();

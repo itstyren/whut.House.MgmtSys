@@ -24,8 +24,15 @@ public class ViewFixService {
 		return viewFixMapper.selectByExample(null);
 	}
 	
+	public List<ViewFix> getById(Integer id){
+		ViewFixExample example = new ViewFixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(id);
+		return viewFixMapper.selectByExample(example);
+	}
 	/**
 	 * 根据起始时间和结束时间获取全部的维修信息
+	 * 使用的ViewFix表
 	 * @param startTime
 	 * @param endTime
 	 * @return
@@ -39,6 +46,7 @@ public class ViewFixService {
 	
 	/**
 	 * 根据条件查询
+	 * FixGetCheck中包括申请时间的起始和终止时间，维修内容属于哪一项
 	 * @param fixGetCheck
 	 * @return
 	 */
@@ -80,6 +88,7 @@ public class ViewFixService {
 	
 	/**
 	 * 获取全部待受理的维修信息
+	 * 获取条件为IsOver为0，FixState为"待受理"
 	 * @return
 	 */
 	public List<ViewFix> getAcceptUntil() {
@@ -92,6 +101,7 @@ public class ViewFixService {
 	
 	/**
 	 * 获取全部的已经受理的维修信息
+	 * 获取条件为IsOver为0，AcceptState不为空
 	 * @return
 	 */
 	public List<ViewFix> getAcceptHasBeen() {
@@ -105,6 +115,7 @@ public class ViewFixService {
 	
 	/**
 	 * 获取全部待审核的维修信息
+	 * 获取条件IsOver为0，FixState为“待审核”，AcceptState为“通过”
 	 * @return
 	 */
 	public List<ViewFix> getAgreeUntil() {
@@ -112,7 +123,7 @@ public class ViewFixService {
 		Criteria criteria = example.createCriteria();
 		criteria.andIsOverEqualTo(false);
 		criteria.andFixStateEqualTo("待审核");
-		criteria.andAcceptStateEqualTo("同意");
+		criteria.andAcceptStateEqualTo("通过");
 		return viewFixMapper.selectByExample(example);
 	}
 	
@@ -127,6 +138,18 @@ public class ViewFixService {
 		criteria.andIsOverEqualTo(true);
 		//已经审核的信息在AgreeState不为空
 		criteria.andAgreeStateIsNotNull();
+		return viewFixMapper.selectByExample(example);
+	}
+	
+	/**
+	 * 获取全部未定价，未结算的维修信息
+	 * @return
+	 */
+	public List<ViewFix> getManagement() {
+		ViewFixExample example = new ViewFixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIsCheckEqualTo(false);
+		criteria.andPriceTimeIsNull();
 		return viewFixMapper.selectByExample(example);
 	}
 }

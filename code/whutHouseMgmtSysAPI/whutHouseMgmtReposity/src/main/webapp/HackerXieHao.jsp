@@ -302,7 +302,7 @@
 				})
 
 		$("#getStaffHouseRel").click(function() {
-			ajaxRequestGet("houseRegister/getStaffHouseRel/1");
+			ajaxRequestGet("houseRegister/getStaffHouseRel/3");
 		})
 
 		$("#register").click(function() {
@@ -311,7 +311,7 @@
 				'staffId' : 3,
 				'houseId' : 1,
 				'houseRel' : 26,
-				'bookTime':'2018-01-23'
+				'bookTime':'2018-01-28'
 			};
 			ajaxRequestPostType("houseRegister/register", "PUT", data);
 		})
