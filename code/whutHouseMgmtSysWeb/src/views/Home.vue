@@ -129,6 +129,7 @@
 <style scoped lang="scss">
   $background-color: #373d41;
   .home-container {
+    min-width: 1280px;
     display: flex;
     width: 100vw;
     height: 100vh;

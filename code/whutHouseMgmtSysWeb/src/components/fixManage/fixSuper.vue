@@ -31,15 +31,16 @@
           </div>
           <!-- 表格区 -->
           <div class="main-data">
-            <el-row>
-              <el-col :span="12">
-                <div class="staffTable card">
 
+            <el-row class="personal-info">
+              <el-col :span="12" class="col">
+                <div class="staffTable card">
+                  <personal-info-table :staff-id="staffId"></personal-info-table>
                 </div>
               </el-col>
-              <el-col :span="12">
+              <el-col :span="12" class="col">
                 <div class="houseRel card">
-
+   <personal-info-table></personal-info-table>
                 </div>
               </el-col>
             </el-row>
@@ -53,27 +54,45 @@
 
 <script type="text/ecmascript-6">
   import staffIndex from "./components/staffIndex";
+  import personalInfoTable from './components/personalInfoTable'
   import {
     getFixStaffById,
     getFixStaffByName
   } from "@/api/api";
   export default {
     data() {
-      return {};
+      return {
+        // 查询需要相关的
+        query: '',
+        staffId: '',
+      };
+    },
+    computed: {
+      selectStaff() {
+        return this.staffId
+      },
     },
     components: {
-      staffIndex
+      staffIndex,
+      personalInfoTable
     },
     methods: {
+      // 从组件获取id
       getStaff(object) {
-        console.log(object);
-      }
+        this.staffId = object.id
+      },
     }
   };
 
 </script>
 
 <style scoped lang="scss">
-
-
+  .third-container {
+    .main-data {
+      & > .personal-info {
+        width: 100%;
+        height: 50%;
+      }
+    }
+  }
 </style>
