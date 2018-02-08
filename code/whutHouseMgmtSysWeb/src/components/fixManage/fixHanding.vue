@@ -1,6 +1,6 @@
 <template>
   <div class="second-container">
-    <indexNav :fix-status="fixstatus" @emit-form="getList"></indexNav>
+    <indexNav :fix-status="fixstatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
     <section class="main-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
@@ -72,7 +72,7 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row>
+                  <el-row :class="{'is-accept':!acceptStatus}" v-if="!acceptStatus">
                     <el-col :span="10" :offset="1">
                       <el-form-item label="维修描述">
                         <el-input v-model="acceptForm.description" type="textarea" :rows="2" readonly placeholder="无额外描述"></el-input>
@@ -80,23 +80,50 @@
                     </el-col>
                   </el-row>
                   <!-- 操作区域 -->
-                  <el-row>
-                    <el-col :span="10" :offset="1">
+                  <el-row type="flex" justify="center" v-if="!acceptStatus">
+                    <el-col :span="7">
                       <el-form-item label="受理意见" prop="acceptNote">
                         <el-input v-model="acceptForm.acceptNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row>
-                    <el-col :span="8" :offset="1">
+                  <el-row type="flex" justify="center" v-if="!acceptStatus">
+                    <el-col :span="7">
                       <el-form-item label="受理状态">
                         <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝" inactive-text="通过" inactive-value="通过"></el-switch>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="8">
+                    <el-col :span="1">
                       <el-button type="primary" v-if="!acceptStatus" @click="acceptSubmit">提交</el-button>
                     </el-col>
                   </el-row>
+                  <!-- 非操作区域 -->
+                                    <el-row v-if="acceptStatus">
+                    <el-col :span="10" :offset="1">
+                      <el-form-item label="受理人">
+                        <el-input v-model="acceptForm.acceptMan" placeholder="受理人未知"></el-input>
+                      </el-form-item>
+                    </el-col>
+                                        <el-col :span="10" >
+                      <el-form-item label="受理时间">
+                        <el-input v-model="acceptForm.acceptTime" placeholder="受理人未知"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                                    <el-row  v-if="acceptStatus">
+                    <el-col :span="10" :offset="1">
+                      <el-form-item label="受理说明">
+                        <el-input v-model="acceptForm.acceptNote" type="textarea" :rows="2" readonly placeholder="无额外描述"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                                    <el-row  v-if="acceptStatus">
+                    <el-col :span="10" :offset="1">
+                      <el-form-item label="受理状态">
+                        <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝" inactive-text="通过" inactive-value="通过"  :disabled="acceptStatus"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                                    </el-row>
                 </el-form>
               </div>
             </div>
@@ -110,7 +137,7 @@
 <script type="text/ecmascript-6">
 import { putFixAccept } from "@/api/api";
 import indexNav from "./components/indexNav";
-import {  checkNULL, checkTel } from "@/assets/function/validator";
+import { checkNULL, checkTel } from "@/assets/function/validator";
 import common from "@/common/util.js";
 export default {
   data() {
@@ -118,7 +145,8 @@ export default {
       listLoading: false,
       acceptForm: {},
       acceptStatus: false,
-      fixstatus:'hangding',
+      fixstatus: "hangding",
+      isSubmit: false,
       // 表单验证规则
       rules: {
         acceptNote: {
@@ -139,8 +167,9 @@ export default {
     },
     // 维修受理提交
     acceptSubmit() {
-      if (!this.acceptForm.hasOwnProperty("acceptStatus"))
-        this.acceptForm.acceptStatus = "通过";
+      if (this.acceptForm.acceptState == null)
+        this.acceptForm.acceptState = "通过";
+        console.log(this.acceptForm)
       this.$confirm("确认通过审核", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -154,11 +183,12 @@ export default {
               let param = {
                 acceptMan: acceptForm.staffName,
                 acceptNote: acceptForm.acceptNote,
-                acceptState: acceptForm.acceptStatus,
+                acceptState: acceptForm.acceptState,
                 id: acceptForm.id
               };
               putFixAccept(param).then(res => {
                 common.statusinfo(this, res.data);
+                this.isSubmit = !this.isSubmit;
                 this.listLoading = false;
                 if (res.data.status == "success")
                   this.$refs["acceptForm"].resetFields();
@@ -194,6 +224,11 @@ export default {
     h1 {
       text-align: center;
       margin-bottom: 30px;
+    }
+    & .is-accept {
+      position: relative;
+      border-bottom: 1px solid #e6ebf5;
+      margin-bottom: 20px;
     }
   }
 }

@@ -68,8 +68,8 @@
                   </el-row>
                   <el-row type="flex" justify="center">
                     <el-col :span="10">
-                      <el-form-item label="手机号" prop="phone">
-                        <el-input v-model="accoutInfo.phone" placeholder="请输入手机号"></el-input>
+                      <el-form-item label="手机号" prop="tel">
+                        <el-input v-model="accoutInfo.tel" placeholder="请输入手机号"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
@@ -147,9 +147,12 @@
                     </el-col>
                   </el-row>
                 </div>
+                <div v-if="active==3" class="fix-result">
+                  <span>提交成功，请等待审核！</span>
+                </div>                
                 <div class="opera-area">
-                  <el-button @click="backButton" v-if="active>=1">上一步</el-button>
-                  <el-button @click="nextButton" v-if="active!=2">下一步</el-button>
+                  <el-button @click="backButton" v-if="active>=1&&active<3">上一步</el-button>
+                  <el-button @click="nextButton" v-if="active<2">下一步</el-button>
                   <el-button @click="addSubmit" v-if="active==2">提交</el-button>
                 </div>
               </el-form>
@@ -181,7 +184,7 @@
         accoutInfo: {},
         //表单验证规则
         rules: {
-          phone: [{
+          tel: [{
               required: true,
               message: "请输入手机号"
             },
@@ -190,16 +193,16 @@
               trigger: "blur"
             }
           ],
-          email: [{
-              required: true,
-              message: "请输入电子邮箱",
-              trigger: "change"
-            },
-            {
-              validator: checkEmail,
-              trigger: "blur"
-            }
-          ],
+          // email: [{
+          //     required: true,
+          //     message: "请输入电子邮箱",
+          //     trigger: "change"
+          //   },
+          //   {
+          //     validator: checkEmail,
+          //     trigger: "blur"
+          //   }
+          // ],
           houseId: {
             required: true,
             message: "请选择住房"
@@ -248,12 +251,12 @@
       // 前进一步
       nextButton() {
         let vaild = true;
+        console.log(this.active)
         // 个人信息验证
         if (this.active == 0) {
-          this.$refs["fixApplyForm"].validateField("email");
-          this.$refs["fixApplyForm"].validateField("phone", callback => {
+          this.$refs["fixApplyForm"].validateField("tel", callback => {
             if (callback.length == 0) {
-              if (this.active++ > 2) this.active = 0;
+              this.active++
             }
           });
         } else if (this.active++ > 2) this.active = 0;
@@ -297,6 +300,7 @@
       },
       // 提交维修申请
       addSubmit() {
+        this.active++
         this.$refs["fixApplyForm"].validate(valid => {
           if (valid) {
             this.listLoading = true;
@@ -305,7 +309,7 @@
               email: this.accoutInfo.email,
               fixContentId: this.accoutInfo.fixContentId,
               houseId: this.accoutInfo.houseId,
-              phone: this.accoutInfo.phone,
+              phone: this.accoutInfo.tel,
               staffId: 1
             };
             postFixApply(applyForm).then(res => {
@@ -341,6 +345,14 @@
     .fix-reason {
       padding-top: 3%;
       margin-bottom: 5vh;
+    }
+    &  .fix-result{
+      margin: 150px auto 100px;
+      width: 500px;
+        text-align: center;
+      & > span{
+        font-size: 22px;
+      } 
     }
     .opera-area {
       position: absolute;
