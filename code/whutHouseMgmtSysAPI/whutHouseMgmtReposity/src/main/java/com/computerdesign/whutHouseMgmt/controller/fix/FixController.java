@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
@@ -246,6 +247,8 @@ public class FixController {
 		Fix fix = fixService.get(id);
 		if (fix.getAgreeState()==null) {
 			return Msg.error("该维修申请尚未完成审核操作，无法重新审核");
+		}if (fix.getPriceMan()!=null) {
+			return Msg.error("该维修已定价，无法重新审核");
 		}
 		fix.setAgreeMan(null);
 		fix.setAgreeNote(null);

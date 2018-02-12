@@ -24,6 +24,11 @@ public class ViewFixService {
 		return viewFixMapper.selectByExample(null);
 	}
 	
+	/**
+	 * 根据id获取ViewFix
+	 * @param id
+	 * @return
+	 */
 	public List<ViewFix> getById(Integer id){
 		ViewFixExample example = new ViewFixExample();
 		Criteria criteria = example.createCriteria();
@@ -101,13 +106,12 @@ public class ViewFixService {
 	
 	/**
 	 * 获取全部的已经受理的维修信息
-	 * 获取条件为IsOver为0，AcceptState不为空
+	 * 获取条件为AcceptState不为空
 	 * @return
 	 */
 	public List<ViewFix> getAcceptHasBeen() {
 		ViewFixExample example = new ViewFixExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andIsOverEqualTo(false);
 		//已经受理的信息在AcceptState不为空
 		criteria.andAcceptStateIsNotNull();
 		return viewFixMapper.selectByExample(example);
@@ -121,7 +125,6 @@ public class ViewFixService {
 	public List<ViewFix> getAgreeUntil() {
 		ViewFixExample example = new ViewFixExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andIsOverEqualTo(false);
 		criteria.andFixStateEqualTo("待审核");
 		criteria.andAcceptStateEqualTo("通过");
 		return viewFixMapper.selectByExample(example);

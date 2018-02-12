@@ -387,7 +387,7 @@
 		$("#fixAddAgree").click(function() {
 			var data = {
 				'id':49,
-				'agreeState':'通过',
+				'agreeState':'拒绝',
 				'agreeNote':'先给他同意，先给他同意',
 				'agreeMan':'任天宇'
 			};
@@ -400,7 +400,7 @@
 		})
 		
 		$("#fixGetDirectApplyByStaffName").click(function() {
-			ajaxRequestGet("fix/getDirectApplyByStaffName/'任天宇'");
+			ajaxRequestGet("fix/getDirectApplyByStaffName/任天宇");
 		})
 		
 		$("#fixAddDirectApply").click(function() {
