@@ -141,7 +141,6 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-
                 </el-form>
               </div>
             </div>
@@ -187,7 +186,6 @@ export default {
     reviewSubmit() {
       if (this.reviewForm.agreeState == null)
         this.reviewForm.agreeState = "通过";
-      console.log(this.reviewForm);
       this.$confirm("确认通过审核", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -205,6 +203,7 @@ export default {
                 id: reviewForm.id
               };
               putFixReview(param).then(res => {
+                this.reviewForm={}
                 common.statusinfo(this, res.data);
                 this.isSubmit = !this.isSubmit;
                 this.listLoading = false;

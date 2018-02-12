@@ -220,12 +220,10 @@ export default {
     width: 100%;
     height: 30%;
     .personal-info {
-      position: relative;
       width: 31%;
       height: 100%;
     }
     .house-rel {
-      position: relative;
       width: 65%;
       height: 100%;
     }

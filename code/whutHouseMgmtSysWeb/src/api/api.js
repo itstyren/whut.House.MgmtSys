@@ -136,3 +136,5 @@ export const putFixReview = (params) => { return axios.put(`${base}fix/addAgree`
 // 维修直批-获取职工
 export const getFixStaffById = (staffId, params) => { return axios.get(`${base}fix/getDirectApplyByStaffId/${staffId}`, { params: params }) }
 export const getFixStaffByName = (staffName, params) => { return axios.get(`${base}fix/getDirectApplyByStaffName/${staffName}`, { params: params }) }
+// 维修直批-直批通过
+export const postFixSuper = (params) => { return axios.post(`${base}fix/addDirectApply`, params) }

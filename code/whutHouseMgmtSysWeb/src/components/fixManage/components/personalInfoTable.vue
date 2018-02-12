@@ -1,42 +1,56 @@
 <template>
-  <el-table :data="personalInfo" border  stripe  height="string" v-loading="listLoading">
-    <el-table-column prop="index"   align="center" label="信息项"></el-table-column>
-    <el-table-column prop="value"   align="center" label="信息值"></el-table-column>
+  <el-table :data="personalInfo" border  stripe class="table" height="string" v-loading="listLoading">
+    <el-table-column prop="index"  align="center" label="信息项"></el-table-column>
+    <el-table-column prop="value"  align="center" label="信息值"></el-table-column>
   </el-table>
 </template>
 
 <script type="text/ecmascript-6">
-  import { getStaff } from "@/api/api";
-  export default {
-    data() {
-      return {
-        personalInfo: [],
-        listLoading: false
-      };
-    },
-    // 传递的属性
-    props: {
-      staffId: {
-        type: Number,
+import { getStaff } from "@/api/api";
+import { getFixStaffById, getFixStaffByName } from "@/api/api";
+import common from "@/common/util.js";
+import * as types from "../../../store/mutation-types";
+export default {
+  data() {
+    return {
+      personalInfo: [],
+      listLoading: false
+    };
+  },
+  // 传递的属性
+  props: {
+    queryData: {
+      type: Object
+    }
+  },
+  // 监听
+  watch: {
+    queryData: {
+      handler: function(queryData) {
+        this.getStaff(queryData.param, queryData.type);
+      },
+      deep: true
+    }
+  },
+  components: {},
+  methods: {
+    // 根据id或姓名获取职工信息
+    // 0代表id查，1代表姓名查
+    getStaff(param, type) {
+      if (type == 0) var getMethod = getFixStaffById;
+      else {
+        var getMethod = getFixStaffByName;
+        param = encodeURI(param);
+        param = encodeURI(param);
       }
-    },
-    // 监听
-    watch: {
-      staffId(staffId) {
-        this.getList(staffId);
-      }
-    },
-    components: {},
-    methods: {
-      // 获取单一员工
-      getList(staffId) {
-        this.personalInfo = [];
-        this.listLoading = true;
-        let param = {};
-        getStaff(param, staffId)
-          .then(res => {
+      this.personalInfo = [];
+      this.listLoading = true;
+      getMethod(param)
+        .then(res => {
+          if (res.data.status != "error") {
             let resData = res.data.data.data;
-            // console.log(resData);
+            this.$store.commit(types.FIX_GETHOUSE, resData.houseList);
+            common.statusinfo(this, res.data);
             this.personalInfo.push(
               {
                 index: "姓名",
@@ -91,16 +105,25 @@
                 value: resData.spousePostName
               }
             );
-            //console.log(this.personalInfo)
-            this.deptStaffData = res.data.data.data;
             this.listLoading = false;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
+                    let selectStaff={
+                      name:resData.name,
+                      id:resData.staffId
+                    }
+        this.$emit('select-staff',selectStaff)
+          } else {
+            common.statusinfo(this, res.data);
+            this.listLoading = false;
+          }
+        }
+
+        )
+        .catch(err => {
+          console.log(err);
+        });
     }
-  };
+  }
+};
 </script>
 
 <style scoped lang="scss">
