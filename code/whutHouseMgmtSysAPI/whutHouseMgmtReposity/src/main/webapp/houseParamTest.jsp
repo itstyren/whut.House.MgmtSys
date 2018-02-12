@@ -399,8 +399,12 @@
 			ajaxRequestGet("fix/getDirectApplyByStaffId/2");
 		})
 		
+		
 		$("#fixGetDirectApplyByStaffName").click(function() {
-			ajaxRequestGet("fix/getDirectApplyByStaffName/任天宇");
+			var data = {
+					'staffName':'任天宇'
+			};
+			ajaxRequestPostType("fix/getDirectApplyByStaffName", "POST", data);
 		})
 		
 		$("#fixAddDirectApply").click(function() {

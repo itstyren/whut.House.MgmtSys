@@ -28,6 +28,7 @@ import com.computerdesign.whutHouseMgmt.bean.fix.FixGetAgree;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetCheck;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetDirectApply;
+import com.computerdesign.whutHouseMgmt.bean.fix.FixGetName;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixSetTime;
 import com.computerdesign.whutHouseMgmt.bean.fix.HouseGetApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.HouseGetDirectApply;
@@ -338,54 +339,99 @@ public class FixController {
 	 * @param staffName
 	 * @return
 	 */
-	@RequestMapping(value = "getDirectApplyByStaffName/{staffName}",method = RequestMethod.GET)
+	@RequestMapping(value = "getDirectApplyByStaffName",method = RequestMethod.POST)
 	@ResponseBody
-	public Msg getDirectApplyByName(@PathVariable("staffName")String staffName){
-//		System.out.println(staffName);
-		List<StaffVw> listStaffVw = staffVwService.getByStaffName(staffName);
+	public Msg getDirectApplyByName(@RequestBody FixGetName fixGetName){
+		//根据姓名获取全部的StaffVw
+		List<StaffVw> listStaffVw = staffVwService.getByStaffName(fixGetName.getStaffName());
+		//无该姓名的员工
 		if (listStaffVw.isEmpty()) {
 			return Msg.error("无该员工");
 		}
-		if (listStaffVw.size()>1) {
-			return Msg.error("该姓名员工对应有多个");
-		}
-			StaffVw staffVw = listStaffVw.get(0);
-		
-			//将员工信息绑入到model中，其中有FixGetDitectApply(StaffVw)构造器的使用
-			FixGetDirectApply fixGetDirectApply = new FixGetDirectApply(staffVw);
-			
-			//根据staffId获取该员工全部的residentVw信息 
-			List<ResidentVw> listResidentVw = registerService.getResidentVwByStaffId(staffVw.getId());
-			
-			//房屋数组信息
-			List<HouseGetDirectApply> listHouseGetDirectApply = new ArrayList<HouseGetDirectApply>();
-			
-			
-			if (listResidentVw.isEmpty()) {
-				return Msg.success("没有房子").add("data", fixGetDirectApply);
-			} else {
-				// 根据每一个房屋登记信息获取每一个house
-				for (ResidentVw residentVw : listResidentVw) {
-					if (viewHouseService.get(residentVw.getHouseId()).isEmpty()) {
-						return Msg.error("没有房子");
-					}
-					ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
-					HouseGetDirectApply houseGetDirectApply = new HouseGetDirectApply();
-					
-					houseGetDirectApply.setBookTime(residentVw.getBookTime());
-					houseGetDirectApply.setHouseRel(residentVw.getHouseRel());
+		//该姓名员工不止一个
+		else {
+			//返回FixGetDirectApply数组
+			List<FixGetDirectApply> listFixGetDirectApply = new ArrayList<FixGetDirectApply>();
 
-					houseGetDirectApply.setAddress(viewHouse.getAddress());
-					houseGetDirectApply.setHouseId(viewHouse.getId());
-					houseGetDirectApply.setLayoutName(viewHouse.getLayoutName());
-					houseGetDirectApply.setUsedArea(viewHouse.getUsedArea());
-					
-					listHouseGetDirectApply.add(houseGetDirectApply);
-				}
-				fixGetDirectApply.setHouseList(listHouseGetDirectApply);
+			//将员工信息绑入到model中，其中有FixGetDitectApply(StaffVw)构造器的使用
+			for (StaffVw staffVw : listStaffVw) {
+				FixGetDirectApply fixGetDirectApply = new FixGetDirectApply(staffVw);
 				
-				return Msg.success("根据员工姓名获取维修直批页面").add("data", fixGetDirectApply);
+				//根据staffId获取该员工全部的residentVw信息 
+				List<ResidentVw> listResidentVw = registerService.getResidentVwByStaffId(staffVw.getId());
+				
+				//房屋数组信息
+				List<HouseGetDirectApply> listHouseGetDirectApply = new ArrayList<HouseGetDirectApply>();
+				
+				
+				if (listResidentVw.isEmpty()) {
+//					return Msg.success("没有房子").add("data", fixGetDirectApply);
+					fixGetDirectApply.setHouseList(null);
+				} else {
+					// 根据每一个房屋登记信息获取每一个house
+					for (ResidentVw residentVw : listResidentVw) {
+						if (viewHouseService.get(residentVw.getHouseId()).isEmpty()) {
+							// return Msg.error("没有房子");
+						} else {
+							ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
+							HouseGetDirectApply houseGetDirectApply = new HouseGetDirectApply();
+
+							houseGetDirectApply.setBookTime(residentVw.getBookTime());
+							houseGetDirectApply.setHouseRel(residentVw.getHouseRel());
+
+							houseGetDirectApply.setAddress(viewHouse.getAddress());
+							houseGetDirectApply.setHouseId(viewHouse.getId());
+							houseGetDirectApply.setLayoutName(viewHouse.getLayoutName());
+							houseGetDirectApply.setUsedArea(viewHouse.getUsedArea());
+
+							listHouseGetDirectApply.add(houseGetDirectApply);
+						}
+					}
+					fixGetDirectApply.setHouseList(listHouseGetDirectApply);
+				}
+				listFixGetDirectApply.add(fixGetDirectApply);
 			}
+			return Msg.success("根据员工姓名获取维修直批页面").add("data", listFixGetDirectApply);
+//		}else{
+//			//只有一个员工
+//			StaffVw staffVw = listStaffVw.get(0);
+//		
+//			//将员工信息绑入到model中，其中有FixGetDitectApply(StaffVw)构造器的使用
+//			FixGetDirectApply fixGetDirectApply = new FixGetDirectApply(staffVw);
+//			
+//			//根据staffId获取该员工全部的residentVw信息 
+//			List<ResidentVw> listResidentVw = registerService.getResidentVwByStaffId(staffVw.getId());
+//			
+//			//房屋数组信息
+//			List<HouseGetDirectApply> listHouseGetDirectApply = new ArrayList<HouseGetDirectApply>();
+//			
+//			
+//			if (listResidentVw.isEmpty()) {
+//				return Msg.success("没有房子").add("data", fixGetDirectApply);
+//			} else {
+//				// 根据每一个房屋登记信息获取每一个house
+//				for (ResidentVw residentVw : listResidentVw) {
+//					if (viewHouseService.get(residentVw.getHouseId()).isEmpty()) {
+//						return Msg.error("没有房子");
+//					}
+//					ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
+//					HouseGetDirectApply houseGetDirectApply = new HouseGetDirectApply();
+//					
+//					houseGetDirectApply.setBookTime(residentVw.getBookTime());
+//					houseGetDirectApply.setHouseRel(residentVw.getHouseRel());
+//
+//					houseGetDirectApply.setAddress(viewHouse.getAddress());
+//					houseGetDirectApply.setHouseId(viewHouse.getId());
+//					houseGetDirectApply.setLayoutName(viewHouse.getLayoutName());
+//					houseGetDirectApply.setUsedArea(viewHouse.getUsedArea());
+//					
+//					listHouseGetDirectApply.add(houseGetDirectApply);
+//				}
+//				fixGetDirectApply.setHouseList(listHouseGetDirectApply);
+//				
+//				return Msg.success("根据员工姓名获取维修直批页面").add("data", fixGetDirectApply);
+//			}
+		}
 	}
 	
 	/**

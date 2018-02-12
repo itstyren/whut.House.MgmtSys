@@ -217,8 +217,8 @@
 
 		$("#staffAdd").click(function() {
 			var data = {
-				'no' : '4234',
-				'name' : 'xh',
+				'no' : '9',
+				'name' : '任天宇',
 				'sex' : '男',
 				'marriageState' : '未知',
 				'title' : 95,
@@ -308,8 +308,8 @@
 		$("#register").click(function() {
 			var data = {
 				//键的名字与Model属性名一致
-				'staffId' : 3,
-				'houseId' : 1,
+				'staffId' : 18,
+				'houseId' : 2,
 				'houseRel' : 26,
 				'bookTime':'2018-01-28'
 			};
