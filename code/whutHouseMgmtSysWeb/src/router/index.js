@@ -52,7 +52,7 @@ import houseResident from '@/components/basiceData/houseResident/resident'
 import fixApply from '@/components/fixManage/fixApply'
 import fixHanding from '@/components/fixManage/fixHanding'
 import fixReview from '@/components/fixManage/fixReview'
-
+import fixSuper from '@/components/fixManage/fixSuper'
 Vue.use(Router)
 
 // 定义路由数据
@@ -322,8 +322,13 @@ const routes = [
         component: fixReview,
         name: 'fixReview',
         menuShow: true,
+      },
+      {
+        path: 'fixSuper',
+        component: fixSuper,
+        name: 'fixSuper',
+        menuShow: true,
       }
-
     ]
   }
 ]

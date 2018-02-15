@@ -1,6 +1,6 @@
 <template>
   <div class="second-container">
-    <indexNav :fix-status="fixstatus" @emit-form="getList"></indexNav>
+    <indexNav :fix-status="fixstatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
     <section class="main-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
@@ -58,6 +58,90 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <el-row>
+                    <el-col :span="7" :offset="1">
+                      <el-form-item label="工作部门">
+                        <el-input v-model="reviewForm.deptName" readonly></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="14">
+                      <el-form-item label="住房地址">
+                        <el-input v-model="reviewForm.staffAddress" readonly></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="7" :offset="1">
+                      <el-form-item label="受理人">
+                        <el-input v-model="reviewForm.acceptMan" readonly placeholder="受理人未知"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                      <el-form-item label="受理状态">
+                        <el-input v-model="reviewForm.acceptState" readonly placeholder="状态未知"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                      <el-form-item label="受理时间">
+                        <el-input v-model="reviewForm.acceptTime" readonly placeholder="受理时间未知"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row v-if="!agreeState" :class="{'is-agree':!agreeState}">
+                    <el-col :span="9" :offset="1">
+                      <el-form-item label="受理说明">
+                        <el-input v-model="reviewForm.acceptNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row v-if="agreeState">
+                    <el-col :span="7" :offset="1">
+                      <el-form-item label="审核人">
+                        <el-input v-model="reviewForm.agreeMan" readonly placeholder="审核人未知"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                      <el-form-item label="审核时间">
+                        <el-input v-model="reviewForm.agreeTime" readonly placeholder="审核时间未知"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <!-- 操作区域 -->
+                  <el-row type="flex" justify="center" v-if="!agreeState">
+                    <el-col :span="8">
+                      <el-form-item label="审核意见" prop="agreeNote">
+                        <el-input v-model="reviewForm.agreeNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row type="flex" justify="center" v-if="!agreeState">
+                    <el-col :span="7">
+                      <el-form-item label="审核状态" prop="agreeState">
+                        <el-switch v-model="reviewForm.agreeState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
+                          inactive-text="通过" inactive-value="通过"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="1">
+                      <el-button type="primary" @click="reviewSubmit">提交</el-button>
+                    </el-col>
+                  </el-row>
+                  <!-- 非操作区域 -->
+                  <el-row v-if="agreeState">
+                    <el-col :span="7" :offset="1">
+                      <el-form-item label="审核意见">
+                        <el-input v-model="reviewForm.agreeNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row v-if="agreeState">
+                    <el-col :span="7" :offset="1">
+                      <el-form-item label="审核状态">
+                        <el-switch v-model="reviewForm.agreeState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
+                          inactive-text="通过" inactive-value="通过" :disabled="agreeState"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+
                 </el-form>
               </div>
             </div>
@@ -69,46 +153,107 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import indexNav from "./components/indexNav";
-  export default {
-    data() {
-      return {
-        listLoading: false,
-        fixstatus: "review",
-        reviewForm: {}
-      };
-    },
-    components: {
-      indexNav
-    },
-    methods: {
-      getList(object) {
-        this.reviewForm = object.content;
+import indexNav from "./components/indexNav";
+import { putFixReview } from "@/api/api";
+import { checkNULL, checkTel } from "@/assets/function/validator";
+import common from "@/common/util.js";
+export default {
+  data() {
+    return {
+      listLoading: false,
+      fixstatus: "review",
+      reviewForm: {},
+      agreeState: false,
+      isSubmit: false,
+      // 表单验证规则
+      rules: {
+        agreeNote: {
+          required: true,
+          message: "请输入审核意见",
+          trigger: "blur"
+        }
       }
+    };
+  },
+  components: {
+    indexNav
+  },
+  methods: {
+    getList(object) {
+      this.reviewForm = object.content;
+      this.agreeState = object.status;
+    },
+    // 维修审核提交
+    reviewSubmit() {
+      if (this.reviewForm.agreeState == null)
+        this.reviewForm.agreeState = "通过";
+      console.log(this.reviewForm);
+      this.$confirm("确认通过审核", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$refs["reviewForm"].validate(valid => {
+            if (valid) {
+              this.listLoading = true;
+              let reviewForm = this.reviewForm;
+              let param = {
+                agreeMan: reviewForm.acceptMan,
+                agreeNote: reviewForm.agreeNote,
+                agreeState: reviewForm.agreeState,
+                id: reviewForm.id
+              };
+              putFixReview(param).then(res => {
+                common.statusinfo(this, res.data);
+                this.isSubmit = !this.isSubmit;
+                this.listLoading = false;
+                if (res.data.status == "success")
+                  this.$refs["reviewForm"].resetFields();
+              });
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消审核"
+          });
+        });
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  .main-data {
-    padding-top: 20px;
-  }
+.line {
+  margin: 10px;
+  border: 1px solid #e6ebf5;
+  background-color: #fff;
+  margin-bottom: 20px;
+}
+.main-data {
+  padding-top: 20px;
+}
 
-  .accept-form {
-    width: 80%;
-    background-color: #fff;
-    padding: 10px;
-    padding-bottom: 30px;
-    height: 90%;
-    margin: auto;
-    position: relative;
-    .need-accept {
-      h1 {
-        text-align: center;
-        margin-bottom: 30px;
-      }
+.accept-form {
+  width: 80%;
+  background-color: #fff;
+  padding: 10px;
+  padding-bottom: 30px;
+  height: 90%;
+  margin: auto;
+  position: relative;
+  .need-accept {
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    & .is-agree {
+      position: relative;
+      border-bottom: 1px solid #e6ebf5;
+      margin-bottom: 20px;
     }
   }
-
+}
 </style>

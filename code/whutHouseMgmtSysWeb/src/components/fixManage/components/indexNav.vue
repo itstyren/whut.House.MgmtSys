@@ -23,7 +23,15 @@ export default {
     };
   },
   // 获取父组件传递的数据
-  props: ["fixStatus"],
+  props: {
+    fixStatus: {
+      type: String,
+      default: "hangding"
+    },
+    isSubmit: {
+      type: Boolean
+    }
+  },
   created() {
     //console.log(this.fixStatus)
     if (this.fixStatus == "hangding") this.getHandingList();
@@ -33,6 +41,11 @@ export default {
     // 监听输入值
     filterText(val) {
       this.$refs.staffTree.filter(val);
+    },
+    isSubmit(newVal) {
+      this.fixData = [];
+      if (this.fixStatus == "hangding") this.getHandingList();
+      else this.getReviewList();
     }
   },
   methods: {
@@ -172,7 +185,6 @@ export default {
       if (node.level == 1) {
         return;
       } else if (node.level == 2) {
-        console.log(object);
         this.$emit("emit-form", object);
       }
     }

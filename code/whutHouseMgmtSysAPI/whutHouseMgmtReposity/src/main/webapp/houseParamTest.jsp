@@ -362,9 +362,9 @@
 
 		$("#fixAddAccept").click(function() {
 			var data = {
-				'id':19,
+				'id':49,
 				'acceptState':'通过',
-				'acceptNote':'先给他同意，先给他同意',
+				'acceptNote':'先给他',
 				'acceptMan':'任天宇'
 			};
 			ajaxRequestPostType("fix/addAccept", "PUT", data);
@@ -376,7 +376,7 @@
 		
 		$("#fixGetCheck").click(function() {
 			var data = {
-				'conditionId':1,
+				'conditionId':4,
 				'conditionContent':'20',
 				'startTime':'2017-01-31',
 				'endTime':'2018-02-27'
@@ -386,8 +386,8 @@
 		
 		$("#fixAddAgree").click(function() {
 			var data = {
-				'id':19,
-				'agreeState':'通过',
+				'id':49,
+				'agreeState':'拒绝',
 				'agreeNote':'先给他同意，先给他同意',
 				'agreeMan':'任天宇'
 			};
@@ -399,8 +399,12 @@
 			ajaxRequestGet("fix/getDirectApplyByStaffId/2");
 		})
 		
+		
 		$("#fixGetDirectApplyByStaffName").click(function() {
-			ajaxRequestGet("fix/getDirectApplyByStaffName/'任天宇'");
+			var data = {
+					'staffName':'任天宇'
+			};
+			ajaxRequestPostType("fix/getDirectApplyByStaffName", "POST", data);
 		})
 		
 		$("#fixAddDirectApply").click(function() {
@@ -416,7 +420,7 @@
 		
 		$("#fixAddPrice").click(function() {
 			var data = {
-				'id':19,
+				'id':49,
 				'price':'20.5',
 				'priceMan':'任天宇1'
 			};
@@ -425,10 +429,22 @@
 		
 		$("#fixAddCheck").click(function() {
 			var data = {
-				'id':19	,
+				'id':49	,
 				'checkMan':'任天宇1'
 			};
 			ajaxRequestPostType("fix/addCheck", "PUT", data);
+		})
+		
+		$("#fixReAccept").click(function() {
+			ajaxRequestGet("fix/reAccept/49");
+		})
+		
+		$("#fixReAgree").click(function() {
+			ajaxRequestGet("fix/reAgree/49");
+		})
+		
+		$("#fixGetManagement").click(function() {
+			ajaxRequestGet("fix/getFixManagement");
 		})
 	})
 	
@@ -531,11 +547,11 @@
 			<input class="btn btn-info btn-lg" type="button" value="维修申请页面" id="fixGetApply" /> <br> <br></div>
 			<div>维修申请 <br>
 			<input class="btn btn-info btn-lg" type="button" value="维修申请" id="fixAddApply" /> <br> <br></div>
-			<div>进入维修受理页面  0代表未经受理流程的全部信息，1代表受理过程结束的全部信息，包括同意受理和拒绝受理的<br>
+			<div>进入维修受理页面  0代表未经受理流程的全部信息，1代表受理过程结束的全部信息<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修受理页面" id="fixGetAccept" /> <br> <br></div>
 			<div>维修受理   acceptMan为当前登录人的姓名，acceptState只能为'通过'或者'拒绝'<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修受理" id="fixAddAccept" /> <br> <br></div>
-			<div>进入维修审核页面  0代表未经审核流程的全部信息，1代表审核过程结束的全部信息，包括同意审核和拒绝审核的<br>
+			<div>进入维修审核页面  0代表未经审核流程的全部信息，1代表审核过程结束的全部信息，包括同意审核<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修审核页面" id="fixGetAgree" /> <br> <br></div>
 			<div>维修审核   agreeMan为当前登录人的姓名，agreeState只能为'通过'或者'拒绝'<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修审核" id="fixAddAgree" /> <br> <br></div>
@@ -547,13 +563,21 @@
 			<div>维修直批 <br>
 			<input class="btn btn-info btn-lg" type="button" value="维修直批" id="fixAddDirectApply" /> <br> <br></div>
 			
-			<div>维修结算  conditionId=1，单据号； conditionId=2，职工号； conditionId=3，住房号；conditionId=4，员工姓名；<br>
+			<div>维修结算  conditionId为筛选条件，conditionContent为对应的内容,例如condition=1，condition=“20”就代表选择单据号为"20"的数据，为null则默认没有这个条件<br>
+			conditionId=1，单据号； conditionId=2，职工号； conditionId=3，住房号；conditionId=4，员工姓名；<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修结算页面" id="fixGetCheck" /> <br> <br></div>
 			
 			<div>维修定价   priceMan为当前登录人的姓名<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修定价" id="fixAddPrice" /> <br> <br></div>
 			<div>维修结算   checkMan为当前登录人的姓名<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修结算" id="fixAddCheck" /> <br> <br></div>
+			
+			<div>重新受理   传入参数为fix的id<br>
+			<input class="btn btn-info btn-lg" type="button" value="重新受理" id="fixReAccept" /> <br> <br></div>
+			<div>重新审核   传入参数为fix的id<br>
+			<input class="btn btn-info btn-lg" type="button" value="重新审核" id="fixReAgree" /> <br> <br></div>
+			<div>维修管理页面<br>
+			<input class="btn btn-info btn-lg" type="button" value="维修管理页面" id="fixGetManagement" /> <br> <br></div>
 		</div>
 	</div>
 
