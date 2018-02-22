@@ -26,7 +26,6 @@
                 <el-step title="选择住房"></el-step>
                 <el-step title="填写原因"></el-step>
               </el-steps>
-
               <el-form :model="accoutInfo" label-width="100px" inline ref="fixApplyForm" :rules="rules">
                 <!-- 个人信息区域 -->
                 <div v-if="active==0" class="personal-info">
