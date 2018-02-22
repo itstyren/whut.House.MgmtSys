@@ -1,0 +1,1016 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.internetselecthouse.StaffHouseMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse">
+    <result column="ResidentId" jdbcType="INTEGER" property="residentId" />
+    <result column="HouseRel" jdbcType="INTEGER" property="houseRel" />
+    <result column="HouseRelName" jdbcType="VARCHAR" property="houseRelName" />
+    <result column="BookTime" jdbcType="DATE" property="bookTime" />
+    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
+    <result column="ExpireTime" jdbcType="DATE" property="expireTime" />
+    <result column="RentType" jdbcType="VARCHAR" property="rentType" />
+    <result column="LastRentType" jdbcType="VARCHAR" property="lastRentType" />
+    <result column="FamilyCode" jdbcType="VARCHAR" property="familyCode" />
+    <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
+    <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
+    <result column="StaffSex" jdbcType="VARCHAR" property="staffSex" />
+    <result column="StaffMarriageState" jdbcType="VARCHAR" property="staffMarriageState" />
+    <result column="StaffTitleName" jdbcType="VARCHAR" property="staffTitleName" />
+    <result column="StaffTitleVal" jdbcType="INTEGER" property="staffTitleVal" />
+    <result column="StaffSpouseTitleVal" jdbcType="INTEGER" property="staffSpouseTitleVal" />
+    <result column="StaffPostName" jdbcType="VARCHAR" property="staffPostName" />
+    <result column="StaffPostVal" jdbcType="INTEGER" property="staffPostVal" />
+    <result column="StaffSpousePostVal" jdbcType="INTEGER" property="staffSpousePostVal" />
+    <result column="StaffTypeName" jdbcType="VARCHAR" property="staffTypeName" />
+    <result column="StaffStatusName" jdbcType="VARCHAR" property="staffStatusName" />
+    <result column="StaffDeptId" jdbcType="INTEGER" property="staffDeptId" />
+    <result column="StaffDeptName" jdbcType="VARCHAR" property="staffDeptName" />
+    <result column="StaffCode" jdbcType="VARCHAR" property="staffCode" />
+    <result column="StaffJoinTime" jdbcType="DATE" property="staffJoinTime" />
+    <result column="StaffGoUniversityTime" jdbcType="DATE" property="staffGoUniversityTime" />
+    <result column="StaffRetireTime" jdbcType="DATE" property="staffRetireTime" />
+    <result column="StaffTel" jdbcType="VARCHAR" property="staffTel" />
+    <result column="StaffRemark" jdbcType="VARCHAR" property="staffRemark" />
+    <result column="StaffSpouseName" jdbcType="VARCHAR" property="staffSpouseName" />
+    <result column="StaffSpouseCode" jdbcType="VARCHAR" property="staffSpouseCode" />
+    <result column="StaffSpouseTitleName" jdbcType="VARCHAR" property="staffSpouseTitleName" />
+    <result column="StaffSpousePostName" jdbcType="VARCHAR" property="staffSpousePostName" />
+    <result column="StaffSpouseDept" jdbcType="VARCHAR" property="staffSpouseDept" />
+    <result column="StaffSpouseKind" jdbcType="INTEGER" property="staffSpouseKind" />
+    <result column="StaffSpouseKindName" jdbcType="VARCHAR" property="staffSpouseKindName" />
+    <result column="StaffIsDeptManage" jdbcType="BIT" property="staffIsDeptManage" />
+    <result column="StaffPassword" jdbcType="VARCHAR" property="staffPassword" />
+    <result column="StaffBuyAccount" jdbcType="DECIMAL" property="staffBuyAccount" />
+    <result column="StaffFixFund" jdbcType="DECIMAL" property="staffFixFund" />
+    <result column="StaffSecondJoinTime" jdbcType="DATE" property="staffSecondJoinTime" />
+    <result column="StaffSecondRetireTime" jdbcType="DATE" property="staffSecondRetireTime" />
+    <result column="StaffDual" jdbcType="VARCHAR" property="staffDual" />
+    <result column="StaffRelation" jdbcType="VARCHAR" property="staffRelation" />
+    <result column="StaffDiscountRate" jdbcType="DOUBLE" property="staffDiscountRate" />
+    <result column="StaffFamilyCode" jdbcType="INTEGER" property="staffFamilyCode" />
+    <result column="StaffFirstJobTime" jdbcType="DATE" property="staffFirstJobTime" />
+    <result column="StaffUserName" jdbcType="VARCHAR" property="staffUserName" />
+    <result column="OtherVal" jdbcType="DOUBLE" property="otherVal" />
+    <result column="TimeVal" jdbcType="DOUBLE" property="timeVal" />
+    <result column="TotalVal" jdbcType="DOUBLE" property="totalVal" />
+    <result column="HouseId" jdbcType="INTEGER" property="houseId" />
+    <result column="HouseNo" jdbcType="VARCHAR" property="houseNo" />
+    <result column="HouseType" jdbcType="INTEGER" property="houseType" />
+    <result column="HouseTypeName" jdbcType="VARCHAR" property="houseTypeName" />
+    <result column="HouseLayout" jdbcType="INTEGER" property="houseLayout" />
+    <result column="HouseLayoutName" jdbcType="VARCHAR" property="houseLayoutName" />
+    <result column="HouseStruct" jdbcType="INTEGER" property="houseStruct" />
+    <result column="HouseStructName" jdbcType="VARCHAR" property="houseStructName" />
+    <result column="HouseStatus" jdbcType="INTEGER" property="houseStatus" />
+    <result column="HouseStatusName" jdbcType="VARCHAR" property="houseStatusName" />
+    <result column="HouseBuildArea" jdbcType="DOUBLE" property="houseBuildArea" />
+    <result column="HouseUsedArea" jdbcType="DOUBLE" property="houseUsedArea" />
+    <result column="HouseBasementArea" jdbcType="DOUBLE" property="houseBasementArea" />
+    <result column="HouseAddress" jdbcType="VARCHAR" property="houseAddress" />
+    <result column="BuildingId" jdbcType="INTEGER" property="buildingId" />
+    <result column="BuildingName" jdbcType="VARCHAR" property="buildingName" />
+    <result column="RegionId" jdbcType="INTEGER" property="regionId" />
+    <result column="RegionName" jdbcType="VARCHAR" property="regionName" />
+    <result column="ProId" jdbcType="VARCHAR" property="proId" />
+    <result column="HouseRemark" jdbcType="VARCHAR" property="houseRemark" />
+    <result column="HouseImage" jdbcType="VARCHAR" property="houseImage" />
+    <result column="HouseRental" jdbcType="DOUBLE" property="houseRental" />
+    <result column="HouseFinishTime" jdbcType="DATE" property="houseFinishTime" />
+    <result column="HouseRecordStatus" jdbcType="INTEGER" property="houseRecordStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ResidentId, HouseRel, HouseRelName, BookTime, IsDelete, ExpireTime, RentType, LastRentType, 
+    FamilyCode, StaffId, StaffNo, StaffName, StaffSex, StaffMarriageState, StaffTitleName, 
+    StaffTitleVal, StaffSpouseTitleVal, StaffPostName, StaffPostVal, StaffSpousePostVal, 
+    StaffTypeName, StaffStatusName, StaffDeptId, StaffDeptName, StaffCode, StaffJoinTime, 
+    StaffGoUniversityTime, StaffRetireTime, StaffTel, StaffRemark, StaffSpouseName, StaffSpouseCode, 
+    StaffSpouseTitleName, StaffSpousePostName, StaffSpouseDept, StaffSpouseKind, StaffSpouseKindName, 
+    StaffIsDeptManage, StaffPassword, StaffBuyAccount, StaffFixFund, StaffSecondJoinTime, 
+    StaffSecondRetireTime, StaffDual, StaffRelation, StaffDiscountRate, StaffFamilyCode, 
+    StaffFirstJobTime, StaffUserName, OtherVal, TimeVal, TotalVal, HouseId, HouseNo, 
+    HouseType, HouseTypeName, HouseLayout, HouseLayoutName, HouseStruct, HouseStructName, 
+    HouseStatus, HouseStatusName, HouseBuildArea, HouseUsedArea, HouseBasementArea, HouseAddress, 
+    BuildingId, BuildingName, RegionId, RegionName, ProId, HouseRemark, HouseImage, HouseRental, 
+    HouseFinishTime, HouseRecordStatus
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from view_hs_staffhouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouseExample">
+    delete from view_hs_staffhouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse">
+    insert into view_hs_staffhouse (ResidentId, HouseRel, HouseRelName, 
+      BookTime, IsDelete, ExpireTime, 
+      RentType, LastRentType, FamilyCode, 
+      StaffId, StaffNo, StaffName, 
+      StaffSex, StaffMarriageState, StaffTitleName, 
+      StaffTitleVal, StaffSpouseTitleVal, StaffPostName, 
+      StaffPostVal, StaffSpousePostVal, StaffTypeName, 
+      StaffStatusName, StaffDeptId, StaffDeptName, 
+      StaffCode, StaffJoinTime, StaffGoUniversityTime, 
+      StaffRetireTime, StaffTel, StaffRemark, 
+      StaffSpouseName, StaffSpouseCode, StaffSpouseTitleName, 
+      StaffSpousePostName, StaffSpouseDept, StaffSpouseKind, 
+      StaffSpouseKindName, StaffIsDeptManage, StaffPassword, 
+      StaffBuyAccount, StaffFixFund, StaffSecondJoinTime, 
+      StaffSecondRetireTime, StaffDual, StaffRelation, 
+      StaffDiscountRate, StaffFamilyCode, StaffFirstJobTime, 
+      StaffUserName, OtherVal, TimeVal, 
+      TotalVal, HouseId, HouseNo, 
+      HouseType, HouseTypeName, HouseLayout, 
+      HouseLayoutName, HouseStruct, HouseStructName, 
+      HouseStatus, HouseStatusName, HouseBuildArea, 
+      HouseUsedArea, HouseBasementArea, HouseAddress, 
+      BuildingId, BuildingName, RegionId, 
+      RegionName, ProId, HouseRemark, 
+      HouseImage, HouseRental, HouseFinishTime, 
+      HouseRecordStatus)
+    values (#{residentId,jdbcType=INTEGER}, #{houseRel,jdbcType=INTEGER}, #{houseRelName,jdbcType=VARCHAR}, 
+      #{bookTime,jdbcType=DATE}, #{isDelete,jdbcType=BIT}, #{expireTime,jdbcType=DATE}, 
+      #{rentType,jdbcType=VARCHAR}, #{lastRentType,jdbcType=VARCHAR}, #{familyCode,jdbcType=VARCHAR}, 
+      #{staffId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, 
+      #{staffSex,jdbcType=VARCHAR}, #{staffMarriageState,jdbcType=VARCHAR}, #{staffTitleName,jdbcType=VARCHAR}, 
+      #{staffTitleVal,jdbcType=INTEGER}, #{staffSpouseTitleVal,jdbcType=INTEGER}, #{staffPostName,jdbcType=VARCHAR}, 
+      #{staffPostVal,jdbcType=INTEGER}, #{staffSpousePostVal,jdbcType=INTEGER}, #{staffTypeName,jdbcType=VARCHAR}, 
+      #{staffStatusName,jdbcType=VARCHAR}, #{staffDeptId,jdbcType=INTEGER}, #{staffDeptName,jdbcType=VARCHAR}, 
+      #{staffCode,jdbcType=VARCHAR}, #{staffJoinTime,jdbcType=DATE}, #{staffGoUniversityTime,jdbcType=DATE}, 
+      #{staffRetireTime,jdbcType=DATE}, #{staffTel,jdbcType=VARCHAR}, #{staffRemark,jdbcType=VARCHAR}, 
+      #{staffSpouseName,jdbcType=VARCHAR}, #{staffSpouseCode,jdbcType=VARCHAR}, #{staffSpouseTitleName,jdbcType=VARCHAR}, 
+      #{staffSpousePostName,jdbcType=VARCHAR}, #{staffSpouseDept,jdbcType=VARCHAR}, #{staffSpouseKind,jdbcType=INTEGER}, 
+      #{staffSpouseKindName,jdbcType=VARCHAR}, #{staffIsDeptManage,jdbcType=BIT}, #{staffPassword,jdbcType=VARCHAR}, 
+      #{staffBuyAccount,jdbcType=DECIMAL}, #{staffFixFund,jdbcType=DECIMAL}, #{staffSecondJoinTime,jdbcType=DATE}, 
+      #{staffSecondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, #{staffRelation,jdbcType=VARCHAR}, 
+      #{staffDiscountRate,jdbcType=DOUBLE}, #{staffFamilyCode,jdbcType=INTEGER}, #{staffFirstJobTime,jdbcType=DATE}, 
+      #{staffUserName,jdbcType=VARCHAR}, #{otherVal,jdbcType=DOUBLE}, #{timeVal,jdbcType=DOUBLE}, 
+      #{totalVal,jdbcType=DOUBLE}, #{houseId,jdbcType=INTEGER}, #{houseNo,jdbcType=VARCHAR}, 
+      #{houseType,jdbcType=INTEGER}, #{houseTypeName,jdbcType=VARCHAR}, #{houseLayout,jdbcType=INTEGER}, 
+      #{houseLayoutName,jdbcType=VARCHAR}, #{houseStruct,jdbcType=INTEGER}, #{houseStructName,jdbcType=VARCHAR}, 
+      #{houseStatus,jdbcType=INTEGER}, #{houseStatusName,jdbcType=VARCHAR}, #{houseBuildArea,jdbcType=DOUBLE}, 
+      #{houseUsedArea,jdbcType=DOUBLE}, #{houseBasementArea,jdbcType=DOUBLE}, #{houseAddress,jdbcType=VARCHAR}, 
+      #{buildingId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, #{regionId,jdbcType=INTEGER}, 
+      #{regionName,jdbcType=VARCHAR}, #{proId,jdbcType=VARCHAR}, #{houseRemark,jdbcType=VARCHAR}, 
+      #{houseImage,jdbcType=VARCHAR}, #{houseRental,jdbcType=DOUBLE}, #{houseFinishTime,jdbcType=DATE}, 
+      #{houseRecordStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse">
+    insert into view_hs_staffhouse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="residentId != null">
+        ResidentId,
+      </if>
+      <if test="houseRel != null">
+        HouseRel,
+      </if>
+      <if test="houseRelName != null">
+        HouseRelName,
+      </if>
+      <if test="bookTime != null">
+        BookTime,
+      </if>
+      <if test="isDelete != null">
+        IsDelete,
+      </if>
+      <if test="expireTime != null">
+        ExpireTime,
+      </if>
+      <if test="rentType != null">
+        RentType,
+      </if>
+      <if test="lastRentType != null">
+        LastRentType,
+      </if>
+      <if test="familyCode != null">
+        FamilyCode,
+      </if>
+      <if test="staffId != null">
+        StaffId,
+      </if>
+      <if test="staffNo != null">
+        StaffNo,
+      </if>
+      <if test="staffName != null">
+        StaffName,
+      </if>
+      <if test="staffSex != null">
+        StaffSex,
+      </if>
+      <if test="staffMarriageState != null">
+        StaffMarriageState,
+      </if>
+      <if test="staffTitleName != null">
+        StaffTitleName,
+      </if>
+      <if test="staffTitleVal != null">
+        StaffTitleVal,
+      </if>
+      <if test="staffSpouseTitleVal != null">
+        StaffSpouseTitleVal,
+      </if>
+      <if test="staffPostName != null">
+        StaffPostName,
+      </if>
+      <if test="staffPostVal != null">
+        StaffPostVal,
+      </if>
+      <if test="staffSpousePostVal != null">
+        StaffSpousePostVal,
+      </if>
+      <if test="staffTypeName != null">
+        StaffTypeName,
+      </if>
+      <if test="staffStatusName != null">
+        StaffStatusName,
+      </if>
+      <if test="staffDeptId != null">
+        StaffDeptId,
+      </if>
+      <if test="staffDeptName != null">
+        StaffDeptName,
+      </if>
+      <if test="staffCode != null">
+        StaffCode,
+      </if>
+      <if test="staffJoinTime != null">
+        StaffJoinTime,
+      </if>
+      <if test="staffGoUniversityTime != null">
+        StaffGoUniversityTime,
+      </if>
+      <if test="staffRetireTime != null">
+        StaffRetireTime,
+      </if>
+      <if test="staffTel != null">
+        StaffTel,
+      </if>
+      <if test="staffRemark != null">
+        StaffRemark,
+      </if>
+      <if test="staffSpouseName != null">
+        StaffSpouseName,
+      </if>
+      <if test="staffSpouseCode != null">
+        StaffSpouseCode,
+      </if>
+      <if test="staffSpouseTitleName != null">
+        StaffSpouseTitleName,
+      </if>
+      <if test="staffSpousePostName != null">
+        StaffSpousePostName,
+      </if>
+      <if test="staffSpouseDept != null">
+        StaffSpouseDept,
+      </if>
+      <if test="staffSpouseKind != null">
+        StaffSpouseKind,
+      </if>
+      <if test="staffSpouseKindName != null">
+        StaffSpouseKindName,
+      </if>
+      <if test="staffIsDeptManage != null">
+        StaffIsDeptManage,
+      </if>
+      <if test="staffPassword != null">
+        StaffPassword,
+      </if>
+      <if test="staffBuyAccount != null">
+        StaffBuyAccount,
+      </if>
+      <if test="staffFixFund != null">
+        StaffFixFund,
+      </if>
+      <if test="staffSecondJoinTime != null">
+        StaffSecondJoinTime,
+      </if>
+      <if test="staffSecondRetireTime != null">
+        StaffSecondRetireTime,
+      </if>
+      <if test="staffDual != null">
+        StaffDual,
+      </if>
+      <if test="staffRelation != null">
+        StaffRelation,
+      </if>
+      <if test="staffDiscountRate != null">
+        StaffDiscountRate,
+      </if>
+      <if test="staffFamilyCode != null">
+        StaffFamilyCode,
+      </if>
+      <if test="staffFirstJobTime != null">
+        StaffFirstJobTime,
+      </if>
+      <if test="staffUserName != null">
+        StaffUserName,
+      </if>
+      <if test="otherVal != null">
+        OtherVal,
+      </if>
+      <if test="timeVal != null">
+        TimeVal,
+      </if>
+      <if test="totalVal != null">
+        TotalVal,
+      </if>
+      <if test="houseId != null">
+        HouseId,
+      </if>
+      <if test="houseNo != null">
+        HouseNo,
+      </if>
+      <if test="houseType != null">
+        HouseType,
+      </if>
+      <if test="houseTypeName != null">
+        HouseTypeName,
+      </if>
+      <if test="houseLayout != null">
+        HouseLayout,
+      </if>
+      <if test="houseLayoutName != null">
+        HouseLayoutName,
+      </if>
+      <if test="houseStruct != null">
+        HouseStruct,
+      </if>
+      <if test="houseStructName != null">
+        HouseStructName,
+      </if>
+      <if test="houseStatus != null">
+        HouseStatus,
+      </if>
+      <if test="houseStatusName != null">
+        HouseStatusName,
+      </if>
+      <if test="houseBuildArea != null">
+        HouseBuildArea,
+      </if>
+      <if test="houseUsedArea != null">
+        HouseUsedArea,
+      </if>
+      <if test="houseBasementArea != null">
+        HouseBasementArea,
+      </if>
+      <if test="houseAddress != null">
+        HouseAddress,
+      </if>
+      <if test="buildingId != null">
+        BuildingId,
+      </if>
+      <if test="buildingName != null">
+        BuildingName,
+      </if>
+      <if test="regionId != null">
+        RegionId,
+      </if>
+      <if test="regionName != null">
+        RegionName,
+      </if>
+      <if test="proId != null">
+        ProId,
+      </if>
+      <if test="houseRemark != null">
+        HouseRemark,
+      </if>
+      <if test="houseImage != null">
+        HouseImage,
+      </if>
+      <if test="houseRental != null">
+        HouseRental,
+      </if>
+      <if test="houseFinishTime != null">
+        HouseFinishTime,
+      </if>
+      <if test="houseRecordStatus != null">
+        HouseRecordStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="residentId != null">
+        #{residentId,jdbcType=INTEGER},
+      </if>
+      <if test="houseRel != null">
+        #{houseRel,jdbcType=INTEGER},
+      </if>
+      <if test="houseRelName != null">
+        #{houseRelName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookTime != null">
+        #{bookTime,jdbcType=DATE},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=DATE},
+      </if>
+      <if test="rentType != null">
+        #{rentType,jdbcType=VARCHAR},
+      </if>
+      <if test="lastRentType != null">
+        #{lastRentType,jdbcType=VARCHAR},
+      </if>
+      <if test="familyCode != null">
+        #{familyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="staffNo != null">
+        #{staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null">
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSex != null">
+        #{staffSex,jdbcType=VARCHAR},
+      </if>
+      <if test="staffMarriageState != null">
+        #{staffMarriageState,jdbcType=VARCHAR},
+      </if>
+      <if test="staffTitleName != null">
+        #{staffTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffTitleVal != null">
+        #{staffTitleVal,jdbcType=INTEGER},
+      </if>
+      <if test="staffSpouseTitleVal != null">
+        #{staffSpouseTitleVal,jdbcType=INTEGER},
+      </if>
+      <if test="staffPostName != null">
+        #{staffPostName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffPostVal != null">
+        #{staffPostVal,jdbcType=INTEGER},
+      </if>
+      <if test="staffSpousePostVal != null">
+        #{staffSpousePostVal,jdbcType=INTEGER},
+      </if>
+      <if test="staffTypeName != null">
+        #{staffTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffStatusName != null">
+        #{staffStatusName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffDeptId != null">
+        #{staffDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="staffDeptName != null">
+        #{staffDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffCode != null">
+        #{staffCode,jdbcType=VARCHAR},
+      </if>
+      <if test="staffJoinTime != null">
+        #{staffJoinTime,jdbcType=DATE},
+      </if>
+      <if test="staffGoUniversityTime != null">
+        #{staffGoUniversityTime,jdbcType=DATE},
+      </if>
+      <if test="staffRetireTime != null">
+        #{staffRetireTime,jdbcType=DATE},
+      </if>
+      <if test="staffTel != null">
+        #{staffTel,jdbcType=VARCHAR},
+      </if>
+      <if test="staffRemark != null">
+        #{staffRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSpouseName != null">
+        #{staffSpouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSpouseCode != null">
+        #{staffSpouseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSpouseTitleName != null">
+        #{staffSpouseTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSpousePostName != null">
+        #{staffSpousePostName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSpouseDept != null">
+        #{staffSpouseDept,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSpouseKind != null">
+        #{staffSpouseKind,jdbcType=INTEGER},
+      </if>
+      <if test="staffSpouseKindName != null">
+        #{staffSpouseKindName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffIsDeptManage != null">
+        #{staffIsDeptManage,jdbcType=BIT},
+      </if>
+      <if test="staffPassword != null">
+        #{staffPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="staffBuyAccount != null">
+        #{staffBuyAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="staffFixFund != null">
+        #{staffFixFund,jdbcType=DECIMAL},
+      </if>
+      <if test="staffSecondJoinTime != null">
+        #{staffSecondJoinTime,jdbcType=DATE},
+      </if>
+      <if test="staffSecondRetireTime != null">
+        #{staffSecondRetireTime,jdbcType=DATE},
+      </if>
+      <if test="staffDual != null">
+        #{staffDual,jdbcType=VARCHAR},
+      </if>
+      <if test="staffRelation != null">
+        #{staffRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="staffDiscountRate != null">
+        #{staffDiscountRate,jdbcType=DOUBLE},
+      </if>
+      <if test="staffFamilyCode != null">
+        #{staffFamilyCode,jdbcType=INTEGER},
+      </if>
+      <if test="staffFirstJobTime != null">
+        #{staffFirstJobTime,jdbcType=DATE},
+      </if>
+      <if test="staffUserName != null">
+        #{staffUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="otherVal != null">
+        #{otherVal,jdbcType=DOUBLE},
+      </if>
+      <if test="timeVal != null">
+        #{timeVal,jdbcType=DOUBLE},
+      </if>
+      <if test="totalVal != null">
+        #{totalVal,jdbcType=DOUBLE},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=INTEGER},
+      </if>
+      <if test="houseNo != null">
+        #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null">
+        #{houseType,jdbcType=INTEGER},
+      </if>
+      <if test="houseTypeName != null">
+        #{houseTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseLayout != null">
+        #{houseLayout,jdbcType=INTEGER},
+      </if>
+      <if test="houseLayoutName != null">
+        #{houseLayoutName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStruct != null">
+        #{houseStruct,jdbcType=INTEGER},
+      </if>
+      <if test="houseStructName != null">
+        #{houseStructName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStatus != null">
+        #{houseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="houseStatusName != null">
+        #{houseStatusName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseBuildArea != null">
+        #{houseBuildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="houseUsedArea != null">
+        #{houseUsedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="houseBasementArea != null">
+        #{houseBasementArea,jdbcType=DOUBLE},
+      </if>
+      <if test="houseAddress != null">
+        #{houseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="buildingName != null">
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="regionName != null">
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null">
+        #{proId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseRemark != null">
+        #{houseRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="houseImage != null">
+        #{houseImage,jdbcType=VARCHAR},
+      </if>
+      <if test="houseRental != null">
+        #{houseRental,jdbcType=DOUBLE},
+      </if>
+      <if test="houseFinishTime != null">
+        #{houseFinishTime,jdbcType=DATE},
+      </if>
+      <if test="houseRecordStatus != null">
+        #{houseRecordStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouseExample" resultType="java.lang.Long">
+    select count(*) from view_hs_staffhouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update view_hs_staffhouse
+    <set>
+      <if test="record.residentId != null">
+        ResidentId = #{record.residentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseRel != null">
+        HouseRel = #{record.houseRel,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseRelName != null">
+        HouseRelName = #{record.houseRelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookTime != null">
+        BookTime = #{record.bookTime,jdbcType=DATE},
+      </if>
+      <if test="record.isDelete != null">
+        IsDelete = #{record.isDelete,jdbcType=BIT},
+      </if>
+      <if test="record.expireTime != null">
+        ExpireTime = #{record.expireTime,jdbcType=DATE},
+      </if>
+      <if test="record.rentType != null">
+        RentType = #{record.rentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastRentType != null">
+        LastRentType = #{record.lastRentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.familyCode != null">
+        FamilyCode = #{record.familyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffId != null">
+        StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffNo != null">
+        StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffName != null">
+        StaffName = #{record.staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffSex != null">
+        StaffSex = #{record.staffSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffMarriageState != null">
+        StaffMarriageState = #{record.staffMarriageState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffTitleName != null">
+        StaffTitleName = #{record.staffTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffTitleVal != null">
+        StaffTitleVal = #{record.staffTitleVal,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffSpouseTitleVal != null">
+        StaffSpouseTitleVal = #{record.staffSpouseTitleVal,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffPostName != null">
+        StaffPostName = #{record.staffPostName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffPostVal != null">
+        StaffPostVal = #{record.staffPostVal,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffSpousePostVal != null">
+        StaffSpousePostVal = #{record.staffSpousePostVal,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffTypeName != null">
+        StaffTypeName = #{record.staffTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffStatusName != null">
+        StaffStatusName = #{record.staffStatusName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffDeptId != null">
+        StaffDeptId = #{record.staffDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffDeptName != null">
+        StaffDeptName = #{record.staffDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffCode != null">
+        StaffCode = #{record.staffCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffJoinTime != null">
+        StaffJoinTime = #{record.staffJoinTime,jdbcType=DATE},
+      </if>
+      <if test="record.staffGoUniversityTime != null">
+        StaffGoUniversityTime = #{record.staffGoUniversityTime,jdbcType=DATE},
+      </if>
+      <if test="record.staffRetireTime != null">
+        StaffRetireTime = #{record.staffRetireTime,jdbcType=DATE},
+      </if>
+      <if test="record.staffTel != null">
+        StaffTel = #{record.staffTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffRemark != null">
+        StaffRemark = #{record.staffRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffSpouseName != null">
+        StaffSpouseName = #{record.staffSpouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffSpouseCode != null">
+        StaffSpouseCode = #{record.staffSpouseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffSpouseTitleName != null">
+        StaffSpouseTitleName = #{record.staffSpouseTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffSpousePostName != null">
+        StaffSpousePostName = #{record.staffSpousePostName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffSpouseDept != null">
+        StaffSpouseDept = #{record.staffSpouseDept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffSpouseKind != null">
+        StaffSpouseKind = #{record.staffSpouseKind,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffSpouseKindName != null">
+        StaffSpouseKindName = #{record.staffSpouseKindName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffIsDeptManage != null">
+        StaffIsDeptManage = #{record.staffIsDeptManage,jdbcType=BIT},
+      </if>
+      <if test="record.staffPassword != null">
+        StaffPassword = #{record.staffPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffBuyAccount != null">
+        StaffBuyAccount = #{record.staffBuyAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.staffFixFund != null">
+        StaffFixFund = #{record.staffFixFund,jdbcType=DECIMAL},
+      </if>
+      <if test="record.staffSecondJoinTime != null">
+        StaffSecondJoinTime = #{record.staffSecondJoinTime,jdbcType=DATE},
+      </if>
+      <if test="record.staffSecondRetireTime != null">
+        StaffSecondRetireTime = #{record.staffSecondRetireTime,jdbcType=DATE},
+      </if>
+      <if test="record.staffDual != null">
+        StaffDual = #{record.staffDual,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffRelation != null">
+        StaffRelation = #{record.staffRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffDiscountRate != null">
+        StaffDiscountRate = #{record.staffDiscountRate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.staffFamilyCode != null">
+        StaffFamilyCode = #{record.staffFamilyCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffFirstJobTime != null">
+        StaffFirstJobTime = #{record.staffFirstJobTime,jdbcType=DATE},
+      </if>
+      <if test="record.staffUserName != null">
+        StaffUserName = #{record.staffUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherVal != null">
+        OtherVal = #{record.otherVal,jdbcType=DOUBLE},
+      </if>
+      <if test="record.timeVal != null">
+        TimeVal = #{record.timeVal,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalVal != null">
+        TotalVal = #{record.totalVal,jdbcType=DOUBLE},
+      </if>
+      <if test="record.houseId != null">
+        HouseId = #{record.houseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseNo != null">
+        HouseNo = #{record.houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseType != null">
+        HouseType = #{record.houseType,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseTypeName != null">
+        HouseTypeName = #{record.houseTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseLayout != null">
+        HouseLayout = #{record.houseLayout,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseLayoutName != null">
+        HouseLayoutName = #{record.houseLayoutName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseStruct != null">
+        HouseStruct = #{record.houseStruct,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseStructName != null">
+        HouseStructName = #{record.houseStructName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseStatus != null">
+        HouseStatus = #{record.houseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseStatusName != null">
+        HouseStatusName = #{record.houseStatusName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseBuildArea != null">
+        HouseBuildArea = #{record.houseBuildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.houseUsedArea != null">
+        HouseUsedArea = #{record.houseUsedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.houseBasementArea != null">
+        HouseBasementArea = #{record.houseBasementArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.houseAddress != null">
+        HouseAddress = #{record.houseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingId != null">
+        BuildingId = #{record.buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildingName != null">
+        BuildingName = #{record.buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionId != null">
+        RegionId = #{record.regionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.regionName != null">
+        RegionName = #{record.regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proId != null">
+        ProId = #{record.proId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseRemark != null">
+        HouseRemark = #{record.houseRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseImage != null">
+        HouseImage = #{record.houseImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseRental != null">
+        HouseRental = #{record.houseRental,jdbcType=DOUBLE},
+      </if>
+      <if test="record.houseFinishTime != null">
+        HouseFinishTime = #{record.houseFinishTime,jdbcType=DATE},
+      </if>
+      <if test="record.houseRecordStatus != null">
+        HouseRecordStatus = #{record.houseRecordStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update view_hs_staffhouse
+    set ResidentId = #{record.residentId,jdbcType=INTEGER},
+      HouseRel = #{record.houseRel,jdbcType=INTEGER},
+      HouseRelName = #{record.houseRelName,jdbcType=VARCHAR},
+      BookTime = #{record.bookTime,jdbcType=DATE},
+      IsDelete = #{record.isDelete,jdbcType=BIT},
+      ExpireTime = #{record.expireTime,jdbcType=DATE},
+      RentType = #{record.rentType,jdbcType=VARCHAR},
+      LastRentType = #{record.lastRentType,jdbcType=VARCHAR},
+      FamilyCode = #{record.familyCode,jdbcType=VARCHAR},
+      StaffId = #{record.staffId,jdbcType=INTEGER},
+      StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+      StaffName = #{record.staffName,jdbcType=VARCHAR},
+      StaffSex = #{record.staffSex,jdbcType=VARCHAR},
+      StaffMarriageState = #{record.staffMarriageState,jdbcType=VARCHAR},
+      StaffTitleName = #{record.staffTitleName,jdbcType=VARCHAR},
+      StaffTitleVal = #{record.staffTitleVal,jdbcType=INTEGER},
+      StaffSpouseTitleVal = #{record.staffSpouseTitleVal,jdbcType=INTEGER},
+      StaffPostName = #{record.staffPostName,jdbcType=VARCHAR},
+      StaffPostVal = #{record.staffPostVal,jdbcType=INTEGER},
+      StaffSpousePostVal = #{record.staffSpousePostVal,jdbcType=INTEGER},
+      StaffTypeName = #{record.staffTypeName,jdbcType=VARCHAR},
+      StaffStatusName = #{record.staffStatusName,jdbcType=VARCHAR},
+      StaffDeptId = #{record.staffDeptId,jdbcType=INTEGER},
+      StaffDeptName = #{record.staffDeptName,jdbcType=VARCHAR},
+      StaffCode = #{record.staffCode,jdbcType=VARCHAR},
+      StaffJoinTime = #{record.staffJoinTime,jdbcType=DATE},
+      StaffGoUniversityTime = #{record.staffGoUniversityTime,jdbcType=DATE},
+      StaffRetireTime = #{record.staffRetireTime,jdbcType=DATE},
+      StaffTel = #{record.staffTel,jdbcType=VARCHAR},
+      StaffRemark = #{record.staffRemark,jdbcType=VARCHAR},
+      StaffSpouseName = #{record.staffSpouseName,jdbcType=VARCHAR},
+      StaffSpouseCode = #{record.staffSpouseCode,jdbcType=VARCHAR},
+      StaffSpouseTitleName = #{record.staffSpouseTitleName,jdbcType=VARCHAR},
+      StaffSpousePostName = #{record.staffSpousePostName,jdbcType=VARCHAR},
+      StaffSpouseDept = #{record.staffSpouseDept,jdbcType=VARCHAR},
+      StaffSpouseKind = #{record.staffSpouseKind,jdbcType=INTEGER},
+      StaffSpouseKindName = #{record.staffSpouseKindName,jdbcType=VARCHAR},
+      StaffIsDeptManage = #{record.staffIsDeptManage,jdbcType=BIT},
+      StaffPassword = #{record.staffPassword,jdbcType=VARCHAR},
+      StaffBuyAccount = #{record.staffBuyAccount,jdbcType=DECIMAL},
+      StaffFixFund = #{record.staffFixFund,jdbcType=DECIMAL},
+      StaffSecondJoinTime = #{record.staffSecondJoinTime,jdbcType=DATE},
+      StaffSecondRetireTime = #{record.staffSecondRetireTime,jdbcType=DATE},
+      StaffDual = #{record.staffDual,jdbcType=VARCHAR},
+      StaffRelation = #{record.staffRelation,jdbcType=VARCHAR},
+      StaffDiscountRate = #{record.staffDiscountRate,jdbcType=DOUBLE},
+      StaffFamilyCode = #{record.staffFamilyCode,jdbcType=INTEGER},
+      StaffFirstJobTime = #{record.staffFirstJobTime,jdbcType=DATE},
+      StaffUserName = #{record.staffUserName,jdbcType=VARCHAR},
+      OtherVal = #{record.otherVal,jdbcType=DOUBLE},
+      TimeVal = #{record.timeVal,jdbcType=DOUBLE},
+      TotalVal = #{record.totalVal,jdbcType=DOUBLE},
+      HouseId = #{record.houseId,jdbcType=INTEGER},
+      HouseNo = #{record.houseNo,jdbcType=VARCHAR},
+      HouseType = #{record.houseType,jdbcType=INTEGER},
+      HouseTypeName = #{record.houseTypeName,jdbcType=VARCHAR},
+      HouseLayout = #{record.houseLayout,jdbcType=INTEGER},
+      HouseLayoutName = #{record.houseLayoutName,jdbcType=VARCHAR},
+      HouseStruct = #{record.houseStruct,jdbcType=INTEGER},
+      HouseStructName = #{record.houseStructName,jdbcType=VARCHAR},
+      HouseStatus = #{record.houseStatus,jdbcType=INTEGER},
+      HouseStatusName = #{record.houseStatusName,jdbcType=VARCHAR},
+      HouseBuildArea = #{record.houseBuildArea,jdbcType=DOUBLE},
+      HouseUsedArea = #{record.houseUsedArea,jdbcType=DOUBLE},
+      HouseBasementArea = #{record.houseBasementArea,jdbcType=DOUBLE},
+      HouseAddress = #{record.houseAddress,jdbcType=VARCHAR},
+      BuildingId = #{record.buildingId,jdbcType=INTEGER},
+      BuildingName = #{record.buildingName,jdbcType=VARCHAR},
+      RegionId = #{record.regionId,jdbcType=INTEGER},
+      RegionName = #{record.regionName,jdbcType=VARCHAR},
+      ProId = #{record.proId,jdbcType=VARCHAR},
+      HouseRemark = #{record.houseRemark,jdbcType=VARCHAR},
+      HouseImage = #{record.houseImage,jdbcType=VARCHAR},
+      HouseRental = #{record.houseRental,jdbcType=DOUBLE},
+      HouseFinishTime = #{record.houseFinishTime,jdbcType=DATE},
+      HouseRecordStatus = #{record.houseRecordStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
