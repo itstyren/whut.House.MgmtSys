@@ -138,3 +138,9 @@ export const getFixStaffById = (staffId, params) => { return axios.get(`${base}f
 export const getFixStaffByName = (staffName, params) => { return axios.get(`${base}fix/getDirectApplyByStaffName/${staffName}`, { params: params }) }
 // 维修直批-直批通过
 export const postFixSuper = (params) => { return axios.post(`${base}fix/addDirectApply`, params) }
+// 维修申请管理-获取维修申请
+export const getFixForm = (params) => { return axios.get(`${base}fix/getFixManagement`, { params: params }) }
+// 维修申请管理-重新受理
+export const getReAccept = (fixFormId, params) => { return axios.get(`${base}fix/reAccept/${fixFormId}`, { params: params }) }
+// 维修申请管理-重新审核
+export const getReAgree = (fixFormId, params) => { return axios.get(`${base}fix/reAgree/${fixFormId}`, { params: params }) }

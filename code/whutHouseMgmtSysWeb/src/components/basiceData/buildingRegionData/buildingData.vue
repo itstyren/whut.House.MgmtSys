@@ -278,13 +278,13 @@ export default {
     },
     //更换每页数量
     SizeChangeEvent(val) {
-      this.loading = true;
+      this.listLoading = true;
       this.size = val;
       this.getList();
     },
     //页码切换时
     CurrentChangeEvent(val) {
-      this.loading = true;
+      this.listLoading = true;
       this.page = val;
       this.getList();
     }

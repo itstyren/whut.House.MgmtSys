@@ -50,9 +50,17 @@ import houseResident from '@/components/basiceData/houseResident/resident'
 // 维修管理
 // 维修申请
 import fixApply from '@/components/fixManage/fixApply'
+// 维修受理
 import fixHanding from '@/components/fixManage/fixHanding'
+// 维修审核
 import fixReview from '@/components/fixManage/fixReview'
+// 维修直批
 import fixSuper from '@/components/fixManage/fixSuper'
+// 维修申请管理
+import fixApplyManager from '@/components/fixManage/fixApplyManager'
+// 维修结算
+import fixBalance from '@/components/fixManage/fixBalance'
+
 Vue.use(Router)
 
 // 定义路由数据
@@ -327,6 +335,18 @@ const routes = [
         path: 'fixSuper',
         component: fixSuper,
         name: 'fixSuper',
+        menuShow: true,
+      }, 
+      {
+        path: 'fixApplyManager',
+        component: fixApplyManager,
+        name: 'fixApplyManager',
+        menuShow: true,
+      },
+      {
+        path: 'fixBalance',
+        component: fixBalance,
+        name: 'fixBalance',
         menuShow: true,
       }
     ]

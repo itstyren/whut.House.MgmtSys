@@ -23,3 +23,18 @@ export const marriageState = [{
   value: '未知',
   label: '未知'
 }, ]
+
+// 维修定价表单选项
+export const fixBalanceCondition = [{
+  value: '1',
+  label: '单据号'
+}, {
+  value: '2',
+  label: '职工号'
+}, {
+  value: '3',
+  label: '住房号'
+}, {
+  value: '4',
+  label: '职工姓名'
+},]
