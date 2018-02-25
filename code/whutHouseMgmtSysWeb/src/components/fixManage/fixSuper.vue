@@ -187,7 +187,7 @@ export default {
     & > .super-form {
       margin: 30px auto 20px;
       padding-top: 20px;
-      width: 80%;
+      width: 97%;
       height: 40%;
     }
   }

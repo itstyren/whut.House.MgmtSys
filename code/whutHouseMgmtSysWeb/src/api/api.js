@@ -144,3 +144,9 @@ export const getFixForm = (params) => { return axios.get(`${base}fix/getFixManag
 export const getReAccept = (fixFormId, params) => { return axios.get(`${base}fix/reAccept/${fixFormId}`, { params: params }) }
 // 维修申请管理-重新审核
 export const getReAgree = (fixFormId, params) => { return axios.get(`${base}fix/reAgree/${fixFormId}`, { params: params }) }
+// 维修结算-多条件查找
+export const postFixmulticondition = (params) => { return axios.post(`${base}fix/getCheckByAllMultiCondition`, params) }
+// 维修结算-维修定价
+export const putFixPrice = (params) => { return axios.put(`${base}fix/addPrice`, params) }
+// 维修结算-维修结算
+export const putFixcheck = (params) => { return axios.put(`${base}fix/addCheck`, params) }
