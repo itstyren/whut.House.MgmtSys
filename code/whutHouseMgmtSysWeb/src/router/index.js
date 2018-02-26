@@ -2,64 +2,68 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/views/Home'
-import login from '@/views/login'
-import noPageFound from '@/views/404'
+import login from '@/views/login/index'
+import noPageFound from '@/views/errorPage/404'
 
 // 住房参数
-import paramSet from '@/components/sysManage/paramSet/indexParam'
-import houseType from '@/components/sysManage/paramSet/houseParam/houseType'
-import houseLayout from '@/components/sysManage/paramSet/houseParam/houseLayout'
-import houseStatus from '@/components/sysManage/paramSet/houseParam/houseStatus'
-import houseStruct from '@/components/sysManage/paramSet/houseParam/houseStruct'
+import paramSet from '@/views/sysManage/paramSet/indexParam'
+import houseType from '@/views/sysManage/paramSet/houseParam/houseType'
+import houseLayout from '@/views/sysManage/paramSet/houseParam/houseLayout'
+import houseStatus from '@/views/sysManage/paramSet/houseParam/houseStatus'
+import houseStruct from '@/views/sysManage/paramSet/houseParam/houseStruct'
 // 职工参数
-import staffDept from '@/components/sysManage/paramSet/staffParam/staffDept'
-import staffPost from '@/components/sysManage/paramSet/staffParam/staffPost'
-import staffTitle from '@/components/sysManage/paramSet/staffParam/staffTitle'
-import staffClass from '@/components/sysManage/paramSet/staffParam/staffClass'
-import staffStatus from '@/components/sysManage/paramSet/staffParam/staffStatus'
-import staffSpouse from '@/components/sysManage/paramSet/staffParam/staffSpouse'
+import staffDept from '@/views/sysManage/paramSet/staffParam/staffDept'
+import staffPost from '@/views/sysManage/paramSet/staffParam/staffPost'
+import staffTitle from '@/views/sysManage/paramSet/staffParam/staffTitle'
+import staffClass from '@/views/sysManage/paramSet/staffParam/staffClass'
+import staffStatus from '@/views/sysManage/paramSet/staffParam/staffStatus'
+import staffSpouse from '@/views/sysManage/paramSet/staffParam/staffSpouse'
 // 租赁参数
-import rentOption from '@/components/sysManage/paramSet/rentParam/rentOption'
-import rentPostArea from '@/components/sysManage/paramSet/rentParam/rentPostArea'
-import rentPostVal from '@/components/sysManage/paramSet/rentParam/rentPostVal'
-import rentTitleArea from '@/components/sysManage/paramSet/rentParam/rentTitleArea'
-import rentTitleVal from '@/components/sysManage/paramSet/rentParam/rentTitleVal'
+import rentOption from '@/views/sysManage/paramSet/rentParam/rentOption'
+import rentPostArea from '@/views/sysManage/paramSet/rentParam/rentPostArea'
+import rentPostVal from '@/views/sysManage/paramSet/rentParam/rentPostVal'
+import rentTitleArea from '@/views/sysManage/paramSet/rentParam/rentTitleArea'
+import rentTitleVal from '@/views/sysManage/paramSet/rentParam/rentTitleVal'
 // 维修参数
-import fixContent from '@/components/sysManage/paramSet/fixParam/fixContent'
+import fixContent from '@/views/sysManage/paramSet/fixParam/fixContent'
 // 租金参数
-import rentalOption from '@/components/sysManage/paramSet/rentalParam/rentalOption'
-import residentRel from '@/components/sysManage/paramSet/rentalParam/residentRel'
+import rentalOption from '@/views/sysManage/paramSet/rentalParam/rentalOption'
+import residentRel from '@/views/sysManage/paramSet/rentalParam/residentRel'
 
 // 基础数据
 // 楼栋区域
-import indexbldgRgn from '@/components/basiceData/buildingRegionData/indexNav'
-import region from '@/components/basiceData/buildingRegionData/regionData'
-import building from '@/components/basiceData/buildingRegionData/buildingData'
+import indexbldgRgn from '@/views/basiceData/buildingRegionData/indexNav'
+import region from '@/views/basiceData/buildingRegionData/regionData'
+import building from '@/views/basiceData/buildingRegionData/buildingData'
 // 房屋参数
-import indexHouse from '@/components/basiceData/houseData/indexNav'
-import house from '@/components/basiceData/houseData/houseData'
+import indexHouse from '@/views/basiceData/houseData/indexNav'
+import house from '@/views/basiceData/houseData/houseData'
 // 职工管理
-import indexStaff from '@/components/basiceData/staffData/indexNav'
-import staffData from '@/components/basiceData/staffData/staffData'
-import singleStaffData from '@/components/basiceData/staffData/singleStaffData'
-import addStaff from '@/components/basiceData/staffData/addStaff'
+import indexStaff from '@/views/basiceData/staffData/indexNav'
+import staffData from '@/views/basiceData/staffData/staffData'
+import singleStaffData from '@/views/basiceData/staffData/singleStaffData'
+import addStaff from '@/views/basiceData/staffData/addStaff'
 // 住房登记
-import indexResident from '@/components/basiceData/houseResident/indexNav'
-import houseResident from '@/components/basiceData/houseResident/resident'
+import indexResident from '@/views/basiceData/houseResident/indexNav'
+import houseResident from '@/views/basiceData/houseResident/resident'
 
 // 维修管理
 // 维修申请
-import fixApply from '@/components/fixManage/fixApply'
+import fixApply from '@/views/fixManage/fixApply'
 // 维修受理
-import fixHanding from '@/components/fixManage/fixHanding'
+import fixHanding from '@/views/fixManage/fixHanding'
 // 维修审核
-import fixReview from '@/components/fixManage/fixReview'
+import fixReview from '@/views/fixManage/fixReview'
 // 维修直批
-import fixSuper from '@/components/fixManage/fixSuper'
+import fixSuper from '@/views/fixManage/fixSuper'
 // 维修申请管理
-import fixApplyManager from '@/components/fixManage/fixApplyManager'
+import fixApplyManager from '@/views/fixManage/fixApplyManager'
 // 维修结算
-import fixBalance from '@/components/fixManage/fixBalance'
+import fixBalance from '@/views/fixManage/fixBalance'
+
+// 网上选房
+// 选房资格认定
+import HireStafferSet from '@/views/LeaseManage/HireStafferSet'
 
 Vue.use(Router)
 
@@ -349,6 +353,23 @@ const routes = [
         name: 'fixBalance',
         menuShow: true,
       }
+    ]
+  },
+  // 网上选房
+    {
+    path: '/LeaseManage',
+    component: Home,
+    name: 'LeaseManage',
+    meta: {
+      requireAuth: true
+    },
+    menuShow: true,
+    children: [{
+        path: 'HireStafferSet',
+        component: HireStafferSet,
+        name: 'HireStafferSet',
+        menuShow: true
+      },
     ]
   }
 ]
