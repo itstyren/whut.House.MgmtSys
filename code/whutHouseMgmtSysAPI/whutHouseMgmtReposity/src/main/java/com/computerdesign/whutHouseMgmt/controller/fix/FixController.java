@@ -1,12 +1,16 @@
 package com.computerdesign.whutHouseMgmt.controller.fix;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.text.View;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Request;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +49,10 @@ import com.computerdesign.whutHouseMgmt.service.houseregister.HouseRegisterSelec
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.StaffHouseRelService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.PageRowBounds;
 
 @RequestMapping(value = "/fix/")
 @Controller
@@ -134,12 +142,20 @@ public class FixController {
 	 * 根据员工姓名获取维修直批页面
 	 * @param staffName
 	 * @return
+	 * @throws UnsupportedEncodingException
 	 */
-	@RequestMapping(value = "getDirectApplyByStaffName",method = RequestMethod.POST)
+	@RequestMapping(value = "getDirectApplyByStaffName",method = RequestMethod.GET)
 	@ResponseBody
-	public Msg getDirectApplyByName(@RequestBody FixGetName fixGetName){
+	public Msg getDirectApplyByName(@RequestParam(value = "staffName")String staffName)  {
+		try {
+			staffName = URLDecoder.decode(staffName,"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(staffName);
 		//根据姓名获取全部的StaffVw
-		List<StaffVw> listStaffVw = staffVwService.getByStaffName(fixGetName.getStaffName());
+		List<StaffVw> listStaffVw = staffVwService.getByStaffName(staffName);
 		//无该姓名的员工
 		if (listStaffVw.isEmpty()) {
 			return Msg.error("无该员工");
@@ -311,13 +327,18 @@ public class FixController {
 	 */
 	@RequestMapping(value = "getFixManagement",method = RequestMethod.GET)
 	@ResponseBody
-	public Msg getFixManagement(){
+	public Msg getFixManagement(@RequestParam(value = "page",defaultValue = "0")Integer page,
+			@RequestParam(value = "size",defaultValue = "0")Integer size){
 		List<FixGetAgree> listFixGetAgree = new ArrayList<FixGetAgree>();
+		PageHelper.startPage(page, size);
 		List<ViewFix> listViewFix = viewFixService.getManagement();
 		for (ViewFix viewFix : listViewFix) {
 			listFixGetAgree.add(new FixGetAgree(viewFix));
 		}
-		return Msg.success("获取全部尚未定价的维修信息").add("data", listFixGetAgree);
+		PageInfo pageInfo = new PageInfo(listFixGetAgree);
+		return Msg.success("获取全部尚未定价的维修信息").add("data", pageInfo);
+//		PageInfo pageInfo = new PageInfo(listViewFix);
+//		return Msg.success("获取全部尚未定价的维修信息").add("data", listViewFix);
 	}
 	/**
 	 * 获取结算页面信息
@@ -325,9 +346,14 @@ public class FixController {
 	 */
 	@RequestMapping(value = "getCheck",method = RequestMethod.GET)
 	@ResponseBody
-	public Msg getFixCheck() {
+	public Msg getFixCheck(@RequestParam(value = "page",defaultValue = "0")Integer page,
+			@RequestParam(value = "size",defaultValue = "0")Integer size) {
+		
+		PageHelper.startPage(page, size);
 		List<ViewFix> list = viewFixService.getAll();
-		return Msg.success("获取维修结算页面").add("data", list);
+		
+		PageInfo pageInfo = new PageInfo(list);
+		return Msg.success("获取维修结算页面").add("data", pageInfo);
 	}
 	
 //	@RequestMapping(value = "getCheck",method = RequestMethod.GET)
@@ -347,9 +373,15 @@ public class FixController {
 	 */
 	@RequestMapping(value = "getCheckByAllMultiCondition",method = RequestMethod.POST)
 	@ResponseBody
-	public Msg getFixCheck(@RequestBody FixGetCheck fixGetCheck){
+	public Msg getFixCheck(@RequestBody FixGetCheck fixGetCheck,
+			@RequestParam(value = "page",defaultValue = "0")Integer page,
+			@RequestParam(value = "size", defaultValue = "0")Integer size){
+		
+		PageHelper.startPage(page, size);
 		List<ViewFix> list = viewFixService.getByMultiCondition(fixGetCheck);
-		return Msg.success().add("data", list);
+		
+		PageInfo pageInfo = new PageInfo(list);
+		return Msg.success().add("data", pageInfo);
 	}
 	
 	/**
