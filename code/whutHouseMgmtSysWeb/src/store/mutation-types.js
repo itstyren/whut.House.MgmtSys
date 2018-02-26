@@ -18,3 +18,6 @@ export const STAFF_MODIFY = 'staffModify'
 export const RESIDENT_STAFF = 'residentStaff'
 // 房屋登记成功后状态判断
 export const RESIDENT_SUCCESS = 'residentSuccess'
+
+// 维修直批获取职工房屋
+export const FIX_GETHOUSE = 'fixGetHouse'

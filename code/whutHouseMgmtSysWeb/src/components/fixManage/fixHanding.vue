@@ -90,7 +90,8 @@
                   <el-row type="flex" justify="center" v-if="!acceptStatus">
                     <el-col :span="7">
                       <el-form-item label="受理状态">
-                        <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝" inactive-text="通过" inactive-value="通过"></el-switch>
+                        <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
+                          inactive-text="通过" inactive-value="通过"></el-switch>
                       </el-form-item>
                     </el-col>
                     <el-col :span="1">
@@ -98,32 +99,33 @@
                     </el-col>
                   </el-row>
                   <!-- 非操作区域 -->
-                                    <el-row v-if="acceptStatus">
+                  <el-row v-if="acceptStatus">
                     <el-col :span="10" :offset="1">
                       <el-form-item label="受理人">
                         <el-input v-model="acceptForm.acceptMan" placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
-                                        <el-col :span="10" >
+                    <el-col :span="10">
                       <el-form-item label="受理时间">
                         <el-input v-model="acceptForm.acceptTime" placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                                    <el-row  v-if="acceptStatus">
+                  <el-row v-if="acceptStatus">
                     <el-col :span="10" :offset="1">
                       <el-form-item label="受理说明">
                         <el-input v-model="acceptForm.acceptNote" type="textarea" :rows="2" readonly placeholder="无额外描述"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                                    <el-row  v-if="acceptStatus">
+                  <el-row v-if="acceptStatus">
                     <el-col :span="10" :offset="1">
                       <el-form-item label="受理状态">
-                        <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝" inactive-text="通过" inactive-value="通过"  :disabled="acceptStatus"></el-switch>
+                        <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
+                          inactive-text="通过" inactive-value="通过" :disabled="acceptStatus"></el-switch>
                       </el-form-item>
                     </el-col>
-                                    </el-row>
+                  </el-row>
                 </el-form>
               </div>
             </div>
@@ -135,101 +137,108 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { putFixAccept } from "@/api/api";
-import indexNav from "./components/indexNav";
-import { checkNULL, checkTel } from "@/assets/function/validator";
-import common from "@/common/util.js";
-export default {
-  data() {
-    return {
-      listLoading: false,
-      acceptForm: {},
-      acceptStatus: false,
-      fixstatus: "hangding",
-      isSubmit: false,
-      // 表单验证规则
-      rules: {
-        acceptNote: {
-          required: true,
-          message: "请输入受理意见",
-          trigger: "blur"
+  import {
+    putFixAccept
+  } from "@/api/api";
+  import indexNav from "./components/indexNav";
+  import {
+    checkNULL,
+    checkTel
+  } from "@/assets/function/validator";
+  import common from "@/common/util.js";
+  export default {
+    data() {
+      return {
+        listLoading: false,
+        acceptForm: {},
+        acceptStatus: false,
+        fixstatus: "hangding",
+        isSubmit: false,
+        // 表单验证规则
+        rules: {
+          acceptNote: {
+            required: true,
+            message: "请输入受理意见",
+            trigger: "blur"
+          }
         }
-      }
-    };
-  },
-  components: {
-    indexNav
-  },
-  methods: {
-    getList(object) {
-      this.acceptForm = object.content;
-      this.acceptStatus = object.status;
+      };
     },
-    // 维修受理提交
-    acceptSubmit() {
-      if (this.acceptForm.acceptState == null)
-        this.acceptForm.acceptState = "通过";
-        console.log(this.acceptForm)
-      this.$confirm("确认通过审核", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$refs["acceptForm"].validate(valid => {
-            if (valid) {
-              this.listLoading = true;
-              let acceptForm = this.acceptForm;
-              let param = {
-                acceptMan: acceptForm.staffName,
-                acceptNote: acceptForm.acceptNote,
-                acceptState: acceptForm.acceptState,
-                id: acceptForm.id
-              };
-              putFixAccept(param).then(res => {
-                common.statusinfo(this, res.data);
-                this.isSubmit = !this.isSubmit;
-                this.listLoading = false;
-                if (res.data.status == "success")
-                  this.$refs["acceptForm"].resetFields();
-              });
-            }
+    components: {
+      indexNav
+    },
+    methods: {
+      getList(object) {
+        this.acceptForm = object.content;
+        this.acceptStatus = object.status;
+      },
+      // 维修受理提交
+      acceptSubmit() {
+        if (this.acceptForm.acceptState == null)
+          this.acceptForm.acceptState = "通过";
+        this.$confirm("确认通过审核", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            this.$refs["acceptForm"].validate(valid => {
+              if (valid) {
+                this.listLoading = true;
+                let acceptForm = this.acceptForm;
+                let param = {
+                  acceptMan: acceptForm.staffName,
+                  acceptNote: acceptForm.acceptNote,
+                  acceptState: acceptForm.acceptState,
+                  id: acceptForm.id
+                };
+                putFixAccept(param).then(res => {
+                  this.acceptForm={}
+                  common.statusinfo(this, res.data);
+                  this.isSubmit = !this.isSubmit;
+                  this.listLoading = false;
+                  if (res.data.status == "success")
+                    this.$refs["acceptForm"].resetFields();
+                });
+              }
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消审核"
+            });
           });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消审核"
-          });
-        });
+      }
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-.main-data {
-  padding-top: 20px;
-}
+  .main-data {
+    padding-top: 20px;
+  }
 
-.accept-form {
-  width: 80%;
-  background-color: #fff;
-  padding: 10px;
-  padding-bottom: 30px;
-  height: 90%;
-  margin: auto;
-  position: relative;
-  .need-accept {
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    & .is-accept {
-      position: relative;
-      border-bottom: 1px solid #e6ebf5;
-      margin-bottom: 20px;
+  .accept-form {
+    width: 80%;
+    background-color: #fff;
+    padding: 10px;
+    padding-bottom: 30px;
+    height: 90%;
+    margin: auto;
+    position: relative;
+    .need-accept {
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      & .is-accept {
+        position: relative;
+        border-bottom: 1px solid #e6ebf5;
+        margin-bottom: 20px;
+      }
     }
   }
-}
+
 </style>

@@ -266,11 +266,11 @@
 		$("#getByMultiCondition").click(
 				function() {
 					var data = {
-					//键的名字与Model属性名一致
-					'houseType':'周转房342萨达',
-					'useStatus':'空闲',
-					'houseZone':'武汉市洪山区工大路20号',
-					'building':'1栋（原鉴湖401栋）'
+						//键的名字与Model属性名一致
+						'houseType' : '周转房342萨达',
+						'useStatus' : '空闲',
+						'houseZone' : '武汉市洪山区工大路20号',
+						'building' : '1栋（原鉴湖401栋）'
 					};
 					ajaxRequestPostType("houseRegister/getByMultiCondition",
 							"POST", data);
@@ -280,16 +280,16 @@
 				function() {
 					var data = {
 						//键的名字与Model属性名一致
-						'houseType':'周转房342萨达',
-						'useStatus':'空闲',
-						'houseZone':'武汉市洪山区工大路20号',
-						'building':'1栋（原鉴湖401栋）',
-						'structName':'砖木',
-						'layoutName':'两室',
-						'areaParameter':{
-							'areaParamName':'建筑面积',
-							'minArea':35,
-							'maxArea':38
+						'houseType' : '周转房342萨达',
+						'useStatus' : '空闲',
+						'houseZone' : '武汉市洪山区工大路20号',
+						'building' : '1栋（原鉴湖401栋）',
+						'structName' : '砖木',
+						'layoutName' : '两室',
+						'areaParameter' : {
+							'areaParamName' : '建筑面积',
+							'minArea' : 35,
+							'maxArea' : 38
 						},
 						//'finishTime':['2017-01-31','2017-02-02'],
 						'finishTime' : {
@@ -311,29 +311,33 @@
 				'staffId' : 18,
 				'houseId' : 2,
 				'houseRel' : 26,
-				'bookTime':'2018-01-28'
+				'bookTime' : '2018-01-28'
 			};
 			ajaxRequestPostType("houseRegister/register", "PUT", data);
 		})
-		
+
 		$("#isRegistered").click(function() {
 			var data = {
 				//键的名字与Model属性名一致
 				'staffId' : 3,
 				'houseId' : 1,
 				'houseRel' : 26,
-				'bookTime':'2018-01-23'
+				'bookTime' : '2018-01-23'
 			};
 			ajaxRequestPostType("houseRegister/isRegistered", "POST", data);
 		})
-		
-		$("#relieveHouseRel").click(function() {
-			ajaxRequestPostType("houseRegister/relieveHouseRel/23", "DELETE", null);
-		})
-		
-		$("#deleteHouseRel").click(function() {
-			ajaxRequestPostType("houseRegister/deleteHouseRel/24", "DELETE", null);
-		})
+
+		$("#relieveHouseRel").click(
+				function() {
+					ajaxRequestPostType("houseRegister/relieveHouseRel/23",
+							"DELETE", null);
+				})
+
+		$("#deleteHouseRel").click(
+				function() {
+					ajaxRequestPostType("houseRegister/deleteHouseRel/24",
+							"DELETE", null);
+				})
 
 		$("#getRegisterRel").click(function() {
 			ajaxRequestGet("houseRegister/getRegisterRel");
@@ -342,24 +346,22 @@
 		$("#updateRegisterRel").click(
 				function() {
 					var data = [
-						//前台提交的应该是发生修改的数据
-						{
-							'houseParamId' : 6,
-							'houseParamName' : '周转房342萨达',
-							//'paramTypeId' : 1,
-							//'paramTypeName' : '住房类型',
-							'houseParamRel' : '购买,租赁',
-						//'isDelete' : false
-						},
-						{
-							'houseParamId' : 7,
-							'houseParamName' : '房改房萨达',
-							//'paramTypeId' : 1,
-							//'paramTypeName' : '住房类型',
-							'houseParamRel' : '购买,空闲,租赁',
-						//'isDelete' : false
-						} 
-					];
+					//前台提交的应该是发生修改的数据
+					{
+						'houseParamId' : 6,
+						'houseParamName' : '周转房342萨达',
+						//'paramTypeId' : 1,
+						//'paramTypeName' : '住房类型',
+						'houseParamRel' : '购买,租赁',
+					//'isDelete' : false
+					}, {
+						'houseParamId' : 7,
+						'houseParamName' : '房改房萨达',
+						//'paramTypeId' : 1,
+						//'paramTypeName' : '住房类型',
+						'houseParamRel' : '购买,空闲,租赁',
+					//'isDelete' : false
+					} ];
 					ajaxRequestPostType("houseRegister/updateRegisterRel",
 							"POST", data);
 				})
@@ -368,6 +370,48 @@
 
 	//数据导入
 	$(function() {
+	})
+
+	//网上选房
+	$(function() {
+
+		$("#activeShow").click(function() {
+			ajaxRequestGet("internetSelectHouse/activeShow");
+		})
+
+		$("#canselectShow").click(function() {
+			ajaxRequestGet("internetSelectHouse/canselectShow");
+		})
+
+		$("#selectStaffMultiCondition").click(
+				function() {
+					var data = {
+						'dept' : '道桥中心',
+						'post' : '厅级3'
+					};
+					ajaxRequestPostType(
+							"internetSelectHouse/selectStaffMultiCondition",
+							"POST", data);
+				})
+
+		$("#setCanselect").click(
+				function() {
+					//传递的是职工编号staffNo数组
+					var data = [ 1, 2 ];
+					ajaxRequestPostType("internetSelectHouse/setCanselect",
+							"POST", data);
+
+				})
+		
+		$("#cancelCanselect").click(
+				function() {
+					//传递的是职工编号staffNo数组
+					var data = [ 1, 2 ];
+					ajaxRequestPostType("internetSelectHouse/cancelCanselect",
+							"POST", data);
+
+				})
+
 	})
 </script>
 
@@ -392,6 +436,7 @@
 		<li><a href="#staffManagement" data-toggle="tab">职工管理</a></li>
 		<li><a href="#houseRegistration" data-toggle="tab">住房登记</a></li>
 		<li><a href="#dataImport" data-toggle="tab">数据导入</a></li>
+		<li><a href="#internetSelectHouse" data-toggle="tab">网上选房</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="rentEvent">
@@ -487,11 +532,11 @@
 			<input class="btn btn-info btn-lg" type="button" value="IsRegistered"
 				id="isRegistered" /> <br>
 			<h4>解除登记关系：不保留历史记录</h4>
-			<input class="btn btn-info btn-lg" type="button" value="RelieveHouseRel"
-				id="relieveHouseRel" /> <br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="RelieveHouseRel" id="relieveHouseRel" /> <br>
 			<h4>删除登记关系：保留历史记录</h4>
-			<input class="btn btn-info btn-lg" type="button" value="DeleteHouseRel"
-				id="deleteHouseRel" /> <br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="DeleteHouseRel" id="deleteHouseRel" /> <br>
 			<h4>登记关系设置:获取所有登记关系</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetRegisterRel" id="getRegisterRel" /> <br>
@@ -501,6 +546,24 @@
 		</div>
 		<div class="tab-pane fade" id="dataImport">
 			<!-- 数据导入 -->
+		</div>
+		<div class="tab-pane fade" id="internetSelectHouse">
+			<h4>选房资格认定：初始显示未设置选房职工</h4>
+			<input class="btn btn-info btn-lg" type="button" value="ActiveShow"
+				id="activeShow" /> <br>
+			<h4>选房资格认定：初始显示已设置选房职工</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="CanselectShow" id="canselectShow" /> <br>
+			<h4>选房资格认定：多条件查询员工信息</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="SelectStaffMultiCondition" id="selectStaffMultiCondition" />
+			<br>
+			<h4>选房资格认定：设为可点房</h4>
+			<input class="btn btn-info btn-lg" type="button" value="SetCanselect"
+				id="setCanselect" /> <br>
+			<h4>选房资格认定：撤销可点房</h4>
+			<input class="btn btn-info btn-lg" type="button" value="CancelCanselect"
+				id="cancelCanselect" /> <br>
 		</div>
 	</div>
 

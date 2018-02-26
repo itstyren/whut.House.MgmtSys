@@ -362,7 +362,7 @@
 
 		$("#fixAddAccept").click(function() {
 			var data = {
-				'id':49,
+				'id':45,
 				'acceptState':'通过',
 				'acceptNote':'先给他',
 				'acceptMan':'任天宇'
@@ -386,7 +386,7 @@
 		
 		$("#fixAddAgree").click(function() {
 			var data = {
-				'id':49,
+				'id':45,
 				'agreeState':'拒绝',
 				'agreeNote':'先给他同意，先给他同意',
 				'agreeMan':'任天宇'
@@ -419,7 +419,7 @@
 		
 		$("#fixAddPrice").click(function() {
 			var data = {
-				'id':49,
+				'id':45,
 				'price':'20.5',
 				'priceMan':'任天宇1'
 			};
@@ -428,18 +428,18 @@
 		
 		$("#fixAddCheck").click(function() {
 			var data = {
-				'id':49	,
+				'id':45	,
 				'checkMan':'任天宇1'
 			};
 			ajaxRequestPostType("fix/addCheck", "PUT", data);
 		})
 		
 		$("#fixReAccept").click(function() {
-			ajaxRequestGet("fix/reAccept/49");
+			ajaxRequestGet("fix/reAccept/45");
 		})
 		
 		$("#fixReAgree").click(function() {
-			ajaxRequestGet("fix/reAgree/49");
+			ajaxRequestGet("fix/reAgree/45");
 		})
 		
 		$("#fixGetManagement").click(function() {
