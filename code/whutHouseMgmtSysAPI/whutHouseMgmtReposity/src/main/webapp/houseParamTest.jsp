@@ -376,12 +376,12 @@
 		
 		$("#fixGetCheck").click(function() {
 			var data = {
-				'conditionId':4,
-				'conditionContent':'20',
+				//'conditionId':4,
+				//'conditionContent':'20',
 				'startTime':'2017-01-31',
 				'endTime':'2018-02-27'
 			};
-			ajaxRequestPostType("fix/getCheckByAllMultiCondition", "POST", data);
+			ajaxRequestPostType("fix/getCheckByAllMultiCondition?page=1&size=10", "POST", data);
 		})
 		
 		$("#fixAddAgree").click(function() {
@@ -401,11 +401,10 @@
 		
 		
 		$("#fixGetDirectApplyByStaffName").click(function() {
-			var data = {
-					'staffName':'任天宇'
-			};
-			ajaxRequestPostType("fix/getDirectApplyByStaffName", "POST", data);
+			ajaxRequestGet("fix/getDirectApplyByStaffName?staffName=任天宇");
 		})
+		
+
 		
 		$("#fixAddDirectApply").click(function() {
 			var data = {

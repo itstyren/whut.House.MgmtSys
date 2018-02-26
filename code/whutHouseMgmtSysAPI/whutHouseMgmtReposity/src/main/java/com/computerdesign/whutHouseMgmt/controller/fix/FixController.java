@@ -1,12 +1,16 @@
 package com.computerdesign.whutHouseMgmt.controller.fix;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.text.View;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Request;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +49,10 @@ import com.computerdesign.whutHouseMgmt.service.houseregister.HouseRegisterSelec
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.StaffHouseRelService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.PageRowBounds;
 
 @RequestMapping(value = "/fix/")
 @Controller
@@ -67,12 +75,6 @@ public class FixController {
 	
 	@Autowired
 	private RegisterService registerService;
-	
-//	@RequestMapping(value = "add",method = RequestMethod.POST)
-//	@ResponseBody
-//	public Msg addFix(@RequestBody Fix fix){
-//		
-//	}
 	
 	/**
 	 * 返回申请页面得到的数据
@@ -132,218 +134,28 @@ public class FixController {
 		return Msg.success("维修申请成功").add("data", fix);
 	}
 	
-	/**
-	 * 获取受理页面信息
-	 * @return
-	 */
-	@RequestMapping(value = "getAccept/{acceptState}" , method = RequestMethod.GET)
-	@ResponseBody
-	public Msg getFixAccept(@PathVariable("acceptState")Integer acceptState){
-		
-		if(acceptState == null){
-			return Msg.error("请检查你的网络");
-		}else if(0 == acceptState){
-			List<ViewFix> list = viewFixService.getAcceptUntil();
-			List<FixGetAccept> listFixGetAccept = new ArrayList<FixGetAccept>();
-			//将viewHouse中信息存入到list中
-			for (ViewFix viewFix : list) {
-				listFixGetAccept.add(new FixGetAccept(viewFix));
-			}
-			return Msg.success("获取全部的未受理信息").add("data", listFixGetAccept);
-		}else if (1 == acceptState) {
-			List<ViewFix> list = viewFixService.getAcceptHasBeen();
-			List<FixGetAccept> listFixGetAccept = new ArrayList<FixGetAccept>();
-			//将viewHouse中信息存入到list中
-			for (ViewFix viewFix : list) {
-				listFixGetAccept.add(new FixGetAccept(viewFix));
-			}
-			return Msg.success("获取全部的已进行受理操作的信息").add("data", listFixGetAccept);
-		}else{
-			return Msg.error("请检查你的网络");
-		}
-		
-	}
 	
-	/**
-	 * 维修受理处理
-	 * @param fixAddAccept
-	 * 封装以下数据
-	 * @param id
-	 * @param acceptState
-	 * @param acceptNote
-	 * @param acceptMan
-	 * @return
-	 */
-	@RequestMapping(value = "addAccept" , method = RequestMethod.PUT)
-	@ResponseBody
-	public Msg addFixAccept(@RequestBody FixAddAccept fixAddAccept){
-		//如果不符合受理条件
-		ViewFix viewFix = viewFixService.getById(fixAddAccept.getId()).get(0);
-		if (viewFix.getIsOver()) {
-			return Msg.error("该维修申请已经结束，无法进行受理操作");
-		}else if(viewFix.getAcceptState()!=null){
-			return Msg.error("该维修申请已经完成受理操作");
-		}
-		if ("拒绝".equals(fixAddAccept.getAcceptState())) {
-			Fix fix = fixService.get(fixAddAccept.getId());
-			fix.setAcceptMan(fixAddAccept.getAcceptMan());
-			fix.setAcceptState(fixAddAccept.getAcceptState());
-			fix.setAcceptNote(fixAddAccept.getAcceptNote());
-			fix.setAcceptTime(new Date());
-			//维修状态改变
-			fix.setFixState("受理拒绝");
-			fix.setIsOver(true);
-			fixService.update(fix);
-			return Msg.success("受理拒绝").add("data", fix);
-			
-		}else if ("通过".equals(fixAddAccept.getAcceptState())) {
-			//根据传递的id获取一个Fix对象
-			Fix fix = fixService.get(fixAddAccept.getId());
-			fix.setAcceptMan(fixAddAccept.getAcceptMan());
-			fix.setAcceptState(fixAddAccept.getAcceptState());
-			fix.setAcceptNote(fixAddAccept.getAcceptNote());
-			fix.setAcceptTime(new Date());
-			//维修状态改变
-			fix.setFixState("待审核");
-			fixService.update(fix);
-			return Msg.success("受理成功").add("data", fix);
-		}else  {
-			return Msg.error("请输入正确的信息");
-		}
-	}
 	
-	/**
-	 * 重新受理
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "reAccept/{id}",method = RequestMethod.GET)
-	@ResponseBody
-	public Msg reAccept(@PathVariable("id")Integer id){
-		Fix fix = fixService.get(id);
-		if (fix.getAcceptState()==null) {
-			return Msg.error("该维修申请尚未完成受理操作，无法重新受理");
-		}else if (fix.getAgreeState()!=null) {
-			return Msg.error("该维修申请已经完成审核操作，如欲重新受理，请先完成重新审核操作");
-		}
-		fix.setAcceptMan(null);
-		fix.setAcceptNote(null);
-		fix.setAcceptState(null);
-		fix.setAcceptTime(null);
-		fix.setFixState("待受理");
-		fix.setIsOver(false);
-		
-		fixService.updateStrict(fix);
-		return Msg.success("重新受理成功");
-	}
 	
-	/**
-	 * 重新审核
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "reAgree/{id}",method = RequestMethod.GET)
-	@ResponseBody
-	public Msg reAgree(@PathVariable("id")Integer id){
-		Fix fix = fixService.get(id);
-		if (fix.getAgreeState()==null) {
-			return Msg.error("该维修申请尚未完成审核操作，无法重新审核");
-		}if (fix.getPriceMan()!=null) {
-			return Msg.error("该维修已定价，无法重新审核");
-		}
-		fix.setAgreeMan(null);
-		fix.setAgreeNote(null);
-		fix.setAgreeState(null);
-		fix.setAgreeTime(null);
-		fix.setFixState("待审核");
-		fix.setIsOver(false);
-		
-		fixService.updateStrict(fix);
-		return Msg.success("重新审核成功"); 
-	}
-	/**
-	 * 获取维修审核页面的信息，agreeState=1为获取全部的已经过审核操作的信息
-	 * @param agreeState
-	 * @return
-	 */
-	@RequestMapping(value = "getAgree/{agreeState}",method = RequestMethod.GET)
-	@ResponseBody
-	public Msg getFixAgree(@PathVariable("agreeState")Integer agreeState){
-		if( agreeState == null){
-			return Msg.error("请检查你的网络");
-		}else if(0 == agreeState){
-			List<ViewFix> list = viewFixService.getAgreeUntil();
-			List<FixGetAgree> listFixGetAgree = new ArrayList<FixGetAgree>();
-			for (ViewFix viewFix : list) {
-				listFixGetAgree.add(new FixGetAgree(viewFix));
-			}
-			return Msg.success("获取全部的未审核信息").add("data", listFixGetAgree);
-		}else if (1 == agreeState) {
-			List<ViewFix> list = viewFixService.getAgreeHasBeen();
-			List<FixGetAgree> listFixGetAgree = new ArrayList<FixGetAgree>();
-			for (ViewFix viewFix : list) {
-				listFixGetAgree.add(new FixGetAgree(viewFix));
-			}
-			return Msg.success("获取全部的已经过审核操作的信息").add("data", listFixGetAgree);
-		}else{
-			return Msg.error("请检查你的网络");
-		}
-	}
-	
-	/**
-	 * 维修审核
-	 * @param fixAddAgree
-	 * @return
-	 */
-	@RequestMapping(value = "addAgree",method = RequestMethod.PUT)
-	@ResponseBody
-	public Msg addFixAgree(@RequestBody FixAddAgree fixAddAgree){
-		ViewFix viewFix = viewFixService.getById(fixAddAgree.getId()).get(0);
-		if (viewFix.getAcceptState()==null) {
-			return Msg.error("该维修申请尚未受理，无法被审核");
-		}else if (viewFix.getAgreeState()!=null) {
-			return Msg.error("该维修申请已被审核");
-		}
-		
-		if ("拒绝".equals(fixAddAgree.getAgreeState())) {
-			Fix fix = fixService.get(fixAddAgree.getId());
-			fix.setAgreeMan(fixAddAgree.getAgreeMan());
-			fix.setAgreeState(fixAddAgree.getAgreeState());
-			fix.setAgreeNote(fixAddAgree.getAgreeNote());
-			fix.setAgreeTime(new Date());
-			//维修状态改变
-			fix.setFixState("审核拒绝");
-			fix.setIsOver(true);
-			fixService.update(fix);
-			return Msg.success("审核拒绝").add("data", fix);
-			
-		}else if ("通过".equals(fixAddAgree.getAgreeState())) {
-			//根据传递的id获取一个Fix对象
-			Fix fix = fixService.get(fixAddAgree.getId());
-			fix.setAgreeMan(fixAddAgree.getAgreeMan());
-			fix.setAgreeState(fixAddAgree.getAgreeState());
-			fix.setAgreeNote(fixAddAgree.getAgreeNote());
-			fix.setIsOver(true);
-			fix.setAgreeTime(new Date());
-			//维修状态改变
-			fix.setFixState("已审核");
-			fixService.update(fix);
-			return Msg.success("审核成功").add("data", fix);
-		}else  {
-			return Msg.error("请输入正确的信息");
-		}
-	}
 	
 	/**
 	 * 根据员工姓名获取维修直批页面
 	 * @param staffName
 	 * @return
+	 * @throws UnsupportedEncodingException
 	 */
-	@RequestMapping(value = "getDirectApplyByStaffName",method = RequestMethod.POST)
+	@RequestMapping(value = "getDirectApplyByStaffName",method = RequestMethod.GET)
 	@ResponseBody
-	public Msg getDirectApplyByName(@RequestBody FixGetName fixGetName){
+	public Msg getDirectApplyByName(@RequestParam(value = "staffName")String staffName)  {
+		try {
+			staffName = URLDecoder.decode(staffName,"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(staffName);
 		//根据姓名获取全部的StaffVw
-		List<StaffVw> listStaffVw = staffVwService.getByStaffName(fixGetName.getStaffName());
+		List<StaffVw> listStaffVw = staffVwService.getByStaffName(staffName);
 		//无该姓名的员工
 		if (listStaffVw.isEmpty()) {
 			return Msg.error("无该员工");
@@ -515,13 +327,18 @@ public class FixController {
 	 */
 	@RequestMapping(value = "getFixManagement",method = RequestMethod.GET)
 	@ResponseBody
-	public Msg getFixManagement(){
+	public Msg getFixManagement(@RequestParam(value = "page",defaultValue = "0")Integer page,
+			@RequestParam(value = "size",defaultValue = "0")Integer size){
 		List<FixGetAgree> listFixGetAgree = new ArrayList<FixGetAgree>();
+		PageHelper.startPage(page, size);
 		List<ViewFix> listViewFix = viewFixService.getManagement();
 		for (ViewFix viewFix : listViewFix) {
 			listFixGetAgree.add(new FixGetAgree(viewFix));
 		}
-		return Msg.success("获取全部尚未定价的维修信息").add("data", listFixGetAgree);
+		PageInfo pageInfo = new PageInfo(listFixGetAgree);
+		return Msg.success("获取全部尚未定价的维修信息").add("data", pageInfo);
+//		PageInfo pageInfo = new PageInfo(listViewFix);
+//		return Msg.success("获取全部尚未定价的维修信息").add("data", listViewFix);
 	}
 	/**
 	 * 获取结算页面信息
@@ -529,9 +346,14 @@ public class FixController {
 	 */
 	@RequestMapping(value = "getCheck",method = RequestMethod.GET)
 	@ResponseBody
-	public Msg getFixCheck() {
+	public Msg getFixCheck(@RequestParam(value = "page",defaultValue = "0")Integer page,
+			@RequestParam(value = "size",defaultValue = "0")Integer size) {
+		
+		PageHelper.startPage(page, size);
 		List<ViewFix> list = viewFixService.getAll();
-		return Msg.success("获取维修结算页面").add("data", list);
+		
+		PageInfo pageInfo = new PageInfo(list);
+		return Msg.success("获取维修结算页面").add("data", pageInfo);
 	}
 	
 //	@RequestMapping(value = "getCheck",method = RequestMethod.GET)
@@ -551,9 +373,15 @@ public class FixController {
 	 */
 	@RequestMapping(value = "getCheckByAllMultiCondition",method = RequestMethod.POST)
 	@ResponseBody
-	public Msg getFixCheck(@RequestBody FixGetCheck fixGetCheck){
+	public Msg getFixCheck(@RequestBody FixGetCheck fixGetCheck,
+			@RequestParam(value = "page",defaultValue = "0")Integer page,
+			@RequestParam(value = "size", defaultValue = "0")Integer size){
+		
+		PageHelper.startPage(page, size);
 		List<ViewFix> list = viewFixService.getByMultiCondition(fixGetCheck);
-		return Msg.success().add("data", list);
+		
+		PageInfo pageInfo = new PageInfo(list);
+		return Msg.success().add("data", pageInfo);
 	}
 	
 	/**
