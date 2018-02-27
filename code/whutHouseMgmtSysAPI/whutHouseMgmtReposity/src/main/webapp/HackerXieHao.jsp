@@ -375,39 +375,128 @@
 	//网上选房
 	$(function() {
 
+		$("#cancelSetHousing").click(function() {
+			//传递的是职工编号staffNo数组
+			var data = [ 1, 2 ];
+			ajaxRequestPostType("housingSet/cancelSetHousing", "POST", data);
+
+		})
+
+		$("#setHousing").click(function() {
+			//传递的是职工编号staffNo数组
+			var data = [ 1, 2 ];
+			ajaxRequestPostType("housingSet/setHousing", "POST", data);
+
+		})
+
+		$("#activeHouseShowByMultiCondition").click(
+				function() {
+					var data = {
+						'houseType' : '标准价住房',
+						'areaParameter' : {
+							'areaParamName' : '使用面积',
+							'minArea' : 65,
+							'maxArea' : 75
+						}
+					};
+					ajaxRequestPostType(
+							"housingSet/activeHouseShowByMultiCondition",
+							"POST", data);
+				})
+
+		$("#canselectHouseShowByMultiCondition").click(
+				function() {
+					var data = {
+						'houseType' : '标准价住房',
+						'areaParameter' : {
+							'areaParamName' : '使用面积',
+							'minArea' : 55,
+							'maxArea' : 65
+						}
+					};
+					ajaxRequestPostType(
+							"housingSet/canselectHouseShowByMultiCondition",
+							"POST", data);
+				})
+
+		$("#canselectHouseShow").click(function() {
+			ajaxRequestGet("housingSet/canselectHouseShow");
+		})
+
+		$("#activeHouseShow").click(function() {
+			ajaxRequestGet("housingSet/activeHouseShow");
+		})
+
 		$("#activeShow").click(function() {
-			ajaxRequestGet("internetSelectHouse/activeShow");
+			ajaxRequestGet("selHouseQuaAuth/activeShow?page=2&size=10");
 		})
 
 		$("#canselectShow").click(function() {
-			ajaxRequestGet("internetSelectHouse/canselectShow");
+			ajaxRequestGet("selHouseQuaAuth/canselectShow?page=2&size=5");
 		})
 
-		$("#selectStaffMultiCondition").click(
+		$("#selectActiveStaffMultiCondition").click(
 				function() {
 					var data = {
 						'dept' : '道桥中心',
-						'post' : '厅级3'
+						'post' : '厅级3',
+						'title':'副研究员',
+						'type':'专业技术人员3',
+						'status':'调离',
+						'marriageState':'已婚',
+						'joinTime':{
+							'startTime':'1988-01-27',
+							'endTime':'1988-02-05'
+						},
+						'sex':'男'
 					};
 					ajaxRequestPostType(
-							"internetSelectHouse/selectStaffMultiCondition",
+							"selHouseQuaAuth/selectActiveStaffMultiCondition?page=2&size=1",
 							"POST", data);
-				})
-
-		$("#setCanselect").click(
-				function() {
-					//传递的是职工编号staffNo数组
-					var data = [ 1, 2 ];
-					ajaxRequestPostType("internetSelectHouse/setCanselect",
-							"POST", data);
-
 				})
 		
+		$("#selectCanselectStaffMultiCondition").click(
+				function() {
+					var data = {
+						'dept' : '道桥中心',
+						'post' : '厅级3',
+						'title':'副研究员',
+						'type':'专业技术人员3',
+						'status':'调离',
+						'marriageState':'已婚',
+						'joinTime':{
+							'startTime':'1988-01-27',
+							'endTime':'1988-02-05'
+						},
+						'sex':'男'
+					};
+					ajaxRequestPostType(
+							"selHouseQuaAuth/selectCanselectStaffMultiCondition?page=2&size=1",
+							"POST", data);
+				})
+
+		$("#selectByNoOrName").click(
+				function() {
+					var data = {
+						'conditionName' : '职工姓名',
+						'conditionValue' : '郑慧敏'
+					};
+					ajaxRequestPostType("selHouseQuaAuth/selectByNoOrName",
+							"POST", data);
+				})
+
+		$("#setCanselect").click(function() {
+			//传递的是职工编号staffNo数组
+			var data = [ 1, 2 ];
+			ajaxRequestPostType("selHouseQuaAuth/setCanselect", "POST", data);
+
+		})
+
 		$("#cancelCanselect").click(
 				function() {
 					//传递的是职工编号staffNo数组
 					var data = [ 1, 2 ];
-					ajaxRequestPostType("internetSelectHouse/cancelCanselect",
+					ajaxRequestPostType("selHouseQuaAuth/cancelCanselect",
 							"POST", data);
 
 				})
@@ -554,16 +643,45 @@
 			<h4>选房资格认定：初始显示已设置选房职工</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="CanselectShow" id="canselectShow" /> <br>
-			<h4>选房资格认定：多条件查询员工信息</h4>
+			<h4>选房资格认定：多条件查询未设置选房资格员工信息</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="SelectStaffMultiCondition" id="selectStaffMultiCondition" />
+				value="SelectActiveStaffMultiCondition" id="selectActiveStaffMultiCondition" />
+			<br>
+			<h4>选房资格认定：多条件查询已设置选房资格员工信息</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="SelectCanselectStaffMultiCondition" id="selectCanselectStaffMultiCondition" />
+			<br>
+			<h4>选房资格认定：根据职工号或职工姓名模糊查询</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="SelectByNoOrName" id="selectByNoOrName" />
 			<br>
 			<h4>选房资格认定：设为可点房</h4>
 			<input class="btn btn-info btn-lg" type="button" value="SetCanselect"
 				id="setCanselect" /> <br>
 			<h4>选房资格认定：撤销可点房</h4>
-			<input class="btn btn-info btn-lg" type="button" value="CancelCanselect"
-				id="cancelCanselect" /> <br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="CancelCanselect" id="cancelCanselect" /> <br>
+			<h4>房源设置：初始显示未设置房源</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="ActiveHouseShow" id="activeHouseShow" /> <br>
+			<h4>房源设置：初始显示已设置房源</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="CanselectHouseShow" id="canselectHouseShow" /> <br>
+			<h4>房源设置：根据组合条件查询显示已设置房源</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="CanselectHouseShowByMultiCondition"
+				id="canselectHouseShowByMultiCondition" /> <br>
+			<h4>房源设置：根据组合条件查询显示未设置房源</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="ActiveHouseShowByMultiCondition"
+				id="activeHouseShowByMultiCondition" /> <br>
+			<h4>房源设置：设置房源</h4>
+			<input class="btn btn-info btn-lg" type="button" value="SetHousing"
+				id="setHousing" /> <br>
+			<h4>房源设置：撤销设置房源</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="CancelSetHousing" id="cancelSetHousing" /> <br>
+			
 		</div>
 	</div>
 
