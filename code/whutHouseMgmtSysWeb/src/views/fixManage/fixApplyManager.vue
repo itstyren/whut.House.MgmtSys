@@ -70,14 +70,14 @@ export default {
     getList() {
       this.listLoading = true;
       let param = {
-        // page: this.page,
-        // size: this.size
+        page: this.page,
+        size: this.size
       };
       getFixForm(param)
         .then(res => {
           // console.log(res.data.data)
-          this.fixFormData = res.data.data.data;
-          //this.totalNum = res.data.data.data.total;
+          this.fixFormData = res.data.data.data.list;
+          this.totalNum = res.data.data.data.total;
           // console.log(res.data.data.list)
           this.listLoading = false;
         })
