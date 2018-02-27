@@ -443,7 +443,7 @@
 		})
 		
 		$("#fixGetManagement").click(function() {
-			ajaxRequestGet("fix/getFixManagement");
+			ajaxRequestGet("fix/getFixManagement?page=1&size=10");
 		})
 	})
 	

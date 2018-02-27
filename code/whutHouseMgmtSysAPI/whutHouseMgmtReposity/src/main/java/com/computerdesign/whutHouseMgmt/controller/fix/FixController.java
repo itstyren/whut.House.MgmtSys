@@ -329,16 +329,22 @@ public class FixController {
 	@ResponseBody
 	public Msg getFixManagement(@RequestParam(value = "page",defaultValue = "0")Integer page,
 			@RequestParam(value = "size",defaultValue = "0")Integer size){
+		
 		List<FixGetAgree> listFixGetAgree = new ArrayList<FixGetAgree>();
+		
 		PageHelper.startPage(page, size);
 		List<ViewFix> listViewFix = viewFixService.getManagement();
+		
 		for (ViewFix viewFix : listViewFix) {
 			listFixGetAgree.add(new FixGetAgree(viewFix));
 		}
-		PageInfo pageInfo = new PageInfo(listFixGetAgree);
+		//让listViewFix设置好pageInfo中的各项属性，再替换pageInfo中的list
+		PageInfo pageInfo = new PageInfo(listViewFix);
+		pageInfo.setList(listFixGetAgree);
+		
 		return Msg.success("获取全部尚未定价的维修信息").add("data", pageInfo);
 //		PageInfo pageInfo = new PageInfo(listViewFix);
-//		return Msg.success("获取全部尚未定价的维修信息").add("data", listViewFix);
+//		return Msg.success("获取全部尚未定价的维修信息").add("data", pageInfo);
 	}
 	/**
 	 * 获取结算页面信息
@@ -379,6 +385,7 @@ public class FixController {
 		
 		PageHelper.startPage(page, size);
 		List<ViewFix> list = viewFixService.getByMultiCondition(fixGetCheck);
+		
 		
 		PageInfo pageInfo = new PageInfo(list);
 		return Msg.success().add("data", pageInfo);
