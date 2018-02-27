@@ -174,9 +174,6 @@ import * as types from '../store/mutation-types'
 	 }
 
    },
-   components: {
-
-   },
    methods:{
       //折叠     
       collapse: function () {
