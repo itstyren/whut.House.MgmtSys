@@ -13,7 +13,8 @@
       </div>
       <!-- 主菜单 -->
       <div class="main-menu" :router="true">
-        <el-menu default-active="/index" menu-trigger="click" unique-opened mode="horizontal" background-color="#373d41" text-color="#fff" :default-active="$route.path" router>
+        <el-menu default-active="/index" menu-trigger="click" unique-opened mode="horizontal" background-color="#373d41" text-color="#fff"
+           router>
           <!-- 首页 -->
           <el-menu-item index="/index">
             <template slot="title">
@@ -64,7 +65,7 @@
             <el-menu-item index="/fixManage/fixReview">
               <span>维修审核</span>
             </el-menu-item>
-            <el-menu-item index="/basic/staff">
+            <el-menu-item index="/fixManage/fixBalance">
               <span>维修结算</span>
             </el-menu-item>
             <el-menu-item index="/fixManage/fixSuper">
@@ -73,6 +74,18 @@
             <el-menu-item index="/fixManage/fixApply">
               <span>维修申请</span>
             </el-menu-item>
+            <el-menu-item index="/fixManage/fixApplyManager">
+              <span>维修申请管理</span>
+            </el-menu-item>
+          </el-submenu>
+          <!-- 网上选房 -->
+          <el-submenu index="LeaseManage">
+            <template slot="title">
+              <span slot="title">网上选房</span>
+            </template>
+            <el-menu-item index="/LeaseManage/HireStafferSet">
+              <span>选房资格认定</span>
+            </el-menu-item>
           </el-submenu>
         </el-menu>
       </div>
@@ -80,13 +93,9 @@
       <div class="account">
         <el-dropdown trigger="click">
           <span class="dropdown-main">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-account"></use>
-            </svg>
+            <my-icon icon-class="account" />
             <span>{{RoleName}}</span>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-more_unfold"></use>
-            </svg>
+            <my-icon icon-class="more_unfold" />
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
@@ -120,8 +129,7 @@
       return {
         RoleName: this.$store.state.Name
       };
-    },
-    components: {}
+    }
   };
 
 </script>

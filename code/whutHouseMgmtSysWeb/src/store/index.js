@@ -21,6 +21,8 @@ export default new Vuex.Store({
     residentStaffData: {},
     // 登记成功标志
     residentSuccess: false,
+    // 维修直批数据查询
+    fixHouselist: [],
   },
   mutations: {
     // 登录时写入
@@ -70,6 +72,10 @@ export default new Vuex.Store({
     // 房屋登记成功后状态改变供登记表区域检测变化重新获取
     [types.RESIDENT_SUCCESS]: (state) => {
       state.residentSuccess = !state.residentSuccess
+    },
+    // 维修直批获取职工拥有的房屋
+    [types.FIX_GETHOUSE]: (state, houseList) => {
+      state.fixHouselist = houseList
     }
   }
 })

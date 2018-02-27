@@ -1,10 +1,11 @@
 build/*.js
 config/*.js
 src/views/*.vue
+src/views/login/*.vue
 src/assets/icons/*js
 src/store/*.js
 src/router/*js
-src/common/*.js
+src/utils/*.js
 src/assets/function/*.js
 src/assets/data/*.js
 

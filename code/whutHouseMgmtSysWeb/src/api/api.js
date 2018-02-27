@@ -136,3 +136,29 @@ export const putFixReview = (params) => { return axios.put(`${base}fix/addAgree`
 // 维修直批-获取职工
 export const getFixStaffById = (staffId, params) => { return axios.get(`${base}fix/getDirectApplyByStaffId/${staffId}`, { params: params }) }
 export const getFixStaffByName = (staffName, params) => { return axios.get(`${base}fix/getDirectApplyByStaffName/${staffName}`, { params: params }) }
+// 维修直批-直批通过
+export const postFixSuper = (params) => { return axios.post(`${base}fix/addDirectApply`, params) }
+// 维修申请管理-获取维修申请
+export const getFixForm = (params) => { return axios.get(`${base}fix/getFixManagement`, { params: params }) }
+// 维修申请管理-重新受理
+export const getReAccept = (fixFormId, params) => { return axios.get(`${base}fix/reAccept/${fixFormId}`, { params: params }) }
+// 维修申请管理-重新审核
+export const getReAgree = (fixFormId, params) => { return axios.get(`${base}fix/reAgree/${fixFormId}`, { params: params }) }
+// 维修结算-多条件查找
+export const postFixmulticondition = (param, data) => { return axios.post(`${base}fix/getCheckByAllMultiCondition?page=${param.page}&size=${param.size}`, data) }
+// 维修结算-维修定价
+export const putFixPrice = (params) => { return axios.put(`${base}fix/addPrice`, params) }
+// 维修结算-维修结算
+export const putFixcheck = (params) => { return axios.put(`${base}fix/addCheck`, params) }
+
+// 网上选房
+// 选房资格认定-初始获取可选房员工
+export const getCanSelectStaff = (params) => { return axios.get(`${base}internetSelectHouse/activeShow`, { params: params }) }
+// 选房资格认定-初始获已设置选房员工
+export const getHaveSelectStaff = (params) => { return axios.get(`${base}internetSelectHouse/canselectShow`, { params: params }) }
+// 选房资格认定-多条件查询后可选房员工
+export const postCanSelectmulticondition = (param, data) => { return axios.post(`${base}internetSelectHouse/selectStaffMultiCondition`, data) }
+// 选房资格认定-员工设为可选房
+export const postSetCanSelect = (param, data) => { return axios.post(`${base}internetSelectHouse/setCanselect`, data) }
+// 选房资格认定-员工取消可选房
+export const postcancelCanSelect = (param, data) => { return axios.post(`${base}internetSelectHouse/cancelCanselect`, data) }

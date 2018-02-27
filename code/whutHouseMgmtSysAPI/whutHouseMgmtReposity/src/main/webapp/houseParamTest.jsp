@@ -362,7 +362,7 @@
 
 		$("#fixAddAccept").click(function() {
 			var data = {
-				'id':49,
+				'id':45,
 				'acceptState':'通过',
 				'acceptNote':'先给他',
 				'acceptMan':'任天宇'
@@ -376,17 +376,17 @@
 		
 		$("#fixGetCheck").click(function() {
 			var data = {
-				'conditionId':4,
-				'conditionContent':'20',
+				//'conditionId':4,
+				//'conditionContent':'20',
 				'startTime':'2017-01-31',
 				'endTime':'2018-02-27'
 			};
-			ajaxRequestPostType("fix/getCheckByAllMultiCondition", "POST", data);
+			ajaxRequestPostType("fix/getCheckByAllMultiCondition?page=1&size=10", "POST", data);
 		})
 		
 		$("#fixAddAgree").click(function() {
 			var data = {
-				'id':49,
+				'id':45,
 				'agreeState':'拒绝',
 				'agreeNote':'先给他同意，先给他同意',
 				'agreeMan':'任天宇'
@@ -401,11 +401,10 @@
 		
 		
 		$("#fixGetDirectApplyByStaffName").click(function() {
-			var data = {
-					'staffName':'任天宇'
-			};
-			ajaxRequestPostType("fix/getDirectApplyByStaffName", "POST", data);
+			ajaxRequestGet("fix/getDirectApplyByStaffName?staffName=任天宇");
 		})
+		
+
 		
 		$("#fixAddDirectApply").click(function() {
 			var data = {
@@ -420,7 +419,7 @@
 		
 		$("#fixAddPrice").click(function() {
 			var data = {
-				'id':49,
+				'id':45,
 				'price':'20.5',
 				'priceMan':'任天宇1'
 			};
@@ -429,22 +428,22 @@
 		
 		$("#fixAddCheck").click(function() {
 			var data = {
-				'id':49	,
+				'id':45	,
 				'checkMan':'任天宇1'
 			};
 			ajaxRequestPostType("fix/addCheck", "PUT", data);
 		})
 		
 		$("#fixReAccept").click(function() {
-			ajaxRequestGet("fix/reAccept/49");
+			ajaxRequestGet("fix/reAccept/45");
 		})
 		
 		$("#fixReAgree").click(function() {
-			ajaxRequestGet("fix/reAgree/49");
+			ajaxRequestGet("fix/reAgree/45");
 		})
 		
 		$("#fixGetManagement").click(function() {
-			ajaxRequestGet("fix/getFixManagement");
+			ajaxRequestGet("fix/getFixManagement?page=1&size=10");
 		})
 	})
 	
