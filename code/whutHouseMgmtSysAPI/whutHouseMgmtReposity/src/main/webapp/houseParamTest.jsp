@@ -396,7 +396,7 @@
 		
 		
 		$("#fixGetDirectApplyByStaffId").click(function() {
-			ajaxRequestGet("fix/getDirectApplyByStaffId/2");
+			ajaxRequestGet("fix/getDirectApplyByStaffId/1");
 		})
 		
 		
@@ -447,6 +447,26 @@
 		})
 	})
 	
+	
+	//房屋申请
+	$(function() {
+		$("#hireGetApply").click(function() {
+			ajaxRequestGet("hire/getApply/1");
+		})
+		
+		$("#hireAddApply").click(function() {
+			var data = {
+				'staffId' : 18,
+				'houseId' : 7,
+				'phone' : '1654646465',
+				'email' : '546456@163.com',
+				'reason':'心情不好'
+			};
+			ajaxRequestPostType("hire/addApply", "POST", data);
+		})
+
+		
+	})
 	//下拉列表
 	$(function() {
 		$("#building_regionDown").click(function() {
@@ -472,6 +492,8 @@
 		<li><a href="#role" data-toggle="tab">role</a></li>
 		<li><a href="#userlogin" data-toggle="tab">login</a></li>
 		<li><a href="#fix" data-toggle="tab">fix</a></li>
+		<li><a href="#hire" data-toggle="tab">hire</a></li>
+		
 		
 	</ul>
 	<div id="myTabContent" class="tab-content">
@@ -577,6 +599,14 @@
 			<input class="btn btn-info btn-lg" type="button" value="重新审核" id="fixReAgree" /> <br> <br></div>
 			<div>维修管理页面<br>
 			<input class="btn btn-info btn-lg" type="button" value="维修管理页面" id="fixGetManagement" /> <br> <br></div>
+		</div>
+		<div class="tab-pane fade" id="hire">
+			<br><div>
+			<div>住房申请页面 <br>
+			<input class="btn btn-info btn-lg" type="button" value="住房申请页面" id="hireGetApply" /> <br> <br></div>
+			</div>
+			<div>住房申请 <br>
+			<input class="btn btn-info btn-lg" type="button" value="住房申请" id="hireAddApply" /> <br> <br></div>
 		</div>
 	</div>
 

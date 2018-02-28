@@ -147,6 +147,7 @@ public class FixController {
 	@RequestMapping(value = "getDirectApplyByStaffName",method = RequestMethod.GET)
 	@ResponseBody
 	public Msg getDirectApplyByName(@RequestParam(value = "staffName")String staffName)  {
+		//TODO 按照姓名获取页面
 		try {
 			staffName = URLDecoder.decode(staffName,"utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -260,6 +261,7 @@ public class FixController {
 		
 		//根据staffId获取该员工全部的residentVw信息 
 		List<ResidentVw> listResidentVw = registerService.getResidentVwByStaffId(staffId);
+		//TODO 未设置IsDelete导致筛选过多
 		
 		//房屋数组信息
 		List<HouseGetDirectApply> listHouseGetDirectApply = new ArrayList<HouseGetDirectApply>();
