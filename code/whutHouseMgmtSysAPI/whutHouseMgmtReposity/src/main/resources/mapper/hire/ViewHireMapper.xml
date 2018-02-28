@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computerdesign.whutHouseMgmt.dao.hire.HireMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.hire.Hire">
-    <id column="Id" jdbcType="INTEGER" property="id" />
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.hire.ViewHireMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.hire.ViewHire">
+    <result column="Id" jdbcType="INTEGER" property="id" />
     <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
     <result column="HouseId" jdbcType="INTEGER" property="houseId" />
     <result column="ApplyTime" jdbcType="DATE" property="applyTime" />
     <result column="Reason" jdbcType="VARCHAR" property="reason" />
     <result column="Phone" jdbcType="VARCHAR" property="phone" />
     <result column="HireState" jdbcType="VARCHAR" property="hireState" />
     <result column="StaffVal" jdbcType="DOUBLE" property="staffVal" />
-    <result column="JobLevelVal" jdbcType="DOUBLE" property="jobLevelVal" />
+    <result column="JobLevelVal" jdbcType="INTEGER" property="jobLevelVal" />
     <result column="TimeVal" jdbcType="DOUBLE" property="timeVal" />
     <result column="MultiVal" jdbcType="DOUBLE" property="multiVal" />
     <result column="OtherVal" jdbcType="DOUBLE" property="otherVal" />
@@ -89,18 +90,18 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, StaffId, HouseId, ApplyTime, Reason, Phone, HireState, StaffVal, JobLevelVal, 
+    Id, StaffId, StaffNo, HouseId, ApplyTime, Reason, Phone, HireState, StaffVal, JobLevelVal, 
     TimeVal, MultiVal, OtherVal, AcceptNote, AcceptState, AcceptMan, AcceptTime, AgreeNote, 
     AgreeState, AgreeMan, AgreeTime, ApproveNote, ApproveState, ApproveMan, ApproveTime, 
     IsOver, FeedBack, Email
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.HireExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.ViewHireExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Hs_Hire
+    from view_hs_hire
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -108,52 +109,45 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from Hs_Hire
-    where Id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Hs_Hire
-    where Id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.HireExample">
-    delete from Hs_Hire
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.ViewHireExample">
+    delete from view_hs_hire
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.Hire">
-    insert into Hs_Hire (Id, StaffId, HouseId, 
-      ApplyTime, Reason, Phone, 
-      HireState, StaffVal, JobLevelVal, 
-      TimeVal, MultiVal, OtherVal, 
-      AcceptNote, AcceptState, AcceptMan, 
-      AcceptTime, AgreeNote, AgreeState, 
-      AgreeMan, AgreeTime, ApproveNote, 
-      ApproveState, ApproveMan, ApproveTime, 
-      IsOver, FeedBack, Email
-      )
-    values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
-      #{applyTime,jdbcType=DATE}, #{reason,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{hireState,jdbcType=VARCHAR}, #{staffVal,jdbcType=DOUBLE}, #{jobLevelVal,jdbcType=DOUBLE}, 
-      #{timeVal,jdbcType=DOUBLE}, #{multiVal,jdbcType=DOUBLE}, #{otherVal,jdbcType=DOUBLE}, 
-      #{acceptNote,jdbcType=VARCHAR}, #{acceptState,jdbcType=VARCHAR}, #{acceptMan,jdbcType=VARCHAR}, 
-      #{acceptTime,jdbcType=DATE}, #{agreeNote,jdbcType=VARCHAR}, #{agreeState,jdbcType=VARCHAR}, 
-      #{agreeMan,jdbcType=VARCHAR}, #{agreeTime,jdbcType=DATE}, #{approveNote,jdbcType=VARCHAR}, 
-      #{approveState,jdbcType=VARCHAR}, #{approveMan,jdbcType=VARCHAR}, #{approveTime,jdbcType=DATE}, 
-      #{isOver,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.ViewHire">
+    insert into view_hs_hire (Id, StaffId, StaffNo, 
+      HouseId, ApplyTime, Reason, 
+      Phone, HireState, StaffVal, 
+      JobLevelVal, TimeVal, MultiVal, 
+      OtherVal, AcceptNote, AcceptState, 
+      AcceptMan, AcceptTime, AgreeNote, 
+      AgreeState, AgreeMan, AgreeTime, 
+      ApproveNote, ApproveState, ApproveMan, 
+      ApproveTime, IsOver, FeedBack, 
+      Email)
+    values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, 
+      #{houseId,jdbcType=INTEGER}, #{applyTime,jdbcType=DATE}, #{reason,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{hireState,jdbcType=VARCHAR}, #{staffVal,jdbcType=DOUBLE}, 
+      #{jobLevelVal,jdbcType=INTEGER}, #{timeVal,jdbcType=DOUBLE}, #{multiVal,jdbcType=DOUBLE}, 
+      #{otherVal,jdbcType=DOUBLE}, #{acceptNote,jdbcType=VARCHAR}, #{acceptState,jdbcType=VARCHAR}, 
+      #{acceptMan,jdbcType=VARCHAR}, #{acceptTime,jdbcType=DATE}, #{agreeNote,jdbcType=VARCHAR}, 
+      #{agreeState,jdbcType=VARCHAR}, #{agreeMan,jdbcType=VARCHAR}, #{agreeTime,jdbcType=DATE}, 
+      #{approveNote,jdbcType=VARCHAR}, #{approveState,jdbcType=VARCHAR}, #{approveMan,jdbcType=VARCHAR}, 
+      #{approveTime,jdbcType=DATE}, #{isOver,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.Hire">
-    insert into Hs_Hire
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.ViewHire">
+    insert into view_hs_hire
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
       </if>
       <if test="staffId != null">
         StaffId,
+      </if>
+      <if test="staffNo != null">
+        StaffNo,
       </if>
       <if test="houseId != null">
         HouseId,
@@ -238,6 +232,9 @@
       <if test="staffId != null">
         #{staffId,jdbcType=INTEGER},
       </if>
+      <if test="staffNo != null">
+        #{staffNo,jdbcType=VARCHAR},
+      </if>
       <if test="houseId != null">
         #{houseId,jdbcType=INTEGER},
       </if>
@@ -257,7 +254,7 @@
         #{staffVal,jdbcType=DOUBLE},
       </if>
       <if test="jobLevelVal != null">
-        #{jobLevelVal,jdbcType=DOUBLE},
+        #{jobLevelVal,jdbcType=INTEGER},
       </if>
       <if test="timeVal != null">
         #{timeVal,jdbcType=DOUBLE},
@@ -315,20 +312,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.HireExample" resultType="java.lang.Long">
-    select count(*) from Hs_Hire
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.ViewHireExample" resultType="java.lang.Long">
+    select count(*) from view_hs_hire
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Hs_Hire
+    update view_hs_hire
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.staffId != null">
         StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffNo != null">
+        StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       </if>
       <if test="record.houseId != null">
         HouseId = #{record.houseId,jdbcType=INTEGER},
@@ -349,7 +349,7 @@
         StaffVal = #{record.staffVal,jdbcType=DOUBLE},
       </if>
       <if test="record.jobLevelVal != null">
-        JobLevelVal = #{record.jobLevelVal,jdbcType=DOUBLE},
+        JobLevelVal = #{record.jobLevelVal,jdbcType=INTEGER},
       </if>
       <if test="record.timeVal != null">
         TimeVal = #{record.timeVal,jdbcType=DOUBLE},
@@ -411,16 +411,17 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Hs_Hire
+    update view_hs_hire
     set Id = #{record.id,jdbcType=INTEGER},
       StaffId = #{record.staffId,jdbcType=INTEGER},
+      StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       HouseId = #{record.houseId,jdbcType=INTEGER},
       ApplyTime = #{record.applyTime,jdbcType=DATE},
       Reason = #{record.reason,jdbcType=VARCHAR},
       Phone = #{record.phone,jdbcType=VARCHAR},
       HireState = #{record.hireState,jdbcType=VARCHAR},
       StaffVal = #{record.staffVal,jdbcType=DOUBLE},
-      JobLevelVal = #{record.jobLevelVal,jdbcType=DOUBLE},
+      JobLevelVal = #{record.jobLevelVal,jdbcType=INTEGER},
       TimeVal = #{record.timeVal,jdbcType=DOUBLE},
       MultiVal = #{record.multiVal,jdbcType=DOUBLE},
       OtherVal = #{record.otherVal,jdbcType=DOUBLE},
@@ -442,119 +443,5 @@
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.Hire">
-    update Hs_Hire
-    <set>
-      <if test="staffId != null">
-        StaffId = #{staffId,jdbcType=INTEGER},
-      </if>
-      <if test="houseId != null">
-        HouseId = #{houseId,jdbcType=INTEGER},
-      </if>
-      <if test="applyTime != null">
-        ApplyTime = #{applyTime,jdbcType=DATE},
-      </if>
-      <if test="reason != null">
-        Reason = #{reason,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        Phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="hireState != null">
-        HireState = #{hireState,jdbcType=VARCHAR},
-      </if>
-      <if test="staffVal != null">
-        StaffVal = #{staffVal,jdbcType=DOUBLE},
-      </if>
-      <if test="jobLevelVal != null">
-        JobLevelVal = #{jobLevelVal,jdbcType=DOUBLE},
-      </if>
-      <if test="timeVal != null">
-        TimeVal = #{timeVal,jdbcType=DOUBLE},
-      </if>
-      <if test="multiVal != null">
-        MultiVal = #{multiVal,jdbcType=DOUBLE},
-      </if>
-      <if test="otherVal != null">
-        OtherVal = #{otherVal,jdbcType=DOUBLE},
-      </if>
-      <if test="acceptNote != null">
-        AcceptNote = #{acceptNote,jdbcType=VARCHAR},
-      </if>
-      <if test="acceptState != null">
-        AcceptState = #{acceptState,jdbcType=VARCHAR},
-      </if>
-      <if test="acceptMan != null">
-        AcceptMan = #{acceptMan,jdbcType=VARCHAR},
-      </if>
-      <if test="acceptTime != null">
-        AcceptTime = #{acceptTime,jdbcType=DATE},
-      </if>
-      <if test="agreeNote != null">
-        AgreeNote = #{agreeNote,jdbcType=VARCHAR},
-      </if>
-      <if test="agreeState != null">
-        AgreeState = #{agreeState,jdbcType=VARCHAR},
-      </if>
-      <if test="agreeMan != null">
-        AgreeMan = #{agreeMan,jdbcType=VARCHAR},
-      </if>
-      <if test="agreeTime != null">
-        AgreeTime = #{agreeTime,jdbcType=DATE},
-      </if>
-      <if test="approveNote != null">
-        ApproveNote = #{approveNote,jdbcType=VARCHAR},
-      </if>
-      <if test="approveState != null">
-        ApproveState = #{approveState,jdbcType=VARCHAR},
-      </if>
-      <if test="approveMan != null">
-        ApproveMan = #{approveMan,jdbcType=VARCHAR},
-      </if>
-      <if test="approveTime != null">
-        ApproveTime = #{approveTime,jdbcType=DATE},
-      </if>
-      <if test="isOver != null">
-        IsOver = #{isOver,jdbcType=BIT},
-      </if>
-      <if test="feedBack != null">
-        FeedBack = #{feedBack,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        Email = #{email,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where Id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.Hire">
-    update Hs_Hire
-    set StaffId = #{staffId,jdbcType=INTEGER},
-      HouseId = #{houseId,jdbcType=INTEGER},
-      ApplyTime = #{applyTime,jdbcType=DATE},
-      Reason = #{reason,jdbcType=VARCHAR},
-      Phone = #{phone,jdbcType=VARCHAR},
-      HireState = #{hireState,jdbcType=VARCHAR},
-      StaffVal = #{staffVal,jdbcType=DOUBLE},
-      JobLevelVal = #{jobLevelVal,jdbcType=DOUBLE},
-      TimeVal = #{timeVal,jdbcType=DOUBLE},
-      MultiVal = #{multiVal,jdbcType=DOUBLE},
-      OtherVal = #{otherVal,jdbcType=DOUBLE},
-      AcceptNote = #{acceptNote,jdbcType=VARCHAR},
-      AcceptState = #{acceptState,jdbcType=VARCHAR},
-      AcceptMan = #{acceptMan,jdbcType=VARCHAR},
-      AcceptTime = #{acceptTime,jdbcType=DATE},
-      AgreeNote = #{agreeNote,jdbcType=VARCHAR},
-      AgreeState = #{agreeState,jdbcType=VARCHAR},
-      AgreeMan = #{agreeMan,jdbcType=VARCHAR},
-      AgreeTime = #{agreeTime,jdbcType=DATE},
-      ApproveNote = #{approveNote,jdbcType=VARCHAR},
-      ApproveState = #{approveState,jdbcType=VARCHAR},
-      ApproveMan = #{approveMan,jdbcType=VARCHAR},
-      ApproveTime = #{approveTime,jdbcType=DATE},
-      IsOver = #{isOver,jdbcType=BIT},
-      FeedBack = #{feedBack,jdbcType=VARCHAR},
-      Email = #{email,jdbcType=VARCHAR}
-    where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

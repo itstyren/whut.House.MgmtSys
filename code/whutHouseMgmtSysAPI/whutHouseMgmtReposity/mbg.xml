@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration
   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
@@ -12,16 +12,16 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql:///whlglease" userId="root" password="XH05250619.">
+			connectionURL="jdbc:mysql:///whlglease" userId="root" password="qweasd">
 		</jdbcConnection>
 
 		<javaTypeResolver>
-			<property name="forceBigDecimals" value="false" />
+			<property name="forceBigDecimals" value="false" /> 
 		</javaTypeResolver>
-
+ 
 		<!-- 指定javabean的生成位置 -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.internetselecthouse"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.hire"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -29,13 +29,13 @@
 
 		<!-- 指定sql映射文件的生成位置 -->
 
-		<sqlMapGenerator targetPackage="mapper.internetselecthouse" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper.hire" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.internetselecthouse" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.hire" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		
@@ -43,7 +43,7 @@
 		<!-- <table tableName="view_au_all_login" domainObjectName="UserLoginReturn">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> --> 
-		<table tableName="view_hs_staffhouse" domainObjectName="StaffHouse">
+		<table tableName="view_hs_hire" domainObjectName="ViewHire">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> 
 		<!-- <table tableName="view_hs_resident" domainObjectName="ResidentVw">

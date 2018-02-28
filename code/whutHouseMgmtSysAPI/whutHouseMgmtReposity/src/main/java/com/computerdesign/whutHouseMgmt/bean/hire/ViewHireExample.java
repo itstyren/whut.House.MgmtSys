@@ -5,14 +5,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class HireExample {
+public class ViewHireExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public HireExample() {
+    public ViewHireExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -249,6 +249,76 @@ public class HireExample {
 
         public Criteria andStaffIdNotBetween(Integer value1, Integer value2) {
             addCriterion("StaffId not between", value1, value2, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoIsNull() {
+            addCriterion("StaffNo is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoIsNotNull() {
+            addCriterion("StaffNo is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoEqualTo(String value) {
+            addCriterion("StaffNo =", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoNotEqualTo(String value) {
+            addCriterion("StaffNo <>", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoGreaterThan(String value) {
+            addCriterion("StaffNo >", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoGreaterThanOrEqualTo(String value) {
+            addCriterion("StaffNo >=", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoLessThan(String value) {
+            addCriterion("StaffNo <", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoLessThanOrEqualTo(String value) {
+            addCriterion("StaffNo <=", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoLike(String value) {
+            addCriterion("StaffNo like", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoNotLike(String value) {
+            addCriterion("StaffNo not like", value, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoIn(List<String> values) {
+            addCriterion("StaffNo in", values, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoNotIn(List<String> values) {
+            addCriterion("StaffNo not in", values, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoBetween(String value1, String value2) {
+            addCriterion("StaffNo between", value1, value2, "staffNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNoNotBetween(String value1, String value2) {
+            addCriterion("StaffNo not between", value1, value2, "staffNo");
             return (Criteria) this;
         }
 
@@ -652,52 +722,52 @@ public class HireExample {
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValEqualTo(Double value) {
+        public Criteria andJobLevelValEqualTo(Integer value) {
             addCriterion("JobLevelVal =", value, "jobLevelVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValNotEqualTo(Double value) {
+        public Criteria andJobLevelValNotEqualTo(Integer value) {
             addCriterion("JobLevelVal <>", value, "jobLevelVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValGreaterThan(Double value) {
+        public Criteria andJobLevelValGreaterThan(Integer value) {
             addCriterion("JobLevelVal >", value, "jobLevelVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValGreaterThanOrEqualTo(Double value) {
+        public Criteria andJobLevelValGreaterThanOrEqualTo(Integer value) {
             addCriterion("JobLevelVal >=", value, "jobLevelVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValLessThan(Double value) {
+        public Criteria andJobLevelValLessThan(Integer value) {
             addCriterion("JobLevelVal <", value, "jobLevelVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValLessThanOrEqualTo(Double value) {
+        public Criteria andJobLevelValLessThanOrEqualTo(Integer value) {
             addCriterion("JobLevelVal <=", value, "jobLevelVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValIn(List<Double> values) {
+        public Criteria andJobLevelValIn(List<Integer> values) {
             addCriterion("JobLevelVal in", values, "jobLevelVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValNotIn(List<Double> values) {
+        public Criteria andJobLevelValNotIn(List<Integer> values) {
             addCriterion("JobLevelVal not in", values, "jobLevelVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValBetween(Double value1, Double value2) {
+        public Criteria andJobLevelValBetween(Integer value1, Integer value2) {
             addCriterion("JobLevelVal between", value1, value2, "jobLevelVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValNotBetween(Double value1, Double value2) {
+        public Criteria andJobLevelValNotBetween(Integer value1, Integer value2) {
             addCriterion("JobLevelVal not between", value1, value2, "jobLevelVal");
             return (Criteria) this;
         }
