@@ -2,6 +2,8 @@ package com.computerdesign.whutHouseMgmt.bean.houseregister;
 
 import java.util.Date;
 
+import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.RentalScope;
+
 /**
  * 全面多条件查询
  * 
@@ -18,20 +20,31 @@ public class HouseAllSelectModel {
 	// 住房区域
 	private String houseZone;
 
-	//住房结构
+	// 住房结构
 	private String structName;
-	
-	//户型
+
+	// 户型
 	private String layoutName;
-	
+
 	// 楼栋
 	private String building;
 
-	//面积
+	// 面积
 	private AreaParameter areaParameter;
-	
-	//建设时间
+
+	// 建设时间
 	private FinishTime finishTime;
+
+	// 租金
+	private RentalScope rentalScope;
+
+	public RentalScope getRentalScope() {
+		return rentalScope;
+	}
+
+	public void setRentalScope(RentalScope rentalScope) {
+		this.rentalScope = rentalScope;
+	}
 
 	public String getHouseType() {
 		return houseType;
@@ -81,8 +94,6 @@ public class HouseAllSelectModel {
 		this.building = building;
 	}
 
-	
-
 	public AreaParameter getAreaParameter() {
 		return areaParameter;
 	}
@@ -98,7 +109,5 @@ public class HouseAllSelectModel {
 	public void setFinishTime(FinishTime finishTime) {
 		this.finishTime = finishTime;
 	}
-	
-	
-	
+
 }
