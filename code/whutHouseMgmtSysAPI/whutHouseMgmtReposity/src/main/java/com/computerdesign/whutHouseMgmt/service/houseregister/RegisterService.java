@@ -1,4 +1,4 @@
-﻿package com.computerdesign.whutHouseMgmt.service.houseregister;
+package com.computerdesign.whutHouseMgmt.service.houseregister;
 
 import java.util.List;
 
@@ -131,6 +131,7 @@ public class RegisterService{
 		ResidentVwExample example = new ResidentVwExample();
 		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample.Criteria criteria = example.createCriteria();
 		criteria.andStaffIdEqualTo(staffId);
+		criteria.andIsDeleteEqualTo(false);
 		return residentVwMapper.selectByExample(example);
 	}
 	/**
