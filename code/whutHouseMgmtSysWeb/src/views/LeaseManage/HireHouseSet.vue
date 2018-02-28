@@ -10,7 +10,7 @@
               <b>首页</b>
             </el-breadcrumb-item>
             <el-breadcrumb-item>自助选房</el-breadcrumb-item>
-            <el-breadcrumb-item>选房资格认定</el-breadcrumb-item>
+            <el-breadcrumb-item>房源设置</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
         <!-- 下方主内容 -->
@@ -21,66 +21,62 @@
               <div class="card">
                 <el-row>
                   <el-col :span="4">
-                    <el-form-item label="部门">
-                      <el-select v-model="queryForm.dept" size="small" :clearable="true" placeholder="所有部门">
-                        <el-option v-for="v in deptData" :key="v.staffParamId" :value="v.staffParamName" :label="v.staffParamName"></el-option>
+                    <el-form-item label="住房类型">
+                      <el-select v-model="queryForm.dept" size="small" :clearable="true" placeholder="所有类型">
+                        <el-option v-for="v in typeData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
-                    <el-form-item label="职务">
-                      <el-select v-model="queryForm.post" size="small" :clearable="true" placeholder="所有职务">
-                        <el-option v-for="v in postData" :key="v.staffParamId" :value="v.staffParamName" :label="v.staffParamName"></el-option>
+                    <el-form-item label="使用状态">
+                      <el-select v-model="queryForm.post" size="small" :clearable="true" placeholder="所有状态">
+                        <el-option v-for="v in statusData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
-                    <el-form-item label="职称">
-                      <el-select v-model="queryForm.title" size="small" :clearable="true" placeholder="所有职称">
-                        <el-option v-for="v in titleData" :key="v.staffParamId" :value="v.staffParamName" :label="v.staffParamName"></el-option>
+                    <el-form-item label="住房结构">
+                      <el-select v-model="queryForm.title" size="small" :clearable="true" placeholder="所有结构">
+                        <el-option v-for="v in structData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
-                    <el-form-item label="类别">
-                      <el-select v-model="queryForm.class" size="small" :clearable="true" placeholder="所有类别">
-                        <el-option v-for="v in classData" :key="v.staffParamId" :value="v.staffParamName" :label="v.staffParamName"></el-option>
+                    <el-form-item label="住房户型">
+                      <el-select v-model="queryForm.class" size="small" :clearable="true" placeholder="所有户型">
+                        <el-option v-for="v in layoutData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
-                    <el-form-item label="状态">
-                      <el-select v-model="queryForm.status" size="small" :clearable="true" placeholder="所有状态">
-                        <el-option v-for="v in statusData" :key="v.staffParamId" :value="v.staffParamName" :label="v.staffParamName"></el-option>
-                      </el-select>
+                    <el-form-item label="租金">
+                       <el-row>
+                         <el-col :span="8">
+                             <el-input v-model="queryForm.rental" size="small" placeholder=""></el-input>
+                         </el-col>
+                              <el-col :span="4" style=" text-align: center;">
+                             <span>至</span>
+                         </el-col>
+                              <el-col :span="8">
+                             <el-input v-model="queryForm.rental1" size="small" placeholder=""></el-input>
+                         </el-col>
+                       </el-row>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="4">
-                    <el-form-item label="婚姻">
-                      <el-select v-model="queryForm.marriageState" size="small" :clearable="true" placeholder="全部">
-                        <el-option v-for="v in formOption.marriageState" :key="v.value" :value="v.value" :label="v.label"></el-option>
-                      </el-select>
+                  <el-col :span="5">
+                    <el-form-item label="住房区域">
+              <el-select v-model="queryForm.regionId" :clearable="true" @clear="clearRegion" placeholder="全部区域" @change="selectRegionChange" >
+                <el-option v-for="region in regionBuildingData" :key="region.id" :value="region.id" :label="region.name"></el-option>
+              </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
-                    <el-form-item label="性别">
-                      <el-select v-model="queryForm.sex" size="small" :clearable="true" placeholder="全部">
-                        <el-option v-for="v in formOption.sexOption" :key="v.value" :value="v.value" :label="v.label"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="工作时间">
-                      <el-date-picker v-model="time" size="small" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期"
-                        end-placeholder="结束日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd">
-                      </el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                              <el-col :span="4">
-                    <el-form-item label="姓名/工号">
-                      <el-input v-model="queryForm.query" size="small"  placeholder="请输入搜索"></el-input>
+                    <el-form-item label="住房楼栋">
+              <el-select v-model="queryForm.buildingId" :clearable="true"  placeholder="全部房屋">
+                <el-option v-for="building in buildingData" :key="building.id" :value="building.id" :label="building.name"></el-option>
+              </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
@@ -99,8 +95,8 @@
             <div class="card can-select">
               <el-table :data="canSelectData" class="table" height="string" v-loading="listLoading" @selection-change="setSelectionChange">
                 <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
-                <el-table-column label="姓名" sortable align="center">
+                <el-table-column prop="staffNo" label="住房号" sortable align="center"></el-table-column>
+                <el-table-column label="户型" sortable align="center">
                   <template slot-scope="scope">
                     <el-popover trigger="hover" placement="top">
                       <p>姓名: {{ scope.row.staffName }}</p>
@@ -112,12 +108,12 @@
                     </el-popover>
                   </template>
                 </el-table-column>
-                <el-table-column prop="totalVal" label="总分" sortable align="center"></el-table-column>
-                <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
-                <el-table-column prop="marriageState" label="婚姻状况" align="center"></el-table-column>
-                <el-table-column prop="postName" label="职称" align="center"></el-table-column>
-                <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
-                <el-table-column prop="typeName" label="职工类别" align="center"></el-table-column>
+                <el-table-column prop="totalVal" label="使用面积" sortable align="center"></el-table-column>
+                <el-table-column prop="sex" label="所属区域" sortable align="center"></el-table-column>
+                <el-table-column prop="marriageState" label="所属楼栋" align="center"></el-table-column>
+                <el-table-column prop="postName" label="地址" align="center"></el-table-column>
+                <el-table-column prop="titleName" label="竣工时间" align="center"></el-table-column>
+                <el-table-column prop="typeName" label="租金" align="center"></el-table-column>
                 <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
                 <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
               </el-table>
@@ -125,7 +121,7 @@
                 :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
               </el-pagination>
               <div class="bottom-tool">
-                <el-button type="primary" size="small" @click="setSelect">设为可选</el-button>
+                <el-button type="primary" size="small" @click="setSelect">设为房源</el-button>
               </div>
             </div>
             <!-- 已设置选房的表格 -->
@@ -158,7 +154,7 @@
                 :page-size="size1" :page-sizes="[10,15,20,25,30]" :total="totalNum1">
               </el-pagination>
               <div class="bottom-tool">
-                <el-button type="warning" size="small" @click="cancelSelect">撤销可选</el-button>
+                <el-button type="warning" size="small" @click="cancelSelect">撤销房源</el-button>
               </div>
             </div>
           </div>
@@ -170,14 +166,14 @@
 
 <script type="text/ecmascript-6">
 import {
-  getStaffParam,
+  getHouseParam,
+  getRegionWithBuildings,
   getCanSelectStaff,
   getHaveSelectStaff,
   postCanSelectmulticondition,
   postSetCanSelect,
   postcancelCanSelect
 } from "@/api/api";
-import * as OPTION from "@/assets/data/formOption";
 import utils from "@/utils/index.js";
 export default {
   data() {
@@ -185,12 +181,12 @@ export default {
       // 多重查找表单
       queryForm: {},
       time: [],
-      deptData: [],
-      postData: [],
-      titleData: [],
-      classData: [],
+      typeData: [],
+      layoutData: [],
       statusData: [],
-      formOption: OPTION,
+      structData: [],
+      regionBuildingData: [],
+      buildingData: [],
       // 时间选择区域
       pickerOptions: {
         shortcuts: [
@@ -238,9 +234,22 @@ export default {
       size1: 10
     };
   },
-  components: {},
+  computed: {
+    selectRegion() {
+      return this.queryForm.regionId;
+    }
+  },
+  watch: {
+    // 监听选项的变动
+    selectRegion(newval) {
+      for (var region of this.regionBuildingData) {
+        if (region.id == newval) this.buildingData = region.buildingList;
+      }
+    }
+  },
   created() {
     this.initalGet();
+    this.getRegionWithBuilding();
     this.getList();
     this.getList1();
   },
@@ -251,42 +260,55 @@ export default {
       let param = {
         size: 999
       };
-      //部门5
-      getStaffParam(param, 5)
+      // 类型为1
+      getHouseParam(param, 1)
         .then(res => {
-          this.deptData = res.data.data.data.list;
+          this.typeData = res.data.data.data.list;
         })
         .catch(err => {
           console.log(err);
         });
-      // 职务为6
-      getStaffParam(param, 6)
+      // 户型为2
+      getHouseParam(param, 2)
         .then(res => {
-          this.postData = res.data.data.data.list;
+          this.layoutData = res.data.data.data.list;
         })
         .catch(err => {
           console.log(err);
         });
-      // 职称为7
-      getStaffParam(param, 7)
-        .then(res => {
-          this.titleData = res.data.data.data.list;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      // 类别为8
-      getStaffParam(param, 8)
-        .then(res => {
-          this.classData = res.data.data.data.list;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      // 状态为9
-      getStaffParam(param, 9)
+      // 状态为3
+      getHouseParam(param, 3)
         .then(res => {
           this.statusData = res.data.data.data.list;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      // 结构为8
+      getHouseParam(param, 4)
+        .then(res => {
+          this.structData = res.data.data.data.list;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 获取区域信息包括楼栋
+    getRegionWithBuilding() {
+      this.listLoading = true;
+      let param = {
+        // page: this.page,
+        // size: this.size
+      };
+      getRegionWithBuildings(param)
+        .then(res => {
+          this.regionBuildingData = res.data.data.data;
+          this.regionBuildingData.forEach(region => {
+            let flag = region.name.indexOf("（");
+            if (flag != -1) {
+              region.name = region.name.substring(0, flag);
+            }
+          });
           this.listLoading = false;
         })
         .catch(err => {
@@ -349,16 +371,15 @@ export default {
         size: this.size
       };
       //console.log(this.queryForm)
-      if(this.queryForm.hasOwnProperty('query')){
-
-      }else{
-      const data = Object.assign({}, this.queryForm);
-      postCanSelectmulticondition(param, data).then(res => {
-        utils.statusinfo(this, res.data);
-        this.canSelectData = res.data.data.data.list;
-        this.totalNum = res.data.data.data.total;
-        this.listLoading = false;
-      });
+      if (this.queryForm.hasOwnProperty("query")) {
+      } else {
+        const data = Object.assign({}, this.queryForm);
+        postCanSelectmulticondition(param, data).then(res => {
+          utils.statusinfo(this, res.data);
+          this.canSelectData = res.data.data.data.list;
+          this.totalNum = res.data.data.data.total;
+          this.listLoading = false;
+        });
       }
     },
     // 为设置选房表格的多选
@@ -387,7 +408,7 @@ export default {
     },
     // 取消可选房
     cancelSelect() {
-      console.log(this.cancelList)
+      console.log(this.cancelList);
       this.listLoading = true;
       const data = this.cancelList;
       postcancelCanSelect(data).then(res => {
@@ -397,9 +418,17 @@ export default {
       });
     },
     // 重置查询表单
-    resseting(){
-      this.time=[]
-      this.queryForm={}
+    resseting() {
+      this.time = [];
+      this.queryForm = {};
+    },
+    // 清空搜索的区域时
+    clearRegion() {
+      this.queryForm.buildingId = "";
+    },
+    //选择的区域变化时
+    selectRegionChange(region) {
+      this.buildingData = region.buildingList;
     },
     // 更换每页数量
     sizeChangeEvent(val) {

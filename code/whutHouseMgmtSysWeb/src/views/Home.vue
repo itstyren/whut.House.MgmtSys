@@ -14,7 +14,7 @@
       <!-- 主菜单 -->
       <div class="main-menu" :router="true">
         <el-menu default-active="/index" menu-trigger="click" unique-opened mode="horizontal" background-color="#373d41" text-color="#fff"
-           router>
+          router>
           <!-- 首页 -->
           <el-menu-item index="/index">
             <template slot="title">
@@ -85,6 +85,9 @@
             </template>
             <el-menu-item index="/LeaseManage/HireStafferSet">
               <span>选房资格认定</span>
+            </el-menu-item>
+            <el-menu-item index="/LeaseManage/HireHouseSet">
+              <span>房源设置</span>
             </el-menu-item>
           </el-submenu>
         </el-menu>

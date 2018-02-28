@@ -64,7 +64,8 @@ import fixBalance from '@/views/fixManage/fixBalance'
 // 网上选房
 // 选房资格认定
 import HireStafferSet from '@/views/LeaseManage/HireStafferSet'
-
+// 房源设置
+import HireHouseSet from '@/views/LeaseManage/HireHouseSet'
 Vue.use(Router)
 
 // 定义路由数据
@@ -368,6 +369,12 @@ const routes = [
         path: 'HireStafferSet',
         component: HireStafferSet,
         name: 'HireStafferSet',
+        menuShow: true
+      },
+      {
+        path: 'HireHouseSet',
+        component: HireHouseSet,
+        name: 'HireHouseSet',
         menuShow: true
       },
     ]
