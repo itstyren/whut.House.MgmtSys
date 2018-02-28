@@ -83,11 +83,14 @@
             <template slot="title">
               <span slot="title">网上选房</span>
             </template>
-            <el-menu-item index="/LeaseManage/HireStafferSet">
+            <el-menu-item index="/leaseManage/hireStafferSet">
               <span>选房资格认定</span>
             </el-menu-item>
-            <el-menu-item index="/LeaseManage/HireHouseSet">
+            <el-menu-item index="/leaseManage/hireHouseSet">
               <span>房源设置</span>
+            </el-menu-item>
+                        <el-menu-item index="/leaseManage/hireApply">
+              <span>住房申请</span>
             </el-menu-item>
           </el-submenu>
         </el-menu>

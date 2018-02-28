@@ -162,7 +162,8 @@ export const postCanSelectmulticondition = (param, data) => { return axios.post(
 export const postSetCanSelect = (data) => { return axios.post(`${base}selHouseQuaAuth/setCanselect`, data) }
 // 选房资格认定-员工取消可选房
 export const postcancelCanSelect = (data) => { return axios.post(`${base}selHouseQuaAuth/cancelCanselect`, data) }
-// 房源设置-初始获取为设置房源房屋
+
+// 房源设置-初始获取未设置房源房屋
 export const getActiveHouse = (params) => { return axios.get(`${base}housingSet/activeHouseShow`, { params: params }) }
 // 房源设置-初始获取已设置房源房屋
 export const getSetHouse = (params) => { return axios.get(`${base}housingSet/canselectHouseShow`, { params: params }) }
@@ -173,4 +174,9 @@ export const postSetHousemulticondition = (param, data) => { return axios.post(`
 // 房源设置-设置房源
 export const postSetHouse = (data) => { return axios.post(`${base}housingSet/setHousing`, data) }
 // 房源设置-撤销房源
-export const postcancelHouse = (data) => { return axios.post(`${base}housingSet/setHousing`, data) }
+export const postcancelHouse = (data) => { return axios.post(`${base}housingSet/cancelSetHousing`, data) }
+
+// 住房申请-获取相关信息
+export const getStaffHireInfo = (staffID, params) => { return axios.get(`${base}hire/getApply/${staffID}`, { params: params }) }
+// 住房申请-提交申请
+export const postHireApply = (params) => { return axios.post(`${base}hire/addApply`, params) }

@@ -93,29 +93,16 @@
           <div class="main-data">
             <!-- 未设置选房的表格 -->
             <div class="card can-select">
-              <el-table :data="canSelectData" class="table" height="string" v-loading="listLoading" @selection-change="setSelectionChange">
+              <el-table :data="activeHouseData" class="table" height="string" v-loading="listLoading" @selection-change="setSelectionChange">
                 <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column prop="staffNo" label="住房号" sortable align="center"></el-table-column>
-                <el-table-column label="户型" sortable align="center">
-                  <template slot-scope="scope">
-                    <el-popover trigger="hover" placement="top">
-                      <p>姓名: {{ scope.row.staffName }}</p>
-                      <p>来校工作时间: {{ scope.row.joinTime }}</p>
-                      <p>预计退休时间: {{ scope.row.retireTime }}</p>
-                      <div slot="reference" class="name-wrapper">
-                        <el-tag size="medium" type="info">{{ scope.row.staffName }}</el-tag>
-                      </div>
-                    </el-popover>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="totalVal" label="使用面积" sortable align="center"></el-table-column>
-                <el-table-column prop="sex" label="所属区域" sortable align="center"></el-table-column>
-                <el-table-column prop="marriageState" label="所属楼栋" align="center"></el-table-column>
-                <el-table-column prop="postName" label="地址" align="center"></el-table-column>
-                <el-table-column prop="titleName" label="竣工时间" align="center"></el-table-column>
-                <el-table-column prop="typeName" label="租金" align="center"></el-table-column>
-                <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
-                <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
+                <el-table-column prop="no" label="住房号" sortable width="95" align="center"></el-table-column>
+                <el-table-column prop="layout" label="户型" sortable  width="100" align="center"></el-table-column>
+                <el-table-column prop="usedArea" label="使用面积"  width="100" sortable align="center"></el-table-column>
+                <el-table-column prop="regionName" label="所属区域" sortable align="center"></el-table-column>
+                <el-table-column prop="buildingName" label="所属楼栋" align="center"></el-table-column>
+                <el-table-column prop="address" label="地址" align="center"></el-table-column>
+                <!-- <el-table-column prop="titleName" label="竣工时间" align="center"></el-table-column> -->
+                <el-table-column prop="rental" label="租金" align="center"></el-table-column>
               </el-table>
               <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
                 :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
@@ -126,29 +113,16 @@
             </div>
             <!-- 已设置选房的表格 -->
             <div class="card can-select">
-              <el-table :data="haveSelectData" class="table" height="string" v-loading="listLoading1" @selection-change="cancelSelectionChange">
-                <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
-                <el-table-column label="姓名" sortable align="center">
-                  <template slot-scope="scope">
-                    <el-popover trigger="hover" placement="top">
-                      <p>姓名: {{ scope.row.staffName }}</p>
-                      <p>来校工作时间: {{ scope.row.joinTime }}</p>
-                      <p>离退休时间: {{ scope.row.retireTime }}</p>
-                      <div slot="reference" class="name-wrapper">
-                        <el-tag size="medium" type="info">{{ scope.row.staffName }}</el-tag>
-                      </div>
-                    </el-popover>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="totalVal" label="总分" sortable align="center"></el-table-column>
-                <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
-                <el-table-column prop="marriageState" label="婚姻状况" align="center"></el-table-column>
-                <el-table-column prop="postName" label="职称" align="center"></el-table-column>
-                <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
-                <el-table-column prop="typeName" label="职工类别" align="center"></el-table-column>
-                <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
-                <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
+              <el-table :data="setHouseData" class="table" height="string" v-loading="listLoading1" @selection-change="cancelSelectionChange">
+                                <el-table-column type="selection" width="55"></el-table-column>
+                <el-table-column prop="no" label="住房号" sortable width="95" align="center"></el-table-column>
+                <el-table-column prop="layout" label="户型" sortable  width="100" align="center"></el-table-column>
+                <el-table-column prop="usedArea" label="使用面积"  width="100" sortable align="center"></el-table-column>
+                <el-table-column prop="regionName" label="所属区域" sortable align="center"></el-table-column>
+                <el-table-column prop="buildingName" label="所属楼栋" align="center"></el-table-column>
+                <el-table-column prop="address" label="地址" align="center"></el-table-column>
+                <!-- <el-table-column prop="titleName" label="竣工时间" align="center"></el-table-column> -->
+                <el-table-column prop="rental" label="租金" align="center"></el-table-column>
               </el-table>
               <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent1" @current-change="currentChangeEvent1"
                 :page-size="size1" :page-sizes="[10,15,20,25,30]" :total="totalNum1">
@@ -168,11 +142,11 @@
 import {
   getHouseParam,
   getRegionWithBuildings,
-  getCanSelectStaff,
-  getHaveSelectStaff,
+  getActiveHouse,
+  getSetHouse,
   postCanSelectmulticondition,
-  postSetCanSelect,
-  postcancelCanSelect
+  postSetHouse,
+  postcancelHouse
 } from "@/api/api";
 import utils from "@/utils/index.js";
 export default {
@@ -222,9 +196,9 @@ export default {
       // 表格区域
       listLoading: false,
       listLoading1: false,
-      canSelectData: [],
+      activeHouseData: [],
       setList: [],
-      haveSelectData: [],
+      setHouseData: [],
       cancelList: [],
       totalNum: 1,
       page: 1,
@@ -319,14 +293,14 @@ export default {
     getList() {
       this.listLoading = true;
       let param = {
-        page: this.page,
-        size: this.size
+        // page: this.page,
+        // size: this.size
       };
-      getCanSelectStaff(param)
+      getActiveHouse(param)
         .then(res => {
-          // console.log(res.data.data)
-          this.canSelectData = res.data.data.data.list;
-          this.totalNum = res.data.data.data.total;
+           console.log(res.data.data)
+          this.activeHouseData = res.data.data.data;
+          //this.totalNum = res.data.data.data.total;
           // console.log(res.data.data.list)
           this.listLoading = false;
         })
@@ -338,14 +312,14 @@ export default {
     getList1() {
       this.listLoading1 = true;
       let param = {
-        page: this.page1,
-        size: this.size1
+        // page: this.page1,
+        // size: this.size1
       };
-      getHaveSelectStaff(param)
+      getSetHouse(param)
         .then(res => {
           // console.log(res.data.data)
-          this.haveSelectData = res.data.data.data.list;
-          this.totalNum1 = res.data.data.data.total;
+          this.setHouseData = res.data.data.data;
+          // this.totalNum1 = res.data.data.data.total;
           // console.log(res.data.data.list)
           this.listLoading1 = false;
         })
@@ -355,7 +329,7 @@ export default {
     },
     // 多重查找查询
     muticonditionQuery() {
-      this.canSelectData = [];
+      this.activeHouseData = [];
       if (this.time.length != 0) {
         this.queryForm.joinTime = {
           startTime: this.time[0],
@@ -376,42 +350,42 @@ export default {
         const data = Object.assign({}, this.queryForm);
         postCanSelectmulticondition(param, data).then(res => {
           utils.statusinfo(this, res.data);
-          this.canSelectData = res.data.data.data.list;
+          this.activeHouseData = res.data.data.data.list;
           this.totalNum = res.data.data.data.total;
           this.listLoading = false;
         });
       }
     },
-    // 为设置选房表格的多选
+    // 监听带设置房源多选
     setSelectionChange(selection) {
       this.setList = [];
       selection.forEach(v => {
-        this.setList.push(v.staffNo);
+        this.setList.push(v.no);
       });
     },
-    // 设为可选房
+    // 设为房源
     setSelect() {
       this.listLoading = true;
       const data = this.setList;
-      postSetCanSelect(data).then(res => {
+      postSetHouse(data).then(res => {
         utils.statusinfo(this, res.data);
         this.getList();
         this.getList1();
       });
     },
-    // 监听已设置选房多选
+    // 监听已经是房源多选
     cancelSelectionChange(selection) {
       this.cancelList = [];
       selection.forEach(v => {
-        this.cancelList.push(v.staffNo);
+        this.cancelList.push(v.no);
       });
     },
     // 取消可选房
     cancelSelect() {
-      console.log(this.cancelList);
+      //console.log(this.cancelList);
       this.listLoading = true;
       const data = this.cancelList;
-      postcancelCanSelect(data).then(res => {
+      postcancelHouse(data).then(res => {
         utils.statusinfo(this, res.data);
         this.getList();
         this.getList1();

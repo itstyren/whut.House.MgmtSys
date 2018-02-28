@@ -63,9 +63,13 @@ import fixBalance from '@/views/fixManage/fixBalance'
 
 // 网上选房
 // 选房资格认定
-import HireStafferSet from '@/views/LeaseManage/HireStafferSet'
+import hireStafferSet from '@/views/leaseManage/hireStafferSet'
 // 房源设置
-import HireHouseSet from '@/views/LeaseManage/HireHouseSet'
+import hireHouseSet from '@/views/leaseManage/hireHouseSet'
+// 住房申请
+import hireApply from '@/views/leaseManage/hireApply'
+
+
 Vue.use(Router)
 
 // 定义路由数据
@@ -341,7 +345,7 @@ const routes = [
         component: fixSuper,
         name: 'fixSuper',
         menuShow: true,
-      }, 
+      },
       {
         path: 'fixApplyManager',
         component: fixApplyManager,
@@ -357,24 +361,30 @@ const routes = [
     ]
   },
   // 网上选房
-    {
-    path: '/LeaseManage',
+  {
+    path: '/leaseManage',
     component: Home,
-    name: 'LeaseManage',
+    name: 'leaseManage',
     meta: {
       requireAuth: true
     },
     menuShow: true,
     children: [{
-        path: 'HireStafferSet',
-        component: HireStafferSet,
-        name: 'HireStafferSet',
+        path: 'hireStafferSet',
+        component: hireStafferSet,
+        name: 'hireStafferSet',
         menuShow: true
       },
       {
-        path: 'HireHouseSet',
-        component: HireHouseSet,
-        name: 'HireHouseSet',
+        path: 'hireHouseSet',
+        component: hireHouseSet,
+        name: 'hireHouseSet',
+        menuShow: true
+      },
+      {
+        path: 'hireApply',
+        component: hireApply,
+        name: 'hireApply',
         menuShow: true
       },
     ]
