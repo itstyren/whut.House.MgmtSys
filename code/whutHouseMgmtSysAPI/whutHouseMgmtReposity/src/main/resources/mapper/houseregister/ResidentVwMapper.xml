@@ -21,6 +21,7 @@
     <result column="ExpireTime" jdbcType="DATE" property="expireTime" />
     <result column="LastRentType" jdbcType="VARCHAR" property="lastRentType" />
     <result column="RentType" jdbcType="VARCHAR" property="rentType" />
+    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -83,7 +84,7 @@
   <sql id="Base_Column_List">
     ResidentId, StaffId, HouseId, StaffName, Address, HouseRel, BookTime, StaffNo, StaffSex, 
     StaffDeptId, StaffDeptName, HouseNo, HouseType, BuildArea, UsedArea, FamilyCode, 
-    ExpireTime, LastRentType, RentType
+    ExpireTime, LastRentType, RentType, IsDelete
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample" resultMap="BaseResultMap">
     select
@@ -112,14 +113,14 @@
       StaffDeptId, StaffDeptName, HouseNo, 
       HouseType, BuildArea, UsedArea, 
       FamilyCode, ExpireTime, LastRentType, 
-      RentType)
+      RentType, IsDelete)
     values (#{residentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
       #{staffName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{houseRel,jdbcType=VARCHAR}, 
       #{bookTime,jdbcType=DATE}, #{staffNo,jdbcType=VARCHAR}, #{staffSex,jdbcType=VARCHAR}, 
       #{staffDeptId,jdbcType=INTEGER}, #{staffDeptName,jdbcType=VARCHAR}, #{houseNo,jdbcType=VARCHAR}, 
       #{houseType,jdbcType=INTEGER}, #{buildArea,jdbcType=DOUBLE}, #{usedArea,jdbcType=DOUBLE}, 
       #{familyCode,jdbcType=INTEGER}, #{expireTime,jdbcType=DATE}, #{lastRentType,jdbcType=VARCHAR}, 
-      #{rentType,jdbcType=VARCHAR})
+      #{rentType,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw">
     insert into view_hs_resident
@@ -181,6 +182,9 @@
       <if test="rentType != null">
         RentType,
       </if>
+      <if test="isDelete != null">
+        IsDelete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="residentId != null">
@@ -239,6 +243,9 @@
       </if>
       <if test="rentType != null">
         #{rentType,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -308,6 +315,9 @@
       <if test="record.rentType != null">
         RentType = #{record.rentType,jdbcType=VARCHAR},
       </if>
+      <if test="record.isDelete != null">
+        IsDelete = #{record.isDelete,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -333,7 +343,8 @@
       FamilyCode = #{record.familyCode,jdbcType=INTEGER},
       ExpireTime = #{record.expireTime,jdbcType=DATE},
       LastRentType = #{record.lastRentType,jdbcType=VARCHAR},
-      RentType = #{record.rentType,jdbcType=VARCHAR}
+      RentType = #{record.rentType,jdbcType=VARCHAR},
+      IsDelete = #{record.isDelete,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

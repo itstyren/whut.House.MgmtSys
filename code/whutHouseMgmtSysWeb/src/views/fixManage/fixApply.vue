@@ -325,9 +325,11 @@
 </script>
 
 <style scoped lang="scss">
+@import "../../styles/variables.scss";
+
   .apply-from {
     width: 80%;
-    background-color: #fff;
+    background-color:$white;
     padding: 50px;
     height: 80%;
     margin: auto;
@@ -365,7 +367,7 @@
   }
 
   .second-container {
-    background-color: #f0f0f0;
+    background-color: $background-grey;
     .el-input {
       width: 200px;
     }

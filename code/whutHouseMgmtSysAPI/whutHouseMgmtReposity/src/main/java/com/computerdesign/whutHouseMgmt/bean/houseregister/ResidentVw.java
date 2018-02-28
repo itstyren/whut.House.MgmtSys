@@ -41,6 +41,8 @@ public class ResidentVw {
 
     private String rentType;
 
+    private Boolean isDelete;
+
     public Integer getResidentId() {
         return residentId;
     }
@@ -191,5 +193,13 @@ public class ResidentVw {
 
     public void setRentType(String rentType) {
         this.rentType = rentType == null ? null : rentType.trim();
+    }
+
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
     }
 }

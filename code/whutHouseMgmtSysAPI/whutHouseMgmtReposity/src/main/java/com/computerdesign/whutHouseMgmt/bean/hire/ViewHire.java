@@ -6,10 +6,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Hire {
+public class ViewHire {
     private Integer id;
 
     private Integer staffId;
+
+    private String staffNo;
 
     private Integer houseId;
 
@@ -25,7 +27,7 @@ public class Hire {
 
     private Double staffVal;
 
-    private Double jobLevelVal;
+    private Integer jobLevelVal;
 
     private Double timeVal;
 
@@ -85,6 +87,14 @@ public class Hire {
         this.staffId = staffId;
     }
 
+    public String getStaffNo() {
+        return staffNo;
+    }
+
+    public void setStaffNo(String staffNo) {
+        this.staffNo = staffNo == null ? null : staffNo.trim();
+    }
+
     public Integer getHouseId() {
         return houseId;
     }
@@ -133,11 +143,11 @@ public class Hire {
         this.staffVal = staffVal;
     }
 
-    public Double getJobLevelVal() {
+    public Integer getJobLevelVal() {
         return jobLevelVal;
     }
 
-    public void setJobLevelVal(Double jobLevelVal) {
+    public void setJobLevelVal(Integer jobLevelVal) {
         this.jobLevelVal = jobLevelVal;
     }
 

@@ -153,12 +153,30 @@ export const putFixcheck = (params) => { return axios.put(`${base}fix/addCheck`,
 
 // 网上选房
 // 选房资格认定-初始获取可选房员工
-export const getCanSelectStaff = (params) => { return axios.get(`${base}internetSelectHouse/activeShow`, { params: params }) }
+export const getCanSelectStaff = (params) => { return axios.get(`${base}selHouseQuaAuth/activeShow`, { params: params }) }
 // 选房资格认定-初始获已设置选房员工
-export const getHaveSelectStaff = (params) => { return axios.get(`${base}internetSelectHouse/canselectShow`, { params: params }) }
+export const getHaveSelectStaff = (params) => { return axios.get(`${base}selHouseQuaAuth/canselectShow`, { params: params }) }
 // 选房资格认定-多条件查询后可选房员工
-export const postCanSelectmulticondition = (param, data) => { return axios.post(`${base}internetSelectHouse/selectStaffMultiCondition`, data) }
+export const postCanSelectmulticondition = (param, data) => { return axios.post(`${base}selHouseQuaAuth/selectActiveStaffMultiCondition?page=${param.page}&size=${param.size}`, data) }
 // 选房资格认定-员工设为可选房
-export const postSetCanSelect = (param, data) => { return axios.post(`${base}internetSelectHouse/setCanselect`, data) }
+export const postSetCanSelect = (data) => { return axios.post(`${base}selHouseQuaAuth/setCanselect`, data) }
 // 选房资格认定-员工取消可选房
-export const postcancelCanSelect = (param, data) => { return axios.post(`${base}internetSelectHouse/cancelCanselect`, data) }
+export const postcancelCanSelect = (data) => { return axios.post(`${base}selHouseQuaAuth/cancelCanselect`, data) }
+
+// 房源设置-初始获取未设置房源房屋
+export const getActiveHouse = (params) => { return axios.get(`${base}housingSet/activeHouseShow`, { params: params }) }
+// 房源设置-初始获取已设置房源房屋
+export const getSetHouse = (params) => { return axios.get(`${base}housingSet/canselectHouseShow`, { params: params }) }
+// 房源设置-多条件查询未设置房源
+export const postActiveHousemulticondition = (param, data) => { return axios.post(`${base}housingSet/canselectHouseShowByMultiCondition?page=${param.page}&size=${param.size}`, data) }
+// 房源设置-多条件查询已设置房源
+export const postSetHousemulticondition = (param, data) => { return axios.post(`${base}housingSet/activeHouseShowByMultiCondition?page=${param.page}&size=${param.size}`, data) }
+// 房源设置-设置房源
+export const postSetHouse = (data) => { return axios.post(`${base}housingSet/setHousing`, data) }
+// 房源设置-撤销房源
+export const postcancelHouse = (data) => { return axios.post(`${base}housingSet/cancelSetHousing`, data) }
+
+// 住房申请-获取相关信息
+export const getStaffHireInfo = (staffID, params) => { return axios.get(`${base}hire/getApply/${staffID}`, { params: params }) }
+// 住房申请-提交申请
+export const postHireApply = (params) => { return axios.post(`${base}hire/addApply`, params) }
