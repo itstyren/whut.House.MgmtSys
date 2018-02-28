@@ -2,6 +2,8 @@ package com.computerdesign.whutHouseMgmt.bean.rentparam;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class RentEventModel {
@@ -12,11 +14,11 @@ public class RentEventModel {
 	// private String paramTypeName;
 	//
 	// private Boolean rentIsOpenSel;
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date rentTimeBegin;
-
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-	private Date rentTimeRanges;
+	
+	private Integer rentTimeRanges;
 
 	private String rentSelValReq;
 
@@ -68,11 +70,11 @@ public class RentEventModel {
 		this.rentTimeBegin = rentTimeBegin;
 	}
 
-	public Date getRentTimeRanges() {
+	public Integer getRentTimeRanges() {
 		return rentTimeRanges;
 	}
 
-	public void setRentTimeRanges(Date rentTimeRanges) {
+	public void setRentTimeRanges(Integer rentTimeRanges) {
 		this.rentTimeRanges = rentTimeRanges;
 	}
 

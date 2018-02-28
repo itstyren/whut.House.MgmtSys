@@ -34,6 +34,7 @@ public class RentEventController {
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
 	public Msg modifyRentEvent(@RequestBody RentEventModel rentEventModel) {
 		RentEvent rentEvent = rentEventService.get(rentEventModel.getRentEventId());
+		System.out.println(rentEventModel.getRentTimeBegin());
 		if (rentEvent != null) {
 			rentEvent.setRentSelValReq(rentEventModel.getRentSelValReq());
 			rentEvent.setRentSelRules(rentEventModel.getRentSelRules());
@@ -99,7 +100,7 @@ public class RentEventController {
 		}
 	}
 
-	// 判断当前日期是否在开始时间和结束时间之间
+	// 判断当前日期是否在开始时间和结束时间之间(待修改，选房结束时间需要根据选房人数确定)
 	public void isBegin(List<RentEvent> rentEvents) {
 //		List<RentEventModel> rentEventModels = new ArrayList<RentEventModel>();
 		for (RentEvent rentEvent : rentEvents) {
@@ -109,11 +110,13 @@ public class RentEventController {
 			// 获取开始时间
 			Date rentTimeBegin = rentEvent.getRentTimeBegin();
 			// System.out.println(rentTimeBegin.getTime());
+			
 			// 获取结束时间
-			Date rentTimeEnd = rentEvent.getRentTimeRanges();
+			//Date rentTimeEnd = rentEvent.getRentTimeRanges();
 			// System.out.println(rentTimeEnd.getTime());
 			// System.out.println("--------");
-			if (now.getTime() >= rentTimeBegin.getTime() && now.getTime() <= rentTimeEnd.getTime()) {
+			//if (now.getTime() >= rentTimeBegin.getTime() && now.getTime() <= rentTimeEnd.getTime()) {
+			if (now.getTime() >= rentTimeBegin.getTime()) {
 				rentEvent.setRentIsOpenSel(true);
 				// 更新数据库数据
 				rentEventService.update(rentEvent);

@@ -53,11 +53,11 @@ public class HousingSetService {
 	}
 	
 	/**
-	 * 根据组合条件查询房源
+	 * 根据组合条件查询未设置的房源
 	 * @param houseAllSelectModel
 	 * @return
 	 */
-	public List<ViewHouse> selectHousingMultiCondition(HouseAllSelectModel houseAllSelectModel){
+	public List<ViewHouse> selectActiveHousingMultiCondition(HouseAllSelectModel houseAllSelectModel){
 		ViewHouseExample example = new ViewHouseExample();
 		Criteria criteria = example.createCriteria();
 		if(houseAllSelectModel.getHouseType() != null){			
@@ -99,6 +99,60 @@ public class HousingSetService {
 			double maxRental = houseAllSelectModel.getRentalScope().getMaxRental();
 			criteria.andRentalBetween(minRental, maxRental);
 		}
+		
+		criteria.andRecordStatusEqualTo(2);
+		return viewHouseMapper.selectByExample(example);
+	}
+	
+	/**
+	 * 根据组合条件查询已设置的房源
+	 * @param houseAllSelectModel
+	 * @return
+	 */
+	public List<ViewHouse> selectCanselectHousingMultiCondition(HouseAllSelectModel houseAllSelectModel){
+		ViewHouseExample example = new ViewHouseExample();
+		Criteria criteria = example.createCriteria();
+		if(houseAllSelectModel.getHouseType() != null){			
+			criteria.andTypeNameEqualTo(houseAllSelectModel.getHouseType());
+		}
+		if(houseAllSelectModel.getUseStatus() != null){			
+			criteria.andStatusNameEqualTo(houseAllSelectModel.getUseStatus());
+		}
+		if(houseAllSelectModel.getHouseZone() != null){			
+			criteria.andRegionNameEqualTo(houseAllSelectModel.getHouseZone());
+			if(houseAllSelectModel.getBuilding() !=null){				
+				criteria.andBuildingNameEqualTo(houseAllSelectModel.getBuilding());
+			}
+		}
+		if(houseAllSelectModel.getStructName() != null){			
+			criteria.andStructNameEqualTo(houseAllSelectModel.getStructName());
+		}
+		if(houseAllSelectModel.getLayoutName() != null){			
+			criteria.andLayoutNameEqualTo(houseAllSelectModel.getLayoutName());
+		}
+		//面积
+		if(houseAllSelectModel.getAreaParameter() != null){
+			String areaParamName = houseAllSelectModel.getAreaParameter().getAreaParamName();
+			if(areaParamName != null){
+				double minArea = houseAllSelectModel.getAreaParameter().getMinArea();
+				double maxArea = houseAllSelectModel.getAreaParameter().getMaxArea();
+				if(areaParamName.equals("建筑面积")){
+					criteria.andBuildAreaBetween(minArea, maxArea);
+				}else if(areaParamName.equals("使用面积")){
+					criteria.andUsedAreaBetween(minArea, maxArea);
+				}else if(areaParamName.equals("地下室面积")){
+					criteria.andBasementAreaBetween(minArea, maxArea);
+				}
+			}
+		}
+		//租金
+		if(houseAllSelectModel.getRentalScope() != null){
+			double minRental = houseAllSelectModel.getRentalScope().getMinRental();
+			double maxRental = houseAllSelectModel.getRentalScope().getMaxRental();
+			criteria.andRentalBetween(minRental, maxRental);
+		}
+		
+		criteria.andRecordStatusEqualTo(0);
 		return viewHouseMapper.selectByExample(example);
 	}
 	

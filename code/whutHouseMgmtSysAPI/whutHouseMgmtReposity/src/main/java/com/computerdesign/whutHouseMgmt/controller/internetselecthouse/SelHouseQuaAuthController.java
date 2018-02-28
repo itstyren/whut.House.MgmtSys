@@ -1,6 +1,9 @@
 package com.computerdesign.whutHouseMgmt.controller.internetselecthouse;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +17,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectByNoAndNameModel;
+import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffShowModel;
+import com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
 import com.computerdesign.whutHouseMgmt.service.internetselecthouse.HousingSetService;
 import com.computerdesign.whutHouseMgmt.service.internetselecthouse.SelHouseQuaAuthService;
+import com.computerdesign.whutHouseMgmt.service.rentparam.RentEventService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -36,6 +43,9 @@ public class SelHouseQuaAuthController {
 	@Autowired
 	private StaffService staffService;
 
+	@Autowired
+	private RentEventService rentEventService;
+
 	/**
 	 * 根据职工号或职工姓名模糊查找
 	 * 
@@ -43,13 +53,18 @@ public class SelHouseQuaAuthController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "selectByNoOrName", method = RequestMethod.POST)
-	public Msg selectByNoOrName(@RequestBody StaffSelectByNoAndNameModel staffSelectByNoAndNameModel) {
+	@RequestMapping(value = "selectByNoOrName", method = RequestMethod.GET)
+	public Msg selectByNoOrName(@RequestParam String conditionValue) {
 		List<StaffHouse> staffHouses = new ArrayList<StaffHouse>();
-		String conditionName = staffSelectByNoAndNameModel.getConditionName();
-		String conditionValue = staffSelectByNoAndNameModel.getConditionValue();
-		if (conditionName != null && conditionValue != null) {
-			staffHouses = selHouseQuaAuthService.selectByNoOrName(conditionName, conditionValue);
+//		String conditionName = staffSelectByNoAndNameModel.getConditionName();
+//		String conditionValue = staffSelectByNoAndNameModel.getConditionValue();
+		try {
+			conditionValue = new String(conditionValue.getBytes("8859_1"), "utf8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		if (conditionValue != null) {
+			staffHouses = selHouseQuaAuthService.selectByNoOrName(conditionValue);
 		}
 		List<StaffShowModel> staffShowModels = new ArrayList<StaffShowModel>();
 		if (staffHouses != null) {
@@ -89,6 +104,19 @@ public class SelHouseQuaAuthController {
 			Staff staff = staffService.getByStaffNo(staffNo).get(0);
 			staff.setRelation("canselect");
 			staffService.update(staff);
+
+			// StaffSelectHouse staffSelectHouse = new StaffSelectHouse();
+			// staffSelectHouse.setStaffId(staff.getId());
+
+			RentEvent rentEvent = rentEventService.get(1);
+			Date rentTimeBegin = rentEvent.getRentTimeBegin();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(rentTimeBegin);
+			calendar.add(Calendar.MINUTE, 2);
+			System.out.println(rentEvent.getRentTimeBegin());
+			System.out.println(calendar.getTime());
+			System.out.println(rentEvent.getRentTimeRanges());
+
 		}
 		return Msg.success("设置点房职工成功");
 	}
@@ -151,10 +179,10 @@ public class SelHouseQuaAuthController {
 		}
 		PageInfo pageInfo = new PageInfo(staffHouses);
 		pageInfo.setList(staffShowModels);
-		
+
 		return Msg.success().add("data", pageInfo);
 	}
-	
+
 	/**
 	 * 多条件查询已设置选房资格的职工，用于选房资格认定
 	 * 
@@ -175,7 +203,7 @@ public class SelHouseQuaAuthController {
 		}
 		PageInfo pageInfo = new PageInfo(staffHouses);
 		pageInfo.setList(staffShowModels);
-		
+
 		return Msg.success().add("data", pageInfo);
 	}
 
