@@ -91,9 +91,11 @@ public class HireController {
 	@ResponseBody
 	public Msg addHireApply(@RequestBody Hire hire) {
 
-		ViewHire viewHirePre = viewHireService.getByStaffId(hire.getStaffId()).get(0);
-		if (viewHireService != null) {
-			return Msg.error("该员工正在申请房屋，无法再次申请");
+		if (!viewHireService.getByStaffId(hire.getStaffId()).isEmpty()) {
+			ViewHire viewHirePre = viewHireService.getByStaffId(hire.getStaffId()).get(0);	
+			if (viewHirePre.getAcceptState() != null) {
+				return Msg.error("该员工正在申请房屋，无法再次申请");
+			}
 		}
 
 		ViewStaff viewStaff = viewStaffService.getByStaffId(hire.getStaffId()).get(0);

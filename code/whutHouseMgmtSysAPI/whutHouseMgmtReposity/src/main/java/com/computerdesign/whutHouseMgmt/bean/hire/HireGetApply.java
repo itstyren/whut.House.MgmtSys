@@ -55,8 +55,6 @@ public class HireGetApply {
 
     private String staffSpouseKindName;
 
-    private String houseRelName;
-
     private Double staffDiscountRate;
 
     private List<HireHouseGetApply> listHouseGetApply;
@@ -268,14 +266,6 @@ public class HireGetApply {
 
 	public void setStaffSpouseKindName(String staffSpouseKindName) {
 		this.staffSpouseKindName = staffSpouseKindName;
-	}
-
-	public String getHouseRelName() {
-		return houseRelName;
-	}
-
-	public void setHouseRelName(String houseRelName) {
-		this.houseRelName = houseRelName;
 	}
 
 	public Double getStaffDiscountRate() {

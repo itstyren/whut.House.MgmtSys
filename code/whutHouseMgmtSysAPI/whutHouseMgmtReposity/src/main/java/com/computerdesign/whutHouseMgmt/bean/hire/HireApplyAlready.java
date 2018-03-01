@@ -15,7 +15,7 @@ public class HireApplyAlready {
     	this.id = viewHire.getId();
     	this.staffVal = viewHire.getStaffVal();
     	this.hireState = viewHire.getHireState();
-    }
+    } 
 
 	public String getStaffNo() {
 		return staffNo;

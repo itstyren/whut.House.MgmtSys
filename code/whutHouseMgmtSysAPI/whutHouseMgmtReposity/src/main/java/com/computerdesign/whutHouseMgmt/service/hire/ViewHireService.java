@@ -17,6 +17,18 @@ public class ViewHireService {
 	private ViewHireMapper viewHireMapper ;
 	
 	/**
+	 * 根据id获取一个ViewHire
+	 * @param id
+	 * @return
+	 */
+	public List<ViewHire> getById(Integer id){
+		ViewHireExample example = new ViewHireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(id);
+		return viewHireMapper.selectByExample(example);
+	}
+	
+	/**
 	 * 使用ViewHire表
 	 * 根据staffId获取ViewHire
 	 * @param staffId
@@ -29,5 +41,28 @@ public class ViewHireService {
 		criteria.andIsOverEqualTo(false);
 		return viewHireMapper.selectByExample(example);
 		
+	}
+	
+	/**
+	 * 获取全部待受理的房屋申请信息
+	 * @return
+	 */
+	public List<ViewHire> getAcceptUntil() {
+		ViewHireExample example = new ViewHireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andHireStateEqualTo("待受理");
+		criteria.andIsOverEqualTo(false);
+		return viewHireMapper.selectByExample(example);
+	}
+	
+	/**
+	 * 获取全部的已受理的房屋信息
+	 * @return
+	 */
+	public List<ViewHire> getAcceptHasBeen() {
+		ViewHireExample example = new ViewHireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAcceptStateIsNotNull();
+		return viewHireMapper.selectByExample(example);
 	}
 }

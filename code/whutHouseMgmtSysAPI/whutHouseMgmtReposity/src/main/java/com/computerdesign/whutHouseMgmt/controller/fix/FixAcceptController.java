@@ -56,6 +56,7 @@ public class FixAcceptController {
 		
 		if(acceptState == null){
 			return Msg.error("请检查你的网络");
+			//acceptState=0表示未受理的
 		}else if(0 == acceptState){
 			List<ViewFix> list = viewFixService.getAcceptUntil();
 			List<FixGetAccept> listFixGetAccept = new ArrayList<FixGetAccept>();
@@ -109,6 +110,7 @@ public class FixAcceptController {
 			fix.setIsOver(true);
 			fixService.update(fix);
 			return Msg.success("受理拒绝").add("data", fix);
+			//TODO 不需要add data
 			
 		}else if ("通过".equals(fixAddAccept.getAcceptState())) {
 			//根据传递的id获取一个Fix对象
