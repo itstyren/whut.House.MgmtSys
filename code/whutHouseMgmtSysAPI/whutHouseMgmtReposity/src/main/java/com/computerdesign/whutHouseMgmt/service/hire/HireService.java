@@ -43,7 +43,6 @@ public class HireService {
 	 * @param hire
 	 */
 	public void add(Hire hire) {
-		hireMapper.insert(hire);
-		
+		hireMapper.insertSelective(hire);
 	}
 }

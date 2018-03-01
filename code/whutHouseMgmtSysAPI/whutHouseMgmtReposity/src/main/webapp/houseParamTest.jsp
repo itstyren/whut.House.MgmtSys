@@ -457,7 +457,6 @@
 		$("#hireAddApply").click(function() {
 			var data = {
 				'staffId' : 18,
-				'houseId' : 7,
 				'phone' : '1654646465',
 				'email' : '546456@163.com',
 				'reason':'心情不好'

@@ -84,9 +84,7 @@ public class HireController {
 			return Msg.error("请检查你的网络");
 		}else{
 			StaffHouse staffHouse = listStaffHouse.get(0);
-			
-			
-		
+
 			hire.setApplyTime(new Date());
 			hire.setHireState("待受理");
 			hire.setIsOver(false);
