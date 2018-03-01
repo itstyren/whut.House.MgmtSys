@@ -23,35 +23,35 @@
                   <el-col :span="4">
                     <el-form-item label="部门">
                       <el-select v-model="queryForm.dept" size="small" :clearable="true" placeholder="所有部门">
-                        <el-option v-for="v in deptData" :key="v.staffParamId" :value="v.staffParamId" :label="v.staffParamName"></el-option>
+                        <el-option v-for="v in deptData" :key="v.staffParamId" :value="v.staffParamName" :label="v.staffParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
                     <el-form-item label="职务">
                       <el-select v-model="queryForm.post" size="small" :clearable="true" placeholder="所有职务">
-                        <el-option v-for="v in postData" :key="v.staffParamId" :value="v.staffParamId" :label="v.staffParamName"></el-option>
+                        <el-option v-for="v in postData" :key="v.staffParamId" :value="v.staffParamName" :label="v.staffParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
                     <el-form-item label="职称">
                       <el-select v-model="queryForm.title" size="small" :clearable="true" placeholder="所有职称">
-                        <el-option v-for="v in titleData" :key="v.staffParamId" :value="v.staffParamId" :label="v.staffParamName"></el-option>
+                        <el-option v-for="v in titleData" :key="v.staffParamId" :value="v.staffParamName" :label="v.staffParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
                     <el-form-item label="类别">
                       <el-select v-model="queryForm.class" size="small" :clearable="true" placeholder="所有类别">
-                        <el-option v-for="v in classData" :key="v.staffParamId" :value="v.staffParamId" :label="v.staffParamName"></el-option>
+                        <el-option v-for="v in classData" :key="v.staffParamId" :value="v.staffParamName" :label="v.staffParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
                     <el-form-item label="状态">
                       <el-select v-model="queryForm.status" size="small" :clearable="true" placeholder="所有状态">
-                        <el-option v-for="v in statusData" :key="v.staffParamId" :value="v.staffParamId" :label="v.staffParamName"></el-option>
+                        <el-option v-for="v in statusData" :key="v.staffParamId" :value="v.staffParamName" :label="v.staffParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
@@ -59,7 +59,7 @@
                 <el-row>
                   <el-col :span="4">
                     <el-form-item label="婚姻">
-                      <el-select v-model="queryForm.marriage" size="small" :clearable="true" placeholder="全部">
+                      <el-select v-model="queryForm.marriageState" size="small" :clearable="true" placeholder="全部">
                         <el-option v-for="v in formOption.marriageState" :key="v.value" :value="v.value" :label="v.label"></el-option>
                       </el-select>
                     </el-form-item>
@@ -73,15 +73,20 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="工作时间">
-                      <el-date-picker v-model="queryForm.setTime" size="small" type="daterange" align="right" unlink-panels range-separator="至"
-                        start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd">
+                      <el-date-picker v-model="time" size="small" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期"
+                        end-placeholder="结束日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd">
                       </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                              <el-col :span="4">
+                    <el-form-item label="姓名/工号">
+                      <el-input v-model="queryForm.query" size="small"  placeholder="请输入搜索"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
                     <el-form-item label=" ">
-                      <el-button type="danger" size="small">重置</el-button>
-                      <el-button type="primary" size="small">查询</el-button>
+                      <el-button type="danger" size="small" @click="resseting">重置</el-button>
+                      <el-button type="primary" size="small" @click="muticonditionQuery">查询</el-button>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -90,41 +95,71 @@
           </div>
           <!-- 表格区 -->
           <div class="main-data">
+            <!-- 未设置选房的表格 -->
             <div class="card can-select">
-              <el-table :data="canSelectData" class="table" height="string" v-loading="listLoading">
-               <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
-                <el-table-column prop="staffName" label="姓名" sortable align="center"></el-table-column>
-                <el-table-column prop="totalVal" label="总分" sortable align="center"></el-table-column>
-                <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
-                <el-table-column prop="marriageState" label="婚姻状况" align="center"></el-table-column>
-                <el-table-column prop="postName" label="职称" align="center"></el-table-column>
-                <el-table-column prop="statusName" label="职务" align="center"></el-table-column>
-                <el-table-column prop="typeName" label="职工类别" align="center"></el-table-column>
-                <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
-                <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
-              </el-table>
-              <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent"
-                :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
-              </el-pagination>
-            </div>
-            <div class="card can-select">
-              <el-table :data="canSelectData" class="table" height="string" v-loading="listLoading">
+              <el-table :data="canSelectData" class="table" height="string" v-loading="listLoading" @selection-change="setSelectionChange">
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
-                <el-table-column prop="staffName" label="姓名" sortable align="center"></el-table-column>
+                <el-table-column label="姓名" sortable align="center">
+                  <template slot-scope="scope">
+                    <el-popover trigger="hover" placement="top">
+                      <p>姓名: {{ scope.row.staffName }}</p>
+                      <p>来校工作时间: {{ scope.row.joinTime }}</p>
+                      <p>预计退休时间: {{ scope.row.retireTime }}</p>
+                      <div slot="reference" class="name-wrapper">
+                        <el-tag size="medium" type="info">{{ scope.row.staffName }}</el-tag>
+                      </div>
+                    </el-popover>
+                  </template>
+                </el-table-column>
                 <el-table-column prop="totalVal" label="总分" sortable align="center"></el-table-column>
                 <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
                 <el-table-column prop="marriageState" label="婚姻状况" align="center"></el-table-column>
                 <el-table-column prop="postName" label="职称" align="center"></el-table-column>
-                <el-table-column prop="statusName" label="职务" align="center"></el-table-column>
+                <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
                 <el-table-column prop="typeName" label="职工类别" align="center"></el-table-column>
                 <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
                 <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
               </el-table>
-              <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent"
+              <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
                 :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
               </el-pagination>
+              <div class="bottom-tool">
+                <el-button type="primary" size="small" @click="setSelect">设为可选</el-button>
+              </div>
+            </div>
+            <!-- 已设置选房的表格 -->
+            <div class="card can-select">
+              <el-table :data="haveSelectData" class="table" height="string" v-loading="listLoading1" @selection-change="cancelSelectionChange">
+                <el-table-column type="selection" width="55"></el-table-column>
+                <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
+                <el-table-column label="姓名" sortable align="center">
+                  <template slot-scope="scope">
+                    <el-popover trigger="hover" placement="top">
+                      <p>姓名: {{ scope.row.staffName }}</p>
+                      <p>来校工作时间: {{ scope.row.joinTime }}</p>
+                      <p>离退休时间: {{ scope.row.retireTime }}</p>
+                      <div slot="reference" class="name-wrapper">
+                        <el-tag size="medium" type="info">{{ scope.row.staffName }}</el-tag>
+                      </div>
+                    </el-popover>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="totalVal" label="总分" sortable align="center"></el-table-column>
+                <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
+                <el-table-column prop="marriageState" label="婚姻状况" align="center"></el-table-column>
+                <el-table-column prop="postName" label="职称" align="center"></el-table-column>
+                <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
+                <el-table-column prop="typeName" label="职工类别" align="center"></el-table-column>
+                <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
+                <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
+              </el-table>
+              <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent1" @current-change="currentChangeEvent1"
+                :page-size="size1" :page-sizes="[10,15,20,25,30]" :total="totalNum1">
+              </el-pagination>
+              <div class="bottom-tool">
+                <el-button type="warning" size="small" @click="cancelSelect">撤销可选</el-button>
+              </div>
             </div>
           </div>
         </div>
@@ -149,6 +184,7 @@ export default {
     return {
       // 多重查找表单
       queryForm: {},
+      time: [],
       deptData: [],
       postData: [],
       titleData: [],
@@ -189,16 +225,24 @@ export default {
       },
       // 表格区域
       listLoading: false,
+      listLoading1: false,
       canSelectData: [],
+      setList: [],
+      haveSelectData: [],
+      cancelList: [],
       totalNum: 1,
       page: 1,
-      size: 10
+      size: 10,
+      totalNum1: 1,
+      page1: 1,
+      size1: 10
     };
   },
   components: {},
   created() {
     this.initalGet();
-    this.getList()
+    this.getList();
+    this.getList1();
   },
   methods: {
     //初始查询条件获取
@@ -250,17 +294,17 @@ export default {
         });
     },
     // 初始获取数据
-    getList(){
-      this.listLoading=true
-            let param = {
+    getList() {
+      this.listLoading = true;
+      let param = {
         page: this.page,
         size: this.size
       };
       getCanSelectStaff(param)
         .then(res => {
           // console.log(res.data.data)
-          this.canSelectData = res.data.data.data;
-          //this.totalNum = res.data.data.data.total;
+          this.canSelectData = res.data.data.data.list;
+          this.totalNum = res.data.data.data.total;
           // console.log(res.data.data.list)
           this.listLoading = false;
         })
@@ -268,36 +312,145 @@ export default {
           console.log(err);
         });
     },
-    //更换每页数量
-    SizeChangeEvent(val) {
+    // 初始获取已设置可选房数据
+    getList1() {
+      this.listLoading1 = true;
+      let param = {
+        page: this.page1,
+        size: this.size1
+      };
+      getHaveSelectStaff(param)
+        .then(res => {
+          // console.log(res.data.data)
+          this.haveSelectData = res.data.data.data.list;
+          this.totalNum1 = res.data.data.data.total;
+          // console.log(res.data.data.list)
+          this.listLoading1 = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 多重查找查询
+    muticonditionQuery() {
+      this.canSelectData = [];
+      if (this.time.length != 0) {
+        this.queryForm.joinTime = {
+          startTime: this.time[0],
+          endTime: this.time[1]
+        };
+      }
+      for (let v in this.queryForm) {
+        if (this.queryForm[v] == "") delete this.queryForm[v];
+      }
+      this.listLoading = true;
+      let param = {
+        page: this.page,
+        size: this.size
+      };
+      //console.log(this.queryForm)
+      if(this.queryForm.hasOwnProperty('query')){
+
+      }else{
+      const data = Object.assign({}, this.queryForm);
+      postCanSelectmulticondition(param, data).then(res => {
+        utils.statusinfo(this, res.data);
+        this.canSelectData = res.data.data.data.list;
+        this.totalNum = res.data.data.data.total;
+        this.listLoading = false;
+      });
+      }
+    },
+    // 为设置选房表格的多选
+    setSelectionChange(selection) {
+      this.setList = [];
+      selection.forEach(v => {
+        this.setList.push(v.staffNo);
+      });
+    },
+    // 设为可选房
+    setSelect() {
+      this.listLoading = true;
+      const data = this.setList;
+      postSetCanSelect(data).then(res => {
+        utils.statusinfo(this, res.data);
+        this.getList();
+        this.getList1();
+      });
+    },
+    // 监听已设置选房多选
+    cancelSelectionChange(selection) {
+      this.cancelList = [];
+      selection.forEach(v => {
+        this.cancelList.push(v.staffNo);
+      });
+    },
+    // 取消可选房
+    cancelSelect() {
+      console.log(this.cancelList)
+      this.listLoading = true;
+      const data = this.cancelList;
+      postcancelCanSelect(data).then(res => {
+        utils.statusinfo(this, res.data);
+        this.getList();
+        this.getList1();
+      });
+    },
+    // 重置查询表单
+    resseting(){
+      this.time=[]
+      this.queryForm={}
+    },
+    // 更换每页数量
+    sizeChangeEvent(val) {
       this.listLoading = true;
       this.size = val;
       this.getList();
     },
     //页码切换时
-    CurrentChangeEvent(val) {
+    currentChangeEvent(val) {
       this.listLoading = true;
       this.page = val;
       this.getList();
+    },
+    //更换每页数量1
+    sizeChangeEvent1(val) {
+      this.listLoading1 = true;
+      this.size1 = val;
+      this.getList1();
+    },
+    //页码切换时1
+    currentChangeEvent1(val) {
+      this.listLoading1 = true;
+      this.page1 = val;
+      this.getList1();
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
+@import "../../styles/variables.scss";
+
 .second-container {
-  background-color: #f0f2f5;
+  background-color: $background-grey;
   .toolbal {
     .el-form-item {
       margin-bottom: 0;
     }
     .card {
-      padding: 20px;
+      padding: 10px;
     }
   }
   .can-select {
-    height: 24vh;
-    padding-bottom: 5vh;
+    height: 25vh;
+    padding-bottom: 6vh;
+    position: relative;
+    & > .bottom-tool {
+      position: absolute;
+      bottom: 5px;
+      left: 10px;
+    }
   }
 }
 </style>

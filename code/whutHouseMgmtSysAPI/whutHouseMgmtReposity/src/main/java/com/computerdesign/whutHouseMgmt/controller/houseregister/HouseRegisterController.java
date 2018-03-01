@@ -236,6 +236,7 @@ public class HouseRegisterController {
 	@RequestMapping(value = "getByAllMultiCondition", method = RequestMethod.POST)
 	@ResponseBody
 	public Msg getByAllMultiCondition(@RequestBody HouseAllSelectModel houseAllSelectModel) {
+		PageHelper.startPage(houseAllSelectModel.getPage(), houseAllSelectModel.getSize());
 		// 查询出所有符合条件的视图所有数据
 		List<ViewHouse> viewHouses = houseRegisterSelectService.getByAllMultiConditionQuery(houseAllSelectModel);
 
@@ -258,10 +259,11 @@ public class HouseRegisterController {
 			houseAllShowModel.setBuildingName(viewHouse.getBuildingName());
 			houseAllShowModels.add(houseAllShowModel);
 		}
+		PageInfo pageInfo = new PageInfo(viewHouses);
+		pageInfo.setList(houseAllShowModels);
+//		System.out.println(houseAllShowModels);
 
-		System.out.println(houseAllShowModels);
-
-		return Msg.success().add("data", houseAllShowModels);
+		return Msg.success().add("data", pageInfo);
 	}
 
 	/**

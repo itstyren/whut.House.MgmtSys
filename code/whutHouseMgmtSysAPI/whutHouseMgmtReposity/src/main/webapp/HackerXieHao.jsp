@@ -92,8 +92,8 @@
 		$("#rentEventModify").click(function() {
 			var data = {
 				"rentEventId" : 3,
-				"rentTimeBegin" : "2017-10-20",
-				"rentTimeRanges" : "2017-11-4",
+				"rentTimeBegin" : "2017-10-20 11:20:21",
+				"rentTimeRanges" : 3,
 				"rentSelValReq" : 5,
 				"rentSelRules" : "无规则"
 			}
@@ -107,8 +107,9 @@
 
 		$("#rentEventAdd").click(function() {
 			var data = {
-				"rentTimeBegin" : "2017-10-30",
-				"rentTimeRanges" : "2017-11-4",
+				"rentTimeBegin" : "2017-10-30 11:21:00",
+				//"rentTimeRanges" : "2017-11-4",
+				"rentTimeRanges" : 2,
 				"rentSelValReq" : 5,
 				"rentSelRules" : "无规则"
 			}
@@ -295,7 +296,9 @@
 						'finishTime' : {
 							'startTime' : '2017-01-31',
 							'endTime' : '2017-02-02'
-						}
+						},
+						'page':1,
+						'size':2
 					};
 					ajaxRequestPostType("houseRegister/getByAllMultiCondition",
 							"POST", data);
@@ -392,12 +395,23 @@
 		$("#activeHouseShowByMultiCondition").click(
 				function() {
 					var data = {
-						'houseType' : '标准价住房',
+						'houseType' : '周转房342萨达',
+						'useStatus' : '空闲',
+						'houseZone' : '武汉市洪山区工大路20号',
+						'structName' : '砖木',
+						'layoutName' : '两室',
+						'building' : '1栋（原鉴湖401栋）',
+						'rentalScope' : {
+							'minRental' : 500,
+							'maxRental' : 1500
+						},
 						'areaParameter' : {
 							'areaParamName' : '使用面积',
-							'minArea' : 65,
-							'maxArea' : 75
-						}
+							'minArea' : 20,
+							'maxArea' : 40
+						},
+						'page' : 1,
+						'size' : 2
 					};
 					ajaxRequestPostType(
 							"housingSet/activeHouseShowByMultiCondition",
@@ -407,12 +421,23 @@
 		$("#canselectHouseShowByMultiCondition").click(
 				function() {
 					var data = {
-						'houseType' : '标准价住房',
+						'houseType' : '周转房342萨达',
+						'useStatus' : '空闲',
+						'houseZone' : '武汉市洪山区工大路20号',
+						'structName' : '砖木',
+						'layoutName' : '两室',
+						'building' : '2栋（原鉴湖402栋）',
+						'rentalScope' : {
+							'minRental' : 500,
+							'maxRental' : 1500
+						},
 						'areaParameter' : {
 							'areaParamName' : '使用面积',
-							'minArea' : 55,
-							'maxArea' : 65
-						}
+							'minArea' : 20,
+							'maxArea' : 40
+						},
+						'page' : 1,
+						'size' : 2
 					};
 					ajaxRequestPostType(
 							"housingSet/canselectHouseShowByMultiCondition",
@@ -420,11 +445,11 @@
 				})
 
 		$("#canselectHouseShow").click(function() {
-			ajaxRequestGet("housingSet/canselectHouseShow");
+			ajaxRequestGet("housingSet/canselectHouseShow?page=2&size=2");
 		})
 
 		$("#activeHouseShow").click(function() {
-			ajaxRequestGet("housingSet/activeHouseShow");
+			ajaxRequestGet("housingSet/activeHouseShow?page=2&size=2");
 		})
 
 		$("#activeShow").click(function() {
@@ -435,55 +460,57 @@
 			ajaxRequestGet("selHouseQuaAuth/canselectShow?page=2&size=5");
 		})
 
-		$("#selectActiveStaffMultiCondition").click(
-				function() {
-					var data = {
-						'dept' : '道桥中心',
-						'post' : '厅级3',
-						'title':'副研究员',
-						'type':'专业技术人员3',
-						'status':'调离',
-						'marriageState':'已婚',
-						'joinTime':{
-							'startTime':'1988-01-27',
-							'endTime':'1988-02-05'
-						},
-						'sex':'男'
-					};
-					ajaxRequestPostType(
-							"selHouseQuaAuth/selectActiveStaffMultiCondition?page=2&size=1",
-							"POST", data);
-				})
-		
-		$("#selectCanselectStaffMultiCondition").click(
-				function() {
-					var data = {
-						'dept' : '道桥中心',
-						'post' : '厅级3',
-						'title':'副研究员',
-						'type':'专业技术人员3',
-						'status':'调离',
-						'marriageState':'已婚',
-						'joinTime':{
-							'startTime':'1988-01-27',
-							'endTime':'1988-02-05'
-						},
-						'sex':'男'
-					};
-					ajaxRequestPostType(
-							"selHouseQuaAuth/selectCanselectStaffMultiCondition?page=2&size=1",
-							"POST", data);
-				})
+		$("#selectActiveStaffMultiCondition")
+				.click(
+						function() {
+							var data = {
+								'dept' : '道桥中心',
+								'post' : '厅级3',
+								'title' : '副研究员',
+								'type' : '专业技术人员3',
+								'status' : '调离',
+								'marriageState' : '已婚',
+								'joinTime' : {
+									'startTime' : '1988-01-27',
+									'endTime' : '1988-02-05'
+								},
+								'sex' : '男'
+							};
+							ajaxRequestPostType(
+									"selHouseQuaAuth/selectActiveStaffMultiCondition?page=2&size=1",
+									"POST", data);
+						})
 
-		$("#selectByNoOrName").click(
-				function() {
-					var data = {
-						'conditionName' : '职工姓名',
-						'conditionValue' : '郑慧敏'
-					};
-					ajaxRequestPostType("selHouseQuaAuth/selectByNoOrName",
-							"POST", data);
-				})
+		$("#selectCanselectStaffMultiCondition")
+				.click(
+						function() {
+							var data = {
+								'dept' : '道桥中心',
+								'post' : '厅级3',
+								'title' : '副研究员',
+								'type' : '专业技术人员3',
+								'status' : '调离',
+								'marriageState' : '已婚',
+								'joinTime' : {
+									'startTime' : '1988-01-27',
+									'endTime' : '1988-02-05'
+								},
+								'sex' : '男'
+							};
+							ajaxRequestPostType(
+									"selHouseQuaAuth/selectCanselectStaffMultiCondition?page=2&size=1",
+									"POST", data);
+						})
+
+		$("#selectByNoOrName")
+				.click(
+						function() {
+							//	var data = {
+							//		'conditionName' : '职工姓名',
+							//		'conditionValue' : '2'
+							//	};
+							ajaxRequestGet("selHouseQuaAuth/selectByNoOrName?conditionValue=郑");
+						})
 
 		$("#setCanselect").click(function() {
 			//传递的是职工编号staffNo数组
@@ -645,16 +672,15 @@
 				value="CanselectShow" id="canselectShow" /> <br>
 			<h4>选房资格认定：多条件查询未设置选房资格员工信息</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="SelectActiveStaffMultiCondition" id="selectActiveStaffMultiCondition" />
-			<br>
+				value="SelectActiveStaffMultiCondition"
+				id="selectActiveStaffMultiCondition" /> <br>
 			<h4>选房资格认定：多条件查询已设置选房资格员工信息</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="SelectCanselectStaffMultiCondition" id="selectCanselectStaffMultiCondition" />
-			<br>
+				value="SelectCanselectStaffMultiCondition"
+				id="selectCanselectStaffMultiCondition" /> <br>
 			<h4>选房资格认定：根据职工号或职工姓名模糊查询</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="SelectByNoOrName" id="selectByNoOrName" />
-			<br>
+				value="SelectByNoOrName" id="selectByNoOrName" /> <br>
 			<h4>选房资格认定：设为可点房</h4>
 			<input class="btn btn-info btn-lg" type="button" value="SetCanselect"
 				id="setCanselect" /> <br>
@@ -681,7 +707,7 @@
 			<h4>房源设置：撤销设置房源</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="CancelSetHousing" id="cancelSetHousing" /> <br>
-			
+
 		</div>
 	</div>
 

@@ -7,101 +7,99 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class RentEvent {
-	private Integer rentEventId;
+    private Integer rentEventId;
 
-	private Integer paramTypeId;
+    private Integer paramTypeId;
 
-	private String paramTypeName;
+    private String paramTypeName;
 
-	private Boolean rentIsOpenSel;
+    private Boolean rentIsOpenSel;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-	private Date rentTimeBegin;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date rentTimeBegin;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-	private Date rentTimeRanges;
+    private Integer rentTimeRanges;
 
-	private String rentSelValReq;
+    private String rentSelValReq;
 
-	private String rentSelRules;
+    private String rentSelRules;
 
-	private Boolean isDelete;
+    private Boolean isDelete;
 
-	public Integer getRentEventId() {
-		return rentEventId;
-	}
+    public Integer getRentEventId() {
+        return rentEventId;
+    }
 
-	public void setRentEventId(Integer rentEventId) {
-		this.rentEventId = rentEventId;
-	}
+    public void setRentEventId(Integer rentEventId) {
+        this.rentEventId = rentEventId;
+    }
 
-	public Integer getParamTypeId() {
-		return paramTypeId;
-	}
+    public Integer getParamTypeId() {
+        return paramTypeId;
+    }
 
-	public void setParamTypeId(Integer paramTypeId) {
-		this.paramTypeId = paramTypeId;
-	}
+    public void setParamTypeId(Integer paramTypeId) {
+        this.paramTypeId = paramTypeId;
+    }
 
-	public String getParamTypeName() {
-		return paramTypeName;
-	}
+    public String getParamTypeName() {
+        return paramTypeName;
+    }
 
-	public void setParamTypeName(String paramTypeName) {
-		this.paramTypeName = paramTypeName == null ? null : paramTypeName.trim();
-	}
+    public void setParamTypeName(String paramTypeName) {
+        this.paramTypeName = paramTypeName == null ? null : paramTypeName.trim();
+    }
 
-	public Boolean getRentIsOpenSel() {
-		return rentIsOpenSel;
-	}
+    public Boolean getRentIsOpenSel() {
+        return rentIsOpenSel;
+    }
 
-	public void setRentIsOpenSel(Boolean rentIsOpenSel) {
-		this.rentIsOpenSel = rentIsOpenSel;
-	}
+    public void setRentIsOpenSel(Boolean rentIsOpenSel) {
+        this.rentIsOpenSel = rentIsOpenSel;
+    }
 
-	public Date getRentTimeBegin() {
-		return rentTimeBegin;
-	}
+    public Date getRentTimeBegin() {
+        return rentTimeBegin;
+    }
 
-	public void setRentTimeBegin(Date rentTimeBegin) {
-		this.rentTimeBegin = rentTimeBegin;
-	}
+    public void setRentTimeBegin(Date rentTimeBegin) {
+        this.rentTimeBegin = rentTimeBegin;
+    }
 
-	public Date getRentTimeRanges() {
-		return rentTimeRanges;
-	}
+    public Integer getRentTimeRanges() {
+        return rentTimeRanges;
+    }
 
-	public void setRentTimeRanges(Date rentTimeRanges) {
-		this.rentTimeRanges = rentTimeRanges;
-	}
+    public void setRentTimeRanges(Integer rentTimeRanges) {
+        this.rentTimeRanges = rentTimeRanges;
+    }
 
-	public String getRentSelValReq() {
-		return rentSelValReq;
-	}
+    public String getRentSelValReq() {
+        return rentSelValReq;
+    }
 
-	public void setRentSelValReq(String rentSelValReq) {
-		this.rentSelValReq = rentSelValReq == null ? null : rentSelValReq.trim();
-	}
+    public void setRentSelValReq(String rentSelValReq) {
+        this.rentSelValReq = rentSelValReq == null ? null : rentSelValReq.trim();
+    }
 
-	public String getRentSelRules() {
-		return rentSelRules;
-	}
+    public String getRentSelRules() {
+        return rentSelRules;
+    }
 
-	public void setRentSelRules(String rentSelRules) {
-		this.rentSelRules = rentSelRules == null ? null : rentSelRules.trim();
-	}
+    public void setRentSelRules(String rentSelRules) {
+        this.rentSelRules = rentSelRules == null ? null : rentSelRules.trim();
+    }
 
-	public Boolean getIsDelete() {
-		return isDelete;
-	}
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
 
-	public void setIsDelete(Boolean isDelete) {
-		this.isDelete = isDelete;
-	}
-
-	public RentEvent(Integer paramTypeId, String paramTypeName, Boolean rentIsOpenSel, Boolean isDelete) {
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
+    }
+    
+    public RentEvent(Integer paramTypeId, String paramTypeName, Boolean rentIsOpenSel, Boolean isDelete) {
 		super();
 		this.paramTypeId = paramTypeId;
 		this.paramTypeName = paramTypeName;
@@ -112,5 +110,7 @@ public class RentEvent {
 	public RentEvent() {
 		super();
 	}
+    
+    
 
 }

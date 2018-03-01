@@ -199,7 +199,7 @@ export default {
         size: this.size
       };
       let data = Object.assign({}, this.queryForm);
-      postFixmulticondition(param, param).then(res => {
+      postFixmulticondition(param, data).then(res => {
         utils.statusinfo(this, res.data);
         const data = res.data.data.data.list;
         this.totalNum = res.data.data.data.total;

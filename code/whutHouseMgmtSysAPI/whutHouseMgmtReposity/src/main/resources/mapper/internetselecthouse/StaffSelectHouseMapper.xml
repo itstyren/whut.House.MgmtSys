@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.internetselecthouse.StaffSelectHouseMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectHouse">
+    <id column="SelectId" jdbcType="INTEGER" property="selectId" />
+    <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="SelectStart" jdbcType="TIMESTAMP" property="selectStart" />
+    <result column="SelectEnd" jdbcType="TIMESTAMP" property="selectEnd" />
+    <result column="RecordStatus" jdbcType="VARCHAR" property="recordStatus" />
+    <result column="CreateDate" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="ModifyDate" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="CreateUser" jdbcType="VARCHAR" property="createUser" />
+    <result column="ModifyUser" jdbcType="VARCHAR" property="modifyUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SelectId, StaffId, SelectStart, SelectEnd, RecordStatus, CreateDate, ModifyDate, 
+    CreateUser, ModifyUser
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectHouseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hs_staffselecthouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hs_staffselecthouse
+    where SelectId = #{selectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hs_staffselecthouse
+    where SelectId = #{selectId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectHouseExample">
+    delete from hs_staffselecthouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectHouse">
+    insert into hs_staffselecthouse (SelectId, StaffId, SelectStart, 
+      SelectEnd, RecordStatus, CreateDate, 
+      ModifyDate, CreateUser, ModifyUser
+      )
+    values (#{selectId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{selectStart,jdbcType=TIMESTAMP}, 
+      #{selectEnd,jdbcType=TIMESTAMP}, #{recordStatus,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectHouse">
+    insert into hs_staffselecthouse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="selectId != null">
+        SelectId,
+      </if>
+      <if test="staffId != null">
+        StaffId,
+      </if>
+      <if test="selectStart != null">
+        SelectStart,
+      </if>
+      <if test="selectEnd != null">
+        SelectEnd,
+      </if>
+      <if test="recordStatus != null">
+        RecordStatus,
+      </if>
+      <if test="createDate != null">
+        CreateDate,
+      </if>
+      <if test="modifyDate != null">
+        ModifyDate,
+      </if>
+      <if test="createUser != null">
+        CreateUser,
+      </if>
+      <if test="modifyUser != null">
+        ModifyUser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="selectId != null">
+        #{selectId,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="selectStart != null">
+        #{selectStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="selectEnd != null">
+        #{selectEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectHouseExample" resultType="java.lang.Long">
+    select count(*) from hs_staffselecthouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update hs_staffselecthouse
+    <set>
+      <if test="record.selectId != null">
+        SelectId = #{record.selectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffId != null">
+        StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.selectStart != null">
+        SelectStart = #{record.selectStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.selectEnd != null">
+        SelectEnd = #{record.selectEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recordStatus != null">
+        RecordStatus = #{record.recordStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CreateDate = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null">
+        ModifyDate = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        CreateUser = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyUser != null">
+        ModifyUser = #{record.modifyUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update hs_staffselecthouse
+    set SelectId = #{record.selectId,jdbcType=INTEGER},
+      StaffId = #{record.staffId,jdbcType=INTEGER},
+      SelectStart = #{record.selectStart,jdbcType=TIMESTAMP},
+      SelectEnd = #{record.selectEnd,jdbcType=TIMESTAMP},
+      RecordStatus = #{record.recordStatus,jdbcType=VARCHAR},
+      CreateDate = #{record.createDate,jdbcType=TIMESTAMP},
+      ModifyDate = #{record.modifyDate,jdbcType=TIMESTAMP},
+      CreateUser = #{record.createUser,jdbcType=VARCHAR},
+      ModifyUser = #{record.modifyUser,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectHouse">
+    update hs_staffselecthouse
+    <set>
+      <if test="staffId != null">
+        StaffId = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="selectStart != null">
+        SelectStart = #{selectStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="selectEnd != null">
+        SelectEnd = #{selectEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        RecordStatus = #{recordStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CreateDate = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        ModifyDate = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        CreateUser = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        ModifyUser = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SelectId = #{selectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectHouse">
+    update hs_staffselecthouse
+    set StaffId = #{staffId,jdbcType=INTEGER},
+      SelectStart = #{selectStart,jdbcType=TIMESTAMP},
+      SelectEnd = #{selectEnd,jdbcType=TIMESTAMP},
+      RecordStatus = #{recordStatus,jdbcType=VARCHAR},
+      CreateDate = #{createDate,jdbcType=TIMESTAMP},
+      ModifyDate = #{modifyDate,jdbcType=TIMESTAMP},
+      CreateUser = #{createUser,jdbcType=VARCHAR},
+      ModifyUser = #{modifyUser,jdbcType=VARCHAR}
+    where SelectId = #{selectId,jdbcType=INTEGER}
+  </update>
+</mapper>

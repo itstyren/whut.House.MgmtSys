@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
@@ -18,6 +19,8 @@ import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HousingInfo;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.internetselecthouse.HousingSetService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @RequestMapping(value = "/housingSet/")
 @Controller
@@ -25,20 +28,21 @@ public class HousingSetController {
 
 	@Autowired
 	private HousingSetService housingSetService;
-	
+
 	@Autowired
 	private HouseService houseService;
 
 	/**
 	 * 撤销设置房源
+	 * 
 	 * @param houseId
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "cancelSetHousing", method = RequestMethod.POST)
-	public Msg cancelSetHousing(@RequestBody int[] houseIds){
-		if(houseIds != null){
-			for(int houseId : houseIds){
+	public Msg cancelSetHousing(@RequestBody int[] houseIds) {
+		if (houseIds != null) {
+			for (int houseId : houseIds) {
 				House house = houseService.get(houseId);
 				house.setRecordStatus(2);
 				housingSetService.setHousing(house);
@@ -47,17 +51,18 @@ public class HousingSetController {
 		}
 		return Msg.error();
 	}
-	
+
 	/**
 	 * 设置房源为可选
+	 * 
 	 * @param houseId
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "setHousing", method = RequestMethod.POST)
-	public Msg setHousing(@RequestBody int[] houseIds){
-		if(houseIds != null){
-			for(int houseId : houseIds){
+	public Msg setHousing(@RequestBody int[] houseIds) {
+		if (houseIds != null) {
+			for (int houseId : houseIds) {
 				House house = houseService.get(houseId);
 				house.setRecordStatus(0);
 				housingSetService.setHousing(house);
@@ -66,7 +71,7 @@ public class HousingSetController {
 		}
 		return Msg.error();
 	}
-	
+
 	/**
 	 * 根据组合条件查找显示未设置房源
 	 * 
@@ -75,26 +80,26 @@ public class HousingSetController {
 	@ResponseBody
 	@RequestMapping(value = "activeHouseShowByMultiCondition", method = RequestMethod.POST)
 	public Msg activeHouseShowByMultiCondition(@RequestBody HouseAllSelectModel houseAllSelectModel) {
-//		System.out.println(houseAllSelectModel.getAreaParameter().getAreaParamName());
-		List<ViewHouse> viewHouses = housingSetService.selectHousingMultiCondition(houseAllSelectModel);
+		// System.out.println(houseAllSelectModel.getAreaParameter().getAreaParamName());
+		PageHelper.startPage(houseAllSelectModel.getPage(), houseAllSelectModel.getSize());
+		List<ViewHouse> viewHouses = housingSetService.selectActiveHousingMultiCondition(houseAllSelectModel);
 		List<HousingInfo> housingInfos = new ArrayList<HousingInfo>();
 		for (ViewHouse viewHouse : viewHouses) {
-			if (viewHouse.getRecordStatus() == 2) {
-				HousingInfo housingInfo = new HousingInfo();
-				housingInfo.setNo(viewHouse.getNo());
-				housingInfo.setLayout(viewHouse.getLayoutName());
-				housingInfo.setUsedArea(viewHouse.getUsedArea());
-				housingInfo.setRegionName(viewHouse.getRegionName());
-				housingInfo.setBuildingName(viewHouse.getBuildingName());
-				housingInfo.setAddress(viewHouse.getAddress());
-				housingInfo.setRental(viewHouse.getRental());
-				housingInfos.add(housingInfo);
-			}
+			HousingInfo housingInfo = new HousingInfo();
+			housingInfo.setNo(viewHouse.getNo());
+			housingInfo.setLayout(viewHouse.getLayoutName());
+			housingInfo.setUsedArea(viewHouse.getUsedArea());
+			housingInfo.setRegionName(viewHouse.getRegionName());
+			housingInfo.setBuildingName(viewHouse.getBuildingName());
+			housingInfo.setAddress(viewHouse.getAddress());
+			housingInfo.setRental(viewHouse.getRental());
+			housingInfos.add(housingInfo);
 		}
-		return Msg.success().add("data", housingInfos);
+		PageInfo pageInfo = new PageInfo(viewHouses);
+		pageInfo.setList(housingInfos);
+		return Msg.success().add("data", pageInfo);
 	}
 
-	
 	/**
 	 * 根据组合条件查找显示已设置房源
 	 * 
@@ -103,22 +108,24 @@ public class HousingSetController {
 	@ResponseBody
 	@RequestMapping(value = "canselectHouseShowByMultiCondition", method = RequestMethod.POST)
 	public Msg canselectHouseShowByMultiCondition(@RequestBody HouseAllSelectModel houseAllSelectModel) {
-		List<ViewHouse> viewHouses = housingSetService.selectHousingMultiCondition(houseAllSelectModel);
+		PageHelper.startPage(houseAllSelectModel.getPage(), houseAllSelectModel.getSize());
+		List<ViewHouse> viewHouses = housingSetService.selectCanselectHousingMultiCondition(houseAllSelectModel);
 		List<HousingInfo> housingInfos = new ArrayList<HousingInfo>();
 		for (ViewHouse viewHouse : viewHouses) {
-			if (viewHouse.getRecordStatus() == 0) {
-				HousingInfo housingInfo = new HousingInfo();
-				housingInfo.setNo(viewHouse.getNo());
-				housingInfo.setLayout(viewHouse.getLayoutName());
-				housingInfo.setUsedArea(viewHouse.getUsedArea());
-				housingInfo.setRegionName(viewHouse.getRegionName());
-				housingInfo.setBuildingName(viewHouse.getBuildingName());
-				housingInfo.setAddress(viewHouse.getAddress());
-				housingInfo.setRental(viewHouse.getRental());
-				housingInfos.add(housingInfo);
-			}
+			HousingInfo housingInfo = new HousingInfo();
+			housingInfo.setNo(viewHouse.getNo());
+			housingInfo.setLayout(viewHouse.getLayoutName());
+			housingInfo.setUsedArea(viewHouse.getUsedArea());
+			housingInfo.setRegionName(viewHouse.getRegionName());
+			housingInfo.setBuildingName(viewHouse.getBuildingName());
+			housingInfo.setAddress(viewHouse.getAddress());
+			housingInfo.setRental(viewHouse.getRental());
+			housingInfos.add(housingInfo);
 		}
-		return Msg.success().add("data", housingInfos);
+		PageInfo pageInfo = new PageInfo(viewHouses);
+		pageInfo.setList(housingInfos);
+		
+		return Msg.success().add("data", pageInfo);
 	}
 
 	/**
@@ -128,7 +135,9 @@ public class HousingSetController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "canselectHouseShow", method = RequestMethod.GET)
-	public Msg canselectHouseShow() {
+	public Msg canselectHouseShow(@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		PageHelper.startPage(page, size);
 		List<ViewHouse> viewHouses = housingSetService.canselectHouseShow();
 		List<HousingInfo> housingInfos = new ArrayList<HousingInfo>();
 		for (ViewHouse viewHouse : viewHouses) {
@@ -142,7 +151,9 @@ public class HousingSetController {
 			housingInfo.setRental(viewHouse.getRental());
 			housingInfos.add(housingInfo);
 		}
-		return Msg.success().add("data", housingInfos);
+		PageInfo pageInfo = new PageInfo(viewHouses);
+		pageInfo.setList(housingInfos);
+		return Msg.success().add("data", pageInfo);
 	}
 
 	/**
@@ -153,7 +164,9 @@ public class HousingSetController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "activeHouseShow", method = RequestMethod.GET)
-	public Msg activeHouseShow() {
+	public Msg activeHouseShow(@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		PageHelper.startPage(page, size);
 		List<ViewHouse> viewHouses = housingSetService.activeHouseShow();
 		List<HousingInfo> housingInfos = new ArrayList<HousingInfo>();
 		for (ViewHouse viewHouse : viewHouses) {
@@ -167,7 +180,9 @@ public class HousingSetController {
 			housingInfo.setRental(viewHouse.getRental());
 			housingInfos.add(housingInfo);
 		}
-		return Msg.success().add("data", housingInfos);
+		PageInfo pageInfo = new PageInfo(viewHouses);
+		pageInfo.setList(housingInfos);
+		return Msg.success().add("data", pageInfo);
 	}
 
 }
