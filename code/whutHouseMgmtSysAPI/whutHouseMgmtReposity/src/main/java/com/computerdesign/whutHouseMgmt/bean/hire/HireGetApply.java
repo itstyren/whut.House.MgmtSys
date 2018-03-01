@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class HireGetApply {
@@ -60,37 +61,36 @@ public class HireGetApply {
 
     private List<HireHouseGetApply> listHouseGetApply;
     
-    private List<HireApplyAlready> listHireApplyAlready;
+    private HireApplyAlready HireApplyAlready;
     
     /**
      * 根据staffHouse的数据封装一个HireGetApply
      * @param staffHouse
      */
-    public HireGetApply(StaffHouse staffHouse){
-    	this.staffId = staffHouse.getStaffId();
-    	this.staffNo = staffHouse.getStaffNo();
-    	this.staffName = staffHouse.getStaffName();
-    	this.staffSex = staffHouse.getStaffSex();
-    	this.staffTitleName = staffHouse.getStaffTitleName();
-    	this.staffPostName = staffHouse.getStaffPostName();
-    	this.staffTypeName = staffHouse.getStaffTypeName();
-    	this.staffStatusName = staffHouse.getStaffStatusName();
-    	this.staffPostVal = staffHouse.getStaffPostVal();
-    	this.staffSpousePostVal = staffHouse.getStaffSpousePostVal();
-    	this.staffDeptId = staffHouse.getStaffDeptId();
-    	this.staffDeptName = staffHouse.getStaffDeptName();
-    	this.staffCode = staffHouse.getStaffCode();
-    	this.staffTel = staffHouse.getStaffTel();
-    	this.staffRemark = staffHouse.getStaffRemark();
-    	this.staffSpouseName = staffHouse.getStaffSpouseName();
-    	this.staffSpouseCode = staffHouse.getStaffSpouseCode();
-    	this.staffSpouseTitleName = staffHouse.getStaffTitleName();
-    	this.staffSpousePostName = staffHouse.getStaffSpousePostName();
-    	this.staffSpouseDept = staffHouse.getStaffSpouseDept();
-    	this.staffSpouseKind = staffHouse.getStaffSpouseKind();
-    	this.staffSpouseKindName = staffHouse.getStaffSpouseKindName();
-    	this.houseRelName = staffHouse.getHouseRelName();
-    	this.staffDiscountRate = staffHouse.getStaffDiscountRate();
+    public HireGetApply(ViewStaff viewStaff){
+    	this.staffId = viewStaff.getId();
+    	this.staffNo = viewStaff.getNo();
+    	this.staffName = viewStaff.getName(); 
+    	this.staffSex = viewStaff.getSex();
+    	this.staffTitleName = viewStaff.getTitleName();
+    	this.staffPostName = viewStaff.getPostName();
+    	this.staffTypeName = viewStaff.getTypeName();
+    	this.staffStatusName = viewStaff.getStatusName();
+    	this.staffPostVal = viewStaff.getPostVal();
+    	this.staffSpousePostVal = viewStaff.getSpousePostVal();
+    	this.staffDeptId = viewStaff.getDept();
+    	this.staffDeptName = viewStaff.getDeptName();
+    	this.staffCode = viewStaff.getCode();
+    	this.staffTel = viewStaff.getTel();
+    	this.staffRemark = viewStaff.getRemark();
+    	this.staffSpouseName = viewStaff.getSpouseName();
+    	this.staffSpouseCode = viewStaff.getSpouseCode();
+    	this.staffSpouseTitleName = viewStaff.getTitleName();
+    	this.staffSpousePostName = viewStaff.getSpousePostName();
+    	this.staffSpouseDept = viewStaff.getSpouseDept();
+    	this.staffSpouseKind = viewStaff.getSpouseKind();
+    	this.staffSpouseKindName = viewStaff.getSpouseKindName();
+    	this.staffDiscountRate = viewStaff.getDiscountRate();
 
     }
 
@@ -294,13 +294,16 @@ public class HireGetApply {
 		this.listHouseGetApply = listHouseGetApply;
 	}
 
-	public List<HireApplyAlready> getListHireApplyAlready() {
-		return listHireApplyAlready;
+	public HireApplyAlready getHireApplyAlready() {
+		return HireApplyAlready;
 	}
 
-	public void setListHireApplyAlready(List<HireApplyAlready> listHireApplyAlready) {
-		this.listHireApplyAlready = listHireApplyAlready;
+	public void setHireApplyAlready(HireApplyAlready hireApplyAlready) {
+		HireApplyAlready = hireApplyAlready;
 	}
+
+
+
 
 
 	

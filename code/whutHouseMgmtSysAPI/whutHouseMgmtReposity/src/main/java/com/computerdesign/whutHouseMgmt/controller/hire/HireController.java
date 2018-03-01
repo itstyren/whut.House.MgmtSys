@@ -21,9 +21,15 @@ import com.computerdesign.whutHouseMgmt.bean.hire.HireHouseGetApply;
 import com.computerdesign.whutHouseMgmt.bean.hire.ViewHire;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.StaffHouseService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
+import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
+import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
+import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
 
 @RequestMapping(value = "/hire/")
 @Controller
@@ -31,71 +37,78 @@ public class HireController {
 
 	@Autowired
 	private HireService hireService;
-	
+
 	@Autowired
 	private ViewHireService viewHireService;
-	
+
 	@Autowired
 	private StaffHouseService staffHouseService;
-	
+
+	@Autowired
+	private ViewStaffService viewStaffService;
+
 	/**
 	 * 获取住房申请页面
+	 * 
 	 * @param staffId
 	 * @return
 	 */
-	@RequestMapping(value = "getApply/{staffId}",method = RequestMethod.GET)
+	@RequestMapping(value = "getApply/{staffId}", method = RequestMethod.GET)
 	@ResponseBody
-	public Msg getHireApply(@PathVariable("staffId")Integer staffId){
-		//用StaffHouse表
+	public Msg getHireApply(@PathVariable("staffId") Integer staffId) {
+
+		// 确认员工信息
+		ViewStaff viewStaff = viewStaffService.getByStaffId(staffId).get(0);
+		HireGetApply hireGetApply = new HireGetApply(viewStaff);
+
+		// 用StaffHouse表
 		List<StaffHouse> listStaffHouse = new ArrayList<StaffHouse>();
-		//根据staffId获取staffHouse的list
+		// 根据staffId获取staffHouse的list
 		listStaffHouse = staffHouseService.getStaffHouseByStaffId(staffId);
-		if (listStaffHouse.isEmpty()) {
-			return Msg.error("查找不到数据");
-		}else{
-			StaffHouse staffHouse = listStaffHouse.get(0);
-			HireGetApply hireGetApply = new HireGetApply(staffHouse);
-			
-			//房屋集合
-			List<HireHouseGetApply> listHouseGetApply = new ArrayList<HireHouseGetApply>();
-			for (StaffHouse staffHouseD : listStaffHouse) {
-				listHouseGetApply.add(new HireHouseGetApply(staffHouseD));
-			}
-			hireGetApply.setListHouseGetApply(listHouseGetApply);
-			
-			//已申请租赁信息集合
-			List<HireApplyAlready> listHireApplyAlready = new ArrayList<HireApplyAlready>();
-			List<ViewHire> listViewHirePre = viewHireService.getByStaffId(staffId);
-			for (ViewHire viewHire : listViewHirePre) {
-				listHireApplyAlready.add(new HireApplyAlready(viewHire));
-			}
-			hireGetApply.setListHireApplyAlready(listHireApplyAlready);
-			
-			return Msg.success("返回住房申请页面").add("data", hireGetApply);
+
+		// 房屋集合
+		List<HireHouseGetApply> listHouseGetApply = new ArrayList<HireHouseGetApply>();
+		for (StaffHouse staffHouseD : listStaffHouse) {
+			listHouseGetApply.add(new HireHouseGetApply(staffHouseD));
 		}
+		hireGetApply.setListHouseGetApply(listHouseGetApply);
+
+		// 已申请租赁信息集合
+		ViewHire viewHirePre = viewHireService.getByStaffId(staffId).get(0);
+		HireApplyAlready hireApplyAlready = new HireApplyAlready(viewHirePre);
+		hireGetApply.setHireApplyAlready(hireApplyAlready);
+
+		return Msg.success("返回住房申请页面").add("data", hireGetApply);
+
 	}
-	
-	@RequestMapping(value = "addApply",method = RequestMethod.POST)
+
+	/**
+	 * 住房申请
+	 * @param hire
+	 * @return
+	 */
+	@RequestMapping(value = "addApply", method = RequestMethod.POST)
 	@ResponseBody
-	public Msg addHireApply(@RequestBody Hire hire){
+	public Msg addHireApply(@RequestBody Hire hire) {
 
-		List<StaffHouse> listStaffHouse = staffHouseService.getStaffHouseByStaffId(hire.getStaffId());
-		if (listStaffHouse.isEmpty()) {
-			return Msg.error("请检查你的网络");
-		}else{
-			StaffHouse staffHouse = listStaffHouse.get(0);
-
-			hire.setApplyTime(new Date());
-			hire.setHireState("待受理");
-			hire.setIsOver(false);
-			
-			hire.setTimeVal(staffHouse.getTimeVal());
-			hire.setJobLevelVal(staffHouse.getStaffTitleVal().doubleValue());
-			hire.setOtherVal(staffHouse.getOtherVal());
-			hire.setStaffVal(staffHouse.getStaffPostVal().doubleValue());
-			hire.setMultiVal(staffHouse.getTotalVal());
-			
+		ViewHire viewHirePre = viewHireService.getByStaffId(hire.getStaffId()).get(0);
+		if (viewHireService != null) {
+			return Msg.error("该员工正在申请房屋，无法再次申请");
 		}
+
+		ViewStaff viewStaff = viewStaffService.getByStaffId(hire.getStaffId()).get(0);
+
+		hire.setApplyTime(new Date());
+		hire.setHireState("待受理");
+		hire.setIsOver(false);
+
+		hire.setTimeVal(viewStaff.getTimeVal());
+		hire.setOtherVal(viewStaff.getOtherVal());
+		hire.setMultiVal(viewStaff.getTotalVal());
+
+		hire.setJobLevelVal(viewStaff.getTitleVal().doubleValue());
+		hire.setStaffVal(viewStaff.getPostVal().doubleValue());
+
 		hireService.add(hire);
 		return Msg.success("提交申请成功");
 	}
