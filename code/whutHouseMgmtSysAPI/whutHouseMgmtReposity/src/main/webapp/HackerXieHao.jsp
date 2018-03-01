@@ -92,8 +92,8 @@
 		$("#rentEventModify").click(function() {
 			var data = {
 				"rentEventId" : 3,
-				"rentTimeBegin" : "2017-10-20 11:20:21",
-				"rentTimeRanges" : 3,
+				"rentTimeBegin" : "2018-03-01 22:20:21",
+				"rentTimeRanges" : 30,
 				"rentSelValReq" : 5,
 				"rentSelRules" : "无规则"
 			}
@@ -377,6 +377,14 @@
 
 	//网上选房
 	$(function() {
+		
+		$("#submitSelectHouseApplication").click(function() {
+			ajaxRequestGet("selfHelpSelectHouse/submitSelectHouseApplication?staffId=7&houseId=1");
+		})
+		
+		$("#getAllCanselectHouse").click(function() {
+			ajaxRequestGet("selfHelpSelectHouse/getAllCanselectHouse?page=2&size=2");
+		})
 
 		$("#cancelSetHousing").click(function() {
 			//传递的是职工编号staffNo数组
@@ -514,7 +522,7 @@
 
 		$("#setCanselect").click(function() {
 			//传递的是职工编号staffNo数组
-			var data = [ 1, 2 ];
+			var data = [ 6 ,7 ];
 			ajaxRequestPostType("selHouseQuaAuth/setCanselect", "POST", data);
 
 		})
@@ -664,6 +672,12 @@
 			<!-- 数据导入 -->
 		</div>
 		<div class="tab-pane fade" id="internetSelectHouse">
+			<h4>自助选房：提交点房申请</h4>
+			<input class="btn btn-info btn-lg" type="button" value="SubmitSelectHouseApplication"
+				id="submitSelectHouseApplication" /> <br>
+			<h4>自助选房：显示所有未选房职工</h4>
+			<input class="btn btn-info btn-lg" type="button" value="GetAllCanselectHouse"
+				id="getAllCanselectHouse" /> <br>
 			<h4>选房资格认定：初始显示未设置选房职工</h4>
 			<input class="btn btn-info btn-lg" type="button" value="ActiveShow"
 				id="activeShow" /> <br>

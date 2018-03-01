@@ -51,6 +51,7 @@ public class SelHouseQuaAuthService {
 		// }else if(conditionName.equals("职工姓名")){
 		// criteria.andStaffNameLike(conditionValue);
 		// }
+	
 		try {
 			int test = Integer.parseInt(conditionValue);
 			criteria.andStaffNoLike("%" + conditionValue + "%");

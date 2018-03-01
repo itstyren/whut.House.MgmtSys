@@ -3,9 +3,14 @@ package com.computerdesign.whutHouseMgmt.controller.internetselecthouse;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.poi.poifs.filesystem.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +33,7 @@ import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
 import com.computerdesign.whutHouseMgmt.service.internetselecthouse.HousingSetService;
 import com.computerdesign.whutHouseMgmt.service.internetselecthouse.SelHouseQuaAuthService;
+import com.computerdesign.whutHouseMgmt.service.internetselecthouse.StaffSelectHouseService;
 import com.computerdesign.whutHouseMgmt.service.rentparam.RentEventService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.github.pagehelper.PageHelper;
@@ -46,6 +52,9 @@ public class SelHouseQuaAuthController {
 	@Autowired
 	private RentEventService rentEventService;
 
+	@Autowired
+	private StaffSelectHouseService staffSelectHouseService;
+
 	/**
 	 * 根据职工号或职工姓名模糊查找
 	 * 
@@ -56,8 +65,10 @@ public class SelHouseQuaAuthController {
 	@RequestMapping(value = "selectByNoOrName", method = RequestMethod.GET)
 	public Msg selectByNoOrName(@RequestParam String conditionValue) {
 		List<StaffHouse> staffHouses = new ArrayList<StaffHouse>();
-//		String conditionName = staffSelectByNoAndNameModel.getConditionName();
-//		String conditionValue = staffSelectByNoAndNameModel.getConditionValue();
+		// String conditionName =
+		// staffSelectByNoAndNameModel.getConditionName();
+		// String conditionValue =
+		// staffSelectByNoAndNameModel.getConditionValue();
 		try {
 			conditionValue = new String(conditionValue.getBytes("8859_1"), "utf8");
 		} catch (UnsupportedEncodingException e) {
@@ -87,6 +98,11 @@ public class SelHouseQuaAuthController {
 			Staff staff = staffService.getByStaffNo(staffNo).get(0);
 			staff.setRelation("active");
 			staffService.update(staff);
+			
+			//设置StaffSelectHouse数据库中RecordStatus字段
+			StaffSelectHouse staffSelectHouse = staffSelectHouseService.getByStaffId(staff.getId());
+			staffSelectHouse.setRecordStatus("inactive");
+			staffSelectHouseService.update(staffSelectHouse);
 		}
 		return Msg.success("撤销点房职工设置成功");
 	}
@@ -108,14 +124,52 @@ public class SelHouseQuaAuthController {
 			// StaffSelectHouse staffSelectHouse = new StaffSelectHouse();
 			// staffSelectHouse.setStaffId(staff.getId());
 
+			//获取设置的选房开始时间以及选房时间
 			RentEvent rentEvent = rentEventService.get(1);
 			Date rentTimeBegin = rentEvent.getRentTimeBegin();
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(rentTimeBegin);
-			calendar.add(Calendar.MINUTE, 2);
-			System.out.println(rentEvent.getRentTimeBegin());
-			System.out.println(calendar.getTime());
-			System.out.println(rentEvent.getRentTimeRanges());
+
+
+			// 给StaffSelectHouse设置数据并插入数据库
+			StaffSelectHouse staffSelectHouse = new StaffSelectHouse();
+			staffSelectHouse.setStaffId(staff.getId());
+			staffSelectHouse.setRecordStatus("canselect");
+			staffSelectHouse.setCreateDate(new Date());
+			staffSelectHouseService.insert(staffSelectHouse);
+			
+			//创建哈希表key为staffId,值为totalValue
+			HashMap<Integer, Double> staffScore = new HashMap<Integer, Double>();
+			//获取StaffSelectHouse数据库中所有canselect数据
+			List<StaffSelectHouse> staffSelectHouses = staffSelectHouseService.getAll();
+			//将数据添加至哈希表
+			for (StaffSelectHouse staffSelectHouse2 : staffSelectHouses) {
+				Staff staff2 = staffService.get(staffSelectHouse2.getStaffId());
+				staffScore.put(staff2.getId(), staff2.getTotalVal());
+			}
+			//根据职工总分对哈希表排序：键为staffId,值为totalValue
+			List<Map.Entry<Integer, Double>> list = new ArrayList<Map.Entry<Integer, Double>>(staffScore.entrySet());
+			Collections.sort(list, new Comparator<Map.Entry<Integer, Double>>() {
+				// 降序排序
+				@Override
+				public int compare(java.util.Map.Entry<Integer, Double> o1, java.util.Map.Entry<Integer, Double> o2) {
+					return o2.getValue().compareTo(o1.getValue());
+				}
+			});
+
+//			System.out.println(staffScore);
+//			System.out.println(list);
+			//遍历排序后的数据，并根据其key值获取StaffSelectHouse对象，同时设置其selectStart及selectEnd值
+			for (Map.Entry<Integer, Double> mapping : list) {  
+//	            System.out.println(mapping.getKey() + ":" + mapping.getValue()); 
+	            StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffId(mapping.getKey());
+	            //设置选房开始时间
+	            staffSelectHouse3.setSelectStart(calendar.getTime());
+	            //设置选房结束时间
+	            calendar.add(Calendar.MINUTE, rentEvent.getRentTimeRanges());
+	            staffSelectHouse3.setSelectEnd(calendar.getTime());
+	            staffSelectHouseService.update(staffSelectHouse3);
+	        }  
 
 		}
 		return Msg.success("设置点房职工成功");
