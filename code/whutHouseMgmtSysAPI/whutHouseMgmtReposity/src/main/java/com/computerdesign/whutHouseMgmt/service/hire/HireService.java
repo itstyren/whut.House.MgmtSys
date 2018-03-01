@@ -43,7 +43,22 @@ public class HireService {
 	 * @param hire
 	 */
 	public void add(Hire hire) {
-		hireMapper.insert(hire);
-		
+		hireMapper.insertSelective(hire);
+	}
+	
+	/**
+	 * 修改一个Hire
+	 * @param hire
+	 */
+	public void update(Hire hire){
+		hireMapper.updateByPrimaryKeySelective(hire);
+	}
+	
+	/**
+	 * 严格的修改一个hire
+	 * @param hire
+	 */
+	public void updateStrict(Hire hire) {
+		hireMapper.updateByPrimaryKey(hire);
 	}
 }

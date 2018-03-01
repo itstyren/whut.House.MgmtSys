@@ -2,10 +2,6 @@ package com.computerdesign.whutHouseMgmt.bean.hire;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class ViewHire {
     private Integer id;
 
@@ -13,10 +9,22 @@ public class ViewHire {
 
     private String staffNo;
 
+    private String name;
+
+    private String sex;
+
+    private String titleName;
+
+    private String postName;
+
+    private String typeName;
+
+    private String deptName;
+
+    private Date joinTime;
+
     private Integer houseId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date applyTime;
 
     private String reason;
@@ -27,7 +35,7 @@ public class ViewHire {
 
     private Double staffVal;
 
-    private Integer jobLevelVal;
+    private Double jobLevelVal;
 
     private Double timeVal;
 
@@ -41,8 +49,6 @@ public class ViewHire {
 
     private String acceptMan;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date acceptTime;
 
     private String agreeNote;
@@ -51,8 +57,6 @@ public class ViewHire {
 
     private String agreeMan;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date agreeTime;
 
     private String approveNote;
@@ -61,8 +65,6 @@ public class ViewHire {
 
     private String approveMan;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date approveTime;
 
     private Boolean isOver;
@@ -93,6 +95,62 @@ public class ViewHire {
 
     public void setStaffNo(String staffNo) {
         this.staffNo = staffNo == null ? null : staffNo.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
+
+    public String getTitleName() {
+        return titleName;
+    }
+
+    public void setTitleName(String titleName) {
+        this.titleName = titleName == null ? null : titleName.trim();
+    }
+
+    public String getPostName() {
+        return postName;
+    }
+
+    public void setPostName(String postName) {
+        this.postName = postName == null ? null : postName.trim();
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName == null ? null : typeName.trim();
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName == null ? null : deptName.trim();
+    }
+
+    public Date getJoinTime() {
+        return joinTime;
+    }
+
+    public void setJoinTime(Date joinTime) {
+        this.joinTime = joinTime;
     }
 
     public Integer getHouseId() {
@@ -143,11 +201,11 @@ public class ViewHire {
         this.staffVal = staffVal;
     }
 
-    public Integer getJobLevelVal() {
+    public Double getJobLevelVal() {
         return jobLevelVal;
     }
 
-    public void setJobLevelVal(Integer jobLevelVal) {
+    public void setJobLevelVal(Double jobLevelVal) {
         this.jobLevelVal = jobLevelVal;
     }
 

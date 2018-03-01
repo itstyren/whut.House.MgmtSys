@@ -457,7 +457,6 @@
 		$("#hireAddApply").click(function() {
 			var data = {
 				'staffId' : 18,
-				'houseId' : 7,
 				'phone' : '1654646465',
 				'email' : '546456@163.com',
 				'reason':'心情不好'
@@ -465,7 +464,28 @@
 			ajaxRequestPostType("hire/addApply", "POST", data);
 		})
 
+		$("#hireGetAccept").click(function() {
+			ajaxRequestGet("hire/getAccept/1");
+		})
+
+		$("#hireAddAccept").click(function() {
+			var data = {
+				'id':91,
+				'staffVal':54,
+				'jobLevelVal':54,
+				'timeVal':2,
+				'multiVal':11,
+				'otherVal':23,
+				'acceptNote':'可以可以',
+				'acceptMan':'ky',
+				'acceptState':'通过'
+			};
+			ajaxRequestPostType("hire/addAccept", "PUT", data);
+		})
 		
+		$("#hireReAccept").click(function() {
+			ajaxRequestGet("hire/reAccept/91");
+		})
 	})
 	//下拉列表
 	$(function() {
@@ -607,6 +627,18 @@
 			</div>
 			<div>住房申请 <br>
 			<input class="btn btn-info btn-lg" type="button" value="住房申请" id="hireAddApply" /> <br> <br></div>
+			
+			<div>进入房屋申请受理页面  0代表未经受理流程的全部信息，1代表受理过程结束的全部信息<br>
+			<input class="btn btn-info btn-lg" type="button" value="住房申请受理页面" id="hireGetAccept" /> <br> <br></div>
+			<div>维修受理   acceptMan为当前登录人的姓名，acceptState只能为'通过'或者'拒绝'<br>
+			<input class="btn btn-info btn-lg" type="button" value="住房申请受理" id="hireAddAccept" /> <br> <br></div>
+			<div>进入维修审核页面  0代表未经审核流程的全部信息，1代表审核过程结束的全部信息，包括同意审核<br>
+			<input class="btn btn-info btn-lg" type="button" value="住房申请审核页面" id="hireGetAgree" /> <br> <br></div>
+			<div>维修审核   agreeMan为当前登录人的姓名，agreeState只能为'通过'或者'拒绝'<br>
+			<input class="btn btn-info btn-lg" type="button" value="住房申请审核" id="hireAddAgree" /> <br> <br></div>
+			
+			<div>重新受理   传入参数为hire的id<br>
+			<input class="btn btn-info btn-lg" type="button" value="重新受理" id="hireReAccept" /> <br> <br></div>
 		</div>
 	</div>
 
