@@ -137,102 +137,109 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { putFixAccept } from "@/api/api";
-import indexNav from "./components/indexNav";
-import { checkNULL, checkTel } from "@/assets/function/validator";
-import utils from "@/utils/index.js";
-export default {
-  data() {
-    return {
-      listLoading: false,
-      acceptForm: {},
-      acceptStatus: false,
-      fixstatus: "hangding",
-      isSubmit: false,
-      // 表单验证规则
-      rules: {
-        acceptNote: {
-          required: true,
-          message: "请输入受理意见",
-          trigger: "blur"
+  import {
+    putFixAccept
+  } from "@/api/api";
+  import indexNav from "./components/indexNav";
+  import {
+    checkNULL,
+    checkTel
+  } from "@/assets/function/validator";
+  import utils from "@/utils/index.js";
+  export default {
+    data() {
+      return {
+        listLoading: false,
+        acceptForm: {},
+        acceptStatus: false,
+        fixstatus: "hangding",
+        isSubmit: false,
+        // 表单验证规则
+        rules: {
+          acceptNote: {
+            required: true,
+            message: "请输入受理意见",
+            trigger: "blur"
+          }
         }
-      }
-    };
-  },
-  components: {
-    indexNav
-  },
-  methods: {
-    // 从子组件获取
-    getList(object) {
-      this.acceptForm = object.content;
-      this.acceptStatus = object.status;
+      };
     },
-    // 维修受理提交
-    acceptSubmit() {
-      if (this.acceptForm.acceptState == null)
-        this.acceptForm.acceptState = "通过";
-      this.$confirm("确认通过审核", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$refs["acceptForm"].validate(valid => {
-            if (valid) {
-              this.listLoading = true;
-              let acceptForm = this.acceptForm;
-              let param = {
-                acceptMan: acceptForm.staffName,
-                acceptNote: acceptForm.acceptNote,
-                acceptState: acceptForm.acceptState,
-                id: acceptForm.id
-              };
-              putFixAccept(param).then(res => {
-                this.acceptForm = {};
-                utils.statusinfo(this, res.data);
-                this.isSubmit = !this.isSubmit;
-                this.listLoading = false;
-                if (res.data.status == "success")
-                  this.$refs["acceptForm"].resetFields();
-              });
-            }
+    components: {
+      indexNav
+    },
+    methods: {
+      // 从子组件获取
+      getList(object) {
+        this.acceptForm = object.content;
+        this.acceptStatus = object.status;
+      },
+      // 维修受理提交
+      acceptSubmit() {
+        if (this.acceptForm.acceptState == null)
+          this.acceptForm.acceptState = "通过";
+        this.$confirm("确认通过审核", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            this.$refs["acceptForm"].validate(valid => {
+              if (valid) {
+                this.listLoading = true;
+                let acceptForm = this.acceptForm;
+                let param = {
+                  acceptMan: acceptForm.staffName,
+                  acceptNote: acceptForm.acceptNote,
+                  acceptState: acceptForm.acceptState,
+                  id: acceptForm.id
+                };
+                putFixAccept(param).then(res => {
+                  this.acceptForm={}
+                  utils.statusinfo(this, res.data);
+                  this.isSubmit = !this.isSubmit;
+                  this.listLoading = false;
+                  if (res.data.status == "success")
+                    this.$refs["acceptForm"].resetFields();
+                });
+              }
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消审核"
+            });
           });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消审核"
-          });
-        });
+      }
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-.main-data {
-  padding-top: 20px;
-}
+  .main-data {
+    padding-top: 20px;
+  }
 
-.accept-form {
-  width: 80%;
-  background-color: #fff;
-  padding: 10px;
-  padding-bottom: 30px;
-  height: 90%;
-  margin: auto;
-  position: relative;
-  .need-accept {
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    & .is-accept {
-      position: relative;
-      border-bottom: 1px solid #e6ebf5;
-      margin-bottom: 20px;
+  .accept-form {
+    width: 80%;
+    background-color: #fff;
+    padding: 10px;
+    padding-bottom: 30px;
+    height: 90%;
+    margin: auto;
+    position: relative;
+    .need-accept {
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      & .is-accept {
+        position: relative;
+        border-bottom: 1px solid #e6ebf5;
+        margin-bottom: 20px;
+      }
     }
   }
-}
+
 </style>

@@ -10,6 +10,8 @@ import myIcon from '@/components/SvgIcon'
 import App from './App'
 import router from './router'
 import store from './store/index'
+// simulation data
+import './mock'
 
 import './styles/index.scss'
 // 引入图标库

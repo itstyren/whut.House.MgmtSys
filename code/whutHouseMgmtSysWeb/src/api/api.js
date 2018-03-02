@@ -191,8 +191,16 @@ export const postSetHouse = (data) => { return axios.post(`${base}housingSet/set
 // 撤销房源
 export const postcancelHouse = (data) => { return axios.post(`${base}housingSet/cancelSetHousing`, data) }
 
+// 网上选房-自助选房
+// 获取未选房职工
+export const getAllCanselectHouseStaff = (params) => { return axios.get(`${base}selfHelpSelectHouse/getAllCanselectHouse`, { params: params }) }
+// 提交选房申请
+export const getSubmitSelectHouseApply = (params) => { return axios.get(`${base}selfHelpSelectHouse/submitSelectHouseApplication`, { params: params }) }
+
 // 网上选房-住房申请
 // 获取相关信息
 export const getStaffHireInfo = (staffID, params) => { return axios.get(`${base}hire/getApply/${staffID}`, { params: params }) }
 // 提交申请
 export const postHireApply = (params) => { return axios.post(`${base}hire/addApply`, params) }
+
+export const textApi = (params) => { return axios.get(`${base}text/text`, { params: params }) }
