@@ -48,7 +48,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getFixForm, getReAccept, getReAgree } from "@/api/api";
+import { getFixForm, getFixReAccept, getFixReAgree } from "@/api/api";
 import utils from "@/utils/index.js";
 
 export default {
@@ -95,7 +95,7 @@ export default {
         .then(() => {
           let param = row.id;
           this.listLoading = true;
-          getReAccept(param)
+          getFixReAccept(param)
             .then(res => {
               // 公共提示方法
               utils.statusinfo(this, res.data);
@@ -122,7 +122,7 @@ export default {
         .then(() => {
           let param = row.id;
           this.listLoading = true;
-          getReAgree(param)
+          getFixReAgree(param)
             .then(res => {
               // 公共提示方法
               utils.statusinfo(this, res.data);

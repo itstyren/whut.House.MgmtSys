@@ -2,8 +2,13 @@ package com.computerdesign.whutHouseMgmt.controller.rentparam;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectHouse;
 import com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent;
 import com.computerdesign.whutHouseMgmt.bean.rentparam.RentEventModel;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
+import com.computerdesign.whutHouseMgmt.service.internetselecthouse.StaffSelectHouseService;
 import com.computerdesign.whutHouseMgmt.service.rentparam.RentEventService;
+import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -29,6 +38,12 @@ public class RentEventController {
 
 	@Autowired
 	private RentEventService rentEventService;
+	
+	@Autowired
+	private StaffSelectHouseService staffSelectHouseService;
+	
+	@Autowired
+	private StaffService staffService;
 
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
@@ -41,6 +56,45 @@ public class RentEventController {
 			rentEvent.setRentTimeBegin(rentEventModel.getRentTimeBegin());
 			rentEvent.setRentTimeRanges(rentEventModel.getRentTimeRanges());
 			rentEventService.update(rentEvent);
+			
+			//获取设置的选房开始时间以及选房时间
+			Date rentTimeBegin = rentEvent.getRentTimeBegin();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(rentTimeBegin);
+			
+			//创建哈希表key为staffId,值为totalValue
+			HashMap<Integer, Double> staffScore = new HashMap<Integer, Double>();
+			//获取StaffSelectHouse数据库中所有canselect数据
+			List<StaffSelectHouse> staffSelectHouses = staffSelectHouseService.getAll();
+			//将数据添加至哈希表
+			for (StaffSelectHouse staffSelectHouse2 : staffSelectHouses) {
+				Staff staff2 = staffService.get(staffSelectHouse2.getStaffId());
+				staffScore.put(staff2.getId(), staff2.getTotalVal());
+			}
+			//根据职工总分对哈希表排序：键为staffId,值为totalValue
+			List<Map.Entry<Integer, Double>> list = new ArrayList<Map.Entry<Integer, Double>>(staffScore.entrySet());
+			Collections.sort(list, new Comparator<Map.Entry<Integer, Double>>() {
+				// 降序排序
+				@Override
+				public int compare(java.util.Map.Entry<Integer, Double> o1, java.util.Map.Entry<Integer, Double> o2) {
+					return o2.getValue().compareTo(o1.getValue());
+				}
+			});
+
+//			System.out.println(staffScore);
+//			System.out.println(list);
+			//遍历排序后的数据，并根据其key值获取StaffSelectHouse对象，同时设置其selectStart及selectEnd值
+			for (Map.Entry<Integer, Double> mapping : list) {  
+//	            System.out.println(mapping.getKey() + ":" + mapping.getValue()); 
+	            StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffId(mapping.getKey());
+	            //设置选房开始时间
+	            staffSelectHouse3.setSelectStart(calendar.getTime());
+	            //设置选房结束时间
+	            calendar.add(Calendar.MINUTE, rentEvent.getRentTimeRanges());
+	            staffSelectHouse3.setSelectEnd(calendar.getTime());
+	            staffSelectHouseService.update(staffSelectHouse3);
+	        }  
+			
 			return Msg.success().add("data", rentEventModel);
 		} else {
 			return Msg.error();

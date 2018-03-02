@@ -61,13 +61,16 @@ import fixApplyManager from '@/views/fixManage/fixApplyManager'
 // 维修结算
 import fixBalance from '@/views/fixManage/fixBalance'
 
+// 租赁管理
+import hireAccept from '@/views/leaseManage/hireAccept'
+
 // 网上选房
 // 选房资格认定
-import hireStafferSet from '@/views/leaseManage/hireStafferSet'
+import hireStafferSet from '@/views/onlie/hireStafferSet'
 // 房源设置
-import hireHouseSet from '@/views/leaseManage/hireHouseSet'
+import hireHouseSet from '@/views/onlie/hireHouseSet'
 // 住房申请
-import hireApply from '@/views/leaseManage/hireApply'
+import hireApply from '@/views/onlie/hireApply'
 
 
 Vue.use(Router)
@@ -360,11 +363,28 @@ const routes = [
       }
     ]
   },
-  // 网上选房
+    // 租赁管理
   {
     path: '/leaseManage',
     component: Home,
     name: 'leaseManage',
+    meta: {
+      requireAuth: true
+    },
+    menuShow: true,
+    children: [{
+        path: 'hireAccept',
+        component: hireAccept,
+        name: 'hireAccept',
+        menuShow: true
+      },
+    ]
+  },
+  // 网上选房
+  {
+    path: '/online',
+    component: Home,
+    name: 'online',
     meta: {
       requireAuth: true
     },
