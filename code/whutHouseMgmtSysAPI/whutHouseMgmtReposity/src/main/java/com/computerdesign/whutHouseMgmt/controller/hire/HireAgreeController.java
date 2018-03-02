@@ -128,6 +128,7 @@ public class HireAgreeController {
 		hire.setAgreeState(null);
 		hire.setAgreeTime(null);
 		
+		hire.setHouseId(null);
 		hire.setHireState("待审核");
 		hire.setIsOver(false);
 		

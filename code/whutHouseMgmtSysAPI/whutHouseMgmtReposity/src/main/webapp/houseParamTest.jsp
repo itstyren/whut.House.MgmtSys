@@ -471,10 +471,10 @@
 		$("#hireAddAccept").click(function() {
 			var data = {
 				'id':91,
-				'staffVal':54,
-				'jobLevelVal':54,
+				'totalVal':54,
+				'titleVal':54,
 				'timeVal':2,
-				'multiVal':11,
+				'spouseVal':11,
 				'otherVal':23,
 				'acceptNote':'可以可以',
 				'acceptMan':'ky',

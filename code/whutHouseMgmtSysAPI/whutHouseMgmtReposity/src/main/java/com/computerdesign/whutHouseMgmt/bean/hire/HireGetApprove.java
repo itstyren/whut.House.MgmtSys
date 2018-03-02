@@ -2,6 +2,10 @@ package com.computerdesign.whutHouseMgmt.bean.hire;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class HireGetApprove {
 
 	private Integer id;
@@ -14,6 +18,8 @@ public class HireGetApprove {
 
     private String deptName;
     
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date applyTime;
     
     private String reason;
@@ -34,6 +40,8 @@ public class HireGetApprove {
 
     private String acceptMan;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date acceptTime;
     
     private String agreeNote;
@@ -41,7 +49,8 @@ public class HireGetApprove {
     private String agreeState;
 
     private String agreeMan;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date agreeTime;
     
     private Double totalVal;
