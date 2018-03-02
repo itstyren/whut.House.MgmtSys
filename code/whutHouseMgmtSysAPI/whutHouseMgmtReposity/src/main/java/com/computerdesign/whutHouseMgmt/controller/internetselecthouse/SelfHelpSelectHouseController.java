@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.Hire;
+import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HireRecent;
+import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.SelectedStaffHouseInfo;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.SelfHelpSelectHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.SelfHelpStaffCanselectShowModel;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
+import com.computerdesign.whutHouseMgmt.service.internetselecthouse.HireRecentService;
 import com.computerdesign.whutHouseMgmt.service.internetselecthouse.SelfHelpSelectHouseService;
 import com.computerdesign.whutHouseMgmt.service.internetselecthouse.StaffSelectHouseService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
@@ -42,6 +45,51 @@ public class SelfHelpSelectHouseController {
 	
 	@Autowired
 	private StaffSelectHouseService staffSelectHouseService;
+	
+	@Autowired
+	private HireRecentService hireRecentService;
+	
+	/**
+	 * 获取已选房职工信息
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getAllSelectedStaff", method = RequestMethod.GET)
+	public Msg getAllSelectedStaff(@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size){
+		PageHelper.startPage(page,size);
+		List<HireRecent> hireRecents = hireRecentService.getAll();
+		List<SelectedStaffHouseInfo> selectedStaffHouseInfos = new ArrayList<SelectedStaffHouseInfo>();
+		for (HireRecent hireRecent : hireRecents){
+			SelectedStaffHouseInfo selectedStaffHouseInfo = new SelectedStaffHouseInfo();
+			selectedStaffHouseInfo.setStaffName(hireRecent.getStaffName());
+			selectedStaffHouseInfo.setStaffNo(hireRecent.getStaffNo());
+			selectedStaffHouseInfo.setStaffTitleName(hireRecent.getStaffTitleName());
+			selectedStaffHouseInfo.setStaffPostName(hireRecent.getStaffPostName());
+			selectedStaffHouseInfo.setStaffTypeName(hireRecent.getStaffTypeName());
+			selectedStaffHouseInfo.setStaffStatusName(hireRecent.getStaffStatusName());
+			selectedStaffHouseInfo.setStaffDeptName(hireRecent.getStaffDeptName());
+			selectedStaffHouseInfo.setStaffPostVal(hireRecent.getStaffPostVal());
+			selectedStaffHouseInfo.setStaffTitleVal(hireRecent.getStaffTitleVal());
+			selectedStaffHouseInfo.setStaffSpousePostVal(hireRecent.getStaffSpousePostVal());
+			selectedStaffHouseInfo.setStaffSpouseTitleVal(hireRecent.getStaffSpouseTitleVal());
+			selectedStaffHouseInfo.setStaffTimeVal(hireRecent.getStaffTimeVal());
+			selectedStaffHouseInfo.setStaffOtherVal(hireRecent.getStaffOtherVal());
+			selectedStaffHouseInfo.setStaffTotalVal(hireRecent.getStaffTotalVal());
+			selectedStaffHouseInfo.setStaffSelectStart(hireRecent.getStaffSelectStart());
+			selectedStaffHouseInfo.setStaffSelectEnd(hireRecent.getStaffSelectEnd());
+			selectedStaffHouseInfo.setHouseNo(hireRecent.getHouseNo());
+			selectedStaffHouseInfo.setHouseBuildArea(hireRecent.getHouseBuildArea());
+			selectedStaffHouseInfo.setHouseAddress(hireRecent.getHouseAddress());
+			selectedStaffHouseInfos.add(selectedStaffHouseInfo);
+		}
+		
+		PageInfo pageInfo = new PageInfo(hireRecents);
+		pageInfo.setList(selectedStaffHouseInfos);
+		return Msg.success().add("data", pageInfo);
+	}
 	
 	/**
 	 * 提交自助选房申请
@@ -82,6 +130,11 @@ public class SelfHelpSelectHouseController {
 			hire.setAgreeTime(new Date());
 			hire.setIsOver(false);
 			hireService.add(hire);
+			
+			staff.setRelation("selected");
+			staffService.update(staff);
+			staffSelectHouseService.getByStaffId(staffId).setRecordStatus("selected");
+			staffSelectHouseService.update(staffSelectHouseService.getByStaffId(staffId));
 			return Msg.success("提交成功").add("data", hire);
 		}else{
 			return Msg.error("您的点房时间已到");
