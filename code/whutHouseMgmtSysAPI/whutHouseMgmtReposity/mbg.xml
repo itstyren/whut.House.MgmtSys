@@ -49,7 +49,7 @@
 		<!-- <table tableName="hs_staffselecthouse" domainObjectName="StaffSelectHouse">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="view_hs_hire" domainObjectName="ViewHire">
+		<table tableName="hs_hire" domainObjectName="Hire">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		<!-- <table tableName="view_hs_resident" domainObjectName="ResidentVw">

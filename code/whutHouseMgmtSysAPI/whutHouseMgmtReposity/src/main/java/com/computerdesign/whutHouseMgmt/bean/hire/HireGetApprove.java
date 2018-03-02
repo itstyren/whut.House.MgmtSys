@@ -44,15 +44,16 @@ public class HireGetApprove {
 
     private Date agreeTime;
     
-    private Double jobLevelVal;
+    private Double totalVal;
+
+    private Double titleVal;
 
     private Double timeVal;
 
-    private Double multiVal;
+    private Double spouseVal;
 
     private Double otherVal;
     
-    private Integer spouseTitleVal;
     
     public HireGetApprove(ViewHire viewHire) {
     	this.id = viewHire.getId();
@@ -76,11 +77,12 @@ public class HireGetApprove {
 		this.agreeState = viewHire.getAgreeState();
 		this.agreeMan = viewHire.getAgreeMan();
 		this.agreeTime = viewHire.getAgreeTime();
-		this.jobLevelVal = viewHire.getJobLevelVal();
+		
+		this.totalVal = viewHire.getTotalVal();
+		this.titleVal = viewHire.getTitleVal();
 		this.timeVal = viewHire.getTimeVal();
-		this.multiVal = viewHire.getMultiVal();
+		this.spouseVal = viewHire.getSpouseVal();
 		this.otherVal = viewHire.getOtherVal();
-		this.spouseTitleVal = viewHire.getSpouseTitleVal();
 	}
 
 	public Integer getId() {
@@ -243,12 +245,20 @@ public class HireGetApprove {
 		this.agreeTime = agreeTime;
 	}
 
-	public Double getJobLevelVal() {
-		return jobLevelVal;
+	public Double getTotalVal() {
+		return totalVal;
 	}
 
-	public void setJobLevelVal(Double jobLevelVal) {
-		this.jobLevelVal = jobLevelVal;
+	public void setTotalVal(Double totalVal) {
+		this.totalVal = totalVal;
+	}
+
+	public Double getTitleVal() {
+		return titleVal;
+	}
+
+	public void setTitleVal(Double titleVal) {
+		this.titleVal = titleVal;
 	}
 
 	public Double getTimeVal() {
@@ -259,12 +269,12 @@ public class HireGetApprove {
 		this.timeVal = timeVal;
 	}
 
-	public Double getMultiVal() {
-		return multiVal;
+	public Double getSpouseVal() {
+		return spouseVal;
 	}
 
-	public void setMultiVal(Double multiVal) {
-		this.multiVal = multiVal;
+	public void setSpouseVal(Double spouseVal) {
+		this.spouseVal = spouseVal;
 	}
 
 	public Double getOtherVal() {
@@ -275,13 +285,7 @@ public class HireGetApprove {
 		this.otherVal = otherVal;
 	}
 
-	public Integer getSpouseTitleVal() {
-		return spouseTitleVal;
-	}
-
-	public void setSpouseTitleVal(Integer spouseTitleVal) {
-		this.spouseTitleVal = spouseTitleVal;
-	}
+	
     
     
     

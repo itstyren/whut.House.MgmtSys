@@ -28,16 +28,14 @@ public class HireGetAgree {
 
     private Date acceptTime;
     
-    private Double jobLevelVal;
+    private Double titleVal;
 
     private Double timeVal;
 
-    private Double multiVal;
+    private Double spouseVal;
 
     private Double otherVal;
-    
-    private Integer spouseTitleVal;
-    
+        
     
 
 	public HireGetAgree(ViewHire viewHire) {
@@ -53,11 +51,10 @@ public class HireGetAgree {
 		this.acceptState = viewHire.getAcceptState();
 		this.acceptMan = viewHire.getAcceptMan();
 		this.acceptTime = viewHire.getAcceptTime();
-		this.jobLevelVal = viewHire.getJobLevelVal();
+		this.titleVal = viewHire.getTitleVal();
 		this.timeVal = viewHire.getTimeVal();
-		this.multiVal = viewHire.getMultiVal();
+		this.spouseVal = viewHire.getSpouseVal();
 		this.otherVal = viewHire.getOtherVal();
-		this.spouseTitleVal = viewHire.getSpouseTitleVal();
 	}
 
 	public Integer getId() {
@@ -156,12 +153,12 @@ public class HireGetAgree {
 		this.acceptTime = acceptTime;
 	}
 
-	public Double getJobLevelVal() {
-		return jobLevelVal;
+	public Double getTitleVal() {
+		return titleVal;
 	}
 
-	public void setJobLevelVal(Double jobLevelVal) {
-		this.jobLevelVal = jobLevelVal;
+	public void setTitleVal(Double titleVal) {
+		this.titleVal = titleVal;
 	}
 
 	public Double getTimeVal() {
@@ -172,12 +169,12 @@ public class HireGetAgree {
 		this.timeVal = timeVal;
 	}
 
-	public Double getMultiVal() {
-		return multiVal;
+	public Double getSpouseVal() {
+		return spouseVal;
 	}
 
-	public void setMultiVal(Double multiVal) {
-		this.multiVal = multiVal;
+	public void setSpouseVal(Double spouseVal) {
+		this.spouseVal = spouseVal;
 	}
 
 	public Double getOtherVal() {
@@ -188,14 +185,7 @@ public class HireGetAgree {
 		this.otherVal = otherVal;
 	}
 
-	public Integer getSpouseTitleVal() {
-		return spouseTitleVal;
-	}
-
-	public void setSpouseTitleVal(Integer spouseTitleVal) {
-		this.spouseTitleVal = spouseTitleVal;
-	}
-
+	
 
 	
     

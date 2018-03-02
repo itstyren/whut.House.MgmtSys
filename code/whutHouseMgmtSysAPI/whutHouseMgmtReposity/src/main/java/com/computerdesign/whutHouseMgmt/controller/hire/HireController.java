@@ -106,10 +106,10 @@ public class HireController {
 
 		hire.setTimeVal(viewStaff.getTimeVal());
 		hire.setOtherVal(viewStaff.getOtherVal());
-		hire.setMultiVal(viewStaff.getTotalVal());
+		hire.setSpouseVal(0.0);
 
-		hire.setJobLevelVal(viewStaff.getTitleVal().doubleValue());
-		hire.setStaffVal(viewStaff.getPostVal().doubleValue());
+		hire.setTitleVal(viewStaff.getTitleVal().doubleValue());
+		hire.setTotalVal(viewStaff.getTotalVal().doubleValue());
 
 		hireService.add(hire);
 		return Msg.success("提交申请成功");
