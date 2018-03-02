@@ -5,13 +5,13 @@
         <el-input v-model="filterText" placeholder="输入关键词搜索" class="filter"></el-input>
       </div>
       <!-- 主菜单 -->
-      <el-tree v-loading="listLoading" :data="fixData" :render-content="renderContent" :filter-node-method="filterNode"
+      <el-tree v-loading="listLoading" :data="hireData" :render-content="renderContent" :filter-node-method="filterNode"
         @node-click="nodeClick"></el-tree>
     </aside>
 </template>
 
 <script type="text/ecmascript-6">
-import { getFixAccept, getFixReview } from "@/api/api";
+import { getHireAccept, getFixReview } from "@/api/api";
 export default {
   data() {
     return {
@@ -19,12 +19,12 @@ export default {
       // 树控件需要的
       listLoading: false,
       filterText: "",
-      fixData: []
+      hireData: []
     };
   },
   // 获取父组件传递的数据
   props: {
-    fixStatus: {
+    hireStatus: {
       type: String,
       default: "hangding"
     },
@@ -33,8 +33,8 @@ export default {
     }
   },
   created() {
-    //console.log(this.fixStatus)
-    if (this.fixStatus == "hangding") this.getHandingList();
+    //console.log(this.hireStatus)
+    if (this.hireStatus == "hangding") this.getHandingList();
     else this.getReviewList();
   },
   watch: {
@@ -43,8 +43,8 @@ export default {
       this.$refs.staffTree.filter(val);
     },
     isSubmit(newVal) {
-      this.fixData = [];
-      if (this.fixStatus == "hangding") this.getHandingList();
+      this.hireData = [];
+      if (this.hireStatus == "hangding") this.getHandingList();
       else this.getReviewList();
     }
   },
@@ -54,35 +54,35 @@ export default {
       this.listLoading = true;
       let param = {};
       // 获取未受理的
-      getFixAccept(0, param)
+      getHireAccept(0, param)
         .then(res => {
-          let fixData = res.data.data.data;
-          this.fixData.push({
+          let hireData = res.data.data.data;
+          this.hireData.push({
             id: 0,
             label: "待受理业务",
             children: []
           });
-          fixData.forEach(data => {
-            this.fixData[0].children.push({
-              id: data.fixContentId,
-              label: data.fixContentName + "【" + data.staffName + "】",
+          hireData.forEach(data => {
+            this.hireData[0].children.push({
+              id: data.id,
+              label: "【" + data.name + "】"+data.applyTime ,
               content: data,
               status: false
             });
           });
           // 获取已经受理的
-          getFixAccept(1, param)
+          getHireAccept(1, param)
             .then(res => {
-              let fixData = res.data.data.data;
-              this.fixData.push({
+              let hireData = res.data.data.data;
+              this.hireData.push({
                 id: 1,
                 label: "已受理业务",
                 children: []
               });
-              fixData.forEach(data => {
-                this.fixData[1].children.push({
-                  id: data.fixContentId,
-                  label: data.fixContentName + "【" + data.staffName + "】",
+              hireData.forEach(data => {
+                this.hireData[1].children.push({
+                  id: data.id,
+                  label: "【" + data.name + "】"+data.applyTime ,
                   content: data,
                   status: true
                 });
@@ -103,16 +103,16 @@ export default {
       // 获取未受理的
       getFixReview(0, param)
         .then(res => {
-          let fixData = res.data.data.data;
-          this.fixData.push({
+          let hireData = res.data.data.data;
+          this.hireData.push({
             id: 0,
             label: "待审核业务",
             children: []
           });
-          fixData.forEach(data => {
-            this.fixData[0].children.push({
-              id: data.fixContentId,
-              label: data.fixContentName + "【" + data.staffName + "】",
+          hireData.forEach(data => {
+            this.hireData[0].children.push({
+              id: data.id,
+              label: "【" + data.name + "】"+data.applyTime ,
               content: data,
               status: false
             });
@@ -120,16 +120,16 @@ export default {
           // 获取已经受理的
           getFixReview(1, param)
             .then(res => {
-              let fixData = res.data.data.data;
-              this.fixData.push({
+              let hireData = res.data.data.data;
+              this.hireData.push({
                 id: 1,
                 label: "已审核业务",
                 children: []
               });
-              fixData.forEach(data => {
-                this.fixData[1].children.push({
-                  id: data.fixContentId,
-                  label: data.fixContentName + "【" + data.staffName + "】",
+              hireData.forEach(data => {
+                this.hireData[1].children.push({
+                  id: data.id,
+                  label: "【" + data.name + "】"+data.applyTime ,
                   content: data,
                   status: true
                 });

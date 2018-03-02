@@ -383,7 +383,7 @@
 		})
 		
 		$("#submitSelectHouseApplication").click(function() {
-			ajaxRequestGet("selfHelpSelectHouse/submitSelectHouseApplication?staffId=7&houseId=1");
+			ajaxRequestGet("selfHelpSelectHouse/submitSelectHouseApplication?staffId=6&houseId=1");
 		})
 		
 		$("#getAllCanselectHouse").click(function() {
@@ -526,7 +526,7 @@
 
 		$("#setCanselect").click(function() {
 			//传递的是职工编号staffNo数组
-			var data = [ 6 ,7 ];
+			var data = [ 6 ];
 			ajaxRequestPostType("selHouseQuaAuth/setCanselect", "POST", data);
 
 		})

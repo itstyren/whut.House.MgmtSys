@@ -78,18 +78,33 @@
               <span>维修申请管理</span>
             </el-menu-item>
           </el-submenu>
+           <!-- 租赁管理 -->
+          <el-submenu index="leaseManage">
+            <template slot="title">
+              <span slot="title">租赁管理</span>
+            </template>
+            <el-menu-item index="/leaseManage/hireAccept">
+              <span>租赁受理</span>
+            </el-menu-item>
+            <el-menu-item index="/leaseManage/hireAgree">
+              <span>租赁审核</span>
+            </el-menu-item>
+                        <el-menu-item index="/leaseManage/hireApprove">
+              <span>租赁审批</span>
+            </el-menu-item>
+          </el-submenu>
           <!-- 网上选房 -->
-          <el-submenu index="LeaseManage">
+          <el-submenu index="online">
             <template slot="title">
               <span slot="title">网上选房</span>
             </template>
-            <el-menu-item index="/leaseManage/hireStafferSet">
+            <el-menu-item index="/online/hireStafferSet">
               <span>选房资格认定</span>
             </el-menu-item>
-            <el-menu-item index="/leaseManage/hireHouseSet">
+            <el-menu-item index="/online/hireHouseSet">
               <span>房源设置</span>
             </el-menu-item>
-                        <el-menu-item index="/leaseManage/hireApply">
+                        <el-menu-item index="/online/hireApply">
               <span>住房申请</span>
             </el-menu-item>
           </el-submenu>

@@ -89,11 +89,11 @@ public class HireAcceptController {
 			hire.setAcceptNote(hireAddAccept.getAcceptNote());
 			hire.setAcceptState(hireAddAccept.getAcceptState());
 			// 设置分数
-			hire.setJobLevelVal(hireAddAccept.getJobLevelVal());
-			hire.setStaffVal(hireAddAccept.getStaffVal());
+			hire.setTimeVal(hireAddAccept.getTitleVal());
+			hire.setTotalVal(hireAddAccept.getTotalVal());
 			hire.setTimeVal(hireAddAccept.getTimeVal());
 			hire.setOtherVal(hireAddAccept.getOtherVal());
-			hire.setMultiVal(hireAddAccept.getMultiVal());
+			hire.setSpouseVal(hireAddAccept.getSpouseVal());
 
 			hire.setAcceptTime(new Date());
 			hire.setHireState("未受理");
@@ -107,11 +107,11 @@ public class HireAcceptController {
 			hire.setAcceptNote(hireAddAccept.getAcceptNote());
 			hire.setAcceptState(hireAddAccept.getAcceptState());
 
-			hire.setJobLevelVal(hireAddAccept.getJobLevelVal());
-			hire.setStaffVal(hireAddAccept.getStaffVal());
+			hire.setTimeVal(hireAddAccept.getTitleVal());
+			hire.setTotalVal(hireAddAccept.getTotalVal());
 			hire.setTimeVal(hireAddAccept.getTimeVal());
 			hire.setOtherVal(hireAddAccept.getOtherVal());
-			hire.setMultiVal(hireAddAccept.getMultiVal());
+			hire.setSpouseVal(hireAddAccept.getSpouseVal());
 
 			hire.setAcceptTime(new Date());
 			hire.setHireState("待审核");
@@ -141,11 +141,11 @@ public class HireAcceptController {
 		hire.setAcceptState(null);
 		hire.setAcceptTime(null);
 		
-		hire.setJobLevelVal(null);
-		hire.setStaffVal(null);
-		hire.setOtherVal(null);
 		hire.setTimeVal(null);
-		hire.setMultiVal(null);
+		hire.setTotalVal(null);
+		hire.setTimeVal(null);
+		hire.setOtherVal(null);
+		hire.setSpouseVal(null);
 		
 		hire.setHireState("待受理");
 		hire.setIsOver(false);

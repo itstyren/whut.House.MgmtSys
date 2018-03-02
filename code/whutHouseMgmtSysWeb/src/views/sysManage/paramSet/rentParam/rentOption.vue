@@ -31,7 +31,7 @@
             </template>
           </el-table-column>
           <el-table-column prop="rentTimeBegin" label="开始时间" sortable align="center"></el-table-column>
-          <el-table-column prop="rentTimeRanges" label="结束时间" sortable align="center"></el-table-column>
+          <el-table-column prop="rentTimeRanges" label="选房间隔（分钟）" sortable align="center"></el-table-column>
           <el-table-column prop="rentIsOpenSel" label="是否开启" sortable align="center" :formatter="transfOpenStatus"></el-table-column>
           <el-table-column prop="rentSelValReq" label="所需积分" sortable align="center"></el-table-column>
           <el-table-column label="操作" width="200" align="center">
@@ -52,10 +52,11 @@
         <el-form-item label="所需积分" prop="rentSelValReq">
           <el-input v-model="addFormBody.rentSelValReq" placeholder="请输入积分" style="width:350px"></el-input>
         </el-form-item>
-        <el-form-item label="选房时间" prop="timeRanges">
-          <el-date-picker v-model="addFormBody.timeRanges" type="daterange" align="right" :picker-options="pickerOptions" unlink-panels
-            range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyyy-MM-dd">
-          </el-date-picker>
+        <el-form-item label="开始时间" prop="rentTimeBegin">
+              <el-date-picker v-model="addFormBody.rentTimeBegin" value-format="yyyy-MM-dd HH:mm:ss" type="datetime"  placeholder="选择日期时间"> </el-date-picker>
+        </el-form-item>
+                <el-form-item label="选房间隔" prop="rentSelRules">
+          <el-input-number v-model="addFormBody.rentTimeRanges" controls-position="right" :min="1" :max="30"></el-input-number>
         </el-form-item>
         <el-form-item label="选房规则" prop="rentSelRules">
           <el-input type="textarea" :autosize="{minRows:3,maxRows:6}" placeholder="请输入内容" v-model="addFormBody.rentSelRules" style="width:350px">
@@ -74,10 +75,11 @@
         <el-form-item label="所需积分" prop="rentSelValReq">
           <el-input v-model="modifyFromBody.rentSelValReq" placeholder="请输入积分" style="width:350px"></el-input>
         </el-form-item>
-        <el-form-item label="选房时间" prop="timeRanges">
-          <el-date-picker v-model="modifyFromBody.timeRanges" type="daterange" align="right" :picker-options="pickerOptions" unlink-panels
-            range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyyy-MM-dd">
-          </el-date-picker>
+        <el-form-item label="选房时间" prop="rentTimeBegin">
+              <el-date-picker v-model="modifyFromBody.rentTimeBegin" value-format="yyyy-MM-dd HH:mm:ss"  type="datetime"  placeholder="选择日期时间"> </el-date-picker>         
+        </el-form-item>
+                        <el-form-item label="选房间隔" prop="rentSelRules">
+          <el-input-number v-model="modifyFromBody.rentTimeRanges" controls-position="right" :min="1" :max="30"></el-input-number>
         </el-form-item>
         <el-form-item label="选房规则" prop="rentSelRules">
           <el-input type="textarea" :autosize="{minRows:3,maxRows:6}" placeholder="请输入内容" v-model="modifyFromBody.rentSelRules" style="width:350px">
@@ -95,7 +97,7 @@
 <script type="text/ecmascript-6">
   import {
     getRentParamAboutEvent,
-    putRentParamAboutStaff,
+    putRentParamAboutEvent,
     deleteRentParamAboutEvent,
     postRentParamAboutEvent
   } from '@/api/api'
@@ -143,7 +145,6 @@
         modifyLoading: false,
         modifyFromBody: {
           rentSelValReq: '',
-          timeRanges: '',
           rentTimeBegin: '',
           rentTimeRanges: '',
           rentSelRules: '',
@@ -153,59 +154,11 @@
         submitLoading: false,
         addFormVisible: false,
         addFormBody: {
-          timeRanges: '',
           rentSelValReq: '',
           rentTimeBegin: '',
           rentTimeRanges: '',
           rentSelRules: '',
         },
-        // 日期自动设置范围
-        pickerOptions: {
-          shortcuts: [{
-            text: '最近一周',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              end.setTime(start.getTime() + 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近一个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              end.setTime(start.getTime() + 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近三个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              end.setTime(start.getTime() + 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        },
-      }
-    },
-    // 计算属性
-    computed: {
-      timeRanges() {
-        return this.addFormBody.timeRanges
-      }
-    },
-    // 监听
-    watch: {
-      //  addFormBody : {
-      //     handler: function (newval) {
-      //       console.log(newval)
-      //     },
-      //     deep:true
-      //  },
-      timeRanges(newval) {
-        this.addFormBody.rentTimeBegin = newval[0]
-        this.addFormBody.rentTimeRanges = newval[1]
       }
     },
     // 生命周期调用
@@ -253,8 +206,15 @@
         this.$refs['modifyFrom'].validate((valid) => {
           if (valid) {
             this.modifyLoading = true
-            let param = Object.assign({}, this.modifyFromBody)
-            putRentParamAboutStaff(param).then((res) => {
+            const form =this.modifyFromBody
+            let param = {
+              rentEventId:form.rentEventId,
+              rentSelRules:form.rentSelRules,
+              rentSelValReq:parseInt(form.rentSelValReq),
+              rentTimeBegin:form.rentTimeBegin,
+              rentTimeRanges:form.rentTimeRanges
+            }
+            putRentParamAboutEvent(param).then((res) => {
               utils.statusinfo(this, res.data)
               this.modifyLoading = false
               this.modifyFormVisible = false
