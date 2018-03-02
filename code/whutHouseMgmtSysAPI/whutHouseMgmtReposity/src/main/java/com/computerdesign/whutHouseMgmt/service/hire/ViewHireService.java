@@ -88,4 +88,27 @@ public class ViewHireService {
 		criteria.andAgreeStateIsNotNull();
 		return viewHireMapper.selectByExample(example);
 	}
+	
+	/**
+	 *  获取全部的未审批的房屋申请信息
+	 * @return
+	 */
+	public List<ViewHire> getApproveUntil() {
+		ViewHireExample example = new ViewHireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andHireStateEqualTo("待审批");
+		criteria.andIsOverEqualTo(false);
+		return viewHireMapper.selectByExample(example);
+	}
+	
+	/**
+	 * 获取全部的已进行审批操作的房屋申请信息
+	 * @return
+	 */
+	public List<ViewHire> getApproveHasBeen() {
+		ViewHireExample example = new ViewHireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andApproveStateIsNotNull();
+		return viewHireMapper.selectByExample(example);
+	}
 }

@@ -97,6 +97,8 @@ public class HireAgreeController {
 			
 			hire.setAgreeTime(new Date());
 			
+			hire.setHouseId(hireAddAgree.getHouseId());
+			
 			hire.setHireState("待审批");
 			hireService.update(hire);
 						
