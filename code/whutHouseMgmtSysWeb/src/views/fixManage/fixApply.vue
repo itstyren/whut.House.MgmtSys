@@ -258,14 +258,6 @@
             }
           });
         } else if (this.active++ > 2) this.active = 0;
-
-        // if (this.active == 1) {
-        //   this.$refs["fixApplyForm"].validateField("houseId", callback => {
-        //     if (callback.length == 0) {
-        //       if (this.active++ > 2) this.active = 0;
-        //     }
-        //   });
-        // }
       },
       // 返回一步
       backButton() {

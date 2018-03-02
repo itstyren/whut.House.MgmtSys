@@ -1,6 +1,6 @@
 <template>
   <div class="second-container">
-    <indexNav :fix-status="fixstatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
+    <indexNav :hire-status="hireStatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
     <section class="main-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
@@ -9,8 +9,8 @@
             <el-breadcrumb-item :to="{ path: '/' }">
               <b>首页</b>
             </el-breadcrumb-item>
-            <el-breadcrumb-item>维修管理</el-breadcrumb-item>
-            <el-breadcrumb-item>维修受理</el-breadcrumb-item>
+            <el-breadcrumb-item>租赁管理</el-breadcrumb-item>
+            <el-breadcrumb-item>租赁受理</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
         <!-- 下方主内容 -->
@@ -22,29 +22,17 @@
           <div class="main-data">
             <div class="accept-form card">
               <div class="need-accept">
-                <h1>维修受理单</h1>
+                <h1>租赁受理单</h1>
                 <el-form :model="acceptForm" label-width="100px" ref="acceptForm" :rules="rules">
                   <el-row>
                     <el-col :span="10" :offset="1">
-                      <el-form-item label="维修类型">
-                        <el-input v-model="acceptForm.fixContentName" readonly></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="10">
-                      <el-form-item label="申请时间">
-                        <el-input v-model="acceptForm.applyTime" readonly></el-input>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="10" :offset="1">
                       <el-form-item label="申请人姓名">
-                        <el-input v-model="acceptForm.staffName" readonly></el-input>
+                        <el-input v-model="acceptForm.name" readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
-                      <el-form-item label="联系电话">
-                        <el-input v-model="acceptForm.phone" readonly></el-input>
+                      <el-form-item label="工作部门">
+                        <el-input v-model="acceptForm.deptName" readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -62,24 +50,41 @@
                   </el-row>
                   <el-row>
                     <el-col :span="10" :offset="1">
-                      <el-form-item label="工作部门">
-                        <el-input v-model="acceptForm.deptName" readonly></el-input>
+                      <el-form-item label="职称分">
+                        <el-input v-model="acceptForm.staffVal" readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
-                      <el-form-item label="住房地址">
-                        <el-input v-model="acceptForm.staffAddress" readonly></el-input>
+                      <el-form-item label="职务分">
+                        <el-input v-model="acceptForm.jobLevelVal" readonly></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="10" :offset="1">
+                      <el-form-item label="联系电话">
+                        <el-input v-model="acceptForm.phone" readonly></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="10">
+                      <el-form-item label="申请时间">
+                        <el-input v-model="acceptForm.applyTime" readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row :class="{'is-accept':!acceptStatus}" v-if="!acceptStatus">
                     <el-col :span="10" :offset="1">
-                      <el-form-item label="维修描述">
-                        <el-input v-model="acceptForm.description" type="textarea" :rows="2" readonly placeholder="无额外描述"></el-input>
+                      <el-form-item label="申请理由">
+                        <el-input v-model="acceptForm.reason" type="textarea" :rows="2" readonly placeholder="无额外描述"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <!-- 操作区域 -->
+                  <el-row type="flex" justify="center" v-if="!acceptStatus">
+                    <el-col :span="10" :offset="1">
+
+                    </el-col>
+                  </el-row>
                   <el-row type="flex" justify="center" v-if="!acceptStatus">
                     <el-col :span="7">
                       <el-form-item label="受理意见" prop="acceptNote">
@@ -137,9 +142,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { putFixAccept } from "@/api/api";
 import indexNav from "./components/indexNav";
-import { checkNULL, checkTel } from "@/assets/function/validator";
+import { putHireAccept } from "@/api/api";
 import utils from "@/utils/index.js";
 export default {
   data() {
@@ -147,7 +151,7 @@ export default {
       listLoading: false,
       acceptForm: {},
       acceptStatus: false,
-      fixstatus: "hangding",
+      hireStatus: "hangding",
       isSubmit: false,
       // 表单验证规则
       rules: {
@@ -168,7 +172,7 @@ export default {
       this.acceptForm = object.content;
       this.acceptStatus = object.status;
     },
-    // 维修受理提交
+    // 受理信息提交
     acceptSubmit() {
       if (this.acceptForm.acceptState == null)
         this.acceptForm.acceptState = "通过";
@@ -183,12 +187,17 @@ export default {
               this.listLoading = true;
               let acceptForm = this.acceptForm;
               let param = {
-                acceptMan: acceptForm.staffName,
+                acceptMan: acceptForm.name,
                 acceptNote: acceptForm.acceptNote,
                 acceptState: acceptForm.acceptState,
-                id: acceptForm.id
+                id: acceptForm.id,
+                // 这里有些问题
+                jobLevelVal: 1,
+                multiVal: 1,
+                otherVal: 1,
+                timeVal: 1
               };
-              putFixAccept(param).then(res => {
+              putHireAccept(param).then(res => {
                 this.acceptForm = {};
                 utils.statusinfo(this, res.data);
                 this.isSubmit = !this.isSubmit;

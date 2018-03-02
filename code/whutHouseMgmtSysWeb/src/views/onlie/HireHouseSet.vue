@@ -22,61 +22,61 @@
                 <el-row>
                   <el-col :span="4">
                     <el-form-item label="住房类型">
-                      <el-select v-model="queryForm.dept" size="small" :clearable="true" placeholder="所有类型">
+                      <el-select v-model="queryForm.houseType" size="small" :clearable="true" placeholder="所有类型">
                         <el-option v-for="v in typeData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
                     <el-form-item label="使用状态">
-                      <el-select v-model="queryForm.post" size="small" :clearable="true" placeholder="所有状态">
+                      <el-select v-model="queryForm.useStatus" size="small" :clearable="true" placeholder="所有状态">
                         <el-option v-for="v in statusData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
                     <el-form-item label="住房结构">
-                      <el-select v-model="queryForm.title" size="small" :clearable="true" placeholder="所有结构">
+                      <el-select v-model="queryForm.structName" size="small" :clearable="true" placeholder="所有结构">
                         <el-option v-for="v in structData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
                     <el-form-item label="住房户型">
-                      <el-select v-model="queryForm.class" size="small" :clearable="true" placeholder="所有户型">
+                      <el-select v-model="queryForm.layoutName" size="small" :clearable="true" placeholder="所有户型">
                         <el-option v-for="v in layoutData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
                     <el-form-item label="租金">
-                       <el-row>
-                         <el-col :span="8">
-                             <el-input v-model="queryForm.rental" size="small" placeholder=""></el-input>
-                         </el-col>
-                              <el-col :span="4" style=" text-align: center;">
-                             <span>至</span>
-                         </el-col>
-                              <el-col :span="8">
-                             <el-input v-model="queryForm.rental1" size="small" placeholder=""></el-input>
-                         </el-col>
-                       </el-row>
+                      <el-row>
+                        <el-col :span="8">
+                          <el-input v-model="queryForm.rentalScope.minRental" size="small" placeholder=""></el-input>
+                        </el-col>
+                        <el-col :span="4" style=" text-align: center;">
+                          <span>至</span>
+                        </el-col>
+                        <el-col :span="8">
+                          <el-input v-model="queryForm.rentalScope.maxRental" size="small" placeholder=""></el-input>
+                        </el-col>
+                      </el-row>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="5">
                     <el-form-item label="住房区域">
-              <el-select v-model="queryForm.regionId" :clearable="true" @clear="clearRegion" placeholder="全部区域" @change="selectRegionChange" >
-                <el-option v-for="region in regionBuildingData" :key="region.id" :value="region.id" :label="region.name"></el-option>
-              </el-select>
+                      <el-select v-model="queryForm.houseZone" :clearable="true" @clear="clearRegion" placeholder="全部区域" @change="selectRegionChange">
+                        <el-option v-for="region in regionBuildingData" :key="region.id" :value="region.id" :label="region.name"></el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
                     <el-form-item label="住房楼栋">
-              <el-select v-model="queryForm.buildingId" :clearable="true"  placeholder="全部房屋">
-                <el-option v-for="building in buildingData" :key="building.id" :value="building.id" :label="building.name"></el-option>
-              </el-select>
+                      <el-select v-model="queryForm.building" :clearable="true" placeholder="全部房屋">
+                        <el-option v-for="building in buildingData" :key="building.id" :value="building.id" :label="building.name"></el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
@@ -96,8 +96,8 @@
               <el-table :data="activeHouseData" class="table" height="string" v-loading="listLoading" @selection-change="setSelectionChange">
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column prop="no" label="住房号" sortable width="95" align="center"></el-table-column>
-                <el-table-column prop="layout" label="户型" sortable  width="100" align="center"></el-table-column>
-                <el-table-column prop="usedArea" label="使用面积"  width="100" sortable align="center"></el-table-column>
+                <el-table-column prop="layout" label="户型" sortable width="100" align="center"></el-table-column>
+                <el-table-column prop="usedArea" label="使用面积" width="100" sortable align="center"></el-table-column>
                 <el-table-column prop="regionName" label="所属区域" sortable align="center"></el-table-column>
                 <el-table-column prop="buildingName" label="所属楼栋" align="center"></el-table-column>
                 <el-table-column prop="address" label="地址" align="center"></el-table-column>
@@ -114,10 +114,10 @@
             <!-- 已设置选房的表格 -->
             <div class="card can-select">
               <el-table :data="setHouseData" class="table" height="string" v-loading="listLoading1" @selection-change="cancelSelectionChange">
-                                <el-table-column type="selection" width="55"></el-table-column>
+                <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column prop="no" label="住房号" sortable width="95" align="center"></el-table-column>
-                <el-table-column prop="layout" label="户型" sortable  width="100" align="center"></el-table-column>
-                <el-table-column prop="usedArea" label="使用面积"  width="100" sortable align="center"></el-table-column>
+                <el-table-column prop="layout" label="户型" sortable width="100" align="center"></el-table-column>
+                <el-table-column prop="usedArea" label="使用面积" width="100" sortable align="center"></el-table-column>
                 <el-table-column prop="regionName" label="所属区域" sortable align="center"></el-table-column>
                 <el-table-column prop="buildingName" label="所属楼栋" align="center"></el-table-column>
                 <el-table-column prop="address" label="地址" align="center"></el-table-column>
@@ -144,7 +144,7 @@ import {
   getRegionWithBuildings,
   getActiveHouse,
   getSetHouse,
-  postCanSelectmulticondition,
+  postActiveHousemulticondition,
   postSetHouse,
   postcancelHouse
 } from "@/api/api";
@@ -153,7 +153,9 @@ export default {
   data() {
     return {
       // 多重查找表单
-      queryForm: {},
+      queryForm: {
+        rentalScope: {}
+      },
       time: [],
       typeData: [],
       layoutData: [],
@@ -161,38 +163,6 @@ export default {
       structData: [],
       regionBuildingData: [],
       buildingData: [],
-      // 时间选择区域
-      pickerOptions: {
-        shortcuts: [
-          {
-            text: "最近一周",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", [start, end]);
-            }
-          },
-          {
-            text: "最近一个月",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit("pick", [start, end]);
-            }
-          },
-          {
-            text: "最近三个月",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
-      },
       // 表格区域
       listLoading: false,
       listLoading1: false,
@@ -293,14 +263,14 @@ export default {
     getList() {
       this.listLoading = true;
       let param = {
-        // page: this.page,
-        // size: this.size
+        page: this.page,
+        size: this.size
       };
       getActiveHouse(param)
         .then(res => {
-           console.log(res.data.data)
-          this.activeHouseData = res.data.data.data;
-          //this.totalNum = res.data.data.data.total;
+          console.log(res.data.data);
+          this.activeHouseData = res.data.data.data.list;
+          this.totalNum = res.data.data.data.total;
           // console.log(res.data.data.list)
           this.listLoading = false;
         })
@@ -312,14 +282,14 @@ export default {
     getList1() {
       this.listLoading1 = true;
       let param = {
-        // page: this.page1,
-        // size: this.size1
+        page: this.page1,
+        size: this.size1
       };
       getSetHouse(param)
         .then(res => {
           // console.log(res.data.data)
-          this.setHouseData = res.data.data.data;
-          // this.totalNum1 = res.data.data.data.total;
+          this.setHouseData = res.data.data.data.list;
+          this.totalNum1 = res.data.data.data.total;
           // console.log(res.data.data.list)
           this.listLoading1 = false;
         })
@@ -330,12 +300,6 @@ export default {
     // 多重查找查询
     muticonditionQuery() {
       this.activeHouseData = [];
-      if (this.time.length != 0) {
-        this.queryForm.joinTime = {
-          startTime: this.time[0],
-          endTime: this.time[1]
-        };
-      }
       for (let v in this.queryForm) {
         if (this.queryForm[v] == "") delete this.queryForm[v];
       }
@@ -344,17 +308,14 @@ export default {
         page: this.page,
         size: this.size
       };
-      //console.log(this.queryForm)
-      if (this.queryForm.hasOwnProperty("query")) {
-      } else {
-        const data = Object.assign({}, this.queryForm);
-        postCanSelectmulticondition(param, data).then(res => {
-          utils.statusinfo(this, res.data);
-          this.activeHouseData = res.data.data.data.list;
-          this.totalNum = res.data.data.data.total;
-          this.listLoading = false;
-        });
-      }
+      console.log(this.queryForm);
+      const data = Object.assign({}, this.queryForm);
+      postActiveHousemulticondition(param, data).then(res => {
+        utils.statusinfo(this, res.data);
+        this.activeHouseData = res.data.data.data.list;
+        this.totalNum = res.data.data.data.total;
+        this.listLoading = false;
+      });
     },
     // 监听带设置房源多选
     setSelectionChange(selection) {
