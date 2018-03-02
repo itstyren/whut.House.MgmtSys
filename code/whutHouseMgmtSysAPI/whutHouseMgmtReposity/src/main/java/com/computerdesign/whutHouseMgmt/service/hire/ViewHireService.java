@@ -56,13 +56,36 @@ public class ViewHireService {
 	}
 	
 	/**
-	 * 获取全部的已受理的房屋信息
+	 * 获取全部的已受理的房屋申请信息
 	 * @return
 	 */
 	public List<ViewHire> getAcceptHasBeen() {
 		ViewHireExample example = new ViewHireExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andAcceptStateIsNotNull();
+		return viewHireMapper.selectByExample(example);
+	}
+	
+	/**
+	 * 获取全部的未审核的房屋申请信息
+	 * @return
+	 */
+	public List<ViewHire> getAgreeUntil() {
+		ViewHireExample example = new ViewHireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andHireStateEqualTo("待审核");
+		criteria.andIsOverEqualTo(false);
+		return viewHireMapper.selectByExample(example);
+	}
+	
+	/**
+	 * 获取全部的已进行审核操作的房屋申请信息
+	 * @return
+	 */
+	public List<ViewHire> getAgreeHasBeen() {
+		ViewHireExample example = new ViewHireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAgreeStateIsNotNull();
 		return viewHireMapper.selectByExample(example);
 	}
 }

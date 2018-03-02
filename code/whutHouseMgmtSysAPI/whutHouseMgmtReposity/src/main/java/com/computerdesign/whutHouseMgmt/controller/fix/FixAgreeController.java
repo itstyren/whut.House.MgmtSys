@@ -137,7 +137,7 @@ public class FixAgreeController {
 		fix.setAgreeNote(null);
 		fix.setAgreeState(null);
 		fix.setAgreeTime(null);
-		fix.setFixState("待审核");
+		 fix.setFixState("待审核");
 		fix.setIsOver(false);
 		
 		fixService.updateStrict(fix);

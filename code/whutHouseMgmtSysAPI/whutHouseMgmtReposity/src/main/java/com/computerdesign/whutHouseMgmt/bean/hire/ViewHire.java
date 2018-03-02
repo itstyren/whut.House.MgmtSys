@@ -15,15 +15,29 @@ public class ViewHire {
 
     private String titleName;
 
+    private Integer spouseTitleVal;
+
     private String postName;
+
+    private Integer spousePostVal;
 
     private String typeName;
 
     private String deptName;
 
-    private Date joinTime;
+    private Integer postVal;
+
+    private Integer titleVal;
 
     private Integer houseId;
+
+    private String houseNo;
+
+    private Double houseBuildArea;
+
+    private Double houseUserArea;
+
+    private String houseAddress;
 
     private Date applyTime;
 
@@ -121,12 +135,28 @@ public class ViewHire {
         this.titleName = titleName == null ? null : titleName.trim();
     }
 
+    public Integer getSpouseTitleVal() {
+        return spouseTitleVal;
+    }
+
+    public void setSpouseTitleVal(Integer spouseTitleVal) {
+        this.spouseTitleVal = spouseTitleVal;
+    }
+
     public String getPostName() {
         return postName;
     }
 
     public void setPostName(String postName) {
         this.postName = postName == null ? null : postName.trim();
+    }
+
+    public Integer getSpousePostVal() {
+        return spousePostVal;
+    }
+
+    public void setSpousePostVal(Integer spousePostVal) {
+        this.spousePostVal = spousePostVal;
     }
 
     public String getTypeName() {
@@ -145,12 +175,20 @@ public class ViewHire {
         this.deptName = deptName == null ? null : deptName.trim();
     }
 
-    public Date getJoinTime() {
-        return joinTime;
+    public Integer getPostVal() {
+        return postVal;
     }
 
-    public void setJoinTime(Date joinTime) {
-        this.joinTime = joinTime;
+    public void setPostVal(Integer postVal) {
+        this.postVal = postVal;
+    }
+
+    public Integer getTitleVal() {
+        return titleVal;
+    }
+
+    public void setTitleVal(Integer titleVal) {
+        this.titleVal = titleVal;
     }
 
     public Integer getHouseId() {
@@ -159,6 +197,38 @@ public class ViewHire {
 
     public void setHouseId(Integer houseId) {
         this.houseId = houseId;
+    }
+
+    public String getHouseNo() {
+        return houseNo;
+    }
+
+    public void setHouseNo(String houseNo) {
+        this.houseNo = houseNo == null ? null : houseNo.trim();
+    }
+
+    public Double getHouseBuildArea() {
+        return houseBuildArea;
+    }
+
+    public void setHouseBuildArea(Double houseBuildArea) {
+        this.houseBuildArea = houseBuildArea;
+    }
+
+    public Double getHouseUserArea() {
+        return houseUserArea;
+    }
+
+    public void setHouseUserArea(Double houseUserArea) {
+        this.houseUserArea = houseUserArea;
+    }
+
+    public String getHouseAddress() {
+        return houseAddress;
+    }
+
+    public void setHouseAddress(String houseAddress) {
+        this.houseAddress = houseAddress == null ? null : houseAddress.trim();
     }
 
     public Date getApplyTime() {
