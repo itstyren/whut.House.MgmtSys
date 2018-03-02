@@ -117,10 +117,9 @@ public class SelfHelpSelectHouseController {
 			hire.setReason("自助点房");
 			hire.setPhone(staff.getTel());
 			hire.setHireState("待审批");
-			hire.setStaffVal(staff.getTotalVal());
-			hire.setJobLevelVal((double)staffParameterService.get(staff.getTitle()).getStaffParamVal());
+			hire.setTotalVal(staff.getTotalVal());
+			hire.setTitleVal((double)staffParameterService.get(staff.getTitle()).getStaffParamVal());
 			hire.setTimeVal(staff.getTimeVal());
-			hire.setMultiVal(0.0);
 			hire.setOtherVal(staff.getOtherVal());
 			hire.setAcceptNote("自助点房自动受理");
 			hire.setAcceptState("通过");
