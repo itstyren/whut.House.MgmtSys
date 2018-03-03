@@ -471,10 +471,10 @@
 		$("#hireAddAccept").click(function() {
 			var data = {
 				'id':91,
-				'staffVal':54,
-				'jobLevelVal':54,
+				'totalVal':54,
+				'titleVal':54,
 				'timeVal':2,
-				'multiVal':11,
+				'spouseVal':11,
 				'otherVal':23,
 				'acceptNote':'可以可以',
 				'acceptMan':'ky',
@@ -485,6 +485,44 @@
 		
 		$("#hireReAccept").click(function() {
 			ajaxRequestGet("hire/reAccept/91");
+		})
+		
+		
+		$("#hireGetAgree").click(function() {
+			ajaxRequestGet("hire/getAgree/1");
+		})
+		
+		$("#hireAddAgree").click(function() {
+			var data = {
+				'id':91,
+				'houseId':7,
+				'agreeNote':'可以可以',
+				'agreeMan':'ky',
+				'agreeState':'通过'
+			};
+			ajaxRequestPostType("hire/addAgree", "PUT", data);
+		})
+		
+		$("#hireReAgree").click(function() {
+			ajaxRequestGet("hire/reAgree/91");
+		})
+		
+		$("#hireGetApprove").click(function() {
+			ajaxRequestGet("hire/getApprove/1");
+		})
+		
+		$("#hireAddApprove").click(function() {
+			var data = {
+				'id':91,
+				'approveNote':'可以可以',
+				'approveMan':'ky',
+				'approveState':'通过'
+			};
+			ajaxRequestPostType("hire/addApprove", "PUT", data);
+		})
+		
+		$("#hireReApprove").click(function() {
+			ajaxRequestGet("hire/reApprove/91");
 		})
 	})
 	//下拉列表
@@ -632,13 +670,23 @@
 			<input class="btn btn-info btn-lg" type="button" value="住房申请受理页面" id="hireGetAccept" /> <br> <br></div>
 			<div>维修受理   acceptMan为当前登录人的姓名，acceptState只能为'通过'或者'拒绝'<br>
 			<input class="btn btn-info btn-lg" type="button" value="住房申请受理" id="hireAddAccept" /> <br> <br></div>
-			<div>进入维修审核页面  0代表未经审核流程的全部信息，1代表审核过程结束的全部信息，包括同意审核<br>
+			<div>重新受理   传入参数为hire的id<br>
+			<input class="btn btn-info btn-lg" type="button" value="重新受理" id="hireReAccept" /> <br> <br></div>
+			
+			
+			<div>进入房屋申请审核页面  0代表未经审核流程的全部信息，1代表审核过程结束的全部信息<br>
 			<input class="btn btn-info btn-lg" type="button" value="住房申请审核页面" id="hireGetAgree" /> <br> <br></div>
 			<div>维修审核   agreeMan为当前登录人的姓名，agreeState只能为'通过'或者'拒绝'<br>
 			<input class="btn btn-info btn-lg" type="button" value="住房申请审核" id="hireAddAgree" /> <br> <br></div>
+			<div>重新审核   传入参数为hire的id<br>
+			<input class="btn btn-info btn-lg" type="button" value="重新审核" id="hireReAgree" /> <br> <br></div>
 			
-			<div>重新受理   传入参数为hire的id<br>
-			<input class="btn btn-info btn-lg" type="button" value="重新受理" id="hireReAccept" /> <br> <br></div>
+			<div>进入房屋申请审批页面  0代表未经审批流程的全部信息，1代表审批过程结束的全部信息<br>
+			<input class="btn btn-info btn-lg" type="button" value="住房申请审批页面" id="hireGetApprove" /> <br> <br></div>
+			<div>维修审批   approveMan为当前登录人的姓名，approveState只能为'通过'或者'拒绝'<br>
+			<input class="btn btn-info btn-lg" type="button" value="住房申请审批" id="hireAddApprove" /> <br> <br></div>
+			<div>重新审批   传入参数为hire的id<br>
+			<input class="btn btn-info btn-lg" type="button" value="重新审批" id="hireReApprove" /> <br> <br></div>
 		</div>
 	</div>
 

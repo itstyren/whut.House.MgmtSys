@@ -2,6 +2,10 @@ package com.computerdesign.whutHouseMgmt.bean.hire;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ViewHire {
     private Integer id;
 
@@ -15,16 +19,28 @@ public class ViewHire {
 
     private String titleName;
 
+    private Integer spouseTitleVal;
+
     private String postName;
+
+    private Integer spousePostVal;
 
     private String typeName;
 
     private String deptName;
 
-    private Date joinTime;
-
     private Integer houseId;
 
+    private String houseNo;
+
+    private Double houseBuildArea;
+
+    private Double houseUserArea;
+
+    private String houseAddress;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date applyTime;
 
     private String reason;
@@ -33,13 +49,13 @@ public class ViewHire {
 
     private String hireState;
 
-    private Double staffVal;
+    private Double totalVal;
 
-    private Double jobLevelVal;
+    private Double titleVal;
 
     private Double timeVal;
 
-    private Double multiVal;
+    private Double spouseVal;
 
     private Double otherVal;
 
@@ -49,6 +65,8 @@ public class ViewHire {
 
     private String acceptMan;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date acceptTime;
 
     private String agreeNote;
@@ -57,6 +75,8 @@ public class ViewHire {
 
     private String agreeMan;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date agreeTime;
 
     private String approveNote;
@@ -65,6 +85,8 @@ public class ViewHire {
 
     private String approveMan;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date approveTime;
 
     private Boolean isOver;
@@ -121,12 +143,28 @@ public class ViewHire {
         this.titleName = titleName == null ? null : titleName.trim();
     }
 
+    public Integer getSpouseTitleVal() {
+        return spouseTitleVal;
+    }
+
+    public void setSpouseTitleVal(Integer spouseTitleVal) {
+        this.spouseTitleVal = spouseTitleVal;
+    }
+
     public String getPostName() {
         return postName;
     }
 
     public void setPostName(String postName) {
         this.postName = postName == null ? null : postName.trim();
+    }
+
+    public Integer getSpousePostVal() {
+        return spousePostVal;
+    }
+
+    public void setSpousePostVal(Integer spousePostVal) {
+        this.spousePostVal = spousePostVal;
     }
 
     public String getTypeName() {
@@ -145,20 +183,44 @@ public class ViewHire {
         this.deptName = deptName == null ? null : deptName.trim();
     }
 
-    public Date getJoinTime() {
-        return joinTime;
-    }
-
-    public void setJoinTime(Date joinTime) {
-        this.joinTime = joinTime;
-    }
-
     public Integer getHouseId() {
         return houseId;
     }
 
     public void setHouseId(Integer houseId) {
         this.houseId = houseId;
+    }
+
+    public String getHouseNo() {
+        return houseNo;
+    }
+
+    public void setHouseNo(String houseNo) {
+        this.houseNo = houseNo == null ? null : houseNo.trim();
+    }
+
+    public Double getHouseBuildArea() {
+        return houseBuildArea;
+    }
+
+    public void setHouseBuildArea(Double houseBuildArea) {
+        this.houseBuildArea = houseBuildArea;
+    }
+
+    public Double getHouseUserArea() {
+        return houseUserArea;
+    }
+
+    public void setHouseUserArea(Double houseUserArea) {
+        this.houseUserArea = houseUserArea;
+    }
+
+    public String getHouseAddress() {
+        return houseAddress;
+    }
+
+    public void setHouseAddress(String houseAddress) {
+        this.houseAddress = houseAddress == null ? null : houseAddress.trim();
     }
 
     public Date getApplyTime() {
@@ -193,20 +255,20 @@ public class ViewHire {
         this.hireState = hireState == null ? null : hireState.trim();
     }
 
-    public Double getStaffVal() {
-        return staffVal;
+    public Double getTotalVal() {
+        return totalVal;
     }
 
-    public void setStaffVal(Double staffVal) {
-        this.staffVal = staffVal;
+    public void setTotalVal(Double totalVal) {
+        this.totalVal = totalVal;
     }
 
-    public Double getJobLevelVal() {
-        return jobLevelVal;
+    public Double getTitleVal() {
+        return titleVal;
     }
 
-    public void setJobLevelVal(Double jobLevelVal) {
-        this.jobLevelVal = jobLevelVal;
+    public void setTitleVal(Double titleVal) {
+        this.titleVal = titleVal;
     }
 
     public Double getTimeVal() {
@@ -217,12 +279,12 @@ public class ViewHire {
         this.timeVal = timeVal;
     }
 
-    public Double getMultiVal() {
-        return multiVal;
+    public Double getSpouseVal() {
+        return spouseVal;
     }
 
-    public void setMultiVal(Double multiVal) {
-        this.multiVal = multiVal;
+    public void setSpouseVal(Double spouseVal) {
+        this.spouseVal = spouseVal;
     }
 
     public Double getOtherVal() {

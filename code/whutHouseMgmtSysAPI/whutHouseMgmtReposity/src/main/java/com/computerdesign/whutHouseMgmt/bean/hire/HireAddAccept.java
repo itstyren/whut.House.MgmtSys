@@ -4,13 +4,13 @@ public class HireAddAccept {
 
     private Integer id;
 
-    private Double staffVal;
+    private Double totalVal;
 
-    private Double jobLevelVal;
+    private Double titleVal;
 
     private Double timeVal;
 
-    private Double multiVal;
+    private Double spouseVal;
 
     private Double otherVal;
     
@@ -28,22 +28,21 @@ public class HireAddAccept {
 		this.id = id;
 	}
 
-	public Double getStaffVal() {
-		return staffVal;
+	
+	public Double getTotalVal() {
+		return totalVal;
 	}
 
-	public void setStaffVal(Double staffVal) {
-		this.staffVal = staffVal;
+	public void setTotalVal(Double totalVal) {
+		this.totalVal = totalVal;
 	}
 
-
-
-	public Double getJobLevelVal() {
-		return jobLevelVal;
+	public Double getTitleVal() {
+		return titleVal;
 	}
 
-	public void setJobLevelVal(Double jobLevelVal) {
-		this.jobLevelVal = jobLevelVal;
+	public void setTitleVal(Double titleVal) {
+		this.titleVal = titleVal;
 	}
 
 	public Double getTimeVal() {
@@ -54,12 +53,12 @@ public class HireAddAccept {
 		this.timeVal = timeVal;
 	}
 
-	public Double getMultiVal() {
-		return multiVal;
+	public Double getSpouseVal() {
+		return spouseVal;
 	}
 
-	public void setMultiVal(Double multiVal) {
-		this.multiVal = multiVal;
+	public void setSpouseVal(Double spouseVal) {
+		this.spouseVal = spouseVal;
 	}
 
 	public Double getOtherVal() {

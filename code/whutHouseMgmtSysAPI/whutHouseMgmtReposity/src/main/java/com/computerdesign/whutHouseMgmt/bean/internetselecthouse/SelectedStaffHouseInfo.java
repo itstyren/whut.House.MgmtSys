@@ -7,47 +7,56 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * 自助选房中显示未选房职工信息
+ * 自助选房模块已选职工信息显示
+ * 
  * @author Administrator
  *
  */
-public class SelfHelpStaffCanselectShowModel {
-	
+public class SelectedStaffHouseInfo {
+
 	private String staffName;
 
-    private String staffNo;
+	private String staffNo;
 
-    private String staffTitleName;
+	private String staffTitleName;
 
-    private String staffPostName;
+	private String staffPostName;
 
-    private String staffTypeName;
+	private String staffTypeName;
 
-    private String staffStatusName;
+	private String staffStatusName;
 
-    private String staffDeptName;
+	private String staffDeptName;
 
-    private Integer staffPostVal;
+	private Integer staffPostVal;
 
-    private Integer staffTitleVal;
+	private Integer staffTitleVal;
 
-    private Integer staffSpousePostVal;
+	private Integer staffSpousePostVal;
 
-    private Integer staffSpouseTitleVal;
+	private Integer staffSpouseTitleVal;
 
-    private Double staffTimeVal;
+	private Double staffTimeVal;
 
-    private Double staffOtherVal;
+	private Double staffOtherVal;
 
-    private Double staffTotalVal;
+	private Double staffTotalVal;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date houseSelectStart;
+	private Date staffSelectStart;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date houseSelectEnd;
+	private Date staffSelectEnd;
+
+	private String houseNo;
+
+	private Double houseBuildArea;
+
+	private Double houseUsedArea;
+
+	private String houseAddress;
 
 	public String getStaffName() {
 		return staffName;
@@ -161,22 +170,52 @@ public class SelfHelpStaffCanselectShowModel {
 		this.staffTotalVal = staffTotalVal;
 	}
 
-	public Date getHouseSelectStart() {
-		return houseSelectStart;
+	public Date getStaffSelectStart() {
+		return staffSelectStart;
 	}
 
-	public void setHouseSelectStart(Date houseSelectStart) {
-		this.houseSelectStart = houseSelectStart;
+	public void setStaffSelectStart(Date staffSelectStart) {
+		this.staffSelectStart = staffSelectStart;
 	}
 
-	public Date getHouseSelectEnd() {
-		return houseSelectEnd;
+	public Date getStaffSelectEnd() {
+		return staffSelectEnd;
 	}
 
-	public void setHouseSelectEnd(Date houseSelectEnd) {
-		this.houseSelectEnd = houseSelectEnd;
+	public void setStaffSelectEnd(Date staffSelectEnd) {
+		this.staffSelectEnd = staffSelectEnd;
 	}
-    
-    
-	
+
+	public String getHouseNo() {
+		return houseNo;
+	}
+
+	public void setHouseNo(String houseNo) {
+		this.houseNo = houseNo;
+	}
+
+	public Double getHouseBuildArea() {
+		return houseBuildArea;
+	}
+
+	public void setHouseBuildArea(Double houseBuildArea) {
+		this.houseBuildArea = houseBuildArea;
+	}
+
+	public Double getHouseUsedArea() {
+		return houseUsedArea;
+	}
+
+	public void setHouseUsedArea(Double houseUsedArea) {
+		this.houseUsedArea = houseUsedArea;
+	}
+
+	public String getHouseAddress() {
+		return houseAddress;
+	}
+
+	public void setHouseAddress(String houseAddress) {
+		this.houseAddress = houseAddress;
+	}
+
 }

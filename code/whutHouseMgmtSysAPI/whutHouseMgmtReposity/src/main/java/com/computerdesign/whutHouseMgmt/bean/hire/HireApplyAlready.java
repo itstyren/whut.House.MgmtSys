@@ -6,14 +6,14 @@ public class HireApplyAlready {
 
     private Integer id;
 
-    private Double staffVal;
+    private Double totalVal;
 
     private String hireState;
     
     public HireApplyAlready(ViewHire viewHire){
     	this.staffNo = viewHire.getStaffNo();
     	this.id = viewHire.getId();
-    	this.staffVal = viewHire.getStaffVal();
+    	this.totalVal = viewHire.getTotalVal();
     	this.hireState = viewHire.getHireState();
     } 
 
@@ -33,13 +33,14 @@ public class HireApplyAlready {
 		this.id = id;
 	}
 
-	public Double getStaffVal() {
-		return staffVal;
+	public Double getTotalVal() {
+		return totalVal;
 	}
 
-	public void setStaffVal(Double staffVal) {
-		this.staffVal = staffVal;
+	public void setTotalVal(Double totalVal) {
+		this.totalVal = totalVal;
 	}
+
 
 	public String getHireState() {
 		return hireState;

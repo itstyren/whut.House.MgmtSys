@@ -582,123 +582,123 @@ public class HireExample {
             return (Criteria) this;
         }
 
-        public Criteria andStaffValIsNull() {
-            addCriterion("StaffVal is null");
+        public Criteria andTotalValIsNull() {
+            addCriterion("TotalVal is null");
             return (Criteria) this;
         }
 
-        public Criteria andStaffValIsNotNull() {
-            addCriterion("StaffVal is not null");
+        public Criteria andTotalValIsNotNull() {
+            addCriterion("TotalVal is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStaffValEqualTo(Double value) {
-            addCriterion("StaffVal =", value, "staffVal");
+        public Criteria andTotalValEqualTo(Double value) {
+            addCriterion("TotalVal =", value, "totalVal");
             return (Criteria) this;
         }
 
-        public Criteria andStaffValNotEqualTo(Double value) {
-            addCriterion("StaffVal <>", value, "staffVal");
+        public Criteria andTotalValNotEqualTo(Double value) {
+            addCriterion("TotalVal <>", value, "totalVal");
             return (Criteria) this;
         }
 
-        public Criteria andStaffValGreaterThan(Double value) {
-            addCriterion("StaffVal >", value, "staffVal");
+        public Criteria andTotalValGreaterThan(Double value) {
+            addCriterion("TotalVal >", value, "totalVal");
             return (Criteria) this;
         }
 
-        public Criteria andStaffValGreaterThanOrEqualTo(Double value) {
-            addCriterion("StaffVal >=", value, "staffVal");
+        public Criteria andTotalValGreaterThanOrEqualTo(Double value) {
+            addCriterion("TotalVal >=", value, "totalVal");
             return (Criteria) this;
         }
 
-        public Criteria andStaffValLessThan(Double value) {
-            addCriterion("StaffVal <", value, "staffVal");
+        public Criteria andTotalValLessThan(Double value) {
+            addCriterion("TotalVal <", value, "totalVal");
             return (Criteria) this;
         }
 
-        public Criteria andStaffValLessThanOrEqualTo(Double value) {
-            addCriterion("StaffVal <=", value, "staffVal");
+        public Criteria andTotalValLessThanOrEqualTo(Double value) {
+            addCriterion("TotalVal <=", value, "totalVal");
             return (Criteria) this;
         }
 
-        public Criteria andStaffValIn(List<Double> values) {
-            addCriterion("StaffVal in", values, "staffVal");
+        public Criteria andTotalValIn(List<Double> values) {
+            addCriterion("TotalVal in", values, "totalVal");
             return (Criteria) this;
         }
 
-        public Criteria andStaffValNotIn(List<Double> values) {
-            addCriterion("StaffVal not in", values, "staffVal");
+        public Criteria andTotalValNotIn(List<Double> values) {
+            addCriterion("TotalVal not in", values, "totalVal");
             return (Criteria) this;
         }
 
-        public Criteria andStaffValBetween(Double value1, Double value2) {
-            addCriterion("StaffVal between", value1, value2, "staffVal");
+        public Criteria andTotalValBetween(Double value1, Double value2) {
+            addCriterion("TotalVal between", value1, value2, "totalVal");
             return (Criteria) this;
         }
 
-        public Criteria andStaffValNotBetween(Double value1, Double value2) {
-            addCriterion("StaffVal not between", value1, value2, "staffVal");
+        public Criteria andTotalValNotBetween(Double value1, Double value2) {
+            addCriterion("TotalVal not between", value1, value2, "totalVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValIsNull() {
-            addCriterion("JobLevelVal is null");
+        public Criteria andTitleValIsNull() {
+            addCriterion("TitleVal is null");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValIsNotNull() {
-            addCriterion("JobLevelVal is not null");
+        public Criteria andTitleValIsNotNull() {
+            addCriterion("TitleVal is not null");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValEqualTo(Double value) {
-            addCriterion("JobLevelVal =", value, "jobLevelVal");
+        public Criteria andTitleValEqualTo(Double value) {
+            addCriterion("TitleVal =", value, "titleVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValNotEqualTo(Double value) {
-            addCriterion("JobLevelVal <>", value, "jobLevelVal");
+        public Criteria andTitleValNotEqualTo(Double value) {
+            addCriterion("TitleVal <>", value, "titleVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValGreaterThan(Double value) {
-            addCriterion("JobLevelVal >", value, "jobLevelVal");
+        public Criteria andTitleValGreaterThan(Double value) {
+            addCriterion("TitleVal >", value, "titleVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValGreaterThanOrEqualTo(Double value) {
-            addCriterion("JobLevelVal >=", value, "jobLevelVal");
+        public Criteria andTitleValGreaterThanOrEqualTo(Double value) {
+            addCriterion("TitleVal >=", value, "titleVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValLessThan(Double value) {
-            addCriterion("JobLevelVal <", value, "jobLevelVal");
+        public Criteria andTitleValLessThan(Double value) {
+            addCriterion("TitleVal <", value, "titleVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValLessThanOrEqualTo(Double value) {
-            addCriterion("JobLevelVal <=", value, "jobLevelVal");
+        public Criteria andTitleValLessThanOrEqualTo(Double value) {
+            addCriterion("TitleVal <=", value, "titleVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValIn(List<Double> values) {
-            addCriterion("JobLevelVal in", values, "jobLevelVal");
+        public Criteria andTitleValIn(List<Double> values) {
+            addCriterion("TitleVal in", values, "titleVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValNotIn(List<Double> values) {
-            addCriterion("JobLevelVal not in", values, "jobLevelVal");
+        public Criteria andTitleValNotIn(List<Double> values) {
+            addCriterion("TitleVal not in", values, "titleVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValBetween(Double value1, Double value2) {
-            addCriterion("JobLevelVal between", value1, value2, "jobLevelVal");
+        public Criteria andTitleValBetween(Double value1, Double value2) {
+            addCriterion("TitleVal between", value1, value2, "titleVal");
             return (Criteria) this;
         }
 
-        public Criteria andJobLevelValNotBetween(Double value1, Double value2) {
-            addCriterion("JobLevelVal not between", value1, value2, "jobLevelVal");
+        public Criteria andTitleValNotBetween(Double value1, Double value2) {
+            addCriterion("TitleVal not between", value1, value2, "titleVal");
             return (Criteria) this;
         }
 
@@ -762,63 +762,63 @@ public class HireExample {
             return (Criteria) this;
         }
 
-        public Criteria andMultiValIsNull() {
-            addCriterion("MultiVal is null");
+        public Criteria andSpouseValIsNull() {
+            addCriterion("SpouseVal is null");
             return (Criteria) this;
         }
 
-        public Criteria andMultiValIsNotNull() {
-            addCriterion("MultiVal is not null");
+        public Criteria andSpouseValIsNotNull() {
+            addCriterion("SpouseVal is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMultiValEqualTo(Double value) {
-            addCriterion("MultiVal =", value, "multiVal");
+        public Criteria andSpouseValEqualTo(Double value) {
+            addCriterion("SpouseVal =", value, "spouseVal");
             return (Criteria) this;
         }
 
-        public Criteria andMultiValNotEqualTo(Double value) {
-            addCriterion("MultiVal <>", value, "multiVal");
+        public Criteria andSpouseValNotEqualTo(Double value) {
+            addCriterion("SpouseVal <>", value, "spouseVal");
             return (Criteria) this;
         }
 
-        public Criteria andMultiValGreaterThan(Double value) {
-            addCriterion("MultiVal >", value, "multiVal");
+        public Criteria andSpouseValGreaterThan(Double value) {
+            addCriterion("SpouseVal >", value, "spouseVal");
             return (Criteria) this;
         }
 
-        public Criteria andMultiValGreaterThanOrEqualTo(Double value) {
-            addCriterion("MultiVal >=", value, "multiVal");
+        public Criteria andSpouseValGreaterThanOrEqualTo(Double value) {
+            addCriterion("SpouseVal >=", value, "spouseVal");
             return (Criteria) this;
         }
 
-        public Criteria andMultiValLessThan(Double value) {
-            addCriterion("MultiVal <", value, "multiVal");
+        public Criteria andSpouseValLessThan(Double value) {
+            addCriterion("SpouseVal <", value, "spouseVal");
             return (Criteria) this;
         }
 
-        public Criteria andMultiValLessThanOrEqualTo(Double value) {
-            addCriterion("MultiVal <=", value, "multiVal");
+        public Criteria andSpouseValLessThanOrEqualTo(Double value) {
+            addCriterion("SpouseVal <=", value, "spouseVal");
             return (Criteria) this;
         }
 
-        public Criteria andMultiValIn(List<Double> values) {
-            addCriterion("MultiVal in", values, "multiVal");
+        public Criteria andSpouseValIn(List<Double> values) {
+            addCriterion("SpouseVal in", values, "spouseVal");
             return (Criteria) this;
         }
 
-        public Criteria andMultiValNotIn(List<Double> values) {
-            addCriterion("MultiVal not in", values, "multiVal");
+        public Criteria andSpouseValNotIn(List<Double> values) {
+            addCriterion("SpouseVal not in", values, "spouseVal");
             return (Criteria) this;
         }
 
-        public Criteria andMultiValBetween(Double value1, Double value2) {
-            addCriterion("MultiVal between", value1, value2, "multiVal");
+        public Criteria andSpouseValBetween(Double value1, Double value2) {
+            addCriterion("SpouseVal between", value1, value2, "spouseVal");
             return (Criteria) this;
         }
 
-        public Criteria andMultiValNotBetween(Double value1, Double value2) {
-            addCriterion("MultiVal not between", value1, value2, "multiVal");
+        public Criteria andSpouseValNotBetween(Double value1, Double value2) {
+            addCriterion("SpouseVal not between", value1, value2, "spouseVal");
             return (Criteria) this;
         }
 

@@ -65,18 +65,23 @@ public class HireController {
 		List<StaffHouse> listStaffHouse = new ArrayList<StaffHouse>();
 		// 根据staffId获取staffHouse的list
 		listStaffHouse = staffHouseService.getStaffHouseByStaffId(staffId);
-
-		// 房屋集合
-		List<HireHouseGetApply> listHouseGetApply = new ArrayList<HireHouseGetApply>();
-		for (StaffHouse staffHouseD : listStaffHouse) {
-			listHouseGetApply.add(new HireHouseGetApply(staffHouseD));
+		if (!listStaffHouse.isEmpty()) {
+			// 房屋集合
+			List<HireHouseGetApply> listHouseGetApply = new ArrayList<HireHouseGetApply>();
+			for (StaffHouse staffHouseD : listStaffHouse) {
+				listHouseGetApply.add(new HireHouseGetApply(staffHouseD));
+			}
+			hireGetApply.setListHouseGetApply(listHouseGetApply);
 		}
-		hireGetApply.setListHouseGetApply(listHouseGetApply);
+		
 
 		// 已申请租赁信息集合
-		ViewHire viewHirePre = viewHireService.getByStaffId(staffId).get(0);
-		HireApplyAlready hireApplyAlready = new HireApplyAlready(viewHirePre);
-		hireGetApply.setHireApplyAlready(hireApplyAlready);
+		if (!viewHireService.getByStaffId(staffId).isEmpty()) {
+			ViewHire viewHirePre = viewHireService.getByStaffId(staffId).get(0);
+			HireApplyAlready hireApplyAlready = new HireApplyAlready(viewHirePre);
+			hireGetApply.setHireApplyAlready(hireApplyAlready);
+		}
+		
 
 		return Msg.success("返回住房申请页面").add("data", hireGetApply);
 
@@ -106,10 +111,10 @@ public class HireController {
 
 		hire.setTimeVal(viewStaff.getTimeVal());
 		hire.setOtherVal(viewStaff.getOtherVal());
-		hire.setMultiVal(viewStaff.getTotalVal());
+		hire.setSpouseVal(viewStaff.getSpouseTitleVal().doubleValue());
 
-		hire.setJobLevelVal(viewStaff.getTitleVal().doubleValue());
-		hire.setStaffVal(viewStaff.getPostVal().doubleValue());
+		hire.setTitleVal(viewStaff.getTitleVal().doubleValue());
+		hire.setTotalVal(viewStaff.getTotalVal().doubleValue());
 
 		hireService.add(hire);
 		return Msg.success("提交申请成功");
