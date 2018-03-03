@@ -69,6 +69,8 @@ import hireAccept from '@/views/leaseManage/hireAccept'
 import hireStafferSet from '@/views/onlie/hireStafferSet'
 // 房源设置
 import hireHouseSet from '@/views/onlie/hireHouseSet'
+// 自助选房
+import selfService from '@/views/onlie/selfService'
 // 住房申请
 import hireApply from '@/views/onlie/hireApply'
 
@@ -399,6 +401,12 @@ const routes = [
         path: 'hireHouseSet',
         component: hireHouseSet,
         name: 'hireHouseSet',
+        menuShow: true
+      },
+            {
+        path: 'selfService',
+        component: selfService,
+        name: 'selfService',
         menuShow: true
       },
       {

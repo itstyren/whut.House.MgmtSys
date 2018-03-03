@@ -220,27 +220,31 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.main-data {
-  padding-top: 20px;
-}
+@import "../../styles/variables.scss";
 
-.accept-form {
-  width: 80%;
-  background-color: #fff;
-  padding: 10px;
-  padding-bottom: 30px;
-  height: 90%;
-  margin: auto;
-  position: relative;
-  .need-accept {
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    & .is-accept {
+.second-container {
+  background-color: $background-grey;
+  & .main-data {
+    padding-top: 20px;
+    & .accept-form {
+      width: 80%;
+      background-color: #fff;
+      padding: 10px;
+      padding-bottom: 30px;
+      height: 90%;
+      margin: auto;
       position: relative;
-      border-bottom: 1px solid #e6ebf5;
-      margin-bottom: 20px;
+      & .need-accept {
+        h1 {
+          text-align: center;
+          margin-bottom: 30px;
+        }
+        & .is-accept {
+          position: relative;
+          border-bottom: 1px solid #e6ebf5;
+          margin-bottom: 20px;
+        }
+      }
     }
   }
 }

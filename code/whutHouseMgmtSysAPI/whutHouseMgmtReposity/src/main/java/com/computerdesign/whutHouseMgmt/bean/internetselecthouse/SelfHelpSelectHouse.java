@@ -2,6 +2,10 @@ package com.computerdesign.whutHouseMgmt.bean.internetselecthouse;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class SelfHelpSelectHouse {
     private String staffName;
 
@@ -41,8 +45,12 @@ public class SelfHelpSelectHouse {
 
     private Double staffTotalVal;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date houseSelectStart;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date houseSelectEnd;
 
     private String recordStatus;

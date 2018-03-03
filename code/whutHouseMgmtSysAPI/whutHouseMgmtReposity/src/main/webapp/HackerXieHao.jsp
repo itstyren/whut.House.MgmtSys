@@ -378,6 +378,10 @@
 	//网上选房
 	$(function() {
 		
+		$("#getAllSelectedStaff").click(function() {
+			ajaxRequestGet("selfHelpSelectHouse/getAllSelectedStaff?page=5&size=3");
+		})
+		
 		$("#submitSelectHouseApplication").click(function() {
 			ajaxRequestGet("selfHelpSelectHouse/submitSelectHouseApplication?staffId=6&houseId=1");
 		})
@@ -672,6 +676,9 @@
 			<!-- 数据导入 -->
 		</div>
 		<div class="tab-pane fade" id="internetSelectHouse">
+			<h4>自助选房：显示所有已选房职工</h4>
+			<input class="btn btn-info btn-lg" type="button" value="GetAllSelectedStaff"
+				id="getAllSelectedStaff" /> <br>
 			<h4>自助选房：提交点房申请</h4>
 			<input class="btn btn-info btn-lg" type="button" value="SubmitSelectHouseApplication"
 				id="submitSelectHouseApplication" /> <br>

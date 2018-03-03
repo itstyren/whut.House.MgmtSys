@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration
   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
@@ -49,7 +49,13 @@
 		<!-- <table tableName="hs_staffselecthouse" domainObjectName="StaffSelectHouse">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="hs_hire" domainObjectName="Hire">
+		<!-- <table tableName="pm_rentevent" domainObjectName="RentEvent">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<!-- <table tableName="view_hs_selfhelpselecthouse" domainObjectName="SelfHelpSelectHouse">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<table tableName="view_hs_hirerecent" domainObjectName="HireRecent">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		<!-- <table tableName="view_hs_resident" domainObjectName="ResidentVw">
