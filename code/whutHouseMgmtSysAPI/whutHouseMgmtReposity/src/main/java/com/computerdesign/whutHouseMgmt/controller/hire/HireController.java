@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.HireAddApply;
+import com.computerdesign.whutHouseMgmt.bean.hire.HireAddSignContract;
 import com.computerdesign.whutHouseMgmt.bean.hire.HireApplyAlready;
 import com.computerdesign.whutHouseMgmt.bean.hire.HireGetApply;
+import com.computerdesign.whutHouseMgmt.bean.hire.HireGetSignContract;
 import com.computerdesign.whutHouseMgmt.bean.hire.HireHouseGetApply;
 import com.computerdesign.whutHouseMgmt.bean.hire.ViewHire;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
@@ -26,6 +29,7 @@ import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.StaffHouseService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
@@ -46,6 +50,9 @@ public class HireController {
 
 	@Autowired
 	private ViewStaffService viewStaffService;
+	
+	@Autowired
+	private RegisterService registerService;
 
 	/**
 	 * 获取住房申请页面
@@ -118,5 +125,35 @@ public class HireController {
 
 		hireService.add(hire);
 		return Msg.success("提交申请成功");
+	}
+	
+	/**
+	 * 签订合同页面
+	 * @return
+	 */
+	@RequestMapping(value = "getSignContract",method = RequestMethod.POST)
+	@ResponseBody
+	public Msg HireGetSignContract(){
+		List<ViewHire> listViewHire = viewHireService.getSignContract();
+		List<HireGetSignContract>  listHireGetSignContract = new ArrayList<HireGetSignContract>();
+		for (ViewHire viewHire : listViewHire) {
+			listHireGetSignContract.add(new HireGetSignContract(viewHire));
+		}
+		return Msg.success("全部已审批尚未签订合同的房屋申请信息").add("data", listHireGetSignContract);
+	}
+	
+	@RequestMapping(value = "addSignContract",method = RequestMethod.POST)
+	@ResponseBody
+	public Msg HireAddSignContract(@RequestBody HireAddSignContract hireAddSignContract){
+		Hire hire = hireService.getHireById(hireAddSignContract.getId());
+		hire.setIsOver(true);
+		hireService.update(hire);
+		
+		Resident resident = new Resident();
+		resident.setBookTime(hireAddSignContract.getBookTime());
+		resident.setStaffId(hire.getStaffId());
+		resident.setHouseId(hire.getHouseId());
+		//TODO 这里的HouseRel应该是租赁
+		resident.setHouseRel(26);
 	}
 }

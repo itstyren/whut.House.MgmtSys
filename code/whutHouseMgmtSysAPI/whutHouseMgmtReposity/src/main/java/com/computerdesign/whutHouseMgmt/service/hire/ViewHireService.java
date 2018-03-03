@@ -102,13 +102,16 @@ public class ViewHireService {
 	}
 	
 	/**
-	 * 获取全部的已进行审批操作的房屋申请信息
+	 * 获取全部的已审批等待签订合同的房屋申请信息
 	 * @return
 	 */
-	public List<ViewHire> getApproveHasBeen() {
+	public List<ViewHire> getSignContract() {
 		ViewHireExample example = new ViewHireExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andApproveStateIsNotNull();
+		criteria.andApproveStateEqualTo("已审批");
+		criteria.andIsOverEqualTo(false);
 		return viewHireMapper.selectByExample(example);
 	}
+	
+	
 }
