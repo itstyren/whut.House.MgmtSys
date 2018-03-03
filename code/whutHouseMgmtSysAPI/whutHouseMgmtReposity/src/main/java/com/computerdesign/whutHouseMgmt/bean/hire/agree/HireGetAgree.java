@@ -37,6 +37,15 @@ public class HireGetAgree {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date acceptTime;
     
+    private String agreeNote;
+
+    private String agreeState;
+
+    private String agreeMan;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date agreeTime;
+    
     private Double titleVal;
 
     private Double timeVal;
@@ -45,6 +54,7 @@ public class HireGetAgree {
 
     private Double otherVal;
         
+    private Double totalVal;
     
 
 	public HireGetAgree(ViewHire viewHire) {
@@ -60,10 +70,15 @@ public class HireGetAgree {
 		this.acceptState = viewHire.getAcceptState();
 		this.acceptMan = viewHire.getAcceptMan();
 		this.acceptTime = viewHire.getAcceptTime();
+		this.agreeNote = viewHire.getAgreeNote();
+		this.agreeState = viewHire.getAgreeState();
+		this.agreeMan = viewHire.getAgreeMan();
+		this.agreeTime = viewHire.getAgreeTime();
 		this.titleVal = viewHire.getTitleVal();
 		this.timeVal = viewHire.getTimeVal();
 		this.spouseVal = viewHire.getSpouseVal();
 		this.otherVal = viewHire.getOtherVal();
+		this.totalVal = viewHire.getTotalVal();
 	}
 
 	public Integer getId() {
@@ -194,9 +209,46 @@ public class HireGetAgree {
 		this.otherVal = otherVal;
 	}
 
-	
+	public String getAgreeNote() {
+		return agreeNote;
+	}
 
-	
-    
+	public void setAgreeNote(String agreeNote) {
+		this.agreeNote = agreeNote;
+	}
+
+	public String getAgreeState() {
+		return agreeState;
+	}
+
+	public void setAgreeState(String agreeState) {
+		this.agreeState = agreeState;
+	}
+
+	public String getAgreeMan() {
+		return agreeMan;
+	}
+
+	public void setAgreeMan(String agreeMan) {
+		this.agreeMan = agreeMan;
+	}
+
+	public Date getAgreeTime() {
+		return agreeTime;
+	}
+
+	public void setAgreeTime(Date agreeTime) {
+		this.agreeTime = agreeTime;
+	}
+
+	public Double getTotalVal() {
+		return totalVal;
+	}
+
+	public void setTotalVal(Double totalVal) {
+		this.totalVal = totalVal;
+	}
+
+	  
     
 }

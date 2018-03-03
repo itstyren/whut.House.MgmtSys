@@ -54,6 +54,16 @@ public class HireGetApprove {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date agreeTime;
     
+    private String approveNote;
+
+    private String approveState;
+
+    private String approveMan;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date approveTime;
+    
     private Double totalVal;
 
     private Double titleVal;
@@ -87,6 +97,11 @@ public class HireGetApprove {
 		this.agreeState = viewHire.getAgreeState();
 		this.agreeMan = viewHire.getAgreeMan();
 		this.agreeTime = viewHire.getAgreeTime();
+		
+		this.approveNote = viewHire.getApproveNote();
+		this.approveState = viewHire.getApproveState();
+		this.approveMan = viewHire.getApproveMan();
+		this.approveTime = viewHire.getApproveTime();
 		
 		this.totalVal = viewHire.getTotalVal();
 		this.titleVal = viewHire.getTitleVal();
@@ -295,8 +310,37 @@ public class HireGetApprove {
 		this.otherVal = otherVal;
 	}
 
+	public String getApproveNote() {
+		return approveNote;
+	}
+
+	public void setApproveNote(String approveNote) {
+		this.approveNote = approveNote;
+	}
+
+	public String getApproveState() {
+		return approveState;
+	}
+
+	public void setApproveState(String approveState) {
+		this.approveState = approveState;
+	}
+
+	public String getApproveMan() {
+		return approveMan;
+	}
+
+	public void setApproveMan(String approveMan) {
+		this.approveMan = approveMan;
+	}
+
+	public Date getApproveTime() {
+		return approveTime;
+	}
+
+	public void setApproveTime(Date approveTime) {
+		this.approveTime = approveTime;
+	}
+
 	
-    
-    
-    
 }
