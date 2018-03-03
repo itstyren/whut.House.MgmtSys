@@ -90,7 +90,13 @@ public class HouseParameterController {
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public Msg addHouseParameter(@RequestBody HouseParameter houseParameter) {
+		List<HouseParameter> listHouseParameter = houseParamService.getAll(houseParameter.getParamTypeId());
 		if (houseParameter.getHouseParamName() != null) {
+			for (HouseParameter houseParamAlready : listHouseParameter) {
+				if (houseParameter.getHouseParamName().equals(houseParamAlready.getHouseParamName())) {
+					return Msg.error("该名称已存在，无法添加");
+				}
+			}
 			if (houseParameter.getParamTypeId() != null) {
 				
 				houseParamService.add(houseParameter);

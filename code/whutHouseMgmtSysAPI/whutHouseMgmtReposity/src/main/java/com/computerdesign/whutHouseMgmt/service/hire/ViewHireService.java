@@ -101,6 +101,22 @@ public class ViewHireService {
 		return viewHireMapper.selectByExample(example);
 	}
 	
+	
+	/**
+	 * 获取全部的已进行审批操作的房屋申请信息 
+	 * 
+	 * @return
+	 */
+	public List<ViewHire> getApproveHasBeen() {
+		ViewHireExample example = new ViewHireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andApproveStateIsNotNull();
+		return viewHireMapper.selectByExample(example);
+	}
+		
+	
+	
+	
 	/**
 	 * 获取全部的已审批等待签订合同的房屋申请信息
 	 * @return
@@ -108,7 +124,7 @@ public class ViewHireService {
 	public List<ViewHire> getSignContract() {
 		ViewHireExample example = new ViewHireExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andApproveStateEqualTo("已审批");
+		criteria.andHireStateEqualTo("已审批");
 		criteria.andIsOverEqualTo(false);
 		return viewHireMapper.selectByExample(example);
 	}

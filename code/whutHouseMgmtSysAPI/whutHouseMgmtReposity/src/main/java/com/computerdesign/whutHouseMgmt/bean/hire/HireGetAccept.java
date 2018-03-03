@@ -50,7 +50,6 @@ public class HireGetAccept {
 		this.timeVal = viewHire.getTimeVal();
 		this.spouseVal = viewHire.getSpouseVal();
 		this.otherVal = viewHire.getOtherVal();
-
 	}
     
 	public Integer getId() {
