@@ -11,7 +11,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getHireAccept, getFixReview } from "@/api/api";
+import { getHireAccept, getHireAgree } from "@/api/api";
 export default {
   data() {
     return {
@@ -26,7 +26,7 @@ export default {
   props: {
     hireStatus: {
       type: String,
-      default: "hangding"
+      default: "accept"
     },
     isSubmit: {
       type: Boolean
@@ -34,7 +34,7 @@ export default {
   },
   created() {
     //console.log(this.hireStatus)
-    if (this.hireStatus == "hangding") this.getHandingList();
+    if (this.hireStatus == "accept") this.getHandingList();
     else this.getReviewList();
   },
   watch: {
@@ -44,7 +44,7 @@ export default {
     },
     isSubmit(newVal) {
       this.hireData = [];
-      if (this.hireStatus == "hangding") this.getHandingList();
+      if (this.hireStatus == "accept") this.getHandingList();
       else this.getReviewList();
     }
   },
@@ -101,7 +101,7 @@ export default {
       this.listLoading = true;
       let param = {};
       // 获取未受理的
-      getFixReview(0, param)
+      getHireAgree(0, param)
         .then(res => {
           let hireData = res.data.data.data;
           this.hireData.push({
@@ -118,7 +118,7 @@ export default {
             });
           });
           // 获取已经受理的
-          getFixReview(1, param)
+          getHireAgree(1, param)
             .then(res => {
               let hireData = res.data.data.data;
               this.hireData.push({

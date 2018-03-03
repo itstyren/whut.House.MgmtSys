@@ -160,10 +160,12 @@ export const putFixPrice = (params) => { return axios.put(`${base}fix/addPrice`,
 export const putFixcheck = (params) => { return axios.put(`${base}fix/addCheck`, params) }
 
 // 租赁管理-租赁受理
-// 获取需要受理的信息
+// 获取需要受理的表单
 export const getHireAccept = (type, params) => { return axios.get(`${base}hire/getAccept/${type}`, { params: params }) }
 // 申请受理
 export const putHireAccept = (params) => { return axios.put(`${base}hire/addAccept`, params) }
+// 获取需要审核的表单
+export const getHireAgree = (type, params) => { return axios.get(`${base}hire/getAgree/${type}`, { params: params }) }
 
 // 网上选房-选房资格认定
 // 初始获取可选房员工

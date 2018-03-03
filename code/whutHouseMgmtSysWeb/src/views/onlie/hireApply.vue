@@ -184,7 +184,9 @@ export default {
         .then(res => {
           this.accoutInfo = res.data.data.data;
           let array = [];
-          array[0] = this.accoutInfo.hireApplyAlready;
+         if(this.accoutInfo.hireApplyAlready){
+            array[0] = this.accoutInfo.hireApplyAlready;
+         }
           this.accoutInfo.array = array;
           console.log(this.accoutInfo);
           // console.log(res.data.data.list)
@@ -285,7 +287,7 @@ export default {
     }
     & .opera-area {
       position: absolute;
-      bottom: 10%;
+      bottom: 7%;
       left: 0;
       right: 0;
       display: flex;
