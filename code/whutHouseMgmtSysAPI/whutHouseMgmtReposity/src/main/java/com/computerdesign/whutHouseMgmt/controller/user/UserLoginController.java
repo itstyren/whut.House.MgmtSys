@@ -31,7 +31,6 @@ import com.computerdesign.whutHouseMgmt.service.user.UserLoginService;
 import com.computerdesign.whutHouseMgmt.service.user.UserReturnService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.fasterxml.jackson.annotation.JsonFormat.Value;
-import com.wf.etp.authz.SubjectUtil;
 
 import io.jsonwebtoken.Claims;
 
@@ -83,7 +82,7 @@ public class UserLoginController {
 //				response.addHeader("X-token", "222222");
 //				return Msg.success("登陆成功").add("data", userLoginReturn);
 				String token = no+"_"+password+"_"+roleId;
-				String tokenD = SubjectUtil.getInstance().createToken(no, DateUtil.getAppointDate(new Date(), 1));
+//				String tokenD = SubjectUtil.getInstance().createToken(no, DateUtil.getAppointDate(new Date(), 1));
 	            try {
 	            	byte[] sourceBs = token.getBytes("UTF-8");  
 		            byte[] targetBs = Base64.encodeBase64(sourceBs); 

@@ -15,6 +15,9 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturn;
 import com.computerdesign.whutHouseMgmt.service.login.LoginService;
 
+
+import io.jsonwebtoken.ExpiredJwtException;
+
 public class LoginInterceptor implements HandlerInterceptor {
 
 	@Autowired
@@ -30,7 +33,42 @@ public class LoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 
 	}
-
+	
+//	@Override
+//	public boolean preHandle(HttpServletRequest request,
+//			HttpServletResponse response, Object handler) throws Exception {
+//		String userId = null;
+//		String token = request.getHeader("token");
+//		if (token == null) {
+//			token = request.getParameter("token");
+//		}
+//		try { // 解析token
+//			userId = SubjectUtil.getInstance().parseToken(token).getSubject();
+//		} catch (ExpiredJwtException e) {
+//			SubjectUtil.getInstance().expireToken(userId, token); // 从缓存中移除过期的token
+//			throw new ExpiredTokenException();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw new ErrorTokenException();
+//		}
+//		// 校验服务器是否存在token
+//		if (!SubjectUtil.getInstance().isValidToken(userId, token)) {
+//			throw new ExpiredTokenException();
+//		}
+//		// 检查权限
+//		if (handler instanceof HandlerMethod) {
+//			Method method = ((HandlerMethod) handler).getMethod();
+//			if (method != null) {
+//				if (!checkPermission(method, userId)
+//						|| !checkRole(method, userId)) {
+//					throw new UnauthorizedException();
+//				}
+//			}
+//		}
+//		request.setAttribute("userId", userId);
+//		return true;
+//}
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
 		// // 获取session里的登录状态值
