@@ -141,8 +141,12 @@ public class HireController {
 		hire.setOtherVal(viewStaff.getOtherVal());
 		hire.setSpouseVal(viewStaff.getSpouseTitleVal().doubleValue());
 
-		hire.setTitleVal(viewStaff.getTitleVal().doubleValue());
-		hire.setTotalVal(viewStaff.getTotalVal().doubleValue());
+		if(viewStaff.getTitleVal()!=null){
+			hire.setTitleVal(viewStaff.getTitleVal().doubleValue());			
+		}
+		if (viewStaff.getTotalVal()!=null) {
+			hire.setTotalVal(viewStaff.getTotalVal().doubleValue());			
+		}
 
 		hireService.add(hire);
 		return Msg.success("提交申请成功");
