@@ -35,6 +35,9 @@
 		//alert("${API_Path }/" + uri);
 		$.ajax({
 			url : uri,
+			beforeSend: function(request) {
+				request.setRequestHeader("X-token", "OF8xMjNfMw==");
+		    },
 			type : "get",
 			contentType : 'application/json',
 			dataType : 'json',
@@ -54,6 +57,9 @@
 			type : method,
 			contentType : 'application/json;charset=UTF-8',
 			dataType : 'json',
+			beforeSend: function(request) {
+				request.setRequestHeader("X-token", "OF8xMjNfMw==");
+		    },
 			data : JSON.stringify(data),
 			url : uri,
 			success : function(response) {
@@ -64,7 +70,6 @@
 			}
 		});
 	}
-
 	//数据导入的Post类请求
 	function ajaxRequestPostTypeForDataImport(uri, method, data) {
 		//alert("${API_Path }/" + uri);
