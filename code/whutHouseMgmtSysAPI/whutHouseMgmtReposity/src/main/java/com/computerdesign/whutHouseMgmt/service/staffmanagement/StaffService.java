@@ -22,7 +22,8 @@ public class StaffService implements BaseService<Staff> {
 	 * @param id
 	 */
 	public void resetPassword(Staff staff){
-		staffMapper.updateByPrimaryKey(staff);
+//		staffMapper.updateByPrimaryKey(staff);
+		staffMapper.updateByPrimaryKeySelective(staff);
 	}
 	
 	/**
