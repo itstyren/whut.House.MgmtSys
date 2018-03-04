@@ -86,9 +86,9 @@
 
 		$("#houseParamAdd").click(function() {
 			var data = {
-				'houseParamName' : '测试房1',
-				'paramTypeId' : 1,
-				'paramTypeName' : '住房类型'
+				'houseParamName' : '租赁',
+				'paramTypeId' : 3,
+				'paramTypeName' : '使用状态'
 			};
 			ajaxRequestPostType("houseParam/add", "POST", data);
 		})
@@ -524,6 +524,18 @@
 		$("#hireReApprove").click(function() {
 			ajaxRequestGet("hire/reApprove/91");
 		})
+		
+		$("#hireGetSignContract").click(function() {
+			ajaxRequestGet("hire/getSignContract");
+		})
+		
+		$("#hireAddSignContract").click(function() {
+			var data = {
+				'id':91,
+				'bookTime':'2017-01-31'
+			};
+			ajaxRequestPostType("hire/addSignContract", "POST", data);
+		})
 	})
 	//下拉列表
 	$(function() {
@@ -687,6 +699,11 @@
 			<input class="btn btn-info btn-lg" type="button" value="住房申请审批" id="hireAddApprove" /> <br> <br></div>
 			<div>重新审批   传入参数为hire的id<br>
 			<input class="btn btn-info btn-lg" type="button" value="重新审批" id="hireReApprove" /> <br> <br></div>
+			
+			<div>进入房屋申请签订合同页面<br>
+			<input class="btn btn-info btn-lg" type="button" value="住房申请签订合同页面" id="hireGetSignContract" /> <br> <br></div>
+			<div>签订合同<br>
+			<input class="btn btn-info btn-lg" type="button" value="签订合同" id="hireAddSignContract" /> <br> <br></div>
 		</div>
 	</div>
 

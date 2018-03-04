@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetCheck;
-import com.computerdesign.whutHouseMgmt.bean.fix.ViewFix;
-import com.computerdesign.whutHouseMgmt.bean.fix.ViewFixExample;
-import com.computerdesign.whutHouseMgmt.bean.fix.ViewFixExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFixExample;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFixExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.fix.ViewFixMapper;
 
 @Service

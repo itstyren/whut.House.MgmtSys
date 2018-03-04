@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.hire.Hire;
-import com.computerdesign.whutHouseMgmt.bean.hire.HireAddApprove;
-import com.computerdesign.whutHouseMgmt.bean.hire.HireGetApprove;
-import com.computerdesign.whutHouseMgmt.bean.hire.ViewHire;
+import com.computerdesign.whutHouseMgmt.bean.hire.approve.HireAddApprove;
+import com.computerdesign.whutHouseMgmt.bean.hire.approve.HireGetApprove;
+import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
+import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.StaffHouseService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;

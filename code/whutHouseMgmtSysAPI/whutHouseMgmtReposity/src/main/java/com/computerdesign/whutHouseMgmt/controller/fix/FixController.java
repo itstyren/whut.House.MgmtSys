@@ -21,22 +21,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.fix.Fix;
-import com.computerdesign.whutHouseMgmt.bean.fix.FixAddAccept;
-import com.computerdesign.whutHouseMgmt.bean.fix.FixAddAgree;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixAddCheck;
-import com.computerdesign.whutHouseMgmt.bean.fix.FixAddDirectApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixAddPrice;
-import com.computerdesign.whutHouseMgmt.bean.fix.FixGetAccept;
-import com.computerdesign.whutHouseMgmt.bean.fix.FixGetAgree;
-import com.computerdesign.whutHouseMgmt.bean.fix.FixGetApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetCheck;
-import com.computerdesign.whutHouseMgmt.bean.fix.FixGetDirectApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetName;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixSetTime;
-import com.computerdesign.whutHouseMgmt.bean.fix.HouseGetApply;
-import com.computerdesign.whutHouseMgmt.bean.fix.HouseGetDirectApply;
-import com.computerdesign.whutHouseMgmt.bean.fix.ViewFix;
+import com.computerdesign.whutHouseMgmt.bean.fix.accept.FixAddAccept;
+import com.computerdesign.whutHouseMgmt.bean.fix.accept.FixGetAccept;
+import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixAddAgree;
+import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixGetAgree;
+import com.computerdesign.whutHouseMgmt.bean.fix.apply.FixGetApply;
+import com.computerdesign.whutHouseMgmt.bean.fix.apply.HouseGetApply;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
+import com.computerdesign.whutHouseMgmt.bean.fix.directapply.FixAddDirectApply;
+import com.computerdesign.whutHouseMgmt.bean.fix.directapply.FixGetDirectApply;
+import com.computerdesign.whutHouseMgmt.bean.fix.directapply.HouseGetDirectApply;
 import com.computerdesign.whutHouseMgmt.bean.house.House;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
@@ -87,7 +87,6 @@ public class FixController {
 		
 		StaffVw staffVw = staffVwService.getByID(staffId);
 		FixGetApply fixGetApply = new FixGetApply(staffVw);
-		
 		
 		//根据staffId获取该员工全部的resident信息 
 		List<Resident> listResident = registerService.getResidentsByStaffId(staffId);

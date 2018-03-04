@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.fix.Fix;
-import com.computerdesign.whutHouseMgmt.bean.fix.FixAddAgree;
-import com.computerdesign.whutHouseMgmt.bean.fix.FixGetAgree;
-import com.computerdesign.whutHouseMgmt.bean.fix.ViewFix;
+import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixAddAgree;
+import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixGetAgree;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;

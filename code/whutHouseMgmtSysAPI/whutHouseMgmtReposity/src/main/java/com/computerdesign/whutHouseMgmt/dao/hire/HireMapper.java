@@ -1,7 +1,7 @@
 package com.computerdesign.whutHouseMgmt.dao.hire;
 
-import com.computerdesign.whutHouseMgmt.bean.hire.Hire;
-import com.computerdesign.whutHouseMgmt.bean.hire.HireExample;
+import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
+import com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

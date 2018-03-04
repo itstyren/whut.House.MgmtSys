@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.hire.ViewHireMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.hire.ViewHire">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire">
     <result column="Id" jdbcType="INTEGER" property="id" />
     <result column="StaffId" jdbcType="INTEGER" property="staffId" />
     <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
@@ -109,7 +109,7 @@
     AgreeTime, ApproveNote, ApproveState, ApproveMan, ApproveTime, IsOver, FeedBack, 
     Email
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.ViewHireExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHireExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -123,13 +123,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.ViewHireExample">
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHireExample">
     delete from view_hs_hire
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.ViewHire">
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire">
     insert into view_hs_hire (Id, StaffId, StaffNo, 
       Name, Sex, TitleName, 
       SpouseTitleVal, PostName, SpousePostVal, 
@@ -159,7 +159,7 @@
       #{approveTime,jdbcType=DATE}, #{isOver,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.ViewHire">
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire">
     insert into view_hs_hire
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -406,7 +406,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.ViewHireExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHireExample" resultType="java.lang.Long">
     select count(*) from view_hs_hire
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

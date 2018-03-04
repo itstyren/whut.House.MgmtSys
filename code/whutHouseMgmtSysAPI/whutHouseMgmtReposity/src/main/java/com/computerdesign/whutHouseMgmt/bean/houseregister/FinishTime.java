@@ -18,6 +18,8 @@ public class FinishTime {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date startTime;
 	
+	//TODO 意思注释出错
+	
 	//查询的结束时间
 	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
