@@ -115,6 +115,8 @@ export const putResetStaffPwd = (params, staffID) => { return axios.put(`${base}
 export const getStaffHouseRel = (staffID, params) => { return axios.get(`${base}houseRegister/getStaffHouseRel/${staffID}`, { params: params }) }
 // 获取方法--简单条件获取
 export const getHouseByMultiCondition = (params) => { return axios.post(`${base}houseRegister/getByMultiCondition`, params) }
+// 全面多条件查找
+export const postHouseByComplexMultiCondition = (params) => { return axios.post(`${base}houseRegister/getByAllMultiCondition`, params) }
 // 住房登记
 export const putHouseRegister = (params) => { return axios.put(`${base}houseRegister/register`, params) }
 // 房屋关系解除--不保留历史记录

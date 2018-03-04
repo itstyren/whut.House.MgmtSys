@@ -83,7 +83,7 @@
                   <el-row>
                     <el-col :span="5" :offset="1">
                       <el-form-item label="总得分">
-                        <el-input v-model="agreeForm.titleVal" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.totalVal" size="small" readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="5">
@@ -123,10 +123,10 @@
                   </el-row>
                   <!-- 操作区域 -->
                   <el-row type="flex" justify="start" v-if="!agreeState">
-                    <el-col :span="12" :offset="1">
+                    <el-col :span="16" :offset="1">
                       <el-form-item label="住房分配" prop="agreeState">
-                        <el-input v-model="agreeForm.agreeTime" size="small" readonly placeholder="请选择住房">
-                          <el-button slot="append" icon="el-icon-search" @click="selectFormVisible=true"></el-button>
+                        <el-input v-model="agreeForm.houseName" size="small" readonly placeholder="请选择住房">
+                          <el-button slot="append" icon="el-icon-search" @click="dialogVisible=!dialogVisible"></el-button>
                         </el-input>
                       </el-form-item>
                     </el-col>
@@ -168,133 +168,137 @@
             </div>
           </div>
         </div>
-                    <!-- 选择房屋的弹窗 -->
-            <el-dialog title="选择住房" :visible.sync="selectFormVisible" v-loading="selectLoading"></el-dialog>
+        <seach-house :select-form-visible="dialogVisible" @select-house="selectHouse"></seach-house>
       </div>
     </section>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import indexNav from "./components/indexNav";
-  import {
-    putHireAccept
-  } from "@/api/api";
-  import utils from "@/utils/index.js";
-  export default {
-    data() {
-      return {
-        listLoading: false,
-        agreeForm: {},
-        agreeState: false,
-        hireStatus: "agree",
-        isSubmit: false,
-        // 表单验证规则
-        rules: {
-          acceptNote: {
-            required: true,
-            message: "请输入受理意见",
-            trigger: "blur"
-          }
-        },
-        // 选择住房窗口
-        selectFormVisible:false,
-        selectLoading:false,
-      };
-    },
-    computed: {
-      totalVal: function () {
-        return (
-          parseInt(this.agreeForm.otherVal) + parseInt(this.agreeForm.titleVal)
-        );
-      }
-    },
-    components: {
-      indexNav
-    },
-    methods: {
-      // 从子组件获取
-      getList(object) {
-        this.agreeForm = object.content;
-        this.agreeForm.otherVal = 0;
-        this.agreeState = object.status;
+import indexNav from "./components/indexNav";
+import seachHouse from "@/views/tools/seachHouse";
+import { putHireAccept } from "@/api/api";
+import utils from "@/utils/index.js";
+export default {
+  data() {
+    return {
+      listLoading: false,
+      agreeForm: {},
+      agreeState: false,
+      hireStatus: "agree",
+      isSubmit: false,
+      selectHouseId:'',
+      houseName:'',
+      // 表单验证规则
+      rules: {
+        acceptNote: {
+          required: true,
+          message: "请输入受理意见",
+          trigger: "blur"
+        }
       },
-      // 受理信息提交
-      agreeSubmit() {
-        if (this.agreeForm.acceptState == null)
-          this.agreeForm.acceptState = "通过";
-        this.$confirm("确认通过审核", "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(() => {
-            this.$refs["agreeForm"].validate(valid => {
-              if (valid) {
-                this.listLoading = true;
-                let agreeForm = this.agreeForm;
-                let param = {
-                  acceptMan: agreeForm.name,
-                  acceptNote: agreeForm.acceptNote,
-                  acceptState: agreeForm.acceptState,
-                  id: agreeForm.id,
-                  otherVal: agreeForm.otherVal,
-                  spouseVal: agreeForm.spouseVal,
-                  timeVal: agreeForm.timeVal,
-                  titleVal: agreeForm.titleVal,
-                  totalVal: this.totalVal
-                };
-                putHireAccept(param).then(res => {
-                  this.agreeForm = {};
-                  utils.statusinfo(this, res.data);
-                  this.isSubmit = !this.isSubmit;
-                  this.listLoading = false;
-                  if (res.data.status == "success")
-                    this.$refs["agreeForm"].resetFields();
-                });
-              }
-            });
-          })
-          .catch(() => {
-            this.$message({
-              type: "info",
-              message: "已取消审核"
-            });
-          });
-      }
+      dialogVisible: false
+    };
+  },
+  // 注册组件
+  components: {
+    seachHouse,
+    indexNav
+  },
+  computed: {
+    totalVal: function() {
+      return (
+        parseInt(this.agreeForm.otherVal) + parseInt(this.agreeForm.titleVal)
+      );
     }
-  };
-
+  },
+  methods: {
+    // 从子组件获取
+    getList(object) {
+      this.agreeForm = object.content;
+      this.agreeForm.otherVal = 0;
+      this.agreeState = object.status;
+    },
+    // 受理信息提交
+    agreeSubmit() {
+      if (this.agreeForm.acceptState == null)
+        this.agreeForm.acceptState = "通过";
+      this.$confirm("确认通过审核", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$refs["agreeForm"].validate(valid => {
+            if (valid) {
+              this.listLoading = true;
+              let agreeForm = this.agreeForm;
+              let param = {
+                acceptMan: agreeForm.name,
+                acceptNote: agreeForm.acceptNote,
+                acceptState: agreeForm.acceptState,
+                id: agreeForm.id,
+                otherVal: agreeForm.otherVal,
+                spouseVal: agreeForm.spouseVal,
+                timeVal: agreeForm.timeVal,
+                titleVal: agreeForm.titleVal,
+                totalVal: this.totalVal
+              };
+              putHireAccept(param).then(res => {
+                this.agreeForm = {};
+                utils.statusinfo(this, res.data);
+                this.isSubmit = !this.isSubmit;
+                this.listLoading = false;
+                if (res.data.status == "success")
+                  this.$refs["agreeForm"].resetFields();
+              });
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消审核"
+          });
+        });
+    },
+    // 从组件中传递
+    selectHouse(houseData, houseId) {
+      this.agreeForm.houseName  = houseData;
+      this.selectHouseId=houseId
+      console.log(this.agreeForm.houseName)
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  @import "../../styles/variables.scss";
+@import "../../styles/variables.scss";
 
-  .second-container {
-    background-color: $background-grey;
-    & .main-data {
-      padding-top: 20px;
-      & .accept-form {
-        width: 80%;
-        background-color: #fff;
-        padding: 10px;
-        padding-bottom: 30px;
-        height: 90%;
-        margin: auto;
-        position: relative;
-        & .need-accept {
-          h1 {
-            text-align: center;
-            margin-bottom: 30px;
-          }
-          & .is-agree {
-            position: relative;
-            border-bottom: 1px solid #e6ebf5;
-            margin-bottom: 20px;
-          }
+.second-container {
+  background-color: $background-grey;
+  & .main-data {
+    padding-top: 20px;
+    & .accept-form {
+      width: 80%;
+      background-color: #fff;
+      padding: 10px;
+      padding-bottom: 30px;
+      height: 90%;
+      margin: auto;
+      position: relative;
+      & .need-accept {
+        h1 {
+          text-align: center;
+          margin-bottom: 30px;
+        }
+        & .is-agree {
+          position: relative;
+          border-bottom: 1px solid #e6ebf5;
+          margin-bottom: 20px;
         }
       }
     }
   }
-
+}
 </style>

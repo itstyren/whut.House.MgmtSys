@@ -225,6 +225,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../styles/variables.scss";
+
+.second-container {
+  background-color: $background-grey;
 .line {
   margin: 10px;
   border: 1px solid #e6ebf5;
@@ -254,5 +258,6 @@ export default {
       margin-bottom: 20px;
     }
   }
+}
 }
 </style>
