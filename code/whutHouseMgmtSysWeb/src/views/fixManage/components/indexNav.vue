@@ -11,7 +11,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getAccept, getFixReview } from "@/api/api";
+import { getFixAccept, getFixReview } from "@/api/api";
 export default {
   data() {
     return {
@@ -54,7 +54,7 @@ export default {
       this.listLoading = true;
       let param = {};
       // 获取未受理的
-      getAccept(0, param)
+      getFixAccept(0, param)
         .then(res => {
           let fixData = res.data.data.data;
           this.fixData.push({
@@ -71,7 +71,7 @@ export default {
             });
           });
           // 获取已经受理的
-          getAccept(1, param)
+          getFixAccept(1, param)
             .then(res => {
               let fixData = res.data.data.data;
               this.fixData.push({

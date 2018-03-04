@@ -51,9 +51,9 @@ import houseResident from '@/views/basiceData/houseResident/resident'
 // 维修申请
 import fixApply from '@/views/fixManage/fixApply'
 // 维修受理
-import fixHanding from '@/views/fixManage/fixHanding'
+import fixAccept from '@/views/fixManage/fixAccept'
 // 维修审核
-import fixReview from '@/views/fixManage/fixReview'
+import fixAgree from '@/views/fixManage/fixAgree'
 // 维修直批
 import fixSuper from '@/views/fixManage/fixSuper'
 // 维修申请管理
@@ -61,13 +61,21 @@ import fixApplyManager from '@/views/fixManage/fixApplyManager'
 // 维修结算
 import fixBalance from '@/views/fixManage/fixBalance'
 
+// 租赁管理
+// 租赁受理
+import hireAccept from '@/views/leaseManage/hireAccept'
+// 租赁审核
+import hireAgree from '@/views/leaseManage/hireAgree'
+
 // 网上选房
 // 选房资格认定
-import hireStafferSet from '@/views/leaseManage/hireStafferSet'
+import hireStafferSet from '@/views/onlie/hireStafferSet'
 // 房源设置
-import hireHouseSet from '@/views/leaseManage/hireHouseSet'
+import hireHouseSet from '@/views/onlie/hireHouseSet'
+// 自助选房
+import selfService from '@/views/onlie/selfService'
 // 住房申请
-import hireApply from '@/views/leaseManage/hireApply'
+import hireApply from '@/views/onlie/hireApply'
 
 
 Vue.use(Router)
@@ -330,14 +338,14 @@ const routes = [
         menuShow: true
       },
       {
-        path: 'fixHanding',
-        component: fixHanding,
-        name: 'fixHanding',
+        path: 'fixAccept',
+        component: fixAccept,
+        name: 'fixAccept',
         menuShow: true,
       }, {
-        path: 'fixReview',
-        component: fixReview,
-        name: 'fixReview',
+        path: 'fixAgree',
+        component: fixAgree,
+        name: 'fixAgree',
         menuShow: true,
       },
       {
@@ -360,11 +368,35 @@ const routes = [
       }
     ]
   },
-  // 网上选房
+  // 租赁管理
   {
     path: '/leaseManage',
     component: Home,
     name: 'leaseManage',
+    meta: {
+      requireAuth: true
+    },
+    menuShow: true,
+    children: [{
+        path: 'hireAccept',
+        component: hireAccept,
+        name: 'hireAccept',
+        menuShow: true
+      },
+      {
+        path: 'hireAgree',
+        component: hireAgree,
+        name: 'hireAgree',
+        menuShow: true
+      },
+
+    ]
+  },
+  // 网上选房
+  {
+    path: '/online',
+    component: Home,
+    name: 'online',
     meta: {
       requireAuth: true
     },
@@ -379,6 +411,12 @@ const routes = [
         path: 'hireHouseSet',
         component: hireHouseSet,
         name: 'hireHouseSet',
+        menuShow: true
+      },
+      {
+        path: 'selfService',
+        component: selfService,
+        name: 'selfService',
         menuShow: true
       },
       {

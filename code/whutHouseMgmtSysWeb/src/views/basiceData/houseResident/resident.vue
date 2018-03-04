@@ -125,6 +125,7 @@ export default {
   watch: {
     // 监听选项的变动
     selectRegion(newval) {
+            // console.log("1");
       for (var region of this.regionDataWithBuilding) {
         if (region.name == newval) this.buildingData = region.buildingList;
       }

@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- SpringMVC配置文件 处理业务逻辑跳转 -->
+	<!-- SpringMVC配置文件 处理业务逻辑跳转 --> 
  
 	<!-- 只扫描控制器所在包 -->
 	<context:component-scan base-package="com.computerdesign.whutHouseMgmt">
@@ -28,16 +28,16 @@
 	<mvc:default-servlet-handler />
  
 	<!-- 配置拦截器 -->
-	<!-- <mvc:interceptors>
-		配置登陆拦截器
+	 <mvc:interceptors>
+		<!-- 配置登陆拦截器 -->
 		<mvc:interceptor>
-			拦截后台页面的请求
+			<!-- 拦截后台页面的请求 -->
 			<mvc:mapping path="/**" />
-			不拦截登录页和登录的请求
+			<!--不拦截登录页和登录的请求-->
 			<mvc:exclude-mapping path="/userLogin/**" />
 			<bean class="com.computerdesign.whutHouseMgmt.utils.LoginInterceptor"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors> 
 
 	<!-- 能支持springmvc更高级的一些功能，JSR303校验，快捷的ajax -->
 	<mvc:annotation-driven>

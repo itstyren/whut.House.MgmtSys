@@ -33,6 +33,8 @@ export const getRentParamAboutEvent = (params) => { return axios.get(`${base}ren
 export const postRentParamAboutEvent = (params) => { return axios.post(`${base}rentEvent/add`, params) }
 // 删除方法【选房选项】
 export const deleteRentParamAboutEvent = (rentEventId) => { return axios.delete(`${base}rentEvent/delete/${rentEventId}`) }
+// 修改方法【选房选项】
+export const putRentParamAboutEvent = (params) => { return axios.put(`${base}rentEvent/modify`, params) }
 
 // 参数设置--维修参数
 // 获取方法
@@ -113,6 +115,8 @@ export const putResetStaffPwd = (params, staffID) => { return axios.put(`${base}
 export const getStaffHouseRel = (staffID, params) => { return axios.get(`${base}houseRegister/getStaffHouseRel/${staffID}`, { params: params }) }
 // 获取方法--简单条件获取
 export const getHouseByMultiCondition = (params) => { return axios.post(`${base}houseRegister/getByMultiCondition`, params) }
+// 全面多条件查找
+export const postHouseByComplexMultiCondition = (params) => { return axios.post(`${base}houseRegister/getByAllMultiCondition`, params) }
 // 住房登记
 export const putHouseRegister = (params) => { return axios.put(`${base}houseRegister/register`, params) }
 // 房屋关系解除--不保留历史记录
@@ -121,62 +125,86 @@ export const removeResidentLog = (staffID) => { return axios.delete(`${base}hous
 export const deleteResidentLog = (staffID) => { return axios.delete(`${base}houseRegister/deleteHouseRel/${staffID}`) }
 
 // 维修管理--维修申请
-// 获取方法--获取员工个人信息
+// 获取员工个人信息
 export const getStaffInfo = (staffID, params) => { return axios.get(`${base}fix/getApply/${staffID}`, { params: params }) }
 // 维修申请提交
 export const postFixApply = (params) => { return axios.post(`${base}fix/addApply`, params) }
 // 受理信息获取
-export const getAccept = (type, params) => { return axios.get(`${base}fix/getAccept/${type}`, { params: params }) }
+export const getFixAccept = (type, params) => { return axios.get(`${base}fix/getAccept/${type}`, { params: params }) }
 // 维修受理操作
 export const putFixAccept = (params) => { return axios.put(`${base}fix/addAccept`, params) }
 // 需要审核信息获取
 export const getFixReview = (type, params) => { return axios.get(`${base}fix/getAgree/${type}`, { params: params }) }
 // 维修审核操作
 export const putFixReview = (params) => { return axios.put(`${base}fix/addAgree`, params) }
-// 维修直批-获取职工
+
+// 维修管理-维修直批
+// 获取职工
 export const getFixStaffById = (staffId, params) => { return axios.get(`${base}fix/getDirectApplyByStaffId/${staffId}`, { params: params }) }
 export const getFixStaffByName = (staffName, params) => { return axios.get(`${base}fix/getDirectApplyByStaffName/${staffName}`, { params: params }) }
-// 维修直批-直批通过
+// 直批通过
 export const postFixSuper = (params) => { return axios.post(`${base}fix/addDirectApply`, params) }
-// 维修申请管理-获取维修申请
+
+// 维修管理-维修申请管理
+// 获取维修申请
 export const getFixForm = (params) => { return axios.get(`${base}fix/getFixManagement`, { params: params }) }
-// 维修申请管理-重新受理
-export const getReAccept = (fixFormId, params) => { return axios.get(`${base}fix/reAccept/${fixFormId}`, { params: params }) }
-// 维修申请管理-重新审核
-export const getReAgree = (fixFormId, params) => { return axios.get(`${base}fix/reAgree/${fixFormId}`, { params: params }) }
-// 维修结算-多条件查找
+// 重新受理
+export const getFixReAccept = (fixFormId, params) => { return axios.get(`${base}fix/reAccept/${fixFormId}`, { params: params }) }
+// 重新审核
+export const getFixReAgree = (fixFormId, params) => { return axios.get(`${base}fix/reAgree/${fixFormId}`, { params: params }) }
+
+// 维修管理-维修结算
+// 多条件查找
 export const postFixmulticondition = (param, data) => { return axios.post(`${base}fix/getCheckByAllMultiCondition?page=${param.page}&size=${param.size}`, data) }
-// 维修结算-维修定价
+// 维修定价
 export const putFixPrice = (params) => { return axios.put(`${base}fix/addPrice`, params) }
-// 维修结算-维修结算
+// 维修结算
 export const putFixcheck = (params) => { return axios.put(`${base}fix/addCheck`, params) }
 
-// 网上选房
-// 选房资格认定-初始获取可选房员工
+// 租赁管理-租赁受理
+// 获取需要受理的表单
+export const getHireAccept = (type, params) => { return axios.get(`${base}hire/getAccept/${type}`, { params: params }) }
+// 申请受理
+export const putHireAccept = (params) => { return axios.put(`${base}hire/addAccept`, params) }
+// 获取需要审核的表单
+export const getHireAgree = (type, params) => { return axios.get(`${base}hire/getAgree/${type}`, { params: params }) }
+
+// 网上选房-选房资格认定
+// 初始获取可选房员工
 export const getCanSelectStaff = (params) => { return axios.get(`${base}selHouseQuaAuth/activeShow`, { params: params }) }
-// 选房资格认定-初始获已设置选房员工
+// 初始获已设置选房员工
 export const getHaveSelectStaff = (params) => { return axios.get(`${base}selHouseQuaAuth/canselectShow`, { params: params }) }
-// 选房资格认定-多条件查询后可选房员工
+// 多条件查询后可选房员工
 export const postCanSelectmulticondition = (param, data) => { return axios.post(`${base}selHouseQuaAuth/selectActiveStaffMultiCondition?page=${param.page}&size=${param.size}`, data) }
-// 选房资格认定-员工设为可选房
+// 员工设为可选房
 export const postSetCanSelect = (data) => { return axios.post(`${base}selHouseQuaAuth/setCanselect`, data) }
-// 选房资格认定-员工取消可选房
+// 员工取消可选房
 export const postcancelCanSelect = (data) => { return axios.post(`${base}selHouseQuaAuth/cancelCanselect`, data) }
 
-// 房源设置-初始获取未设置房源房屋
+// 网上选房-房源设置
+// 初始获取未设置房源房屋
 export const getActiveHouse = (params) => { return axios.get(`${base}housingSet/activeHouseShow`, { params: params }) }
-// 房源设置-初始获取已设置房源房屋
+// 初始获取已设置房源房屋
 export const getSetHouse = (params) => { return axios.get(`${base}housingSet/canselectHouseShow`, { params: params }) }
-// 房源设置-多条件查询未设置房源
+// 多条件查询未设置房源
 export const postActiveHousemulticondition = (param, data) => { return axios.post(`${base}housingSet/canselectHouseShowByMultiCondition?page=${param.page}&size=${param.size}`, data) }
-// 房源设置-多条件查询已设置房源
+// 多条件查询已设置房源
 export const postSetHousemulticondition = (param, data) => { return axios.post(`${base}housingSet/activeHouseShowByMultiCondition?page=${param.page}&size=${param.size}`, data) }
-// 房源设置-设置房源
+// 设置房源
 export const postSetHouse = (data) => { return axios.post(`${base}housingSet/setHousing`, data) }
-// 房源设置-撤销房源
+// 撤销房源
 export const postcancelHouse = (data) => { return axios.post(`${base}housingSet/cancelSetHousing`, data) }
 
-// 住房申请-获取相关信息
+// 网上选房-自助选房
+// 获取未选房职工
+export const getAllCanselectHouseStaff = (params) => { return axios.get(`${base}selfHelpSelectHouse/getAllCanselectHouse`, { params: params }) }
+// 提交选房申请
+export const getSubmitSelectHouseApply = (params) => { return axios.get(`${base}selfHelpSelectHouse/submitSelectHouseApplication`, { params: params }) }
+
+// 网上选房-住房申请
+// 获取相关信息
 export const getStaffHireInfo = (staffID, params) => { return axios.get(`${base}hire/getApply/${staffID}`, { params: params }) }
-// 住房申请-提交申请
+// 提交申请
 export const postHireApply = (params) => { return axios.post(`${base}hire/addApply`, params) }
+
+export const textApi = (params) => { return axios.get(`${base}text/text`, { params: params }) }

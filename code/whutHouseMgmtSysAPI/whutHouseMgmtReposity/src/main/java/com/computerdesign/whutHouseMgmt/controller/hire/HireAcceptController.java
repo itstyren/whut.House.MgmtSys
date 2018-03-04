@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.hire.Hire;
-import com.computerdesign.whutHouseMgmt.bean.hire.HireAddAccept;
-import com.computerdesign.whutHouseMgmt.bean.hire.HireGetAccept;
-import com.computerdesign.whutHouseMgmt.bean.hire.ViewHire;
+import com.computerdesign.whutHouseMgmt.bean.hire.accept.HireAddAccept;
+import com.computerdesign.whutHouseMgmt.bean.hire.accept.HireGetAccept;
+import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
+import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.StaffHouseService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
@@ -49,7 +49,7 @@ public class HireAcceptController {
 	public Msg getAccept(@PathVariable("acceptState") Integer acceptState) {
 		if (acceptState == null) {
 			return Msg.error("请检查你的网络");
-		} else if (acceptState == 0) {
+		} else if (acceptState == 0) {//获取全部未受理的信息
 			List<ViewHire> listViewHire = viewHireService.getAcceptUntil();
 			List<HireGetAccept> listHireGetAccept = new ArrayList<HireGetAccept>();
 			for (ViewHire viewHire : listViewHire) {
@@ -89,11 +89,11 @@ public class HireAcceptController {
 			hire.setAcceptNote(hireAddAccept.getAcceptNote());
 			hire.setAcceptState(hireAddAccept.getAcceptState());
 			// 设置分数
-			hire.setJobLevelVal(hireAddAccept.getJobLevelVal());
-			hire.setStaffVal(hireAddAccept.getStaffVal());
+			hire.setTimeVal(hireAddAccept.getTitleVal());
+			hire.setTotalVal(hireAddAccept.getTotalVal());
 			hire.setTimeVal(hireAddAccept.getTimeVal());
 			hire.setOtherVal(hireAddAccept.getOtherVal());
-			hire.setMultiVal(hireAddAccept.getMultiVal());
+			hire.setSpouseVal(hireAddAccept.getSpouseVal());
 
 			hire.setAcceptTime(new Date());
 			hire.setHireState("未受理");
@@ -107,11 +107,11 @@ public class HireAcceptController {
 			hire.setAcceptNote(hireAddAccept.getAcceptNote());
 			hire.setAcceptState(hireAddAccept.getAcceptState());
 
-			hire.setJobLevelVal(hireAddAccept.getJobLevelVal());
-			hire.setStaffVal(hireAddAccept.getStaffVal());
+			hire.setTimeVal(hireAddAccept.getTitleVal());
+			hire.setTotalVal(hireAddAccept.getTotalVal());
 			hire.setTimeVal(hireAddAccept.getTimeVal());
 			hire.setOtherVal(hireAddAccept.getOtherVal());
-			hire.setMultiVal(hireAddAccept.getMultiVal());
+			hire.setSpouseVal(hireAddAccept.getSpouseVal());
 
 			hire.setAcceptTime(new Date());
 			hire.setHireState("待审核");
@@ -141,11 +141,11 @@ public class HireAcceptController {
 		hire.setAcceptState(null);
 		hire.setAcceptTime(null);
 		
-		hire.setJobLevelVal(null);
-		hire.setStaffVal(null);
-		hire.setOtherVal(null);
 		hire.setTimeVal(null);
-		hire.setMultiVal(null);
+		hire.setTotalVal(null);
+		hire.setTimeVal(null);
+		hire.setOtherVal(null);
+		hire.setSpouseVal(null);
 		
 		hire.setHireState("待受理");
 		hire.setIsOver(false);

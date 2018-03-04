@@ -3,9 +3,9 @@ package com.computerdesign.whutHouseMgmt.service.fix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.computerdesign.whutHouseMgmt.bean.fix.Fix;
-import com.computerdesign.whutHouseMgmt.bean.fix.FixExample;
-import com.computerdesign.whutHouseMgmt.bean.fix.FixExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample.Criteria;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample;
 import com.computerdesign.whutHouseMgmt.dao.fix.FixMapper;

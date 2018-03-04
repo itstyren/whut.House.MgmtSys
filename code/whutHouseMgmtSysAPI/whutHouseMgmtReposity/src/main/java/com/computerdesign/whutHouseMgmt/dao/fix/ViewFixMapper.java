@@ -1,7 +1,7 @@
 package com.computerdesign.whutHouseMgmt.dao.fix;
 
-import com.computerdesign.whutHouseMgmt.bean.fix.ViewFix;
-import com.computerdesign.whutHouseMgmt.bean.fix.ViewFixExample;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFixExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

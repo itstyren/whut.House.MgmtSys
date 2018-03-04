@@ -134,21 +134,26 @@ export default {
 </script>
 
 <style scoped lang="scss">
-aside {
-  .asid-button {
-    margin: 10px auto 10px;
-    width: 70%;
-  }
-  .el-input__inner {
-    background: #4a5064;
-  }
-  > .el-tree {
-    width: 250px;
-    height: auto;
-  }
+@import "../../../styles/variables.scss";
 
-  span {
-    padding-left: 20px;
+.second-container {
+  background-color: $background-grey;
+  aside {
+    .asid-button {
+      margin: 10px auto 10px;
+      width: 70%;
+    }
+    .el-input__inner {
+      background: #4a5064;
+    }
+    > .el-tree {
+      width: 250px;
+      height: auto;
+    }
+
+    span {
+      padding-left: 20px;
+    }
   }
 }
 </style>

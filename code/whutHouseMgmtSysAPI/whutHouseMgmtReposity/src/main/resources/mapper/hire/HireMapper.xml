@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.hire.HireMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.hire.Hire">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.hire.common.Hire">
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="StaffId" jdbcType="INTEGER" property="staffId" />
     <result column="HouseId" jdbcType="INTEGER" property="houseId" />
@@ -9,10 +9,10 @@
     <result column="Reason" jdbcType="VARCHAR" property="reason" />
     <result column="Phone" jdbcType="VARCHAR" property="phone" />
     <result column="HireState" jdbcType="VARCHAR" property="hireState" />
-    <result column="StaffVal" jdbcType="DOUBLE" property="staffVal" />
-    <result column="JobLevelVal" jdbcType="DOUBLE" property="jobLevelVal" />
+    <result column="TotalVal" jdbcType="DOUBLE" property="totalVal" />
+    <result column="TitleVal" jdbcType="DOUBLE" property="titleVal" />
     <result column="TimeVal" jdbcType="DOUBLE" property="timeVal" />
-    <result column="MultiVal" jdbcType="DOUBLE" property="multiVal" />
+    <result column="SpouseVal" jdbcType="DOUBLE" property="spouseVal" />
     <result column="OtherVal" jdbcType="DOUBLE" property="otherVal" />
     <result column="AcceptNote" jdbcType="VARCHAR" property="acceptNote" />
     <result column="AcceptState" jdbcType="VARCHAR" property="acceptState" />
@@ -89,12 +89,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, StaffId, HouseId, ApplyTime, Reason, Phone, HireState, StaffVal, JobLevelVal, 
-    TimeVal, MultiVal, OtherVal, AcceptNote, AcceptState, AcceptMan, AcceptTime, AgreeNote, 
-    AgreeState, AgreeMan, AgreeTime, ApproveNote, ApproveState, ApproveMan, ApproveTime, 
-    IsOver, FeedBack, Email
+    Id, StaffId, HouseId, ApplyTime, Reason, Phone, HireState, TotalVal, TitleVal, TimeVal, 
+    SpouseVal, OtherVal, AcceptNote, AcceptState, AcceptMan, AcceptTime, AgreeNote, AgreeState, 
+    AgreeMan, AgreeTime, ApproveNote, ApproveState, ApproveMan, ApproveTime, IsOver, 
+    FeedBack, Email
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.HireExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -118,17 +118,17 @@
     delete from Hs_Hire
     where Id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.HireExample">
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample">
     delete from Hs_Hire
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.Hire">
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.Hire">
     insert into Hs_Hire (Id, StaffId, HouseId, 
       ApplyTime, Reason, Phone, 
-      HireState, StaffVal, JobLevelVal, 
-      TimeVal, MultiVal, OtherVal, 
+      HireState, TotalVal, TitleVal, 
+      TimeVal, SpouseVal, OtherVal, 
       AcceptNote, AcceptState, AcceptMan, 
       AcceptTime, AgreeNote, AgreeState, 
       AgreeMan, AgreeTime, ApproveNote, 
@@ -137,8 +137,8 @@
       )
     values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
       #{applyTime,jdbcType=DATE}, #{reason,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{hireState,jdbcType=VARCHAR}, #{staffVal,jdbcType=DOUBLE}, #{jobLevelVal,jdbcType=DOUBLE}, 
-      #{timeVal,jdbcType=DOUBLE}, #{multiVal,jdbcType=DOUBLE}, #{otherVal,jdbcType=DOUBLE}, 
+      #{hireState,jdbcType=VARCHAR}, #{totalVal,jdbcType=DOUBLE}, #{titleVal,jdbcType=DOUBLE}, 
+      #{timeVal,jdbcType=DOUBLE}, #{spouseVal,jdbcType=DOUBLE}, #{otherVal,jdbcType=DOUBLE}, 
       #{acceptNote,jdbcType=VARCHAR}, #{acceptState,jdbcType=VARCHAR}, #{acceptMan,jdbcType=VARCHAR}, 
       #{acceptTime,jdbcType=DATE}, #{agreeNote,jdbcType=VARCHAR}, #{agreeState,jdbcType=VARCHAR}, 
       #{agreeMan,jdbcType=VARCHAR}, #{agreeTime,jdbcType=DATE}, #{approveNote,jdbcType=VARCHAR}, 
@@ -146,7 +146,7 @@
       #{isOver,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.Hire">
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.Hire">
     insert into Hs_Hire
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -170,17 +170,17 @@
       <if test="hireState != null">
         HireState,
       </if>
-      <if test="staffVal != null">
-        StaffVal,
+      <if test="totalVal != null">
+        TotalVal,
       </if>
-      <if test="jobLevelVal != null">
-        JobLevelVal,
+      <if test="titleVal != null">
+        TitleVal,
       </if>
       <if test="timeVal != null">
         TimeVal,
       </if>
-      <if test="multiVal != null">
-        MultiVal,
+      <if test="spouseVal != null">
+        SpouseVal,
       </if>
       <if test="otherVal != null">
         OtherVal,
@@ -253,17 +253,17 @@
       <if test="hireState != null">
         #{hireState,jdbcType=VARCHAR},
       </if>
-      <if test="staffVal != null">
-        #{staffVal,jdbcType=DOUBLE},
+      <if test="totalVal != null">
+        #{totalVal,jdbcType=DOUBLE},
       </if>
-      <if test="jobLevelVal != null">
-        #{jobLevelVal,jdbcType=DOUBLE},
+      <if test="titleVal != null">
+        #{titleVal,jdbcType=DOUBLE},
       </if>
       <if test="timeVal != null">
         #{timeVal,jdbcType=DOUBLE},
       </if>
-      <if test="multiVal != null">
-        #{multiVal,jdbcType=DOUBLE},
+      <if test="spouseVal != null">
+        #{spouseVal,jdbcType=DOUBLE},
       </if>
       <if test="otherVal != null">
         #{otherVal,jdbcType=DOUBLE},
@@ -315,7 +315,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.HireExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample" resultType="java.lang.Long">
     select count(*) from Hs_Hire
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -345,17 +345,17 @@
       <if test="record.hireState != null">
         HireState = #{record.hireState,jdbcType=VARCHAR},
       </if>
-      <if test="record.staffVal != null">
-        StaffVal = #{record.staffVal,jdbcType=DOUBLE},
+      <if test="record.totalVal != null">
+        TotalVal = #{record.totalVal,jdbcType=DOUBLE},
       </if>
-      <if test="record.jobLevelVal != null">
-        JobLevelVal = #{record.jobLevelVal,jdbcType=DOUBLE},
+      <if test="record.titleVal != null">
+        TitleVal = #{record.titleVal,jdbcType=DOUBLE},
       </if>
       <if test="record.timeVal != null">
         TimeVal = #{record.timeVal,jdbcType=DOUBLE},
       </if>
-      <if test="record.multiVal != null">
-        MultiVal = #{record.multiVal,jdbcType=DOUBLE},
+      <if test="record.spouseVal != null">
+        SpouseVal = #{record.spouseVal,jdbcType=DOUBLE},
       </if>
       <if test="record.otherVal != null">
         OtherVal = #{record.otherVal,jdbcType=DOUBLE},
@@ -419,10 +419,10 @@
       Reason = #{record.reason,jdbcType=VARCHAR},
       Phone = #{record.phone,jdbcType=VARCHAR},
       HireState = #{record.hireState,jdbcType=VARCHAR},
-      StaffVal = #{record.staffVal,jdbcType=DOUBLE},
-      JobLevelVal = #{record.jobLevelVal,jdbcType=DOUBLE},
+      TotalVal = #{record.totalVal,jdbcType=DOUBLE},
+      TitleVal = #{record.titleVal,jdbcType=DOUBLE},
       TimeVal = #{record.timeVal,jdbcType=DOUBLE},
-      MultiVal = #{record.multiVal,jdbcType=DOUBLE},
+      SpouseVal = #{record.spouseVal,jdbcType=DOUBLE},
       OtherVal = #{record.otherVal,jdbcType=DOUBLE},
       AcceptNote = #{record.acceptNote,jdbcType=VARCHAR},
       AcceptState = #{record.acceptState,jdbcType=VARCHAR},
@@ -443,7 +443,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.Hire">
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.Hire">
     update Hs_Hire
     <set>
       <if test="staffId != null">
@@ -464,17 +464,17 @@
       <if test="hireState != null">
         HireState = #{hireState,jdbcType=VARCHAR},
       </if>
-      <if test="staffVal != null">
-        StaffVal = #{staffVal,jdbcType=DOUBLE},
+      <if test="totalVal != null">
+        TotalVal = #{totalVal,jdbcType=DOUBLE},
       </if>
-      <if test="jobLevelVal != null">
-        JobLevelVal = #{jobLevelVal,jdbcType=DOUBLE},
+      <if test="titleVal != null">
+        TitleVal = #{titleVal,jdbcType=DOUBLE},
       </if>
       <if test="timeVal != null">
         TimeVal = #{timeVal,jdbcType=DOUBLE},
       </if>
-      <if test="multiVal != null">
-        MultiVal = #{multiVal,jdbcType=DOUBLE},
+      <if test="spouseVal != null">
+        SpouseVal = #{spouseVal,jdbcType=DOUBLE},
       </if>
       <if test="otherVal != null">
         OtherVal = #{otherVal,jdbcType=DOUBLE},
@@ -527,7 +527,7 @@
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.Hire">
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.Hire">
     update Hs_Hire
     set StaffId = #{staffId,jdbcType=INTEGER},
       HouseId = #{houseId,jdbcType=INTEGER},
@@ -535,10 +535,10 @@
       Reason = #{reason,jdbcType=VARCHAR},
       Phone = #{phone,jdbcType=VARCHAR},
       HireState = #{hireState,jdbcType=VARCHAR},
-      StaffVal = #{staffVal,jdbcType=DOUBLE},
-      JobLevelVal = #{jobLevelVal,jdbcType=DOUBLE},
+      TotalVal = #{totalVal,jdbcType=DOUBLE},
+      TitleVal = #{titleVal,jdbcType=DOUBLE},
       TimeVal = #{timeVal,jdbcType=DOUBLE},
-      MultiVal = #{multiVal,jdbcType=DOUBLE},
+      SpouseVal = #{spouseVal,jdbcType=DOUBLE},
       OtherVal = #{otherVal,jdbcType=DOUBLE},
       AcceptNote = #{acceptNote,jdbcType=VARCHAR},
       AcceptState = #{acceptState,jdbcType=VARCHAR},
