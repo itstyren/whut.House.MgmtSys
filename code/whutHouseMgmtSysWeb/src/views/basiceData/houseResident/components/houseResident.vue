@@ -173,8 +173,6 @@ export default {
         //margin-bottom: px;
         margin-left: 20px;
       }
-      .from-label {
-      }
     }
   }
 }
