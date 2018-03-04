@@ -1,7 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/java/com/computerdesign/whutHouseMgmt/controller/houseparam/HouseParameterController.java=GBK
-encoding//src/main/java/com/computerdesign/whutHouseMgmt/controller/staffmanagement/StaffController.java=UTF-8
 encoding//src/main/java/com/computerdesign/whutHouseMgmt/controller/staffparam/StaffParameterController.java=UTF-8
 encoding//src/main/java/com/computerdesign/whutHouseMgmt/service/houseparam/HouseParamService.java=GBK
 encoding//src/main/resources=UTF-8

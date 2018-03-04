@@ -242,21 +242,32 @@
 			var data = {
 				'id' : 14,
 				'no' : '4330',
-				'name' : 'xh',
+				'name' : 'asd',
 				'sex' : '男',
 				'marriageState' : '未知',
-				//'title':95,
+				'title': 100,
 				'post' : 89,
 				'type' : 144,
 				'status' : 153,
 				'dept' : 49,
-				'code' : '429006198711208754',
+				'code' : ' 429006199704237849',
+				'firstJobTime':'2014-11-20',
 				'joinTime' : '2017-11-20',
 				'goUniversityTime' : '2015-9-6',
 				'retireTime' : '2020-11-2',
 				'tel' : '13277582789',
 				'remark' : '无',
-				'relation' : 'active'
+				'spouseName':'ccc',
+				'spouseCode':'429006199503247864',
+				'spouseTitle':104,
+				'spousePost':176,
+				'spouseDept':'退休人员',
+				'spouseKind':157,
+				'buyAccount':20,
+				'fixFund':100,
+				'relation' : 'active',
+				'discountRate':20
+				
 			};
 			ajaxRequestPostType("staff/modify", "PUT", data);
 		})
@@ -383,7 +394,7 @@
 		})
 		
 		$("#submitSelectHouseApplication").click(function() {
-			ajaxRequestGet("selfHelpSelectHouse/submitSelectHouseApplication?staffId=7&houseId=1");
+			ajaxRequestGet("selfHelpSelectHouse/submitSelectHouseApplication?staffId=6&houseId=1");
 		})
 		
 		$("#getAllCanselectHouse").click(function() {
@@ -526,7 +537,7 @@
 
 		$("#setCanselect").click(function() {
 			//传递的是职工编号staffNo数组
-			var data = [ 6 ,7 ];
+			var data = [ 6 ];
 			ajaxRequestPostType("selHouseQuaAuth/setCanselect", "POST", data);
 
 		})
