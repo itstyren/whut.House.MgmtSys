@@ -7,16 +7,32 @@
 	<packaging>war</packaging>
 
 	<!-- maven update时的编码按照UTF-8 -->
-    <properties>    
-            <!-- 文件拷贝时的编码 -->    
-            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>    
-            <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>    
-            <!-- 编译时的编码 -->    
-            <maven.compiler.encoding>UTF-8</maven.compiler.encoding>    
-        </properties>    
-        
+	<properties>
+		<!-- 文件拷贝时的编码 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- 编译时的编码 -->
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+	</properties>
+
 	<!-- 引入项目依赖的jar包 -->
 	<dependencies>
+
+		<!-- jjwt -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.0</version>
+		</dependency>
+		
+		<!-- BASE64加密 -->
+		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
@@ -84,7 +100,7 @@
 		</dependency>
 
 
-				
+
 		<!-- fastjson -->
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<!-- <dependency> <groupId>com.alibaba</groupId> <artifactId>fastjson</artifactId> 
@@ -98,7 +114,7 @@
 		</dependency>
 
 
-		
+
 		<!-- spring jdbc -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 		<dependency>

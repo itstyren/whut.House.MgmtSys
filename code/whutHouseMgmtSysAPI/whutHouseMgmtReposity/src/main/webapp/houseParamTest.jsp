@@ -34,6 +34,9 @@
 		//alert("${API_Path }/" + uri);
 		$.ajax({
 			url : uri,
+			beforeSend: function(request) {
+				request.setRequestHeader("X-token", "OF8xMjNfMw==");
+		    },
 			type : "get",
 			contentType : 'application/json',
 			dataType : 'json',
@@ -336,6 +339,10 @@
 			ajaxRequestGet("userLogin/logout")
 		})
 		
+		$("#tokenLogin").click(function() {
+			ajaxRequestGet("userLogin/tokenLogin?token=OF8xMjNfMw==")
+		})
+		
 	})
 	
 	//维修
@@ -632,6 +639,8 @@
 			</div>
 			<div>退出登陆 <br>
 			<input class="btn btn-info btn-lg" type="button" value="退出" id="logout" /> <br> <br></div>
+			<div>token登陆 <br>
+			<input class="btn btn-info btn-lg" type="button" value="token登陆" id="tokenLogin" /> <br> <br></div>
 		</div>
 		<div class="tab-pane fade" id="fix">
 			<div>进入维修申请页面 <br>
