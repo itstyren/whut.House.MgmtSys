@@ -1,4 +1,6 @@
 // 登录时
+// 设置token
+export const SET_TOKEN="setToken"
 export const LOGIN = 'login'
 // 登出时
 export const LOGOUT = 'logout'

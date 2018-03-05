@@ -4,8 +4,10 @@ src/views/*.vue
 src/views/login/*.vue
 src/assets/icons/*js
 src/store/*.js
+src/store/modules/*.js
 src/router/*js
 src/utils/*.js
+src/api/*.js
 src/assets/function/*.js
 src/assets/data/*.js
 src/mock/*.js
