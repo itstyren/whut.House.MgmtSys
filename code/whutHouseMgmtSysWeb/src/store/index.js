@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import user from './modules/user'
 import * as types from './mutation-types.js'
 
 // 调用
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     residentSuccess: false,
     // 维修直批数据查询
     fixHouselist: [],
+  },
+  modules: {
+    user
   },
   mutations: {
     // 登录时写入
