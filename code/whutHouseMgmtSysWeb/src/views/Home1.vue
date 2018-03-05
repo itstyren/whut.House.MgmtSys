@@ -170,7 +170,7 @@ import * as types from '../store/mutation-types'
    data() {
 	 return {
       isCollapse: false,
-      RoleName:'任天宇'||this.$store.state.Name
+      RoleName:'任天宇'||2
 	 }
 
    },

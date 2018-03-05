@@ -1,6 +1,9 @@
 // 登录时
-// 设置token
+// 设置token等信息
 export const SET_TOKEN="setToken"
+export const SET_NAME = "setName"
+export const SET_ROLEID = "setRoleId"
+
 export const LOGIN = 'login'
 // 登出时
 export const LOGOUT = 'logout'
