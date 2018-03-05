@@ -106,6 +106,7 @@ public class UserLoginController {
 	@RequestMapping(value = "tokenLogin",method = RequestMethod.GET)
 	@ResponseBody
 	public Msg tokenLogin(@RequestParam(value = "token")String token,HttpServletRequest request,HttpServletResponse response){		
+		
 		System.out.println(token);
 		//将token解码
 		byte[] targetBs;
