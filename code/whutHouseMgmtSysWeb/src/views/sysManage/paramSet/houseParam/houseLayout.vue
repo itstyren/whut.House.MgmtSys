@@ -63,7 +63,7 @@ import {
   deleteHouseParam,
   postHouseParam,
   putHouseParam
-} from "@/api/api";
+} from "@/api/sysMange";
 import utils from "@/utils/index.js";
 export default {
   data() {

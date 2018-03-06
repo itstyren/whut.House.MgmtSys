@@ -151,7 +151,7 @@
   export default {
     data() {
       return {
-        RoleName: this.$store.state.Name
+        RoleName: 2
       };
     }
   };

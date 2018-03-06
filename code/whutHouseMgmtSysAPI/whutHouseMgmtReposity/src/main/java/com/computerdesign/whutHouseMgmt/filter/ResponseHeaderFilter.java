@@ -25,7 +25,11 @@ public class ResponseHeaderFilter implements Filter{
 //		httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-Token");
 		httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
 //		httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token");
+<<<<<<< HEAD
 		httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token, Origin, X-Requested-With, Content-Type, Accept");
+=======
+		httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-Token,Content-Type");
+>>>>>>> Terry-Ren/master
 		httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
 		arg2.doFilter(arg0, httpServletResponse);
 	}

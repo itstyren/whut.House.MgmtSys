@@ -110,10 +110,10 @@
 <script type="text/ecmascript-6">
 import utils from "@/utils/index.js";
 import {
-  getHouseParam,
   getRegionWithBuildings,
   postHouseByComplexMultiCondition
 } from "@/api/api";
+import {getHouseParam} from '@/api/sysMange'
 export default {
   data() {
     return {

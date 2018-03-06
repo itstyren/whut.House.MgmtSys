@@ -86,7 +86,8 @@
 import staffIndex from "./components/staffIndex";
 import personalInfoTable from "./components/personalInfoTable";
 import houseRel from "./components/houseRel";
-import { getFixParam, postFixSuper } from "@/api/api";
+import { postFixSuper } from "@/api/api";
+import { getFixParam } from "@/api/sysMange";
 import utils from "@/utils/index.js";
 export default {
   data() {

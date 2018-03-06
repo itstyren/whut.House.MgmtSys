@@ -283,11 +283,11 @@ import {
   getHouse,
   getHouseByBuildingID,
   getHouseByRegionID,
-  getHouseParam,
   postHouseData,
   deleteHouseData,
   putHouseData
 } from "@/api/api";
+import {getHouseParam} from '@/api/sysMange'
 import { checkNum, checkNULL } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
 export default {

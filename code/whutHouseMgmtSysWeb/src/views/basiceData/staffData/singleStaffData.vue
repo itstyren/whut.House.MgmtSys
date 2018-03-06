@@ -168,7 +168,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getStaff, getStaffParam, putStaffData } from "@/api/api";
+import { getStaff,  putStaffData } from "@/api/api";
+import { getStaffParam } from "@/api/sysMange";
 import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
 import * as OPTION from "@/assets/data/formOption";
 import utils from "@/utils/index.js";
