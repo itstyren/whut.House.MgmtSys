@@ -42,7 +42,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getResident, getHouseParam, postResident } from "@/api/api";
+import { getResident,  postResident } from "@/api/sysMange";
+import {getHouseParam} from '@/api/sysMange'
 import utils from "@/utils/index.js";
 export default {
   data() {

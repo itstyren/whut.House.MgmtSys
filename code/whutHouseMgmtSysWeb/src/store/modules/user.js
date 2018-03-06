@@ -58,7 +58,6 @@ const user = {
             reject('error')
           }
           const data = res.data.data
-          console.log(data)
           commit(types.SET_ROLEID, data.roles)
           commit(types.SET_NAME, data.name)
           // commit('SET_AVATAR', data.avatar)
