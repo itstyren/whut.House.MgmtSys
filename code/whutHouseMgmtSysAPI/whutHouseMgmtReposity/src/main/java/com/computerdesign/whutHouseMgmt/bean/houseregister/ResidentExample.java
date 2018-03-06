@@ -2,7 +2,6 @@ package com.computerdesign.whutHouseMgmt.bean.houseregister;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class ResidentExample {
@@ -104,32 +103,6 @@ public class ResidentExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andIdIsNull() {
@@ -383,52 +356,52 @@ public class ResidentExample {
         }
 
         public Criteria andBookTimeEqualTo(Date value) {
-            addCriterionForJDBCDate("BookTime =", value, "bookTime");
+            addCriterion("BookTime =", value, "bookTime");
             return (Criteria) this;
         }
 
         public Criteria andBookTimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("BookTime <>", value, "bookTime");
+            addCriterion("BookTime <>", value, "bookTime");
             return (Criteria) this;
         }
 
         public Criteria andBookTimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("BookTime >", value, "bookTime");
+            addCriterion("BookTime >", value, "bookTime");
             return (Criteria) this;
         }
 
         public Criteria andBookTimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("BookTime >=", value, "bookTime");
+            addCriterion("BookTime >=", value, "bookTime");
             return (Criteria) this;
         }
 
         public Criteria andBookTimeLessThan(Date value) {
-            addCriterionForJDBCDate("BookTime <", value, "bookTime");
+            addCriterion("BookTime <", value, "bookTime");
             return (Criteria) this;
         }
 
         public Criteria andBookTimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("BookTime <=", value, "bookTime");
+            addCriterion("BookTime <=", value, "bookTime");
             return (Criteria) this;
         }
 
         public Criteria andBookTimeIn(List<Date> values) {
-            addCriterionForJDBCDate("BookTime in", values, "bookTime");
+            addCriterion("BookTime in", values, "bookTime");
             return (Criteria) this;
         }
 
         public Criteria andBookTimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("BookTime not in", values, "bookTime");
+            addCriterion("BookTime not in", values, "bookTime");
             return (Criteria) this;
         }
 
         public Criteria andBookTimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("BookTime between", value1, value2, "bookTime");
+            addCriterion("BookTime between", value1, value2, "bookTime");
             return (Criteria) this;
         }
 
         public Criteria andBookTimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("BookTime not between", value1, value2, "bookTime");
+            addCriterion("BookTime not between", value1, value2, "bookTime");
             return (Criteria) this;
         }
 
@@ -503,52 +476,52 @@ public class ResidentExample {
         }
 
         public Criteria andExpireTimeEqualTo(Date value) {
-            addCriterionForJDBCDate("ExpireTime =", value, "expireTime");
+            addCriterion("ExpireTime =", value, "expireTime");
             return (Criteria) this;
         }
 
         public Criteria andExpireTimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("ExpireTime <>", value, "expireTime");
+            addCriterion("ExpireTime <>", value, "expireTime");
             return (Criteria) this;
         }
 
         public Criteria andExpireTimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("ExpireTime >", value, "expireTime");
+            addCriterion("ExpireTime >", value, "expireTime");
             return (Criteria) this;
         }
 
         public Criteria andExpireTimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("ExpireTime >=", value, "expireTime");
+            addCriterion("ExpireTime >=", value, "expireTime");
             return (Criteria) this;
         }
 
         public Criteria andExpireTimeLessThan(Date value) {
-            addCriterionForJDBCDate("ExpireTime <", value, "expireTime");
+            addCriterion("ExpireTime <", value, "expireTime");
             return (Criteria) this;
         }
 
         public Criteria andExpireTimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("ExpireTime <=", value, "expireTime");
+            addCriterion("ExpireTime <=", value, "expireTime");
             return (Criteria) this;
         }
 
         public Criteria andExpireTimeIn(List<Date> values) {
-            addCriterionForJDBCDate("ExpireTime in", values, "expireTime");
+            addCriterion("ExpireTime in", values, "expireTime");
             return (Criteria) this;
         }
 
         public Criteria andExpireTimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("ExpireTime not in", values, "expireTime");
+            addCriterion("ExpireTime not in", values, "expireTime");
             return (Criteria) this;
         }
 
         public Criteria andExpireTimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("ExpireTime between", value1, value2, "expireTime");
+            addCriterion("ExpireTime between", value1, value2, "expireTime");
             return (Criteria) this;
         }
 
         public Criteria andExpireTimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("ExpireTime not between", value1, value2, "expireTime");
+            addCriterion("ExpireTime not between", value1, value2, "expireTime");
             return (Criteria) this;
         }
 
@@ -622,73 +595,63 @@ public class ResidentExample {
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeIsNull() {
-            addCriterion("LastRentType is null");
+        public Criteria andLastRentTimeIsNull() {
+            addCriterion("LastRentTime is null");
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeIsNotNull() {
-            addCriterion("LastRentType is not null");
+        public Criteria andLastRentTimeIsNotNull() {
+            addCriterion("LastRentTime is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeEqualTo(String value) {
-            addCriterion("LastRentType =", value, "lastRentType");
+        public Criteria andLastRentTimeEqualTo(Date value) {
+            addCriterion("LastRentTime =", value, "lastRentTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeNotEqualTo(String value) {
-            addCriterion("LastRentType <>", value, "lastRentType");
+        public Criteria andLastRentTimeNotEqualTo(Date value) {
+            addCriterion("LastRentTime <>", value, "lastRentTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeGreaterThan(String value) {
-            addCriterion("LastRentType >", value, "lastRentType");
+        public Criteria andLastRentTimeGreaterThan(Date value) {
+            addCriterion("LastRentTime >", value, "lastRentTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("LastRentType >=", value, "lastRentType");
+        public Criteria andLastRentTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("LastRentTime >=", value, "lastRentTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeLessThan(String value) {
-            addCriterion("LastRentType <", value, "lastRentType");
+        public Criteria andLastRentTimeLessThan(Date value) {
+            addCriterion("LastRentTime <", value, "lastRentTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeLessThanOrEqualTo(String value) {
-            addCriterion("LastRentType <=", value, "lastRentType");
+        public Criteria andLastRentTimeLessThanOrEqualTo(Date value) {
+            addCriterion("LastRentTime <=", value, "lastRentTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeLike(String value) {
-            addCriterion("LastRentType like", value, "lastRentType");
+        public Criteria andLastRentTimeIn(List<Date> values) {
+            addCriterion("LastRentTime in", values, "lastRentTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeNotLike(String value) {
-            addCriterion("LastRentType not like", value, "lastRentType");
+        public Criteria andLastRentTimeNotIn(List<Date> values) {
+            addCriterion("LastRentTime not in", values, "lastRentTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeIn(List<String> values) {
-            addCriterion("LastRentType in", values, "lastRentType");
+        public Criteria andLastRentTimeBetween(Date value1, Date value2) {
+            addCriterion("LastRentTime between", value1, value2, "lastRentTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastRentTypeNotIn(List<String> values) {
-            addCriterion("LastRentType not in", values, "lastRentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastRentTypeBetween(String value1, String value2) {
-            addCriterion("LastRentType between", value1, value2, "lastRentType");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastRentTypeNotBetween(String value1, String value2) {
-            addCriterion("LastRentType not between", value1, value2, "lastRentType");
+        public Criteria andLastRentTimeNotBetween(Date value1, Date value2) {
+            addCriterion("LastRentTime not between", value1, value2, "lastRentTime");
             return (Criteria) this;
         }
 

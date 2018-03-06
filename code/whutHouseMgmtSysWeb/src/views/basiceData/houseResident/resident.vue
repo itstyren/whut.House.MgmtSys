@@ -84,10 +84,10 @@ import staffHouseRel from "./components/staffHouseRel";
 import houseResident from "./components/houseResident";
 import utils from "@/utils/index.js";
 import {
-  getHouseParam,
   getRegionWithBuildings,
   getHouseByMultiCondition
 } from "@/api/api";
+import {getHouseParam} from '@/api/sysMange'
 export default {
   data() {
     return {

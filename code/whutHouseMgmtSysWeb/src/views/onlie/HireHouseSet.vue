@@ -140,7 +140,6 @@
 
 <script type="text/ecmascript-6">
 import {
-  getHouseParam,
   getRegionWithBuildings,
   getActiveHouse,
   getSetHouse,
@@ -148,6 +147,7 @@ import {
   postSetHouse,
   postcancelHouse
 } from "@/api/api";
+import {getHouseParam} from '@/api/sysMange'
 import utils from "@/utils/index.js";
 export default {
   data() {

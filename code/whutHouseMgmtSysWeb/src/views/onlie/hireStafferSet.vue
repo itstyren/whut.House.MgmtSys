@@ -170,13 +170,13 @@
 
 <script type="text/ecmascript-6">
 import {
-  getStaffParam,
   getCanSelectStaff,
   getHaveSelectStaff,
   postCanSelectmulticondition,
   postSetCanSelect,
   postcancelCanSelect
 } from "@/api/api";
+import { getStaffParam } from "@/api/sysMange";
 import * as OPTION from "@/assets/data/formOption";
 import utils from "@/utils/index.js";
 export default {

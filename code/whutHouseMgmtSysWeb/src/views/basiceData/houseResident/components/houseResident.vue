@@ -36,7 +36,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getHouseParam, putHouseRegister } from "@/api/api";
+import {  putHouseRegister } from "@/api/api";
+import {getHouseParam} from '@/api/sysMange'
 import * as types from "@/store/mutation-types";
 import utils from "@/utils/index.js";
 export default {

@@ -35,6 +35,9 @@
 		//alert("${API_Path }/" + uri);
 		$.ajax({
 			url : uri,
+			beforeSend: function(request) {
+				request.setRequestHeader("X-token", "OF8xMjNfMw==");
+		    },
 			type : "get",
 			contentType : 'application/json',
 			dataType : 'json',
@@ -54,6 +57,9 @@
 			type : method,
 			contentType : 'application/json;charset=UTF-8',
 			dataType : 'json',
+			beforeSend: function(request) {
+				request.setRequestHeader("X-token", "OF8xMjNfMw==");
+		    },
 			data : JSON.stringify(data),
 			url : uri,
 			success : function(response) {
@@ -64,7 +70,6 @@
 			}
 		});
 	}
-
 	//数据导入的Post类请求
 	function ajaxRequestPostTypeForDataImport(uri, method, data) {
 		//alert("${API_Path }/" + uri);
@@ -325,7 +330,7 @@
 				'staffId' : 18,
 				'houseId' : 2,
 				'houseRel' : 26,
-				'bookTime' : '2018-01-28'
+				'bookTime' : '2018-01-28 00:00:00'
 			};
 			ajaxRequestPostType("houseRegister/register", "PUT", data);
 		})
@@ -336,7 +341,7 @@
 				'staffId' : 3,
 				'houseId' : 1,
 				'houseRel' : 26,
-				'bookTime' : '2018-01-23'
+				'bookTime' : '2018-01-23 00:00:00'
 			};
 			ajaxRequestPostType("houseRegister/isRegistered", "POST", data);
 		})
@@ -552,6 +557,68 @@
 				})
 
 	})
+	
+	//租金生成
+	$(function() {
+		
+		$("#rentGenerate")
+		.click(
+				function() {
+					var data = {
+						'dept' : '绿色建材中心33',
+						'post' : '厅级3',
+						'title' : '副研究员',
+						'type' : '专业技术人员3',
+						'status' : '调离',
+						'houseTypeName':'周转房342萨达',
+						'marriageState' : '已婚',
+						'joinTime' : {
+							'startTime' : '1965-01-27',
+							'endTime' : '1965-06-05'
+						},
+						'goUniversityTimeRange':{
+							'startTime' : '2015-12-5',
+							'endTime' : '2015-12-25'
+						},
+						'sex' : '女',
+						'isExpire':true,
+						'regionName':'武汉市洪山区工大路20号'
+						
+					};
+					ajaxRequestPostType(
+							"rentGenerate/rentGenerate",
+							"POST", data);
+				})
+		
+		$("#selectRentByMultiCondition")
+		.click(
+				function() {
+					var data = {
+						'dept' : '绿色建材中心33',
+						'post' : '厅级3',
+						'title' : '副研究员',
+						'type' : '专业技术人员3',
+						'status' : '调离',
+						'houseTypeName':'周转房342萨达',
+						'marriageState' : '已婚',
+						'joinTime' : {
+							'startTime' : '1965-01-27',
+							'endTime' : '1965-06-05'
+						},
+						'goUniversityTimeRange':{
+							'startTime' : '2015-12-5',
+							'endTime' : '2015-12-25'
+						},
+						'sex' : '女',
+						'isExpire':true,
+						'regionName':'武汉市洪山区工大路20号'
+						
+					};
+					ajaxRequestPostType(
+							"rentGenerate/selectRentByMultiCondition?page=2&size=2",
+							"POST", data);
+				})
+	})
 </script>
 
 </head>
@@ -576,6 +643,7 @@
 		<li><a href="#houseRegistration" data-toggle="tab">住房登记</a></li>
 		<li><a href="#dataImport" data-toggle="tab">数据导入</a></li>
 		<li><a href="#internetSelectHouse" data-toggle="tab">网上选房</a></li>
+		<li><a href="#rentGenerate" data-toggle="tab">租金生成</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="rentEvent">
@@ -688,14 +756,15 @@
 		</div>
 		<div class="tab-pane fade" id="internetSelectHouse">
 			<h4>自助选房：显示所有已选房职工</h4>
-			<input class="btn btn-info btn-lg" type="button" value="GetAllSelectedStaff"
-				id="getAllSelectedStaff" /> <br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetAllSelectedStaff" id="getAllSelectedStaff" /> <br>
 			<h4>自助选房：提交点房申请</h4>
-			<input class="btn btn-info btn-lg" type="button" value="SubmitSelectHouseApplication"
+			<input class="btn btn-info btn-lg" type="button"
+				value="SubmitSelectHouseApplication"
 				id="submitSelectHouseApplication" /> <br>
 			<h4>自助选房：显示所有未选房职工</h4>
-			<input class="btn btn-info btn-lg" type="button" value="GetAllCanselectHouse"
-				id="getAllCanselectHouse" /> <br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetAllCanselectHouse" id="getAllCanselectHouse" /> <br>
 			<h4>选房资格认定：初始显示未设置选房职工</h4>
 			<input class="btn btn-info btn-lg" type="button" value="ActiveShow"
 				id="activeShow" /> <br>
@@ -741,6 +810,18 @@
 				value="CancelSetHousing" id="cancelSetHousing" /> <br>
 
 		</div>
+
+		<div class="tab-pane fade" id="rentGenerate">
+			<h4>多条件查询</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="SelectRentByMultiCondition" id="selectRentByMultiCondition" />
+			<br>
+			<h4>租金生成</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="RentGenerate" id="rentGenerate" />
+			<br>
+		</div>
+
 	</div>
 
 

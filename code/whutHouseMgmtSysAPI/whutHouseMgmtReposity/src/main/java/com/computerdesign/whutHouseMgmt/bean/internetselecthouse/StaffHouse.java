@@ -17,8 +17,6 @@ public class StaffHouse {
 
     private String rentType;
 
-    private String lastRentType;
-
     private String familyCode;
 
     private Integer staffId;
@@ -155,6 +153,8 @@ public class StaffHouse {
 
     private Integer houseRecordStatus;
 
+    private Date lastRentTime;
+
     public Integer getResidentId() {
         return residentId;
     }
@@ -209,14 +209,6 @@ public class StaffHouse {
 
     public void setRentType(String rentType) {
         this.rentType = rentType == null ? null : rentType.trim();
-    }
-
-    public String getLastRentType() {
-        return lastRentType;
-    }
-
-    public void setLastRentType(String lastRentType) {
-        this.lastRentType = lastRentType == null ? null : lastRentType.trim();
     }
 
     public String getFamilyCode() {
@@ -761,5 +753,13 @@ public class StaffHouse {
 
     public void setHouseRecordStatus(Integer houseRecordStatus) {
         this.houseRecordStatus = houseRecordStatus;
+    }
+
+    public Date getLastRentTime() {
+        return lastRentTime;
+    }
+
+    public void setLastRentTime(Date lastRentTime) {
+        this.lastRentTime = lastRentTime;
     }
 }

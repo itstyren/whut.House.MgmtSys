@@ -21,7 +21,7 @@
  
 		<!-- 指定javabean的生成位置 -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.fix.common"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -29,13 +29,13 @@
 
 		<!-- 指定sql映射文件的生成位置 -->
 
-		<sqlMapGenerator targetPackage="mapper.fix" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper.hire" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.fix" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.hire" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		
@@ -45,7 +45,7 @@
 		</table> --> 
 		<!-- <table tableName="view_hs_staffhouse" domainObjectName="StaffHouse">
 			<property name="useActualColumnNames" value="true"></property>
-		</table>  -->
+		</table> -->
 		<!-- <table tableName="hs_staffselecthouse" domainObjectName="StaffSelectHouse">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
@@ -55,12 +55,21 @@
 		<!-- <table tableName="view_hs_selfhelpselecthouse" domainObjectName="SelfHelpSelectHouse">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="view_hs_fix" domainObjectName="ViewFix">
+		<!-- <table tableName="view_hs_fix" domainObjectName="ViewFix">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<!-- <table tableName="hs_fix" domainObjectName="Fix">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<table tableName="hs_rent" domainObjectName="Rent">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
-		<table tableName="hs_fix" domainObjectName="Fix">
+		<!-- <table tableName="hs_resident" domainObjectName="Resident">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
+		<table tableName="view_hs_resident" domainObjectName="ResidentVw">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
 		<!-- <table tableName="view_hs_resident" domainObjectName="ResidentVw">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
