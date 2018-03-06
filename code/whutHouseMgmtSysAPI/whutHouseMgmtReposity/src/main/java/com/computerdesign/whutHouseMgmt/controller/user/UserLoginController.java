@@ -81,7 +81,9 @@ public class UserLoginController {
 //				request.getSession().setAttribute("isLogin", "yes");
 //				response.addHeader("X-token", "222222");
 //				return Msg.success("登陆成功").add("data", userLoginReturn);
-				String token = no+"_"+password+"_"+roleId;
+				Date d = DateUtil.getAppointHour(new Date(), 3);
+				String date = DateUtil.formatDate(d);
+				String token = no+"_"+password+"_"+roleId+"_"+date;
 //				String tokenD = SubjectUtil.getInstance().createToken(no, DateUtil.getAppointDate(new Date(), 1));
 	            try {
 	            	byte[] sourceBs = token.getBytes("UTF-8");  
@@ -140,7 +142,7 @@ public class UserLoginController {
 	@RequestMapping(value = "logout",method = RequestMethod.GET)
 	@ResponseBody
 	public Msg logout(HttpServletRequest request){
-		request.getSession().removeAttribute("isLogin");
+		String token = (String) request.getHeader("X-token");
 		return Msg.success("退出登陆");
 	}
 }

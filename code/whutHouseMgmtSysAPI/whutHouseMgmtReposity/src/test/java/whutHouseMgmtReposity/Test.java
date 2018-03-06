@@ -2,6 +2,8 @@ package whutHouseMgmtReposity;
 
 import java.util.Date;
 
+import com.computerdesign.whutHouseMgmt.utils.DateUtil;
+
 /**
  *
  * @author wanhaoran
@@ -12,8 +14,10 @@ public class Test {
 
 	public static void main(String[] args) {
 		Date date = new Date();
-		String hour = date.getHours()+"";
-		String minute = date.getMinutes()+"";
-		System.out.println(hour+minute);
+		String s1 =DateUtil.formatDate(date);
+		System.out.println(s1);
+		
+		Date date2 = DateUtil.parseDate(s1);
+		System.out.println(date2);
 	}
 }
