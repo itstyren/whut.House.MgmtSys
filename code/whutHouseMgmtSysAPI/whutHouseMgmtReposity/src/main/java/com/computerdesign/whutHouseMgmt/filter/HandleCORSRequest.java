@@ -12,17 +12,17 @@ import javax.ws.rs.core.Response;
  * 
  */
 
-
-public class HandleCORSRequest {
-	@OPTIONS
-	@Path("/*")
-	public Response handleCORSRequest(@HeaderParam("Access-Control-Request-Method") final String requestMethods,
-	        @HeaderParam("Access-Control-Request-Headers") final String requestHeaders) throws Exception {
-	    Response.ResponseBuilder builder = Response.ok();
-	    if (requestHeaders != null)
-	        builder.header("Access-Control-Allow-Headers", requestHeaders);
-	    if (requestMethods != null)
-	        builder.header("Access-Control-Allow-Methods", requestMethods);
-	    return builder.build();
-	}
-}
+//
+//public class HandleCORSRequest {
+//	@OPTIONS
+//	@Path("/*")
+//	public Response handleCORSRequest(@HeaderParam("Access-Control-Request-Method") final String requestMethods,
+//	        @HeaderParam("Access-Control-Request-Headers") final String requestHeaders) throws Exception {
+//	    Response.ResponseBuilder builder = Response.ok();
+//	    if (requestHeaders != null)
+//	        builder.header("Access-Control-Allow-Headers", requestHeaders);
+//	    if (requestMethods != null)
+//	        builder.header("Access-Control-Allow-Methods", requestMethods);
+//	    return builder.build();
+//	}
+//}
