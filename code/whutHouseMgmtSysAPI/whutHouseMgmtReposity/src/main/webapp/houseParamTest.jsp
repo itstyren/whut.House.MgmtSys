@@ -35,7 +35,7 @@
 		$.ajax({
 			url : uri,
 			beforeSend: function(request) {
-				request.setRequestHeader("X-token", "OF8xMjNfMw==");
+				request.setRequestHeader("X-token", "OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
 		    },
 			type : "get",
 			contentType : 'application/json',
@@ -57,7 +57,7 @@
 			contentType : 'application/json;charset=UTF-8',
 			dataType : 'json',
 			beforeSend: function(request) {
-				request.setRequestHeader("X-token", "OF8xMjNfMw==");
+				request.setRequestHeader("X-token", "OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
 		    },
 			data : JSON.stringify(data),
 			url : uri,
