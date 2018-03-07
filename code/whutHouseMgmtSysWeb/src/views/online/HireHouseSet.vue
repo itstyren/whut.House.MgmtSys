@@ -140,14 +140,14 @@
 
 <script type="text/ecmascript-6">
 import {
-  getRegionWithBuildings,
   getActiveHouse,
   getSetHouse,
   postActiveHousemulticondition,
   postSetHouse,
   postcancelHouse
-} from "@/api/api";
-import {getHouseParam} from '@/api/sysMange'
+} from "@/api/online";
+import { getRegionWithBuildings } from "@/api/basiceData";
+import { getHouseParam } from "@/api/sysManage";
 import utils from "@/utils/index.js";
 export default {
   data() {

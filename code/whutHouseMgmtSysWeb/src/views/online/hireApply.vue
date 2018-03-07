@@ -152,7 +152,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getStaffHireInfo, postHireApply } from "@/api/api";
+import { getStaffHireInfo, postHireApply } from "@/api/online";
 import { checkTel } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
 export default {
@@ -180,7 +180,7 @@ export default {
       this.listLoading = true;
       let staffId = 1;
       let param = {};
-      getStaffHireInfo(staffId, param)
+      getStaffHireInfo(param,staffId)
         .then(res => {
           this.accoutInfo = res.data.data.data;
           let array = [];

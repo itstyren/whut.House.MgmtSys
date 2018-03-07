@@ -86,8 +86,8 @@ import utils from "@/utils/index.js";
 import {
   getRegionWithBuildings,
   getHouseByMultiCondition
-} from "@/api/api";
-import {getHouseParam} from '@/api/sysMange'
+} from "@/api/basiceData";
+import {getHouseParam} from '@/api/sysManage'
 export default {
   data() {
     return {

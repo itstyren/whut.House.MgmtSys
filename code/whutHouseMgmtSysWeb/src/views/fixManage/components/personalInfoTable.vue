@@ -6,8 +6,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getStaff } from "@/api/api";
-import { getFixStaffById, getFixStaffByName } from "@/api/api";
+import { getStaff } from "@/api/basiceData";
+import { getFixStaffById, getFixStaffByName } from "@/api/fixManage";
 import utils from "@/utils/index.js";
 import * as types from "../../../store/mutation-types";
 export default {

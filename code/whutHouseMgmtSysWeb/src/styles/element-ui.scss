@@ -2,7 +2,6 @@
 //首页横向导航栏
 .main-menu {
   .el-submenu .el-menu-item:hover {
-    background-color: #4A5064;
     color: #fff;
   } //激活后的主菜单
   .el-menu--horizontal>.el-menu-item.is-active,
@@ -10,9 +9,7 @@
     border-bottom: 2px solid #ffd04b;
     color: #fff;
   } //激活后子菜单
-  .el-menu-item.is-active {
-    color: #fff;
-  }
+
   .el-submenu .el-menu-item {
     min-width: 0;
     text-align: center
@@ -28,16 +25,24 @@
   margin-top: 12vh ! important;
   width: 80%;
 }
+
 // 住房登记组件
 .before-info {
   .el-table__body-wrapper {
     overflow-x: hidden;
   }
 }
-// tool/seachHouse
-.seach .el-dialog{
-width: 85%;
 
+// tool/seachHouse
+.seach .el-dialog {
+  width: 85%;
 }
 
+
+  .el-menu--horizontal .el-menu .el-menu-item.is-active,
+  .el-menu--horizontal .el-menu .el-submenu__title.is-active {
+    color: #fff !important;
+    background-color: #4A5064 !important;
+
+  }
 

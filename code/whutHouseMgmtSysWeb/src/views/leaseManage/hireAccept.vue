@@ -221,7 +221,7 @@
 
 <script type="text/ecmascript-6">
 import indexNav from "./components/indexNav";
-import { putHireAccept } from "@/api/api";
+import { putHireAccept } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
 export default {
   data() {

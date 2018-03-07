@@ -153,7 +153,7 @@
 
 <script type="text/ecmascript-6">
 import indexNav from "./components/indexNav";
-import { putFixReview } from "@/api/api";
+import { putFixAgree } from "@/api/fixManage";
 import { checkNULL, checkTel } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
 export default {
@@ -202,7 +202,7 @@ export default {
                 agreeState: reviewForm.agreeState,
                 id: reviewForm.id
               };
-              putFixReview(param).then(res => {
+              putFixAgree(param).then(res => {
                 this.reviewForm={}
                 utils.statusinfo(this, res.data);
                 this.isSubmit = !this.isSubmit;

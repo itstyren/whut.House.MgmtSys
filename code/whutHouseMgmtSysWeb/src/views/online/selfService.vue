@@ -83,7 +83,7 @@ import {
   getSubmitSelectHouseApply,
   getAllCanselectHouseStaff,
   getSetHouse
-} from "@/api/api";
+} from "@/api/online";
 export default {
   data() {
     return {

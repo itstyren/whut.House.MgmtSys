@@ -164,8 +164,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getStaffInfo, postFixApply } from "@/api/api";
-import { getFixParam } from "@/api/sysMange";
+import { getStaffInfo, postFixApply } from "@/api/fixManage";
+import { getFixParam } from "@/api/sysManage";
 import { checkEmail, checkNULL, checkTel } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
 export default {
@@ -260,9 +260,9 @@ export default {
     // 获取个人信息
     getList() {
       this.listLoading = true;
-      let staffId = 1;
+      let staffID = 1;
       let param = {};
-      getStaffInfo(staffId, param)
+      getStaffInfo( param,staffID)
         .then(res => {
           this.accoutInfo = res.data.data.data;
           // console.log(res.data.data.list)

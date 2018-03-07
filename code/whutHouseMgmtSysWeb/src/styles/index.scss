@@ -1,6 +1,5 @@
 @import './element-ui';
 @import './variables';
-
 body {
   padding: 0px;
   margin: 0px auto;
@@ -29,11 +28,6 @@ a {
     .el-submenu .el-submenu__title {
       height: 46px;
       line-height: 46px;
-    }
-    .el-menu-item:hover,
-    .el-submenu .el-menu-item:hover,
-    .el-submenu__title:hover {
-      background-color: #df7e7e;
     }
     .el-submenu .el-menu-item {
       background-color: #333744
@@ -89,8 +83,6 @@ a {
   width: 100%;
 }
 
-
-
 //第二层组件公共样式
 .second-container {
   position: absolute;
@@ -118,6 +110,9 @@ a {
       padding-left: 20px;
       .el-tree-node__content:hover {
         background-color: $aside-hover;
+      }
+      .el-tree-node:focus>.el-tree-node__content {
+        background-color: transparent !important;
       }
       .el-tree-node__content {
         height: 46px;
@@ -179,7 +174,6 @@ a {
     .el-submenu .el-menu::before {
       background-color: $aside-hover;
       color: $white;
-
     } //激活后的主菜单
     // .el-menu--horizontal>.el-menu-item.is-active,
     // .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {

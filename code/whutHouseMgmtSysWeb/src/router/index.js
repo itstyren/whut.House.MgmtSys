@@ -69,13 +69,13 @@ import hireAgree from '@/views/leaseManage/hireAgree'
 
 // 网上选房
 // 选房资格认定
-import hireStafferSet from '@/views/onlie/hireStafferSet'
+import hireStafferSet from '@/views/online/hireStafferSet'
 // 房源设置
-import hireHouseSet from '@/views/onlie/hireHouseSet'
+import hireHouseSet from '@/views/online/hireHouseSet'
 // 自助选房
-import selfService from '@/views/onlie/selfService'
+import selfService from '@/views/online/selfService'
 // 住房申请
-import hireApply from '@/views/onlie/hireApply'
+import hireApply from '@/views/online/hireApply'
 
 
 Vue.use(Router)

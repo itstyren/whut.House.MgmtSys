@@ -135,7 +135,7 @@ export const putFixAccept = (params) => { return axios.put(`${base}fix/addAccept
 // 需要审核信息获取
 export const getFixReview = (type, params) => { return axios.get(`${base}fix/getAgree/${type}`, { params: params }) }
 // 维修审核操作
-export const putFixReview = (params) => { return axios.put(`${base}fix/addAgree`, params) }
+export const putFixAgree = (params) => { return axios.put(`${base}fix/addAgree`, params) }
 
 // 维修管理-维修直批
 // 获取职工

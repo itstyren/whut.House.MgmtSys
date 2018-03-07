@@ -139,7 +139,7 @@
 <script type="text/ecmascript-6">
   import {
     putFixAccept
-  } from "@/api/api";
+  } from "@/api/fixManage";
   import indexNav from "./components/indexNav";
   import {
     checkNULL,

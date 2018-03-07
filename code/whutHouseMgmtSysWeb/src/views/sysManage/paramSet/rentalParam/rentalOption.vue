@@ -54,7 +54,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getRentalParam, putRentalParam } from "@/api/sysMange";
+import { getRentalParam, putRentalParam } from "@/api/sysManage";
 import utils from "@/utils/index.js";
 export default {
   data() {
