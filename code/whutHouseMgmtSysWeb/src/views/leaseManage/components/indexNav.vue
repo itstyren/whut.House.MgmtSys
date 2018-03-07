@@ -11,7 +11,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getHireAccept, getHireAgree } from "@/api/api";
+import { getHireAccept, getHireAgree } from "@/api/leaseManage";
 export default {
   data() {
     return {
@@ -54,7 +54,7 @@ export default {
       this.listLoading = true;
       let param = {};
       // 获取未受理的
-      getHireAccept(0, param)
+      getHireAccept(param,0)
         .then(res => {
           let hireData = res.data.data.data;
           this.hireData.push({
@@ -71,7 +71,7 @@ export default {
             });
           });
           // 获取已经受理的
-          getHireAccept(1, param)
+          getHireAccept(param,1)
             .then(res => {
               let hireData = res.data.data.data;
               this.hireData.push({
@@ -101,7 +101,7 @@ export default {
       this.listLoading = true;
       let param = {};
       // 获取未受理的
-      getHireAgree(0, param)
+      getHireAgree(param,0)
         .then(res => {
           let hireData = res.data.data.data;
           this.hireData.push({
@@ -118,7 +118,7 @@ export default {
             });
           });
           // 获取已经受理的
-          getHireAgree(1, param)
+          getHireAgree(param,1)
             .then(res => {
               let hireData = res.data.data.data;
               this.hireData.push({

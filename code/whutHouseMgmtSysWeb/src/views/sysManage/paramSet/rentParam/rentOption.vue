@@ -100,7 +100,7 @@
     putRentParamAboutEvent,
     deleteRentParamAboutEvent,
     postRentParamAboutEvent
-  } from '@/api/sysMange'
+  } from '@/api/sysManage'
   import utils from '@/utils/index.js'
   export default {
     data() {

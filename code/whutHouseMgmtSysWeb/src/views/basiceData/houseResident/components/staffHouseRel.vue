@@ -17,7 +17,7 @@ import {
   getStaffHouseRel,
   removeResidentLog,
   deleteResidentLog
-} from "@/api/api";
+} from "@/api/basiceData";
 import utils from "@/utils/index.js";
 export default {
   data() {
@@ -52,7 +52,7 @@ export default {
       this.listLoading = true;
       let param = {};
       let staffID = this.$route.params.id;
-      getStaffHouseRel(staffID, param)
+      getStaffHouseRel(param,staffID)
         .then(res => {
           this.houseRel = res.data.data.data;
           this.listLoading = false;

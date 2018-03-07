@@ -71,7 +71,7 @@
     deleteHouseParam,
     postHouseParam,
     putHouseParam
-  } from '@/api/sysMange'
+  } from '@/api/sysManage'
   import utils from '@/utils/index.js'
   export default {
     data() {

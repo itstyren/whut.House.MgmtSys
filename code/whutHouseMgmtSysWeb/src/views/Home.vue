@@ -13,7 +13,7 @@
       </div>
       <!-- 主菜单 -->
       <div class="main-menu" :router="true">
-        <el-menu default-active="/index" menu-trigger="click" unique-opened mode="horizontal" background-color="#373d41" text-color="#fff"
+        <el-menu class="horizon-menu" default-active="/index" menu-trigger="click" unique-opened mode="horizontal" background-color="#373d41" text-color="#fff"
           router>
           <!-- 首页 -->
           <el-menu-item index="/index">

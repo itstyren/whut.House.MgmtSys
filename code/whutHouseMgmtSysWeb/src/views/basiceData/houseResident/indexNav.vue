@@ -24,7 +24,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getDept } from "@/api/api";
+import { getDept } from "@/api/basiceData";
 import * as types from "../../../store/mutation-types";
 export default {
   data() {

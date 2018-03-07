@@ -66,7 +66,7 @@ import {
   getStaff,
   deleteStaffData,
   putResetStaffPwd
-} from "@/api/api";
+} from "@/api/basiceData";
 import { checkNum, checkNULL } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
 import * as types from "../../../store/mutation-types";

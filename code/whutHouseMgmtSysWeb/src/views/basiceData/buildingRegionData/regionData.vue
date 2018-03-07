@@ -72,169 +72,170 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    getRegionData,
-    postRegionData,
-    putRegionData,
-    deleteRegionData
-  } from "@/api/api";
-  import utils from "@/utils/index.js";
-  import * as types from "../../../store/mutation-types";
-  export default {
-    data() {
-      return {
-        // 表格数据
-        regionData: [],
-        listLoading: false,
-        totalNum: 0,
-        page: 1,
-        size: 10,
+import {
+  getRegionData,
+  postRegionData,
+  putRegionData,
+  deleteRegionData
+} from "@/api/basiceData";
+import utils from "@/utils/index.js";
+import * as types from "../../../store/mutation-types";
+export default {
+  data() {
+    return {
+      // 表格数据
+      regionData: [],
+      listLoading: false,
+      totalNum: 0,
+      page: 1,
+      size: 10,
 
-        // 新增教师表单规则验证
-        rules: {
-          name: [{
+      // 新增教师表单规则验证
+      rules: {
+        name: [
+          {
             required: true,
             message: "请输入区域",
             trigger: "blur"
-          }],
-          description: [{
-              required: true,
-              message: "请输入区域描述",
-              trigger: "blur"
-            },
-            {
-              pattern: /^[\u4e00-\u9fa5]{0,100}$/,
-              message: "最多100个字符",
-              trigger: "blur"
-            }
-          ]
-        },
-        //编辑表单相关数据
-        modifyFormVisible: false,
-        modifyLoading: false,
-        modifyFromBody: {
-          description: "",
-          name: ""
-        },
-
-        // 新增表单相关数据
-        submitLoading: false,
-        addFormVisible: false,
-        addFormBody: {
-          description: "",
-          name: ""
-        }
-      };
-    },
-    // 声明时期调用
-    mounted() {
-      this.getList();
-    },
-    methods: {
-      // 获取区域
-      getList() {
-        this.listLoading = true;
-        let param = {
-          page: this.page,
-          size: this.size
-        };
-        getRegionData(param)
-          .then(res => {
-            // console.log(res.data.data)
-            this.regionData = res.data.data.data.list;
-            this.totalNum = res.data.data.data.total;
-            // console.log(res.data.data.list)
-            this.listLoading = false;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      },
-      //显示编辑
-      showModifyDialog(index, row) {
-        this.modifyFormVisible = true;
-        this.modifyFromBody = Object.assign({}, row);
-      },
-      //编辑提交
-      modifySubmit() {
-        this.$refs["modifyFrom"].validate(valid => {
-          if (valid) {
-            this.modifyLoading = true;
-            let param = Object.assign({}, this.modifyFromBody);
-            putRegionData(param).then(res => {
-              common.statusinfo(this, res.data);
-              this.modifyLoading = false;
-              this.modifyFormVisible = false;
-              this.getList();
-              this.$store.commit(types.REGION_CHANGE);
-            });
           }
-        });
+        ],
+        description: [
+          {
+            required: true,
+            message: "请输入区域描述",
+            trigger: "blur"
+          },
+          {
+            pattern: /^[\u4e00-\u9fa5]{0,100}$/,
+            message: "最多100个字符",
+            trigger: "blur"
+          }
+        ]
       },
-      // 新增提交
-      addSubmit() {
-        this.$refs["addForm"].validate(valid => {
-          if (valid) {
-            this.submitLoading = true;
-            let param = Object.assign({}, this.addFormBody);
-            postRegionData(param).then(res => {
+      //编辑表单相关数据
+      modifyFormVisible: false,
+      modifyLoading: false,
+      modifyFromBody: {
+        description: "",
+        name: ""
+      },
+
+      // 新增表单相关数据
+      submitLoading: false,
+      addFormVisible: false,
+      addFormBody: {
+        description: "",
+        name: ""
+      }
+    };
+  },
+  // 声明时期调用
+  mounted() {
+    this.getList();
+  },
+  methods: {
+    // 获取区域
+    getList() {
+      this.listLoading = true;
+      let param = {
+        page: this.page,
+        size: this.size
+      };
+      getRegionData(param)
+        .then(res => {
+          // console.log(res.data.data)
+          this.regionData = res.data.data.data.list;
+          this.totalNum = res.data.data.data.total;
+          // console.log(res.data.data.list)
+          this.listLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    //显示编辑
+    showModifyDialog(index, row) {
+      this.modifyFormVisible = true;
+      this.modifyFromBody = Object.assign({}, row);
+    },
+    //编辑提交
+    modifySubmit() {
+      this.$refs["modifyFrom"].validate(valid => {
+        if (valid) {
+          this.modifyLoading = true;
+          let param = Object.assign({}, this.modifyFromBody);
+          putRegionData(param).then(res => {
+            common.statusinfo(this, res.data);
+            this.modifyLoading = false;
+            this.modifyFormVisible = false;
+            this.getList();
+            this.$store.commit(types.REGION_CHANGE);
+          });
+        }
+      });
+    },
+    // 新增提交
+    addSubmit() {
+      this.$refs["addForm"].validate(valid => {
+        if (valid) {
+          this.submitLoading = true;
+          let param = Object.assign({}, this.addFormBody);
+          postRegionData(param).then(res => {
+            // 公共提示方法
+            common.statusinfo(this, res.data);
+            this.$refs["addForm"].resetFields();
+            this.submitLoading = false;
+            this.addFormVisible = false;
+            this.getList();
+            this.$store.commit(types.REGION_CHANGE);
+          });
+        }
+      });
+    },
+    // 删除功能
+    delectRegion(index, row) {
+      this.$confirm("此操作将删除该户型选项", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let param = row.id;
+          this.listLoading = true;
+          deleteRegionData(param)
+            .then(res => {
               // 公共提示方法
               common.statusinfo(this, res.data);
-              this.$refs["addForm"].resetFields();
-              this.submitLoading = false;
-              this.addFormVisible = false;
               this.getList();
               this.$store.commit(types.REGION_CHANGE);
+            })
+            .catch(err => {
+              console.log(err);
             });
-          }
-        });
-      },
-      // 删除功能
-      delectRegion(index, row) {
-        this.$confirm("此操作将删除该户型选项", "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(() => {
-            let param = row.id;
-            this.listLoading = true;
-            deleteRegionData(param)
-              .then(res => {
-                // 公共提示方法
-                common.statusinfo(this, res.data);
-                this.getList();
-                this.$store.commit(types.REGION_CHANGE);
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          })
-          .catch(() => {
-            this.$message({
-              type: "info",
-              message: "已取消删除"
-            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
           });
-      },
-      //更换每页数量
-      SizeChangeEvent(val) {
-        this.loading = true;
-        this.size = val;
-        this.getList();
-      },
-      //页码切换时
-      CurrentChangeEvent(val) {
-        this.loading = true;
-        this.page = val;
-        this.getList();
-      }
+        });
+    },
+    //更换每页数量
+    SizeChangeEvent(val) {
+      this.loading = true;
+      this.size = val;
+      this.getList();
+    },
+    //页码切换时
+    CurrentChangeEvent(val) {
+      this.loading = true;
+      this.page = val;
+      this.getList();
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-
 
 </style>
