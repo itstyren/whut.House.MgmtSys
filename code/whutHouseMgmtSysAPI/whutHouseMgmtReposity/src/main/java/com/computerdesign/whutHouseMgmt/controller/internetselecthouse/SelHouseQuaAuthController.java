@@ -147,6 +147,7 @@ public class SelHouseQuaAuthController {
 				Staff staff2 = staffService.get(staffSelectHouse2.getStaffId());
 				staffScore.put(staff2.getId(), staff2.getTotalVal());
 			}
+			System.out.println(staffScore);
 			//根据职工总分对哈希表排序：键为staffId,值为totalValue
 			List<Map.Entry<Integer, Double>> list = new ArrayList<Map.Entry<Integer, Double>>(staffScore.entrySet());
 			Collections.sort(list, new Comparator<Map.Entry<Integer, Double>>() {

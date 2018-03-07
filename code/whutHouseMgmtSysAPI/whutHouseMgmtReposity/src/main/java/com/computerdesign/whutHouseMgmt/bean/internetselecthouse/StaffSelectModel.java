@@ -1,22 +1,44 @@
 package com.computerdesign.whutHouseMgmt.bean.internetselecthouse;
 
+import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.GoUniversityTimeRange;
+
 public class StaffSelectModel {
-	
+
 	private String dept;
-	
+
 	private String post;
-	
+
 	private String title;
-	
+
 	private String type;
-	
+
 	private String status;
-	
+
+	// 住房类型，用于租金生成部分的查询
+	private String houseTypeName;
+
 	private String marriageState;
-	
+
 	private JoinTime joinTime;
-	
+
+	// 用上大学时间，于租金生成部分的查询
+	private GoUniversityTimeRange goUniversityTimeRange;
+
 	private String sex;
+
+	// 是否到期，用于租金生成部分的查询
+	private Boolean isExpire;
+
+	// 所属区域，用于租金生成部分的查询
+	private String regionName;
+
+	public String getRegionName() {
+		return regionName;
+	}
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
 
 	public String getDept() {
 		return dept;
@@ -58,6 +80,14 @@ public class StaffSelectModel {
 		this.status = status;
 	}
 
+	public String getHouseTypeName() {
+		return houseTypeName;
+	}
+
+	public void setHouseTypeName(String houseTypeName) {
+		this.houseTypeName = houseTypeName;
+	}
+
 	public String getMarriageState() {
 		return marriageState;
 	}
@@ -74,6 +104,14 @@ public class StaffSelectModel {
 		this.joinTime = joinTime;
 	}
 
+	public GoUniversityTimeRange getGoUniversityTimeRange() {
+		return goUniversityTimeRange;
+	}
+
+	public void setGoUniversityTimeRange(GoUniversityTimeRange goUniversityTimeRange) {
+		this.goUniversityTimeRange = goUniversityTimeRange;
+	}
+
 	public String getSex() {
 		return sex;
 	}
@@ -81,9 +119,12 @@ public class StaffSelectModel {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	
-	
-	
-	
-	
+
+	public Boolean getIsExpire() {
+		return isExpire;
+	}
+
+	public void setIsExpire(Boolean isExpire) {
+		this.isExpire = isExpire;
+	}
 }

@@ -8,7 +8,7 @@
     <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
     <result column="Address" jdbcType="VARCHAR" property="address" />
     <result column="HouseRel" jdbcType="VARCHAR" property="houseRel" />
-    <result column="BookTime" jdbcType="DATE" property="bookTime" />
+    <result column="BookTime" jdbcType="TIMESTAMP" property="bookTime" />
     <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
     <result column="StaffSex" jdbcType="VARCHAR" property="staffSex" />
     <result column="StaffDeptId" jdbcType="INTEGER" property="staffDeptId" />
@@ -18,8 +18,8 @@
     <result column="BuildArea" jdbcType="DOUBLE" property="buildArea" />
     <result column="UsedArea" jdbcType="DOUBLE" property="usedArea" />
     <result column="FamilyCode" jdbcType="INTEGER" property="familyCode" />
-    <result column="ExpireTime" jdbcType="DATE" property="expireTime" />
-    <result column="LastRentType" jdbcType="VARCHAR" property="lastRentType" />
+    <result column="ExpireTime" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="LastRentTime" jdbcType="TIMESTAMP" property="lastRentTime" />
     <result column="RentType" jdbcType="VARCHAR" property="rentType" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
@@ -84,7 +84,7 @@
   <sql id="Base_Column_List">
     ResidentId, StaffId, HouseId, StaffName, Address, HouseRel, BookTime, StaffNo, StaffSex, 
     StaffDeptId, StaffDeptName, HouseNo, HouseType, BuildArea, UsedArea, FamilyCode, 
-    ExpireTime, LastRentType, RentType, IsDelete
+    ExpireTime, LastRentTime, RentType, IsDelete
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample" resultMap="BaseResultMap">
     select
@@ -112,14 +112,14 @@
       BookTime, StaffNo, StaffSex, 
       StaffDeptId, StaffDeptName, HouseNo, 
       HouseType, BuildArea, UsedArea, 
-      FamilyCode, ExpireTime, LastRentType, 
+      FamilyCode, ExpireTime, LastRentTime, 
       RentType, IsDelete)
     values (#{residentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
       #{staffName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{houseRel,jdbcType=VARCHAR}, 
-      #{bookTime,jdbcType=DATE}, #{staffNo,jdbcType=VARCHAR}, #{staffSex,jdbcType=VARCHAR}, 
+      #{bookTime,jdbcType=TIMESTAMP}, #{staffNo,jdbcType=VARCHAR}, #{staffSex,jdbcType=VARCHAR}, 
       #{staffDeptId,jdbcType=INTEGER}, #{staffDeptName,jdbcType=VARCHAR}, #{houseNo,jdbcType=VARCHAR}, 
       #{houseType,jdbcType=INTEGER}, #{buildArea,jdbcType=DOUBLE}, #{usedArea,jdbcType=DOUBLE}, 
-      #{familyCode,jdbcType=INTEGER}, #{expireTime,jdbcType=DATE}, #{lastRentType,jdbcType=VARCHAR}, 
+      #{familyCode,jdbcType=INTEGER}, #{expireTime,jdbcType=TIMESTAMP}, #{lastRentTime,jdbcType=TIMESTAMP}, 
       #{rentType,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw">
@@ -176,8 +176,8 @@
       <if test="expireTime != null">
         ExpireTime,
       </if>
-      <if test="lastRentType != null">
-        LastRentType,
+      <if test="lastRentTime != null">
+        LastRentTime,
       </if>
       <if test="rentType != null">
         RentType,
@@ -206,7 +206,7 @@
         #{houseRel,jdbcType=VARCHAR},
       </if>
       <if test="bookTime != null">
-        #{bookTime,jdbcType=DATE},
+        #{bookTime,jdbcType=TIMESTAMP},
       </if>
       <if test="staffNo != null">
         #{staffNo,jdbcType=VARCHAR},
@@ -236,10 +236,10 @@
         #{familyCode,jdbcType=INTEGER},
       </if>
       <if test="expireTime != null">
-        #{expireTime,jdbcType=DATE},
+        #{expireTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="lastRentType != null">
-        #{lastRentType,jdbcType=VARCHAR},
+      <if test="lastRentTime != null">
+        #{lastRentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="rentType != null">
         #{rentType,jdbcType=VARCHAR},
@@ -277,7 +277,7 @@
         HouseRel = #{record.houseRel,jdbcType=VARCHAR},
       </if>
       <if test="record.bookTime != null">
-        BookTime = #{record.bookTime,jdbcType=DATE},
+        BookTime = #{record.bookTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.staffNo != null">
         StaffNo = #{record.staffNo,jdbcType=VARCHAR},
@@ -307,10 +307,10 @@
         FamilyCode = #{record.familyCode,jdbcType=INTEGER},
       </if>
       <if test="record.expireTime != null">
-        ExpireTime = #{record.expireTime,jdbcType=DATE},
+        ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.lastRentType != null">
-        LastRentType = #{record.lastRentType,jdbcType=VARCHAR},
+      <if test="record.lastRentTime != null">
+        LastRentTime = #{record.lastRentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.rentType != null">
         RentType = #{record.rentType,jdbcType=VARCHAR},
@@ -331,7 +331,7 @@
       StaffName = #{record.staffName,jdbcType=VARCHAR},
       Address = #{record.address,jdbcType=VARCHAR},
       HouseRel = #{record.houseRel,jdbcType=VARCHAR},
-      BookTime = #{record.bookTime,jdbcType=DATE},
+      BookTime = #{record.bookTime,jdbcType=TIMESTAMP},
       StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       StaffSex = #{record.staffSex,jdbcType=VARCHAR},
       StaffDeptId = #{record.staffDeptId,jdbcType=INTEGER},
@@ -341,8 +341,8 @@
       BuildArea = #{record.buildArea,jdbcType=DOUBLE},
       UsedArea = #{record.usedArea,jdbcType=DOUBLE},
       FamilyCode = #{record.familyCode,jdbcType=INTEGER},
-      ExpireTime = #{record.expireTime,jdbcType=DATE},
-      LastRentType = #{record.lastRentType,jdbcType=VARCHAR},
+      ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
+      LastRentTime = #{record.lastRentTime,jdbcType=TIMESTAMP},
       RentType = #{record.rentType,jdbcType=VARCHAR},
       IsDelete = #{record.isDelete,jdbcType=BIT}
     <if test="_parameter != null">
