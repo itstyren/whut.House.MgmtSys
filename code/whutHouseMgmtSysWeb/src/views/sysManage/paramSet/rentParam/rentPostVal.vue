@@ -86,8 +86,6 @@
       return {
         popoverVisible: false,
         paramClass: '11',
-        // 用户令牌
-        access_token: '',
         // 表格数据
         PostValData: [],
         listLoading: false,

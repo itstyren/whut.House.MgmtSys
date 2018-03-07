@@ -243,7 +243,6 @@ export default {
     // 前进一步
     nextButton() {
       let vaild = true;
-      console.log(this.active);
       // 个人信息验证
       if (this.active == 0) {
         this.$refs["fixApplyForm"].validateField("tel", callback => {
@@ -260,7 +259,7 @@ export default {
     // 获取个人信息
     getList() {
       this.listLoading = true;
-      let staffID = 1;
+      let staffID = this.$store.getters.roleID;
       let param = {};
       getStaffInfo( param,staffID)
         .then(res => {

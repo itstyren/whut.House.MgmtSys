@@ -76,8 +76,6 @@
     data() {
       return {
         paramClass: 10,
-        // 用户令牌
-        access_token: '',
         // 表格数据
         spouseData: [{
           staffParamName: '萨阿迪'

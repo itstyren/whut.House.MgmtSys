@@ -273,7 +273,7 @@ export default {
               this.listLoading = true;
               let acceptForm = this.acceptForm;
               let param = {
-                acceptMan: acceptForm.name,
+                acceptMan: this.$store.getters.userName,
                 acceptNote: acceptForm.acceptNote,
                 acceptState: acceptForm.acceptState,
                 id: acceptForm.id,

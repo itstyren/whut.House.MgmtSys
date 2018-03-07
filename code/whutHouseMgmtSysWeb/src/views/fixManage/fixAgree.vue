@@ -197,7 +197,7 @@ export default {
               this.listLoading = true;
               let reviewForm = this.reviewForm;
               let param = {
-                agreeMan: reviewForm.acceptMan,
+                agreeMan: this.$store.getters.userName,
                 agreeNote: reviewForm.agreeNote,
                 agreeState: reviewForm.agreeState,
                 id: reviewForm.id

@@ -76,8 +76,6 @@ export default {
   data() {
     return {
       paramClass: 5,
-      // 用户令牌
-      access_token: "",
       // 表格数据
       deptData: [
         {
