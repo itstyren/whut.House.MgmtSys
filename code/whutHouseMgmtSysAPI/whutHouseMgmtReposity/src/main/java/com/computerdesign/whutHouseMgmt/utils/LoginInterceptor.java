@@ -1,6 +1,7 @@
 package com.computerdesign.whutHouseMgmt.utils;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,67 +35,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 	}
 	
-//	@Override
-//	public boolean preHandle(HttpServletRequest request,
-//			HttpServletResponse response, Object handler) throws Exception {
-//		String userId = null;
-//		String token = request.getHeader("token");
-//		if (token == null) {
-//			token = request.getParameter("token");
-//		}
-//		try { // 解析token
-//			userId = SubjectUtil.getInstance().parseToken(token).getSubject();
-//		} catch (ExpiredJwtException e) {
-//			SubjectUtil.getInstance().expireToken(userId, token); // 从缓存中移除过期的token
-//			throw new ExpiredTokenException();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw new ErrorTokenException();
-//		}
-//		// 校验服务器是否存在token
-//		if (!SubjectUtil.getInstance().isValidToken(userId, token)) {
-//			throw new ExpiredTokenException();
-//		}
-//		// 检查权限
-//		if (handler instanceof HandlerMethod) {
-//			Method method = ((HandlerMethod) handler).getMethod();
-//			if (method != null) {
-//				if (!checkPermission(method, userId)
-//						|| !checkRole(method, userId)) {
-//					throw new UnauthorizedException();
-//				}
-//			}
-//		}
-//		request.setAttribute("userId", userId);
-//		return true;
-//}
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
-		// // 获取session里的登录状态值
-		// String str = (String) request.getSession().getAttribute("isLogin");
-		//
-		// // 如果登录状态不为空则返回true，返回true则会执行相应controller的方法
-		// if (str != null) {
-		// System.out.println(str);
-		// return true;
-		// }
-		// response.setStatus(401);
-		//// 如果登录状态为空则重定向到登录页面，并返回false，不执行原来controller的方法
-		//// System.out.println("errrrr");
-		//// response.sendRedirect("/whutHouseMgmtReposity/userLogin/login");
-		// return false;
-		// String str = (String) request.getHeader("X-token");
-		// if (str != null) {
-		// System.out.println(998);
-		// return true;
-		// }
-		// response.setStatus(401);
-		//// 如果登录状态为空则重定向到登录页面，并返回false，不执行原来controller的方法
-		//// System.out.println("errrrr");
-		//// response.sendRedirect("/whutHouseMgmtReposity/userLogin/login");
-		// return false;
-
+		
 		// 从header中获取"X-toke"
 		String token = (String) request.getHeader("X-token");
 		System.out.println(token);
@@ -116,7 +60,14 @@ public class LoginInterceptor implements HandlerInterceptor {
 			String no = strArr[0];
 			String password = strArr[1];
 			Long roleId = Long.valueOf(strArr[2]).longValue();
-			System.out.println(no+"   "+password+"   "+roleId);
+			Date date = DateUtil.parseDate(strArr[3]);
+			Long pastHour = DateUtil.pastHour(date);
+//			if (pastHour <=2) {
+//				response.setStatus(401);
+//				return false;
+//			}
+			
+			System.out.println(no+"   "+password+"   "+roleId+"   "+date+"  "+pastHour);
 			List<UserLoginReturn> users = loginService.getLogin(no, password, roleId);
 			if (users.isEmpty()) {
 				response.setStatus(401);

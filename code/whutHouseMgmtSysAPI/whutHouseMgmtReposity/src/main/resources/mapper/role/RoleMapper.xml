@@ -5,6 +5,9 @@
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="Description" jdbcType="VARCHAR" property="description" />
+    <result column="CreateTime" jdbcType="DATE" property="createTime" />
+    <result column="UpdateTime" jdbcType="DATE" property="updateTime" />
+    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, Name, Description
+    Id, Name, Description, CreateTime, UpdateTime, IsDelete
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.role.RoleExample" resultMap="BaseResultMap">
     select
@@ -98,9 +101,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.role.Role">
-    insert into Au_Role (Id, Name, Description
+    insert into Au_Role (Id, Name, Description, 
+      CreateTime, UpdateTime, IsDelete
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=DATE}, #{updateTime,jdbcType=DATE}, #{isDelete,jdbcType=BIT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.role.Role">
@@ -115,6 +120,15 @@
       <if test="description != null">
         Description,
       </if>
+      <if test="createTime != null">
+        CreateTime,
+      </if>
+      <if test="updateTime != null">
+        UpdateTime,
+      </if>
+      <if test="isDelete != null">
+        IsDelete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -125,6 +139,15 @@
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -146,6 +169,15 @@
       <if test="record.description != null">
         Description = #{record.description,jdbcType=VARCHAR},
       </if>
+      <if test="record.createTime != null">
+        CreateTime = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.updateTime != null">
+        UpdateTime = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.isDelete != null">
+        IsDelete = #{record.isDelete,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +187,10 @@
     update Au_Role
     set Id = #{record.id,jdbcType=INTEGER},
       Name = #{record.name,jdbcType=VARCHAR},
-      Description = #{record.description,jdbcType=VARCHAR}
+      Description = #{record.description,jdbcType=VARCHAR},
+      CreateTime = #{record.createTime,jdbcType=DATE},
+      UpdateTime = #{record.updateTime,jdbcType=DATE},
+      IsDelete = #{record.isDelete,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +204,25 @@
       <if test="description != null">
         Description = #{description,jdbcType=VARCHAR},
       </if>
+      <if test="createTime != null">
+        CreateTime = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null">
+        UpdateTime = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="isDelete != null">
+        IsDelete = #{isDelete,jdbcType=BIT},
+      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.role.Role">
     update Au_Role
     set Name = #{name,jdbcType=VARCHAR},
-      Description = #{description,jdbcType=VARCHAR}
+      Description = #{description,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=DATE},
+      UpdateTime = #{updateTime,jdbcType=DATE},
+      IsDelete = #{isDelete,jdbcType=BIT}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

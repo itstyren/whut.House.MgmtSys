@@ -175,6 +175,19 @@ public class DateUtil {
 		return calendar.getTime();
 	}
 	
+	
+	/**
+	 * 得到给定时间的给定小时候的日期
+	 * @param date
+	 * @param hour
+	 * @return
+	 */
+	public static Date getAppointHour(Date date,int hour) {
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.HOUR, hour);
+		return calendar.getTime();
+	}
 	/**
 	 * 获取两个日期之间的天数
 	 * @param before

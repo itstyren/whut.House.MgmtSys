@@ -35,6 +35,7 @@
 			<mvc:mapping path="/**" />
 			<!--不拦截登录页和登录的请求-->
 			<mvc:exclude-mapping path="/userLogin/**" />
+			<mvc:exclude-mapping path="/static/**" />
 			<bean class="com.computerdesign.whutHouseMgmt.utils.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors> 

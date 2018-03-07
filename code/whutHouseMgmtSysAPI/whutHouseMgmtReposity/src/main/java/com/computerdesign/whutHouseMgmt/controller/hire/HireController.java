@@ -42,6 +42,7 @@ import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
+import com.computerdesign.whutHouseMgmt.utils.JSONUtil;
 
 /**
  * 
@@ -108,6 +109,7 @@ public class HireController {
 			hireGetApply.setHireApplyAlready(hireApplyAlready);
 		}
 
+		
 		return Msg.success("返回住房申请页面").add("data", hireGetApply);
 
 	}
