@@ -37,9 +37,9 @@ public class ResponseHeaderFilter implements Filter {
 		httpServletResponse.setHeader("Access-Control-Allow-Headers",
 				"X-Token, Origin, Content-Type, Accept");
 		httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-//		if (isPreFlightRequest(httpServletRequest)) {
-//			return;
-//		}
+		if (isPreFlightRequest(httpServletRequest)) {
+			return;
+		}
 		chain.doFilter(request, httpServletResponse);
 	}
 
