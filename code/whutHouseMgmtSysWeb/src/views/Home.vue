@@ -92,6 +92,9 @@
             <el-menu-item index="/leaseManage/hireApprove">
               <span>租赁审批</span>
             </el-menu-item>
+                 <el-menu-item index="/leaseManage/hireContract">
+              <span>签订合同</span>
+            </el-menu-item>
           </el-submenu>
           <!-- 网上选房 -->
           <el-submenu index="online">

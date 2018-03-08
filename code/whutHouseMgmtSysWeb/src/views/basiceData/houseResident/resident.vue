@@ -28,7 +28,7 @@
         </div>
         <!-- 住房登记区 -->
         <div class="house-resident card">
-          <house-resident :select-house="selectHouse" :select-house-id="selectHouseId"></house-resident>
+          <house-resident :select-house="selectHouseName" :select-house-id="selectHouseId" @dialog-visible="actionDialog"></house-resident>
         </div>
         <!-- 房屋查询区 -->
         <div class="conditionalQuery card" >
@@ -74,7 +74,7 @@
       </div>
     </div>
     <!-- 详细查找表单 -->
-    <el-dialog title="多条件查找"></el-dialog>
+        <seach-house :select-form-visible="dialogVisible" @select-house="selectHouse"></seach-house>
   </div>
 </template>
 
@@ -82,12 +82,13 @@
 import personalInfoTable from "./components/personalInfoTable";
 import staffHouseRel from "./components/staffHouseRel";
 import houseResident from "./components/houseResident";
+import seachHouse from "@/views/tools/seachHouse";
 import utils from "@/utils/index.js";
 import {
   getRegionWithBuildings,
   getHouseByMultiCondition
 } from "@/api/basiceData";
-import {getHouseParam} from '@/api/sysManage'
+import { getHouseParam } from "@/api/sysManage";
 export default {
   data() {
     return {
@@ -105,8 +106,9 @@ export default {
       listLoading: false,
       //表格相应区域
       houseData: [],
-      selectHouse: "",
-      selectHouseId: ""
+      selectHouseName: "",
+      selectHouseId: "",
+      dialogVisible: false
     };
   },
   // 组件信息
@@ -114,7 +116,8 @@ export default {
     //个人信息区域
     personalInfoTable,
     staffHouseRel,
-    houseResident
+    houseResident,
+    seachHouse
   },
   // 计算属性
   computed: {
@@ -125,7 +128,7 @@ export default {
   watch: {
     // 监听选项的变动
     selectRegion(newval) {
-            // console.log("1");
+      // console.log("1");
       for (var region of this.regionDataWithBuilding) {
         if (region.name == newval) this.buildingData = region.buildingList;
       }
@@ -184,6 +187,16 @@ export default {
           console.log(err);
         });
     },
+    // 登记从组件相应
+    actionDialog() {
+      this.dialogVisible = true;
+    },
+    // 从详细查找组件传递
+    selectHouse(data) {
+      this.selectHouseName=data[0]
+      this.selectHouseId = data[1];
+    },
+    // 简单的查询
     simpleQuery() {
       for (let query in this.simpleQueryForm) {
         if (this.simpleQueryForm[query] == "")
@@ -200,7 +213,7 @@ export default {
       });
     },
     cellClick(row, column, cell, event) {
-      this.selectHouse = `【${row.houseSort}】,【${row.houseType}】,${
+      this.selectHouseName = `【${row.houseSort}】,【${row.houseType}】,${
         row.address
       }`;
       this.selectHouseId = row.houseId;
@@ -230,11 +243,9 @@ export default {
     }
   }
   .house-resident {
-    padding-top: 10px;
     margin-top: 20px;
     position: relative;
     width: 98%;
-    height: 18%;
   }
   .conditionalQuery {
     position: relative;
@@ -242,14 +253,14 @@ export default {
     width: 98%;
     height: 40%;
     text-align: center;
-    .query-table{
+    .query-table {
       overflow: auto;
       position: absolute;
-      top:25%;
+      top: 25%;
       bottom: 5px;
       left: 5px;
       right: 2px;
-      .el-table__body-wrapper{
+      .el-table__body-wrapper {
         overflow-x: hidden;
       }
     }
