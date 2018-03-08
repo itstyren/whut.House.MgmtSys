@@ -66,7 +66,7 @@ import {
   getStaff,
   deleteStaffData,
   putResetStaffPwd
-} from "@/api/api";
+} from "@/api/basiceData";
 import { checkNum, checkNULL } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
 import * as types from "../../../store/mutation-types";
@@ -82,19 +82,14 @@ export default {
       size: 10,
       //查询需要的数据
       staffData: [],
-      queryStatus: 0, //0 代表列表查，1代表全部，2代表区域查，3代表楼栋查
+      queryStatus: 0, //0 代表列表查，1代表全部，2代表部门查，3代表楼栋查
       // 查询选项
       queryOption: {
         deptId: "",
         staffId: ""
       },
       // 查询表达验证规则
-      queryRules: {
-        deptId: {
-          validator: checkNULL,
-          trigger: "change"
-        }
-      }
+      queryRules: {}
     };
   },
   // 获取父组件传递的数据
@@ -142,20 +137,20 @@ export default {
 
     // 判定查询的类型
     queryData() {
-      this.$refs["queryForm"].validate(valid => {
-        if (valid) {
-          if (this.queryOption.deptId == "") {
-            this.queryStatus = 1;
-            //this.getList();
-          } else if (this.queryOption.staffId == "") {
-            this.queryStatus = 2;
-            this.getList();
-          } else {
-            this.queryStatus = 3;
-            this.getList();
-          }
-        }
-      });
+      // this.$refs["queryForm"].validate(valid => {
+      // if (valid) {
+      if (this.queryOption.deptId == "") {
+        this.queryStatus = 1;
+        // this.getList();   //还不能获取全部员工
+      } else if (this.queryOption.staffId == "") {
+        this.queryStatus = 2;
+        this.getList();
+      } else {
+        this.queryStatus = 3;
+        this.getList();
+      }
+      // }
+      // });
     },
     // 获取列表
     getList() {
@@ -178,12 +173,21 @@ export default {
       }
       switchFunction(param, queryID)
         .then(res => {
+          console.log(this.queryStatus);
           if (this.queryStatus == 3) {
             this.deptStaffData = [];
             this.deptStaffData[0] = res.data.data.data;
-          } else this.deptStaffData = res.data.data.data.list;
-          //console.log(this.deptStaffData)
-          this.depName = this.deptStaffData[0].deptName;
+          } else {
+            this.deptStaffData = res.data.data.data.list;
+          }
+          if (this.queryStatus !== 2) {
+            this.depName = this.deptStaffData[0].deptName;
+          } else {
+            for (var dept of this.depData) {
+              if (dept.id == queryID) this.depName = dept.label;
+            }
+          }
+
           this.totalNum = res.data.data.data.total;
           this.listLoading = false;
         })
@@ -222,9 +226,9 @@ export default {
       })
         .then(() => {
           let param = {};
-          let staffId=row.id
+          let staffId = row.id;
           this.listLoading = true;
-          putResetStaffPwd(param,staffId)
+          putResetStaffPwd(param, staffId)
             .then(res => {
               // 公共提示方法
               utils.statusinfo(this, res.data);

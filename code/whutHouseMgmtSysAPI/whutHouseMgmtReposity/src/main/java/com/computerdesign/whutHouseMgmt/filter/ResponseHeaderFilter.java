@@ -57,5 +57,4 @@ public class ResponseHeaderFilter implements Filter {
 		// TODO Auto-generated method stub
 
 	}
-
 }

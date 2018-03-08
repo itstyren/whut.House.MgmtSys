@@ -4,7 +4,7 @@ import {
   removeToken
 } from '@/utils/auth'
 import {
-  loginByUsername, getUserInfo
+  loginByUsername, getUserInfo, logout
 } from '@/api/login'
 import * as types from '../mutation-types.js'
 
@@ -13,6 +13,7 @@ const user = {
     token: getToken(),
     name: '',
     roleId: -1,
+    no:-1
   },
   mutations: {
     // 设置token
@@ -26,6 +27,10 @@ const user = {
     // set login staff role ID
     [types.SET_ROLEID]: (state, roleId) => {
       state.roleId = roleId
+    },
+    // set login staff NO
+    [types.SET_USERNO]:(state,staffNO)=>{
+      state.no=staffNO
     }
   },
 
@@ -57,9 +62,10 @@ const user = {
           if (res.data.status == 'erroe') { 
             reject('error')
           }
-          const data = res.data.data
-          commit(types.SET_ROLEID, data.roles)
+          const data = res.data.data.data
+          commit(types.SET_ROLEID, data.roleId)
           commit(types.SET_NAME, data.name)
+          commit(types.SET_USERNO,data.no)
           // commit('SET_AVATAR', data.avatar)
           // commit('SET_INTRODUCTION', data.introduction)
           resolve(res)
@@ -68,7 +74,7 @@ const user = {
         })
       })
     },
-    // 前端 登出
+    // 前端 登出，当登录令牌有误时使用
     FedLogOut({ commit }) {
       return new Promise(resolve => {
         commit(types.SET_TOKEN, '')
@@ -76,6 +82,18 @@ const user = {
         resolve()
       })
     },
+    LogOut({commit}){
+      return new Promise((resolve, reject) => {
+        logout().then(() => {
+          commit(types.SET_TOKEN, '')
+          commit(types.SET_ROLEID, -1)
+          removeToken()
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    }
   }
 
 }

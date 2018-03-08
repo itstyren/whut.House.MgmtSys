@@ -66,16 +66,20 @@ import fixBalance from '@/views/fixManage/fixBalance'
 import hireAccept from '@/views/leaseManage/hireAccept'
 // 租赁审核
 import hireAgree from '@/views/leaseManage/hireAgree'
+// 租赁审批
+import hireApprove from '@/views/leaseManage/hireApprove'
+// 签订合同
+import hireContract from '@/views/leaseManage/hireContract'
 
 // 网上选房
 // 选房资格认定
-import hireStafferSet from '@/views/onlie/hireStafferSet'
+import hireStafferSet from '@/views/online/hireStafferSet'
 // 房源设置
-import hireHouseSet from '@/views/onlie/hireHouseSet'
+import hireHouseSet from '@/views/online/hireHouseSet'
 // 自助选房
-import selfService from '@/views/onlie/selfService'
+import selfService from '@/views/online/selfService'
 // 住房申请
-import hireApply from '@/views/onlie/hireApply'
+import hireApply from '@/views/online/hireApply'
 
 
 Vue.use(Router)
@@ -387,6 +391,18 @@ const routes = [
         path: 'hireAgree',
         component: hireAgree,
         name: 'hireAgree',
+        menuShow: true
+      },
+      {
+        path: 'hireApprove',
+        component: hireApprove,
+        name: 'hireApprove',
+        menuShow: true
+      },
+      {
+        path: 'hireContract',
+        component: hireContract,
+        name: 'hireContract',
         menuShow: true
       },
 

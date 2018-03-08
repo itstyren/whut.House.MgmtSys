@@ -115,7 +115,7 @@ import {
   postBuildingData,
   putBuildingData,
   deleteBuildingData
-} from "@/api/api";
+} from "@/api/basiceData";
 import utils from "@/utils/index.js";
 
 export default {
@@ -141,15 +141,19 @@ export default {
           required: true,
           message: "竣工时间不能为空",
           trigger: "blur"
-        },        floorArea:[ {
-          required: true,
-          message: "占地面积不能为空",
-          trigger: "blur"
-        },{
-          pattern: /^[0-9]*$/,
-          message: "占地面积必须为数字",
-          trigger: "blur"          
-        }],
+        },
+        floorArea: [
+          {
+            required: true,
+            message: "占地面积不能为空",
+            trigger: "blur"
+          },
+          {
+            pattern: /^[0-9]*$/,
+            message: "占地面积必须为数字",
+            trigger: "blur"
+          }
+        ]
       },
 
       //编辑表单相关数据

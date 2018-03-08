@@ -286,8 +286,8 @@ import {
   postHouseData,
   deleteHouseData,
   putHouseData
-} from "@/api/api";
-import {getHouseParam} from '@/api/sysMange'
+} from "@/api/basiceData";
+import { getHouseParam } from "@/api/sysManage";
 import { checkNum, checkNULL } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
 export default {
@@ -501,10 +501,8 @@ export default {
       }
       switchFunction(param, queryID)
         .then(res => {
-          //console.log(res.data.data);
           this.houseData = res.data.data.data.list;
           this.totalNum = res.data.data.data.total;
-          // console.log(res.data.data.list)
           this.listLoading = false;
           //console.log(this.houseData);
         })
@@ -613,7 +611,7 @@ export default {
     },
     // 编辑框关闭时候回调
     modifyFromClose() {
-      if (this.modified == false&&this.title!='详情') {
+      if (this.modified == false && this.title != "详情") {
         this.$notify.info({
           title: "提示",
           message: "已取消编辑"

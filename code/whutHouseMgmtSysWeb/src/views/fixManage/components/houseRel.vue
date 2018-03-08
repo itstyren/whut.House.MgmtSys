@@ -11,7 +11,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getStaff } from "@/api/api";
+import { getStaff } from "@/api/basiceData";
 export default {
   data() {
     return {

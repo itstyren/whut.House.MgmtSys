@@ -108,7 +108,7 @@
 
 <script type="text/ecmascript-6">
 import * as OPTION from "@/assets/data/formOption";
-import { postFixmulticondition, putFixPrice, putFixcheck } from "@/api/api";
+import { postFixmulticondition, putFixPrice, putFixcheck } from "@/api/fixManage";
 import utils from "@/utils/index.js";
 export default {
   data() {

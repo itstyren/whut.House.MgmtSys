@@ -1,7 +1,7 @@
 <template>
   <div class="second-container">
     <indexNav :fix-status="fixstatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
-    <section class="main-container">
+    <section class="special-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
         <div class="warp-breadcrum">
@@ -153,7 +153,7 @@
 
 <script type="text/ecmascript-6">
 import indexNav from "./components/indexNav";
-import { putFixReview } from "@/api/api";
+import { putFixAgree } from "@/api/fixManage";
 import { checkNULL, checkTel } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
 export default {
@@ -197,12 +197,12 @@ export default {
               this.listLoading = true;
               let reviewForm = this.reviewForm;
               let param = {
-                agreeMan: reviewForm.acceptMan,
+                agreeMan: this.$store.getters.userName,
                 agreeNote: reviewForm.agreeNote,
                 agreeState: reviewForm.agreeState,
                 id: reviewForm.id
               };
-              putFixReview(param).then(res => {
+              putFixAgree(param).then(res => {
                 this.reviewForm={}
                 utils.statusinfo(this, res.data);
                 this.isSubmit = !this.isSubmit;

@@ -64,7 +64,7 @@
   import {
     getRentParamAboutStaff,
     putRentParamAboutStaff
-  } from '@/api/sysMange'
+  } from '@/api/sysManage'
   import utils from '@/utils/index.js'
   export default {
     data() {
@@ -82,8 +82,6 @@
       return {
         popoverVisible: false,
         paramClass: '13',
-        // 用户令牌
-        access_token: '',
         // 表格数据
         PostValData: [],
         listLoading: false,

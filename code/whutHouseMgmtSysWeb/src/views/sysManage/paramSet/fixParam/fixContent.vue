@@ -70,14 +70,12 @@
     deleteFixParam,
     postFixParam,
     putFixParam
-  } from '@/api/sysMange'
+  } from '@/api/sysManage'
   import utils from '@/utils/index.js'
   export default {
     data() {
       return {
         paramClass: 16,
-        // 用户令牌
-        access_token: '',
         // 表格数据
         layoutData: [],
         listLoading: false,

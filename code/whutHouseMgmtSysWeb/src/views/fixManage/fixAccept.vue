@@ -1,7 +1,7 @@
 <template>
   <div class="second-container">
     <indexNav :fix-status="fixstatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
-    <section class="main-container">
+    <section class="special-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
         <div class="warp-breadcrum">
@@ -139,7 +139,7 @@
 <script type="text/ecmascript-6">
   import {
     putFixAccept
-  } from "@/api/api";
+  } from "@/api/fixManage";
   import indexNav from "./components/indexNav";
   import {
     checkNULL,
@@ -188,7 +188,7 @@
                 this.listLoading = true;
                 let acceptForm = this.acceptForm;
                 let param = {
-                  acceptMan: acceptForm.staffName,
+                  acceptMan: this.$store.getters.userName,
                   acceptNote: acceptForm.acceptNote,
                   acceptState: acceptForm.acceptState,
                   id: acceptForm.id

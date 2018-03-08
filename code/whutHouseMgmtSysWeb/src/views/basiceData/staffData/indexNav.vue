@@ -25,7 +25,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getDept } from "@/api/api";
+import { getDept } from "@/api/basiceData";
 export default {
   data() {
     return {

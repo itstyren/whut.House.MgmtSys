@@ -37,7 +37,7 @@ public class ResidentVw {
 
     private Date expireTime;
 
-    private String lastRentType;
+    private Date lastRentTime;
 
     private String rentType;
 
@@ -179,12 +179,12 @@ public class ResidentVw {
         this.expireTime = expireTime;
     }
 
-    public String getLastRentType() {
-        return lastRentType;
+    public Date getLastRentTime() {
+        return lastRentTime;
     }
 
-    public void setLastRentType(String lastRentType) {
-        this.lastRentType = lastRentType == null ? null : lastRentType.trim();
+    public void setLastRentTime(Date lastRentTime) {
+        this.lastRentTime = lastRentTime;
     }
 
     public String getRentType() {

@@ -1,7 +1,7 @@
 <template>
   <div class="second-container">
     <indexNav :hire-status="hireStatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
-    <section class="main-container">
+    <section class="special-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
         <div class="warp-breadcrum">
@@ -102,14 +102,14 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row v-if="!agreeState" :class="{'is-agree':!agreeState}">
+                  <el-row v-if="!status" :class="{'is-agree':!status}">
                     <el-col :span="9" :offset="1">
                       <el-form-item label="受理说明">
                         <el-input v-model="agreeForm.acceptNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row v-if="agreeState">
+                  <el-row v-if="status">
                     <el-col :span="7" :offset="1">
                       <el-form-item label="审核人">
                         <el-input v-model="agreeForm.agreeMan" readonly placeholder="审核人未知"></el-input>
@@ -122,22 +122,24 @@
                     </el-col>
                   </el-row>
                   <!-- 操作区域 -->
-                  <el-row type="flex" justify="start" v-if="!agreeState">
+                  <el-row type="flex" justify="start" v-if="!status">
                     <el-col :span="16" :offset="1">
-                      <el-form-item label="住房分配" prop="agreeState">
+                      <el-form-item label="住房分配" prop="houseName">
                         <el-input v-model="agreeForm.houseName" size="small" readonly placeholder="请选择住房">
                           <el-button slot="append" icon="el-icon-search" @click="dialogVisible=!dialogVisible"></el-button>
                         </el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="start" v-if="!agreeState">
+                  <el-row type="flex" justify="start" v-if="!status">
                     <el-col :span="8" :offset="1">
                       <el-form-item label="审核意见" prop="agreeNote">
                         <el-input v-model="agreeForm.agreeNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="6">
+                  </el-row>
+                  <el-row type="flex" justify="start" v-if="!status">                  
+                    <el-col :span="6" :offset="1">
                       <el-form-item label="审核状态" prop="agreeState">
                         <el-switch v-model="agreeForm.agreeState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
                           inactive-text="通过" inactive-value="通过"></el-switch>
@@ -148,18 +150,18 @@
                     </el-col>
                   </el-row>
                   <!-- 非操作区域 -->
-                  <el-row v-if="agreeState">
+                  <el-row v-if="status">
                     <el-col :span="7" :offset="1">
                       <el-form-item label="审核意见">
                         <el-input v-model="agreeForm.agreeNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row v-if="agreeState">
+                  <el-row v-if="status">
                     <el-col :span="7" :offset="1">
                       <el-form-item label="审核状态">
                         <el-switch v-model="agreeForm.agreeState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
-                          inactive-text="通过" inactive-value="通过" :disabled="agreeState"></el-switch>
+                          inactive-text="通过" inactive-value="通过" :disabled="status"></el-switch>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -177,23 +179,22 @@
 <script type="text/ecmascript-6">
 import indexNav from "./components/indexNav";
 import seachHouse from "@/views/tools/seachHouse";
-import { putHireAccept } from "@/api/api";
+import { putHireAgree } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
 export default {
   data() {
     return {
       listLoading: false,
       agreeForm: {},
-      agreeState: false,
+      status: false,
       hireStatus: "agree",
       isSubmit: false,
-      selectHouseId:'',
-      houseName:'',
+      selectHouseId: "",
       // 表单验证规则
       rules: {
-        acceptNote: {
+        agreeNote: {
           required: true,
-          message: "请输入受理意见",
+          message: "请输入审核意见",
           trigger: "blur"
         }
       },
@@ -217,9 +218,9 @@ export default {
     getList(object) {
       this.agreeForm = object.content;
       this.agreeForm.otherVal = 0;
-      this.agreeState = object.status;
+      this.status = object.status;
     },
-    // 受理信息提交
+    // 审核信息提交
     agreeSubmit() {
       if (this.agreeForm.acceptState == null)
         this.agreeForm.acceptState = "通过";
@@ -234,23 +235,17 @@ export default {
               this.listLoading = true;
               let agreeForm = this.agreeForm;
               let param = {
-                acceptMan: agreeForm.name,
-                acceptNote: agreeForm.acceptNote,
-                acceptState: agreeForm.acceptState,
+                agreeMan: this.$store.getters.userName,
+                agreeNote: agreeForm.agreeNote,
+                agreeState: agreeForm.agreeState,
                 id: agreeForm.id,
-                otherVal: agreeForm.otherVal,
-                spouseVal: agreeForm.spouseVal,
-                timeVal: agreeForm.timeVal,
-                titleVal: agreeForm.titleVal,
-                totalVal: this.totalVal
+                houseId:this.selectHouseId
               };
-              putHireAccept(param).then(res => {
+              putHireAgree(param).then(res => {
                 this.agreeForm = {};
                 utils.statusinfo(this, res.data);
                 this.isSubmit = !this.isSubmit;
                 this.listLoading = false;
-                if (res.data.status == "success")
-                  this.$refs["agreeForm"].resetFields();
               });
             }
           });
@@ -263,10 +258,9 @@ export default {
         });
     },
     // 从组件中传递
-    selectHouse(houseData, houseId) {
-      this.agreeForm.houseName  = houseData;
-      this.selectHouseId=houseId
-      console.log(this.agreeForm.houseName)
+    selectHouse(data) {
+      this.$set(this.agreeForm,'houseName',data[0])
+      this.selectHouseId = data[1];
     }
   }
 };

@@ -100,7 +100,7 @@
     putRentParamAboutEvent,
     deleteRentParamAboutEvent,
     postRentParamAboutEvent
-  } from '@/api/sysMange'
+  } from '@/api/sysManage'
   import utils from '@/utils/index.js'
   export default {
     data() {
@@ -117,8 +117,6 @@
       }
       return {
         popoverVisible: false,
-        // 用户令牌
-        access_token: '',
         // 表格数据
         rentOptionData: [],
         listLoading: false,

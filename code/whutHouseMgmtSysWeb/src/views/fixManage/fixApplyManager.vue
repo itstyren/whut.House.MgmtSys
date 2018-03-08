@@ -48,7 +48,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getFixForm, getFixReAccept, getFixReAgree } from "@/api/api";
+import { getFixForm, getFixReAccept, getFixReAgree } from "@/api/fixManage";
 import utils from "@/utils/index.js";
 
 export default {
