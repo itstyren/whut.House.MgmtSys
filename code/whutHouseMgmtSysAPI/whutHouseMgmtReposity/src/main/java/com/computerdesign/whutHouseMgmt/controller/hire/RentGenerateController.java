@@ -34,7 +34,7 @@ public class RentGenerateController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "rentGenerate", method = RequestMethod.POST)
+	@RequestMapping(value = "rentGen", method = RequestMethod.POST)
 	public Msg rentGenerate(@RequestBody StaffSelectModel staffSelectModel){
 		List<StaffHouse> staffHouses = rentGenerateService.selectRentByMultiCondition(staffSelectModel);
 		for(StaffHouse staffHouse : staffHouses){
@@ -47,11 +47,13 @@ public class RentGenerateController {
 			rent.setIsGet((byte) 0);
 			rent.setBeginTime(staffHouse.getLastRentTime());
 			//计算并设置结束时间
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(rent.getBeginTime());
-			calendar.add(Calendar.MONTH, 1);
+			if(rent.getBeginTime() != null){
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(rent.getBeginTime());
+				calendar.add(Calendar.MONTH, 1);
+				rent.setEndTime(calendar.getTime());
+			}
 			rent.setEmploymentDate(staffHouse.getStaffJoinTime());
-			rent.setEndTime(calendar.getTime());
 			rentGenerateService.rentGenerate(rent);
 		}
 		return Msg.success();

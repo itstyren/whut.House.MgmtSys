@@ -23,6 +23,7 @@ public class RentGenerateService {
 	@Autowired
 	private RentMapper rentMapper;
 	
+	
 	/**
 	 * 租金生成
 	 * @param rent

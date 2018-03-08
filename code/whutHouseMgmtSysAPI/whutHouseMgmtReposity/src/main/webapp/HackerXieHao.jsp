@@ -561,7 +561,7 @@
 	//租金生成
 	$(function() {
 		
-		$("#rentGenerate")
+		$("#rentGen")
 		.click(
 				function() {
 					var data = {
@@ -586,7 +586,7 @@
 						
 					};
 					ajaxRequestPostType(
-							"rentGenerate/rentGenerate",
+							"rentGenerate/rentGen",
 							"POST", data);
 				})
 		
@@ -818,7 +818,7 @@
 			<br>
 			<h4>租金生成</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="RentGenerate" id="rentGenerate" />
+				value="RentGen" id="rentGen" />
 			<br>
 		</div>
 
