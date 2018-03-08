@@ -77,8 +77,6 @@
     data() {
       return {
         paramClass: 1,
-        // 用户令牌
-        access_token: '',
         // 表格数据
         typeData: [],
         listLoading: false,

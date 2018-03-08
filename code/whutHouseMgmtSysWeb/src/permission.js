@@ -27,7 +27,7 @@ router.beforeEach((to, from, next) => {
     }
     //如果不是指向login
     else {
-      if (store.getters.roleId == -1) { // 判断当前用户是否已拉取完user_info信息
+      if (store.getters.roleID == -1) { // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetUserInfo').then(res => { // 拉取user_info
           const roles = res.data.roles // note: roles must be a array! such as: ['editor','develop']
           //   store.dispatch('GenerateRoutes', {

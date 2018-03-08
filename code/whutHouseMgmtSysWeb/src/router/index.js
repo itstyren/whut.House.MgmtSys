@@ -66,6 +66,10 @@ import fixBalance from '@/views/fixManage/fixBalance'
 import hireAccept from '@/views/leaseManage/hireAccept'
 // 租赁审核
 import hireAgree from '@/views/leaseManage/hireAgree'
+// 租赁审批
+import hireApprove from '@/views/leaseManage/hireApprove'
+// 签订合同
+import hireContract from '@/views/leaseManage/hireContract'
 
 // 网上选房
 // 选房资格认定
@@ -387,6 +391,18 @@ const routes = [
         path: 'hireAgree',
         component: hireAgree,
         name: 'hireAgree',
+        menuShow: true
+      },
+      {
+        path: 'hireApprove',
+        component: hireApprove,
+        name: 'hireApprove',
+        menuShow: true
+      },
+      {
+        path: 'hireContract',
+        component: hireContract,
+        name: 'hireContract',
         menuShow: true
       },
 

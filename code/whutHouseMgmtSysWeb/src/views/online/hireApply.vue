@@ -168,7 +168,7 @@ export default {
       rules: {},
       // 信息确认区域
       listLoading: [],
-      resMessage:''
+      resMessage: ""
     };
   },
   created() {
@@ -178,15 +178,15 @@ export default {
     // 获取个人信息
     getList() {
       this.listLoading = true;
-      let staffId = 1;
+      let staffID = this.$store.getters.userNO;
       let param = {};
-      getStaffHireInfo(param,staffId)
+      getStaffHireInfo(param, staffID)
         .then(res => {
           this.accoutInfo = res.data.data.data;
           let array = [];
-         if(this.accoutInfo.hireApplyAlready){
+          if (this.accoutInfo.hireApplyAlready) {
             array[0] = this.accoutInfo.hireApplyAlready;
-         }
+          }
           this.accoutInfo.array = array;
           console.log(this.accoutInfo);
           // console.log(res.data.data.list)
@@ -209,17 +209,17 @@ export default {
     // 提交住房申请
     addSubmit() {
       this.active++;
-      this.listLoading=true
+      this.listLoading = true;
       this.$refs["hireApplyForm"].validate(valid => {
         if (valid) {
           let applyForm = {
             reason: this.accoutInfo.reason,
             email: this.accoutInfo.email,
             phone: this.accoutInfo.staffTel,
-            staffId: 1
+            staffId: this.$store.getters.userNO
           };
           postHireApply(applyForm).then(res => {
-            this.resMessage=res.data.message
+            this.resMessage = res.data.message;
             //utils.statusinfo(this, res.data);
             this.listLoading = false;
             // if (res.data.status == "success")
@@ -251,7 +251,7 @@ export default {
       // padding-top: 20px;
       margin-bottom: 5vh;
       position: relative;
-      & .list-title{
+      & .list-title {
         padding: 2vh;
         font-size: 14px;
         font-weight: 700;
@@ -277,13 +277,13 @@ export default {
         color: red;
       }
     }
-        &  .apply-result{
+    & .apply-result {
       margin: 150px auto 100px;
       width: 500px;
-        text-align: center;
-      & > span{
+      text-align: center;
+      & > span {
         font-size: 22px;
-      } 
+      }
     }
     & .opera-area {
       position: absolute;

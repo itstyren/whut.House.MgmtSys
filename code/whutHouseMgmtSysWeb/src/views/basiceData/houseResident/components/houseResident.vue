@@ -1,43 +1,49 @@
 <template>
   <div class="components" v-loading="listLoading">
-    <div class="form-header">
-      <!-- <span>住房登记</span> -->
-    </div>
-    <div class="from-body">
-      <el-form :model="residentForm" inline :rules="rules" ref="residentForm">
-        <div class="row">
+    <el-form :model="residentForm" inline :rules="rules" ref="residentForm">
+      <el-row  >
+        <el-col :span="7" :offset="1">
           <el-form-item label="职工" prop="staffId">
-            <el-input v-model="residentForm.staffId" style="width:200px"  :readonly="true"></el-input>
+            <el-input v-model="residentForm.staffId" style="width:200px" size="small" :readonly="true"></el-input>
           </el-form-item>
+        </el-col>
+        <el-col :span="15">
           <el-form-item label="住房" prop="houseId">
-            <el-input v-model="residentForm.houseId" style="width:470px"  placeholder="请选择" :readonly="true"></el-input>
+            <el-input v-model="residentForm.houseId" style="width:550px" size="small" placeholder="请选择" :readonly="true">
+              <el-button slot="append" icon="el-icon-search" @click="dialogVisible=!dialogVisible"></el-button>
+            </el-input>
           </el-form-item>
-        </div>
-        <div class="row">
-          <el-form-item label="关系" class="from-label" prop="houseRel">
-            <el-select v-model="residentForm.houseRel" style="width:200px"  placeholder="请选择">
+        </el-col>
+      </el-row>
+      <el-row  >
+        <el-col :span="7" :offset="1">
+          <el-form-item label="关系" class="from-label"  prop="houseRel">
+            <el-select v-model="residentForm.houseRel" style="width:200px" size="small" placeholder="请选择">
               <el-option v-for="status in statusData" :key="status.houseParamId" :value="status.houseParamId" :label="status.houseParamName"></el-option>
             </el-select>
           </el-form-item>
+        </el-col>
+        <el-col :span="7">
           <el-form-item label="时间" class="from-label" prop="bookTime">
-            <el-date-picker v-model="residentForm.bookTime" style="width:200px"  placeholder="请选择日期" format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd"></el-date-picker>
+            <el-date-picker v-model="residentForm.bookTime" size="small" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="7">
+          <el-form-item>
+            <el-button type="" @click="resetForm">重置</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button type="" >重置</el-button>
+            <el-button type="primary" @click="houseResident">登记</el-button>
           </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="houseResident" >登记</el-button>
-          </el-form-item>
-        </div>
-      </el-form>
-    </div>
+        </el-col>
+      </el-row>
+    </el-form>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import {  putHouseRegister } from "@/api/basiceData";
-import {getHouseParam} from '@/api/sysManage'
+import { putHouseRegister } from "@/api/basiceData";
+import { getHouseParam } from "@/api/sysManage";
 import * as types from "@/store/mutation-types";
 import utils from "@/utils/index.js";
 export default {
@@ -48,6 +54,7 @@ export default {
         houseId: "",
         staffId: ""
       },
+      dialogVisible: false,
       // 表格数据
       statusData: [],
       listLoading: false,
@@ -81,6 +88,9 @@ export default {
     },
     selectHouse(newVal) {
       this.residentForm.houseId = newVal;
+    },
+    dialogVisible() {
+      this.$emit("dialog-visible");
     }
   },
   created() {
@@ -106,6 +116,11 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    // 重置
+    resetForm(){
+      this.residentForm={}
+      this.residentForm.staffId = this.$store.state.residentStaffData.label;
     },
     // 住房登记提交
     houseResident() {
@@ -149,32 +164,9 @@ export default {
 
 <style scoped lang="scss">
 .components {
-  display: flex;
-  flex-direction: row;
-  .form-header {
-    width: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    .span {
-      font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC",
-        "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei",
-        sans-serif;
-    }
-  }
-  .from-body {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    flex: 1; //flex: 1;
-    .row {
-      display: flex;
-      justify-content: left;
-      .el-form-item {
-        //margin-bottom: px;
-        margin-left: 20px;
-      }
-    }
+  padding: 10px;
+  .el-form-item {
+    margin-bottom: 10px;
   }
 }
 </style>

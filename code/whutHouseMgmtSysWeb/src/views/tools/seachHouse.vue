@@ -292,11 +292,11 @@ export default {
     },
     // 某一行被双击时触发
     rowDblclik(row, event) {
-      const houseData = `【${row.houseSort}】,【${row.houseType}】,${
+      const houseName = `【${row.houseSort}】,【${row.houseType}】,${
         row.address
       }`;
-      const houseId = row.houseId;
-      this.$emit("select-house", houseData, houseId);
+      const houseID = row.houseId;
+      this.$emit("select-house", [houseName, houseID]);
       this.formVisible=false
     },
     // 重置查询表单

@@ -26,3 +26,28 @@ export function getHireAgree(params, type) {
         params: params
     })
 }
+// 申请审核
+export function putHireAgree(data) {
+    return request({
+        url: `/hire/addAgree`,
+        method: 'put',
+        data: data
+    })
+}
+// 租赁管理-租赁审批
+// 获取需要审批的
+export function getHireApprove(params, type) {
+    return request({
+        url: `/hire/getApprove/${type}`,
+        method: 'get',
+        params: params
+    })
+}
+// 申请审批
+export function putHireApprove(data) {
+    return request({
+        url: `/hire/addApprove`,
+        method: 'put',
+        data: data
+    })
+}

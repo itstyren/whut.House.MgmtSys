@@ -11,7 +11,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getHireAccept, getHireAgree } from "@/api/leaseManage";
+import { getHireAccept, getHireAgree, getHireApprove } from "@/api/leaseManage";
 export default {
   data() {
     return {
@@ -35,7 +35,10 @@ export default {
   created() {
     //console.log(this.hireStatus)
     if (this.hireStatus == "accept") this.getHandingList();
-    else this.getReviewList();
+    else if (this.hireStatus == "agree") {
+      this.getReviewList();
+      console.log(22266);
+    } else this.getApprove();
   },
   watch: {
     // 监听输入值
@@ -45,7 +48,10 @@ export default {
     isSubmit(newVal) {
       this.hireData = [];
       if (this.hireStatus == "accept") this.getHandingList();
-      else this.getReviewList();
+      else if (this.hireStatus == "agree") {
+        this.getReviewList();
+        console.log(22266);
+      } else this.getApprove();
     }
   },
   methods: {
@@ -54,7 +60,7 @@ export default {
       this.listLoading = true;
       let param = {};
       // 获取未受理的
-      getHireAccept(param,0)
+      getHireAccept(param, 0)
         .then(res => {
           let hireData = res.data.data.data;
           this.hireData.push({
@@ -65,13 +71,13 @@ export default {
           hireData.forEach(data => {
             this.hireData[0].children.push({
               id: data.id,
-              label: "【" + data.name + "】"+data.applyTime ,
+              label: "【" + data.name + "】" + data.applyTime,
               content: data,
               status: false
             });
           });
           // 获取已经受理的
-          getHireAccept(param,1)
+          getHireAccept(param, 1)
             .then(res => {
               let hireData = res.data.data.data;
               this.hireData.push({
@@ -82,7 +88,7 @@ export default {
               hireData.forEach(data => {
                 this.hireData[1].children.push({
                   id: data.id,
-                  label: "【" + data.name + "】"+data.applyTime ,
+                  label: "【" + data.name + "】" + data.applyTime,
                   content: data,
                   status: true
                 });
@@ -97,11 +103,12 @@ export default {
           console.log(err);
         });
     },
+    // 获取需要审核的信息
     getReviewList() {
       this.listLoading = true;
       let param = {};
       // 获取未受理的
-      getHireAgree(param,0)
+      getHireAgree(param, 0)
         .then(res => {
           let hireData = res.data.data.data;
           this.hireData.push({
@@ -112,13 +119,13 @@ export default {
           hireData.forEach(data => {
             this.hireData[0].children.push({
               id: data.id,
-              label: "【" + data.name + "】"+data.applyTime ,
+              label: "【" + data.name + "】" + data.applyTime,
               content: data,
               status: false
             });
           });
           // 获取已经受理的
-          getHireAgree(param,1)
+          getHireAgree(param, 1)
             .then(res => {
               let hireData = res.data.data.data;
               this.hireData.push({
@@ -129,7 +136,55 @@ export default {
               hireData.forEach(data => {
                 this.hireData[1].children.push({
                   id: data.id,
-                  label: "【" + data.name + "】"+data.applyTime ,
+                  label: "【" + data.name + "】" + data.applyTime,
+                  content: data,
+                  status: true
+                });
+              });
+              this.listLoading = false;
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 获取需要审批的信息
+    getApprove() {
+      this.listLoading = true;
+      let param = {};
+      // 获取审批的
+      getHireApprove(param, 0)
+        .then(res => {
+          let hireData = res.data.data.data;
+          this.hireData.push({
+            id: 0,
+            label: "待审批业务",
+            children: []
+          });
+          hireData.forEach(data => {
+            this.hireData[0].children.push({
+              id: data.id,
+              label: "【" + data.name + "】" + data.applyTime,
+              content: data,
+              status: false
+            });
+          });
+          // 获取已经受理的
+          getHireApprove(param, 1)
+            .then(res => {
+              let hireData = res.data.data.data;
+              this.hireData.push({
+                id: 1,
+                label: "已审批业务",
+                children: []
+              });
+              hireData.forEach(data => {
+                this.hireData[1].children.push({
+                  id: data.id,
+                  label: "【" + data.name + "】" + data.applyTime,
                   content: data,
                   status: true
                 });
@@ -153,7 +208,7 @@ export default {
             <span>
               <span>
                 {" "}
-                <my-icon icon-class="bumen" />                              
+                <my-icon icon-class="bumen" />
                 <span class="label">{node.label}</span>{" "}
               </span>
             </span>

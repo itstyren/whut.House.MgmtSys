@@ -92,6 +92,9 @@
             <el-menu-item index="/leaseManage/hireApprove">
               <span>租赁审批</span>
             </el-menu-item>
+                 <el-menu-item index="/leaseManage/hireContract">
+              <span>签订合同</span>
+            </el-menu-item>
           </el-submenu>
           <!-- 网上选房 -->
           <el-submenu index="online">
@@ -118,7 +121,7 @@
         <el-dropdown trigger="click">
           <span class="dropdown-main">
             <my-icon icon-class="account" />
-            <span>{{RoleName}}</span>
+            <span>{{userName}}</span>
             <my-icon icon-class="more_unfold" />
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -148,78 +151,73 @@
 </template>
 
 <script type="text/ecmascript-6">
-  export default {
-    data() {
-      return {
-        RoleName: 2
-      };
+export default {
+  data() {
+    return {};
+  },
+  computed: {
+    userName() {
+      return this.$store.getters.userName;
     }
-  };
-
+  },
+  methods: {
+    // 退出登录
+    logout() {
+      this.$store.dispatch("LogOut").then(() => {
+        location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
+      });
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  $background-color: #373d41;
-  .home-container {
-    min-width: 1280px;
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    flex-direction: column;
-    .top-bar {
-      $heigt: 61px;
-      height: $heigt;
-      line-height: 61px;
-      background-color: $background-color;
-      flex-grow: 0;
-      color: #fff; //display: flex;
-      >.logo {
-        float: left;
-        width: 59px;
-        height: $heigt;
-        display: flex;
-        background-image: url("../assets/logo.png");
-        background-size: 100% 100%;
-        >a {
-          flex-grow: 1;
-        }
-      }
-      >.main-menu {
-        float: left;
-        margin-left: 50px; //height: $heigt;
-        >.el-menu {
-          height: 100%;
-          /*写给不支持calc()的浏览器*/
-          height: -moz-calc(100% - 80px);
-          height: -webkit-calc(100% - 80px);
-          height: calc(100% - 80px);
-          border-radius: 0px;
-          background-color: $background-color;
-        }
-      }
-      >.title {
-        float: left;
-        padding-left: 10px; //border-right: 1px solid #000;
-        >span {
-          font-size: 20px;
-        }
-      }
-      >.account {
-        float: right;
-        padding-right: 15px;
-        .dropdown-main {
-          color: #fff;
-          cursor: pointer;
-          padding-left: 12px;
-        }
-      }
-    } //   下方主内容
-    >.body-container {
-      overflow: hidden; // 必须使用
-      flex-grow: 1;
+$background-color: #373d41;
+@import "../styles/variables.scss";
+.home-container {
+  .top-bar {
+    background-color: $background-color;
+    color: #fff; //display: flex;
+    > .logo {
+      float: left;
+      width: 59px;
+      height: $top-bar-height;
       display: flex;
-      position: relative;
+      background-image: url("../assets/logo.png");
+      background-size: 100% 100%;
+      > a {
+        flex-grow: 1;
+      }
+    }
+    > .main-menu {
+      float: left;
+      margin-left: 50px; 
+      > .el-menu {
+        height: 100%;
+        /*写给不支持calc()的浏览器*/
+        height: -moz-calc(100% - 80px);
+        height: -webkit-calc(100% - 80px);
+        height: calc(100% - 80px);
+        border-radius: 0px;
+        background-color: $background-color;
+      }
+    }
+    > .title {
+      float: left;
+      padding-left: 10px; //border-right: 1px solid #000;
+      > span {
+        font-size: 20px;
+      }
+    }
+    > .account {
+      float: right;
+      padding-right: 15px;
+      .dropdown-main {
+        color: #fff;
+        cursor: pointer;
+        padding-left: 12px;
+      }
     }
   }
-
+}
 </style>

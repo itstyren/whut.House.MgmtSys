@@ -1,7 +1,7 @@
 <template>
   <div class="second-container">
     <indexNav :fix-status="fixstatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
-    <section class="main-container">
+    <section class="special-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
         <div class="warp-breadcrum">
@@ -197,7 +197,7 @@ export default {
               this.listLoading = true;
               let reviewForm = this.reviewForm;
               let param = {
-                agreeMan: reviewForm.acceptMan,
+                agreeMan: this.$store.getters.userName,
                 agreeNote: reviewForm.agreeNote,
                 agreeState: reviewForm.agreeState,
                 id: reviewForm.id

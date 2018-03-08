@@ -162,7 +162,7 @@ export default {
     superSubmit() {
       this.listLoading = true;
       let param=Object.assign({},this.superForm)
-      param.directApplyMan='任天宇'
+      param.directApplyMan=this.$store.getters.userName
       postFixSuper(param).then(res => {
         utils.statusinfo(this, res.data);
         this.listLoading = false;

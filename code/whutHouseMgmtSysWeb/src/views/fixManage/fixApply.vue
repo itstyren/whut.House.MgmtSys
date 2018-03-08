@@ -1,6 +1,6 @@
 <template>
   <div class="second-container">
-    <div class="main-container">
+    <div class="special-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
         <div class="warp-breadcrum">
@@ -243,7 +243,6 @@ export default {
     // 前进一步
     nextButton() {
       let vaild = true;
-      console.log(this.active);
       // 个人信息验证
       if (this.active == 0) {
         this.$refs["fixApplyForm"].validateField("tel", callback => {
@@ -260,9 +259,9 @@ export default {
     // 获取个人信息
     getList() {
       this.listLoading = true;
-      let staffID = 1;
+      let staffID = this.$store.getters.userNO;
       let param = {};
-      getStaffInfo( param,staffID)
+      getStaffInfo(param, staffID)
         .then(res => {
           this.accoutInfo = res.data.data.data;
           // console.log(res.data.data.list)
@@ -294,7 +293,7 @@ export default {
             fixContentId: this.accoutInfo.fixContentId,
             houseId: this.accoutInfo.houseId,
             phone: this.accoutInfo.tel,
-            staffId: 1
+            staffId: this.$store.getters.userNO
           };
           postFixApply(applyForm).then(res => {
             utils.statusinfo(this, res.data);

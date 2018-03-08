@@ -35,9 +35,10 @@
 		//alert("${API_Path }/" + uri);
 		$.ajax({
 			url : uri,
-			beforeSend: function(request) {
-				request.setRequestHeader("X-token", "OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
-		    },
+			beforeSend : function(request) {
+				request.setRequestHeader("X-token",
+						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+			},
 			type : "get",
 			contentType : 'application/json',
 			dataType : 'json',
@@ -57,9 +58,10 @@
 			type : method,
 			contentType : 'application/json;charset=UTF-8',
 			dataType : 'json',
-			beforeSend: function(request) {
-				request.setRequestHeader("X-token", "OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
-		    },
+			beforeSend : function(request) {
+				request.setRequestHeader("X-token",
+						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+			},
 			data : JSON.stringify(data),
 			url : uri,
 			success : function(response) {
@@ -250,29 +252,29 @@
 				'name' : 'asd',
 				'sex' : '男',
 				'marriageState' : '未知',
-				'title': 100,
+				'title' : 100,
 				'post' : 89,
 				'type' : 144,
 				'status' : 153,
 				'dept' : 49,
 				'code' : ' 429006199704237849',
-				'firstJobTime':'2014-11-20',
+				'firstJobTime' : '2014-11-20',
 				'joinTime' : '2017-11-20',
 				'goUniversityTime' : '2015-9-6',
 				'retireTime' : '2020-11-2',
 				'tel' : '13277582789',
 				'remark' : '无',
-				'spouseName':'ccc',
-				'spouseCode':'429006199503247864',
-				'spouseTitle':104,
-				'spousePost':176,
-				'spouseDept':'退休人员',
-				'spouseKind':157,
-				'buyAccount':20,
-				'fixFund':100,
+				'spouseName' : 'ccc',
+				'spouseCode' : '429006199503247864',
+				'spouseTitle' : 104,
+				'spousePost' : 176,
+				'spouseDept' : '退休人员',
+				'spouseKind' : 157,
+				'buyAccount' : 20,
+				'fixFund' : 100,
 				'relation' : 'active',
-				'discountRate':20
-				
+				'discountRate' : 20
+
 			};
 			ajaxRequestPostType("staff/modify", "PUT", data);
 		})
@@ -313,8 +315,8 @@
 							'startTime' : '2017-01-31',
 							'endTime' : '2017-02-02'
 						},
-						'page':1,
-						'size':2
+						'page' : 1,
+						'size' : 2
 					};
 					ajaxRequestPostType("houseRegister/getByAllMultiCondition",
 							"POST", data);
@@ -393,18 +395,24 @@
 
 	//网上选房
 	$(function() {
-		
-		$("#getAllSelectedStaff").click(function() {
-			ajaxRequestGet("selfHelpSelectHouse/getAllSelectedStaff?page=5&size=3");
-		})
-		
-		$("#submitSelectHouseApplication").click(function() {
-			ajaxRequestGet("selfHelpSelectHouse/submitSelectHouseApplication?staffId=6&houseId=1");
-		})
-		
-		$("#getAllCanselectHouse").click(function() {
-			ajaxRequestGet("selfHelpSelectHouse/getAllCanselectHouse?page=2&size=2");
-		})
+
+		$("#getAllSelectedStaff")
+				.click(
+						function() {
+							ajaxRequestGet("selfHelpSelectHouse/getAllSelectedStaff?page=5&size=3");
+						})
+
+		$("#submitSelectHouseApplication")
+				.click(
+						function() {
+							ajaxRequestGet("selfHelpSelectHouse/submitSelectHouseApplication?staffId=6&houseId=1");
+						})
+
+		$("#getAllCanselectHouse")
+				.click(
+						function() {
+							ajaxRequestGet("selfHelpSelectHouse/getAllCanselectHouse?page=2&size=2");
+						})
 
 		$("#cancelSetHousing").click(function() {
 			//传递的是职工编号staffNo数组
@@ -557,67 +565,73 @@
 				})
 
 	})
-	
+
 	//租金生成
 	$(function() {
-		
-		$("#rentGen")
-		.click(
+
+		$("#queryRent").click(
 				function() {
 					var data = {
-						'dept' : '绿色建材中心33',
-						'post' : '厅级3',
-						'title' : '副研究员',
-						'type' : '专业技术人员3',
-						'status' : '调离',
-						'houseTypeName':'周转房342萨达',
-						'marriageState' : '已婚',
-						'joinTime' : {
-							'startTime' : '1965-01-27',
-							'endTime' : '1965-06-05'
-						},
-						'goUniversityTimeRange':{
-							'startTime' : '2015-12-5',
-							'endTime' : '2015-12-25'
-						},
-						'sex' : '女',
-						'isExpire':true,
-						'regionName':'武汉市洪山区工大路20号'
-						
+						'startTime' : '2012-11-01',
+						'endTime' : '2012-11-06'
 					};
-					ajaxRequestPostType(
-							"rentGenerate/rentGen",
+					ajaxRequestPostType("rentGenerate/queryRent?page=2&size=2",
 							"POST", data);
 				})
-		
+
+		$("#rentGen").click(function() {
+			var data = {
+				'dept' : '绿色建材中心33',
+				'post' : '厅级3',
+				'title' : '副研究员',
+				'type' : '专业技术人员3',
+				'status' : '调离',
+				'houseTypeName' : '周转房342萨达',
+				'marriageState' : '已婚',
+				'joinTime' : {
+					'startTime' : '1965-01-27',
+					'endTime' : '1965-06-05'
+				},
+				'goUniversityTimeRange' : {
+					'startTime' : '2015-12-5',
+					'endTime' : '2015-12-25'
+				},
+				'sex' : '女',
+				'isExpire' : true,
+				'regionName' : '武汉市洪山区工大路20号'
+
+			};
+			ajaxRequestPostType("rentGenerate/rentGen", "POST", data);
+		})
+
 		$("#selectRentByMultiCondition")
-		.click(
-				function() {
-					var data = {
-						'dept' : '绿色建材中心33',
-						'post' : '厅级3',
-						'title' : '副研究员',
-						'type' : '专业技术人员3',
-						'status' : '调离',
-						'houseTypeName':'周转房342萨达',
-						'marriageState' : '已婚',
-						'joinTime' : {
-							'startTime' : '1965-01-27',
-							'endTime' : '1965-06-05'
-						},
-						'goUniversityTimeRange':{
-							'startTime' : '2015-12-5',
-							'endTime' : '2015-12-25'
-						},
-						'sex' : '女',
-						'isExpire':true,
-						'regionName':'武汉市洪山区工大路20号'
-						
-					};
-					ajaxRequestPostType(
-							"rentGenerate/selectRentByMultiCondition?page=2&size=2",
-							"POST", data);
-				})
+				.click(
+						function() {
+							var data = {
+								'dept' : '绿色建材中心33',
+								'post' : '厅级3',
+								'title' : '副研究员',
+								'type' : '专业技术人员3',
+								'status' : '调离',
+								'houseTypeName' : '周转房342萨达',
+								'marriageState' : '已婚',
+								'joinTime' : {
+									'startTime' : '1965-01-27',
+									'endTime' : '1965-06-05'
+								},
+								'goUniversityTimeRange' : {
+									'startTime' : '2015-12-5',
+									'endTime' : '2015-12-25'
+								},
+								'sex' : '女',
+								'isExpire' : true,
+								'regionName' : '武汉市洪山区工大路20号'
+
+							};
+							ajaxRequestPostType(
+									"rentGenerate/selectRentByMultiCondition?page=2&size=2",
+									"POST", data);
+						})
 	})
 </script>
 
@@ -812,14 +826,16 @@
 		</div>
 
 		<div class="tab-pane fade" id="rentGenerate">
+			<h4>租金查询</h4>
+			<input class="btn btn-info btn-lg" type="button" value="QueryRent"
+				id="queryRent" /> <br>
 			<h4>多条件查询</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="SelectRentByMultiCondition" id="selectRentByMultiCondition" />
 			<br>
 			<h4>租金生成</h4>
-			<input class="btn btn-info btn-lg" type="button"
-				value="RentGen" id="rentGen" />
-			<br>
+			<input class="btn btn-info btn-lg" type="button" value="RentGen"
+				id="rentGen" /> <br>
 		</div>
 
 	</div>

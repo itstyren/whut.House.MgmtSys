@@ -117,8 +117,6 @@
       }
       return {
         popoverVisible: false,
-        // 用户令牌
-        access_token: '',
         // 表格数据
         rentOptionData: [],
         listLoading: false,

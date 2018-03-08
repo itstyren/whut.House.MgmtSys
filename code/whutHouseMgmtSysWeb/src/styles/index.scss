@@ -1,5 +1,6 @@
 @import './element-ui';
 @import './variables';
+@import './layout.scss';
 body {
   padding: 0px;
   margin: 0px auto;
@@ -85,15 +86,7 @@ a {
 
 //第二层组件公共样式
 .second-container {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  margin: auto;
-  display: flex;
   >aside {
-    flex: none;
     background-color: $aside-background; // 树形菜单的样式
     .filter {
       .el-input__inner {
@@ -188,44 +181,6 @@ a {
       margin-right: 6px;
     }
   }
-  >.main-container {
-    flex-grow: 1;
-    padding: 10px;
-    position: relative;
-  }
-}
-
-// 第三层层组件公共样式
-.third-container {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  bottom: 15px;
-  margin: auto;
-  display: flex;
-  flex-direction: column; // 面包屑
-  >.warp-breadcrum {
-    width: 100%;
-    flex: none;
-  } // 主内容
-  >.warp-body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    .toolbal {
-      flex: none;
-    }
-    .main-data {
-      width: 100%;
-      flex: 1;
-      overflow: auto;
-      .table {
-        width: 100%;
-        height: 100%
-      }
-    }
-  }
 }
 
 .query-table {
@@ -241,3 +196,4 @@ a {
   background-color: $white;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
+

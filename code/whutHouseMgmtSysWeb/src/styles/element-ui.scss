@@ -9,7 +9,6 @@
     border-bottom: 2px solid #ffd04b;
     color: #fff;
   } //激活后子菜单
-
   .el-submenu .el-menu-item {
     min-width: 0;
     text-align: center
@@ -38,11 +37,16 @@
   width: 85%;
 }
 
+// 横导航框需要的
+.el-menu--horizontal .el-menu .el-menu-item.is-active,
+.el-menu--horizontal .el-menu .el-submenu__title.is-active {
+  color: #fff !important;
+  background-color: #4A5064 !important;
+}
 
-  .el-menu--horizontal .el-menu .el-menu-item.is-active,
-  .el-menu--horizontal .el-menu .el-submenu__title.is-active {
-    color: #fff !important;
-    background-color: #4A5064 !important;
-
-  }
-
+.el-menu--collapse .el-menu .el-submenu,
+.el-menu--popup {
+  min-width: 0px;
+  padding: 5px;
+  text-align: center;
+}

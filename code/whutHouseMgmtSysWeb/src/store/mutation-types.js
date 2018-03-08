@@ -3,6 +3,8 @@
 export const SET_TOKEN="setToken"
 export const SET_NAME = "setName"
 export const SET_ROLEID = "setRoleId"
+export const SET_USERNO = "setUserNO"
+
 
 export const LOGIN = 'login'
 // 登出时

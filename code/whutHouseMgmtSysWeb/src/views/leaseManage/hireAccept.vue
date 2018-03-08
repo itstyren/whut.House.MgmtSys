@@ -1,7 +1,7 @@
 <template>
   <div class="second-container">
     <indexNav :hire-status="hireStatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
-    <section class="main-container">
+    <section class="special-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
         <div class="warp-breadcrum">
@@ -159,7 +159,9 @@
                         <el-input v-model="totalVal"></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="6" :push="4">
+                  </el-row>
+                  <el-row type="flex" justify="start" v-if="!acceptStatus">
+                                   <el-col :span="6" :push="4">
                       <el-form-item label="受理状态">
                         <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
                           inactive-text="通过" inactive-value="通过"></el-switch>
@@ -168,7 +170,7 @@
                     <el-col :span="1" :push="4">
                       <el-button type="primary" v-if="!acceptStatus" @click="acceptSubmit">提交</el-button>
                     </el-col>
-                  </el-row>
+                  </el-row>                  
                   <!-- 非操作区域 -->
                   <el-row v-if="acceptStatus">
                     <el-col :span="7" :offset="1">
@@ -273,7 +275,7 @@ export default {
               this.listLoading = true;
               let acceptForm = this.acceptForm;
               let param = {
-                acceptMan: acceptForm.name,
+                acceptMan: this.$store.getters.userName,
                 acceptNote: acceptForm.acceptNote,
                 acceptState: acceptForm.acceptState,
                 id: acceptForm.id,
@@ -312,12 +314,13 @@ export default {
   background-color: $background-grey;
   & .main-data {
     padding-top: 20px;
+    margin-bottom: 30px;
     & .accept-form {
       width: 80%;
       background-color: #fff;
       padding: 10px;
       padding-bottom: 30px;
-      height: 90%;
+      // height: 90%;
       margin: auto;
       position: relative;
       & .need-accept {

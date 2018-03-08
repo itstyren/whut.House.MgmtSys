@@ -501,10 +501,8 @@ export default {
       }
       switchFunction(param, queryID)
         .then(res => {
-          //console.log(res.data.data);
           this.houseData = res.data.data.data.list;
           this.totalNum = res.data.data.data.total;
-          // console.log(res.data.data.list)
           this.listLoading = false;
           //console.log(this.houseData);
         })

@@ -1,0 +1,121 @@
+// 常规布局
+/*
+div.home-container {
+  header.top-bar {
+    section.body-container {
+div.second-container{
+aside{}
+section.main-container{
+    div.third-container{
+
+    }
+}
+}
+    }
+  }
+}
+*/
+
+@import './variables';
+.home-container {
+  //定义变量
+  min-width: 1280px;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  &>.top-bar {
+    height: $top-bar-height;
+    line-height: 61px;
+    flex-grow: 0;
+  }
+  &>.body-container {
+    overflow: hidden; // 必须使用
+    flex-grow: 1;
+    display: flex;
+    position: relative;
+    &>.second-container {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      margin: auto;
+      display: flex;
+      &>aside {
+        flex: none;
+      }
+      &>.main-container {
+        flex-grow: 1;
+        padding: 10px;
+        position: relative;
+        &>.third-container {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          right: 20px;
+          bottom: 15px;
+          margin: auto;
+          display: flex;
+          flex-direction: column; // 面包屑
+          &>.warp-breadcrum {
+            width: 100%;
+            flex: none;
+          }
+          &>.warp-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            &>.toolbal {
+              flex: none;
+            }
+            &>.main-data {
+              width: 100%;
+              flex: 1;
+              overflow: auto;
+              .table {
+                width: 100%;
+                height: 100%
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 用于非常规样式
+.special-container {
+  flex-grow: 1;
+  padding: 10px;
+  position: relative;
+  overflow: auto;
+  &>.third-container {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column; // 面包屑
+    &>.warp-breadcrum {
+      width: 100%;
+      flex: none;
+    }
+    &>.warp-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      &>.toolbal {
+        flex: none;
+      }
+      &>.main-data {
+        width: 100%;
+        flex: 1;
+        .table {
+          width: 100%;
+          height: 100%
+        }
+      }
+    }
+  }
+}
