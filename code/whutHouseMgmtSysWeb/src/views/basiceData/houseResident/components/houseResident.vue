@@ -21,7 +21,7 @@
           </el-form-item>
           <el-form-item label="时间" class="from-label" prop="bookTime">
             <el-date-picker v-model="residentForm.bookTime" style="width:200px"  placeholder="请选择日期" format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd"></el-date-picker>
+              value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
           </el-form-item>
           <el-form-item>
             <el-button type="" >重置</el-button>

@@ -170,23 +170,15 @@ export default {
 
 <style scoped lang="scss">
 $background-color: #373d41;
+@import "../styles/variables.scss";
 .home-container {
-  min-width: 1280px;
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  flex-direction: column;
   .top-bar {
-    $heigt: 61px;
-    height: $heigt;
-    line-height: 61px;
     background-color: $background-color;
-    flex-grow: 0;
     color: #fff; //display: flex;
     > .logo {
       float: left;
       width: 59px;
-      height: $heigt;
+      height: $top-bar-height;
       display: flex;
       background-image: url("../assets/logo.png");
       background-size: 100% 100%;
@@ -196,7 +188,7 @@ $background-color: #373d41;
     }
     > .main-menu {
       float: left;
-      margin-left: 50px; //height: $heigt;
+      margin-left: 50px; 
       > .el-menu {
         height: 100%;
         /*写给不支持calc()的浏览器*/
@@ -223,12 +215,6 @@ $background-color: #373d41;
         padding-left: 12px;
       }
     }
-  } //   下方主内容
-  > .body-container {
-    overflow: hidden; // 必须使用
-    flex-grow: 1;
-    display: flex;
-    position: relative;
   }
 }
 </style>

@@ -26,3 +26,11 @@ export function getHireAgree(params, type) {
         params: params
     })
 }
+// 申请审核
+export function putHireAgree(data) {
+    return request({
+        url: `/hire/addAgree`,
+        method: 'put',
+        data: data
+    })
+}
