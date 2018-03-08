@@ -11,7 +11,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getHireAccept, getHireAgree, getHireApprove } from "@/api/leaseManage";
+import { getHireAccept, getHireAgree, getHireApprove,getHireContract } from "@/api/leaseManage";
 export default {
   data() {
     return {
@@ -37,8 +37,8 @@ export default {
     if (this.hireStatus == "accept") this.getHandingList();
     else if (this.hireStatus == "agree") {
       this.getReviewList();
-      console.log(22266);
-    } else this.getApprove();
+    } else if (this.hireStatus == "approve") this.getApprove();
+    else this.getContract();
   },
   watch: {
     // 监听输入值
@@ -47,11 +47,11 @@ export default {
     },
     isSubmit(newVal) {
       this.hireData = [];
-      if (this.hireStatus == "accept") this.getHandingList();
-      else if (this.hireStatus == "agree") {
-        this.getReviewList();
-        console.log(22266);
-      } else this.getApprove();
+    if (this.hireStatus == "accept") this.getHandingList();
+    else if (this.hireStatus == "agree") {
+      this.getReviewList();
+    } else if (this.hireStatus == "approve") this.getApprove();
+    else this.getContract();
     }
   },
   methods: {
@@ -194,6 +194,33 @@ export default {
             .catch(err => {
               console.log(err);
             });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 获取合同信息
+    getContract(){
+      this.listLoading = true;
+      let param = {};
+      // 获取审批的
+      getHireContract()
+        .then(res => {
+          let hireData = res.data.data.data;
+          this.hireData.push({
+            id: 0,
+            label: "待签订业务",
+            children: []
+          });
+          hireData.forEach(data => {
+            this.hireData[0].children.push({
+              id: data.id,
+              label: "【" + data.name + "】" + data.applyTime,
+              content: data,
+              status: false
+            });
+          });
+          this.listLoading=false
         })
         .catch(err => {
           console.log(err);
