@@ -202,7 +202,7 @@ export default {
       listLoading: false,
       approveForm: {},
       status: false,
-      hireStatus: "approve",
+      hireStatus: "contract",
       isSubmit: false,
       // 表单验证规则
       rules: {

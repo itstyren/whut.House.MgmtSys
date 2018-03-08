@@ -23,7 +23,6 @@ export function getHireAgree(params, type) {
     return request({
         url: `/hire/getAgree/${type}`,
         method: 'get',
-        params: params
     })
 }
 // 申请审核
@@ -40,7 +39,6 @@ export function getHireApprove(params, type) {
     return request({
         url: `/hire/getApprove/${type}`,
         method: 'get',
-        params: params
     })
 }
 // 申请审批
@@ -49,5 +47,12 @@ export function putHireApprove(data) {
         url: `/hire/addApprove`,
         method: 'put',
         data: data
+    })
+}
+// 租赁管理-合同签订
+export function getHireContract(params) {
+    return request({
+        url: `/hire/getSignContract`,
+        method: 'get',
     })
 }

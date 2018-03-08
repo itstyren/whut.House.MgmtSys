@@ -1,5 +1,5 @@
 import axios from 'axios'
-let base = 'http://localhost:8787/whutHouseMgmtReposity/'
+let base = 'http://localhost:8080/whutHouseMgmtReposity/'
 
 // 参数设置--职工参数
 // 获取方法
