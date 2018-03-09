@@ -559,7 +559,6 @@ export default {
     showAddForm() {
       // if (this.addFormParam == "")
       this.addFromGetList();
-      console.log(this.addFormParam);
       this.addFormVisible = true;
     },
     // 显示详情页面

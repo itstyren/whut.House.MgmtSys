@@ -13,8 +13,8 @@
       </div>
       <!-- 主菜单 -->
       <div class="main-menu" :router="true">
-        <el-menu class="horizon-menu" default-active="/index" menu-trigger="click" unique-opened mode="horizontal" background-color="#373d41" text-color="#fff"
-          router>
+        <el-menu class="horizon-menu" default-active="/index" menu-trigger="click" unique-opened mode="horizontal" background-color="#373d41"
+          text-color="#fff" router>
           <!-- 首页 -->
           <el-menu-item index="/index">
             <template slot="title">
@@ -92,8 +92,14 @@
             <el-menu-item index="/leaseManage/hireApprove">
               <span>租赁审批</span>
             </el-menu-item>
-                 <el-menu-item index="/leaseManage/hireContract">
+            <el-menu-item index="/leaseManage/hireContract">
               <span>签订合同</span>
+            </el-menu-item>
+            <el-menu-item index="/leaseManage/hireApplyManage">
+              <span>申请书管理</span>
+            </el-menu-item>
+                        <el-menu-item index="/leaseManage/rentGenerate">
+              <span>租金生成</span>
             </el-menu-item>
           </el-submenu>
           <!-- 网上选房 -->
@@ -151,73 +157,75 @@
 </template>
 
 <script type="text/ecmascript-6">
-export default {
-  data() {
-    return {};
-  },
-  computed: {
-    userName() {
-      return this.$store.getters.userName;
+  export default {
+    data() {
+      return {};
+    },
+    computed: {
+      userName() {
+        return this.$store.getters.userName;
+      }
+    },
+    methods: {
+      // 退出登录
+      logout() {
+        this.$store.dispatch("LogOut").then(() => {
+          location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
+        });
+      }
     }
-  },
-  methods: {
-    // 退出登录
-    logout() {
-      this.$store.dispatch("LogOut").then(() => {
-        location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
-      });
-    }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-$background-color: #373d41;
-@import "../styles/variables.scss";
-.home-container {
-  .top-bar {
-    background-color: $background-color;
-    color: #fff; //display: flex;
-    > .logo {
-      float: left;
-      width: 59px;
-      height: $top-bar-height;
-      display: flex;
-      background-image: url("../assets/logo.png");
-      background-size: 100% 100%;
-      > a {
-        flex-grow: 1;
+  $background-color: #373d41;
+  @import "../styles/variables.scss";
+  .home-container {
+    .top-bar {
+      background-color: $background-color;
+      color: #fff; //display: flex;
+      >.logo {
+        float: left;
+        width: 59px;
+        height: $top-bar-height;
+        display: flex;
+        background-image: url("../assets/logo.png");
+        background-size: 100% 100%;
+        >a {
+          flex-grow: 1;
+        }
       }
-    }
-    > .main-menu {
-      float: left;
-      margin-left: 50px; 
-      > .el-menu {
-        height: 100%;
-        /*写给不支持calc()的浏览器*/
-        height: -moz-calc(100% - 80px);
-        height: -webkit-calc(100% - 80px);
-        height: calc(100% - 80px);
-        border-radius: 0px;
-        background-color: $background-color;
+      >.main-menu {
+        float: left;
+        margin-left: 50px;
+        >.el-menu {
+          height: 100%;
+          /*写给不支持calc()的浏览器*/
+          height: -moz-calc(100% - 80px);
+          height: -webkit-calc(100% - 80px);
+          height: calc(100% - 80px);
+          border-radius: 0px;
+          background-color: $background-color;
+        }
       }
-    }
-    > .title {
-      float: left;
-      padding-left: 10px; //border-right: 1px solid #000;
-      > span {
-        font-size: 20px;
+      >.title {
+        float: left;
+        padding-left: 10px; //border-right: 1px solid #000;
+        >span {
+          font-size: 20px;
+        }
       }
-    }
-    > .account {
-      float: right;
-      padding-right: 15px;
-      .dropdown-main {
-        color: #fff;
-        cursor: pointer;
-        padding-left: 12px;
+      >.account {
+        float: right;
+        padding-right: 15px;
+        .dropdown-main {
+          color: #fff;
+          cursor: pointer;
+          padding-left: 12px;
+        }
       }
     }
   }
-}
+
 </style>

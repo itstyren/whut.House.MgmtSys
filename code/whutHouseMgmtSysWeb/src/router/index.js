@@ -70,6 +70,10 @@ import hireAgree from '@/views/leaseManage/hireAgree'
 import hireApprove from '@/views/leaseManage/hireApprove'
 // 签订合同
 import hireContract from '@/views/leaseManage/hireContract'
+// 申请书管理
+import hireApplyManage from '@/views/leaseManage/hireApplyManage'
+// 生成租金
+import rentGenerate from '@/views/leaseManage/rentGenerate'
 
 // 网上选房
 // 选房资格认定
@@ -403,6 +407,16 @@ const routes = [
         path: 'hireContract',
         component: hireContract,
         name: 'hireContract',
+        menuShow: true
+      }, {
+        path: 'hireApplyManage',
+        component: hireApplyManage,
+        name: 'hireApplyManage',
+        menuShow: true
+      },{
+        path: 'rentGenerate',
+        component: rentGenerate,
+        name: 'rentGenerate',
         menuShow: true
       },
 

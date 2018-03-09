@@ -78,9 +78,9 @@
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
-                              <el-col :span="4">
+                  <el-col :span="4">
                     <el-form-item label="姓名/工号">
-                      <el-input v-model="queryForm.query" size="small"  placeholder="请输入搜索"></el-input>
+                      <el-input v-model="queryForm.query" size="small" placeholder="请输入搜索"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
@@ -169,288 +169,291 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {
-  getCanSelectStaff,
-  getHaveSelectStaff,
-  postCanSelectmulticondition,
-  postSetCanSelect,
-  postcancelCanSelect
-} from "@/api/online";
-import { getStaffParam } from "@/api/sysManage";
-import * as OPTION from "@/assets/data/formOption";
-import utils from "@/utils/index.js";
-export default {
-  data() {
-    return {
-      // 多重查找表单
-      queryForm: {},
-      time: [],
-      deptData: [],
-      postData: [],
-      titleData: [],
-      classData: [],
-      statusData: [],
-      formOption: OPTION,
-      // 时间选择区域
-      pickerOptions: {
-        shortcuts: [
-          {
-            text: "最近一周",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", [start, end]);
+  import {
+    getCanSelectStaff,
+    getHaveSelectStaff,
+    postCanSelectmulticondition,
+    postSetCanSelect,
+    postcancelCanSelect
+  } from "@/api/online";
+  import {
+    getStaffParam
+  } from "@/api/sysManage";
+  import * as OPTION from "@/assets/data/formOption";
+  import utils from "@/utils/index.js";
+  export default {
+    data() {
+      return {
+        // 多重查找表单
+        queryForm: {},
+        time: [],
+        deptData: [],
+        postData: [],
+        titleData: [],
+        classData: [],
+        statusData: [],
+        formOption: OPTION,
+        // 时间选择区域
+        pickerOptions: {
+          shortcuts: [{
+              text: "最近一周",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                picker.$emit("pick", [start, end]);
+              }
+            },
+            {
+              text: "最近一个月",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                picker.$emit("pick", [start, end]);
+              }
+            },
+            {
+              text: "最近三个月",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                picker.$emit("pick", [start, end]);
+              }
             }
-          },
-          {
-            text: "最近一个月",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit("pick", [start, end]);
-            }
-          },
-          {
-            text: "最近三个月",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
-      },
-      // 表格区域
-      listLoading: false,
-      listLoading1: false,
-      canSelectData: [],
-      setList: [],
-      haveSelectData: [],
-      cancelList: [],
-      totalNum: 1,
-      page: 1,
-      size: 10,
-      totalNum1: 1,
-      page1: 1,
-      size1: 10
-    };
-  },
-  components: {},
-  created() {
-    this.initalGet();
-    this.getList();
-    this.getList1();
-  },
-  methods: {
-    //初始查询条件获取
-    initalGet() {
-      this.listLoading = true;
-      let param = {
-        size: 999
+          ]
+        },
+        // 表格区域
+        listLoading: false,
+        listLoading1: false,
+        canSelectData: [],
+        setList: [],
+        haveSelectData: [],
+        cancelList: [],
+        totalNum: 1,
+        page: 1,
+        size: 10,
+        totalNum1: 1,
+        page1: 1,
+        size1: 10
       };
-      //部门5
-      getStaffParam(param, 5)
-        .then(res => {
-          this.deptData = res.data.data.data.list;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      // 职务为6
-      getStaffParam(param, 6)
-        .then(res => {
-          this.postData = res.data.data.data.list;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      // 职称为7
-      getStaffParam(param, 7)
-        .then(res => {
-          this.titleData = res.data.data.data.list;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      // 类别为8
-      getStaffParam(param, 8)
-        .then(res => {
-          this.classData = res.data.data.data.list;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      // 状态为9
-      getStaffParam(param, 9)
-        .then(res => {
-          this.statusData = res.data.data.data.list;
-          this.listLoading = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
     },
-    // 初始获取数据
-    getList() {
-      this.listLoading = true;
-      let param = {
-        page: this.page,
-        size: this.size
-      };
-      getCanSelectStaff(param)
-        .then(res => {
-          // console.log(res.data.data)
-          this.canSelectData = res.data.data.data.list;
-          this.totalNum = res.data.data.data.total;
-          // console.log(res.data.data.list)
-          this.listLoading = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+    components: {},
+    created() {
+      this.initalGet();
+      this.getList();
+      this.getList1();
     },
-    // 初始获取已设置可选房数据
-    getList1() {
-      this.listLoading1 = true;
-      let param = {
-        page: this.page1,
-        size: this.size1
-      };
-      getHaveSelectStaff(param)
-        .then(res => {
-          // console.log(res.data.data)
-          this.haveSelectData = res.data.data.data.list;
-          this.totalNum1 = res.data.data.data.total;
-          // console.log(res.data.data.list)
-          this.listLoading1 = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    // 多重查找查询
-    muticonditionQuery() {
-      this.canSelectData = [];
-      if (this.time.length != 0) {
-        this.queryForm.joinTime = {
-          startTime: this.time[0],
-          endTime: this.time[1]
+    methods: {
+      //初始查询条件获取
+      initalGet() {
+        this.listLoading = true;
+        let param = {
+          size: 999
         };
-      }
-      for (let v in this.queryForm) {
-        if (this.queryForm[v] == "") delete this.queryForm[v];
-      }
-      this.listLoading = true;
-      let param = {
-        page: this.page,
-        size: this.size
-      };
-      //console.log(this.queryForm)
-      if(this.queryForm.hasOwnProperty('query')){
+        //部门5
+        getStaffParam(param, 5)
+          .then(res => {
+            this.deptData = res.data.data.data.list;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        // 职务为6
+        getStaffParam(param, 6)
+          .then(res => {
+            this.postData = res.data.data.data.list;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        // 职称为7
+        getStaffParam(param, 7)
+          .then(res => {
+            this.titleData = res.data.data.data.list;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        // 类别为8
+        getStaffParam(param, 8)
+          .then(res => {
+            this.classData = res.data.data.data.list;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        // 状态为9
+        getStaffParam(param, 9)
+          .then(res => {
+            this.statusData = res.data.data.data.list;
+            this.listLoading = false;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      // 初始获取数据
+      getList() {
+        this.listLoading = true;
+        let param = {
+          page: this.page,
+          size: this.size
+        };
+        getCanSelectStaff(param)
+          .then(res => {
+            // console.log(res.data.data)
+            this.canSelectData = res.data.data.data.list;
+            this.totalNum = res.data.data.data.total;
+            // console.log(res.data.data.list)
+            this.listLoading = false;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      // 初始获取已设置可选房数据
+      getList1() {
+        this.listLoading1 = true;
+        let param = {
+          page: this.page1,
+          size: this.size1
+        };
+        getHaveSelectStaff(param)
+          .then(res => {
+            // console.log(res.data.data)
+            this.haveSelectData = res.data.data.data.list;
+            this.totalNum1 = res.data.data.data.total;
+            // console.log(res.data.data.list)
+            this.listLoading1 = false;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      // 多重查找查询
+      muticonditionQuery() {
+        this.canSelectData = [];
+        if (this.time.length != 0) {
+          this.queryForm.joinTime = {
+            startTime: this.time[0],
+            endTime: this.time[1]
+          };
+        }
+        for (let v in this.queryForm) {
+          if (this.queryForm[v] == "") delete this.queryForm[v];
+        }
+        this.listLoading = true;
+        let param = {
+          page: this.page,
+          size: this.size
+        };
+        //console.log(this.queryForm)
+        if (this.queryForm.hasOwnProperty('query')) {
 
-      }else{
-      const data = Object.assign({}, this.queryForm);
-      postCanSelectmulticondition(param, data).then(res => {
-        utils.statusinfo(this, res.data);
-        this.canSelectData = res.data.data.data.list;
-        this.totalNum = res.data.data.data.total;
-        this.listLoading = false;
-      });
+        } else {
+          const data = Object.assign({}, this.queryForm);
+          postCanSelectmulticondition(param, data).then(res => {
+            utils.statusinfo(this, res.data);
+            this.canSelectData = res.data.data.data.list;
+            this.totalNum = res.data.data.data.total;
+            this.listLoading = false;
+          });
+        }
+      },
+      // 为设置选房表格的多选
+      setSelectionChange(selection) {
+        this.setList = [];
+        selection.forEach(v => {
+          this.setList.push(v.staffNo);
+        });
+      },
+      // 设为可选房
+      setSelect() {
+        this.listLoading = true;
+        const data = this.setList;
+        postSetCanSelect(data).then(res => {
+          utils.statusinfo(this, res.data);
+          this.getList();
+          this.getList1();
+        });
+      },
+      // 监听已设置选房多选
+      cancelSelectionChange(selection) {
+        this.cancelList = [];
+        selection.forEach(v => {
+          this.cancelList.push(v.staffNo);
+        });
+      },
+      // 取消可选房
+      cancelSelect() {
+        console.log(this.cancelList)
+        this.listLoading = true;
+        const data = this.cancelList;
+        postcancelCanSelect(data).then(res => {
+          utils.statusinfo(this, res.data);
+          this.getList();
+          this.getList1();
+        });
+      },
+      // 重置查询表单
+      resseting() {
+        this.time = []
+        this.queryForm = {}
+      },
+      // 更换每页数量
+      sizeChangeEvent(val) {
+        this.listLoading = true;
+        this.size = val;
+        this.getList();
+      },
+      //页码切换时
+      currentChangeEvent(val) {
+        this.listLoading = true;
+        this.page = val;
+        this.getList();
+      },
+      //更换每页数量1
+      sizeChangeEvent1(val) {
+        this.listLoading1 = true;
+        this.size1 = val;
+        this.getList1();
+      },
+      //页码切换时1
+      currentChangeEvent1(val) {
+        this.listLoading1 = true;
+        this.page1 = val;
+        this.getList1();
       }
-    },
-    // 为设置选房表格的多选
-    setSelectionChange(selection) {
-      this.setList = [];
-      selection.forEach(v => {
-        this.setList.push(v.staffNo);
-      });
-    },
-    // 设为可选房
-    setSelect() {
-      this.listLoading = true;
-      const data = this.setList;
-      postSetCanSelect(data).then(res => {
-        utils.statusinfo(this, res.data);
-        this.getList();
-        this.getList1();
-      });
-    },
-    // 监听已设置选房多选
-    cancelSelectionChange(selection) {
-      this.cancelList = [];
-      selection.forEach(v => {
-        this.cancelList.push(v.staffNo);
-      });
-    },
-    // 取消可选房
-    cancelSelect() {
-      console.log(this.cancelList)
-      this.listLoading = true;
-      const data = this.cancelList;
-      postcancelCanSelect(data).then(res => {
-        utils.statusinfo(this, res.data);
-        this.getList();
-        this.getList1();
-      });
-    },
-    // 重置查询表单
-    resseting(){
-      this.time=[]
-      this.queryForm={}
-    },
-    // 更换每页数量
-    sizeChangeEvent(val) {
-      this.listLoading = true;
-      this.size = val;
-      this.getList();
-    },
-    //页码切换时
-    currentChangeEvent(val) {
-      this.listLoading = true;
-      this.page = val;
-      this.getList();
-    },
-    //更换每页数量1
-    sizeChangeEvent1(val) {
-      this.listLoading1 = true;
-      this.size1 = val;
-      this.getList1();
-    },
-    //页码切换时1
-    currentChangeEvent1(val) {
-      this.listLoading1 = true;
-      this.page1 = val;
-      this.getList1();
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-@import "../../styles/variables.scss";
+  @import "../../styles/variables.scss";
 
-.second-container {
-  background-color: $background-grey;
-  .toolbal {
-    .el-form-item {
-      margin-bottom: 0;
+  .second-container {
+    background-color: $background-grey;
+    .toolbal {
+      .el-form-item {
+        margin-bottom: 0;
+      }
+      .card {
+        padding: 10px;
+      }
     }
-    .card {
-      padding: 10px;
+    .can-select {
+      height: 25vh;
+      padding-bottom: 6vh;
+      position: relative;
+      &>.bottom-tool {
+        position: absolute;
+        bottom: 5px;
+        left: 10px;
+      }
     }
   }
-  .can-select {
-    height: 25vh;
-    padding-bottom: 6vh;
-    position: relative;
-    & > .bottom-tool {
-      position: absolute;
-      bottom: 5px;
-      left: 10px;
-    }
-  }
-}
+
 </style>
