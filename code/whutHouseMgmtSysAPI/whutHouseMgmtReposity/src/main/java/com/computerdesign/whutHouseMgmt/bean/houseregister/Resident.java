@@ -112,4 +112,37 @@ public class Resident {
     public void setFamilyCode(String familyCode) {
         this.familyCode = familyCode == null ? null : familyCode.trim();
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((houseId == null) ? 0 : houseId.hashCode());
+		result = prime * result + ((staffId == null) ? 0 : staffId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Resident other = (Resident) obj;
+		if (houseId == null) {
+			if (other.houseId != null)
+				return false;
+		} else if (!houseId.equals(other.houseId))
+			return false;
+		if (staffId == null) {
+			if (other.staffId != null)
+				return false;
+		} else if (!staffId.equals(other.staffId))
+			return false;
+		return true;
+	}
+    
+    
 }
