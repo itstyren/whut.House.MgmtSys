@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
@@ -43,6 +44,8 @@ import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
 import com.computerdesign.whutHouseMgmt.utils.JSONUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 /**
  * 
@@ -302,5 +305,21 @@ public class HireController {
 		hireService.add(hire);
 
 		return Msg.success("房屋直批");
+	}
+	
+	/**
+	 * 房屋申请书管理页面
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@RequestMapping(value = "getManagement",method = RequestMethod.GET)
+	@ResponseBody
+	public Msg getManagement(@RequestParam(value = "page", defaultValue = "0")Integer page,
+			@RequestParam(value = "size", defaultValue = "0")Integer size){
+		PageHelper.startPage(page, size);
+		List<ViewHire> listViewHire = viewHireService.getAllViewHire();
+		PageInfo pageInfo = new PageInfo<>(listViewHire);
+		return Msg.success().add("data", pageInfo);
 	}
 }

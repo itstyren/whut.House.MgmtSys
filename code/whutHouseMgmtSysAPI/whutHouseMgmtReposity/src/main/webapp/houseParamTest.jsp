@@ -539,6 +539,10 @@
 			ajaxRequestGet("hire/getSignContract");
 		})
 		
+		$("#hireGetManagement").click(function() {
+			ajaxRequestGet("hire/getManagement?page=1&size=2");
+		})
+		
 		$("#hireAddSignContract").click(function() {
 			var data = {
 				'id':91,
@@ -689,6 +693,7 @@
 			</div>
 			<div>住房申请 <br>
 			<input class="btn btn-info btn-lg" type="button" value="住房申请" id="hireAddApply" /> <br> <br></div>
+			<br> <br>
 			
 			<div>进入房屋申请受理页面  0代表未经受理流程的全部信息，1代表受理过程结束的全部信息<br>
 			<input class="btn btn-info btn-lg" type="button" value="住房申请受理页面" id="hireGetAccept" /> <br> <br></div>
@@ -696,7 +701,7 @@
 			<input class="btn btn-info btn-lg" type="button" value="住房申请受理" id="hireAddAccept" /> <br> <br></div>
 			<div>重新受理   传入参数为hire的id<br>
 			<input class="btn btn-info btn-lg" type="button" value="重新受理" id="hireReAccept" /> <br> <br></div>
-			
+			<br> <br>
 			
 			<div>进入房屋申请审核页面  0代表未经审核流程的全部信息，1代表审核过程结束的全部信息<br>
 			<input class="btn btn-info btn-lg" type="button" value="住房申请审核页面" id="hireGetAgree" /> <br> <br></div>
@@ -704,6 +709,7 @@
 			<input class="btn btn-info btn-lg" type="button" value="住房申请审核" id="hireAddAgree" /> <br> <br></div>
 			<div>重新审核   传入参数为hire的id<br>
 			<input class="btn btn-info btn-lg" type="button" value="重新审核" id="hireReAgree" /> <br> <br></div>
+			<br> <br>
 			
 			<div>进入房屋申请审批页面  0代表未经审批流程的全部信息，1代表审批过程结束的全部信息<br>
 			<input class="btn btn-info btn-lg" type="button" value="住房申请审批页面" id="hireGetApprove" /> <br> <br></div>
@@ -711,6 +717,11 @@
 			<input class="btn btn-info btn-lg" type="button" value="住房申请审批" id="hireAddApprove" /> <br> <br></div>
 			<div>重新审批   传入参数为hire的id<br>
 			<input class="btn btn-info btn-lg" type="button" value="重新审批" id="hireReApprove" /> <br> <br></div>
+			
+			<br> <br>
+			<div>进入申请书管理页面,按照ApplyTime的顺序排列<br>
+			<input class="btn btn-info btn-lg" type="button" value="住房申请书管理页面" id="hireGetManagement" /> <br> <br></div>
+			<br> <br>
 			
 			<div>进入房屋申请签订合同页面<br>
 			<input class="btn btn-info btn-lg" type="button" value="住房申请签订合同页面" id="hireGetSignContract" /> <br> <br></div>
