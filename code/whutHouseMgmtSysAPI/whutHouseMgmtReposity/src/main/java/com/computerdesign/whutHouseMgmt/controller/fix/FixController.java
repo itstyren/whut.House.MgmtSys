@@ -124,7 +124,12 @@ public class FixController {
 	@RequestMapping(value = "addApply" , method = RequestMethod.POST)
 	@ResponseBody
 	public Msg addFixApply(@RequestBody Fix fix){
-		
+		if (fix.getHouseId()==null) {
+			return Msg.error("维修房屋不能为空");
+		}
+		if (fix.getFixContentId()==null) {
+			return Msg.error("维修类型不能为空");
+		}
 		fix.setApplyTime(new Date());
 		fix.setFixState("待受理");
 		fix.setIsCheck(false);
@@ -421,6 +426,9 @@ public class FixController {
 	public Msg addFixCheck(@RequestBody FixAddCheck fixAddCheck){
 		
 		Fix fix = fixService.get(fixAddCheck.getId());
+		if (fix.getPriceMan() == null) {
+			return Msg.error("尚未定价，无法结算");
+		}
 		fix.setCheckMan(fixAddCheck.getCheckMan());
 		fix.setCheckTime(new Date());
 		fix.setIsCheck(true);

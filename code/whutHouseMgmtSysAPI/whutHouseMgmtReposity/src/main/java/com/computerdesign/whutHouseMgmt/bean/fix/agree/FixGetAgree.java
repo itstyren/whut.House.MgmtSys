@@ -33,6 +33,8 @@ public class FixGetAgree {
     
     private String staffAddress;
     
+    private String fixState;
+    
     private String acceptState;
 
     private String acceptNote;
@@ -65,6 +67,7 @@ public class FixGetAgree {
     	this.deptName = viewFix.getDeptName();
     	this.phone = viewFix.getPhone();
     	this.staffAddress = viewFix.getStaffAddress();
+    	this.fixState = viewFix.getFixState();
     	this.acceptMan = viewFix.getAcceptMan();
     	this.acceptNote = viewFix.getAcceptNote();
     	this.acceptState = viewFix.getAcceptState();
@@ -161,6 +164,14 @@ public class FixGetAgree {
 
 	public void setStaffAddress(String staffAddress) {
 		this.staffAddress = staffAddress;
+	}
+
+	public String getFixState() {
+		return fixState;
+	}
+
+	public void setFixState(String fixState) {
+		this.fixState = fixState;
 	}
 
 	public String getAcceptState() {
