@@ -52,6 +52,9 @@ public class HouseRegisterController {
 	@Autowired
 	private RegisterService registerService;
 	
+	@Autowired
+	private HouseService houseService;
+	
 	/**
 	 * 删除住房关系，即删除住房关系，但是保存住房登记历史记录
 	 * @return
@@ -194,6 +197,10 @@ public class HouseRegisterController {
 		}
 		
 		registerService.register(resident);
+		House house = houseService.get(resident.getHouseId());
+		//改变房屋状态
+		house.setStatus(resident.getHouseRel());
+		houseService.update(house);
 		
 		Resident residentHaveId = registerService.getByAllField(resident);
 		
