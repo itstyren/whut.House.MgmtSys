@@ -330,7 +330,7 @@
 			var data = {
 				//键的名字与Model属性名一致
 				'staffId' : 18,
-				'houseId' : 2,
+				'houseId' : 4,
 				'houseRel' : 26,
 				'bookTime' : '2018-01-28 00:00:00'
 			};

@@ -2,6 +2,7 @@ package com.computerdesign.whutHouseMgmt.bean.hire.directapply;
 
 public class HireAddDirectApply {
 
+	//id为员工id
     private Integer id;
 
     private Integer houseId;

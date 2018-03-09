@@ -3351,6 +3351,126 @@ public class ViewStaffExample {
             addCriterion("UserName not between", value1, value2, "userName");
             return (Criteria) this;
         }
+
+        public Criteria andRoleIdIsNull() {
+            addCriterion("RoleId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdIsNotNull() {
+            addCriterion("RoleId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdEqualTo(Integer value) {
+            addCriterion("RoleId =", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdNotEqualTo(Integer value) {
+            addCriterion("RoleId <>", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdGreaterThan(Integer value) {
+            addCriterion("RoleId >", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("RoleId >=", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdLessThan(Integer value) {
+            addCriterion("RoleId <", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdLessThanOrEqualTo(Integer value) {
+            addCriterion("RoleId <=", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdIn(List<Integer> values) {
+            addCriterion("RoleId in", values, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdNotIn(List<Integer> values) {
+            addCriterion("RoleId not in", values, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdBetween(Integer value1, Integer value2) {
+            addCriterion("RoleId between", value1, value2, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("RoleId not between", value1, value2, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusIsNull() {
+            addCriterion("AccountStatus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusIsNotNull() {
+            addCriterion("AccountStatus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusEqualTo(Boolean value) {
+            addCriterion("AccountStatus =", value, "accountStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusNotEqualTo(Boolean value) {
+            addCriterion("AccountStatus <>", value, "accountStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusGreaterThan(Boolean value) {
+            addCriterion("AccountStatus >", value, "accountStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("AccountStatus >=", value, "accountStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusLessThan(Boolean value) {
+            addCriterion("AccountStatus <", value, "accountStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusLessThanOrEqualTo(Boolean value) {
+            addCriterion("AccountStatus <=", value, "accountStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusIn(List<Boolean> values) {
+            addCriterion("AccountStatus in", values, "accountStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusNotIn(List<Boolean> values) {
+            addCriterion("AccountStatus not in", values, "accountStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusBetween(Boolean value1, Boolean value2) {
+            addCriterion("AccountStatus between", value1, value2, "accountStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccountStatusNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("AccountStatus not between", value1, value2, "accountStatus");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

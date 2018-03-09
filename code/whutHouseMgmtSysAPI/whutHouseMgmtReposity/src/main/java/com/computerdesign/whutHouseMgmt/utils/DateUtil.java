@@ -177,7 +177,7 @@ public class DateUtil {
 	
 	
 	/**
-	 * 得到给定时间的给定小时候的日期
+	 * 得到给定时间的给定小时后的日期
 	 * @param date
 	 * @param hour
 	 * @return

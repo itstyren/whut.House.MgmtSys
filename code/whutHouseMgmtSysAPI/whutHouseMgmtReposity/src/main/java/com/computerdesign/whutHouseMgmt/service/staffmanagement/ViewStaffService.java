@@ -31,4 +31,16 @@ public class ViewStaffService {
 		criteria.andIdEqualTo(staffId);
 		return viewStaffMapper.selectByExample(example);
 	}
+	
+	/**
+	 * 根据staffNo获取ViewStaff
+	 * @param staffNo
+	 * @return
+	 */
+	public List<ViewStaff> getByStaffNo(String staffNo) {
+		ViewStaffExample example = new ViewStaffExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andNoEqualTo(staffNo);
+		return viewStaffMapper.selectByExample(example);
+	}
 }
