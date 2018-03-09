@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.Rent;
+import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentTimeRange;
+import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVw;
+import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVwExample;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouseExample;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouseExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.hire.RentMapper;
+import com.computerdesign.whutHouseMgmt.dao.hire.RentVwMapper;
 import com.computerdesign.whutHouseMgmt.dao.internetselecthouse.StaffHouseMapper;
 
 @Service
@@ -22,6 +26,23 @@ public class RentGenerateService {
 	
 	@Autowired
 	private RentMapper rentMapper;
+	
+	@Autowired
+	private RentVwMapper rentVwMapper;
+	
+	/**
+	 * 根据租赁开始时间查询租金信息
+	 * @param rentTimeRange
+	 * @return
+	 */
+	public List<RentVw> queryRent(RentTimeRange rentTimeRange){
+		RentVwExample example = new RentVwExample();
+		com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVwExample.Criteria criteria = example.createCriteria();
+		if(rentTimeRange != null){
+			criteria.andRentBeginTimeBetween(rentTimeRange.getStartTime(), rentTimeRange.getEndTime());
+		}
+		return rentVwMapper.selectByExample(example);
+	}
 	
 	/**
 	 * 租金生成
