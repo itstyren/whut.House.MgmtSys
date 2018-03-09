@@ -52,6 +52,8 @@
     <result column="FamilyCode" jdbcType="INTEGER" property="familyCode" />
     <result column="FirstJobTime" jdbcType="DATE" property="firstJobTime" />
     <result column="UserName" jdbcType="VARCHAR" property="userName" />
+    <result column="RoleId" jdbcType="INTEGER" property="roleId" />
+    <result column="AccountStatus" jdbcType="BIT" property="accountStatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -118,7 +120,7 @@
     SpouseTitle, SpouseTitleName, SpousePost, SpousePostName, OtherVal, TimeVal, TotalVal, 
     IsSuper, SpouseDept, SpouseKind, SpouseKindName, IsDeptManage, StaffPassword, BuyAccount, 
     FixFund, SecondJoinTime, SecondRetireTime, StaffDual, Relation, DiscountRate, FamilyCode, 
-    FirstJobTime, UserName
+    FirstJobTime, UserName, RoleId, AccountStatus
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaffExample" resultMap="BaseResultMap">
     select
@@ -157,7 +159,8 @@
       StaffPassword, BuyAccount, FixFund, 
       SecondJoinTime, SecondRetireTime, StaffDual, 
       Relation, DiscountRate, FamilyCode, 
-      FirstJobTime, UserName)
+      FirstJobTime, UserName, RoleId, 
+      AccountStatus)
     values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{marriageState,jdbcType=VARCHAR}, #{title,jdbcType=INTEGER}, 
       #{titleName,jdbcType=VARCHAR}, #{titleVal,jdbcType=INTEGER}, #{spouseTitleVal,jdbcType=INTEGER}, 
@@ -174,7 +177,8 @@
       #{staffPassword,jdbcType=VARCHAR}, #{buyAccount,jdbcType=DECIMAL}, #{fixFund,jdbcType=DECIMAL}, 
       #{secondJoinTime,jdbcType=DATE}, #{secondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, 
       #{relation,jdbcType=VARCHAR}, #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, 
-      #{firstJobTime,jdbcType=DATE}, #{userName,jdbcType=VARCHAR})
+      #{firstJobTime,jdbcType=DATE}, #{userName,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, 
+      #{accountStatus,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff">
     insert into view_hs_staffall
@@ -329,6 +333,12 @@
       <if test="userName != null">
         UserName,
       </if>
+      <if test="roleId != null">
+        RoleId,
+      </if>
+      <if test="accountStatus != null">
+        AccountStatus,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -480,6 +490,12 @@
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="accountStatus != null">
+        #{accountStatus,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -642,6 +658,12 @@
       <if test="record.userName != null">
         UserName = #{record.userName,jdbcType=VARCHAR},
       </if>
+      <if test="record.roleId != null">
+        RoleId = #{record.roleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.accountStatus != null">
+        AccountStatus = #{record.accountStatus,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -698,7 +720,9 @@
       DiscountRate = #{record.discountRate,jdbcType=DOUBLE},
       FamilyCode = #{record.familyCode,jdbcType=INTEGER},
       FirstJobTime = #{record.firstJobTime,jdbcType=DATE},
-      UserName = #{record.userName,jdbcType=VARCHAR}
+      UserName = #{record.userName,jdbcType=VARCHAR},
+      RoleId = #{record.roleId,jdbcType=INTEGER},
+      AccountStatus = #{record.accountStatus,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
