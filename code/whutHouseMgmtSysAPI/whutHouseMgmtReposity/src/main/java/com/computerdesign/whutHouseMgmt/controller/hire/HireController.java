@@ -188,6 +188,9 @@ public class HireController {
 	public Msg HireAddSignContract(@RequestBody HireAddSignContract hireAddSignContract) {
 		// 获取该房屋申请信息
 		Hire hire = hireService.getHireById(hireAddSignContract.getId());
+		if (hire.getIsOver()) {
+			return Msg.error("该房屋申请已经签订过合同");
+		}
 		// 设置该申请已结束
 		hire.setIsOver(true);
 

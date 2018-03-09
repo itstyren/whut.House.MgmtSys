@@ -535,6 +535,21 @@
 			ajaxRequestGet("hire/reApprove/91");
 		})
 		
+		$("#hireGetDirectApply").click(function() {
+			ajaxRequestGet("hire/getDirectApply/1");
+		})
+		
+		
+		$("#hireAddDirectApply").click(function() {
+			var data = {
+				'directApplyMan':'小马',
+				'id':1,
+				'houseId':1,
+				'directApplyNote':'直批直批'
+			};
+			ajaxRequestPostType("hire/addDirectApply", "POST", data);
+		})
+		
 		$("#hireGetSignContract").click(function() {
 			ajaxRequestGet("hire/getSignContract");
 		})
@@ -727,6 +742,13 @@
 			<input class="btn btn-info btn-lg" type="button" value="住房申请签订合同页面" id="hireGetSignContract" /> <br> <br></div>
 			<div>签订合同<br>
 			<input class="btn btn-info btn-lg" type="button" value="签订合同" id="hireAddSignContract" /> <br> <br></div>
+			
+			<br> <br>
+			<div>直批页面，缺东西<br>
+			<input class="btn btn-info btn-lg" type="button" value="住房申请直批页面" id="hireGetDirectApply" /> <br> <br></div>
+			<div>添加直批信息,id为员工id<br>
+			<input class="btn btn-info btn-lg" type="button" value="签订合同" id="hireAddDirectApply" /> <br> <br></div>
+			<br> <br>
 		</div>
 	</div>
 
