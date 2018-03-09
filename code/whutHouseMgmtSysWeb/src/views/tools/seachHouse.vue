@@ -185,7 +185,9 @@ export default {
     // 获取查询时候的房屋参数
     getHouseParam() {
       this.selectLoading = true;
-      let param = {};
+      let param = {
+           size: 999
+      };
       // http请求
       // 住房类型1
       getHouseParam(param, 1)

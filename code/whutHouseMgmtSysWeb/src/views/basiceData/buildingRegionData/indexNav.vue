@@ -78,7 +78,6 @@ export default {
           this.regionData.forEach(region => {
             let flag = region.name.indexOf("（");
             if (flag != -1) {
-              console.log(flag);
               region.name = region.name.substring(0, flag);
             }
           });
