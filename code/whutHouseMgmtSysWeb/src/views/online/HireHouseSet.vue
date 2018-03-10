@@ -16,7 +16,7 @@
         <!-- 下方主内容 -->
         <div class="warp-body">
           <!-- 工具栏 -->
-          <div class="toolbal">
+          <div class="toolbar">
             <el-form :model="queryForm" label-width="80px">
               <div class="card">
                 <el-row>
@@ -398,7 +398,7 @@ export default {
 
 .second-container {
   background-color: $background-grey;
-  .toolbal {
+  .toolbar {
     .el-form-item {
       margin-bottom: 0;
     }

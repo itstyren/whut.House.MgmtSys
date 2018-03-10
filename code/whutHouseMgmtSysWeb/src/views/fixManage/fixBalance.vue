@@ -16,7 +16,7 @@
         <!-- 下方主内容 -->
         <div class="warp-body">
           <!-- 工具栏 -->
-          <div class="toolbal">
+          <div class="toolbar">
             <el-form :model="queryForm" label-width="100px">
               <el-row>
                 <el-col :span="4">
@@ -287,7 +287,7 @@
 </script>
 
 <style scoped lang="scss">
-  .toolbal {
+  .toolbar {
     padding: 10px 10px;
     & .el-form-item {
       margin-bottom: 5px;

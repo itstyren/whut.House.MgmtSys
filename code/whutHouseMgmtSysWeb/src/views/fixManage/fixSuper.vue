@@ -16,7 +16,7 @@
         <!-- 下方主内容 -->
         <div class="warp-body">
           <!-- 工具栏 -->
-          <div class="toolbal">
+          <div class="toolbar card">
             <el-row>
               <el-col :span="4" :offset="1">
                 <el-input v-model="query" placeholder="输入职工姓名或id搜索"></el-input>
@@ -35,7 +35,7 @@
               <el-col :span="8" class="col card">
                 <personal-info-table @select-staff="getPropsStaff" :query-data="queryData"></personal-info-table>
               </el-col>
-              <el-col :span="15" class="col card">
+              <el-col :span="15" class="col card" style="margin-left:20px">
                 <house-rel @select-house="getPropHouse"></house-rel>
               </el-col>
             </el-row>
@@ -99,7 +99,6 @@ export default {
         param: "",
         type: ""
       },
-      staffData: [],
       // 表单需要的
       superForm: {},
       staffName: "",
@@ -138,11 +137,11 @@ export default {
     },
     getPropHouse(selectHouse) {
       this.houseName = selectHouse.name;
-      this.superForm.houseId=selectHouse.id
+      this.superForm.houseId = selectHouse.id;
     },
     getPropsStaff(selectStaff) {
       this.staffName = selectStaff.name;
-      this.superForm.staffId=selectStaff.id      
+      this.superForm.staffId = selectStaff.id;
     },
     // 获取维修类型
     getFixType() {
@@ -161,8 +160,8 @@ export default {
     // 维修直批提交
     superSubmit() {
       this.listLoading = true;
-      let param=Object.assign({},this.superForm)
-      param.directApplyMan=this.$store.getters.userName
+      let param = Object.assign({}, this.superForm);
+      param.directApplyMan = this.$store.getters.userName;
       postFixSuper(param).then(res => {
         utils.statusinfo(this, res.data);
         this.listLoading = false;
@@ -179,23 +178,25 @@ export default {
 
 .second-container {
   background-color: $background-grey;
-.third-container {
-  .main-data {
-    & > .personal-info {
-      width: 100%;
-      height: 40%;
-      & > .col {
-        height: 100%;
-        overflow: auto;
+  .third-container {
+    .toolbar {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .main-data {
+      & > .personal-info {
+        height: 40%;
+        & > .col {
+          height: 100%;
+          overflow: auto;
+        }
+      }
+      & > .super-form {
+        margin: 30px auto 20px;
+        padding-top: 20px;
+        height: 40%;
       }
     }
-    & > .super-form {
-      margin: 30px auto 20px;
-      padding-top: 20px;
-      width: 97%;
-      height: 40%;
-    }
   }
-}
 }
 </style>

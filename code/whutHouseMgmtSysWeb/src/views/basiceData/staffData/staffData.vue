@@ -14,7 +14,7 @@
     <!-- 下方主内容 -->
     <div class="warp-body">
       <!-- 工具栏 -->
-      <div class="toolbal">
+      <div class="toolbar">
         <el-form :model="queryOption" :inline="true" :rules="queryRules" ref="queryForm">
             <el-form-item label="部门" prop="deptId">
               <el-select v-model="queryOption.deptId" :clearable="true" @clear="clearDept" placeholder="所有部门" style="width:200px" @change="selectDeptChange">
