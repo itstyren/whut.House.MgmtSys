@@ -17,6 +17,8 @@ public class HireGetAccept {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date applyTime;
 
+	private String hireState;
+	
     private String reason;
     
     private String phone;
@@ -51,6 +53,8 @@ public class HireGetAccept {
 		this.id = viewHire.getId();
 		this.name = viewHire.getName();
 		this.applyTime = viewHire.getApplyTime();
+		
+		this.hireState = viewHire.getHireState();
 		this.reason = viewHire.getReason();
 		this.phone = viewHire.getPhone();
 		this.titleName = viewHire.getTitleName();
@@ -97,6 +101,16 @@ public class HireGetAccept {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+	
+	
+
+	public String getHireState() {
+		return hireState;
+	}
+
+	public void setHireState(String hireState) {
+		this.hireState = hireState;
 	}
 
 	public String getPhone() {

@@ -63,7 +63,9 @@ public class SelHouseQuaAuthController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "selectByNoOrName", method = RequestMethod.GET)
-	public Msg selectByNoOrName(@RequestParam String conditionValue) {
+	public Msg selectByNoOrName(@RequestParam String conditionValue,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "5") Integer size) {
 		List<StaffHouse> staffHouses = new ArrayList<StaffHouse>();
 		// String conditionName =
 		// staffSelectByNoAndNameModel.getConditionName();
@@ -74,6 +76,7 @@ public class SelHouseQuaAuthController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		PageHelper.startPage(page, size);
 		if (conditionValue != null) {
 			staffHouses = selHouseQuaAuthService.selectByNoOrName(conditionValue);
 		}
@@ -82,7 +85,9 @@ public class SelHouseQuaAuthController {
 			// System.out.println(staffSelectModel.getDept());
 			setShowModelField(staffHouses, staffShowModels);
 		}
-		return Msg.success().add("data", staffShowModels);
+		PageInfo pageInfo = new PageInfo<>(staffHouses);
+		pageInfo.setList(staffShowModels);
+		return Msg.success().add("data", pageInfo);
 	}
 
 	/**
@@ -98,8 +103,8 @@ public class SelHouseQuaAuthController {
 			Staff staff = staffService.getByStaffNo(staffNo).get(0);
 			staff.setRelation("active");
 			staffService.update(staff);
-			
-			//设置StaffSelectHouse数据库中RecordStatus字段
+
+			// 设置StaffSelectHouse数据库中RecordStatus字段
 			StaffSelectHouse staffSelectHouse = staffSelectHouseService.getByStaffId(staff.getId());
 			staffSelectHouse.setRecordStatus("inactive");
 			staffSelectHouseService.update(staffSelectHouse);
@@ -124,12 +129,11 @@ public class SelHouseQuaAuthController {
 			// StaffSelectHouse staffSelectHouse = new StaffSelectHouse();
 			// staffSelectHouse.setStaffId(staff.getId());
 
-			//获取设置的选房开始时间以及选房时间
+			// 获取设置的选房开始时间以及选房时间
 			RentEvent rentEvent = rentEventService.get(1);
 			Date rentTimeBegin = rentEvent.getRentTimeBegin();
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(rentTimeBegin);
-
 
 			// 给StaffSelectHouse设置数据并插入数据库
 			StaffSelectHouse staffSelectHouse = new StaffSelectHouse();
@@ -137,18 +141,18 @@ public class SelHouseQuaAuthController {
 			staffSelectHouse.setRecordStatus("canselect");
 			staffSelectHouse.setCreateDate(new Date());
 			staffSelectHouseService.insert(staffSelectHouse);
-			
-			//创建哈希表key为staffId,值为totalValue
+
+			// 创建哈希表key为staffId,值为totalValue
 			HashMap<Integer, Double> staffScore = new HashMap<Integer, Double>();
-			//获取StaffSelectHouse数据库中所有canselect数据
+			// 获取StaffSelectHouse数据库中所有canselect数据
 			List<StaffSelectHouse> staffSelectHouses = staffSelectHouseService.getAll();
-			//将数据添加至哈希表
+			// 将数据添加至哈希表
 			for (StaffSelectHouse staffSelectHouse2 : staffSelectHouses) {
 				Staff staff2 = staffService.get(staffSelectHouse2.getStaffId());
 				staffScore.put(staff2.getId(), staff2.getTotalVal());
 			}
 			System.out.println(staffScore);
-			//根据职工总分对哈希表排序：键为staffId,值为totalValue
+			// 根据职工总分对哈希表排序：键为staffId,值为totalValue
 			List<Map.Entry<Integer, Double>> list = new ArrayList<Map.Entry<Integer, Double>>(staffScore.entrySet());
 			Collections.sort(list, new Comparator<Map.Entry<Integer, Double>>() {
 				// 降序排序
@@ -158,19 +162,20 @@ public class SelHouseQuaAuthController {
 				}
 			});
 
-//			System.out.println(staffScore);
-//			System.out.println(list);
-			//遍历排序后的数据，并根据其key值获取StaffSelectHouse对象，同时设置其selectStart及selectEnd值
-			for (Map.Entry<Integer, Double> mapping : list) {  
-//	            System.out.println(mapping.getKey() + ":" + mapping.getValue()); 
-	            StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffId(mapping.getKey());
-	            //设置选房开始时间
-	            staffSelectHouse3.setSelectStart(calendar.getTime());
-	            //设置选房结束时间
-	            calendar.add(Calendar.MINUTE, rentEvent.getRentTimeRanges());
-	            staffSelectHouse3.setSelectEnd(calendar.getTime());
-	            staffSelectHouseService.update(staffSelectHouse3);
-	        }  
+			// System.out.println(staffScore);
+			// System.out.println(list);
+			// 遍历排序后的数据，并根据其key值获取StaffSelectHouse对象，同时设置其selectStart及selectEnd值
+			for (Map.Entry<Integer, Double> mapping : list) {
+				// System.out.println(mapping.getKey() + ":" +
+				// mapping.getValue());
+				StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffId(mapping.getKey());
+				// 设置选房开始时间
+				staffSelectHouse3.setSelectStart(calendar.getTime());
+				// 设置选房结束时间
+				calendar.add(Calendar.MINUTE, rentEvent.getRentTimeRanges());
+				staffSelectHouse3.setSelectEnd(calendar.getTime());
+				staffSelectHouseService.update(staffSelectHouse3);
+			}
 
 		}
 		return Msg.success("设置点房职工成功");

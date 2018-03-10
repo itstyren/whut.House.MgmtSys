@@ -31,6 +31,26 @@ public class RentGenerateService {
 	private RentVwMapper rentVwMapper;
 	
 	/**
+	 * 根据职工号或职工姓名模糊查找
+	 * 
+	 * @param conditionName
+	 * @param conditionValue
+	 * @return
+	 */
+	public List<StaffHouse> selectByNoOrName(String conditionValue) {
+		StaffHouseExample example = new StaffHouseExample();
+		Criteria criteria = example.createCriteria();
+		try {
+			int test = Integer.parseInt(conditionValue);
+			criteria.andStaffNoLike("%" + conditionValue + "%");
+		} catch (NumberFormatException e) {
+			criteria.andStaffNameLike("%" + conditionValue + "%");
+		}
+		
+		return staffHouseMapper.selectByExample(example);
+	}
+	
+	/**
 	 * 根据租赁开始时间查询租金信息
 	 * @param rentTimeRange
 	 * @return
@@ -50,6 +70,18 @@ public class RentGenerateService {
 	 */
 	public void rentGenerate(Rent rent){
 		rentMapper.insertSelective(rent);
+	}
+	
+	/**
+	 * 根据HouseId查询StaffHouse视图中数据
+	 * @param houseId
+	 * @return
+	 */
+	public StaffHouse getByHouseId(Integer houseId){
+		StaffHouseExample example = new StaffHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andHouseIdEqualTo(houseId);
+		return staffHouseMapper.selectByExample(example).get(0);
 	}
 	
 	/**

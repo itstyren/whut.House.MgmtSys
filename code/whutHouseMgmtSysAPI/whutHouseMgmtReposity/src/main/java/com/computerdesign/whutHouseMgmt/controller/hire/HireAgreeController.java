@@ -5,12 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.agree.HireAddAgree;
@@ -18,11 +17,9 @@ import com.computerdesign.whutHouseMgmt.bean.hire.agree.HireGetAgree;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
-import com.computerdesign.whutHouseMgmt.service.hire.StaffHouseService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
-import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/hire/")
 public class HireAgreeController {
 
@@ -32,15 +29,8 @@ public class HireAgreeController {
 	@Autowired
 	private ViewHireService viewHireService;
 
-	@Autowired
-	private StaffHouseService staffHouseService;
-
-	@Autowired
-	private ViewStaffService viewStaffService;
-
 	
 	@RequestMapping(value = "getAgree/{agreeState}",method = RequestMethod.GET)
-	@ResponseBody
 	public Msg getHireAgree(@PathVariable("agreeState")Integer agreeState){
 		if (agreeState == null) {
 			return Msg.error("请检查你的网络");
@@ -72,7 +62,6 @@ public class HireAgreeController {
 	 * @return
 	 */
 	@RequestMapping(value = "addAgree",method = RequestMethod.PUT)
-	@ResponseBody
 	public Msg addHireAgree(@RequestBody HireAddAgree hireAddAgree){
 		ViewHire viewHire = viewHireService.getById(hireAddAgree.getId()).get(0);
 		if (viewHire.getAcceptState() == null) {
@@ -117,7 +106,6 @@ public class HireAgreeController {
 	 * @return
 	 */
 	@RequestMapping(value = "reAgree/{id}",method = RequestMethod.GET)
-	@ResponseBody
 	public Msg hireReAgree(@PathVariable("id")Integer id){
 		Hire hire = hireService.getHireById(id);
 		if (hire.getAgreeState() == null) {

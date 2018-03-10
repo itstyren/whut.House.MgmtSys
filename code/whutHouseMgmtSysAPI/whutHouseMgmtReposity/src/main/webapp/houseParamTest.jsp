@@ -565,6 +565,10 @@
 			};
 			ajaxRequestPostType("hire/addSignContract", "POST", data);
 		})
+		
+		$("#hireDelete").click(function() {
+			ajaxRequestPostType("hire/delete/12", "DELETE", null);
+		})
 	})
 	//下拉列表
 	$(function() {
@@ -747,7 +751,11 @@
 			<div>直批页面，缺东西<br>
 			<input class="btn btn-info btn-lg" type="button" value="住房申请直批页面" id="hireGetDirectApply" /> <br> <br></div>
 			<div>添加直批信息,id为员工id<br>
-			<input class="btn btn-info btn-lg" type="button" value="签订合同" id="hireAddDirectApply" /> <br> <br></div>
+			<input class="btn btn-info btn-lg" type="button" value="直批" id="hireAddDirectApply" /> <br> <br></div>
+			<br> <br>
+			
+			<div>删除hire<br>
+			<input class="btn btn-info btn-lg" type="button" value="删除hire" id="hireDelete" /> <br> <br></div>
 			<br> <br>
 		</div>
 	</div>

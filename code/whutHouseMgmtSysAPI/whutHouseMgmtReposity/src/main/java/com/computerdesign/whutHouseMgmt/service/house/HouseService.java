@@ -42,6 +42,18 @@ public class HouseService implements BaseService<House>{
 		return houseMapper.selectByExample(example);
 	}
 	
+	/**
+	 * 更改房屋状况信息
+	 * @param houseId
+	 * @param houseStatus
+	 */
+	public void updateHouseStatus(Integer houseId,Integer houseStatus) {
+		House house = houseMapper.selectByPrimaryKey(houseId);
+		house.setStatus(houseStatus);
+		houseMapper.updateByPrimaryKeySelective(house);
+	}
+	
+	
 	public List<House> getHouseByNo(String No) {
 		HouseExample example = new HouseExample();
 		Criteria criteria = example.createCriteria();

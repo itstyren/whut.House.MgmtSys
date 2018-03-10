@@ -545,7 +545,7 @@
 							//		'conditionName' : '职工姓名',
 							//		'conditionValue' : '2'
 							//	};
-							ajaxRequestGet("selHouseQuaAuth/selectByNoOrName?conditionValue=郑");
+							ajaxRequestGet("selHouseQuaAuth/selectByNoOrName?conditionValue=郑&page=2&size=2");
 						})
 
 		$("#setCanselect").click(function() {
@@ -569,6 +569,12 @@
 	//租金生成
 	$(function() {
 
+		$("#selectRentByStaffNoOrName")
+				.click(
+						function() {
+							ajaxRequestGet("rentGenerate/selectRentByStaffNoOrName?conditionValue=任&page=2&size=2");
+						})
+
 		$("#queryRent").click(
 				function() {
 					var data = {
@@ -580,7 +586,7 @@
 				})
 
 		$("#rentGen").click(function() {
-			var data = {
+			/*var data = {
 				'dept' : '绿色建材中心33',
 				'post' : '厅级3',
 				'title' : '副研究员',
@@ -600,7 +606,8 @@
 				'isExpire' : true,
 				'regionName' : '武汉市洪山区工大路20号'
 
-			};
+			};*/
+			var data = [2,4];
 			ajaxRequestPostType("rentGenerate/rentGen", "POST", data);
 		})
 
@@ -826,6 +833,9 @@
 		</div>
 
 		<div class="tab-pane fade" id="rentGenerate">
+			<h4>根据职工号或姓名查询</h4>
+			<input class="btn btn-info btn-lg" type="button" value="SelectRentByStaffNoOrName"
+				id="selectRentByStaffNoOrName" /> <br>
 			<h4>租金查询</h4>
 			<input class="btn btn-info btn-lg" type="button" value="QueryRent"
 				id="queryRent" /> <br>
