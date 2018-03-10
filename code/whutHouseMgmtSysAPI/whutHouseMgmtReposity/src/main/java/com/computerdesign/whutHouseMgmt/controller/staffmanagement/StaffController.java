@@ -96,7 +96,7 @@ public class StaffController {
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
 	public Msg modifyStaff(@RequestBody @Valid Staff staff, BindingResult result) {
 		System.out.println(staff.getCode() == null);
-		System.out.println(staff.getCode().equals(""));
+//		System.out.println(staff.getCode().equals(""));
 		if(staff.getNo() != null){
 			if(staff.getNo().trim().equals("")){
 				return Msg.error("职工编号不能为空");
