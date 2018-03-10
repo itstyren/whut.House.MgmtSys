@@ -92,13 +92,16 @@
             <el-menu-item index="/leaseManage/hireApprove">
               <span>租赁审批</span>
             </el-menu-item>
+            <el-menu-item index="/leaseManage/hireSuper">
+              <span>租赁直批</span>
+            </el-menu-item>
             <el-menu-item index="/leaseManage/hireContract">
               <span>签订合同</span>
             </el-menu-item>
             <el-menu-item index="/leaseManage/hireApplyManage">
               <span>申请书管理</span>
             </el-menu-item>
-                        <el-menu-item index="/leaseManage/rentGenerate">
+            <el-menu-item index="/leaseManage/rentGenerate">
               <span>租金生成</span>
             </el-menu-item>
           </el-submenu>

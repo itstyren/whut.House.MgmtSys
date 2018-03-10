@@ -13,7 +13,7 @@
     <!-- 下方主内容 -->
     <div class="warp-body">
       <!-- 工具栏 -->
-      <div class="toolbal">
+      <div class="toolbar">
         <el-form :inline="true">
           <el-form-item :model="queryOption">
             <el-form-item label="区域" prop="region">

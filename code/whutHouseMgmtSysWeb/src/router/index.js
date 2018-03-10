@@ -68,6 +68,8 @@ import hireAccept from '@/views/leaseManage/hireAccept'
 import hireAgree from '@/views/leaseManage/hireAgree'
 // 租赁审批
 import hireApprove from '@/views/leaseManage/hireApprove'
+// 租赁直批
+import hireSuper from '@/views/leaseManage/hireSuper'
 // 签订合同
 import hireContract from '@/views/leaseManage/hireContract'
 // 申请书管理
@@ -404,6 +406,12 @@ const routes = [
         menuShow: true
       },
       {
+        path: 'hireSuper',
+        component: hireSuper,
+        name: 'hireSuper',
+        menuShow: true
+      },
+      {
         path: 'hireContract',
         component: hireContract,
         name: 'hireContract',
@@ -413,7 +421,7 @@ const routes = [
         component: hireApplyManage,
         name: 'hireApplyManage',
         menuShow: true
-      },{
+      }, {
         path: 'rentGenerate',
         component: rentGenerate,
         name: 'rentGenerate',

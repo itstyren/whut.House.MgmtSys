@@ -1,6 +1,6 @@
 <template>
   <div class="second-container">
-    <staffIndex @emit-staff="getStaff"></staffIndex>
+    <!-- <staffIndex @emit-staff="getStaff"></staffIndex> -->
     <section class="main-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
@@ -16,7 +16,7 @@
         <!-- 下方主内容 -->
         <div class="warp-body">
           <!-- 工具栏 -->
-          <div class="toolbal card">
+          <div class="toolbar card">
             <el-row type="flex" align="middle">
               <el-col :span="2">
                 <span>关键检索</span>
@@ -30,11 +30,20 @@
               <el-col :span="2">
                 <el-button type="primary" @click="showDialog">条件检索</el-button>
               </el-col>
+              <el-col :span="8" :offset="1" v-if="isFillStaff">
+                <el-date-picker v-model="joinTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期"
+                  end-placeholder="结束日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd">
+                </el-date-picker>
+              </el-col>
+              <el-col :span="2" v-if="isFillStaff">
+                <el-button type="success" @click="showDialog">查询</el-button>
+              </el-col>
             </el-row>
           </div>
           <div class="main-data">
             <div class="staff-table card">
-              <el-table :data="hireStaffData" class="table" style="width: 100%" height="string" v-loading="listLoading">
+              <el-table :data="hireStaffData" class="table" style="width: 100%" height="string" v-loading="listLoading" @selection-change="setSelectionChange">
+                <el-table-column type="selection"></el-table-column>
                 <el-table-column prop="houseNo" fixed label="职工号" width="70" align="center"></el-table-column>
                 <el-table-column label="姓名" width="70" fixed align="center">
                   <template slot-scope="scope">
@@ -94,13 +103,66 @@
                       </div>
                     </el-popover>
                   </template>
-                </el-table-column>>
+                </el-table-column>
               </el-table>
-                            <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
+              <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
                 :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
               </el-pagination>
+              <div class="bottom-tool">
+                <el-button type="warning" size="small" @click="generateSelectRental">租金生成</el-button>
+              </div>
             </div>
-            <div class="rental-table card"></div>
+            <!-- 租金生成表格 -->
+            <div class="rental-table card">
+              <el-table :data="rentalData" class="table" style="width: 100%" height="string" v-loading="listLoading1">
+                <el-table-column prop="houseNo" fixed label="职工号" width="70" align="center"></el-table-column>
+                <el-table-column label="姓名" prop="" width="70" fixed align="center">
+                </el-table-column>
+                <el-table-column prop="bookTime" label="住房号" fixed width="100" align="center"></el-table-column>
+                <el-table-column label="地址" fixed width="260" align="center">
+                  <template slot-scope="scope">
+                    <el-popover trigger="hover" placement="top">
+                      <p>所属楼栋: {{ scope.row.buildingName }}</p>
+                      <p>竣工时间: {{ scope.row.houseFinishTime }}</p>
+                      <p>建筑面积: {{ scope.row.houseBulidArea }}</p>
+                      <p>使用面积: {{ scope.row.houseUsedArea }}</p>
+                      <p>地下室面积: {{ scope.row.houseBasementArea }}</p>
+                      <div slot="reference" class="name-wrapper">
+                        <el-tag size="medium" type="success">{{ scope.row.houseAddress }}</el-tag>
+                      </div>
+                    </el-popover>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="expireTime" label="到期时间" width="100" align="center"></el-table-column>
+                <el-table-column prop="joinTime" label="来校时间" width="100" align="center"></el-table-column>
+                <el-table-column prop="sex" label="性别" width="50" align="center"></el-table-column>
+                <el-table-column prop="marriageState" label="婚姻状况" width="80" align="center"></el-table-column>
+                <el-table-column prop="postName" label="职称" align="center"></el-table-column>
+                <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
+                <el-table-column prop="typeName" label="职工类别" width="120" align="center"></el-table-column>
+                <el-table-column prop="statusName" label="工作状态" width="80" align="center"></el-table-column>
+                <el-table-column prop="deptName" label="工作部门" width="150" align="center"></el-table-column>
+                <el-table-column label="配偶姓名" width="80" align="center">
+                  <template slot-scope="scope">
+                    <el-popover trigger="hover" placement="top">
+                      <p>姓名: {{ scope.row.spouseName }}</p>
+                      <p>单位: {{ scope.row.spouseDeptName }}</p>
+                      <p>单位性质: {{ scope.row.spouseKindName }}</p>
+                      <p>身份证号: {{ scope.row.spouseCode }}</p>
+                      <div slot="reference" class="name-wrapper">
+                        <el-tag size="medium">{{ scope.row.spouseName }}</el-tag>
+                      </div>
+                    </el-popover>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="spousePostName" label="配偶职称" width="80" align="center"></el-table-column>
+                <el-table-column prop="spousePostName" label="配偶职务" width="80" align="center"></el-table-column>
+                <el-table-column prop="houseTypeName" label="住房类型" width="80" align="center"></el-table-column>
+                <el-table-column prop="houseLayoutName" label="户型" width="80" align="center"></el-table-column>
+                <el-table-column prop="houseStructName" label="结构" width="80" align="center"></el-table-column>
+                <el-table-column prop="houseStatusName" label="使用状态" width="80" align="center"></el-table-column>
+              </el-table>
+            </div>
           </div>
         </div>
         <!-- 多条件查询窗口 -->
@@ -232,6 +294,7 @@
       return {
         // 查询需要相关的
         directQuery: "",
+        isFillStaff: false,
         // 多条件查找区
         dialogLoading: false,
         dialogVisible: false,
@@ -246,6 +309,7 @@
         joinTime: [],
         goUniversityTimeRange: [],
         formOption: OPTION,
+        setList: [],
         // 时间选择区域
         pickerOptions: {
           shortcuts: staticData.longSpanPickerOptions
@@ -255,8 +319,21 @@
         listLoading: false,
         totalNum: 0,
         page: 1,
-        size: 10
+        size: 10,
+        // 租金生成表格
+        rentalData: [],
+        listLoading1: false,
+        totalNum1: 0,
+        page1: 1,
+        size1: 10
       };
+    },
+    watch: {
+      hireStaffData(newVal) {
+        if (newVal != []) {
+          this.isFillStaff = true;
+        }
+      }
     },
     components: {
       staffIndex
@@ -344,7 +421,7 @@
                 console.log(err);
               });
           } else {
-            resolve()
+            resolve();
           }
         });
       },
@@ -384,14 +461,23 @@
           this.listLoading = false;
         });
       },
+      // 监听多选生成租金
+      setSelectionChange(selection) {
+        this.setList = [];
+        selection.forEach(v => {
+          this.setList.push(v.houseNo);
+        });
+      },
+      // 对需要生成的信息进行过滤
+      generateSelectRental() {},
       //更换每页数量
-      SizeChangeEvent(val) {
+      sizeChangeEvent(val) {
         this.listLoading = true;
         this.size = val;
         this.multiplyQuery();
       },
       //页码切换时
-      CurrentChangeEvent(val) {
+      currentChangeEvent(val) {
         this.listLoading = true;
         this.page = val;
         this.multiplyQuery();
@@ -406,16 +492,22 @@
 
   .second-container {
     background-color: $background-grey;
-    .card {
+    .toolbar {
       padding: 15px;
     }
     .staff-table {
       height: 28vh;
-      padding-bottom: 35px;
+      padding-bottom: 40px;
+      position: relative;
+      &>.bottom-tool {
+        position: absolute;
+        bottom: 5px;
+        left: 15px;
+      }
     }
-    .rental-table{
-        height: 25vh;
-      padding-bottom: 35px;        
+    .rental-table {
+      height: 28vh;
+      padding-bottom: 35px;
     }
     .multiply-diolog {
       .el-form-item {

@@ -15,19 +15,30 @@
         <!-- 下方主内容 -->
         <div class="warp-body">
           <!-- 工具栏 -->
-          <div class="toolbal">
+          <div class="toolbar">
           </div>
           <!-- 表格区 -->
           <div class="main-data">
             <el-table :data="hireFormData" class="table" height="string" v-loading="listLoading">
-              <el-table-column type="selection" width="55"></el-table-column>
-              <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
-              <el-table-column prop="applyTime" label="申请时间"  sortable align="center"></el-table-column>
-              <el-table-column prop="acceptState" label="受理状态"  align="center"></el-table-column>
-              <el-table-column prop="staffName" label="申请人"  align="center"></el-table-column>
-              <el-table-column prop="postName" label="职称"  align="center"></el-table-column>
-              <el-table-column prop="titleName" label="职务"  align="center"></el-table-column>
+              <!-- <el-table-column type="selection" width="55"></el-table-column> -->
+              <!-- <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column> -->
+              <el-table-column prop="id" label="申请号"  align="center"></el-table-column>              
+              <el-table-column prop="applyTime" label="申请时间" sortable align="center"></el-table-column>
+              <el-table-column label="处理状态" prop="hireState" align="center" :filters="statuseArray" :filter-method="filterHandle">
+                <template slot-scope="scope">
+                  <el-tag :type="scope.row.hireState | statusFilter">{{scope.row.hireState}}</el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column prop="isOver" label="合同签订" :formatter="isOverFormat" align="center">
+                        <template slot-scope="scope">
+          <my-icon v-if="scope.row.isOver" icon-class="qiandinghetong"></my-icon>
+        </template>
+        </el-table-column>              
+              <el-table-column prop="name" label="申请人" align="center"></el-table-column>
+              <el-table-column prop="postName" label="职称" align="center"></el-table-column>
+              <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
               <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
+              <el-table-column prop="phone" label="联系电话" align="center"></el-table-column>    
               <el-table-column label="操作" width="350" align="center">
                 <template slot-scope="scope">
                   <el-button type="infor" size="small" @click="ReAccept(scope.$index,scope.row)">重受理</el-button>
@@ -48,8 +59,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getFixForm} from "@/api/fixManage";
-import { getHireReAccept, getHireReAgree,getHireReApprove } from "@/api/leaseManage";
+import {
+  getHireForm,
+  getHireReAccept,
+  getHireReAgree,
+  getHireReApprove
+} from "@/api/leaseManage";
 import utils from "@/utils/index.js";
 
 export default {
@@ -60,11 +75,33 @@ export default {
       listLoading: false,
       totalNum: 0,
       page: 1,
-      size: 10
+      size: 10,
+      statuseArray: [
+        { text: "未受理", value: "未受理" },
+        { text: "待审核", value: "待审核" },
+        { text: "待审批", value: "待审批" },
+        { text: "已审批", value: "已审批" },
+        { text: "受理拒绝", value: "受理拒绝" },
+        { text: "审核拒绝", value: "审核拒绝" },
+        { text: "审批拒绝", value: "审批拒绝" }
+      ]
     };
   },
   created() {
     this.getList();
+  },
+  // 过滤器的哈希表
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        待审核: "warning",
+        未受理: "info",
+        审核拒绝: "danger",
+        受理拒绝: "danger",
+        已审批: "success"
+      };
+      return statusMap[status];
+    }
   },
   methods: {
     // 获取列表
@@ -74,7 +111,7 @@ export default {
         page: this.page,
         size: this.size
       };
-      getFixForm(param)
+      getHireForm(param)
         .then(res => {
           // console.log(res.data.data)
           this.hireFormData = res.data.data.data.list;
@@ -85,6 +122,18 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    // 筛选处理
+    filterHandle(value, row) {
+      console.log(value);
+      return row.hireState === value;
+    },
+    isOverFormat(row, column, cellValue) {
+      if (cellValue == false) {
+        return "未签订";
+      } else {
+        return "已签订";
+      }
     },
     // 表单重新受理
     ReAccept(index, row) {

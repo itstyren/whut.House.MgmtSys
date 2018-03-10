@@ -49,6 +49,15 @@ export function putHireApprove(data) {
     data: data
   })
 }
+// 租赁管理-租赁直批
+// 直批通过
+export function putHireSuper(data) {
+  return request({
+    url: `/hire/addDirectApply`,
+    method: 'post',
+    data: data
+  })
+}
 // 租赁管理-合同签订
 // 获取需要签订的合同
 export function getHireContract(params) {
@@ -67,6 +76,14 @@ export function putHireContract(data) {
 }
 
 // 租赁管理-申请书管理
+// 获取所有申请书
+export function getHireForm(params) {
+  return request({
+    url: `/hire/getManagement`,
+    method: 'get',
+    params:params
+  })
+}
 // 重新受理
 export function getHireReAccept(formID) {
   return request({

@@ -16,7 +16,7 @@
         <!-- 下方主内容 -->
         <div class="warp-body">
           <!-- 工具栏 -->
-          <div class="toolbal">
+          <div class="toolbar">
             <el-form :model="queryForm" label-width="80px">
               <div class="card">
                 <el-row>
@@ -181,6 +181,7 @@
   } from "@/api/sysManage";
   import * as OPTION from "@/assets/data/formOption";
   import utils from "@/utils/index.js";
+  import * as staticData from "@/utils/static";  
   export default {
     data() {
       return {
@@ -195,34 +196,7 @@
         formOption: OPTION,
         // 时间选择区域
         pickerOptions: {
-          shortcuts: [{
-              text: "最近一周",
-              onClick(picker) {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                picker.$emit("pick", [start, end]);
-              }
-            },
-            {
-              text: "最近一个月",
-              onClick(picker) {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                picker.$emit("pick", [start, end]);
-              }
-            },
-            {
-              text: "最近三个月",
-              onClick(picker) {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                picker.$emit("pick", [start, end]);
-              }
-            }
-          ]
+          shortcuts: staticData.longSpanPickerOptions
         },
         // 表格区域
         listLoading: false,
@@ -436,7 +410,7 @@
 
   .second-container {
     background-color: $background-grey;
-    .toolbal {
+    .toolbar {
       .el-form-item {
         margin-bottom: 0;
       }
