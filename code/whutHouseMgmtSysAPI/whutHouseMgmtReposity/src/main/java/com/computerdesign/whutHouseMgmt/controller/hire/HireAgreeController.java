@@ -44,14 +44,16 @@ public class HireAgreeController {
 	public Msg getHireAgree(@PathVariable("agreeState")Integer agreeState){
 		if (agreeState == null) {
 			return Msg.error("请检查你的网络");
-		} else if (agreeState == 0) {
+		}
+		if (agreeState == 0) {
 			List<ViewHire> listViewHire = viewHireService.getAgreeUntil();
 			List<HireGetAgree> listHireGetAgree = new ArrayList<HireGetAgree>();
 			for (ViewHire viewHire : listViewHire) {
 				listHireGetAgree.add(new HireGetAgree(viewHire));
 			}
 			return Msg.success("获取全部的未审核信息").add("data", listHireGetAgree);
-		} else if (agreeState == 1) {
+		} 
+		if (agreeState == 1) {
 			List<ViewHire> listViewHire = viewHireService.getAgreeHasBeen();
 			List<HireGetAgree> listHireGetAgree = new ArrayList<HireGetAgree>();
 			for (ViewHire viewHire : listViewHire) {
@@ -75,7 +77,8 @@ public class HireAgreeController {
 		ViewHire viewHire = viewHireService.getById(hireAddAgree.getId()).get(0);
 		if (viewHire.getAcceptState() == null) {
 			return Msg.error("该房屋申请尚未被受理，无法审核");
-		}else if (viewHire.getAgreeState() !=null) {
+		}
+		if (viewHire.getAgreeState() !=null) {
 			return Msg.error("该房屋已被审核");
 		}
 		Hire hire = hireService.getHireById(hireAddAgree.getId());

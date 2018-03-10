@@ -27,6 +27,14 @@ public class HireGetAgree {
     
     private String phone;
     
+    private String houseNo;
+
+    private Double houseBuildArea;
+
+    private Double houseUserArea;
+
+    private String houseAddress;
+    
     private String acceptNote;
 
     private String acceptState;
@@ -66,6 +74,10 @@ public class HireGetAgree {
 		this.applyTime = viewHire.getApplyTime();
 		this.reason = viewHire.getReason();
 		this.phone = viewHire.getPhone();
+		this.houseNo = viewHire.getHouseNo();
+		this.houseBuildArea = viewHire.getHouseBuildArea();
+		this.houseUserArea = viewHire.getHouseUserArea();
+		this.houseAddress = viewHire.getHouseAddress();
 		this.acceptNote = viewHire.getAcceptNote();
 		this.acceptState = viewHire.getAcceptState();
 		this.acceptMan = viewHire.getAcceptMan();
@@ -143,6 +155,40 @@ public class HireGetAgree {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	
+	
+	public String getHouseNo() {
+		return houseNo;
+	}
+
+	public void setHouseNo(String houseNo) {
+		this.houseNo = houseNo;
+	}
+
+	public Double getHouseBuildArea() {
+		return houseBuildArea;
+	}
+
+	public void setHouseBuildArea(Double houseBuildArea) {
+		this.houseBuildArea = houseBuildArea;
+	}
+
+	public Double getHouseUserArea() {
+		return houseUserArea;
+	}
+
+	public void setHouseUserArea(Double houseUserArea) {
+		this.houseUserArea = houseUserArea;
+	}
+
+	public String getHouseAddress() {
+		return houseAddress;
+	}
+
+	public void setHouseAddress(String houseAddress) {
+		this.houseAddress = houseAddress;
 	}
 
 	public String getAcceptNote() {

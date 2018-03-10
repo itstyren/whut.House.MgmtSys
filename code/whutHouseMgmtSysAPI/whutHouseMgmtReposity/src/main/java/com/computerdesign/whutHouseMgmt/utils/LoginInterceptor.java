@@ -13,16 +13,16 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.user.UserLoginReturn;
-import com.computerdesign.whutHouseMgmt.service.login.LoginService;
-
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
+import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
 public class LoginInterceptor implements HandlerInterceptor {
 
+
 	@Autowired
-	private LoginService loginService;
+	private ViewStaffService viewStaffService;
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object obj, Exception err)
@@ -34,15 +34,17 @@ public class LoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 
 	}
-	
-	
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
-		
+
 		// 从header中获取"X-toke"
-		String token = (String) request.getHeader("X-token");
-		System.out.println(token);
+		String token = request.getHeader("X-token");
+		if (token == null) {
+			token = request.getParameter("X-token");
+		}
 		// TODO 测试
+		System.out.println(token);
 		// 将token解码为可读取信息
 		byte[] targetBs;
 		try {
@@ -56,25 +58,35 @@ public class LoginInterceptor implements HandlerInterceptor {
 		String[] strArr = token.split("_");
 
 		try {
-			//错误的token可能会导致无法求出以下三个参数
+			// 错误的token可能会导致无法求出以下三个参数
 			String no = strArr[0];
 			String password = strArr[1];
-			Long roleId = Long.valueOf(strArr[2]).longValue();
+			int roleId = Integer.parseInt(strArr[2]);
 			Date date = DateUtil.parseDate(strArr[3]);
 			Long pastHour = DateUtil.pastHour(date);
-//			if (pastHour <=2) {
-//				response.setStatus(401);
-//				return false;
-//			}
-			
-			System.out.println(no+"   "+password+"   "+roleId+"   "+date+"  "+pastHour);
-			List<UserLoginReturn> users = loginService.getLogin(no, password, roleId);
-			if (users.isEmpty()) {
+			// if (pastHour <=2) {
+			// response.setStatus(401);
+			// return false;
+			// }
+
+			List<ViewStaff> viewStaffs = viewStaffService.getByStaffNo(no);
+			// 判断登陆信息
+			if (viewStaffs.isEmpty()) {
 				response.setStatus(401);
 				return false;
-			} else {
-				return true;
 			}
+			ViewStaff viewStaff = viewStaffs.get(0);
+			if (viewStaff.getAccountStatus()) {
+				response.setStatus(401);
+				return false;
+			}
+			if (!viewStaff.getStaffPassword().equals(password) || viewStaff.getRoleId() != roleId) {
+				response.setStatus(401);
+				return false;
+			}
+
+			System.out.println(no + "   " + password + "   " + roleId + "   " + date + "  " + pastHour);
+			return true;
 		} catch (Exception e) {
 			response.setStatus(401);
 			return false;

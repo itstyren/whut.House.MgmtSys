@@ -44,6 +44,16 @@ public class ViewHireService {
 	}
 	
 	/**
+	 * 获取全部的ViewHire信息
+	 * @return
+	 */
+	public List<ViewHire> getAllViewHire() {
+		ViewHireExample example = new ViewHireExample();
+		example.setOrderByClause("ApplyTime DESC");
+		Criteria criteria = example.createCriteria();
+		return viewHireMapper.selectByExample(example);
+	}
+	/**
 	 * 获取全部待受理的房屋申请信息
 	 * @return
 	 */

@@ -13,7 +13,7 @@
     <!-- 下方主内容 -->
     <div class="warp-body">
       <!-- 工具栏 -->
-      <div class="toolbal">
+      <div class="toolbar">
         <el-form :inline="true" style="margin-bottom:15px">
           <el-button type="primary" @click="addFormVisible = true">新增内容</el-button>
         </el-form>

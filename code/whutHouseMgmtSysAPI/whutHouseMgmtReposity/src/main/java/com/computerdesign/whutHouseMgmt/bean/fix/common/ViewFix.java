@@ -2,6 +2,10 @@ package com.computerdesign.whutHouseMgmt.bean.fix.common;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ViewFix {
     private Integer id;
 
@@ -11,6 +15,8 @@ public class ViewFix {
 
     private String description;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date applyTime;
 
     private String fixState;
@@ -19,6 +25,8 @@ public class ViewFix {
 
     private String acceptNote;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date acceptTime;
 
     private String acceptMan;
@@ -27,6 +35,8 @@ public class ViewFix {
 
     private String agreeNote;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date agreeTime;
 
     private String agreeMan;
@@ -53,14 +63,20 @@ public class ViewFix {
 
     private String message;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date priceTime;
 
     private String priceMan;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date checkTime;
 
     private String checkMan;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date fixTime;
 
     private String fixMoney;

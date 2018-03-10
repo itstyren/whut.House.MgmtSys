@@ -15,7 +15,7 @@
         <!-- 下方主内容 -->
         <div class="warp-body">
           <!-- 工具栏 -->
-          <div class="toolbal">
+          <div class="toolbar">
           </div>
           <!-- 表格区 -->
           <div class="main-data">

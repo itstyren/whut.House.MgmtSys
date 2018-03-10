@@ -13,7 +13,7 @@
     <!-- 下方主内容 -->
     <div class="warp-body">
       <!-- 工具栏 -->
-      <div class="toolbal">
+      <div class="toolbar">
         <el-popover ref="addPopver" width="160" placement="top" v-model="popoverVisible">
           <p class="margin:0">请在职工参数中新增职务，此处不可新增职务</p>
           <div style="text-align: right; margin:0">
