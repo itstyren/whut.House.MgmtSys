@@ -47,7 +47,7 @@ public class HireApproveController {
 			for (ViewHire viewHire : listViewHire) {
 				listHireGetApprove.add(new HireGetApprove(viewHire));
 			}
-			return Msg.success("返回所有的未审批的房屋请求信息").add("data", listHireGetApprove);
+			return Msg.success("返回所有的待审批的房屋请求信息").add("data", listHireGetApprove);
 		}else if (approveState == 1) {
 			List<HireGetApprove> listHireGetApprove = new ArrayList<HireGetApprove>();
 			List<ViewHire> listViewHire = viewHireService.getApproveHasBeen();

@@ -56,7 +56,7 @@ public class FixAcceptController {
 		
 		if(acceptState == null){
 			return Msg.error("请检查你的网络");
-			//acceptState=0表示未受理的
+			//acceptState=0表示待受理的
 		}else if(0 == acceptState){
 			List<ViewFix> list = viewFixService.getAcceptUntil();
 			List<FixGetAccept> listFixGetAccept = new ArrayList<FixGetAccept>();
@@ -64,7 +64,7 @@ public class FixAcceptController {
 			for (ViewFix viewFix : list) {
 				listFixGetAccept.add(new FixGetAccept(viewFix));
 			}
-			return Msg.success("获取全部的未受理信息").add("data", listFixGetAccept);
+			return Msg.success("获取全部的待受理信息").add("data", listFixGetAccept);
 		}else if (1 == acceptState) {
 			List<ViewFix> list = viewFixService.getAcceptHasBeen();
 			List<FixGetAccept> listFixGetAccept = new ArrayList<FixGetAccept>();
