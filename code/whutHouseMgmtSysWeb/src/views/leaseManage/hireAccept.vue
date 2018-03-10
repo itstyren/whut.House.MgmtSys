@@ -161,7 +161,7 @@
                     </el-col>
                   </el-row>
                   <el-row type="flex" justify="start" v-if="!acceptStatus">
-                                   <el-col :span="6" :push="4">
+                    <el-col :span="6" :push="4">
                       <el-form-item label="受理状态">
                         <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
                           inactive-text="通过" inactive-value="通过"></el-switch>
@@ -170,7 +170,7 @@
                     <el-col :span="1" :push="4">
                       <el-button type="primary" v-if="!acceptStatus" @click="acceptSubmit">提交</el-button>
                     </el-col>
-                  </el-row>                  
+                  </el-row>
                   <!-- 非操作区域 -->
                   <el-row v-if="acceptStatus">
                     <el-col :span="7" :offset="1">
@@ -222,119 +222,122 @@
 </template>
 
 <script type="text/ecmascript-6">
-import indexNav from "./components/indexNav";
-import { putHireAccept } from "@/api/leaseManage";
-import utils from "@/utils/index.js";
-export default {
-  data() {
-    return {
-      listLoading: false,
-      acceptForm: {},
-      acceptStatus: false,
-      hireStatus: "accept",
-      isSubmit: false,
-      // 表单验证规则
-      rules: {
-        acceptNote: {
-          required: true,
-          message: "请输入受理意见",
-          trigger: "blur"
+  import indexNav from "./components/indexNav";
+  import {
+    putHireAccept
+  } from "@/api/leaseManage";
+  import utils from "@/utils/index.js";
+  export default {
+    data() {
+      return {
+        listLoading: false,
+        acceptForm: {},
+        acceptStatus: false,
+        hireStatus: "accept",
+        isSubmit: false,
+        // 表单验证规则
+        rules: {
+          acceptNote: {
+            required: true,
+            message: "请输入受理意见",
+            trigger: "blur"
+          }
         }
-      }
-    };
-  },
-  computed: {
-    totalVal: function() {
-      return (
-        parseInt(this.acceptForm.otherVal) + parseInt(this.acceptForm.titleVal)
-      );
-    }
-  },
-  components: {
-    indexNav
-  },
-  methods: {
-    // 从子组件获取
-    getList(object) {
-      this.acceptForm = object.content;
-      this.acceptForm.otherVal = 0;
-      this.acceptStatus = object.status;
+      };
     },
-    // 受理信息提交
-    acceptSubmit() {
-      if (this.acceptForm.acceptState == null)
-        this.acceptForm.acceptState = "通过";
-      this.$confirm("确认通过审核", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$refs["acceptForm"].validate(valid => {
-            if (valid) {
-              this.listLoading = true;
-              let acceptForm = this.acceptForm;
-              let param = {
-                acceptMan: this.$store.getters.userName,
-                acceptNote: acceptForm.acceptNote,
-                acceptState: acceptForm.acceptState,
-                id: acceptForm.id,
-                otherVal: acceptForm.otherVal,
-                spouseVal: acceptForm.spouseVal,
-                timeVal: acceptForm.timeVal,
-                titleVal: acceptForm.titleVal,
-                totalVal: this.totalVal
-              };
-              putHireAccept(param).then(res => {
-                this.acceptForm = {};
-                utils.statusinfo(this, res.data);
-                this.isSubmit = !this.isSubmit;
-                this.listLoading = false;
-                if (res.data.status == "success")
-                  this.$refs["acceptForm"].resetFields();
-              });
-            }
+    computed: {
+      totalVal: function () {
+        return (
+          parseInt(this.acceptForm.otherVal) + parseInt(this.acceptForm.titleVal)
+        );
+      }
+    },
+    components: {
+      indexNav
+    },
+    methods: {
+      // 从子组件获取
+      getList(object) {
+        this.acceptForm = object.content;
+        this.acceptForm.otherVal = 0;
+        this.acceptStatus = object.status;
+      },
+      // 受理信息提交
+      acceptSubmit() {
+        if (this.acceptForm.acceptState == null)
+          this.acceptForm.acceptState = "通过";
+        this.$confirm(`确认${this.acceptForm.acceptState}受理`, "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            this.$refs["acceptForm"].validate(valid => {
+              if (valid) {
+                this.listLoading = true;
+                let acceptForm = this.acceptForm;
+                let param = {
+                  acceptMan: this.$store.getters.userName,
+                  acceptNote: acceptForm.acceptNote,
+                  acceptState: acceptForm.acceptState,
+                  id: acceptForm.id,
+                  otherVal: acceptForm.otherVal,
+                  spouseVal: acceptForm.spouseVal,
+                  timeVal: acceptForm.timeVal,
+                  titleVal: acceptForm.titleVal,
+                  totalVal: this.totalVal
+                };
+                putHireAccept(param).then(res => {
+                  this.acceptForm = {};
+                  utils.statusinfo(this, res.data);
+                  this.isSubmit = !this.isSubmit;
+                  this.listLoading = false;
+                  if (res.data.status == "success")
+                    this.$refs["acceptForm"].resetFields();
+                });
+              }
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消受理"
+            });
           });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消审核"
-          });
-        });
+      }
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-@import "../../styles/variables.scss";
+  @import "../../styles/variables.scss";
 
-.second-container {
-  background-color: $background-grey;
-  & .main-data {
-    padding-top: 20px;
-    margin-bottom: 30px;
-    & .accept-form {
-      width: 80%;
-      background-color: #fff;
-      padding: 10px;
-      padding-bottom: 30px;
-      // height: 90%;
-      margin: auto;
-      position: relative;
-      & .need-accept {
-        h1 {
-          text-align: center;
-          margin-bottom: 30px;
-        }
-        & .is-accept {
-          position: relative;
-          border-bottom: 1px solid #e6ebf5;
-          margin-bottom: 20px;
+  .second-container {
+    background-color: $background-grey;
+    & .main-data {
+      padding-top: 20px;
+      margin-bottom: 30px;
+      & .accept-form {
+        width: 80%;
+        background-color: #fff;
+        padding: 10px;
+        padding-bottom: 30px; // height: 90%;
+        margin: auto;
+        position: relative;
+        & .need-accept {
+          h1 {
+            text-align: center;
+            margin-bottom: 30px;
+          }
+          & .is-accept {
+            position: relative;
+            border-bottom: 1px solid #e6ebf5;
+            margin-bottom: 20px;
+          }
         }
       }
     }
   }
-}
+
 </style>

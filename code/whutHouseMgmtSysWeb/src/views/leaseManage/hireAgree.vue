@@ -105,7 +105,7 @@
                   <el-row v-if="!status" :class="{'is-agree':!status}">
                     <el-col :span="9" :offset="1">
                       <el-form-item label="受理说明">
-                        <el-input v-model="agreeForm.acceptNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                        <el-input v-model="agreeForm.acceptNote" readonly type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -153,7 +153,7 @@
                   <el-row v-if="status">
                     <el-col :span="7" :offset="1">
                       <el-form-item label="审核意见">
-                        <el-input v-model="agreeForm.agreeNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                        <el-input v-model="agreeForm.agreeNote" readonly type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -222,9 +222,9 @@ export default {
     },
     // 审核信息提交
     agreeSubmit() {
-      if (this.agreeForm.acceptState == null)
-        this.agreeForm.acceptState = "通过";
-      this.$confirm("确认通过审核", "提示", {
+      if (this.agreeForm.agreeState == null)
+        this.agreeForm.agreeState = "通过";
+      this.$confirm(`确认${this.agreeForm.agreeState}审核`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"

@@ -312,6 +312,7 @@ export default {
     // 编辑之前的处理
     beforModify() {
       const postForm={}
+      postForm.id=this.oldStaffForm.id
       let newVal = this.staffForm;
       let oldVal = this.oldStaffForm;
       for (let v in newVal) {
@@ -319,10 +320,10 @@ export default {
           postForm[v]=newVal[v]
         }
       }
-      console.log(postForm);
+      this.modifySubmit(postForm)
     },
     // 编辑提交
-    modifySubmit() {
+    modifySubmit(postForm) {
       this.$confirm("此操作保存编辑", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -332,8 +333,8 @@ export default {
           this.$refs["staffForm"].validate(valid => {
             if (valid) {
               this.listLoading = true;
-              let param = Object.assign({}, this.staffForm);
-              putStaffData(param).then(res => {
+              //let param = Object.assign({}, this.staffForm);
+              putStaffData(postForm).then(res => {
                 utils.statusinfo(this, res.data);
                 this.detailLoading = false;
                 this.$refs["staffForm"].resetFields();

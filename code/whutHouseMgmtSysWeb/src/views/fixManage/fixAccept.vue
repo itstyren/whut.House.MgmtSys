@@ -177,7 +177,7 @@
       acceptSubmit() {
         if (this.acceptForm.acceptState == null)
           this.acceptForm.acceptState = "通过";
-        this.$confirm("确认通过审核", "提示", {
+        this.$confirm(`确认${this.acceptForm.acceptState}受理`, "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"

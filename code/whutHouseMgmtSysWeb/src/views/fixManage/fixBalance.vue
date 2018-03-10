@@ -72,10 +72,10 @@
                 </template>
               </el-table-column>
               <el-table-column prop="isOver" label="是否定价" align="center"></el-table-column>
-              <el-table-column  label="状态" align="center">
-                        <template slot-scope="scope">
-          <el-tag :type="scope.row.fixState | statusFilter">{{scope.row.fixState}}</el-tag>
-        </template>
+              <el-table-column label="状态" align="center">
+                <template slot-scope="scope">
+                  <el-tag :type="scope.row.fixState | statusFilter">{{scope.row.fixState}}</el-tag>
+                </template>
               </el-table-column>
               <el-table-column prop="houseNo" label="住房号" align="center"></el-table-column>
               <el-table-column prop="staffNo" label="职工号" align="center"></el-table-column>
@@ -107,190 +107,195 @@
 </template>
 
 <script type="text/ecmascript-6">
-import * as OPTION from "@/assets/data/formOption";
-import { postFixmulticondition, putFixPrice, putFixcheck } from "@/api/fixManage";
-import utils from "@/utils/index.js";
-export default {
-  data() {
-    return {
-      // 多重查找表单
-      queryForm: {},
-      setTime: [],
-      // 一些不需要后台获取的静态数据
-      formOption: OPTION,
-      // 表格需要的数据
-      fixFormData: [],
-      listLoading: false,
-      totalNum: 0,
-      page: 1,
-      size: 10,
-      pickerOptions: {
-        shortcuts: [
-          {
-            text: "最近一周",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", [start, end]);
+  import * as OPTION from "@/assets/data/formOption";
+  import {
+    postFixmulticondition,
+    putFixPrice,
+    putFixcheck
+  } from "@/api/fixManage";
+  import utils from "@/utils/index.js";
+  export default {
+    data() {
+      return {
+        // 多重查找表单
+        queryForm: {},
+        setTime: [],
+        // 一些不需要后台获取的静态数据
+        formOption: OPTION,
+        // 表格需要的数据
+        fixFormData: [],
+        listLoading: false,
+        totalNum: 0,
+        page: 1,
+        size: 10,
+        pickerOptions: {
+          shortcuts: [{
+              text: "最近一周",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                picker.$emit("pick", [start, end]);
+              }
+            },
+            {
+              text: "最近一个月",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                picker.$emit("pick", [start, end]);
+              }
+            },
+            {
+              text: "最近三个月",
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                picker.$emit("pick", [start, end]);
+              }
             }
-          },
-          {
-            text: "最近一个月",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit("pick", [start, end]);
-            }
-          },
-          {
-            text: "最近三个月",
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
-      }
-    };
-  },
-  // 过滤器的哈希表
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        待审核: "warning",
-        待受理: "warning",
-        审核拒绝: "danger",
-        受理拒绝: "danger",
-        已审核: "success"
-      };
-      return statusMap[status];
-    }
-  },
-  created() {
-    this.multicondition();
-  },
-  methods: {
-    // 格式化价格处
-    priceFormat(row, column, cellValue) {
-      if (cellValue == null) return "待填";
-      else return row.fixMoney;
-    },
-    // 初始获取和多条件获取通用
-    multicondition() {
-      if (this.setTime != null && this.setTime.length != 0) {
-        this.queryForm.startTime = this.setTime[0];
-        this.queryForm.endTime = this.setTime[1];
-      } else {
-        this.queryForm.startTime = "";
-        this.queryForm.endTime = "";
-      }
-      this.listLoading = true;
-      for (let val in this.queryForm) {
-        if (this.queryForm[val] == "") {
-          delete this.queryForm[val];
+          ]
         }
-      }
-      let param = {
-        page: this.page,
-        size: this.size
       };
-      let data = Object.assign({}, this.queryForm);
-      postFixmulticondition(param, data).then(res => {
-        utils.statusinfo(this, res.data);
-        const data = res.data.data.data.list;
-        this.totalNum = res.data.data.data.total;
-        this.fixFormData = data.map(v => {
-          this.$set(v, "edit", false);
-          v.originFixMoney = v.fixMoney;
-          return v;
-        });
-        this.listLoading = false;
-      });
     },
-    // 维修定价
-    SavePrice(index, row) {
-      if (row.fixMoney != null) {
-        this.listLoading = true;
-        let param = {
-          price: row.fixMoney,
-          id: row.id,
-          priceMan: "任天宇"
+    // 过滤器的哈希表
+    filters: {
+      statusFilter(status) {
+        const statusMap = {
+          待审核: "warning",
+          待受理: "warning",
+          审核拒绝: "danger",
+          受理拒绝: "danger",
+          已审核: "success"
         };
-        putFixPrice(param).then(res => {
-          // 公共提示方法
-          utils.statusinfo(this, res.data);
-          this.multicondition();
-        });
-      } else {
-        this.$notify.error({
-          title: "错误",
-          message: "不能保存定价为空"
-        });
+        return statusMap[status];
       }
     },
-    // 取消定价
-    cancel(index, row) {
-      row.fixMoney = row.originFixMoney;
-      row.edit = false;
-      this.$message({
-        message: "已取消定价操作",
-        type: "warning"
-      });
+    created() {
+      this.multicondition();
     },
-    // 维修结算
-    setCheck(index, row) {
-      this.$confirm("确认结算该项", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
+    methods: {
+      // 格式化价格处
+      priceFormat(row, column, cellValue) {
+        if (cellValue == null) return "待填";
+        else return row.fixMoney;
+      },
+      // 初始获取和多条件获取通用
+      multicondition() {
+        if (this.setTime != null && this.setTime.length != 0) {
+          this.queryForm.startTime = this.setTime[0];
+          this.queryForm.endTime = this.setTime[1];
+        } else {
+          this.queryForm.startTime = "";
+          this.queryForm.endTime = "";
+        }
+        this.listLoading = true;
+        for (let val in this.queryForm) {
+          if (this.queryForm[val] == "") {
+            delete this.queryForm[val];
+          }
+        }
+        let param = {
+          page: this.page,
+          size: this.size
+        };
+        let data = Object.assign({}, this.queryForm);
+        postFixmulticondition(param, data).then(res => {
+          utils.statusinfo(this, res.data);
+          const data = res.data.data.data.list;
+          this.totalNum = res.data.data.data.total;
+          this.fixFormData = data.map(v => {
+            this.$set(v, "edit", false);
+            v.originFixMoney = v.fixMoney;
+            return v;
+          });
+          this.listLoading = false;
+        });
+      },
+      // 维修定价
+      SavePrice(index, row) {
+        if (row.fixMoney != null) {
           this.listLoading = true;
           let param = {
-            checkMan: "任天宇",
-            id: row.id
+            price: row.fixMoney,
+            id: row.id,
+            priceMan: "任天宇"
           };
-          putFixcheck(param).then(res => {
+          putFixPrice(param).then(res => {
+            // 公共提示方法
             utils.statusinfo(this, res.data);
-            this.listLoading = false;
+            this.multicondition();
           });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消结算"
+        } else {
+          this.$notify.error({
+            title: "错误",
+            message: "不能保存定价为空"
           });
+        }
+      },
+      // 取消定价
+      cancel(index, row) {
+        row.fixMoney = row.originFixMoney;
+        row.edit = false;
+        this.$message({
+          message: "已取消定价操作",
+          type: "warning"
         });
-    },
-    //更换每页数量
-    SizeChangeEvent(val) {
-      this.listLoading = true;
-      this.size = val;
-      this.multicondition();
-    },
-    //页码切换时
-    CurrentChangeEvent(val) {
-      this.listLoading = true;
-      this.page = val;
-      this.multicondition();
+      },
+      // 维修结算
+      setCheck(index, row) {
+        this.$confirm("确认结算该项", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            this.listLoading = true;
+            let param = {
+              checkMan: "任天宇",
+              id: row.id
+            };
+            putFixcheck(param).then(res => {
+              utils.statusinfo(this, res.data);
+              this.listLoading = false;
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消结算"
+            });
+          });
+      },
+      //更换每页数量
+      SizeChangeEvent(val) {
+        this.listLoading = true;
+        this.size = val;
+        this.multicondition();
+      },
+      //页码切换时
+      CurrentChangeEvent(val) {
+        this.listLoading = true;
+        this.page = val;
+        this.multicondition();
+      }
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-.toolbal {
-  padding: 10px 10px;
-  & .el-form-item {
-    margin-bottom: 5px;
+  .toolbal {
+    padding: 10px 10px;
+    & .el-form-item {
+      margin-bottom: 5px;
+    }
   }
-}
 
-.edit-input {
-  padding-right: 10px;
-}
+  .edit-input {
+    padding-right: 10px;
+  }
+
 </style>

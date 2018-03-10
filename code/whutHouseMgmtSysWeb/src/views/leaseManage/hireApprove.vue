@@ -114,24 +114,24 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                      <el-row>
+                  <el-row>
                     <el-col :span="14" :offset="1">
-                      <el-form-item label="预分配住房">                        
-                           <el-input v-model="approveForm.houseAddress" size="small" readonly >
+                      <el-form-item label="预分配住房">
+                        <el-input v-model="approveForm.houseAddress" size="small" readonly>
                         </el-input>
                       </el-form-item>
-                    </el-col>   
-                                   <el-col :span="7" >
-                      <el-form-item label="预分配面积">                        
-                           <el-input v-model="approveForm.houseBuildArea" size="small" readonly placeholder="请选择住房">
+                    </el-col>
+                    <el-col :span="7">
+                      <el-form-item label="预分配面积">
+                        <el-input v-model="approveForm.houseBuildArea" size="small" readonly placeholder="请选择住房">
                         </el-input>
                       </el-form-item>
-                    </el-col>                       
-                      </el-row>
+                    </el-col>
+                  </el-row>
                   <el-row v-if="!status" :class="{'is-agree':!status}">
                     <el-col :span="9" :offset="1">
                       <el-form-item label="审核说明">
-                        <el-input v-model="approveForm.agreeNote" type="textarea" :rows="2"></el-input>
+                        <el-input v-model="approveForm.agreeNote" readonly type="textarea" :rows="2"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -155,7 +155,7 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="start" v-if="!status">                  
+                  <el-row type="flex" justify="start" v-if="!status">
                     <el-col :span="6" :offset="1">
                       <el-form-item label="审核状态" prop="approveState">
                         <el-switch v-model="approveForm.approveState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
@@ -169,8 +169,8 @@
                   <!-- 非操作区域 -->
                   <el-row v-if="status">
                     <el-col :span="7" :offset="1">
-                      <el-form-item label="审批意见" >
-                        <el-input v-model="approveForm.approveNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                      <el-form-item label="审批意见">
+                        <el-input v-model="approveForm.approveNote" readonly type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -193,106 +193,110 @@
 </template>
 
 <script type="text/ecmascript-6">
-import indexNav from "./components/indexNav";
-import { putHireApprove } from "@/api/leaseManage";
-import utils from "@/utils/index.js";
-export default {
-  data() {
-    return {
-      listLoading: false,
-      approveForm: {},
-      status: false,
-      hireStatus: "approve",
-      isSubmit: false,
-      // 表单验证规则
-      rules: {
-        approveNote: {
-          required: true,
-          message: "请输入审批意见",
-          trigger: "blur"
-        }
+  import indexNav from "./components/indexNav";
+  import {
+    putHireApprove
+  } from "@/api/leaseManage";
+  import utils from "@/utils/index.js";
+  export default {
+    data() {
+      return {
+        listLoading: false,
+        approveForm: {},
+        status: false,
+        hireStatus: "approve",
+        isSubmit: false,
+        // 表单验证规则
+        rules: {
+          approveNote: {
+            required: true,
+            message: "请输入审批意见",
+            trigger: "blur"
+          }
+        },
+        dialogVisible: false
+      };
+    },
+    // 注册组件
+    components: {
+      indexNav
+    },
+    methods: {
+      // 从子组件获取
+      getList(object) {
+        this.approveForm = object.content;
+        this.approveForm.otherVal = 0;
+        this.status = object.status;
       },
-      dialogVisible: false
-    };
-  },
-  // 注册组件
-  components: {
-    indexNav
-  },
-  methods: {
-    // 从子组件获取
-    getList(object) {
-      this.approveForm = object.content;
-      this.approveForm.otherVal = 0;
-      this.status = object.status;
-    },
-    // 审批信息提交
-    approveSubmit() {
-      if (this.approveForm.approveState == null)
-        this.approveForm.approveState = "通过";
-      this.$confirm("确认通过审批", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$refs["approveForm"].validate(valid => {
-            if (valid) {
-              this.listLoading = true;
-              let approveForm = this.approveForm;
-              let param = {
-                approveMan: this.$store.getters.userName,
-                approveNote: approveForm.approveNote,
-                approveState: approveForm.approveState,
-                id: approveForm.id,
-              };
-              putHireApprove(param).then(res => {
-                this.approveForm = {};
-                utils.statusinfo(this, res.data);
-                this.isSubmit = !this.isSubmit;
-                this.listLoading = false;
-              });
-            }
+      // 审批信息提交
+      approveSubmit() {
+        if (this.approveForm.approveState == null)
+          this.approveForm.approveState = "通过";
+        this.$confirm(`确认${this.approveForm.approveState}审批`, "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            this.$refs["approveForm"].validate(valid => {
+              if (valid) {
+                this.listLoading = true;
+                let approveForm = this.approveForm;
+                let param = {
+                  approveMan: this.$store.getters.userName,
+                  approveNote: approveForm.approveNote,
+                  approveState: approveForm.approveState,
+                  id: approveForm.id,
+                };
+                putHireApprove(param).then(res => {
+                  this.approveForm = {};
+                  utils.statusinfo(this, res.data);
+                  this.isSubmit = !this.isSubmit;
+                  this.listLoading = false;
+                });
+              }
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消审批"
+            });
           });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消审批"
-          });
-        });
-    },
-  }
-};
+      },
+    }
+  };
+
 </script>
 
 <style scoped lang="scss">
-@import "../../styles/variables.scss";
+  @import "../../styles/variables.scss";
 
-.second-container {
-  background-color: $background-grey;
-  & .main-data {
-    padding-top: 20px;
-    & .accept-form {
-      width: 80%;
-      background-color: #fff;
-      padding: 10px;
-      padding-bottom: 30px;
-      height: 90%;
-      margin: auto;
-      position: relative;
-      & .need-accept {
-        h1 {
-          text-align: center;
-          margin-bottom: 30px;
-        }
-        & .is-agree {
-          position: relative;
-          border-bottom: 1px solid #e6ebf5;
-          margin-bottom: 20px;
+  .second-container {
+    background-color: $background-grey;
+    & .main-data {
+      padding-top: 20px;
+      & .accept-form {
+        width: 80%;
+        background-color: #fff;
+        padding: 10px;
+        padding-bottom: 30px;
+        height: 90%;
+        margin: auto;
+        position: relative;
+        & .need-accept {
+          h1 {
+            text-align: center;
+            margin-bottom: 30px;
+          }
+          & .is-agree {
+            position: relative;
+            border-bottom: 1px solid #e6ebf5;
+            margin-bottom: 20px;
+          }
         }
       }
     }
   }
-}
+
 </style>

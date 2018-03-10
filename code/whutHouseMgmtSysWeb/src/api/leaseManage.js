@@ -67,6 +67,14 @@ export function putHireContract(data) {
 }
 
 // 租赁管理-申请书管理
+// 获取所有申请书
+export function getHireForm(params) {
+  return request({
+    url: `/hire/getManagement`,
+    method: 'get',
+    params:params
+  })
+}
 // 重新受理
 export function getHireReAccept(formID) {
   return request({
