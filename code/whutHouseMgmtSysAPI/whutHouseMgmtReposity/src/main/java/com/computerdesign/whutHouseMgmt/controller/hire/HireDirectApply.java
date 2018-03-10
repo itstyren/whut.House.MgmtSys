@@ -25,6 +25,8 @@ import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 
+import io.swagger.annotations.ApiOperation;
+
 /**
  *
  * @author wanhaoran
@@ -57,6 +59,7 @@ public class HireDirectApply {
 	 * @return
 	 */
 	@RequestMapping(value = "getDirectApply/{staffId}", method = RequestMethod.GET)
+	@ApiOperation(value = "直批页面，缺东西",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg HireGetDirectApply(@PathVariable("staffId") Integer staffId) {
 		// 获取员工信息，并将信息封装
 		ViewStaff viewStaff = viewStaffService.getByStaffId(staffId).get(0);
@@ -106,6 +109,7 @@ public class HireDirectApply {
 	 * @return
 	 */
 	@RequestMapping(value = "addDirectApply", method = RequestMethod.POST)
+	@ApiOperation(value = "添加直批信息,id为员工id",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg HireAddDirectApply(@RequestBody HireAddDirectApply hireAddDirectApply) {
 		Hire hire = new Hire();
 

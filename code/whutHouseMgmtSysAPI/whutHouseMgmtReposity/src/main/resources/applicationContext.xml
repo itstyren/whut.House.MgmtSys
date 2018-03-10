@@ -10,12 +10,12 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- spring的配置文件，业务逻辑有关的 --> 
-	
+	 
 	<!-- 扫描除控制器外的所有包 -->
  	<context:component-scan base-package="com.computerdesign.whutHouseMgmt">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
-	
+	 
 	<!-- 引入资源文件 --> 
 	<context:property-placeholder location="classpath:db.properties"/>
 	
@@ -49,7 +49,7 @@
 	</bean>
 	
 	<!-- 开启基于注解的事务 -->
-	<aop:config>
+	<aop:config proxy-target-class="true">
 		<!-- 配置切入点的位置 -->
 		<aop:pointcut expression="execution(* com.computerdesign.whutHouseMgmt.service..*(..))" id="txPoint"/>
 		<!-- 配置事务增强 -->

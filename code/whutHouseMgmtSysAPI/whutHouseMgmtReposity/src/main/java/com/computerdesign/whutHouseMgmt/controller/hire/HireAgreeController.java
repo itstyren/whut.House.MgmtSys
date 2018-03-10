@@ -19,8 +19,12 @@ import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/hire/")
+@Api(value = "/hire/",tags = "Hire接口")
 public class HireAgreeController {
 
 	@Autowired
@@ -31,6 +35,7 @@ public class HireAgreeController {
 
 	
 	@RequestMapping(value = "getAgree/{agreeState}",method = RequestMethod.GET)
+	@ApiOperation(value = "进入房屋申请审核页面 0代表未经审核流程的全部信息，1代表审核过程结束的全部信息",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getHireAgree(@PathVariable("agreeState")Integer agreeState){
 		if (agreeState == null) {
 			return Msg.error("请检查你的网络");
@@ -62,6 +67,7 @@ public class HireAgreeController {
 	 * @return
 	 */
 	@RequestMapping(value = "addAgree",method = RequestMethod.PUT)
+	@ApiOperation(value = "审核 agreeMan为当前登录人的姓名，agreeState只能为'通过'或者'拒绝'",httpMethod="PUT",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg addHireAgree(@RequestBody HireAddAgree hireAddAgree){
 		ViewHire viewHire = viewHireService.getById(hireAddAgree.getId()).get(0);
 		if (viewHire.getAcceptState() == null) {
@@ -106,6 +112,7 @@ public class HireAgreeController {
 	 * @return
 	 */
 	@RequestMapping(value = "reAgree/{id}",method = RequestMethod.GET)
+	@ApiOperation(value = "重新审核 传入参数为hire的id",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg hireReAgree(@PathVariable("id")Integer id){
 		Hire hire = hireService.getHireById(id);
 		if (hire.getAgreeState() == null) {

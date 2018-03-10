@@ -19,6 +19,8 @@ import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/hire/")
 public class HireApproveController {
@@ -32,6 +34,7 @@ public class HireApproveController {
 
 	
 	@RequestMapping(value = "getApprove/{approveState}",method = RequestMethod.GET)
+	@ApiOperation(value = "进入房屋申请审批页面 0代表未经审批流程的全部信息，1代表审批过程结束的全部信息",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getHireApprove(@PathVariable("approveState")Integer approveState){
 		if(approveState == 0){
 			List<HireGetApprove> listHireGetApprove = new ArrayList<HireGetApprove>();
@@ -58,6 +61,7 @@ public class HireApproveController {
 	 * @return
 	 */
 	@RequestMapping(value = "addApprove",method = RequestMethod.PUT)
+	@ApiOperation(value = "审批 approveMan为当前登录人的姓名，approveState只能为'通过'或者'拒绝'",httpMethod="PUT",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg addHireApprove(@RequestBody HireAddApprove hireAddApprove){
 		Hire hire = hireService.getHireById(hireAddApprove.getId());
 		if (hire.getAgreeState() == null) {
@@ -95,6 +99,7 @@ public class HireApproveController {
 	 * @return
 	 */
 	@RequestMapping(value = "reApprove/{id}",method = RequestMethod.GET)
+	@ApiOperation(value = "重新审批 传入参数为hire的id",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg hireReApprove(@PathVariable("id")Integer id){
 		Hire hire = hireService.getHireById(id);
 		if (hire.getApproveState() == null) {
