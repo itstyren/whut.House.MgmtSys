@@ -25,6 +25,8 @@ public class HireGetApprove {
     
     private String reason;
     
+    private String hireState;
+    
     private String phone;
     
     private String houseNo;
@@ -82,6 +84,7 @@ public class HireGetApprove {
 		this.postName = viewHire.getPostName();
 		this.deptName = viewHire.getDeptName();
 		this.applyTime = viewHire.getApplyTime();
+		this.hireState = viewHire.getHireState();
 		this.reason = viewHire.getReason();
 		this.phone = viewHire.getPhone();
 		this.houseNo = viewHire.getHouseNo();
@@ -164,6 +167,14 @@ public class HireGetApprove {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+	public String getHireState() {
+		return hireState;
+	}
+
+	public void setHireState(String hireState) {
+		this.hireState = hireState;
 	}
 
 	public String getPhone() {

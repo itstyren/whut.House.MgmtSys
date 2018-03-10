@@ -1,10 +1,13 @@
 package com.computerdesign.whutHouseMgmt.service.houseregister;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter;
 import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample;
 import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample.Criteria;
@@ -180,7 +183,31 @@ public class RegisterService{
 		return residentMapper.countByExample(example);
 	}
 	
-	
+	/**
+	 * 根据房屋租赁的情况登记住房
+	 * @author wanhaoran
+	 * @param hire
+	 */
+	public void registerByHire(Hire hire) {
+		// 住房登记信息
+		Resident resident = new Resident();
+		resident.setBookTime(new Date());
+		resident.setStaffId(hire.getStaffId());
+		resident.setHouseId(hire.getHouseId());
+		resident.setIsDelete(false);
+
+		// 设置ExpireTime时间为两年后
+		Calendar bookTime = Calendar.getInstance();
+		bookTime.setTime(new Date());
+		bookTime.add(Calendar.YEAR, +2);
+		Date expireTime = bookTime.getTime();
+		resident.setExpireTime(expireTime);
+
+		resident.setRentType("工资");
+		// TODO 这里的HouseRel应该是租赁，修改数据库后注意审查
+		resident.setHouseRel(78);
+		residentMapper.insertSelective(resident);
+	}
 	
 	/**
 	 * 获取数据库记录数，方便id自增

@@ -22,6 +22,8 @@ public class HireGetSignContract {
 	private Date applyTime;
 
 	private String reason;
+	
+	private String hireState;
 
 	private String phone;
 	
@@ -79,6 +81,7 @@ public class HireGetSignContract {
 		this.deptName = viewHire.getDeptName();
 		this.applyTime = viewHire.getApplyTime();
 		this.reason = viewHire.getReason();
+		this.hireState = viewHire.getHireState();
 		this.phone = viewHire.getPhone();
 
 		this.houseUserArea = viewHire.getHouseUserArea();
@@ -152,6 +155,14 @@ public class HireGetSignContract {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+	public String getHireState() {
+		return hireState;
+	}
+
+	public void setHireState(String hireState) {
+		this.hireState = hireState;
 	}
 
 	public String getPhone() {
