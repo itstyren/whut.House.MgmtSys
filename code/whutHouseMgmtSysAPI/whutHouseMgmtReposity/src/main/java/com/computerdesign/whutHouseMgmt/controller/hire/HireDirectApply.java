@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
@@ -20,8 +20,6 @@ import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
-import com.computerdesign.whutHouseMgmt.service.hire.StaffHouseService;
-import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
@@ -33,16 +31,12 @@ import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService
  * @date 2018年3月10日 下午3:42:09
  * 
  */
+@RestController
+@RequestMapping(value = "/hire/")
 public class HireDirectApply {
 
 	@Autowired
 	private HireService hireService;
-
-	@Autowired
-	private ViewHireService viewHireService;
-
-	@Autowired
-	private StaffHouseService staffHouseService;
 
 	@Autowired
 	private ViewStaffService viewStaffService;
@@ -63,7 +57,6 @@ public class HireDirectApply {
 	 * @return
 	 */
 	@RequestMapping(value = "getDirectApply/{staffId}", method = RequestMethod.GET)
-	@ResponseBody
 	public Msg HireGetDirectApply(@PathVariable("staffId") Integer staffId) {
 		// 获取员工信息，并将信息封装
 		ViewStaff viewStaff = viewStaffService.getByStaffId(staffId).get(0);
@@ -113,7 +106,6 @@ public class HireDirectApply {
 	 * @return
 	 */
 	@RequestMapping(value = "addDirectApply", method = RequestMethod.POST)
-	@ResponseBody
 	public Msg HireAddDirectApply(@RequestBody HireAddDirectApply hireAddDirectApply) {
 		Hire hire = new Hire();
 

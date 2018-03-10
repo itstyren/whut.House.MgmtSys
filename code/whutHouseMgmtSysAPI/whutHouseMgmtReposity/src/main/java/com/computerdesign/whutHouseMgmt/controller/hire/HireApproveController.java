@@ -5,12 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.approve.HireAddApprove;
@@ -18,11 +17,9 @@ import com.computerdesign.whutHouseMgmt.bean.hire.approve.HireGetApprove;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
-import com.computerdesign.whutHouseMgmt.service.hire.StaffHouseService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
-import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/hire/")
 public class HireApproveController {
 
@@ -32,14 +29,9 @@ public class HireApproveController {
 	@Autowired
 	private ViewHireService viewHireService;
 
-	@Autowired
-	private StaffHouseService staffHouseService;
 
-	@Autowired
-	private ViewStaffService viewStaffService;
 	
 	@RequestMapping(value = "getApprove/{approveState}",method = RequestMethod.GET)
-	@ResponseBody
 	public Msg getHireApprove(@PathVariable("approveState")Integer approveState){
 		if(approveState == 0){
 			List<HireGetApprove> listHireGetApprove = new ArrayList<HireGetApprove>();
@@ -66,7 +58,6 @@ public class HireApproveController {
 	 * @return
 	 */
 	@RequestMapping(value = "addApprove",method = RequestMethod.PUT)
-	@ResponseBody
 	public Msg addHireApprove(@RequestBody HireAddApprove hireAddApprove){
 		Hire hire = hireService.getHireById(hireAddApprove.getId());
 		if (hire.getAgreeState() == null) {
@@ -104,7 +95,6 @@ public class HireApproveController {
 	 * @return
 	 */
 	@RequestMapping(value = "reApprove/{id}",method = RequestMethod.GET)
-	@ResponseBody
 	public Msg hireReApprove(@PathVariable("id")Integer id){
 		Hire hire = hireService.getHireById(id);
 		if (hire.getApproveState() == null) {

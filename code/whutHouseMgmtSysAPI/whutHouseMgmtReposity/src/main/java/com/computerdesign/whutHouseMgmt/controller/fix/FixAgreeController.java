@@ -5,12 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixAddAgree;
@@ -19,32 +18,18 @@ import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
-import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
-import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
-import com.computerdesign.whutHouseMgmt.service.houseregister.StaffHouseRelService;
-import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 
 @RequestMapping(value = "/fix/")
-@Controller
+@RestController
 public class FixAgreeController {
 
 	@Autowired
 	private FixService fixService;
-	
-	@Autowired
-	private StaffVwService staffVwService;
-	
-	@Autowired
-	private ViewHouseService  viewHouseService;
-	
-	@Autowired
-	private StaffHouseRelService staffHouseRelService;
+
 	
 	@Autowired
 	private ViewFixService viewFixService;
-	
-	@Autowired
-	private RegisterService registerService;
+
 	
 	/**
 	 * 获取维修审核页面的信息，agreeState=1为获取全部的已经过审核操作的信息
@@ -52,7 +37,6 @@ public class FixAgreeController {
 	 * @return
 	 */
 	@RequestMapping(value = "getAgree/{agreeState}",method = RequestMethod.GET)
-	@ResponseBody
 	public Msg getFixAgree(@PathVariable("agreeState")Integer agreeState){
 		if( agreeState == null){
 			return Msg.error("请检查你的网络");
@@ -81,7 +65,6 @@ public class FixAgreeController {
 	 * @return
 	 */
 	@RequestMapping(value = "addAgree",method = RequestMethod.PUT)
-	@ResponseBody
 	public Msg addFixAgree(@RequestBody FixAddAgree fixAddAgree){
 		ViewFix viewFix = viewFixService.getById(fixAddAgree.getId()).get(0);
 		if (viewFix.getAcceptState()==null) {
@@ -125,7 +108,6 @@ public class FixAgreeController {
 	 * @return
 	 */
 	@RequestMapping(value = "reAgree/{id}",method = RequestMethod.GET)
-	@ResponseBody
 	public Msg reAgree(@PathVariable("id")Integer id){
 		Fix fix = fixService.get(id);
 		if (fix.getAgreeState()==null) {

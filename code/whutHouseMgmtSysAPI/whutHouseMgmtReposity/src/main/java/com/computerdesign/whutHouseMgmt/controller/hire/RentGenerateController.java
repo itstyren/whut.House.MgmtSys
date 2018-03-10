@@ -20,7 +20,6 @@ import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVw;
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVwShowModel;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectModel;
-import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffShowModel;
 import com.computerdesign.whutHouseMgmt.service.hire.RentGenerateService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

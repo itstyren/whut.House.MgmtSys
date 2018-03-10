@@ -5,12 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.accept.HireAddAccept;
@@ -18,12 +18,10 @@ import com.computerdesign.whutHouseMgmt.bean.hire.accept.HireGetAccept;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
-import com.computerdesign.whutHouseMgmt.service.hire.StaffHouseService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
-import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 
 @RequestMapping(value = "/hire/")
-@Controller
+@RestController
 public class HireAcceptController {
 
 	@Autowired
@@ -32,11 +30,6 @@ public class HireAcceptController {
 	@Autowired
 	private ViewHireService viewHireService;
 
-	@Autowired
-	private StaffHouseService staffHouseService;
-
-	@Autowired
-	private ViewStaffService viewStaffService;
 
 	/**
 	 * 获取房屋申请受理页面
@@ -45,7 +38,6 @@ public class HireAcceptController {
 	 * @return
 	 */
 	@RequestMapping(value = "getAccept/{acceptState}", method = RequestMethod.GET)
-	@ResponseBody
 	public Msg getAccept(@PathVariable("acceptState") Integer acceptState) {
 		if (acceptState == null) {
 			return Msg.error("请检查你的网络");
@@ -74,7 +66,6 @@ public class HireAcceptController {
 	 * @return
 	 */
 	@RequestMapping(value = "addAccept", method = RequestMethod.PUT)
-	@ResponseBody
 	public Msg hireAddAccept(@RequestBody HireAddAccept hireAddAccept) {
 		ViewHire viewHire = viewHireService.getById(hireAddAccept.getId()).get(0);
 		if (viewHire.getIsOver()) {
