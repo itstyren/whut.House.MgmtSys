@@ -155,15 +155,25 @@ public class RentGenerateController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "rentGen", method = RequestMethod.POST)
-	public Msg rentGenerate(@RequestBody StaffSelectModel staffSelectModel) {
-		List<StaffHouse> staffHouses = rentGenerateService.selectRentByMultiCondition(staffSelectModel);
+	public Msg rentGenerate(@RequestBody int[] houseIds) {
+		//根据多条件查询获取
+//		List<StaffHouse> staffHouses = rentGenerateService.selectRentByMultiCondition(staffSelectModel);
+		//根据houseId数组获取
+		List<StaffHouse> staffHouses = new ArrayList<StaffHouse>();
+		for (int houseId : houseIds){
+			StaffHouse staffHouse = rentGenerateService.getByHouseId(houseId);
+			staffHouses.add(staffHouse);
+		}
+		
 		for (StaffHouse staffHouse : staffHouses) {
 			Rent rent = new Rent();
 			rent.setResidentId(staffHouse.getResidentId());
 			rent.setRentType(staffHouse.getRentType());
 			rent.setInitMoney(staffHouse.getHouseRental());
-			rent.setDiscountRate(staffHouse.getStaffDiscountRate().toString());
-			rent.setRentMoney(rent.getInitMoney() * (staffHouse.getStaffDiscountRate() / 100));
+			if(staffHouse.getStaffDiscountRate() != null){				
+				rent.setDiscountRate(staffHouse.getStaffDiscountRate().toString());
+				rent.setRentMoney(rent.getInitMoney() * (staffHouse.getStaffDiscountRate() / 100));
+			}
 			rent.setIsGet((byte) 0);
 			rent.setBeginTime(staffHouse.getLastRentTime());
 			// 计算并设置结束时间

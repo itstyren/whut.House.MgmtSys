@@ -73,6 +73,18 @@ public class RentGenerateService {
 	}
 	
 	/**
+	 * 根据HouseId查询StaffHouse视图中数据
+	 * @param houseId
+	 * @return
+	 */
+	public StaffHouse getByHouseId(Integer houseId){
+		StaffHouseExample example = new StaffHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andHouseIdEqualTo(houseId);
+		return staffHouseMapper.selectByExample(example).get(0);
+	}
+	
+	/**
 	 * 多条件查询
 	 * 
 	 * @return
