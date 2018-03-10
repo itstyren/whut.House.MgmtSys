@@ -96,7 +96,7 @@ public class HireAcceptController {
 			hire.setSpouseVal(hireAddAccept.getSpouseVal());
 
 			hire.setAcceptTime(new Date());
-			hire.setHireState("未受理");
+			hire.setHireState("受理拒绝");
 			hire.setIsOver(true);
 
 			hireService.update(hire);

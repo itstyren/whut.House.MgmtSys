@@ -61,4 +61,12 @@ public class HireService {
 	public void updateStrict(Hire hire) {
 		hireMapper.updateByPrimaryKey(hire);
 	}
+	
+	/**
+	 * 根据hireId删除一条hire数据
+	 * @param hireId
+	 */
+	public void delete(Integer hireId) {
+		hireMapper.deleteByPrimaryKey(hireId);
+	}
 }

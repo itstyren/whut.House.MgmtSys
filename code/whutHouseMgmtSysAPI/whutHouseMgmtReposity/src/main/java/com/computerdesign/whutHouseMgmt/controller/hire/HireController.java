@@ -325,4 +325,20 @@ public class HireController {
 		PageInfo pageInfo = new PageInfo<>(listViewHire);
 		return Msg.success().add("data", pageInfo);
 	}
+	
+	/**
+	 * 根据hireId删除一条hire
+	 * @param hireId
+	 * @return
+	 */
+	@RequestMapping(value = "delete/{hireId}",method = RequestMethod.DELETE)
+	@ResponseBody
+	public Msg hireDelete(@PathVariable(value = "hireId")Integer hireId){
+		Hire hire = hireService.getHireById(hireId);
+		if (hire==null) {
+			return Msg.error("错误的请求");
+		}
+		hireService.delete(hireId);
+		return Msg.success("删除该条记录");
+	}
 }
