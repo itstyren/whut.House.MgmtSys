@@ -62,7 +62,7 @@ public class FixAgreeController {
 			for (ViewFix viewFix : list) {
 				listFixGetAgree.add(new FixGetAgree(viewFix));
 			}
-			return Msg.success("获取全部的未审核信息").add("data", listFixGetAgree);
+			return Msg.success("获取全部的待审核信息").add("data", listFixGetAgree);
 		}else if (1 == agreeState) {
 			List<ViewFix> list = viewFixService.getAgreeHasBeen();
 			List<FixGetAgree> listFixGetAgree = new ArrayList<FixGetAgree>();

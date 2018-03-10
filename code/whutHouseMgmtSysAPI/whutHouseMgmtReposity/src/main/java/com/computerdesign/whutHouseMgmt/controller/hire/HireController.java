@@ -37,6 +37,7 @@ import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.StaffHouseService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
@@ -73,6 +74,9 @@ public class HireController {
 
 	@Autowired
 	private ViewHouseService viewHouseService;
+	
+	@Autowired
+	private HouseService houseService;
 
 	/**
 	 * 获取住房申请页面
@@ -193,122 +197,14 @@ public class HireController {
 		}
 		// 设置该申请已结束
 		hire.setIsOver(true);
-
-		// 住房登记信息
-		Resident resident = new Resident();
-		resident.setBookTime(hireAddSignContract.getBookTime());
-		resident.setStaffId(hire.getStaffId());
-		resident.setHouseId(hire.getHouseId());
-		resident.setIsDelete(false);
-
-		// 设置ExpireTime时间为两年后
-		Calendar bookTime = Calendar.getInstance();
-		bookTime.setTime(hireAddSignContract.getBookTime());
-		bookTime.add(Calendar.YEAR, +2);
-		Date expireTime = bookTime.getTime();
-		resident.setExpireTime(expireTime);
-
-		resident.setRentType("工资");
-		// TODO 这里的HouseRel应该是租赁，修改数据库后注意审查
-		resident.setHouseRel(78);
-
-		
 		hireService.update(hire);
-		registerService.register(resident);
-		return Msg.success("成功签订合同").add("data", resident);
+		//TODO 78为当前数据库租赁对于的id
+		houseService.updateHouseStatus(hire.getHouseId(), 78);
+		registerService.registerByHire(hire);
+		return Msg.success("成功签订合同");
 	}
 
-	/**
-	 * 获取房屋直批页面
-	 * 
-	 * @param staffId
-	 * @return
-	 */
-	@RequestMapping(value = "getDirectApply/{staffId}", method = RequestMethod.GET)
-	@ResponseBody
-	public Msg HireGetDirectApply(@PathVariable("staffId") Integer staffId) {
-		// 获取员工信息，并将信息封装
-		ViewStaff viewStaff = viewStaffService.getByStaffId(staffId).get(0);
-		HireGetDirectApply hireGetDirectApply = new HireGetDirectApply(viewStaff);
-
-		// 根据员工信息获取该员工所有的房屋信息
-		List<ResidentVw> listResidentVw = registerService.getResidentVwByStaffId(staffId);
-		// 用来存放该员工所有房屋信息的封装集合
-		List<HireHouseGetDirectApply> listHouseGetDirectApply = new ArrayList<HireHouseGetDirectApply>();
-
-		// 该员工有房屋
-		if (!listResidentVw.isEmpty()) {
-			// 遍历每一个房屋
-			for (ResidentVw residentVw : listResidentVw) {
-
-				HireHouseGetDirectApply houseGetDirectApply = new HireHouseGetDirectApply();
-				if (viewHouseService.get(residentVw.getHouseId()).isEmpty()) {
-					// TODO 不可能的错误
-				} else {
-					// 获取房屋信息
-					ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
-
-					houseGetDirectApply.setBookTime(residentVw.getBookTime());
-					houseGetDirectApply.setHouseRel(residentVw.getHouseRel());
-
-					houseGetDirectApply.setAddress(residentVw.getAddress());
-					houseGetDirectApply.setHouseId(residentVw.getHouseId());
-					houseGetDirectApply.setLayoutName(viewHouse.getLayoutName());
-					houseGetDirectApply.setTypeName(viewHouse.getTypeName());
-					houseGetDirectApply.setUsedArea(viewHouse.getUsedArea());
-					// 将封装好的房屋信息加入集合中
-					listHouseGetDirectApply.add(houseGetDirectApply);
-				}
-			}
-			hireGetDirectApply.setListHouseGetDirectApply(listHouseGetDirectApply);
-		} else {
-			hireGetDirectApply.setListHouseGetDirectApply(null);
-		}
-
-		return Msg.success("房屋直批页面").add("data", hireGetDirectApply);
-	}
-
-	/**
-	 * 房屋直批
-	 * 
-	 * @param hireAddDirectApply
-	 * @return
-	 */
-	@RequestMapping(value = "addDirectApply", method = RequestMethod.POST)
-	@ResponseBody
-	public Msg HireAddDirectApply(@RequestBody HireAddDirectApply hireAddDirectApply) {
-		Hire hire = new Hire();
-
-		hire.setStaffId(hireAddDirectApply.getId());
-		hire.setHouseId(hireAddDirectApply.getHouseId());
-
-		// 通过reason来判断是否为直批
-		hire.setReason("直批");
-
-		hire.setApplyTime(new Date());
-		hire.setHireState("已审批");
-
-		hire.setAcceptMan(hireAddDirectApply.getDirectApplyMan());
-		hire.setAcceptNote(hireAddDirectApply.getDirectApplyNote());
-		hire.setAcceptState("通过");
-		hire.setAcceptTime(new Date());
-
-		hire.setAgreeMan(hireAddDirectApply.getDirectApplyMan());
-		hire.setAgreeNote(hireAddDirectApply.getDirectApplyNote());
-		hire.setAgreeState("通过");
-		hire.setAgreeTime(new Date());
-
-		hire.setApproveMan(hireAddDirectApply.getDirectApplyMan());
-		hire.setApproveNote(hireAddDirectApply.getDirectApplyNote());
-		hire.setApproveState("通过");
-		hire.setApproveTime(new Date());
-
-		hire.setIsOver(false);
-
-		hireService.add(hire);
-
-		return Msg.success("房屋直批");
-	}
+	
 	
 	/**
 	 * 房屋申请书管理页面

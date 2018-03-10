@@ -49,13 +49,13 @@ public class HireAcceptController {
 	public Msg getAccept(@PathVariable("acceptState") Integer acceptState) {
 		if (acceptState == null) {
 			return Msg.error("请检查你的网络");
-		} else if (acceptState == 0) {//获取全部未受理的信息
+		} else if (acceptState == 0) {//获取全部待受理的信息
 			List<ViewHire> listViewHire = viewHireService.getAcceptUntil();
 			List<HireGetAccept> listHireGetAccept = new ArrayList<HireGetAccept>();
 			for (ViewHire viewHire : listViewHire) {
 				listHireGetAccept.add(new HireGetAccept(viewHire));
 			}
-			return Msg.success("获取全部的未受理信息").add("data", listHireGetAccept);
+			return Msg.success("获取全部的待受理信息").add("data", listHireGetAccept);
 		} else if (acceptState == 1) {
 			List<ViewHire> listViewHire = viewHireService.getAcceptHasBeen();
 			List<HireGetAccept> listHireGetAccept = new ArrayList<HireGetAccept>();
