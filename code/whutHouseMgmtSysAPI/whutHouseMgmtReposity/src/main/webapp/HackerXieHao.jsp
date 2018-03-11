@@ -586,7 +586,7 @@
 				})
 
 		$("#rentGen").click(function() {
-			var data = {
+			/*var data = {
 				'dept' : '绿色建材中心33',
 				'post' : '厅级3',
 				'title' : '副研究员',
@@ -606,7 +606,8 @@
 				'isExpire' : true,
 				'regionName' : '武汉市洪山区工大路20号'
 
-			};
+			};*/
+			var data = [2,4];
 			ajaxRequestPostType("rentGenerate/rentGen", "POST", data);
 		})
 
