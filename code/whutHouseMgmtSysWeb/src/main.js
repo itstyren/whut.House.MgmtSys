@@ -14,10 +14,17 @@ import store from './store/index'
 import './mock'
 // permission control
 import './permission'
+// global filters
+import * as filters from './filters' 
 
 import './styles/index.scss'
 // 引入图标库
 import './assets/icons/iconfont'
+
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
