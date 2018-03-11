@@ -106,8 +106,21 @@ export function getHireReApprove(formID) {
   })
 }
 // 直接删除
-
+export function deleteHireForm(formID) {
+  return request({
+    url: `/hire/delete/${formID}`,
+    method: 'delete',
+  })
+}
 // 租赁管理-租金生成
+// 根据id或者姓名查询
+export function getHireRenter(params) {
+  return request({
+    url: `/rentGenerate/selectRentByStaffNoOrName`,
+    method: 'get',
+    params:params
+  })
+}
 // 多条件查询
 export function postHireRenterMultiply(params,data) {
     return request({
@@ -115,4 +128,20 @@ export function postHireRenterMultiply(params,data) {
         method: 'post',
         data: data
     })
+}
+// 生成租金
+export function postHireGenerateRental(data) {
+  return request({
+    url: `/rentGenerate/rentGen`,
+    method: 'post',
+    data: data
+  })
+}
+// 已生成租金查询
+export function postHireRentalQuery(params, data) {
+  return request({
+    url: `/rentGenerate/queryRent?page=${params.page}&size=${params.size}`,
+    method: 'post',
+    data: data
+  })
 }
