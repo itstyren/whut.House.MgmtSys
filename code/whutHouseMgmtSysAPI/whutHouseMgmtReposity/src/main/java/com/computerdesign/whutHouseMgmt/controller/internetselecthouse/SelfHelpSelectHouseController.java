@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HireRecent;
+import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.IsSelectingHouseInfo;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.SelectedStaffHouseInfo;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.SelfHelpSelectHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.SelfHelpStaffCanselectShowModel;
@@ -98,7 +99,8 @@ public class SelfHelpSelectHouseController {
 				break;
 			}
 		}
-		if(isSelecting.getStaffName() != null){			
+		// 如果当前选房人有数据，且不是最后一个选房者，则获取下一个选房者
+		if (isSelecting.getStaffName() != null && flag != selfHelpSelectHouses.size()) {
 			nextSelecting = selfHelpSelectHouses.get(flag);
 		}
 
@@ -113,9 +115,16 @@ public class SelfHelpSelectHouseController {
 		if (beginTime <= new Date().getTime() && endTime >= new Date().getTime()) {
 			Date staffStartTimeNow = staffSelectHouseNow.getSelectStart();
 			Date staffEndTimeNow = staffSelectHouseNow.getSelectEnd();
-			return Msg.success(
-					"您符合本次选房条件，请在" + staffStartTimeNow + "到" + staffEndTimeNow + "内完成选房，否则，系统将自动安排下一位老师选房，您将错过此次选房。"
-							+ "当前选房：" + isSelecting.getStaffName() + "下一位选房:" + nextSelecting.getStaffName());
+			// 封装需要返回的数据
+			IsSelectingHouseInfo isSelectingHouseInfo = new IsSelectingHouseInfo();
+			isSelectingHouseInfo.setStaffStartTimeNow(staffStartTimeNow);
+			isSelectingHouseInfo.setStaffEndTimeNow(staffEndTimeNow);
+			isSelectingHouseInfo.setIsSelectingStaffName(isSelecting.getStaffName());
+			isSelectingHouseInfo.setIsSelectingStaffEndTime(isSelecting.getHouseSelectEnd());
+			if (nextSelecting.getStaffName() != null) {
+				isSelectingHouseInfo.setNextSelectingStaffName(nextSelecting.getStaffName());
+			}
+			return Msg.success().add("data", isSelectingHouseInfo);
 		} else {
 			return Msg.success("当前无选房活动，或选房活动已结束！");
 		}

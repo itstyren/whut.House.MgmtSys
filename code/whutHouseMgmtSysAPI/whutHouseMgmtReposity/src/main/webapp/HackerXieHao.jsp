@@ -99,7 +99,7 @@
 		$("#rentEventModify").click(function() {
 			var data = {
 				"rentEventId" : 1,
-				"rentTimeBegin" : "2018-03-11 21:20:21",
+				"rentTimeBegin" : "2018-03-11 21:55:21",
 				"rentTimeRanges" : 30,
 				"rentSelValReq" : 5,
 				"rentSelRules" : "无规则"
