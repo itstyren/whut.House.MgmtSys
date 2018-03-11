@@ -111,6 +111,9 @@ public class RentGenerateController {
 	public Msg queryRent(@RequestBody RentTimeRange rentTimeRange,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		if(rentTimeRange == null){
+			return Msg.error("请选择查询的时间范围");
+		}
 		PageHelper.startPage(page, size);
 		List<RentVw> rentVws = rentGenerateService.queryRent(rentTimeRange);
 		List<RentVwShowModel> rentVwShowModels = new ArrayList<RentVwShowModel>();

@@ -46,6 +46,7 @@ public class RentGenerateService {
 		} catch (NumberFormatException e) {
 			criteria.andStaffNameLike("%" + conditionValue + "%");
 		}
+		criteria.andHouseRelNameEqualTo("租赁");
 		
 		return staffHouseMapper.selectByExample(example);
 	}
@@ -59,7 +60,15 @@ public class RentGenerateService {
 		RentVwExample example = new RentVwExample();
 		com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVwExample.Criteria criteria = example.createCriteria();
 		if(rentTimeRange != null){
-			criteria.andRentBeginTimeBetween(rentTimeRange.getStartTime(), rentTimeRange.getEndTime());
+			if(rentTimeRange.getStartTime() != null){
+				//开始时间和结束时间均不为空，则查询包含在该时间范围内的数据
+				if(rentTimeRange.getEndTime() != null){					
+					criteria.andRentBeginTimeBetween(rentTimeRange.getStartTime(), rentTimeRange.getEndTime());
+				}else{
+					//开始时间不为空，结束时间为空，则查询至开始时间以后的数据
+					criteria.andRentBeginTimeGreaterThanOrEqualTo(rentTimeRange.getStartTime());
+				}
+			}
 		}
 		return rentVwMapper.selectByExample(example);
 	}

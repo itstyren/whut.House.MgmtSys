@@ -98,8 +98,8 @@
 
 		$("#rentEventModify").click(function() {
 			var data = {
-				"rentEventId" : 3,
-				"rentTimeBegin" : "2018-03-01 22:20:21",
+				"rentEventId" : 1,
+				"rentTimeBegin" : "2018-03-11 21:20:21",
 				"rentTimeRanges" : 30,
 				"rentSelValReq" : 5,
 				"rentSelRules" : "无规则"
@@ -396,6 +396,12 @@
 	//网上选房
 	$(function() {
 
+		$("#isSelectingHouse")
+		.click(
+				function() {
+					ajaxRequestGet("selfHelpSelectHouse/isSelectingHouse/3");
+				})
+		
 		$("#getAllSelectedStaff")
 				.click(
 						function() {
@@ -578,8 +584,8 @@
 		$("#queryRent").click(
 				function() {
 					var data = {
-						'startTime' : '2012-11-01',
-						'endTime' : '2012-11-06'
+						'startTime' : '2016-11-07',
+						'endTime' : '2017-11-06'
 					};
 					ajaxRequestPostType("rentGenerate/queryRent?page=2&size=2",
 							"POST", data);
@@ -776,6 +782,9 @@
 			<!-- 数据导入 -->
 		</div>
 		<div class="tab-pane fade" id="internetSelectHouse">
+			<h4>自助选房：获取当前能否点房相关信息</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="IsSelectingHouse" id="isSelectingHouse" /> <br>
 			<h4>自助选房：显示所有已选房职工</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetAllSelectedStaff" id="getAllSelectedStaff" /> <br>
