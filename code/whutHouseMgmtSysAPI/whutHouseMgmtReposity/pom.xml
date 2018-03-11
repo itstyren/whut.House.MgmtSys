@@ -19,6 +19,7 @@
 	<dependencies>
 
 
+		<!-- swagger api文档生产 -->
 		<!--springfox的核心jar包 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -151,6 +152,14 @@
 			<artifactId>spring-aspects</artifactId>
 			<version>4.3.7.RELEASE</version>
 		</dependency>
+
+		<!-- spring 与redis的集合 -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.7.2.RELEASE</version>
+		</dependency>
+
 
 		<!-- Mybatis -->
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->

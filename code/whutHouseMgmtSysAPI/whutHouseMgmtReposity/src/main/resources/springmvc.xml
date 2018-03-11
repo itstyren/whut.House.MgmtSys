@@ -9,7 +9,7 @@
 	<!-- SpringMVC配置文件 处理业务逻辑跳转 -->
 
 	<!-- 只扫描控制器所在包 -->
-	<context:component-scan base-package="com.computerdesign.whutHouseMgmt">
+	<context:component-scan base-package="com.computerdesign.whutHouseMgmt"> 
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
@@ -49,6 +49,8 @@
 			<mvc:exclude-mapping path="/webjars/**" />		
 			<mvc:exclude-mapping path="/swagger-resources/**" />		
 			<mvc:exclude-mapping path="//**" />		
+			<mvc:exclude-mapping path="/testDownload.jsp" />		 
+			<mvc:exclude-mapping path="/testUpload.jsp" />		
 				
 			<bean class="com.computerdesign.whutHouseMgmt.utils.LoginInterceptor"></bean>
 		</mvc:interceptor>

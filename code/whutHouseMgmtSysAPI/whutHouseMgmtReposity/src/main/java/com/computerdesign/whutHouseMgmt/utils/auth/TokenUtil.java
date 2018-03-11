@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.utils;
+package com.computerdesign.whutHouseMgmt.utils.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -74,6 +74,15 @@ public class StaffService implements BaseService<Staff> {
 		
 	}
 	
+	/**
+	 * 获取员工的roleId
+	 * @param staffId
+	 * @return
+	 */
+	public Integer getRoleByStaffId(Integer staffId) {
+		return staffMapper.selectByPrimaryKey(staffId).getRoleId();
+	}
+	
 	@Override
 	public List<Staff> getAll() {
 		// TODO Auto-generated method stub
