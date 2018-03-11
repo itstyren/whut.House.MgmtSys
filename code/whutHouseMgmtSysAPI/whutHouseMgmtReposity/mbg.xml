@@ -12,7 +12,7 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql:///whlglease" userId="root" password="XH05250619.">
+			connectionURL="jdbc:mysql:///whlglease" userId="root" password="">
 		</jdbcConnection>
 
 		<javaTypeResolver>
@@ -21,7 +21,7 @@
  
 		<!-- 指定javabean的生成位置 -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.staffmanagement"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean."
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />

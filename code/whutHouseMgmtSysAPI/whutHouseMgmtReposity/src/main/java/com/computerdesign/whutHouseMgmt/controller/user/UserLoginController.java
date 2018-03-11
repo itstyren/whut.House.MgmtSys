@@ -4,13 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
-import javax.naming.TimeLimitExceededException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,27 +18,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
-import com.computerdesign.whutHouseMgmt.bean.token.Token;
-import com.computerdesign.whutHouseMgmt.bean.user.User;
 import com.computerdesign.whutHouseMgmt.bean.user.UserLogin;
-import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
-import com.computerdesign.whutHouseMgmt.service.token.TokenService;
-import com.computerdesign.whutHouseMgmt.service.user.UserLoginService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
-import com.fasterxml.jackson.annotation.JsonFormat.Value;
-
-import io.jsonwebtoken.Claims;
 
 @RequestMapping(value = "/userLogin/")
 @Controller
 public class UserLoginController {
 
-	// 分钟*秒*毫秒
-	private Integer TimeLimit = 60 * 60 * 1000;
 
-	@Autowired
-	private TokenService tokenService;
 
 	@Autowired
 	private ViewStaffService viewStaffService;
