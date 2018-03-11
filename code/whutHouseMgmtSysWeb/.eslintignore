@@ -12,6 +12,7 @@ src/assets/function/*.js
 src/assets/data/*.js
 src/mock/*.js
 src/*.js
+src/filters/*js
 
 src/components/sysManage/paramSet/*.vue
 src/components/sysManage/paramSet/houseParam/*.vue 
