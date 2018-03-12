@@ -43,10 +43,11 @@
                   <el-button type="primary" @click="multicondition">查询</el-button>
                 </el-col>
                 <el-col :span="2" :offset="1">
-                  <el-button type="primary" @click="handleDownload" :loading="downloadLoading">导出</el-button>
+                  <export-popover :download-loading="downloadLoading" @export="exportHandle"></export-popover>
                 </el-col>
               </el-row>
             </el-form>
+
           </div>
           <!-- 表格区 -->
           <div class="main-data">
@@ -124,10 +125,13 @@
   import {
     parseTime
   } from "@/utils/time.js";
+  import exportPopover from '@/components/exportPopover'
   export default {
     data() {
       return {
         downloadLoading: false,
+        exportVisible: false,
+        exportType: "1",
         // 多重查找表单
         queryForm: {},
         setTime: [],
@@ -170,6 +174,9 @@
           ]
         }
       };
+    },
+    components: {
+      exportPopover
     },
     // 过滤器的哈希表
     filters: {
@@ -306,9 +313,24 @@
             });
         }
       },
-
+      // 处理导出情况
+      exportHandle(exportType) {
+        //console.log(33)
+        if (exportType == 1) this.handleDownload();
+        else {
+          let param = {
+            page: 1,
+            size: 9999
+          };
+          let data = Object.assign({}, this.queryForm);
+          postFixmulticondition(param, data).then(res => {
+            const values = res.data.data.data.list;
+            this.handleDownload(values);
+          });
+        }
+      },
       // 导出
-      handleDownload() {
+      handleDownload(...values) {
         let filename = "维修结算表统计";
         this.downloadLoading = true;
         import ("@/vendor/Export2Excel").then(excel => {
@@ -338,9 +360,11 @@
             "postName",
             "titleName",
             "applyTime",
-            "message",
+            "message"
           ];
-          const list = this.fixFormData;
+          let list = [];
+          if (arguments.length == 0) list = this.fixFormData;
+          else list = arguments[0];
           const data = this.formatJson(filterVal, list); // 用于自行洗数据
           let date = new Date();
           filename = filename + `(${parseTime(date, "{y}-{m}-{d}")})`;
