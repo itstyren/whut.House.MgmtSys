@@ -20,8 +20,12 @@ import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RequestMapping(value = "/hire/")
 @RestController
+@Api(value = "/hire/",tags = "Hire接口")
 public class HireAcceptController {
 
 	@Autowired
@@ -38,6 +42,7 @@ public class HireAcceptController {
 	 * @return
 	 */
 	@RequestMapping(value = "getAccept/{acceptState}", method = RequestMethod.GET)
+	@ApiOperation(value = "获取全部的受理信息",notes="进入房屋申请受理页面 0代表未经受理流程的全部信息，1代表受理过程结束的全部信息",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getAccept(@PathVariable("acceptState") Integer acceptState) {
 		if (acceptState == null) {
 			return Msg.error("请检查你的网络");
@@ -66,6 +71,7 @@ public class HireAcceptController {
 	 * @return
 	 */
 	@RequestMapping(value = "addAccept", method = RequestMethod.PUT)
+	@ApiOperation(value = "房屋受理",notes="维修受理 acceptMan为当前登录人的姓名，acceptState只能为通过或者拒绝",httpMethod="PUT",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg hireAddAccept(@RequestBody HireAddAccept hireAddAccept) {
 		ViewHire viewHire = viewHireService.getById(hireAddAccept.getId()).get(0);
 		if (viewHire.getIsOver()) {
@@ -119,7 +125,7 @@ public class HireAcceptController {
 	 * @return
 	 */
 	@RequestMapping(value = "reAccept/{id}",method = RequestMethod.GET)
-	@ResponseBody
+	@ApiOperation(value = "重新受理",notes="重新受理 传入参数为hire的id",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg hireReAccept(@PathVariable("id")Integer id){
 		Hire hire = hireService.getHireById(id);
 		if (hire.getAcceptState() == null) {

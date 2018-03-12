@@ -188,6 +188,20 @@ public class DateUtil {
 		calendar.add(Calendar.HOUR, hour);
 		return calendar.getTime();
 	}
+	
+	
+	/**
+	 * 得到给定时间的给定分钟后的日期
+	 * @param date
+	 * @param minute
+	 * @return
+	 */
+	public static Date getAppointMinute(Date date,int minute) {
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.MINUTE,minute);
+		return calendar.getTime();
+	}
 	/**
 	 * 获取两个日期之间的天数
 	 * @param before

@@ -32,6 +32,9 @@ import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * 
  * @author wanhaoran
@@ -39,6 +42,7 @@ import com.github.pagehelper.PageInfo;
  */
 @RequestMapping(value = "/hire/")
 @RestController
+@Api(value = "/hire/",tags = "Hire接口")
 public class HireController {
 
 	@Autowired
@@ -66,6 +70,7 @@ public class HireController {
 	 * @return
 	 */
 	@RequestMapping(value = "getApply/{staffId}", method = RequestMethod.GET)
+	@ApiOperation(value = "住房申请页面",notes="住房申请页面",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getHireApply(@PathVariable("staffId") Integer staffId) {
 
 		// 获取员工信息
@@ -107,7 +112,9 @@ public class HireController {
 	 * @param hire
 	 * @return
 	 */
+	
 	@RequestMapping(value = "addApply", method = RequestMethod.POST)
+	@ApiOperation(value = "住房申请",notes="住房申请",httpMethod="POST",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg addHireApply(@RequestBody Hire hire) {
 
 		// 判断该员工是否已经申请房屋
@@ -146,6 +153,7 @@ public class HireController {
 	 * @return
 	 */
 	@RequestMapping(value = "getSignContract", method = RequestMethod.GET)
+	@ApiOperation(value = "签订合同页面",notes="签订合同页面",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg HireGetSignContract() {
 		// 获取全部等待签订合同的信息
 		List<ViewHire> listViewHire = viewHireService.getSignContract();
@@ -166,6 +174,7 @@ public class HireController {
 	 */
 	@Transactional
 	@RequestMapping(value = "addSignContract", method = RequestMethod.POST)
+	@ApiOperation(value = "签订合同",notes="签订合同",httpMethod="POST",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg HireAddSignContract(@RequestBody HireAddSignContract hireAddSignContract) {
 		// 获取该房屋申请信息
 		Hire hire = hireService.getHireById(hireAddSignContract.getId());
@@ -190,6 +199,7 @@ public class HireController {
 	 * @return
 	 */
 	@RequestMapping(value = "getManagement",method = RequestMethod.GET)
+	@ApiOperation(value = "住房申请书页面",notes="住房申请书页面",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getManagement(@RequestParam(value = "page", defaultValue = "0")Integer page,
 			@RequestParam(value = "size", defaultValue = "0")Integer size){
 		PageHelper.startPage(page, size);
@@ -204,6 +214,7 @@ public class HireController {
 	 * @return
 	 */
 	@RequestMapping(value = "delete/{hireId}",method = RequestMethod.DELETE)
+	@ApiOperation(value = "删除",notes="删除",httpMethod="DELETE",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg hireDelete(@PathVariable(value = "hireId")Integer hireId){
 		Hire hire = hireService.getHireById(hireId);
 		if (hire==null) {

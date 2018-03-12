@@ -72,6 +72,7 @@
 			}
 		});
 	}
+
 	//数据导入的Post类请求
 	function ajaxRequestPostTypeForDataImport(uri, method, data) {
 		//alert("${API_Path }/" + uri);
@@ -79,6 +80,10 @@
 			type : method,
 			contentType : 'multipart/form-data;charset=UTF-8',
 			dataType : 'json',
+			beforeSend : function(request) {
+				request.setRequestHeader("X-token",
+						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+			},
 			data : JSON.stringify(data),
 			url : uri,
 			success : function(response) {
@@ -88,7 +93,43 @@
 				console.log('Ajax请求失败！');
 			}
 		});
+
 	}
+
+	//导入文件
+	function importExp() {
+		var formData = new FormData();
+		var name = $("#upfile").val();
+		formData.append("file", $("#upfile")[0].files[0]);
+		formData.append("name", name);
+		$.ajax({
+			url : "dataImport/staffDataImport",
+			type : 'POST',
+			async : false,
+			data : formData,
+			// 告诉jQuery不要去处理发送的数据
+			processData : false,
+			// 告诉jQuery不要去设置Content-Type请求头
+			contentType : false,
+			beforeSend : function(request) {
+				request.setRequestHeader("X-token",
+						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+			},
+			success : function(response) {
+				console.log(response);
+			},
+			error : function() {
+				console.log('Ajax请求失败！');
+			}
+		});
+	}
+
+	//数据导入
+	$(function() {
+		/* $("#staffDataImport").click(function() {
+			ajaxRequestPostTypeForDataImport("dataImport/staffDataImport","POST",null);
+		}) */
+	})
 
 	//租赁历史
 	$(function() {
@@ -389,19 +430,13 @@
 
 	})
 
-	//数据导入
-	$(function() {
-	})
-
 	//网上选房
 	$(function() {
 
-		$("#isSelectingHouse")
-		.click(
-				function() {
-					ajaxRequestGet("selfHelpSelectHouse/isSelectingHouse/3");
-				})
-		
+		$("#isSelectingHouse").click(function() {
+			ajaxRequestGet("selfHelpSelectHouse/isSelectingHouse/3");
+		})
+
 		$("#getAllSelectedStaff")
 				.click(
 						function() {
@@ -613,7 +648,7 @@
 				'regionName' : '武汉市洪山区工大路20号'
 
 			};*/
-			var data = [3,4];
+			var data = [ 4 ];
 			ajaxRequestPostType("rentGenerate/rentGen", "POST", data);
 		})
 
@@ -780,6 +815,23 @@
 		</div>
 		<div class="tab-pane fade" id="dataImport">
 			<!-- 数据导入 -->
+			<h4>职工数据导入</h4>
+			<form action="dataImport/staffDataImport" method="post"
+				enctype="multipart/form-data">
+				StaffFile:<input type="file" name="staffFile"> <input
+					type="submit" value="Submit">
+			</form>
+
+			<h4>住房数据导入</h4>
+			<form action="dataImport/houseDataImport" method="post"
+				enctype="multipart/form-data">
+				HouseFile:<input type="file" name="houseFile"> <input
+					type="submit" value="Submit">
+			</form>
+			<!-- <input type="file" id="upfile" name="upfile" placeholder="" />
+			<button onclick="importExp();">导入</button> -->
+			<!-- <input class="btn btn-info btn-lg" type="file"
+				value="StaffDataImport" id="staffDataImport" /> <br> -->
 		</div>
 		<div class="tab-pane fade" id="internetSelectHouse">
 			<h4>自助选房：获取当前能否点房相关信息</h4>
@@ -843,8 +895,9 @@
 
 		<div class="tab-pane fade" id="rentGenerate">
 			<h4>根据职工号或姓名查询</h4>
-			<input class="btn btn-info btn-lg" type="button" value="SelectRentByStaffNoOrName"
-				id="selectRentByStaffNoOrName" /> <br>
+			<input class="btn btn-info btn-lg" type="button"
+				value="SelectRentByStaffNoOrName" id="selectRentByStaffNoOrName" />
+			<br>
 			<h4>租金查询</h4>
 			<input class="btn btn-info btn-lg" type="button" value="QueryRent"
 				id="queryRent" /> <br>
