@@ -46,7 +46,7 @@ import addStaff from '@/views/basiceData/staffData/addStaff'
 // 住房登记
 import indexResident from '@/views/basiceData/houseResident/indexNav'
 import houseResident from '@/views/basiceData/houseResident/resident'
-
+import importData from '@/views/basiceData/importData/importData'
 // 维修管理
 // 维修申请
 import fixApply from '@/views/fixManage/fixApply'
@@ -87,6 +87,8 @@ import selfService from '@/views/online/selfService'
 // 住房申请
 import hireApply from '@/views/online/hireApply'
 
+// 个人设置
+import personal from '@/views/personal/index'
 
 Vue.use(Router)
 
@@ -121,6 +123,18 @@ const routes = [
       path: '/index',
       component: HelloWorld,
       name: 'index',
+      menuShow: true
+    }]
+  },
+  // 个人设置
+  {
+    path: '/user',
+    name: 'user',
+    component: Home,
+    children: [{
+      path: 'setting',
+      component: personal,
+      name: 'personal',
       menuShow: true
     }]
   },
@@ -329,6 +343,11 @@ const routes = [
           name: 'houseResident',
           menuShow: true
         }]
+      },
+      {
+        path: 'importData',
+        component: importData,
+        name: 'importData',
       }
     ]
   },
