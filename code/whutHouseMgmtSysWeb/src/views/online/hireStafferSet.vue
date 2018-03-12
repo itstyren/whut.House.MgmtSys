@@ -362,7 +362,7 @@
       },
       // 取消可选房
       cancelSelect() {
-        console.log(this.cancelList)
+        //console.log(this.cancelList)
         this.listLoading = true;
         const data = this.cancelList;
         postcancelCanSelect(data).then(res => {

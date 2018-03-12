@@ -35,7 +35,7 @@ public class Staff {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date joinTime;
-
+    
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date goUniversityTime;
@@ -99,6 +99,10 @@ public class Staff {
     private String userName;
 
     private Byte isSuper;
+
+    private Integer roleId;
+
+    private Boolean accountStatus;
 
     public Integer getId() {
         return id;
@@ -404,15 +408,25 @@ public class Staff {
         this.isSuper = isSuper;
     }
 
-	@Override
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
+    public Boolean getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(Boolean accountStatus) {
+        this.accountStatus = accountStatus;
+    }
+    
+    @Override
 	public String toString() {
 		return "Staff [id=" + id + ", no=" + no + ", name=" + name + ", sex=" + sex + ", marriageState=" + marriageState
 				+ "]";
 	}
-
-	
-
-	
-    
-    
 }
