@@ -308,7 +308,7 @@ export default {
         page: this.page,
         size: this.size
       };
-      console.log(this.queryForm);
+      //console.log(this.queryForm);
       const data = Object.assign({}, this.queryForm);
       postActiveHousemulticondition(param, data).then(res => {
         utils.statusinfo(this, res.data);

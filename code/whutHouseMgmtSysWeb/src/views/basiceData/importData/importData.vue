@@ -50,6 +50,7 @@
     methods: {
       selected(data) {
         this.tableData = data.results;
+        console.log(this.tableData)
         this.tableHeader = data.header;
       }
     }
