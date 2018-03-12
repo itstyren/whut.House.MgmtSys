@@ -28,6 +28,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -109,22 +110,21 @@ public class DataImportController {
 	@RequestMapping(value = "staffDataImport", method = RequestMethod.POST)
 	public Msg staffDataImport(@RequestParam("staffFile") MultipartFile multipartFile) {
 
+		System.out.println("访问成功");
 		// 用于存放导入的对象集
 		List<Staff> staffs = new ArrayList<Staff>();
-
+		
 		try {
 			Workbook workBook = null;
 			// System.out.println(multipartFile.getOriginalFilename());
-
+			
 			if (!ExcelUtils.validateExcel(multipartFile.getOriginalFilename())) {
 				return Msg.error("请上传Excel格式的文件");
 			}
-
 			if (ExcelUtils.isExcel2003(multipartFile.getOriginalFilename())) {
 				// 获取上传的Excel表
 				workBook = new HSSFWorkbook(multipartFile.getInputStream());
 			}
-
 			if (ExcelUtils.isExcel2007(multipartFile.getOriginalFilename())) {
 				// 获取上传的Excel表
 				workBook = new XSSFWorkbook(multipartFile.getInputStream());
@@ -237,7 +237,7 @@ public class DataImportController {
 					} else {
 						System.out.println("电话号码格式非法,请检查EXCEL表是否为文本格式或是否输入正确");
 					}
-
+					
 					// 备注
 					staff.setRemark(val[14]);
 					// 配偶姓名
@@ -314,6 +314,7 @@ public class DataImportController {
 	@RequestMapping(value = "houseDataImport", method = RequestMethod.POST)
 	public Msg houseDataImport(@RequestParam("houseFile") MultipartFile multipartFile) {
 
+		System.out.println("AA");
 		// 用于存放导入的对象集
 		List<House> houses = new ArrayList<House>();
 
@@ -395,6 +396,8 @@ public class DataImportController {
 						house.setStruct(struct);
 					}
 					
+					System.out.println(house);
+					
 					//建筑面积
 					Double buildArea = Double.valueOf(val[4]);
 					house.setBuildArea(buildArea);
@@ -450,7 +453,7 @@ public class DataImportController {
 				}
 			}
 		} catch (Exception e) {
-			return null;
+			return Msg.error("导入失败,可能有数据在数据库中不存在或删除");;
 		}
 		setHouseList(houses);
 		return Msg.success("导入数据成功").add("data", houses);

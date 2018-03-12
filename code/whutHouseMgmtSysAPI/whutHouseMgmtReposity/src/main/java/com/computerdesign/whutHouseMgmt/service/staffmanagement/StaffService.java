@@ -56,7 +56,10 @@ public class StaffService implements BaseService<Staff> {
 	public List<Staff> getByStaffDept(Integer dept){
 		StaffExample staffExample = new StaffExample();
 		Criteria criteria = staffExample.createCriteria();
-		criteria.andDeptEqualTo(dept);
+		//若部门ID传入为0，则查询所有
+		if(dept != 0){			
+			criteria.andDeptEqualTo(dept);
+		}
 		return staffMapper.selectByExample(staffExample);
 		
 	}
