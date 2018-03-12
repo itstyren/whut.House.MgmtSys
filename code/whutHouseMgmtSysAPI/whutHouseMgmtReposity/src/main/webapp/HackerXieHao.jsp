@@ -821,13 +821,17 @@
 				StaffFile:<input type="file" name="staffFile"> <input
 					type="submit" value="Submit">
 			</form>
-
+			<br>
 			<h4>住房数据导入</h4>
 			<form action="dataImport/houseDataImport" method="post"
 				enctype="multipart/form-data">
 				HouseFile:<input type="file" name="houseFile"> <input
 					type="submit" value="Submit">
 			</form>
+			<br>
+			<h4>下载</h4>
+			<a href="dataImport/staffDownLoad">职工模板下载</a> <br> <br> <a
+				href="dataImport/houseDownLoad">住房模板下载</a>
 			<!-- <input type="file" id="upfile" name="upfile" placeholder="" />
 			<button onclick="importExp();">导入</button> -->
 			<!-- <input class="btn btn-info btn-lg" type="file"

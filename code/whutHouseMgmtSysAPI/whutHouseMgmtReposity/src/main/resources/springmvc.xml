@@ -39,6 +39,8 @@
 			<mvc:exclude-mapping path="/testUpload.jsp" />
 			<mvc:exclude-mapping path="/dataImport/staffDataImport" />
 			<mvc:exclude-mapping path="/dataImport/houseDataImport" />
+			<mvc:exclude-mapping path="/dataImport/staffDownLoad" />
+			<mvc:exclude-mapping path="/dataImport/houseDownLoad" />
 			<bean class="com.computerdesign.whutHouseMgmt.utils.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors> 
