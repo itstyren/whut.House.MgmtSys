@@ -31,7 +31,7 @@
                 <el-table-column prop="staffTypeName" label="职工类别" align="center"></el-table-column>
                 <el-table-column prop="staffStatusName" label="工作状态" align="center"></el-table-column>
                 <el-table-column prop="staffDeptName" label="工作部门" align="center"></el-table-column>
-                <el-table-column label="职工总分" align="center">
+                <el-table-column label="职工总分" align="center" width="80">
                   <template slot-scope="scope">
                     <el-popover trigger="hover" placement="top">
                       <p>职务分: {{ scope.row.staffTitleVal }}</p>

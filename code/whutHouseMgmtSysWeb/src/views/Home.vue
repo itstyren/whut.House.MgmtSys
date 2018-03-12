@@ -50,7 +50,7 @@
             <el-menu-item index="/basic/houseResident">
               <span>住房登记</span>
             </el-menu-item>
-            <el-menu-item index="/basic/orglist">
+            <el-menu-item index="/basic/importData">
               <span>数据导入</span>
             </el-menu-item>
           </el-submenu>
@@ -135,8 +135,8 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
-              <router-link to="/account/info">
-                <span style=" color: #000; font-size: 14px;">个人信息</span>
+              <router-link to="/user/setting">
+                <span style=" color: #000; font-size: 14px;">个人设置</span>
               </router-link>
             </el-dropdown-item>
             <el-dropdown-item>
