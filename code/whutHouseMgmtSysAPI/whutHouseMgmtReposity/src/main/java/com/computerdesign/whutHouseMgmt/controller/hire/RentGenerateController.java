@@ -111,6 +111,9 @@ public class RentGenerateController {
 	public Msg queryRent(@RequestBody RentTimeRange rentTimeRange,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		if(rentTimeRange == null){
+			return Msg.error("请选择查询的时间范围");
+		}
 		PageHelper.startPage(page, size);
 		List<RentVw> rentVws = rentGenerateService.queryRent(rentTimeRange);
 		List<RentVwShowModel> rentVwShowModels = new ArrayList<RentVwShowModel>();
@@ -164,6 +167,9 @@ public class RentGenerateController {
 			staffHouses.add(staffHouse);
 		}
 		
+		//获取所有租赁信息，使用contains判断是否重复插入
+		List<Rent> rents = rentGenerateService.getAllRent();
+		
 		for (StaffHouse staffHouse : staffHouses) {
 			Rent rent = new Rent();
 			rent.setResidentId(staffHouse.getResidentId());
@@ -183,7 +189,9 @@ public class RentGenerateController {
 				rent.setEndTime(calendar.getTime());
 			}
 			rent.setEmploymentDate(staffHouse.getStaffJoinTime());
-			rentGenerateService.rentGenerate(rent);
+			if(!rents.contains(rent)){
+				rentGenerateService.rentGenerate(rent);
+			}
 		}
 		return Msg.success();
 	}

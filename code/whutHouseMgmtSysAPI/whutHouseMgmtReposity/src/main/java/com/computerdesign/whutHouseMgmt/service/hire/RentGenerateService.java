@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.Rent;
+import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentExample;
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentTimeRange;
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVw;
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVwExample;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouseExample;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectModel;
+import com.computerdesign.whutHouseMgmt.bean.rentparam.RentEventExample;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouseExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.hire.RentMapper;
 import com.computerdesign.whutHouseMgmt.dao.hire.RentVwMapper;
@@ -31,6 +33,16 @@ public class RentGenerateService {
 	private RentVwMapper rentVwMapper;
 	
 	/**
+	 * 获取所有租赁信息
+	 * @return
+	 */
+	public List<Rent> getAllRent(){
+		RentExample example = new RentExample();
+		com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentExample.Criteria criteria = example.createCriteria();
+		return rentMapper.selectByExample(example);
+	}
+	
+	/**
 	 * 根据职工号或职工姓名模糊查找
 	 * 
 	 * @param conditionName
@@ -46,6 +58,7 @@ public class RentGenerateService {
 		} catch (NumberFormatException e) {
 			criteria.andStaffNameLike("%" + conditionValue + "%");
 		}
+		criteria.andHouseRelNameEqualTo("租赁");
 		
 		return staffHouseMapper.selectByExample(example);
 	}
@@ -59,7 +72,15 @@ public class RentGenerateService {
 		RentVwExample example = new RentVwExample();
 		com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVwExample.Criteria criteria = example.createCriteria();
 		if(rentTimeRange != null){
-			criteria.andRentBeginTimeBetween(rentTimeRange.getStartTime(), rentTimeRange.getEndTime());
+			if(rentTimeRange.getStartTime() != null){
+				//开始时间和结束时间均不为空，则查询包含在该时间范围内的数据
+				if(rentTimeRange.getEndTime() != null){					
+					criteria.andRentBeginTimeBetween(rentTimeRange.getStartTime(), rentTimeRange.getEndTime());
+				}else{
+					//开始时间不为空，结束时间为空，则查询至开始时间以后的数据
+					criteria.andRentBeginTimeGreaterThanOrEqualTo(rentTimeRange.getStartTime());
+				}
+			}
 		}
 		return rentVwMapper.selectByExample(example);
 	}

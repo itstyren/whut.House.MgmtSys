@@ -38,12 +38,16 @@
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
-                <el-col :span="5" :offset="1">
+                <el-col :span="3" :offset="1">
                   <el-button type="danger">重置</el-button>
                   <el-button type="primary" @click="multicondition">查询</el-button>
                 </el-col>
+                <el-col :span="2" :offset="1">
+                  <export-popover :download-loading="downloadLoading" @export="exportHandle"></export-popover>
+                </el-col>
               </el-row>
             </el-form>
+
           </div>
           <!-- 表格区 -->
           <div class="main-data">
@@ -71,7 +75,11 @@
                   <span v-else>{{ scope.row.fixMoney }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="isOver" label="是否定价" align="center"></el-table-column>
+              <el-table-column prop="isOver" label="是否定价" align="center">
+                <template slot-scope="scope">
+                  <my-icon v-if="scope.row.isOver" icon-class="icon-" />
+                </template>
+              </el-table-column>
               <el-table-column label="状态" align="center">
                 <template slot-scope="scope">
                   <el-tag :type="scope.row.fixState | statusFilter">{{scope.row.fixState}}</el-tag>
@@ -86,7 +94,7 @@
               <el-table-column label="操作" width="180" align="center">
                 <template slot-scope="scope">
                   <template v-if="!scope.row.edit">
-                    <el-button v-if="!scope.row.edit" type="primary" size="mini" @click="scope.row.edit=!scope.row.edit">定价</el-button>
+                    <el-button v-if="!scope.row.edit" type="primary" size="mini" @click="priceEdit(scope.$index,scope.row)">定价</el-button>
                     <el-button type="success" size="mini" @click="setCheck(scope.$index,scope.row)">结算</el-button>
                   </template>
                   <template v-else>
@@ -114,9 +122,16 @@
     putFixcheck
   } from "@/api/fixManage";
   import utils from "@/utils/index.js";
+  import {
+    parseTime
+  } from "@/utils/time.js";
+  import exportPopover from '@/components/exportPopover'
   export default {
     data() {
       return {
+        downloadLoading: false,
+        exportVisible: false,
+        exportType: "1",
         // 多重查找表单
         queryForm: {},
         setTime: [],
@@ -160,6 +175,9 @@
         }
       };
     },
+    components: {
+      exportPopover
+    },
     // 过滤器的哈希表
     filters: {
       statusFilter(status) {
@@ -181,6 +199,18 @@
       priceFormat(row, column, cellValue) {
         if (cellValue == null) return "待填";
         else return row.fixMoney;
+      },
+      // 行内编辑定价
+      priceEdit(index, row) {
+        if (row.isOver == true) {
+          this.$notify.error({
+            title: "错误",
+            message: "不能对已结算项重操作"
+          });
+          return;
+        } else {
+          row.edit = !row.edit;
+        }
       },
       // 初始获取和多条件获取通用
       multicondition() {
@@ -246,28 +276,112 @@
       },
       // 维修结算
       setCheck(index, row) {
-        this.$confirm("确认结算该项", "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(() => {
-            this.listLoading = true;
-            let param = {
-              checkMan: "任天宇",
-              id: row.id
-            };
-            putFixcheck(param).then(res => {
-              utils.statusinfo(this, res.data);
-              this.listLoading = false;
-            });
-          })
-          .catch(() => {
-            this.$message({
-              type: "info",
-              message: "已取消结算"
-            });
+        if (row.fixMoney == null) {
+          this.$notify.error({
+            title: "错误",
+            message: "不能对未定价的维修进行结算"
           });
+          return;
+        } else if (row.isOver == true) {
+          this.$notify.error({
+            title: "错误",
+            message: "请勿重复结算"
+          });
+          return;
+        } else {
+          this.$confirm("确认结算该项", "提示", {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning"
+            })
+            .then(() => {
+              this.listLoading = true;
+              let param = {
+                checkMan: "任天宇",
+                id: row.id
+              };
+              putFixcheck(param).then(res => {
+                utils.statusinfo(this, res.data);
+                this.listLoading = false;
+              });
+            })
+            .catch(() => {
+              this.$message({
+                type: "info",
+                message: "已取消结算"
+              });
+            });
+        }
+      },
+      // 处理导出情况
+      exportHandle(exportType) {
+        //console.log(33)
+        if (exportType == 1) this.handleDownload();
+        else {
+          let param = {
+            page: 1,
+            size: 9999
+          };
+          let data = Object.assign({}, this.queryForm);
+          postFixmulticondition(param, data).then(res => {
+            const values = res.data.data.data.list;
+            this.handleDownload(values);
+          });
+        }
+      },
+      // 导出
+      handleDownload(...values) {
+        let filename = "维修结算表统计";
+        this.downloadLoading = true;
+        import ("@/vendor/Export2Excel").then(excel => {
+          const tHeader = [
+            "单据号",
+            "维修类型",
+            "姓名",
+            "维修金额",
+            "是否定价",
+            "状态",
+            "住房号",
+            "职工号",
+            "职称",
+            "职务",
+            "申请时间",
+            "备注"
+          ];
+          const filterVal = [
+            "id",
+            "fixContentName",
+            "staffName",
+            "fixMoney",
+            "isOver",
+            "fixState",
+            "houseNo",
+            "staffNo",
+            "postName",
+            "titleName",
+            "applyTime",
+            "message"
+          ];
+          let list = [];
+          if (arguments.length == 0) list = this.fixFormData;
+          else list = arguments[0];
+          const data = this.formatJson(filterVal, list); // 用于自行洗数据
+          let date = new Date();
+          filename = filename + `(${parseTime(date, "{y}-{m}-{d}")})`;
+          excel.export_json_to_excel(tHeader, data, filename);
+          this.downloadLoading = false;
+        });
+      },
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v =>
+          filterVal.map(j => {
+            if (j === "timestamp") {
+              return parseTime(v[j]);
+            } else {
+              return v[j];
+            }
+          })
+        );
       },
       //更换每页数量
       SizeChangeEvent(val) {
