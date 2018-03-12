@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.Rent;
+import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentExample;
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentTimeRange;
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVw;
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVwExample;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouseExample;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectModel;
+import com.computerdesign.whutHouseMgmt.bean.rentparam.RentEventExample;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouseExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.hire.RentMapper;
 import com.computerdesign.whutHouseMgmt.dao.hire.RentVwMapper;
@@ -29,6 +31,16 @@ public class RentGenerateService {
 	
 	@Autowired
 	private RentVwMapper rentVwMapper;
+	
+	/**
+	 * 获取所有租赁信息
+	 * @return
+	 */
+	public List<Rent> getAllRent(){
+		RentExample example = new RentExample();
+		com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentExample.Criteria criteria = example.createCriteria();
+		return rentMapper.selectByExample(example);
+	}
 	
 	/**
 	 * 根据职工号或职工姓名模糊查找

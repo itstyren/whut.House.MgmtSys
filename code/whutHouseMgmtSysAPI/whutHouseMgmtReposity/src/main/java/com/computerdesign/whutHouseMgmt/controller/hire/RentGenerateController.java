@@ -167,6 +167,9 @@ public class RentGenerateController {
 			staffHouses.add(staffHouse);
 		}
 		
+		//获取所有租赁信息，使用contains判断是否重复插入
+		List<Rent> rents = rentGenerateService.getAllRent();
+		
 		for (StaffHouse staffHouse : staffHouses) {
 			Rent rent = new Rent();
 			rent.setResidentId(staffHouse.getResidentId());
@@ -186,7 +189,9 @@ public class RentGenerateController {
 				rent.setEndTime(calendar.getTime());
 			}
 			rent.setEmploymentDate(staffHouse.getStaffJoinTime());
-			rentGenerateService.rentGenerate(rent);
+			if(!rents.contains(rent)){
+				rentGenerateService.rentGenerate(rent);
+			}
 		}
 		return Msg.success();
 	}

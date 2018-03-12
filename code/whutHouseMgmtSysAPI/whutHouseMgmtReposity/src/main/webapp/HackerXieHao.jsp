@@ -613,7 +613,7 @@
 				'regionName' : '武汉市洪山区工大路20号'
 
 			};*/
-			var data = [3,4];
+			var data = [4];
 			ajaxRequestPostType("rentGenerate/rentGen", "POST", data);
 		})
 
