@@ -6,10 +6,10 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- SpringMVC配置文件 处理业务逻辑跳转 -->
+	<!-- SpringMVC配置文件 处理业务逻辑跳转 --> 
 
 	<!-- 只扫描控制器所在包 -->
-	<context:component-scan base-package="com.computerdesign.whutHouseMgmt"> 
+	<context:component-scan base-package="com.computerdesign.whutHouseMgmt">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
@@ -45,17 +45,31 @@
 			<!--不拦截登录页和登录的请求 -->
 			<mvc:exclude-mapping path="/userLogin/**" />
 			<mvc:exclude-mapping path="/static/**" />
-			<mvc:exclude-mapping path="/swagger-ui.html/**" />			
-			<mvc:exclude-mapping path="/webjars/**" />		
-			<mvc:exclude-mapping path="/swagger-resources/**" />		
-			<mvc:exclude-mapping path="//**" />		
-			<mvc:exclude-mapping path="/testDownload.jsp" />		 
-			<mvc:exclude-mapping path="/testUpload.jsp" />		
-				
-			<bean class="com.computerdesign.whutHouseMgmt.utils.LoginInterceptor"></bean>
-		</mvc:interceptor>
-	</mvc:interceptors>
+			<mvc:exclude-mapping path="/swagger-ui.html/**" />
+			<mvc:exclude-mapping path="/webjars/**" />
 
+			<mvc:exclude-mapping path="/testDownload.jsp" />
+			<mvc:exclude-mapping path="/testUpload.jsp" />
+
+			<bean class="com.wf.etp.authz.ApiInterceptor">
+				<property name="userRealm" ref="userRealm" />  <!-- 需要提供UserRealm -->
+				<property name="cache" ref="etpCache" /> <!-- 需要提供缓存实现 -->
+				<property name="tokenKey" value="w-h-r" />  <!-- 生成token的key,可以不写默认是'e-t-p' -->
+			</bean> 
+		</mvc:interceptor>
+	</mvc:interceptors> 
+
+
+	<!-- 实现UserRealm -->
+	<bean id="userRealm" class="com.computerdesign.whutHouseMgmt.utils.auth.UserRealm" />
+
+	<!-- 自定义缓存实现 -->
+	<bean id="etpCache" class="com.computerdesign.whutHouseMgmt.utils.auth.EtpCache" />
+
+	<!-- 扫描UserRealm和EtpCache所在的包 -->
+	<context:component-scan base-package="com.computerdesign.whutHouseMgmt.utils.auth" />
+	
+	
 	<!-- 能支持springmvc更高级的一些功能，JSR303校验，快捷的ajax -->
 	<mvc:annotation-driven>
 		<!-- <mvc:message-converters register-defaults="true"> <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"> 

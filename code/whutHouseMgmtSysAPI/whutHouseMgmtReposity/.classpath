@@ -29,6 +29,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/main/lib/JwtPermission-1.0.6.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/JwtPermission.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

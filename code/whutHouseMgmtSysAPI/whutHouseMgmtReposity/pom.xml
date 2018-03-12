@@ -19,7 +19,8 @@
 	<dependencies>
 
 
-		<!-- swagger api文档生产 -->
+		
+		<!-- swagger api文档生产 --> 
 		<!--springfox的核心jar包 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
