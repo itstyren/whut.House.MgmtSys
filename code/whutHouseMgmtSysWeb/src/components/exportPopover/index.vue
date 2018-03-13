@@ -15,22 +15,22 @@
 <script>
 export default {
   name: "export-popover",
-  data () {
-      return {
-          exportVisible:false,
-          exportType:'1',
-      }
+  data() {
+    return {
+      exportVisible: false,
+      exportType: "1"
+    };
   },
   props: {
-downloadLoading:{
-          type: Boolean,
+    downloadLoading: {
+      type: Boolean,
       default: false
-}
+    }
   },
   methods: {
-      exportHandle(){
-          this.$emit("export",this.exportType)
-      }
+    exportHandle() {
+      this.$emit("export", this.exportType);
+    }
   }
 };
 </script>

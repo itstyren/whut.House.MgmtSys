@@ -172,6 +172,7 @@
     methods: {
       // 退出登录
       logout() {
+       // console.log('2')
         this.$store.dispatch("LogOut").then(() => {
           location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
         });
