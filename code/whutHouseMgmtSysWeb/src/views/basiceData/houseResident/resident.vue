@@ -34,7 +34,7 @@
         </el-row>
         <!-- 房屋查询区 -->
         <el-row  class="conditionalQuery card">
-          <el-col :span="24"  >
+          <el-col :span="24" style="height:75%" >
                 <el-row>
               <el-form :model="simpleQueryForm" :inline="true">
                   <el-col :span="4" :offset="1">
@@ -257,8 +257,9 @@
     }
     .conditionalQuery {
       position: relative;
-      padding-top: 20px;
+      padding: 20px 0;
       height: 40vh;
+      margin-bottom: 50px;
       .el-form-item{
         margin-bottom: 5px;
       }
