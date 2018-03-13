@@ -21,9 +21,9 @@ public class BaseController {
 	 * 获取当前请求的token
 	 */
 	public String getToken(HttpServletRequest request) {
-		String token = request.getHeader("token");
+		String token = request.getHeader("X-token");
 		if (token == null) {
-			token = request.getParameter("token");
+			token = request.getParameter("X-token");
 		}
 		return token;
 	}
