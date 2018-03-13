@@ -22,7 +22,7 @@
           <div class="main-data">
             <div class="card import-data">
             <el-table :data="tableData" class="table" border height="string" highlight-current-row>
-              <el-table-column v-for='item of tableHeader' :prop="item" :label="item" :key='item'>
+              <el-table-column v-for='item of tableHeader' width="120" align="center" :prop="item" :label="item" :key='item'>
               </el-table-column>
             </el-table>
             </div>
