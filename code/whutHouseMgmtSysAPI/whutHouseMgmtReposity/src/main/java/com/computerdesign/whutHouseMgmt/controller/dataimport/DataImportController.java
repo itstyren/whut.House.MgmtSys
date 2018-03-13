@@ -482,7 +482,7 @@ public class DataImportController {
 	@RequestMapping("houseDownLoad")
 	public void houseDownLoad(HttpServletResponse response) {
 		try {
-			DownloadUtils.downloadSolve("D:\\住房模板20180125090429.xls","住房模板.xls", response);
+			DownloadUtils.downloadSolve("D:\\houseImport.xls","住房模板.xls", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
