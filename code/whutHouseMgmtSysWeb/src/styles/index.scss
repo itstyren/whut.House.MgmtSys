@@ -1,6 +1,10 @@
 @import './element-ui';
 @import './variables';
 @import './layout.scss';
+@import './mixin.scss';
+@import './sidebar.scss';
+
+
 body {
   padding: 0px;
   margin: 0px auto;
@@ -197,3 +201,9 @@ a {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
+
+
+//main-container全局样式
+.app-container {
+  padding: 20px;
+}

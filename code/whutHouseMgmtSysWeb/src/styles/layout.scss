@@ -87,6 +87,53 @@ section.main-container{
   }
 }
 
+    .second-container {
+  flex-grow: 1;
+  padding: 10px;
+  position: relative;
+  overflow: auto;
+      &>aside {
+        flex: none;
+      }
+      &>.main-container {
+        flex-grow: 1;
+        padding: 10px;
+        position: relative;
+        &>.third-container {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          right: 20px;
+          bottom: 15px;
+          margin: auto;
+          display: flex;
+          flex-direction: column; // 面包屑
+          &>.warp-breadcrum {
+            width: 100%;
+            flex: none;
+          }
+          &>.warp-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            &>.toolbar {
+              flex: none;
+            }
+            &>.main-data {
+              width: 100%;
+              flex: 1;
+              overflow: auto;
+              .table {
+                width: 100%;
+                height: 100%
+              }
+            }
+          }
+        }
+      }
+    }
+
+
 // 用于非常规样式
 .special-container {
   flex-grow: 1;

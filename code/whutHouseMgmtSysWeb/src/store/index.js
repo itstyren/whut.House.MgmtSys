@@ -3,6 +3,7 @@ import Vue from 'vue'
 import user from './modules/user'
 import * as types from './mutation-types.js'
 import getters from './getters'
+import app from './modules/app'
 
 
 // 调用
@@ -25,7 +26,7 @@ export default new Vuex.Store({
     fixHouselist: [],
   },
   modules: {
-    user
+    user, app
   },
   getters,
   mutations: {

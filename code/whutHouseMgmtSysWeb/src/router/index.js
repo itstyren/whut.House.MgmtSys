@@ -90,6 +90,7 @@ import hireApply from '@/views/online/hireApply'
 // 个人设置
 import personal from '@/views/personal/index'
 
+import layout from '@/views/layout/layout'
 Vue.use(Router)
 
 // 定义路由数据
@@ -100,7 +101,11 @@ const routes = [
     name: 'Error',
     component: noPageFound
   },
-
+  {
+    path:'/text',
+    name:'text',
+    component:layout
+  },
   // 登录
   {
     path: '/login',
@@ -354,7 +359,7 @@ const routes = [
   // 维修管理
   {
     path: '/fixManage',
-    component: Home,
+    component: layout,
     name: 'fixManage',
     meta: {
       requireAuth: true
