@@ -19,6 +19,7 @@ import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.wf.etp.authz.annotation.RequiresPermissions;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,6 +42,7 @@ public class HireAcceptController {
 	 * @param acceptState
 	 * @return
 	 */
+	@RequiresPermissions("hire/accept")
 	@RequestMapping(value = "getAccept/{acceptState}", method = RequestMethod.GET)
 	@ApiOperation(value = "获取全部的受理信息",notes="进入房屋申请受理页面 0代表未经受理流程的全部信息，1代表受理过程结束的全部信息",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getAccept(@PathVariable("acceptState") Integer acceptState) {

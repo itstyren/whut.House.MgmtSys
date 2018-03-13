@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
@@ -52,13 +52,15 @@
 			<mvc:exclude-mapping path="/webjars/**" />
 			<mvc:exclude-mapping path="/testDownload.jsp" /> 
 			<mvc:exclude-mapping path="/testUpload.jsp" />
-
+			<mvc:exclude-mapping path="/dataImport/staffDataImport" />
+			<mvc:exclude-mapping path="/dataImport/houseDataImport" />
+			<mvc:exclude-mapping path="/dataImport/staffDownLoad" />
+			<mvc:exclude-mapping path="/dataImport/houseDownLoad" />
 			<bean class="com.wf.etp.authz.ApiInterceptor">
 				<property name="userRealm" ref="userRealm" />  <!-- 需要提供UserRealm -->
 				<property name="cache" ref="etpCache" /> <!-- 需要提供缓存实现 -->
 				<property name="tokenKey" value="w-h-r" />  <!-- 生成token的key,可以不写默认是'e-t-p' -->
 			</bean> 
-
 		</mvc:interceptor>
 	</mvc:interceptors> 
 

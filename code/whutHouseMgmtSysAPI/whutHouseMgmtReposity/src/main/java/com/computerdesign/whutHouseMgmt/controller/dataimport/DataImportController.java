@@ -453,7 +453,7 @@ public class DataImportController {
 				}
 			}
 		} catch (Exception e) {
-			return Msg.error("导入失败,可能有数据在数据库中不存在或删除");;
+			return Msg.error("导入失败,可能有数据在数据库中不存在或删除");
 		}
 		setHouseList(houses);
 		return Msg.success("导入数据成功").add("data", houses);
@@ -482,7 +482,7 @@ public class DataImportController {
 	@RequestMapping("houseDownLoad")
 	public void houseDownLoad(HttpServletResponse response) {
 		try {
-			DownloadUtils.downloadSolve("D:\\住房模板20180125090429.xls","住房模板.xls", response);
+			DownloadUtils.downloadSolve("D:\\houseImport.xls","住房模板.xls", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

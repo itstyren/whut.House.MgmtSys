@@ -31,6 +31,7 @@ import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wf.etp.authz.annotation.RequiresPermissions;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
