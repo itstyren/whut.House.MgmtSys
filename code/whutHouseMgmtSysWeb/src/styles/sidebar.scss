@@ -2,6 +2,11 @@
 #app {
   aside {
     height: 100%;
+    background-color: #373d41;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     .asid-button {
       background: $aside-hover;
       text-align: center;
@@ -9,6 +14,10 @@
       height: 30px;
       line-height: 30px;
       cursor: pointer;
+    }
+    .filter-button {
+      margin: 10px auto 10px;
+      width: 70%;
     }
     .aside-menu {
       height: -moz-calc(100% - 30px);
@@ -24,6 +33,40 @@
       }
       &::-webkit-scrollbar {
         display: none;
+      }
+      .el-submenu .el-menu-item {
+        min-width: 180px !important;
+        background-color: $aside-background !important;
+        &:hover {
+          background-color: $aside-hover !important;
+        }
+      }
+    } // 树形
+    .filter {
+      .el-input__inner {
+        background-color: $aside-hover;
+        color: $white
+      }
+    }
+    >.el-tree {
+      margin-top: 20px;
+      width: 220px;
+      height: 100%;
+      background-color: $aside-background;
+      color: $white;
+      padding-left: 20px;
+      .el-tree-node__content:hover {
+        background-color: $aside-hover;
+      }
+      .el-tree-node:focus>.el-tree-node__content {
+        background-color: transparent !important;
+      }
+      .el-tree-node__content {
+        height: 46px;
+        padding-left: 20px;
+      }
+      .label {
+        margin-left: 15px;
       }
     }
   }

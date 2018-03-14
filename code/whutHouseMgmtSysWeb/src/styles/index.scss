@@ -2,8 +2,6 @@
 @import './variables';
 @import './layout.scss';
 @import './sidebar.scss';
-
-
 body {
   height: 100%;
   margin: 0;
@@ -21,7 +19,6 @@ html {
 #app {
   height: 100%;
 }
-
 
 *,
 *:before,
@@ -51,10 +48,6 @@ a:hover {
   height: 100%
 }
 
-// .el-submenu .el-menu {
-//   background-color: #333744;
-// }
-
 .el-input__inner {
   text-align: center
 }
@@ -68,100 +61,12 @@ a:hover {
 }
 
 .right-main {
-  float: left; // border-radius: 5px;
-  // border: 1px solid #eaeaea;
-  // box-shadow: 0 0 25px #cac6c6;
+  float: left; 
   margin: 5px 20px 0 0px;
   padding: 5px 45px 15px 45px;
   width: 100%;
 }
 
-//第二层组件公共样式
-.second-container {
-  >aside {
-    .filter {
-      .el-input__inner {
-        background-color: $aside-hover;
-        color: $white
-      }
-    }
-    >.el-tree {
-      margin-top: 20px;
-      width: 280px;
-      height: auto;
-      background-color: $aside-background;
-      color: $white;
-      padding-left: 20px;
-      .el-tree-node__content:hover {
-        background-color: $aside-hover;
-      }
-      .el-tree-node:focus>.el-tree-node__content {
-        background-color: transparent !important;
-      }
-      .el-tree-node__content {
-        height: 46px;
-        padding-left: 20px;
-      }
-      .label {
-        margin-left: 15px;
-      }
-    }
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    &.showSidebar {
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-     // 导航菜单样式
-    // >.el-menu {
-    //   height: 100%;
-    //   /*写给不支持calc()的浏览器*/
-    //   height: -moz-calc(100% - 80px);
-    //   height: -webkit-calc(100% - 80px);
-    //   height: calc(100% - 80px);
-    //   border-radius: 0px;
-    //   background-color: $aside-background;
-    //   width: 180px;
-    // }
-    // >.el-menu--collapse {
-    //   width: 60px;
-    // }
-    // .el-menu-item,
-    // .el-submenu__title {
-    //   color: $white;
-    // }
-    // .el-menu .el-menu-item,
-    // .el-submenu .el-submenu__title {
-    //   height: 46px;
-    //   line-height: 46px;
-    // }
-    // .el-menu-item:hover,
-    // .el-submenu .el-menu-item:hover,
-    // .el-submenu__title:hover {
-    //   background-color: $aside-hover;
-    // }
-    // .el-submenu .el-menu-item {
-    //   background-color: $aside-background
-    // }
-    // .el-submenu .el-menu-item:hover {
-    //   background-color: $aside-hover;
-    //   color: $white;
-    // }
-    // .el-submenu .el-menu::before {
-    //   background-color: $aside-hover;
-    //   color: $white;
-    // } //激活后的主菜单
-    // .el-menu--horizontal>.el-menu-item.is-active,
-    // .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
-    //   border-bottom: 2px solid #ffd04b;
-    //   color: #fff;
-    // } //激活后子菜单
-    // .el-menu-item.is-active {
-    //   color: #fff;
-    // }
-  }
-}
 
 .query-table {
   .el-table__body-wrapper {
