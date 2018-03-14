@@ -9,7 +9,7 @@
 	<!-- SpringMVC配置文件 处理业务逻辑跳转 --> 
 
 	<!-- 只扫描控制器所在包 -->
-	<context:component-scan base-package="com.computerdesign.whutHouseMgmt">
+	<context:component-scan base-package="com.computerdesign.whutHouseMgmt"> 
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
@@ -24,12 +24,11 @@
 	</bean>
 
 	<bean class="com.computerdesign.whutHouseMgmt.api.SwaggerConfig"></bean>
-
-	<!-- 使用swagger新增的配置 -->
+  	<!-- 使用swagger新增的配置 -->
 	<mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
 	<mvc:resources mapping="/webjars/**"
 		location="classpath:/META-INF/resources/webjars/" />
-
+ 
 	<context:annotation-config />
 
 	<!-- 两个标准配置 -->
@@ -63,7 +62,7 @@
 			</bean> 
 		</mvc:interceptor>
 	</mvc:interceptors> 
-
+ 
 
 	<!-- 实现UserRealm -->
 	<bean id="userRealm" class="com.computerdesign.whutHouseMgmt.utils.auth.UserRealm" />
