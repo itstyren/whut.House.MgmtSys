@@ -1,15 +1,15 @@
 <template>
   <div class="second-container">
-    <aside :class="{showSidebar:!isCollapse}">
+    <aside :class="{hideSidebar:isCollapse}">
       <!-- 展开关闭按钮 -->
       <div class="asid-button" @click.prevent="collapse">
         <my-icon icon-class="next" v-show="isCollapse" />
         <my-icon icon-class="pre" v-show="!isCollapse" />
       </div>
       <!-- 主菜单 -->
-      <el-menu :collapse="isCollapse" :default-active="$route.path" router v-for="region in regionDataWithBuilding" :key="region.id">
+      <el-menu  class="aside-menu" :collapse="isCollapse" :default-active="$route.path" router  background-color="#373d41" text-color="#fff" active-text-color="#4682B4">
         <!-- 区域菜单 -->
-        <el-submenu index="regionParam">
+        <el-submenu v-for="region in regionDataWithBuilding" :key="region.id" :index="region.id">
           <template slot="title">
             <my-icon icon-class="building" />
             <span slot="title">{{region.name}}</span>
