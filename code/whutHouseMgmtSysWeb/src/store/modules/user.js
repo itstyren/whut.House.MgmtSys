@@ -59,10 +59,11 @@ const user = {
     GetUserInfo({commit,state}) {
       return new Promise((resolve, reject) => {
         getUserInfo(state.token).then(res => {
-          if (res.data.status == 'erroe') { 
+          if (res.data.status == 'error') { 
             reject('error')
           }
-          const data = res.data.data.data
+          const data = res.data.data.data[0]
+         // console.log(data)
           commit(types.SET_ROLEID, data.roleId)
           commit(types.SET_NAME, data.name)
           commit(types.SET_USERNO,data.no)
@@ -83,6 +84,7 @@ const user = {
       })
     },
     LogOut({commit}){
+     // console.log(1)
       return new Promise((resolve, reject) => {
         logout().then(() => {
           commit(types.SET_TOKEN, '')

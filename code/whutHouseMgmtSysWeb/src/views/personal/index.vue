@@ -23,119 +23,200 @@
                 <div class="title">
                   <span>个人信息</span>
                 </div>
-                <el-menu default-active="2" background-color="#fff" text-color="#000" active-text-color="#ffd04b">
-                  <el-menu-item index="2">
-                    <i class="el-icon-menu"></i>
+                <el-menu default-active="personal" @select="menuSelect" background-color="#fff" text-color="#000" active-text-color="#ffd04b">
+                  <el-menu-item index="personal">
+                    <my-icon icon-class="set"></my-icon>
                     <span slot="title">常规设置</span>
                   </el-menu-item>
-                  <el-menu-item index="3">
-                    <i class="el-icon-document"></i>
+                  <el-menu-item index="house">
+                    <my-icon icon-class="building"></my-icon>
                     <span slot="title">房屋信息</span>
                   </el-menu-item>
-                  <el-menu-item index="4">
-                    <i class="el-icon-setting"></i>
-                    <span slot="title">维修信息</span>
+                  <el-menu-item index="fix">
+                    <my-icon icon-class="baoxiu"></my-icon>
+                    <span slot="title">我的维修</span>
                   </el-menu-item>
                   <el-menu-item index="5">
-                    <i class="el-icon-setting"></i>
-                    <span slot="title">租赁信息</span>
+                    <my-icon icon-class="detail"></my-icon>
+                    <span slot="title">我的申请</span>
                   </el-menu-item>
                   <el-menu-item index="6">
-                    <i class="el-icon-setting"></i>
+                    <my-icon icon-class="xiugaimima"></my-icon>
                     <span slot="title">修改密码</span>
                   </el-menu-item>
                 </el-menu>
               </el-col>
               <!-- 常规设置 -->
-              <el-col :span="12" :offset="1" class="info-form">
-                <div class="title">
-                  <h1>常规设置</h1>
-                </div>
-                <el-row class="info-row">
-                  <el-col :span="7">
-                    <strong>姓名</strong>
-                  </el-col>
-                  <el-col :span="14">
-                    <strong style="color:#666">{{staffInfo.name}}</strong>
-                  </el-col>
-                </el-row>
-                <el-row class="info-row">
-                  <el-col :span="7">
-                    <strong>部门</strong>
-                  </el-col>
-                  <el-col :span="14">
-                    <strong style="color:#666">{{staffInfo.dept}}</strong>
-                  </el-col>
-                </el-row>
-                <el-row class="info-row">
-                  <el-col :span="7">
-                    <strong>职称</strong>
-                  </el-col>
-                  <el-col :span="14">
-                    <strong style="color:#666">{{staffInfo.title}}</strong>
-                  </el-col>
-                </el-row>
-                <el-row class="info-row">
-                  <el-col :span="7">
-                    <strong>职务</strong>
-                  </el-col>
-                  <el-col :span="14">
-                    <strong style="color:#666">{{staffInfo.post}}</strong>
-                  </el-col>
-                </el-row>
-                <el-row :class="{'info-row':!phoneChange,'is-change':phoneChange}">
-                  <el-col :span="7">
-                    <strong>手机</strong>
-                  </el-col>
-                  <el-col :span="14" v-if="!phoneChange">
-                    <strong style="color:#666">{{staffInfo.phone}}</strong>
-                  </el-col>
-                  <el-col :span="14" v-if="phoneChange">
-                    <el-row>
-                      <el-col :span="24">
-                        <div class="old-vertify">
-                          <strong>当前手机号验证</strong>
-                        </div>
-                      </el-col>
-                    </el-row>
-                    <el-row>
-                      <el-col :span="17">
-                        <el-input v-model="staffInfo.phone" disabled></el-input>
-                      </el-col>
-                    </el-row>
-                    <el-row style="margin-top:10px">
-                      <el-col :span="17">
-                        <el-input v-model="identifyCode"></el-input>
-                      </el-col>
-                      <el-col :span="3" :offset="1">
-                        <el-button type="infor">获取验证码</el-button>
-                      </el-col>
-                    </el-row>
-                    <el-row style="margin-top:10px">
-                      <el-col :span="7">
-                        <el-button type="primary">下一步</el-button>
-                      </el-col>
-                      <el-col :span="3">
-                        <el-button @click="phoneChange=false">取消</el-button>
-                      </el-col>
-                    </el-row>
-                  </el-col>
-                  <el-col :span="3">
-                    <el-button type="infor" size="mini" v-if="!phoneChange" @click="modifyPhone">编辑</el-button>
-                  </el-col>
-                </el-row>
-                <el-row class="info-row">
-                  <el-col :span="7">
-                    <strong>邮箱</strong>
-                  </el-col>
-                  <el-col :span="14">
-                    <strong style="color:#666">{{staffInfo.email}}</strong>
-                  </el-col>
-                  <el-col :span="3">
-                    <el-button type="infor" size="mini">编辑</el-button>
-                  </el-col>
-                </el-row>
-              </el-col>
+              <keep-alive>
+                <el-col :span="14" v-loading="listLoading" :offset="1" class="info-form" v-if="menuIndex=='personal'">
+                  <div class="title">
+                    <h1>常规设置</h1>
+                  </div>
+                  <el-row class="info-row">
+                    <el-col :span="7">
+                      <strong>姓名</strong>
+                    </el-col>
+                    <el-col :span="14">
+                      <strong style="color:#666">{{staffInfo.name}}</strong>
+                    </el-col>
+                  </el-row>
+                  <el-row class="info-row">
+                    <el-col :span="7">
+                      <strong>部门</strong>
+                    </el-col>
+                    <el-col :span="14">
+                      <strong style="color:#666">{{staffInfo.deptName}}</strong>
+                    </el-col>
+                  </el-row>
+                  <el-row class="info-row">
+                    <el-col :span="7">
+                      <strong>职称</strong>
+                    </el-col>
+                    <el-col :span="14">
+                      <strong style="color:#666">{{staffInfo.titleName}}</strong>
+                    </el-col>
+                  </el-row>
+                  <el-row class="info-row">
+                    <el-col :span="7">
+                      <strong>职务</strong>
+                    </el-col>
+                    <el-col :span="14">
+                      <strong style="color:#666">{{staffInfo.postName}}</strong>
+                    </el-col>
+                  </el-row>
+                  <el-row :class="{'info-row':!phoneChange,'is-change':phoneChange}">
+                    <el-col :span="7">
+                      <strong>手机</strong>
+                    </el-col>
+                    <el-col :span="14" v-if="!phoneChange">
+                      <strong style="color:#666">{{staffInfo.tel}}</strong>
+                    </el-col>
+                    <el-col :span="14" v-if="phoneChange">
+                      <el-row>
+                        <el-col :span="24">
+                          <div class="old-vertify">
+                            <strong>当前手机号验证</strong>
+                          </div>
+                        </el-col>
+                      </el-row>
+                      <el-row>
+                        <el-col :span="17">
+                          <el-input v-model="staffInfo.tel" disabled></el-input>
+                        </el-col>
+                      </el-row>
+                      <el-row style="margin-top:10px">
+                        <el-col :span="17">
+                          <el-input v-model="identifyCode"></el-input>
+                        </el-col>
+                        <el-col :span="3" :offset="1">
+                          <countdown-button></countdown-button>
+                        </el-col>
+                      </el-row>
+                      <el-row style="margin-top:10px">
+                        <el-col :span="7">
+                          <el-button type="primary">下一步</el-button>
+                        </el-col>
+                        <el-col :span="3">
+                          <el-button @click="phoneChange=false">取消</el-button>
+                        </el-col>
+                      </el-row>
+                    </el-col>
+                    <el-col :span="3">
+                      <el-button type="infor" size="mini" v-if="!phoneChange" @click="modifyPhone">编辑</el-button>
+                    </el-col>
+                  </el-row>
+                  <el-row class="info-row">
+                    <el-col :span="7">
+                      <strong>邮箱</strong>
+                    </el-col>
+                    <el-col :span="14">
+                      <strong style="color:#666">{{staffInfo.email}}</strong>
+                    </el-col>
+                    <el-col :span="3">
+                      <el-button type="infor" size="mini">编辑</el-button>
+                    </el-col>
+                  </el-row>
+                </el-col>
+              </keep-alive>
+              <!-- 房屋信息 -->
+              <keep-alive>
+                <el-col :span="14" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='house'">
+                  <div class="title">
+                    <h1>房屋信息</h1>
+                  </div>
+                  <el-tabs v-if="houseList.length!=0" v-model="selectHouse" type="border-card" style="margin:10px 10px 10px">
+                    <el-tab-pane v-for="(item,index) in houseList" :key="item.address" :name="index.toString()">
+                      <span slot="label">
+                        <my-icon icon-class="house"></my-icon> 住房 {{index+1}}</span>
+                      <div v-if="selectHouse==index" class="house-info">
+                        <el-row class="info-row">
+                          <el-col :span="7">
+                            <strong>地址</strong>
+                          </el-col>
+                          <el-col :span="14">
+                            <strong style="color:#666">{{item.address}}</strong>
+                          </el-col>
+                        </el-row>
+                        <el-row class="info-row">
+                          <el-col :span="7">
+                            <strong>区域</strong>
+                          </el-col>
+                          <el-col :span="14">
+                            <strong style="color:#666">{{item.region}}</strong>
+                          </el-col>
+                        </el-row>
+                        <el-row class="info-row">
+                          <el-col :span="7">
+                            <strong>结构</strong>
+                          </el-col>
+                          <el-col :span="14">
+                            <strong style="color:#666">{{item.struct}}</strong>
+                          </el-col>
+                        </el-row>
+                        <el-row class="info-row">
+                          <el-col :span="7">
+                            <strong>户型</strong>
+                          </el-col>
+                          <el-col :span="14">
+                            <strong style="color:#666">{{item.layout}}</strong>
+                          </el-col>
+                        </el-row>
+                        <el-row class="info-row">
+                          <el-col :span="7">
+                            <strong>房屋状态</strong>
+                          </el-col>
+                          <el-col :span="14">
+                            <strong style="color:#666">{{item.houseRel}}</strong>
+                          </el-col>
+                        </el-row>
+                      </div>
+                    </el-tab-pane>
+                  </el-tabs>
+                  <div v-else class="card no-result">
+                    <strong>暂无数据</strong>
+                  </div>
+                </el-col>
+              </keep-alive>
+              <!-- 维修信息 -->
+              <keep-alive>
+                <el-col :span="14" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='fix'">
+                  <div class="title">
+                    <h1>维修信息</h1>
+                  </div>
+                  <div class="card fix-result">
+                    <el-table :data="fixFormList" class="table" height="string" v-loading="listLoading">
+                      <el-table-column label="维修类型" align="center"></el-table-column>
+                      <el-table-column label="申请时间" align="center"></el-table-column>
+                      <el-table-column label="处理状态" align="center"></el-table-column>
+                      <el-table-column label="操作" align="center">
+                        <template slot-scope="scope">
+                          <el-button type="infor" size="small">评价</el-button>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </div>
+                </el-col>
+              </keep-alive>
             </el-row>
           </div>
         </div>
@@ -145,25 +226,64 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import countdownButton from "@/components/countdown/button";
+  import {
+    getStaff,
+    getStaffHouseRel
+  } from "@/api/basiceData";
+  import {
+    getUserHouse
+  } from "@/api/user";
   export default {
     data() {
       return {
+        listLoading: false,
         staffInfo: {
-          name: "任天宇",
-          dept: "管理学院",
-          title: "学生",
-          post: "还是学生",
-          phone: "13129917437",
-          email: "620461@qq.com"
+          name: "",
+          deptName: "",
+          titleName: "",
+          postName: "",
+          tel: "",
+          email: ""
         },
         phoneChange: false,
-        identifyCode: ''
+        identifyCode: "",
+        menuIndex: "personal",
+        houseList: [],
+        selectHouse: "",
+        fixFormList: []
       };
     },
-    components: {},
+    components: {
+      countdownButton
+    },
+    created() {
+      this.getStaff(), this.getStaffHouseRel();
+    },
     methods: {
       modifyPhone() {
         this.phoneChange = true;
+      },
+      menuSelect(index, indexPath) {
+        this.menuIndex = index;
+      },
+      getStaff() {
+        this.listLoading = true;
+        let params = {};
+        const staffID = this.$store.getters.userNO;
+        getStaff(params, staffID).then(res => {
+          this.staffInfo = res.data.data.data;
+          this.listLoading = false;
+        });
+      },
+      getStaffHouseRel() {
+        this.listLoading = true;
+        const staffID = this.$store.getters.userNO;
+        getUserHouse(staffID).then(res => {
+          console.log(res.data);
+          this.houseList = res.data;
+          this.listLoading = false;
+        });
       }
     }
   };
@@ -173,7 +293,7 @@
 <style scoped lang="scss">
   .user-info {
     margin: 5px auto;
-    width: 90%;
+    width: 80%;
     .nav {
       margin-top: 70px;
       .title {
@@ -210,6 +330,16 @@
             color: #ed1c24;
           }
         }
+      }
+      .no-result {
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+      }
+      .fix-result {
+        height: 60vh;
       }
     }
   }
