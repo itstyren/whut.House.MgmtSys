@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 import com.computerdesign.whutHouseMgmt.bean.building.Building;
 import com.computerdesign.whutHouseMgmt.bean.building.BuildingExample;
 import com.computerdesign.whutHouseMgmt.bean.house.House;
-import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter;
-import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample;
+import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
+import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameterExample;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.building.BuildingMapper;
 import com.computerdesign.whutHouseMgmt.dao.house.HouseMapper;
-import com.computerdesign.whutHouseMgmt.dao.houseparam.HouseParameterMapper;
+import com.computerdesign.whutHouseMgmt.dao.param.houseparam.HouseParameterMapper;
 import com.computerdesign.whutHouseMgmt.dao.staffmanagement.StaffMapper;
 import com.computerdesign.whutHouseMgmt.dao.staffparam.StaffParameterMapper;
 
@@ -66,7 +66,7 @@ public class DataImportService {
 	 */
 	public Integer getHouseParamId(String houseParamName){
 		HouseParameterExample example = new HouseParameterExample();
-		com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample.Criteria criteria= example.createCriteria();
+		com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameterExample.Criteria criteria= example.createCriteria();
 		criteria.andHouseParamNameEqualTo(houseParamName);
 		criteria.andIsDeleteEqualTo(false);
 		HouseParameter houseParameter = houseParameterMapper.selectByExample(example).get(0);

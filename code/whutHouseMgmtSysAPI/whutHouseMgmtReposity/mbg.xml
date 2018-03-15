@@ -21,7 +21,7 @@
  
 		<!-- 指定javabean的生成位置 -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.authority"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.building"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -29,47 +29,20 @@
 
 		<!-- 指定sql映射文件的生成位置 -->
 
-		<sqlMapGenerator targetPackage="mapper.authority" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper.building" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.authority" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.building" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		
-		<!-- 此处添加新建的表 -->
-		<!-- <table tableName="view_au_all_login" domainObjectName="UserLoginReturn">
-			<property name="useActualColumnNames" value="true"></property>
-		</table> --> 
-		<!-- <table tableName="view_hs_staffhouse" domainObjectName="StaffHouse">
-			<property name="useActualColumnNames" value="true"></property>
-		</table>  -->
-		<!-- <table tableName="hs_staffselecthouse" domainObjectName="StaffSelectHouse">
-			<property name="useActualColumnNames" value="true"></property>
-		</table> -->
-		<!-- <table tableName="pm_rentevent" domainObjectName="RentEvent">
-			<property name="useActualColumnNames" value="true"></property>
-		</table> -->
-		<!-- <table tableName="view_hs_selfhelpselecthouse" domainObjectName="SelfHelpSelectHouse">
-			<property name="useActualColumnNames" value="true"></property>
-		</table> -->
-		<table tableName="Au_Permission" domainObjectName="Permission">
+		
+		<table tableName="Hs_Building" domainObjectName="Building">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
-		<table tableName="Au_PermissionClass" domainObjectName="PermissionClass">
-			<property name="useActualColumnNames" value="true"></property>
-		</table>
-		<table tableName="Au_Role" domainObjectName="Role">
-			<property name="useActualColumnNames" value="true"></property>
-		</table>
-		<table tableName="Au_Rule" domainObjectName="Rule">
-			<property name="useActualColumnNames" value="true"></property>
-		</table>
-		<!-- <table tableName="view_hs_resident" domainObjectName="ResidentVw">
-			<property name="useActualColumnNames" value="true"></property>
-		</table> -->
 		
 		
 

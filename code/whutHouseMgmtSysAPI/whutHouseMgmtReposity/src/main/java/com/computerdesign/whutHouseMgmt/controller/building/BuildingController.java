@@ -35,9 +35,9 @@ public class BuildingController {
 		ViewBuilding viewBuilding = viewBuildingService.getViewBuildingById(id);
 		if (viewBuilding == null) {
 			return Msg.error("差找不到");
-		} else {
-			return Msg.success().add("data", viewBuilding);
 		}
+		return Msg.success().add("data", viewBuilding);
+
 	}
 
 	/**
@@ -152,15 +152,13 @@ public class BuildingController {
 		List<Building> buildings = buildingService.getAllByName(building.getName());
 		// 根据id获取要修改的building
 		Building buildingPre = buildingService.getBuildingById(building.getId());
-
 		// 判断楼栋名称是否已经存在
 		if (!buildings.isEmpty()) {
-			//新添加的和要修改的是否一致
+			// 新添加的和要修改的是否一致
 			if (!buildings.get(0).equals(buildingPre)) {
 				return Msg.error("楼栋名称已经存在").add("data", buildings);
 			}
 		}
-
 		buildingService.update(building);
 		return Msg.success().add("data", building);
 	}

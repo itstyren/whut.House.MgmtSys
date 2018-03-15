@@ -28,7 +28,7 @@
 		<!-- 指定mybatis全局变量的位置 -->
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 		<!-- 指定mybatis mapper文件的位置 -->
-		<property name="mapperLocations" value="classpath:mapper/*/*.xml"></property>
+		<property name="mapperLocations" value="classpath:mapper/**/*.xml"></property>
 
 	</bean>
 

@@ -1,20 +1,18 @@
 package com.computerdesign.whutHouseMgmt.bean.user;
 
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 
 public class UserLogin {
 
+	@ApiModelProperty(example = "3")
 	private String no;
 
-    private String password;
-    
-    private Integer roleId;
+	@ApiModelProperty(example = "123")
+	private String password;
 
+	@ApiModelProperty(example = "3")
+	private Integer roleId;
 
 	public String getNo() {
 		return no;
@@ -40,7 +38,4 @@ public class UserLogin {
 		this.roleId = roleId;
 	}
 
-
-    
-    
 }

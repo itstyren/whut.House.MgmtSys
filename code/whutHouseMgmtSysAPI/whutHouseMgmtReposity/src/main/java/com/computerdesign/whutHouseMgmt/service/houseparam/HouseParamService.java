@@ -3,15 +3,14 @@ package com.computerdesign.whutHouseMgmt.service.houseparam;
 import java.lang.reflect.Parameter;
 import java.util.List;
 
-import javax.ws.rs.DELETE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter;
-import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample;
-import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample.Criteria;
-import com.computerdesign.whutHouseMgmt.dao.houseparam.HouseParameterMapper;
+import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
+import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameterExample;
+import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameterExample.Criteria;
+import com.computerdesign.whutHouseMgmt.dao.param.houseparam.HouseParameterMapper;
 import com.computerdesign.whutHouseMgmt.service.base.BaseService;
 
 @Service
@@ -31,7 +30,9 @@ public class HouseParamService implements BaseService<HouseParameter>{
 	public HouseParameter get(Integer houseParamId){
 		return houseParameterMapper.selectByPrimaryKey(houseParamId);
 	}
-	
+	/**
+	 * 获取全部的房屋参数信息
+	 */
 	@Override
 	public List<HouseParameter> getAll(){
 		List<HouseParameter> houseParameters=houseParameterMapper.selectByExample(null);
@@ -43,7 +44,7 @@ public class HouseParamService implements BaseService<HouseParameter>{
 	 * @param paramTypeId
 	 * @return
 	 */
-	public List<HouseParameter> getAll(Integer paramTypeId){
+	public List<HouseParameter> getbyParamTypeId(Integer paramTypeId){
 		HouseParameterExample example=new HouseParameterExample();
 		Criteria criteria=example.createCriteria();
 		criteria.andParamTypeIdEqualTo(paramTypeId);

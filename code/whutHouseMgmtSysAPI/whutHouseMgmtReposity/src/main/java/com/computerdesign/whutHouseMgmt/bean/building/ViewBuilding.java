@@ -2,17 +2,11 @@ package com.computerdesign.whutHouseMgmt.bean.building;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class ViewBuilding {
     private Integer id;
 
     private String name;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date finishTime;
 
     private Float floorArea;
@@ -28,6 +22,10 @@ public class ViewBuilding {
     private String description;
 
     private Long supportFund;
+
+    private String manager;
+
+    private Integer unitCount;
 
     public Integer getId() {
         return id;
@@ -107,5 +105,21 @@ public class ViewBuilding {
 
     public void setSupportFund(Long supportFund) {
         this.supportFund = supportFund;
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager == null ? null : manager.trim();
+    }
+
+    public Integer getUnitCount() {
+        return unitCount;
+    }
+
+    public void setUnitCount(Integer unitCount) {
+        this.unitCount = unitCount;
     }
 }

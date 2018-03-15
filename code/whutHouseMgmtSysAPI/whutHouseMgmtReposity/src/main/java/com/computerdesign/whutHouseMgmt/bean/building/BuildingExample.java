@@ -1,7 +1,9 @@
 package com.computerdesign.whutHouseMgmt.bean.building;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class BuildingExample {
@@ -103,6 +105,32 @@ public class BuildingExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andIdIsNull() {
@@ -246,52 +274,52 @@ public class BuildingExample {
         }
 
         public Criteria andFinishTimeEqualTo(Date value) {
-            addCriterion("FinishTime =", value, "finishTime");
+            addCriterionForJDBCDate("FinishTime =", value, "finishTime");
             return (Criteria) this;
         }
 
         public Criteria andFinishTimeNotEqualTo(Date value) {
-            addCriterion("FinishTime <>", value, "finishTime");
+            addCriterionForJDBCDate("FinishTime <>", value, "finishTime");
             return (Criteria) this;
         }
 
         public Criteria andFinishTimeGreaterThan(Date value) {
-            addCriterion("FinishTime >", value, "finishTime");
+            addCriterionForJDBCDate("FinishTime >", value, "finishTime");
             return (Criteria) this;
         }
 
         public Criteria andFinishTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("FinishTime >=", value, "finishTime");
+            addCriterionForJDBCDate("FinishTime >=", value, "finishTime");
             return (Criteria) this;
         }
 
         public Criteria andFinishTimeLessThan(Date value) {
-            addCriterion("FinishTime <", value, "finishTime");
+            addCriterionForJDBCDate("FinishTime <", value, "finishTime");
             return (Criteria) this;
         }
 
         public Criteria andFinishTimeLessThanOrEqualTo(Date value) {
-            addCriterion("FinishTime <=", value, "finishTime");
+            addCriterionForJDBCDate("FinishTime <=", value, "finishTime");
             return (Criteria) this;
         }
 
         public Criteria andFinishTimeIn(List<Date> values) {
-            addCriterion("FinishTime in", values, "finishTime");
+            addCriterionForJDBCDate("FinishTime in", values, "finishTime");
             return (Criteria) this;
         }
 
         public Criteria andFinishTimeNotIn(List<Date> values) {
-            addCriterion("FinishTime not in", values, "finishTime");
+            addCriterionForJDBCDate("FinishTime not in", values, "finishTime");
             return (Criteria) this;
         }
 
         public Criteria andFinishTimeBetween(Date value1, Date value2) {
-            addCriterion("FinishTime between", value1, value2, "finishTime");
+            addCriterionForJDBCDate("FinishTime between", value1, value2, "finishTime");
             return (Criteria) this;
         }
 
         public Criteria andFinishTimeNotBetween(Date value1, Date value2) {
-            addCriterion("FinishTime not between", value1, value2, "finishTime");
+            addCriterionForJDBCDate("FinishTime not between", value1, value2, "finishTime");
             return (Criteria) this;
         }
 
@@ -615,53 +643,183 @@ public class BuildingExample {
             return (Criteria) this;
         }
 
-        public Criteria andSupportFundEqualTo(Long value) {
+        public Criteria andSupportFundEqualTo(BigDecimal value) {
             addCriterion("SupportFund =", value, "supportFund");
             return (Criteria) this;
         }
 
-        public Criteria andSupportFundNotEqualTo(Long value) {
+        public Criteria andSupportFundNotEqualTo(BigDecimal value) {
             addCriterion("SupportFund <>", value, "supportFund");
             return (Criteria) this;
         }
 
-        public Criteria andSupportFundGreaterThan(Long value) {
+        public Criteria andSupportFundGreaterThan(BigDecimal value) {
             addCriterion("SupportFund >", value, "supportFund");
             return (Criteria) this;
         }
 
-        public Criteria andSupportFundGreaterThanOrEqualTo(Long value) {
+        public Criteria andSupportFundGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("SupportFund >=", value, "supportFund");
             return (Criteria) this;
         }
 
-        public Criteria andSupportFundLessThan(Long value) {
+        public Criteria andSupportFundLessThan(BigDecimal value) {
             addCriterion("SupportFund <", value, "supportFund");
             return (Criteria) this;
         }
 
-        public Criteria andSupportFundLessThanOrEqualTo(Long value) {
+        public Criteria andSupportFundLessThanOrEqualTo(BigDecimal value) {
             addCriterion("SupportFund <=", value, "supportFund");
             return (Criteria) this;
         }
 
-        public Criteria andSupportFundIn(List<Long> values) {
+        public Criteria andSupportFundIn(List<BigDecimal> values) {
             addCriterion("SupportFund in", values, "supportFund");
             return (Criteria) this;
         }
 
-        public Criteria andSupportFundNotIn(List<Long> values) {
+        public Criteria andSupportFundNotIn(List<BigDecimal> values) {
             addCriterion("SupportFund not in", values, "supportFund");
             return (Criteria) this;
         }
 
-        public Criteria andSupportFundBetween(Long value1, Long value2) {
+        public Criteria andSupportFundBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("SupportFund between", value1, value2, "supportFund");
             return (Criteria) this;
         }
 
-        public Criteria andSupportFundNotBetween(Long value1, Long value2) {
+        public Criteria andSupportFundNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("SupportFund not between", value1, value2, "supportFund");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerIsNull() {
+            addCriterion("Manager is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerIsNotNull() {
+            addCriterion("Manager is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerEqualTo(String value) {
+            addCriterion("Manager =", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNotEqualTo(String value) {
+            addCriterion("Manager <>", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerGreaterThan(String value) {
+            addCriterion("Manager >", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerGreaterThanOrEqualTo(String value) {
+            addCriterion("Manager >=", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLessThan(String value) {
+            addCriterion("Manager <", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLessThanOrEqualTo(String value) {
+            addCriterion("Manager <=", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLike(String value) {
+            addCriterion("Manager like", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNotLike(String value) {
+            addCriterion("Manager not like", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerIn(List<String> values) {
+            addCriterion("Manager in", values, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNotIn(List<String> values) {
+            addCriterion("Manager not in", values, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerBetween(String value1, String value2) {
+            addCriterion("Manager between", value1, value2, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNotBetween(String value1, String value2) {
+            addCriterion("Manager not between", value1, value2, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountIsNull() {
+            addCriterion("UnitCount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountIsNotNull() {
+            addCriterion("UnitCount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountEqualTo(Integer value) {
+            addCriterion("UnitCount =", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountNotEqualTo(Integer value) {
+            addCriterion("UnitCount <>", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountGreaterThan(Integer value) {
+            addCriterion("UnitCount >", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("UnitCount >=", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountLessThan(Integer value) {
+            addCriterion("UnitCount <", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountLessThanOrEqualTo(Integer value) {
+            addCriterion("UnitCount <=", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountIn(List<Integer> values) {
+            addCriterion("UnitCount in", values, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountNotIn(List<Integer> values) {
+            addCriterion("UnitCount not in", values, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountBetween(Integer value1, Integer value2) {
+            addCriterion("UnitCount between", value1, value2, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("UnitCount not between", value1, value2, "unitCount");
             return (Criteria) this;
         }
     }

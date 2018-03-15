@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.bean.houseparam;
+package com.computerdesign.whutHouseMgmt.bean.param.houseparam;
 
 public class HouseParameter {
     private Integer houseParamId;
@@ -12,6 +12,8 @@ public class HouseParameter {
     private String houseParamRel;
 
     private Boolean isDelete;
+
+    private Double structRent;
 
     public Integer getHouseParamId() {
         return houseParamId;
@@ -61,12 +63,11 @@ public class HouseParameter {
         this.isDelete = isDelete;
     }
 
-	@Override
-	public String toString() {
-		return "HouseParameter [houseParamId=" + houseParamId + ", houseParamName=" + houseParamName + ", paramTypeId="
-				+ paramTypeId + ", paramTypeName=" + paramTypeName + ", houseParamRel=" + houseParamRel + ", isDelete="
-				+ isDelete + "]";
-	}
-    
-    
+    public Double getStructRent() {
+        return structRent;
+    }
+
+    public void setStructRent(Double structRent) {
+        this.structRent = structRent;
+    }
 }

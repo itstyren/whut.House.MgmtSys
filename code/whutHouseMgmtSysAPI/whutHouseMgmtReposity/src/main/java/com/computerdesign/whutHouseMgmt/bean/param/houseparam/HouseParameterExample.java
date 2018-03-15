@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.bean.houseparam;
+package com.computerdesign.whutHouseMgmt.bean.param.houseparam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -491,6 +491,66 @@ public class HouseParameterExample {
 
         public Criteria andIsDeleteNotBetween(Boolean value1, Boolean value2) {
             addCriterion("IsDelete not between", value1, value2, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentIsNull() {
+            addCriterion("StructRent is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentIsNotNull() {
+            addCriterion("StructRent is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentEqualTo(Double value) {
+            addCriterion("StructRent =", value, "structRent");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentNotEqualTo(Double value) {
+            addCriterion("StructRent <>", value, "structRent");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentGreaterThan(Double value) {
+            addCriterion("StructRent >", value, "structRent");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentGreaterThanOrEqualTo(Double value) {
+            addCriterion("StructRent >=", value, "structRent");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentLessThan(Double value) {
+            addCriterion("StructRent <", value, "structRent");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentLessThanOrEqualTo(Double value) {
+            addCriterion("StructRent <=", value, "structRent");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentIn(List<Double> values) {
+            addCriterion("StructRent in", values, "structRent");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentNotIn(List<Double> values) {
+            addCriterion("StructRent not in", values, "structRent");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentBetween(Double value1, Double value2) {
+            addCriterion("StructRent between", value1, value2, "structRent");
+            return (Criteria) this;
+        }
+
+        public Criteria andStructRentNotBetween(Double value1, Double value2) {
+            addCriterion("StructRent not between", value1, value2, "structRent");
             return (Criteria) this;
         }
     }
