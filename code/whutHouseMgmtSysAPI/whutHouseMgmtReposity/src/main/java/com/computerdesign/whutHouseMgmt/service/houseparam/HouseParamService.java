@@ -52,6 +52,19 @@ public class HouseParamService implements BaseService<HouseParameter>{
 		return houseParameters;
 	}
 	
+	/**
+	 * 根据structId获取该结构的每平方米的价格
+	 * structId就是houseParamId
+	 * 
+	 * @param structId
+	 * @return
+	 */
+	public Double getRentalByStruce(Integer structId) {
+		HouseParameterExample example=new HouseParameterExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andHouseParamIdEqualTo(structId);
+		return houseParameterMapper.selectByPrimaryKey(structId).getStructRent();
+	}
 	@Override
 	public void add(HouseParameter houseParameter){
 		houseParameterMapper.insertSelective(houseParameter);

@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.house.House">
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="No" jdbcType="VARCHAR" property="no" />
+    <result column="IsOutSchool" jdbcType="BIT" property="isOutSchool" />
     <result column="Type" jdbcType="INTEGER" property="type" />
     <result column="Layout" jdbcType="INTEGER" property="layout" />
     <result column="Struct" jdbcType="INTEGER" property="struct" />
@@ -79,8 +80,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, No, Type, Layout, Struct, Status, BuildArea, UsedArea, BasementArea, Address, 
-    BuildingId, ProId, Remark, Image, Rental, FinishTime, RecordStatus
+    Id, No, IsOutSchool, Type, Layout, Struct, Status, BuildArea, UsedArea, BasementArea, 
+    Address, BuildingId, ProId, Remark, Image, Rental, FinishTime, RecordStatus
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.HouseExample" resultMap="BaseResultMap">
     select
@@ -113,18 +114,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.house.House">
-    insert into Hs_House (Id, No, Type, 
-      Layout, Struct, Status, 
-      BuildArea, UsedArea, BasementArea, 
-      Address, BuildingId, ProId, 
-      Remark, Image, Rental, 
-      FinishTime, RecordStatus)
-    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{layout,jdbcType=INTEGER}, #{struct,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{buildArea,jdbcType=DOUBLE}, #{usedArea,jdbcType=DOUBLE}, #{basementArea,jdbcType=DOUBLE}, 
-      #{address,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, #{proId,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{rental,jdbcType=DOUBLE}, 
-      #{finishTime,jdbcType=DATE}, #{recordStatus,jdbcType=INTEGER})
+    insert into Hs_House (Id, No, IsOutSchool, 
+      Type, Layout, Struct, 
+      Status, BuildArea, UsedArea, 
+      BasementArea, Address, BuildingId, 
+      ProId, Remark, Image, 
+      Rental, FinishTime, RecordStatus
+      )
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{isOutSchool,jdbcType=BIT}, 
+      #{type,jdbcType=INTEGER}, #{layout,jdbcType=INTEGER}, #{struct,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{buildArea,jdbcType=DOUBLE}, #{usedArea,jdbcType=DOUBLE}, 
+      #{basementArea,jdbcType=DOUBLE}, #{address,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, 
+      #{proId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{rental,jdbcType=DOUBLE}, #{finishTime,jdbcType=DATE}, #{recordStatus,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.house.House">
     insert into Hs_House
@@ -134,6 +137,9 @@
       </if>
       <if test="no != null">
         No,
+      </if>
+      <if test="isOutSchool != null">
+        IsOutSchool,
       </if>
       <if test="type != null">
         Type,
@@ -187,6 +193,9 @@
       </if>
       <if test="no != null">
         #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="isOutSchool != null">
+        #{isOutSchool,jdbcType=BIT},
       </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
@@ -250,6 +259,9 @@
       <if test="record.no != null">
         No = #{record.no,jdbcType=VARCHAR},
       </if>
+      <if test="record.isOutSchool != null">
+        IsOutSchool = #{record.isOutSchool,jdbcType=BIT},
+      </if>
       <if test="record.type != null">
         Type = #{record.type,jdbcType=INTEGER},
       </if>
@@ -304,6 +316,7 @@
     update Hs_House
     set Id = #{record.id,jdbcType=INTEGER},
       No = #{record.no,jdbcType=VARCHAR},
+      IsOutSchool = #{record.isOutSchool,jdbcType=BIT},
       Type = #{record.type,jdbcType=INTEGER},
       Layout = #{record.layout,jdbcType=INTEGER},
       Struct = #{record.struct,jdbcType=INTEGER},
@@ -328,6 +341,9 @@
     <set>
       <if test="no != null">
         No = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="isOutSchool != null">
+        IsOutSchool = #{isOutSchool,jdbcType=BIT},
       </if>
       <if test="type != null">
         Type = #{type,jdbcType=INTEGER},
@@ -380,6 +396,7 @@
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.house.House">
     update Hs_House
     set No = #{no,jdbcType=VARCHAR},
+      IsOutSchool = #{isOutSchool,jdbcType=BIT},
       Type = #{type,jdbcType=INTEGER},
       Layout = #{layout,jdbcType=INTEGER},
       Struct = #{struct,jdbcType=INTEGER},

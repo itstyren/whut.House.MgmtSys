@@ -20,6 +20,8 @@ import com.computerdesign.whutHouseMgmt.service.building.ViewBuildingService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import io.swagger.annotations.ApiOperation;
+
 @RequestMapping(value = "/building/")
 @Controller
 public class BuildingController {
@@ -92,6 +94,7 @@ public class BuildingController {
 
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
+	@ApiOperation(value = "增加",notes="id不用输入")
 	public Msg addBuilding(@RequestBody Building building) {
 		// 判断必填项是否为空
 		if (building.getName() == null) {
@@ -134,6 +137,7 @@ public class BuildingController {
 
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
+	@ApiOperation(value = "更改一个楼栋信息",notes="!!!!!!!!!!!!!!!!!!!!!!!!!!!!非常重要，更改楼栋时，所有的信息请《手动输入》，你需要更改哪一项就输入哪一项，不填的默认不更改，下面model里面的信息是固定的，不是你要更改的楼栋的原有信息",response=com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg modifyBuilding(@RequestBody Building building) {
 		if (building.getId() == null) {
 			return Msg.error("不存在该项");

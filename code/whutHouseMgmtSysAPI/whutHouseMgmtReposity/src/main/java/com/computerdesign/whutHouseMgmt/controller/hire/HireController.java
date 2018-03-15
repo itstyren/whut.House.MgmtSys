@@ -87,9 +87,6 @@ public class HireController {
 		// 该员工的房屋不为空
 		if (!listStaffHouse.isEmpty()) {
 			
-			if (listStaffHouse.size()>1) {
-				return Msg.error("该员工已有住房，无法继续申请");
-			}
 			// 该员工的房屋集合
 			List<HireHouseGetApply> listHouseGetApply = new ArrayList<HireHouseGetApply>();
 			

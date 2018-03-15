@@ -1,23 +1,31 @@
 package com.computerdesign.whutHouseMgmt.bean.hire.accept;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class HireAddAccept {
 
+	@ApiModelProperty(example = "101")
     private Integer id;
 
+	@ApiModelProperty(example = "23333")
     private Double totalVal;
 
-    private Double titleVal;
-
+	@ApiModelProperty(example = "101")
     private Double timeVal;
 
+	@ApiModelProperty(example = "101")
     private Double spouseVal;
 
+	@ApiModelProperty(example = "101")
     private Double otherVal;
     
+	@ApiModelProperty(example = "照桥心美")
     private String acceptNote;
     
+	@ApiModelProperty(example = "齐木楠雄")
     private String acceptMan;
 
+	@ApiModelProperty(example = "通过",value="只能为通过或者拒绝")
     private String acceptState;
 
 	public Integer getId() {
@@ -37,13 +45,6 @@ public class HireAddAccept {
 		this.totalVal = totalVal;
 	}
 
-	public Double getTitleVal() {
-		return titleVal;
-	}
-
-	public void setTitleVal(Double titleVal) {
-		this.titleVal = titleVal;
-	}
 
 	public Double getTimeVal() {
 		return timeVal;

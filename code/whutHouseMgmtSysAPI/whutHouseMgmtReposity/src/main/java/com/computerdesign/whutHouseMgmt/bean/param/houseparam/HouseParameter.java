@@ -1,5 +1,7 @@
 package com.computerdesign.whutHouseMgmt.bean.param.houseparam;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class HouseParameter {
     private Integer houseParamId;
 
@@ -9,8 +11,10 @@ public class HouseParameter {
 
     private String paramTypeName;
 
+    @ApiModelProperty(hidden =true)
     private String houseParamRel;
 
+    @ApiModelProperty(hidden =true)
     private Boolean isDelete;
 
     private Double structRent;

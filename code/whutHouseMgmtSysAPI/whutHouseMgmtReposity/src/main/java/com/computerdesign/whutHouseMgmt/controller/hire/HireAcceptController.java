@@ -17,8 +17,11 @@ import com.computerdesign.whutHouseMgmt.bean.hire.accept.HireAddAccept;
 import com.computerdesign.whutHouseMgmt.bean.hire.accept.HireGetAccept;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
+import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
 import com.wf.etp.authz.annotation.RequiresPermissions;
 
 import io.swagger.annotations.Api;
@@ -26,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RequestMapping(value = "/hire/")
 @RestController
-@Api(value = "/hire/",tags = "Hire接口")
+@Api(value = "/hire/", tags = "Hire接口")
 public class HireAcceptController {
 
 	@Autowired
@@ -35,6 +38,11 @@ public class HireAcceptController {
 	@Autowired
 	private ViewHireService viewHireService;
 
+	@Autowired
+	private ViewStaffService viewStaffService;
+
+	@Autowired
+	private StaffParameterService staffParameterService;
 
 	/**
 	 * 获取房屋申请受理页面
@@ -48,17 +56,27 @@ public class HireAcceptController {
 	public Msg getAccept(@PathVariable("acceptState") Integer acceptState) {
 		if (acceptState == null) {
 			return Msg.error("请检查你的网络");
-		} else if (acceptState == 0) {//获取全部待受理的信息
+		} 
+		if (acceptState == 0) {//获取全部待受理的信息
 			List<ViewHire> listViewHire = viewHireService.getAcceptUntil();
 			List<HireGetAccept> listHireGetAccept = new ArrayList<HireGetAccept>();
 			for (ViewHire viewHire : listViewHire) {
+				ViewStaff viewStaff = viewStaffService.getByStaffId(viewHire.getStaffId()).get(0);
+				Double titleVal = (double)staffParameterService.getValByStaffParamId(viewStaff.getTitle());
+				Double totalVal = titleVal+viewStaff.getOtherVal()+viewStaff.getTimeVal();
+				viewHire.setTitleVal(titleVal);
 				listHireGetAccept.add(new HireGetAccept(viewHire));
+				
 			}
 			return Msg.success("获取全部的待受理信息").add("data", listHireGetAccept);
 		} else if (acceptState == 1) {
 			List<ViewHire> listViewHire = viewHireService.getAcceptHasBeen();
 			List<HireGetAccept> listHireGetAccept = new ArrayList<HireGetAccept>();
 			for (ViewHire viewHire : listViewHire) {
+				ViewStaff viewStaff = viewStaffService.getByStaffId(viewHire.getStaffId()).get(0);
+				Double titleVal = (double)staffParameterService.getValByStaffParamId(viewStaff.getTitle());
+				Double totalVal = titleVal+viewHire.getOtherVal()+viewHire.getTimeVal()+viewHire.getSpouseVal();
+				viewHire.setTitleVal(titleVal);
 				listHireGetAccept.add(new HireGetAccept(viewHire));
 			}
 			return Msg.success("获取全部的已进行受理操作的信息").add("data", listHireGetAccept);
@@ -69,11 +87,12 @@ public class HireAcceptController {
 
 	/**
 	 * 房屋申请受理操作
+	 * 
 	 * @param hireAddAccept
 	 * @return
 	 */
 	@RequestMapping(value = "addAccept", method = RequestMethod.PUT)
-	@ApiOperation(value = "房屋受理",notes="维修受理 acceptMan为当前登录人的姓名，acceptState只能为通过或者拒绝",httpMethod="PUT",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "房屋受理", notes = "维修受理 acceptMan为当前登录人的姓名，acceptState只能为通过或者拒绝", httpMethod = "PUT", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg hireAddAccept(@RequestBody HireAddAccept hireAddAccept) {
 		ViewHire viewHire = viewHireService.getById(hireAddAccept.getId()).get(0);
 		if (viewHire.getIsOver()) {
@@ -88,7 +107,6 @@ public class HireAcceptController {
 			hire.setAcceptNote(hireAddAccept.getAcceptNote());
 			hire.setAcceptState(hireAddAccept.getAcceptState());
 			// 设置分数
-			hire.setTimeVal(hireAddAccept.getTitleVal());
 			hire.setTotalVal(hireAddAccept.getTotalVal());
 			hire.setTimeVal(hireAddAccept.getTimeVal());
 			hire.setOtherVal(hireAddAccept.getOtherVal());
@@ -106,7 +124,6 @@ public class HireAcceptController {
 			hire.setAcceptNote(hireAddAccept.getAcceptNote());
 			hire.setAcceptState(hireAddAccept.getAcceptState());
 
-			hire.setTimeVal(hireAddAccept.getTitleVal());
 			hire.setTotalVal(hireAddAccept.getTotalVal());
 			hire.setTimeVal(hireAddAccept.getTimeVal());
 			hire.setOtherVal(hireAddAccept.getOtherVal());
@@ -120,32 +137,33 @@ public class HireAcceptController {
 			return Msg.error("请输入正确的信息");
 		}
 	}
-	
+
 	/**
 	 * 重新受理房屋申请
+	 * 
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "reAccept/{id}",method = RequestMethod.GET)
-	@ApiOperation(value = "重新受理",notes="重新受理 传入参数为hire的id",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
-	public Msg hireReAccept(@PathVariable("id")Integer id){
+	@RequestMapping(value = "reAccept/{id}", method = RequestMethod.GET)
+	@ApiOperation(value = "重新受理", notes = "重新受理 传入参数为hire的id", httpMethod = "GET", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	public Msg hireReAccept(@PathVariable("id") Integer id) {
 		Hire hire = hireService.getHireById(id);
 		if (hire.getAcceptState() == null) {
 			return Msg.error("该房屋申请尚未完成受理操作，无法重新受理");
-		}else if (hire.getAgreeState()!=null) {
+		} else if (hire.getAgreeState() != null) {
 			return Msg.error("该房屋申请已经完成审核操作，如欲重新受理，请先完成重新审核操作");
 		}
 		hire.setAcceptMan(null);
 		hire.setAcceptNote(null);
 		hire.setAcceptState(null);
 		hire.setAcceptTime(null);
-		
+
 		hire.setTimeVal(null);
 		hire.setTotalVal(null);
 		hire.setTimeVal(null);
 		hire.setOtherVal(null);
 		hire.setSpouseVal(null);
-		
+
 		hire.setHireState("待受理");
 		hire.setIsOver(false);
 		hireService.updateStrict(hire);

@@ -2,14 +2,14 @@ package com.computerdesign.whutHouseMgmt.bean.house;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 
 public class House {
     private Integer id;
 
     private String no;
+
+    private Boolean isOutSchool;
 
     private Integer type;
 
@@ -37,8 +37,6 @@ public class House {
 
     private Double rental;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date finishTime;
 
     private Integer recordStatus;
@@ -57,6 +55,14 @@ public class House {
 
     public void setNo(String no) {
         this.no = no == null ? null : no.trim();
+    }
+
+    public Boolean getIsOutSchool() {
+        return isOutSchool;
+    }
+
+    public void setIsOutSchool(Boolean isOutSchool) {
+        this.isOutSchool = isOutSchool;
     }
 
     public Integer getType() {
@@ -178,15 +184,4 @@ public class House {
     public void setRecordStatus(Integer recordStatus) {
         this.recordStatus = recordStatus;
     }
-
-	@Override
-	public String toString() {
-		return "House [id=" + id + ", no=" + no + ", type=" + type + ", layout=" + layout + ", struct=" + struct
-				+ ", status=" + status + ", buildArea=" + buildArea + ", usedArea=" + usedArea + ", basementArea="
-				+ basementArea + ", address=" + address + ", buildingId=" + buildingId + ", proId=" + proId
-				+ ", remark=" + remark + ", image=" + image + ", rental=" + rental + ", finishTime=" + finishTime
-				+ ", recordStatus=" + recordStatus + "]";
-	}
-    
-    
 }

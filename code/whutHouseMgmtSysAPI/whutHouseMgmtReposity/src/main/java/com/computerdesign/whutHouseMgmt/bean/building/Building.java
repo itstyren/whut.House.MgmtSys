@@ -6,7 +6,7 @@ import java.util.Date;
 import io.swagger.annotations.ApiModelProperty;
 
 public class Building {
-	@ApiModelProperty(hidden =true)
+	
     private Integer id;
 
 	@ApiModelProperty(example="东湖")

@@ -57,5 +57,17 @@ public class StaffParameterService implements BaseService<StaffParameter> {
 	}
 	
 
+	/**
+	 * 通过staffParamId获取该职称或职务的分数
+	 * @param staffParamId
+	 * @return
+	 */
+	public Integer getValByStaffParamId(Integer staffParamId){
+		StaffParameterExample example = new StaffParameterExample();
+		Criteria criteria= example.createCriteria();
+		criteria.andStaffParamIdEqualTo(staffParamId);
+		criteria.andIsDeleteEqualTo(false);
+		return staffParameterMapper.selectByPrimaryKey(staffParamId).getStaffParamVal();
+	}
 
 }
