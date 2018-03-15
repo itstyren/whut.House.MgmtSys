@@ -16,15 +16,24 @@
         <div class="warp-body">
           <!-- 工具栏 -->
           <div class="toolbar">
+            <div class="download-button">
+              <el-button type="primary" size="small" @click="staffDownload">职工模板下载</el-button>
+              <el-button type="primary" size="small" @click="houseDownload">房屋模板下载</el-button>
+            </div>
+            <div class="save-buttomn">
+              <el-radio v-model="uploadType" label="1">职工</el-radio>
+              <el-radio v-model="uploadType" style="margin-right:30px" label="2">住房</el-radio>
+              <el-button type="success" size="small" :disabled="isFull" @click="unpload">确认并导入</el-button>
+            </div>
             <upload-excel-component @on-selected-file='selected'></upload-excel-component>
           </div>
           <!-- 表格区 -->
           <div class="main-data">
             <div class="card import-data">
-            <el-table :data="tableData" class="table" border height="string" highlight-current-row>
-              <el-table-column v-for='item of tableHeader' width="120" align="center" :prop="item" :label="item" :key='item'>
-              </el-table-column>
-            </el-table>
+              <el-table v-loading="uploadLoading" :data="tableData" class="table" border height="string" highlight-current-row>
+                <el-table-column v-for='item of tableHeader' width="120" align="center" :prop="item" :label="item" :key='item'>
+                </el-table-column>
+              </el-table>
             </div>
           </div>
         </div>
@@ -35,6 +44,11 @@
 
 <script>
   import UploadExcelComponent from "@/components/UploadExcel/index.vue";
+  import {
+    postStaffImport,
+    postHouseImport
+  } from "@/api/basiceData";
+  import utils from "@/utils/index.js";
 
   export default {
     name: "uploadExcel",
@@ -44,14 +58,47 @@
     data() {
       return {
         tableData: [],
-        tableHeader: []
+        tableHeader: [],
+        itemFile: {},
+        uploadLoading: false,
+        uploadType: "1",
+        isFull:true
       };
     },
     methods: {
-      selected(data) {
+      selected(data, itemFile) {
         this.tableData = data.results;
-        console.log(this.tableData)
+        this.itemFile = itemFile;
+        //console.log(this.itemFile);
         this.tableHeader = data.header;
+        this.isFull=false
+      },
+      staffDownload() {
+        window.location.href =
+          "http://localhost:8787/whutHouseMgmtReposity/dataImport/staffDownLoad";
+      },
+      houseDownload() {
+        window.location.href =
+          "http://localhost:8787/whutHouseMgmtReposity/dataImport/houseDownLoad";
+      },
+      unpload() {
+        this.uploadLoading = true;
+        var formData = new FormData();
+        if (this.uploadType == "1") {
+          formData.append("staffFile", this.itemFile, "staffImport.xls");
+          postStaffImport(formData).then(res => {
+            utils.statusinfo(this, res.data);
+            this.uploadLoading = false;
+            //console.log(res)
+          });
+        } else {
+          formData.append("houseFile", this.itemFile, "houseImport.xls");
+          postHouseImport(formData).then(res => {
+            utils.statusinfo(this, res.data);
+            this.uploadLoading = false;
+            //console.log(res)
+          });
+        }
       }
     }
   };
@@ -59,8 +106,21 @@
 </script>
 
 <style scoped lang="scss">
-.import-data{
-  margin-top: 20px;
-   height: 60vh;
-}
+  .import-data {
+    margin-top: 20px;
+    height: 60vh;
+  }
+
+  .download-button {
+    position: absolute;
+    top: 50px;
+    right: 30px;
+  }
+
+  .save-buttomn {
+    position: absolute;
+    top: 150px;
+    right: 30px;
+  }
+
 </style>
