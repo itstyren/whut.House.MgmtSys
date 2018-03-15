@@ -1,41 +1,28 @@
 package com.computerdesign.whutHouseMgmt.controller.house;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.Path;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.building.Building;
 import com.computerdesign.whutHouseMgmt.bean.house.House;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllShowModel;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseSelectModel;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseShowModel;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel;
-import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
-import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
-import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
-import com.computerdesign.whutHouseMgmt.service.houseregister.StaffHouseRelService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
+import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import io.swagger.annotations.ApiOperation;
 
 @RequestMapping(value = "/house/")
-@Controller
+@RestController
 public class HouseController {
 
 	@Autowired
@@ -43,9 +30,6 @@ public class HouseController {
 
 	@Autowired
 	private HouseParamService houseParamService;
-
-	@Autowired
-	private BuildingService buildingService;
 
 	@Autowired
 	private ViewHouseService viewHouseService;
@@ -57,7 +41,7 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "get/{id}", method = RequestMethod.GET)
-	@ResponseBody
+	@ApiOperation(value="根据house的id获取一个house")
 	public Msg get(@PathVariable("id") Integer id) {
 		if (viewHouseService.get(id).isEmpty()) {
 			return Msg.error("查找不到数据");
@@ -68,7 +52,6 @@ public class HouseController {
 		// 每平方米的价格*面积
 		viewHouse.setRental(rentPer * viewHouse.getBuildArea());
 		return Msg.success().add("data", viewHouse);
-
 	}
 
 	/**
@@ -79,7 +62,7 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "get", method = RequestMethod.GET)
-	@ResponseBody
+	@ApiOperation(value = "获取全部的house",notes="不分页，并且除了根据id获取外，都不查找到校外的房屋")
 	public Msg get(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 
@@ -102,7 +85,7 @@ public class HouseController {
 	}
 
 	/**
-	 * 根据regionId查找属于某一栋的viewhouse
+	 * 根据regionId查找属于某一地区的viewHouse
 	 * 
 	 * @param regionId
 	 * @param page
@@ -110,20 +93,14 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getViewHousesByRegionId/{regionId}", method = RequestMethod.GET)
-	@ResponseBody
+	@ApiOperation(value= "查找某一区域的房屋信息")
 	public Msg getViewHouseByRegionId(@PathVariable("regionId") Integer regionId,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 
-		List<Building> buildingsList = buildingService.getAllByRegionId(regionId);
-		List<Integer> buildingIdList = new ArrayList<Integer>();
-		for (Building building : buildingsList) {
-			if (!buildingIdList.contains(building.getId())) {
-				buildingIdList.add(building.getId());
-			}
-		}
+		
 		PageHelper.startPage(page, size);
-		List<ViewHouse> viewHouseList = viewHouseService.getViewHousesByRegionId(buildingIdList);
+		List<ViewHouse> viewHouseList = viewHouseService.getViewHousesByRegionId(regionId);
 
 		for (ViewHouse viewHouse : viewHouseList) {
 			// 每平方米的价格
@@ -133,15 +110,11 @@ public class HouseController {
 		}
 		PageInfo pageInfo = new PageInfo(viewHouseList);
 
-		if (viewHouseList == null) {
-			return Msg.error("查找不到数据");
-		} else {
-			return Msg.success().add("data", pageInfo);
-		}
+		return Msg.success().add("data", pageInfo);
 	}
 
 	/**
-	 * 根据buildingId查找属于某一栋的viewhouse
+	 * 根据buildingId查找属于某一栋的viewHouse
 	 * 
 	 * @param buildingId
 	 * @param page
@@ -149,7 +122,7 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getViewHousesByBuildingId/{buildingId}", method = RequestMethod.GET)
-	@ResponseBody
+	@ApiOperation(value="查找某一栋楼的房屋信息")
 	public Msg getViewHousesByBuildingId(@PathVariable("buildingId") Integer buildingId,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
@@ -175,7 +148,7 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	@ResponseBody
+	@ApiOperation(value= "添加一个房屋",notes="IsOutSchoole用来表示校内还是校外")
 	public Msg addHouse(@RequestBody House house) {
 
 		if (house.getNo() == null) {
@@ -215,6 +188,8 @@ public class HouseController {
 			return Msg.error("不存在的住房类型");
 		}
 
+		//TODO 这个地方是房屋状态为空闲
+		house.setStatus(24);
 		houseService.add(house);
 		return Msg.success().add("data", house);
 	}
@@ -226,7 +201,7 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
-	@ResponseBody
+	@ApiOperation(value= "删除一个房屋",notes="删除失败可能是存在外键")
 	public Msg deleteHouse(@PathVariable("id") Integer id) {
 		// 不存在该id
 		if (houseService.get(id) == null) {
@@ -249,7 +224,6 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
-	@ResponseBody
 	@ApiOperation(value= "更改房屋信息",notes="!!!!!!!!!!!!!!!!!!!!!!!!!!!!非常重要，更改楼栋时，所有的信息请《手动输入》，你需要更改哪一项就输入哪一项，不填的默认不更改",response=com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg modifyHouse(@RequestBody House house) {
 		// 基本不会出现这样的情况

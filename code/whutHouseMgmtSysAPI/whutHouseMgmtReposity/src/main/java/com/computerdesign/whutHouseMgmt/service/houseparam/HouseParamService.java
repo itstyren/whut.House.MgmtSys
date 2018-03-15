@@ -1,8 +1,6 @@
 package com.computerdesign.whutHouseMgmt.service.houseparam;
 
-import java.lang.reflect.Parameter;
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +63,8 @@ public class HouseParamService implements BaseService<HouseParameter>{
 		criteria.andHouseParamIdEqualTo(structId);
 		return houseParameterMapper.selectByPrimaryKey(structId).getStructRent();
 	}
+	
+	
 	@Override
 	public void add(HouseParameter houseParameter){
 		houseParameterMapper.insertSelective(houseParameter);

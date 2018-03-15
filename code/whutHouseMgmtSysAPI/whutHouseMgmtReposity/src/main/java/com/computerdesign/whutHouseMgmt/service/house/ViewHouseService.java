@@ -1,6 +1,5 @@
 package com.computerdesign.whutHouseMgmt.service.house;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +8,7 @@ import org.springframework.stereotype.Service;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample.Criteria;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.FinishTime;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseSelectModel;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseShowModel;
 import com.computerdesign.whutHouseMgmt.dao.house.ViewHouseMapper;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 @Service
 public class ViewHouseService {
@@ -42,6 +36,7 @@ public class ViewHouseService {
 		ViewHouseExample example =new ViewHouseExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andBuildingIdEqualTo(buildingId);
+		criteria.andIsOutSchoolEqualTo(false);
 		return viewHouseMapper.selectByExample(example);
 	}
 	
@@ -50,10 +45,11 @@ public class ViewHouseService {
 	 * @param regionId
 	 * @return
 	 */
-	public List<ViewHouse> getViewHousesByRegionId(List<Integer> buildingIdList) {
+	public List<ViewHouse> getViewHousesByRegionId(Integer regionId) {
 		ViewHouseExample example =new ViewHouseExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andBuildingIdIn(buildingIdList);
+		criteria.andRegionIdEqualTo(regionId);
+		criteria.andIsOutSchoolEqualTo(false);
 		return viewHouseMapper.selectByExample(example);
 		
 	}
@@ -63,6 +59,9 @@ public class ViewHouseService {
 	 * @return
 	 */
 	public List<ViewHouse> getAll(){
+		ViewHouseExample example =new ViewHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIsOutSchoolEqualTo(false);
 		return viewHouseMapper.selectByExample(null);
 	}
 	

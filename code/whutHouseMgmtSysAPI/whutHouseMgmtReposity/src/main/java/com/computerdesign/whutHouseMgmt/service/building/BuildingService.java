@@ -23,11 +23,19 @@ public class BuildingService implements BaseService<Building>{
 		return buildingMapper.selectByPrimaryKey(id);
 	}
 	
+	/**
+	 * 获取全部的building
+	 */
 	@Override
 	public List<Building> getAll(){
 		return buildingMapper.selectByExample(null);
 	}
 	
+	/**
+	 * 根据name获取building
+	 * @param name
+	 * @return
+	 */
 	public List<Building> getAllByName(String name) {
 		BuildingExample example=new BuildingExample();
 		Criteria criteria=example.createCriteria();

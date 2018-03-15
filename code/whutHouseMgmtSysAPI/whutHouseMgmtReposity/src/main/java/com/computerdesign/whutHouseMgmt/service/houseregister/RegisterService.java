@@ -199,7 +199,7 @@ public class RegisterService{
 		// 设置ExpireTime时间为两年后
 		Calendar bookTime = Calendar.getInstance();
 		bookTime.setTime(new Date());
-		bookTime.add(Calendar.YEAR, +2);
+		bookTime.add(Calendar.YEAR, +1);
 		Date expireTime = bookTime.getTime();
 		resident.setExpireTime(expireTime);
 
