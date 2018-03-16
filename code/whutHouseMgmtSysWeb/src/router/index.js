@@ -6,7 +6,7 @@ const ADMIN = 0,DEPADMIN=1,STAFF = 3
 
 Vue.use(Router)
 
-import Home from '@/views/Home'
+import Home from '@/views/layout'
 import HelloWorld from '@/components/HelloWorld'
 
 export const constantRouterMap = [
@@ -20,6 +20,7 @@ export const constantRouterMap = [
             path: 'index',
             component: HelloWorld,
             name: 'index',
+            meta: { title: 'index',  noCache: true }
         }]
     },
 ]
@@ -38,11 +39,13 @@ export const asyncRouterMap = [
         path: '/sysmanage',
         component: Home,
         redirect: '/sysmanage/paramSet',
-        meta: { roles: [ADMIN,STAFF] }, // you can set roles in root nav
+        name: 'sysmanage',
+        meta: { roles: [ADMIN, STAFF], title: 'sysManage'  }, // you can set roles in root nav
         children: [{
             path: 'paramSet',
             component: _import('sysManage/paramSet/indexParam'),
             name: 'paramSet',
+            meta: { title: 'paramste' },            
             children:[
                 { path: 'houseLayout', component: _import('sysManage/paramSet/houseParam/houseLayout'), name: 'houseLayout', meta: { title: 'houseLayout' } },
                 { path: 'houseType', component: _import('sysManage/paramSet/houseParam/houseType'), name: 'houseType', meta: { title: 'houseType' } },
@@ -70,13 +73,15 @@ export const asyncRouterMap = [
         path: '/basic',
         component: Home,
         redirect: '/sysmanage/paramSet',
-        meta: { roles: [ADMIN, STAFF], noCache: true }, // you can set roles in root nav
+        name: 'basic',        
+        meta: { roles: [ADMIN, STAFF], noCache: true, title: 'basiceData'  }, // you can set roles in root nav
         children: [
             // 区域楼栋
             {
             path: 'buildingArea',
             component: _import('basiceData/buildingRegionData/indexNav'),
             name: 'indexbldgRgn',
+            meta: { title: 'region'},          
             children: [
                 { path: 'region', component: _import('basiceData/buildingRegionData/regionData'), name: 'region', meta: { title: 'region' } },
                 { path: 'building/:id', component: _import('basiceData/buildingRegionData/buildingData'), name: 'building', meta: { title: 'building' } },
@@ -87,6 +92,7 @@ export const asyncRouterMap = [
             path: 'house',
             component: _import('basiceData/houseData/indexNav'),
             name: 'indexHouse',
+            meta: { title: 'house' },                      
             children: [
                 { path: 'byBuilding/:id', component: _import('basiceData/houseData/houseData'), name: 'house', meta: { title: 'house' } },
             ]
@@ -96,6 +102,7 @@ export const asyncRouterMap = [
             path: 'staff',
             component: _import('basiceData/staffData/indexNav'),
             name: 'indexStaff',
+            meta: { title: 'staff' },                      
             children: [
                 { path: 'byDept/:id', component: _import('basiceData/staffData/staffData'), name: 'staffData', meta: { title: 'staffData' } },
                 { path: 'byId/:id', component: _import('basiceData/staffData/singleStaffData'), name: 'singleStaffData', meta: { title: 'singleStaffData' } },
@@ -107,6 +114,7 @@ export const asyncRouterMap = [
             path: 'houseResident',
             component: _import('basiceData/houseResident/indexNav'),
             name: 'indexResident',
+            meta: { title: 'resident' },
             children: [
                 { path: ':id', component: _import('basiceData/houseResident/resident'), name: 'houseResident', meta: { title: 'houseResident' } },
             ]
@@ -116,6 +124,7 @@ export const asyncRouterMap = [
             path: 'importData',
             component: _import('basiceData/importData/importData'),
             name: 'importData',
+            meta: { title: 'region' },
         },
 
     ]
@@ -124,7 +133,8 @@ export const asyncRouterMap = [
     {
         path: '/fixManage',
         component: Home,
-        meta: { roles: [ADMIN, STAFF] }, // you can set roles in root nav
+        name: 'fixManage',                
+        meta: { roles: [ADMIN, STAFF], title: 'fixManage'  }, // you can set roles in root nav
         children: [
             { path: 'fixApply', component: _import('fixManage/fixApply'), name: 'fixApply', meta: { title: 'fixApply' } },
             { path: 'fixAccept', component: _import('fixManage/fixAccept'), name: 'fixAccept', meta: { title: 'fixAccept' } },
@@ -138,7 +148,8 @@ export const asyncRouterMap = [
     {
         path: '/leaseManage',
         component: Home,
-        meta: { roles: [ADMIN, STAFF] }, // you can set roles in root nav
+        name: 'leaseManage',                        
+        meta: { roles: [ADMIN, STAFF], title: 'leaseManage'  }, // you can set roles in root nav
         children: [
             { path: 'hireAccept', component: _import('leaseManage/hireAccept'), name: 'hireAccept', meta: { title: 'hireAccept' } },
             { path: 'hireAgree', component: _import('leaseManage/hireAgree'), name: 'hireAgree', meta: { title: 'hireAgree' } },
@@ -153,7 +164,8 @@ export const asyncRouterMap = [
     {
         path: '/online',
         component: Home,
-        meta: { roles: [ADMIN, STAFF] }, // you can set roles in root nav
+        name: 'online',                                
+        meta: { roles: [ADMIN, STAFF], title: 'onilne'  }, // you can set roles in root nav
         children: [
             { path: 'hireStafferSet', component: _import('online/hireStafferSet'), name: 'hireStafferSet', meta: { title: 'hireStafferSet' } },
             { path: 'hireHouseSet', component: _import('online/hireHouseSet'), name: 'hireHouseSet', meta: { title: 'hireHouseSet' } },
@@ -165,6 +177,7 @@ export const asyncRouterMap = [
     {
         path: '/user',
         component: Home,
+        hidden:true,
         children: [
             { path: 'setting', component: _import('personal/index'), name: 'personal', meta: { title: 'personal' } },
         ]

@@ -1,327 +1,239 @@
 <template>
-<!-- 容器 -->
-<el-row class="all-containers">
-
-    <div class="third-container">
-    <!-- 面包屑导航 -->      
-    <div class="warp-breadcrum">    
-    </div>
-    <!-- 下方主内容 --> 
-    <div class="warp-body">
-      <!-- 工具栏 -->    
-      <div class="toolbar">      
+  <!-- 容器 -->
+  <div class="home-container">
+    <!-- 头部 -->
+    <header class="top-bar">
+      <!-- 头部logo -->
+      <div class="logo">
+        <a href="/"></a>
       </div>
-      <!-- 表格区 --> 
-      <div class="main-data">    
-      </div>
-    </div>
-  </div>
-  
-  <!-- 头部 -->
-  <el-col :span="24" class="top-bar-warp">
-    <!-- logo -->
-    <div class="top-bar-logo">
-      <a href="/"><img src="../assets/logo.png" alt="logo"></a>
-    </div>
-    <!-- 标题 -->
-    <div class="top-bar-title">
-      <span >武汉理工大学房屋管理系统</span>
-    </div>
-    <!-- 账户 -->
-    <div class="top-bar-account">
-      <el-dropdown trigger="click" > 
-        <span class="el-dropdown-main">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-account"></use>
-            </svg>
-            <span>{{RoleName}}</span>
-            <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-more_unfold"></use>
-            </svg>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-             <router-link to="/hnrlist"><span style=" color: #000; font-size: 14px;">个人信息</span></router-link>
-          </el-dropdown-item>
-          <el-dropdown-item>
-             <router-link to="/hnrlist"><span style=" color: #000; font-size: 14px;">修改密码</span></router-link>
-          </el-dropdown-item>
-          <el-dropdown-item divided>
-             <span style="font-size: 14px;" @click.prevent="logout">退出登录</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
-  </el-col>
-
-  <!-- 中间部分,felx -->
-  <el-col :span="24" class="body-containers">
-    <!-- 左侧导航区 -->
-    <aside :class="{showSidebar:!isCollapse}">
-      <!-- 展开关闭按钮 -->
-      <div class="asid-button" @click.prevent="collapse">
-          <svg class="icon" aria-hidden="true" v-show="isCollapse">
-            <use xlink:href="#icon-next"></use>
-          </svg>
-          <svg class="icon" aria-hidden="true" v-show="!isCollapse">
-            <use xlink:href="#icon-pre"></use>
-          </svg>
+      <!-- 头部标题 -->
+      <div class="title">
+        <span>武汉理工房屋管理系统</span>
       </div>
       <!-- 主菜单 -->
-      <el-menu  :collapse="isCollapse" :default-active="$route.path" :router="true">
-        <!-- 首页 -->
-        <el-menu-item index="/" > 
-          <svg class="icon" aria-hidden="true" >
-            <use xlink:href="#icon-home1"></use>
-          </svg>
-          <span slot="title"> 首页</span>
-        </el-menu-item>
-        <!-- 一级目录 -->
-        <!-- 系统管理 -->
-        <el-submenu index="SysManage">
-          <template slot="title">
-          <svg class="icon" aria-hidden="true" >
-            <use xlink:href="#icon-set1"></use>
-          </svg>
-            <span slot="title"> 系统管理</span>
-          </template>
-          <el-menu-item index="/paramSet">
-             <svg class="icon" aria-hidden="true" >
-               <use xlink:href="#icon-param"></use>
-               </svg>
+      <div class="main-menu" :router="true">
+        <el-menu class="horizon-menu" default-active="/index" menu-trigger="click" unique-opened mode="horizontal" background-color="#373d41"
+          text-color="#fff" router>
+          <!-- 首页 -->
+          <el-menu-item index="/index">
+            <template slot="title">
+              <span slot="title">首页</span>
+            </template>
+          </el-menu-item>
+          <!-- 系统管理-->
+          <el-submenu index="sysManage">
+            <template slot="title">
+              <span slot="title">系统管理</span>
+            </template>
+            <el-menu-item index="/sysmanage/paramSet">
               <span>参数设置</span>
-          </el-menu-item>
-          <!-- 二级目录 -->
-          <!-- 修改密码 -->
-          <el-menu-item index="/PassWord">
-          <svg class="icon" aria-hidden="true" >
-            <use xlink:href="#icon-change_pwd"></use>
-          </svg>
-            <span>修改密码</span>
-          </el-menu-item>
-        </el-submenu>
-        <!-- 基础数据 -->
-        <el-submenu index="JcData">
-          <template slot="title">
-          <svg class="icon" aria-hidden="true" >
-            <use xlink:href="#icon-basisData"></use>
-          </svg>            
-            <span slot="title"> 基础数据</span>
-          </template>
-          <el-menu-item index="/basic/region" >
-          <svg class="icon" aria-hidden="true" >
-            <use xlink:href="#icon-region"></use>
-          </svg>
-            区域管理
-          </el-menu-item>
-          <el-menu-item index="/basic/building" >
-          <svg class="icon" aria-hidden="true" >
-            <use xlink:href="#icon-building"></use>
-          </svg>
-            楼栋管理
-          </el-menu-item>
-          <el-menu-item index="/basic/awdlist">
-          <svg class="icon" aria-hidden="true" >
-            <use xlink:href="#icon-house"></use>
-          </svg>          
-            住房管理
-          </el-menu-item>
-          <el-menu-item index="/basic/orglist">
-          <svg class="icon" aria-hidden="true" >
-            <use xlink:href="#icon-staffData"></use>
-          </svg>  
-            职工管理
-          </el-menu-item>
-          <el-menu-item index="/basic/orglist">
-          <svg class="icon" aria-hidden="true" >
-            <use xlink:href="#icon-houseReg"></use>
-          </svg> 
-            住房登记
-          </el-menu-item>
-          <el-menu-item index="/basic/orglist">
-            数据导入
-          </el-menu-item>
-        </el-submenu>
-      </el-menu>
-    </aside>
-
-    <!-- 右侧内容区 -->
-    <section class="main-containers">
-        <el-col :span="24" class="main-warp">
-        <transition name="fade" model="out-in" >
-          <router-view></router-view>
-        </transition>
-        </el-col>  
+            </el-menu-item>
+            <el-menu-item index="/paramSet">
+              <span>权限控制</span>
+            </el-menu-item>
+          </el-submenu>
+          <!-- 基础资料 -->
+          <el-submenu index="basicData">
+            <template slot="title">
+              <span slot="title">基础资料</span>
+            </template>
+            <el-menu-item index="/basic/buildingArea">
+              <span>楼栋区域</span>
+            </el-menu-item>
+            <el-menu-item index="/basic/house">
+              <span>房屋管理</span>
+            </el-menu-item>
+            <el-menu-item index="/basic/staff">
+              <span>职工管理</span>
+            </el-menu-item>
+            <el-menu-item index="/basic/houseResident">
+              <span>住房登记</span>
+            </el-menu-item>
+            <el-menu-item index="/basic/importData">
+              <span>数据导入</span>
+            </el-menu-item>
+          </el-submenu>
+          <!-- 公房维修 -->
+          <el-submenu index="fixManager">
+            <template slot="title">
+              <span slot="title">公房维修</span>
+            </template>
+            <el-menu-item index="/fixManage/fixAccept">
+              <span>维修受理</span>
+            </el-menu-item>
+            <el-menu-item index="/fixManage/fixAgree">
+              <span>维修审核</span>
+            </el-menu-item>
+            <el-menu-item index="/fixManage/fixBalance">
+              <span>维修结算</span>
+            </el-menu-item>
+            <el-menu-item index="/fixManage/fixSuper">
+              <span>维修直批</span>
+            </el-menu-item>
+            <el-menu-item index="/fixManage/fixApply">
+              <span>维修申请</span>
+            </el-menu-item>
+            <el-menu-item index="/fixManage/fixApplyManager">
+              <span>维修申请管理</span>
+            </el-menu-item>
+          </el-submenu>
+          <!-- 租赁管理 -->
+          <el-submenu index="leaseManage">
+            <template slot="title">
+              <span slot="title">租赁管理</span>
+            </template>
+            <el-menu-item index="/leaseManage/hireAccept">
+              <span>租赁受理</span>
+            </el-menu-item>
+            <el-menu-item index="/leaseManage/hireAgree">
+              <span>租赁审核</span>
+            </el-menu-item>
+            <el-menu-item index="/leaseManage/hireApprove">
+              <span>租赁审批</span>
+            </el-menu-item>
+            <el-menu-item index="/leaseManage/hireSuper">
+              <span>租赁直批</span>
+            </el-menu-item>
+            <el-menu-item index="/leaseManage/hireContract">
+              <span>签订合同</span>
+            </el-menu-item>
+            <el-menu-item index="/leaseManage/hireApplyManage">
+              <span>申请书管理</span>
+            </el-menu-item>
+            <el-menu-item index="/leaseManage/rentGenerate">
+              <span>租金生成</span>
+            </el-menu-item>
+          </el-submenu>
+          <!-- 网上选房 -->
+          <el-submenu index="online">
+            <template slot="title">
+              <span slot="title">网上选房</span>
+            </template>
+            <el-menu-item index="/online/hireStafferSet">
+              <span>选房资格认定</span>
+            </el-menu-item>
+            <el-menu-item index="/online/hireHouseSet">
+              <span>房源设置</span>
+            </el-menu-item>
+            <el-menu-item index="/online/selfService">
+              <span>自助选房</span>
+            </el-menu-item>
+            <el-menu-item index="/online/hireApply">
+              <span>住房申请</span>
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </div>
+      <!-- 头部账户 -->
+      <div class="account">
+        <el-dropdown trigger="click">
+          <span class="dropdown-main">
+            <my-icon icon-class="account" />
+            <span>{{userName}}</span>
+            <my-icon icon-class="more_unfold" />
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <router-link to="/user/setting">
+                <span style=" color: #000; font-size: 14px;">个人设置</span>
+              </router-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <router-link to="/account/PassWord">
+                <span style=" color: #000; font-size: 14px;">修改密码</span>
+              </router-link>
+            </el-dropdown-item>
+            <el-dropdown-item divided>
+              <span style="font-size: 14px;" @click.prevent="logout">退出登录</span>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+    </header>
+    <!-- 下方主体内容 -->
+    <section class="body-container">
+      <router-view></router-view>
     </section>
-      <!-- 底部栏 -->
-      <!-- <el-col :span="24" class="bottom-containers">
-        <span>Copyright © 1999-2017, RWS, All Rights Reserved </span>
-        </el-col> -->
-  </el-col>
+  </div>
 
-
-</el-row>
- </div>
 </template>
 
 <script type="text/ecmascript-6">
-import * as types from '../store/mutation-types'
- export default {
-   data() {
-	 return {
-      isCollapse: false,
-      RoleName:'任天宇'||2
-	 }
 
-   },
-   methods:{
-      //折叠     
-      collapse: function () {
-       this.isCollapse = !this.isCollapse;
-       },
-       // 登出
-       logout(){
-         this.$store.commit(types.LOGOUT)
-         this.$router.push({
-           path:'/login'
-         })
-       }
-       
-   }
- }
+  export default {
+    data() {
+      return {};
+    },
+    computed: {
+      userName() {
+        return this.$store.getters.userName;
+      }
+    },
+    components: {
+        horizonMenu
+    },
+    methods: {
+      // 退出登录
+      logout() {
+       // console.log('2')
+        this.$store.dispatch("LogOut").then(() => {
+          location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
+        });
+      }
+    }
+  };
+
 </script>
 
 <style scoped lang="scss">
-//scoped范围样式，用于隔离组件的style
-  .all-containers{
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    width: 100%;
-    left: 0px;
-    
-    
-    .top-bar-warp{
-      height: 50px;
-      line-height: 50px;
-      background: #373d41;
-      padding: 0px;
-      color: #fff;
-      
-      .top-bar-logo{
+  $background-color: #373d41;
+  @import "../styles/variables.scss";
+  .home-container {
+    .top-bar {
+      background-color: $background-color;
+      color: #fff; //display: flex;
+      >.logo {
         float: left;
         width: 59px;
-        line-height: 26px;
-        }
-      
-      .top-bar-logo img{
-        height: 40px;
-        margin-top: 5px;
-        margin-left: 2px;
-        }
-      
-      .top-bar-title {
-        float: left;
-        text-align: left;
-        width: 200px;
-        padding-left: 10px;
-        border-left: 1px solid #000;
-        span{
-         font-size: 20px;
-        }
-        }
-
-        .top-bar-account{
-          float: right;
-          padding-right: 15px;
-          .el-dropdown-main{
-          color: #fff;
-          cursor: pointer;
-          padding-left: 12px;
-          }
-        }
-        
-      } //top-bar-warp包裹
-
-      // 中间部分
-      .body-containers{
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
+        height: $top-bar-height;
         display: flex;
-        position: absolute;
-        top: 50px;
-        bottom: 0px;
-        overflow: hidden;
+        background-image: url("../assets/logo.png");
+        background-size: 100% 100%;
+        >a {
+          flex-grow: 1;
+        }
       }
-
-      //左侧内容样式
-      aside{
-        min-width: 50px;
-        background: #333744;
-        &::-webkit-scrollbar {
-          display: none;
-        }
-
-        .asid-button{
-          background: #4A5064;
-          text-align: center;
-          color: white;
-          height: 30px;
-          line-height: 30px;
-          cursor: pointer;
-        }
-        
-        &.showSidebar {
-          overflow-x: hidden;
-          overflow-y: auto;
-          }
-
-
-        .el-menu {
-          height: 100%; /*写给不支持calc()的浏览器*/
+      >.main-menu {
+        float: left;
+        margin-left: 50px;
+        >.el-menu {
+          height: 100%;
+          /*写给不支持calc()的浏览器*/
           height: -moz-calc(100% - 80px);
           height: -webkit-calc(100% - 80px);
           height: calc(100% - 80px);
           border-radius: 0px;
-          background-color: #333744;
-      }
-      .el-menu {
-        width: 180px;
-        background-color: #333744;
-      }
-      .el-menu--collapse {
-        width: 60px;
-      }
-
-      }
-      //中间主内容样式
-      .main-containers{
-        background: #fff;
-        flex: 1;
-        overflow-y: auto;
-        padding: 10px;
-        padding-bottom: 1px;
-        
-        .main-warp{
-           box-sizing: border-box;
-            height: 100%;
+          background-color: $background-color;
         }
-              //底部样式
-      // .bottom-containers{
-      //   position: absolute;
-      //   height: 50px;
-      //   background: #333744;
-      //   bottom:0px;
-      //   border: 1px solid #fff;
-      //   padding: 12px;
-
-      //   SPAN{
-      //     text-align: center;
-      //     color: white;
-      //     font-size: 14px;
-      //   }
-      // }
+      }
+      >.title {
+        float: left;
+        padding-left: 10px; //border-right: 1px solid #000;
+        >span {
+          font-size: 20px;
         }
+      }
+      >.account {
+        float: right;
+        padding-right: 15px;
+        .dropdown-main {
+          color: #fff;
+          cursor: pointer;
+          padding-left: 12px;
+        }
+      }
+    }
   }
+
 </style>
