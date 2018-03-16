@@ -22,8 +22,8 @@
     <result column="Reason" jdbcType="VARCHAR" property="reason" />
     <result column="Phone" jdbcType="VARCHAR" property="phone" />
     <result column="HireState" jdbcType="VARCHAR" property="hireState" />
-    <result column="TotalVal" jdbcType="DOUBLE" property="totalVal" />
     <result column="TitleVal" jdbcType="DOUBLE" property="titleVal" />
+    <result column="TotalVal" jdbcType="DOUBLE" property="totalVal" />
     <result column="TimeVal" jdbcType="DOUBLE" property="timeVal" />
     <result column="SpouseVal" jdbcType="DOUBLE" property="spouseVal" />
     <result column="OtherVal" jdbcType="DOUBLE" property="otherVal" />
@@ -104,7 +104,7 @@
   <sql id="Base_Column_List">
     Id, StaffId, StaffNo, Name, Sex, TitleName, SpouseTitleVal, PostName, SpousePostVal, 
     TypeName, DeptName, HouseId, HouseNo, HouseBuildArea, HouseUserArea, HouseAddress, 
-    ApplyTime, Reason, Phone, HireState, TotalVal, TitleVal, TimeVal, SpouseVal, OtherVal, 
+    ApplyTime, Reason, Phone, HireState, TitleVal, TotalVal, TimeVal, SpouseVal, OtherVal, 
     AcceptNote, AcceptState, AcceptMan, AcceptTime, AgreeNote, AgreeState, AgreeMan, 
     AgreeTime, ApproveNote, ApproveState, ApproveMan, ApproveTime, IsOver, FeedBack, 
     Email
@@ -136,8 +136,8 @@
       TypeName, DeptName, HouseId, 
       HouseNo, HouseBuildArea, HouseUserArea, 
       HouseAddress, ApplyTime, Reason, 
-      Phone, HireState, TotalVal, 
-      TitleVal, TimeVal, SpouseVal, 
+      Phone, HireState, TitleVal, 
+      TotalVal, TimeVal, SpouseVal, 
       OtherVal, AcceptNote, AcceptState, 
       AcceptMan, AcceptTime, AgreeNote, 
       AgreeState, AgreeMan, AgreeTime, 
@@ -150,8 +150,8 @@
       #{typeName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{houseId,jdbcType=INTEGER}, 
       #{houseNo,jdbcType=VARCHAR}, #{houseBuildArea,jdbcType=DOUBLE}, #{houseUserArea,jdbcType=DOUBLE}, 
       #{houseAddress,jdbcType=VARCHAR}, #{applyTime,jdbcType=DATE}, #{reason,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{hireState,jdbcType=VARCHAR}, #{totalVal,jdbcType=DOUBLE}, 
-      #{titleVal,jdbcType=DOUBLE}, #{timeVal,jdbcType=DOUBLE}, #{spouseVal,jdbcType=DOUBLE}, 
+      #{phone,jdbcType=VARCHAR}, #{hireState,jdbcType=VARCHAR}, #{titleVal,jdbcType=DOUBLE}, 
+      #{totalVal,jdbcType=DOUBLE}, #{timeVal,jdbcType=DOUBLE}, #{spouseVal,jdbcType=DOUBLE}, 
       #{otherVal,jdbcType=DOUBLE}, #{acceptNote,jdbcType=VARCHAR}, #{acceptState,jdbcType=VARCHAR}, 
       #{acceptMan,jdbcType=VARCHAR}, #{acceptTime,jdbcType=DATE}, #{agreeNote,jdbcType=VARCHAR}, 
       #{agreeState,jdbcType=VARCHAR}, #{agreeMan,jdbcType=VARCHAR}, #{agreeTime,jdbcType=DATE}, 
@@ -222,11 +222,11 @@
       <if test="hireState != null">
         HireState,
       </if>
-      <if test="totalVal != null">
-        TotalVal,
-      </if>
       <if test="titleVal != null">
         TitleVal,
+      </if>
+      <if test="totalVal != null">
+        TotalVal,
       </if>
       <if test="timeVal != null">
         TimeVal,
@@ -344,11 +344,11 @@
       <if test="hireState != null">
         #{hireState,jdbcType=VARCHAR},
       </if>
-      <if test="totalVal != null">
-        #{totalVal,jdbcType=DOUBLE},
-      </if>
       <if test="titleVal != null">
         #{titleVal,jdbcType=DOUBLE},
+      </if>
+      <if test="totalVal != null">
+        #{totalVal,jdbcType=DOUBLE},
       </if>
       <if test="timeVal != null">
         #{timeVal,jdbcType=DOUBLE},
@@ -475,11 +475,11 @@
       <if test="record.hireState != null">
         HireState = #{record.hireState,jdbcType=VARCHAR},
       </if>
-      <if test="record.totalVal != null">
-        TotalVal = #{record.totalVal,jdbcType=DOUBLE},
-      </if>
       <if test="record.titleVal != null">
         TitleVal = #{record.titleVal,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalVal != null">
+        TotalVal = #{record.totalVal,jdbcType=DOUBLE},
       </if>
       <if test="record.timeVal != null">
         TimeVal = #{record.timeVal,jdbcType=DOUBLE},
@@ -562,8 +562,8 @@
       Reason = #{record.reason,jdbcType=VARCHAR},
       Phone = #{record.phone,jdbcType=VARCHAR},
       HireState = #{record.hireState,jdbcType=VARCHAR},
-      TotalVal = #{record.totalVal,jdbcType=DOUBLE},
       TitleVal = #{record.titleVal,jdbcType=DOUBLE},
+      TotalVal = #{record.totalVal,jdbcType=DOUBLE},
       TimeVal = #{record.timeVal,jdbcType=DOUBLE},
       SpouseVal = #{record.spouseVal,jdbcType=DOUBLE},
       OtherVal = #{record.otherVal,jdbcType=DOUBLE},

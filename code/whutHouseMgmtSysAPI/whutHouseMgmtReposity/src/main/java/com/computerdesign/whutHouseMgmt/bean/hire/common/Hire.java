@@ -2,316 +2,274 @@ package com.computerdesign.whutHouseMgmt.bean.hire.common;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
-
 public class Hire {
-	@ApiModelProperty(hidden = true)
-	private Integer id;
+    private Integer id;
 
-	@ApiModelProperty(example = "1")
-	private Integer staffId;
+    private Integer staffId;
 
-	@ApiModelProperty(hidden = true)
-	private Integer houseId;
+    private Integer houseId;
 
-	@ApiModelProperty(hidden = true)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-	private Date applyTime;
+    private Date applyTime;
 
-	@ApiModelProperty(example = "照桥心美")
-	private String reason;
+    private String reason;
 
-	@ApiModelProperty(example = "17765432111")
-	private String phone;
+    private String phone;
 
-	@ApiModelProperty(hidden = true)
-	private String hireState;
+    private String hireState;
 
-	@ApiModelProperty(hidden = true)
-	private Double totalVal;
-	
-	@ApiModelProperty(hidden = true)
-	private Double titleVal;
-	
-	@ApiModelProperty(hidden = true)
-	private Double timeVal;
-	
-	@ApiModelProperty(hidden = true)
-	private Double spouseVal;
-	
-	@ApiModelProperty(hidden = true)
-	private Double otherVal;
-	
-	@ApiModelProperty(hidden = true)
-	private String acceptNote;
-	
-	@ApiModelProperty(hidden = true)
-	private String acceptState;
-	
-	@ApiModelProperty(hidden = true)
-	private String acceptMan;
-	
-	@ApiModelProperty(hidden = true)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-	private Date acceptTime;
-	
-	@ApiModelProperty(hidden = true)
-	private String agreeNote;
-	
-	@ApiModelProperty(hidden = true)
-	private String agreeState;
-	
-	@ApiModelProperty(hidden = true)
-	private String agreeMan;
-	
-	@ApiModelProperty(hidden = true)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-	private Date agreeTime;
-	
-	@ApiModelProperty(hidden = true)
-	private String approveNote;
-	
-	@ApiModelProperty(hidden = true)
-	private String approveState;
-	
-	@ApiModelProperty(hidden = true)
-	private String approveMan;
-	
-	@ApiModelProperty(hidden = true)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-	private Date approveTime;
-	
-	@ApiModelProperty(hidden = true)
-	private Boolean isOver;
-	
-	@ApiModelProperty(hidden = true)
-	private String feedBack;
+    private Double titleVal;
 
-	private String email;
+    private Double totalVal;
 
-	@ApiModelProperty(hidden = true)
-	public Integer getId() {
-		return id;
-	}
+    private Double timeVal;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private Double spouseVal;
 
-	public Integer getStaffId() {
-		return staffId;
-	}
+    private Double otherVal;
 
-	public void setStaffId(Integer staffId) {
-		this.staffId = staffId;
-	}
+    private String acceptNote;
 
-	public Integer getHouseId() {
-		return houseId;
-	}
+    private String acceptState;
 
-	public void setHouseId(Integer houseId) {
-		this.houseId = houseId;
-	}
+    private String acceptMan;
 
-	public Date getApplyTime() {
-		return applyTime;
-	}
+    private Date acceptTime;
 
-	public void setApplyTime(Date applyTime) {
-		this.applyTime = applyTime;
-	}
+    private String agreeNote;
 
-	public String getReason() {
-		return reason;
-	}
+    private String agreeState;
 
-	public void setReason(String reason) {
-		this.reason = reason == null ? null : reason.trim();
-	}
+    private String agreeMan;
 
-	public String getPhone() {
-		return phone;
-	}
+    private Date agreeTime;
 
-	public void setPhone(String phone) {
-		this.phone = phone == null ? null : phone.trim();
-	}
+    private String approveNote;
 
-	public String getHireState() {
-		return hireState;
-	}
+    private String approveState;
 
-	public void setHireState(String hireState) {
-		this.hireState = hireState == null ? null : hireState.trim();
-	}
+    private String approveMan;
 
-	public Double getTotalVal() {
-		return totalVal;
-	}
+    private Date approveTime;
 
-	public void setTotalVal(Double totalVal) {
-		this.totalVal = totalVal;
-	}
+    private Boolean isOver;
 
-	public Double getTitleVal() {
-		return titleVal;
-	}
+    private String feedBack;
 
-	public void setTitleVal(Double titleVal) {
-		this.titleVal = titleVal;
-	}
+    private String email;
 
-	public Double getTimeVal() {
-		return timeVal;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setTimeVal(Double timeVal) {
-		this.timeVal = timeVal;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Double getSpouseVal() {
-		return spouseVal;
-	}
+    public Integer getStaffId() {
+        return staffId;
+    }
 
-	public void setSpouseVal(Double spouseVal) {
-		this.spouseVal = spouseVal;
-	}
+    public void setStaffId(Integer staffId) {
+        this.staffId = staffId;
+    }
 
-	public Double getOtherVal() {
-		return otherVal;
-	}
+    public Integer getHouseId() {
+        return houseId;
+    }
 
-	public void setOtherVal(Double otherVal) {
-		this.otherVal = otherVal;
-	}
+    public void setHouseId(Integer houseId) {
+        this.houseId = houseId;
+    }
 
-	public String getAcceptNote() {
-		return acceptNote;
-	}
+    public Date getApplyTime() {
+        return applyTime;
+    }
 
-	public void setAcceptNote(String acceptNote) {
-		this.acceptNote = acceptNote == null ? null : acceptNote.trim();
-	}
+    public void setApplyTime(Date applyTime) {
+        this.applyTime = applyTime;
+    }
 
-	public String getAcceptState() {
-		return acceptState;
-	}
+    public String getReason() {
+        return reason;
+    }
 
-	public void setAcceptState(String acceptState) {
-		this.acceptState = acceptState == null ? null : acceptState.trim();
-	}
+    public void setReason(String reason) {
+        this.reason = reason == null ? null : reason.trim();
+    }
 
-	public String getAcceptMan() {
-		return acceptMan;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setAcceptMan(String acceptMan) {
-		this.acceptMan = acceptMan == null ? null : acceptMan.trim();
-	}
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
 
-	public Date getAcceptTime() {
-		return acceptTime;
-	}
+    public String getHireState() {
+        return hireState;
+    }
 
-	public void setAcceptTime(Date acceptTime) {
-		this.acceptTime = acceptTime;
-	}
+    public void setHireState(String hireState) {
+        this.hireState = hireState == null ? null : hireState.trim();
+    }
 
-	public String getAgreeNote() {
-		return agreeNote;
-	}
+    public Double getTitleVal() {
+        return titleVal;
+    }
 
-	public void setAgreeNote(String agreeNote) {
-		this.agreeNote = agreeNote == null ? null : agreeNote.trim();
-	}
+    public void setTitleVal(Double titleVal) {
+        this.titleVal = titleVal;
+    }
 
-	public String getAgreeState() {
-		return agreeState;
-	}
+    public Double getTotalVal() {
+        return totalVal;
+    }
 
-	public void setAgreeState(String agreeState) {
-		this.agreeState = agreeState == null ? null : agreeState.trim();
-	}
+    public void setTotalVal(Double totalVal) {
+        this.totalVal = totalVal;
+    }
 
-	public String getAgreeMan() {
-		return agreeMan;
-	}
+    public Double getTimeVal() {
+        return timeVal;
+    }
 
-	public void setAgreeMan(String agreeMan) {
-		this.agreeMan = agreeMan == null ? null : agreeMan.trim();
-	}
+    public void setTimeVal(Double timeVal) {
+        this.timeVal = timeVal;
+    }
 
-	public Date getAgreeTime() {
-		return agreeTime;
-	}
+    public Double getSpouseVal() {
+        return spouseVal;
+    }
 
-	public void setAgreeTime(Date agreeTime) {
-		this.agreeTime = agreeTime;
-	}
+    public void setSpouseVal(Double spouseVal) {
+        this.spouseVal = spouseVal;
+    }
 
-	public String getApproveNote() {
-		return approveNote;
-	}
+    public Double getOtherVal() {
+        return otherVal;
+    }
 
-	public void setApproveNote(String approveNote) {
-		this.approveNote = approveNote == null ? null : approveNote.trim();
-	}
+    public void setOtherVal(Double otherVal) {
+        this.otherVal = otherVal;
+    }
 
-	public String getApproveState() {
-		return approveState;
-	}
+    public String getAcceptNote() {
+        return acceptNote;
+    }
 
-	public void setApproveState(String approveState) {
-		this.approveState = approveState == null ? null : approveState.trim();
-	}
+    public void setAcceptNote(String acceptNote) {
+        this.acceptNote = acceptNote == null ? null : acceptNote.trim();
+    }
 
-	public String getApproveMan() {
-		return approveMan;
-	}
+    public String getAcceptState() {
+        return acceptState;
+    }
 
-	public void setApproveMan(String approveMan) {
-		this.approveMan = approveMan == null ? null : approveMan.trim();
-	}
+    public void setAcceptState(String acceptState) {
+        this.acceptState = acceptState == null ? null : acceptState.trim();
+    }
 
-	public Date getApproveTime() {
-		return approveTime;
-	}
+    public String getAcceptMan() {
+        return acceptMan;
+    }
 
-	public void setApproveTime(Date approveTime) {
-		this.approveTime = approveTime;
-	}
+    public void setAcceptMan(String acceptMan) {
+        this.acceptMan = acceptMan == null ? null : acceptMan.trim();
+    }
 
-	public Boolean getIsOver() {
-		return isOver;
-	}
+    public Date getAcceptTime() {
+        return acceptTime;
+    }
 
-	public void setIsOver(Boolean isOver) {
-		this.isOver = isOver;
-	}
+    public void setAcceptTime(Date acceptTime) {
+        this.acceptTime = acceptTime;
+    }
 
-	public String getFeedBack() {
-		return feedBack;
-	}
+    public String getAgreeNote() {
+        return agreeNote;
+    }
 
-	public void setFeedBack(String feedBack) {
-		this.feedBack = feedBack == null ? null : feedBack.trim();
-	}
+    public void setAgreeNote(String agreeNote) {
+        this.agreeNote = agreeNote == null ? null : agreeNote.trim();
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getAgreeState() {
+        return agreeState;
+    }
 
-	public void setEmail(String email) {
-		this.email = email == null ? null : email.trim();
-	}
+    public void setAgreeState(String agreeState) {
+        this.agreeState = agreeState == null ? null : agreeState.trim();
+    }
+
+    public String getAgreeMan() {
+        return agreeMan;
+    }
+
+    public void setAgreeMan(String agreeMan) {
+        this.agreeMan = agreeMan == null ? null : agreeMan.trim();
+    }
+
+    public Date getAgreeTime() {
+        return agreeTime;
+    }
+
+    public void setAgreeTime(Date agreeTime) {
+        this.agreeTime = agreeTime;
+    }
+
+    public String getApproveNote() {
+        return approveNote;
+    }
+
+    public void setApproveNote(String approveNote) {
+        this.approveNote = approveNote == null ? null : approveNote.trim();
+    }
+
+    public String getApproveState() {
+        return approveState;
+    }
+
+    public void setApproveState(String approveState) {
+        this.approveState = approveState == null ? null : approveState.trim();
+    }
+
+    public String getApproveMan() {
+        return approveMan;
+    }
+
+    public void setApproveMan(String approveMan) {
+        this.approveMan = approveMan == null ? null : approveMan.trim();
+    }
+
+    public Date getApproveTime() {
+        return approveTime;
+    }
+
+    public void setApproveTime(Date approveTime) {
+        this.approveTime = approveTime;
+    }
+
+    public Boolean getIsOver() {
+        return isOver;
+    }
+
+    public void setIsOver(Boolean isOver) {
+        this.isOver = isOver;
+    }
+
+    public String getFeedBack() {
+        return feedBack;
+    }
+
+    public void setFeedBack(String feedBack) {
+        this.feedBack = feedBack == null ? null : feedBack.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
 }

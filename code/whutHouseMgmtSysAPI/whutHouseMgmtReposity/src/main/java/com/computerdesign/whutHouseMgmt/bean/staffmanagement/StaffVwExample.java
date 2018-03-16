@@ -1012,66 +1012,6 @@ public class StaffVwExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoUniversityTimeIsNull() {
-            addCriterion("GoUniversityTime is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoUniversityTimeIsNotNull() {
-            addCriterion("GoUniversityTime is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoUniversityTimeEqualTo(Date value) {
-            addCriterionForJDBCDate("GoUniversityTime =", value, "goUniversityTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoUniversityTimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("GoUniversityTime <>", value, "goUniversityTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoUniversityTimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("GoUniversityTime >", value, "goUniversityTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoUniversityTimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("GoUniversityTime >=", value, "goUniversityTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoUniversityTimeLessThan(Date value) {
-            addCriterionForJDBCDate("GoUniversityTime <", value, "goUniversityTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoUniversityTimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("GoUniversityTime <=", value, "goUniversityTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoUniversityTimeIn(List<Date> values) {
-            addCriterionForJDBCDate("GoUniversityTime in", values, "goUniversityTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoUniversityTimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("GoUniversityTime not in", values, "goUniversityTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoUniversityTimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("GoUniversityTime between", value1, value2, "goUniversityTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGoUniversityTimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("GoUniversityTime not between", value1, value2, "goUniversityTime");
-            return (Criteria) this;
-        }
-
         public Criteria andRetireTimeIsNull() {
             addCriterion("RetireTime is null");
             return (Criteria) this;

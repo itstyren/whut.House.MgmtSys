@@ -9,8 +9,8 @@
     <result column="Reason" jdbcType="VARCHAR" property="reason" />
     <result column="Phone" jdbcType="VARCHAR" property="phone" />
     <result column="HireState" jdbcType="VARCHAR" property="hireState" />
-    <result column="TotalVal" jdbcType="DOUBLE" property="totalVal" />
     <result column="TitleVal" jdbcType="DOUBLE" property="titleVal" />
+    <result column="TotalVal" jdbcType="DOUBLE" property="totalVal" />
     <result column="TimeVal" jdbcType="DOUBLE" property="timeVal" />
     <result column="SpouseVal" jdbcType="DOUBLE" property="spouseVal" />
     <result column="OtherVal" jdbcType="DOUBLE" property="otherVal" />
@@ -89,7 +89,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, StaffId, HouseId, ApplyTime, Reason, Phone, HireState, TotalVal, TitleVal, TimeVal, 
+    Id, StaffId, HouseId, ApplyTime, Reason, Phone, HireState, TitleVal, TotalVal, TimeVal, 
     SpouseVal, OtherVal, AcceptNote, AcceptState, AcceptMan, AcceptTime, AgreeNote, AgreeState, 
     AgreeMan, AgreeTime, ApproveNote, ApproveState, ApproveMan, ApproveTime, IsOver, 
     FeedBack, Email
@@ -127,7 +127,7 @@
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.Hire">
     insert into Hs_Hire (Id, StaffId, HouseId, 
       ApplyTime, Reason, Phone, 
-      HireState, TotalVal, TitleVal, 
+      HireState, TitleVal, TotalVal, 
       TimeVal, SpouseVal, OtherVal, 
       AcceptNote, AcceptState, AcceptMan, 
       AcceptTime, AgreeNote, AgreeState, 
@@ -137,7 +137,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
       #{applyTime,jdbcType=DATE}, #{reason,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{hireState,jdbcType=VARCHAR}, #{totalVal,jdbcType=DOUBLE}, #{titleVal,jdbcType=DOUBLE}, 
+      #{hireState,jdbcType=VARCHAR}, #{titleVal,jdbcType=DOUBLE}, #{totalVal,jdbcType=DOUBLE}, 
       #{timeVal,jdbcType=DOUBLE}, #{spouseVal,jdbcType=DOUBLE}, #{otherVal,jdbcType=DOUBLE}, 
       #{acceptNote,jdbcType=VARCHAR}, #{acceptState,jdbcType=VARCHAR}, #{acceptMan,jdbcType=VARCHAR}, 
       #{acceptTime,jdbcType=DATE}, #{agreeNote,jdbcType=VARCHAR}, #{agreeState,jdbcType=VARCHAR}, 
@@ -170,11 +170,11 @@
       <if test="hireState != null">
         HireState,
       </if>
-      <if test="totalVal != null">
-        TotalVal,
-      </if>
       <if test="titleVal != null">
         TitleVal,
+      </if>
+      <if test="totalVal != null">
+        TotalVal,
       </if>
       <if test="timeVal != null">
         TimeVal,
@@ -253,11 +253,11 @@
       <if test="hireState != null">
         #{hireState,jdbcType=VARCHAR},
       </if>
-      <if test="totalVal != null">
-        #{totalVal,jdbcType=DOUBLE},
-      </if>
       <if test="titleVal != null">
         #{titleVal,jdbcType=DOUBLE},
+      </if>
+      <if test="totalVal != null">
+        #{totalVal,jdbcType=DOUBLE},
       </if>
       <if test="timeVal != null">
         #{timeVal,jdbcType=DOUBLE},
@@ -345,11 +345,11 @@
       <if test="record.hireState != null">
         HireState = #{record.hireState,jdbcType=VARCHAR},
       </if>
-      <if test="record.totalVal != null">
-        TotalVal = #{record.totalVal,jdbcType=DOUBLE},
-      </if>
       <if test="record.titleVal != null">
         TitleVal = #{record.titleVal,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalVal != null">
+        TotalVal = #{record.totalVal,jdbcType=DOUBLE},
       </if>
       <if test="record.timeVal != null">
         TimeVal = #{record.timeVal,jdbcType=DOUBLE},
@@ -419,8 +419,8 @@
       Reason = #{record.reason,jdbcType=VARCHAR},
       Phone = #{record.phone,jdbcType=VARCHAR},
       HireState = #{record.hireState,jdbcType=VARCHAR},
-      TotalVal = #{record.totalVal,jdbcType=DOUBLE},
       TitleVal = #{record.titleVal,jdbcType=DOUBLE},
+      TotalVal = #{record.totalVal,jdbcType=DOUBLE},
       TimeVal = #{record.timeVal,jdbcType=DOUBLE},
       SpouseVal = #{record.spouseVal,jdbcType=DOUBLE},
       OtherVal = #{record.otherVal,jdbcType=DOUBLE},
@@ -464,11 +464,11 @@
       <if test="hireState != null">
         HireState = #{hireState,jdbcType=VARCHAR},
       </if>
-      <if test="totalVal != null">
-        TotalVal = #{totalVal,jdbcType=DOUBLE},
-      </if>
       <if test="titleVal != null">
         TitleVal = #{titleVal,jdbcType=DOUBLE},
+      </if>
+      <if test="totalVal != null">
+        TotalVal = #{totalVal,jdbcType=DOUBLE},
       </if>
       <if test="timeVal != null">
         TimeVal = #{timeVal,jdbcType=DOUBLE},
@@ -535,8 +535,8 @@
       Reason = #{reason,jdbcType=VARCHAR},
       Phone = #{phone,jdbcType=VARCHAR},
       HireState = #{hireState,jdbcType=VARCHAR},
-      TotalVal = #{totalVal,jdbcType=DOUBLE},
       TitleVal = #{titleVal,jdbcType=DOUBLE},
+      TotalVal = #{totalVal,jdbcType=DOUBLE},
       TimeVal = #{timeVal,jdbcType=DOUBLE},
       SpouseVal = #{spouseVal,jdbcType=DOUBLE},
       OtherVal = #{otherVal,jdbcType=DOUBLE},

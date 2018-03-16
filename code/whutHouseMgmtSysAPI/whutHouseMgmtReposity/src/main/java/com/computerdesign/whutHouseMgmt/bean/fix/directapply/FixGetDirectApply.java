@@ -40,10 +40,6 @@ public class FixGetDirectApply {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
    	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date goUniversityTime;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date retireTime;
 
     private String tel;
@@ -79,7 +75,6 @@ public class FixGetDirectApply {
 		this.tel = staffVw.getTel();
 		this.code = staffVw.getCode();
 		this.joinTime= staffVw.getJoinTime();
-		this.goUniversityTime = staffVw.getGoUniversityTime();
 		this.remark = staffVw.getRemark();
 		this.spouseCode = staffVw.getSpouseCode();
 		this.spouseDept = staffVw.getSpouseDept();
@@ -199,13 +194,6 @@ public class FixGetDirectApply {
 		this.joinTime = joinTime;
 	}
 
-	public Date getGoUniversityTime() {
-		return goUniversityTime;
-	}
-
-	public void setGoUniversityTime(Date goUniversityTime) {
-		this.goUniversityTime = goUniversityTime;
-	}
 
 	public Date getRetireTime() {
 		return retireTime;

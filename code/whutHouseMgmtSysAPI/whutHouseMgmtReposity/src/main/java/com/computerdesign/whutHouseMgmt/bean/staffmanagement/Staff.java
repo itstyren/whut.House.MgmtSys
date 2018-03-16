@@ -1,12 +1,7 @@
 package com.computerdesign.whutHouseMgmt.bean.staffmanagement;
 
+import java.math.BigDecimal;
 import java.util.Date;
-
-import javax.validation.constraints.Pattern;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Staff {
     private Integer id;
@@ -29,29 +24,22 @@ public class Staff {
 
     private Integer dept;
 
-    @Pattern(regexp="(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)",message="身份证号码为18位或15位，最后一位为校验位，可以为数字或字母X")
     private String code;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date joinTime;
-    
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date goUniversityTime;
+    private String eduQualifications;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date joinTime;
+
     private Date retireTime;
 
-    @Pattern(regexp="^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",message="电话号码格式错误")
     private String tel;
+
+    private String email;
 
     private String remark;
 
     private String spouseName;
 
-    @Pattern(regexp="(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)",message="身份证号码为18位或15位，最后一位为校验位，可以为数字或字母X")
     private String spouseCode;
 
     private Integer spouseTitle;
@@ -68,14 +56,12 @@ public class Staff {
 
     private Long buyAccount;
 
+    private BigDecimal compensate;
+
     private Long fixFund;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date secondJoinTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date secondRetireTime;
 
     private String staffDual;
@@ -92,8 +78,6 @@ public class Staff {
 
     private Integer familyCode;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date firstJobTime;
 
     private String userName;
@@ -103,6 +87,8 @@ public class Staff {
     private Integer roleId;
 
     private Boolean accountStatus;
+
+    private Boolean isOwnPriHouse;
 
     public Integer getId() {
         return id;
@@ -192,20 +178,20 @@ public class Staff {
         this.code = code == null ? null : code.trim();
     }
 
+    public String getEduQualifications() {
+        return eduQualifications;
+    }
+
+    public void setEduQualifications(String eduQualifications) {
+        this.eduQualifications = eduQualifications == null ? null : eduQualifications.trim();
+    }
+
     public Date getJoinTime() {
         return joinTime;
     }
 
     public void setJoinTime(Date joinTime) {
         this.joinTime = joinTime;
-    }
-
-    public Date getGoUniversityTime() {
-        return goUniversityTime;
-    }
-
-    public void setGoUniversityTime(Date goUniversityTime) {
-        this.goUniversityTime = goUniversityTime;
     }
 
     public Date getRetireTime() {
@@ -222,6 +208,14 @@ public class Staff {
 
     public void setTel(String tel) {
         this.tel = tel == null ? null : tel.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public String getRemark() {
@@ -302,6 +296,14 @@ public class Staff {
 
     public void setBuyAccount(Long buyAccount) {
         this.buyAccount = buyAccount;
+    }
+
+    public BigDecimal getCompensate() {
+        return compensate;
+    }
+
+    public void setCompensate(BigDecimal compensate) {
+        this.compensate = compensate;
     }
 
     public Long getFixFund() {
@@ -423,10 +425,12 @@ public class Staff {
     public void setAccountStatus(Boolean accountStatus) {
         this.accountStatus = accountStatus;
     }
-    
-    @Override
-	public String toString() {
-		return "Staff [id=" + id + ", no=" + no + ", name=" + name + ", sex=" + sex + ", marriageState=" + marriageState
-				+ "]";
-	}
+
+    public Boolean getIsOwnPriHouse() {
+        return isOwnPriHouse;
+    }
+
+    public void setIsOwnPriHouse(Boolean isOwnPriHouse) {
+        this.isOwnPriHouse = isOwnPriHouse;
+    }
 }

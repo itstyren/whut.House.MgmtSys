@@ -21,7 +21,7 @@
  
 		<!-- 指定javabean的生成位置 -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.house"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.fix.common"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -29,24 +29,22 @@
 
 		<!-- 指定sql映射文件的生成位置 -->
 
-		<sqlMapGenerator targetPackage="mapper.house" targetProject=".\src\main\resources">
-			<property name="enableSubPackages" value="true" />
+		<sqlMapGenerator targetPackage="mapper.fix" targetProject=".\src\main\resources">
+			<property name="enableSubPackages" value="true" /> 
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.house" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.fix" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-		
-		
-		
-		
-		<table tableName="View_Hs_House" domainObjectName="ViewHouse">
+
+		<table tableName="View_Hs_Fix" domainObjectName="ViewFix">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
-		
-
+		<table tableName="Hs_Fix" domainObjectName="Fix">
+			<property name="useActualColumnNames" value="true"></property>
+		</table>
 
 	</context>
 </generatorConfiguration>

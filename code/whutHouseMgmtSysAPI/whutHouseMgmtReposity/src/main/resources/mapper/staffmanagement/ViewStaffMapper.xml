@@ -23,7 +23,6 @@
     <result column="DeptName" jdbcType="VARCHAR" property="deptName" />
     <result column="Code" jdbcType="VARCHAR" property="code" />
     <result column="JoinTime" jdbcType="DATE" property="joinTime" />
-    <result column="GoUniversityTime" jdbcType="DATE" property="goUniversityTime" />
     <result column="RetireTime" jdbcType="DATE" property="retireTime" />
     <result column="Tel" jdbcType="VARCHAR" property="tel" />
     <result column="Remark" jdbcType="VARCHAR" property="remark" />
@@ -116,11 +115,11 @@
   <sql id="Base_Column_List">
     Id, No, Name, Sex, MarriageState, Title, TitleName, TitleVal, SpouseTitleVal, Post, 
     PostName, PostVal, SpousePostVal, Type, TypeName, Status, StatusName, Dept, DeptName, 
-    Code, JoinTime, GoUniversityTime, RetireTime, Tel, Remark, SpouseName, SpouseCode, 
-    SpouseTitle, SpouseTitleName, SpousePost, SpousePostName, OtherVal, TimeVal, TotalVal, 
-    IsSuper, SpouseDept, SpouseKind, SpouseKindName, IsDeptManage, StaffPassword, BuyAccount, 
-    FixFund, SecondJoinTime, SecondRetireTime, StaffDual, Relation, DiscountRate, FamilyCode, 
-    FirstJobTime, UserName, RoleId, AccountStatus
+    Code, JoinTime, RetireTime, Tel, Remark, SpouseName, SpouseCode, SpouseTitle, SpouseTitleName, 
+    SpousePost, SpousePostName, OtherVal, TimeVal, TotalVal, IsSuper, SpouseDept, SpouseKind, 
+    SpouseKindName, IsDeptManage, StaffPassword, BuyAccount, FixFund, SecondJoinTime, 
+    SecondRetireTime, StaffDual, Relation, DiscountRate, FamilyCode, FirstJobTime, UserName, 
+    RoleId, AccountStatus
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaffExample" resultMap="BaseResultMap">
     select
@@ -150,17 +149,17 @@
       SpousePostVal, Type, TypeName, 
       Status, StatusName, Dept, 
       DeptName, Code, JoinTime, 
-      GoUniversityTime, RetireTime, Tel, 
-      Remark, SpouseName, SpouseCode, 
-      SpouseTitle, SpouseTitleName, SpousePost, 
-      SpousePostName, OtherVal, TimeVal, 
-      TotalVal, IsSuper, SpouseDept, 
-      SpouseKind, SpouseKindName, IsDeptManage, 
-      StaffPassword, BuyAccount, FixFund, 
-      SecondJoinTime, SecondRetireTime, StaffDual, 
-      Relation, DiscountRate, FamilyCode, 
-      FirstJobTime, UserName, RoleId, 
-      AccountStatus)
+      RetireTime, Tel, Remark, 
+      SpouseName, SpouseCode, SpouseTitle, 
+      SpouseTitleName, SpousePost, SpousePostName, 
+      OtherVal, TimeVal, TotalVal, 
+      IsSuper, SpouseDept, SpouseKind, 
+      SpouseKindName, IsDeptManage, StaffPassword, 
+      BuyAccount, FixFund, SecondJoinTime, 
+      SecondRetireTime, StaffDual, Relation, 
+      DiscountRate, FamilyCode, FirstJobTime, 
+      UserName, RoleId, AccountStatus
+      )
     values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{marriageState,jdbcType=VARCHAR}, #{title,jdbcType=INTEGER}, 
       #{titleName,jdbcType=VARCHAR}, #{titleVal,jdbcType=INTEGER}, #{spouseTitleVal,jdbcType=INTEGER}, 
@@ -168,17 +167,17 @@
       #{spousePostVal,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{statusName,jdbcType=VARCHAR}, #{dept,jdbcType=INTEGER}, 
       #{deptName,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{joinTime,jdbcType=DATE}, 
-      #{goUniversityTime,jdbcType=DATE}, #{retireTime,jdbcType=DATE}, #{tel,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{spouseName,jdbcType=VARCHAR}, #{spouseCode,jdbcType=VARCHAR}, 
-      #{spouseTitle,jdbcType=INTEGER}, #{spouseTitleName,jdbcType=VARCHAR}, #{spousePost,jdbcType=INTEGER}, 
-      #{spousePostName,jdbcType=VARCHAR}, #{otherVal,jdbcType=DOUBLE}, #{timeVal,jdbcType=DOUBLE}, 
-      #{totalVal,jdbcType=DOUBLE}, #{isSuper,jdbcType=TINYINT}, #{spouseDept,jdbcType=VARCHAR}, 
-      #{spouseKind,jdbcType=INTEGER}, #{spouseKindName,jdbcType=VARCHAR}, #{isDeptManage,jdbcType=BIT}, 
-      #{staffPassword,jdbcType=VARCHAR}, #{buyAccount,jdbcType=DECIMAL}, #{fixFund,jdbcType=DECIMAL}, 
-      #{secondJoinTime,jdbcType=DATE}, #{secondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, 
-      #{relation,jdbcType=VARCHAR}, #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, 
-      #{firstJobTime,jdbcType=DATE}, #{userName,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, 
-      #{accountStatus,jdbcType=BIT})
+      #{retireTime,jdbcType=DATE}, #{tel,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{spouseName,jdbcType=VARCHAR}, #{spouseCode,jdbcType=VARCHAR}, #{spouseTitle,jdbcType=INTEGER}, 
+      #{spouseTitleName,jdbcType=VARCHAR}, #{spousePost,jdbcType=INTEGER}, #{spousePostName,jdbcType=VARCHAR}, 
+      #{otherVal,jdbcType=DOUBLE}, #{timeVal,jdbcType=DOUBLE}, #{totalVal,jdbcType=DOUBLE}, 
+      #{isSuper,jdbcType=TINYINT}, #{spouseDept,jdbcType=VARCHAR}, #{spouseKind,jdbcType=INTEGER}, 
+      #{spouseKindName,jdbcType=VARCHAR}, #{isDeptManage,jdbcType=BIT}, #{staffPassword,jdbcType=VARCHAR}, 
+      #{buyAccount,jdbcType=DECIMAL}, #{fixFund,jdbcType=DECIMAL}, #{secondJoinTime,jdbcType=DATE}, 
+      #{secondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, 
+      #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, #{firstJobTime,jdbcType=DATE}, 
+      #{userName,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{accountStatus,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff">
     insert into view_hs_staffall
@@ -245,9 +244,6 @@
       </if>
       <if test="joinTime != null">
         JoinTime,
-      </if>
-      <if test="goUniversityTime != null">
-        GoUniversityTime,
       </if>
       <if test="retireTime != null">
         RetireTime,
@@ -403,9 +399,6 @@
       </if>
       <if test="joinTime != null">
         #{joinTime,jdbcType=DATE},
-      </if>
-      <if test="goUniversityTime != null">
-        #{goUniversityTime,jdbcType=DATE},
       </if>
       <if test="retireTime != null">
         #{retireTime,jdbcType=DATE},
@@ -571,9 +564,6 @@
       <if test="record.joinTime != null">
         JoinTime = #{record.joinTime,jdbcType=DATE},
       </if>
-      <if test="record.goUniversityTime != null">
-        GoUniversityTime = #{record.goUniversityTime,jdbcType=DATE},
-      </if>
       <if test="record.retireTime != null">
         RetireTime = #{record.retireTime,jdbcType=DATE},
       </if>
@@ -692,7 +682,6 @@
       DeptName = #{record.deptName,jdbcType=VARCHAR},
       Code = #{record.code,jdbcType=VARCHAR},
       JoinTime = #{record.joinTime,jdbcType=DATE},
-      GoUniversityTime = #{record.goUniversityTime,jdbcType=DATE},
       RetireTime = #{record.retireTime,jdbcType=DATE},
       Tel = #{record.tel,jdbcType=VARCHAR},
       Remark = #{record.remark,jdbcType=VARCHAR},

@@ -2,10 +2,6 @@ package com.computerdesign.whutHouseMgmt.bean.staffmanagement;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class StaffVw {
     private Integer id;
 
@@ -31,16 +27,8 @@ public class StaffVw {
 
     private String code;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date joinTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date goUniversityTime;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date retireTime;
 
     private String tel;
@@ -67,12 +55,8 @@ public class StaffVw {
 
     private Long fixFund;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date secondJoinTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date secondRetireTime;
 
     private String staffDual;
@@ -83,8 +67,6 @@ public class StaffVw {
 
     private Integer familyCode;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date firstJobTime;
 
     private String userName;
@@ -191,14 +173,6 @@ public class StaffVw {
 
     public void setJoinTime(Date joinTime) {
         this.joinTime = joinTime;
-    }
-
-    public Date getGoUniversityTime() {
-        return goUniversityTime;
-    }
-
-    public void setGoUniversityTime(Date goUniversityTime) {
-        this.goUniversityTime = goUniversityTime;
     }
 
     public Date getRetireTime() {
