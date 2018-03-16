@@ -32,6 +32,8 @@ export default {
     },
     header:{
         title:'Wuhan University of Technology',
-        swich: 'switch language success'                
+        swich: 'switch language success',
+        screenfull: 'screenfull', 
+        screenfull_message:'您的游览器不支持全屏'                       
     }
 }

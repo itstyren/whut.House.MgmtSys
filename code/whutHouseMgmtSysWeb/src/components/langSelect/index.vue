@@ -33,7 +33,7 @@ export default {
 
 <style scoped>
 .international-icon {
-  font-size: 22px;
+  font-size: 23px;
   cursor: pointer;
   vertical-align: -5px!important;
 }

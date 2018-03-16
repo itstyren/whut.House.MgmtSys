@@ -32,6 +32,9 @@ export default {
     },
     header: {
         title: '武汉理工大学房屋管理与货币化补贴系统',
-        swich:'切换语言成功'
+        swich:'切换语言成功',
+        screenfull:'全屏',
+        screenfull_message: 'you browser can not work'                       
+      
     }
 }
