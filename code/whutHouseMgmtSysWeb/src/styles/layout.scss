@@ -89,6 +89,10 @@ section.main-container{
 
 // 用于非常规样式
 .special-container {
+  .table {
+    width: 100%;
+    height: 100%
+  }
   flex-grow: 1;
   padding: 10px;
   position: relative;
@@ -113,10 +117,6 @@ section.main-container{
       &>.main-data {
         width: 100%;
         flex: 1;
-        .table {
-          width: 100%;
-          height: 100%
-        }
       }
     }
   }

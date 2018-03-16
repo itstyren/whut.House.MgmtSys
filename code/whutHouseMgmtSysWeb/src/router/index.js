@@ -6,21 +6,17 @@ const ADMIN = 0,DEPADMIN=1,STAFF = 3
 
 Vue.use(Router)
 
-import Home from '@/views/layout'
-import HelloWorld from '@/components/HelloWorld'
+import layout from '@/views/layout'
+import home from '@/views/home'
 
 export const constantRouterMap = [
     { path: '/login', component: _import('login/index') },
     { path: '/404', component: _import('errorPage/404') },
     {
         path: '/',
-        component: Home,
+        component: layout,
         redirect: '/index',
-        children: [{
-            path: 'index',
-            component: HelloWorld,
-            name: 'index',
-            meta: { title: 'index',  noCache: true }
+        children: [{path: 'index',component: home,name: 'index',meta: { title: 'index',  noCache: true }
         }]
     },
 ]
@@ -37,7 +33,7 @@ export const asyncRouterMap = [
     /* 参数设置 */
     {
         path: '/sysmanage',
-        component: Home,
+        component: layout,
         redirect: '/sysmanage/paramSet',
         name: 'sysmanage',
         meta: { roles: [ADMIN, STAFF], title: 'sysManage'  }, // you can set roles in root nav
@@ -71,7 +67,7 @@ export const asyncRouterMap = [
     /* 基础数据 */
     {
         path: '/basic',
-        component: Home,
+        component: layout,
         redirect: '/sysmanage/paramSet',
         name: 'basic',        
         meta: { roles: [ADMIN, STAFF], noCache: true, title: 'basiceData'  }, // you can set roles in root nav
@@ -134,7 +130,7 @@ export const asyncRouterMap = [
     /* 维修管理 */ 
     {
         path: '/fixManage',
-        component: Home,
+        component: layout,
         name: 'fixManage',                
         meta: { roles: [ADMIN, STAFF], title: 'fixManage'  }, // you can set roles in root nav
         children: [
@@ -149,7 +145,7 @@ export const asyncRouterMap = [
     /* 租赁管理 */
     {
         path: '/leaseManage',
-        component: Home,
+        component: layout,
         name: 'leaseManage',                        
         meta: { roles: [ADMIN, STAFF], title: 'leaseManage'  }, // you can set roles in root nav
         children: [
@@ -165,7 +161,7 @@ export const asyncRouterMap = [
     /* 网上选房 */
     {
         path: '/online',
-        component: Home,
+        component: layout,
         name: 'online',                                
         meta: { roles: [ADMIN, STAFF], title: 'onilne'  }, // you can set roles in root nav
         children: [
@@ -178,7 +174,7 @@ export const asyncRouterMap = [
     /* 个人设置 */
     {
         path: '/user',
-        component: Home,
+        component: layout,
         hidden:true,
         children: [
             { path: 'setting', component: _import('personal/index'), name: 'personal', meta: { title: 'personal' } },
