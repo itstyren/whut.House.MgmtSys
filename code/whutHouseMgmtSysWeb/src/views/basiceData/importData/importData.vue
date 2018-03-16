@@ -71,7 +71,7 @@
         this.itemFile = itemFile;
         //console.log(this.itemFile);
         this.tableHeader = data.header;
-        this.isFull=false
+        this.isFull=false 
       },
       staffDownload() {
         window.location.href =

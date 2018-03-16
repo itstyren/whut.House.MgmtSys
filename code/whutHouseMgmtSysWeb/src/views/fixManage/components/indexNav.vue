@@ -5,7 +5,7 @@
         <el-input v-model="filterText" placeholder="输入关键词搜索" class="filter"></el-input>
       </div>
       <!-- 主菜单 -->
-      <el-tree v-loading="listLoading" :data="fixData" :render-content="renderContent" :filter-node-method="filterNode"
+      <el-tree v-loading="listLoading" ref="fixTree" :data="fixData" :render-content="renderContent" :filter-node-method="filterNode"
         @node-click="nodeClick"></el-tree>
     </aside>
 </template>
@@ -39,7 +39,7 @@ export default {
   watch: {
     // 监听输入值
     filterText(val) {
-      this.$refs.staffTree.filter(val);
+      this.$refs.fixTree.filter(val);
     },
     isSubmit(newVal) {
       this.fixData = [];
@@ -164,7 +164,7 @@ export default {
             <span>
               <span>
                 {" "}
-                <span class="label">{node.label}</span>{" "}
+                <span class="label" style="font-size:13px;">{node.label}</span>{" "}
               </span>
             </span>
           </span>

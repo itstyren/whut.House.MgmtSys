@@ -278,8 +278,7 @@ export default {
       background-color: #fff;
       padding: 10px;
       padding-bottom: 30px;
-      height: 90%;
-      margin: auto;
+      margin:20px auto;
       position: relative;
       & .need-accept {
         h1 {
