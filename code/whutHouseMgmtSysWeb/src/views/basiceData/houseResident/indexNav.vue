@@ -1,8 +1,8 @@
 <template>
   <div class="second-container">
-    <aside :class="{showSidebar:!isCollapse}">
+    <aside>
       <!-- 展开关闭按钮 -->
-      <div class="asid-button">
+      <div class="filter-button">
         <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
       </div>
       <!-- 主菜单 -->
@@ -32,7 +32,6 @@
   export default {
     data() {
       return {
-        isCollapse: false,
         // 树控件需要的
         listLoading: false,
         // 部门信息加职工
@@ -142,23 +141,6 @@
 
   .second-container {
     background-color: $background-grey;
-    aside {
-      .asid-button {
-        margin: 10px auto 10px;
-        width: 70%;
-      }
-      .el-input__inner {
-        background: #4a5064;
-      }
-      >.el-tree {
-        width: 250px;
-        height: auto;
-      }
-
-      span {
-        padding-left: 20px;
-      }
-    }
   }
 
 </style>

@@ -12,7 +12,7 @@ const user = {
   state: {
     token: getToken(),
     name: '',
-    roleId: -1,
+    roles: [],
     no:-1
   },
   mutations: {
@@ -26,7 +26,7 @@ const user = {
     },
     // set login staff role ID
     [types.SET_ROLEID]: (state, roleId) => {
-      state.roleId = roleId
+      state.roles.push(roleId) 
     },
     // set login staff NO
     [types.SET_USERNO]:(state,staffNO)=>{

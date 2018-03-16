@@ -1,5 +1,5 @@
 <template>
-  <div class="second-container">
+  <div class="special-container">
     <!-- 这里放置index -->
     <section class="main-container">
       <div class="third-container">
@@ -408,7 +408,7 @@
 <style scoped lang="scss">
   @import "../../styles/variables.scss";
 
-  .second-container {
+  .special-container {
     background-color: $background-grey;
     .toolbar {
       .el-form-item {
@@ -419,7 +419,7 @@
       }
     }
     .can-select {
-      height: 25vh;
+      height: 33vh;
       padding-bottom: 6vh;
       position: relative;
       &>.bottom-tool {

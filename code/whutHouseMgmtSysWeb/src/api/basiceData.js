@@ -227,3 +227,21 @@ export function putHouseRegister(data) {
     data: data
   })
 }
+
+// 数据导入
+export function postStaffImport(data) {
+  return request({
+    url: `/dataImport/staffDataImport`,
+    method: 'post',
+    data: data
+  })
+}
+export function postHouseImport(data) {
+  return request({
+    url: `/dataImport/houseDataImport`,
+    method: 'post',
+    data: data
+  })
+}
+
+

@@ -170,7 +170,7 @@ export default {
   }
   .main-data {
     & > .personal-info {
-      height: 30vh;
+      height: 33vh;
       & > .col {
         height: 100%;
         overflow: auto;
@@ -179,7 +179,7 @@ export default {
     & > .super-form {
       margin: 30px auto 20px;
       padding-top: 20px;
-      height: 30vh;
+      height: 32vh;
     }
   }
 }
