@@ -9,7 +9,7 @@
       </div>
       <!-- 头部标题 -->
       <div class="title">
-        <span>武汉理工房屋管理系统</span>
+        <span>{{$t('header.title')}}</span>
       </div>
       <!-- 主菜单 -->
       <div class="main-menu" :router="true">
@@ -17,6 +17,7 @@
       </div>
       <!-- 头部账户 -->
       <div class="account">
+              <lang-select class="international right-menu-item"></lang-select>
         <el-dropdown trigger="click">
           <span class="dropdown-main">
             <my-icon icon-class="account" />
@@ -51,6 +52,7 @@
 
 <script type="text/ecmascript-6">
 import horizonMenu from './components/horizonMenu'
+import LangSelect from '@/components/LangSelect'
   export default {
     data() {
       return {};
@@ -61,7 +63,7 @@ import horizonMenu from './components/horizonMenu'
       }
     },
     components: {
-        horizonMenu
+        horizonMenu,LangSelect
     },
     methods: {
       // 退出登录
@@ -117,6 +119,11 @@ import horizonMenu from './components/horizonMenu'
       >.account {
         float: right;
         padding-right: 15px;
+            .international{
+      vertical-align: top;
+       color: #fff;
+       margin-right: 5px;
+    }
         .dropdown-main {
           color: #fff;
           cursor: pointer;

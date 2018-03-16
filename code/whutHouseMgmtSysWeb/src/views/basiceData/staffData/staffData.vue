@@ -33,7 +33,8 @@
         </el-form>
       </div>
       <!-- 表格区 -->
-      <div class="main-data">
+      <div class="main-data" >
+        <div class="card">
         <el-table :data="deptStaffData" class="table" height="string" v-loading="listLoading">
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column prop="no" label="职工号" sortable align="center"></el-table-column>
@@ -52,10 +53,11 @@
             </template>
           </el-table-column>
         </el-table>
-      </div>
-      <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent"
+              <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent"
         :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
       </el-pagination>
+      </div>
+      </div>
     </div>
   </div>
 </template>
@@ -289,5 +291,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.card{
+  height: 96%;
+  padding-bottom: 50px;
+}
 </style>

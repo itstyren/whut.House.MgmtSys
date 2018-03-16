@@ -1,6 +1,7 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import user from './modules/user'
+import app from './modules/app'
 import permission from './modules/permission'
 import * as types from './mutation-types.js'
 import getters from './getters'
@@ -26,7 +27,7 @@ export default new Vuex.Store({
     fixHouselist: [],
   },
   modules: {
-    user, permission
+    user, permission, app
   },
   getters,
   mutations: {

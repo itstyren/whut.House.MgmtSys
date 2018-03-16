@@ -45,7 +45,7 @@ export const asyncRouterMap = [
             path: 'paramSet',
             component: _import('sysManage/paramSet/indexParam'),
             name: 'paramSet',
-            meta: { title: 'paramste' },            
+            meta: { title: 'paramSet' },            
             children:[
                 { path: 'houseLayout', component: _import('sysManage/paramSet/houseParam/houseLayout'), name: 'houseLayout', meta: { title: 'houseLayout' } },
                 { path: 'houseType', component: _import('sysManage/paramSet/houseParam/houseType'), name: 'houseType', meta: { title: 'houseType' } },
@@ -81,6 +81,7 @@ export const asyncRouterMap = [
             path: 'buildingArea',
             component: _import('basiceData/buildingRegionData/indexNav'),
             name: 'indexbldgRgn',
+            redirect: '/basic/buildingArea/region',
             meta: { title: 'region'},          
             children: [
                 { path: 'region', component: _import('basiceData/buildingRegionData/regionData'), name: 'region', meta: { title: 'region' } },
@@ -92,6 +93,7 @@ export const asyncRouterMap = [
             path: 'house',
             component: _import('basiceData/houseData/indexNav'),
             name: 'indexHouse',
+            redirect: '/basic/house/byBuilding/1',
             meta: { title: 'house' },                      
             children: [
                 { path: 'byBuilding/:id', component: _import('basiceData/houseData/houseData'), name: 'house', meta: { title: 'house' } },
@@ -124,7 +126,7 @@ export const asyncRouterMap = [
             path: 'importData',
             component: _import('basiceData/importData/importData'),
             name: 'importData',
-            meta: { title: 'region' },
+            meta: { title: 'import' },
         },
 
     ]
