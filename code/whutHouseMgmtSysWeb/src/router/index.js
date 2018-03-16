@@ -1,495 +1,174 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Home from '@/views/Home'
-import login from '@/views/login/index'
-import noPageFound from '@/views/errorPage/404'
+const _import = require('./_import_' + process.env.NODE_ENV)
 
-// 住房参数
-import paramSet from '@/views/sysManage/paramSet/indexParam'
-import houseType from '@/views/sysManage/paramSet/houseParam/houseType'
-import houseLayout from '@/views/sysManage/paramSet/houseParam/houseLayout'
-import houseStatus from '@/views/sysManage/paramSet/houseParam/houseStatus'
-import houseStruct from '@/views/sysManage/paramSet/houseParam/houseStruct'
-// 职工参数
-import staffDept from '@/views/sysManage/paramSet/staffParam/staffDept'
-import staffPost from '@/views/sysManage/paramSet/staffParam/staffPost'
-import staffTitle from '@/views/sysManage/paramSet/staffParam/staffTitle'
-import staffClass from '@/views/sysManage/paramSet/staffParam/staffClass'
-import staffStatus from '@/views/sysManage/paramSet/staffParam/staffStatus'
-import staffSpouse from '@/views/sysManage/paramSet/staffParam/staffSpouse'
-// 租赁参数
-import rentOption from '@/views/sysManage/paramSet/rentParam/rentOption'
-import rentPostArea from '@/views/sysManage/paramSet/rentParam/rentPostArea'
-import rentPostVal from '@/views/sysManage/paramSet/rentParam/rentPostVal'
-import rentTitleArea from '@/views/sysManage/paramSet/rentParam/rentTitleArea'
-import rentTitleVal from '@/views/sysManage/paramSet/rentParam/rentTitleVal'
-// 维修参数
-import fixContent from '@/views/sysManage/paramSet/fixParam/fixContent'
-// 租金参数
-import rentalOption from '@/views/sysManage/paramSet/rentalParam/rentalOption'
-import residentRel from '@/views/sysManage/paramSet/rentalParam/residentRel'
-
-// 基础数据
-// 楼栋区域
-import indexbldgRgn from '@/views/basiceData/buildingRegionData/indexNav'
-import region from '@/views/basiceData/buildingRegionData/regionData'
-import building from '@/views/basiceData/buildingRegionData/buildingData'
-// 房屋参数
-import indexHouse from '@/views/basiceData/houseData/indexNav'
-import house from '@/views/basiceData/houseData/houseData'
-// 职工管理
-import indexStaff from '@/views/basiceData/staffData/indexNav'
-import staffData from '@/views/basiceData/staffData/staffData'
-import singleStaffData from '@/views/basiceData/staffData/singleStaffData'
-import addStaff from '@/views/basiceData/staffData/addStaff'
-// 住房登记
-import indexResident from '@/views/basiceData/houseResident/indexNav'
-import houseResident from '@/views/basiceData/houseResident/resident'
-import importData from '@/views/basiceData/importData/importData'
-// 维修管理
-// 维修申请
-import fixApply from '@/views/fixManage/fixApply'
-// 维修受理
-import fixAccept from '@/views/fixManage/fixAccept'
-// 维修审核
-import fixAgree from '@/views/fixManage/fixAgree'
-// 维修直批
-import fixSuper from '@/views/fixManage/fixSuper'
-// 维修申请管理
-import fixApplyManager from '@/views/fixManage/fixApplyManager'
-// 维修结算
-import fixBalance from '@/views/fixManage/fixBalance'
-
-// 租赁管理
-// 租赁受理
-import hireAccept from '@/views/leaseManage/hireAccept'
-// 租赁审核
-import hireAgree from '@/views/leaseManage/hireAgree'
-// 租赁审批
-import hireApprove from '@/views/leaseManage/hireApprove'
-// 租赁直批
-import hireSuper from '@/views/leaseManage/hireSuper'
-// 签订合同
-import hireContract from '@/views/leaseManage/hireContract'
-// 申请书管理
-import hireApplyManage from '@/views/leaseManage/hireApplyManage'
-// 生成租金
-import rentGenerate from '@/views/leaseManage/rentGenerate'
-
-// 网上选房
-// 选房资格认定
-import hireStafferSet from '@/views/online/hireStafferSet'
-// 房源设置
-import hireHouseSet from '@/views/online/hireHouseSet'
-// 自助选房
-import selfService from '@/views/online/selfService'
-// 住房申请
-import hireApply from '@/views/online/hireApply'
-
-// 个人设置
-import personal from '@/views/personal/index'
+const ADMIN = 0,DEPADMIN=1,STAFF = 3 
 
 Vue.use(Router)
 
-// 定义路由数据
-const routes = [
-  // 404页面
-  {
-    path: '*',
-    name: 'Error',
-    component: noPageFound
-  },
+import Home from '@/views/Home'
+import HelloWorld from '@/components/HelloWorld'
 
-  // 登录
-  {
-    path: '/login',
-    name: 'login',
-    component: login,
-    meta: {
-      requireAuth: true
-    }
-  },
-  // 首页
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-    meta: {
-      requireAuth: true
-    },
-    redirect: '/index',
-    children: [{
-      path: '/index',
-      component: HelloWorld,
-      name: 'index',
-      menuShow: true
-    }]
-  },
-  // 个人设置
-  {
-    path: '/user',
-    name: 'user',
-    component: Home,
-    children: [{
-      path: 'setting',
-      component: personal,
-      name: 'personal',
-      menuShow: true
-    }]
-  },
-  // 系统管理
-  {
-    path: '/sysmanage',
-    component: Home,
-    name: 'sysManage',
-    meta: {
-      requireAuth: true
-    },
-    menuShow: true,
-    children: [{
-      path: 'paramSet',
-      component: paramSet,
-      name: 'paramSet',
-      children: [
-        // 住房参数
-        {
-          path: 'houseType',
-          component: houseType,
-          name: 'houseType',
-          menuShow: true
-        },
-        {
-          path: 'houseLayout',
-          component: houseLayout,
-          name: 'houseLayout',
-          menuShow: true
-        },
-        {
-          path: 'houseStatus',
-          component: houseStatus,
-          name: 'houseStatus',
-          menuShow: true
-        },
-        {
-          path: 'houseStruct',
-          component: houseStruct,
-          name: 'houseStruct',
-          menuShow: true
-        },
-        // 职工参数
-        {
-          path: 'staffDept',
-          component: staffDept,
-          name: 'staffDept',
-          menuShow: true
-        },
-        {
-          path: 'staffPost',
-          component: staffPost,
-          name: 'staffPost',
-          menuShow: true
-        },
-        {
-          path: 'staffTitle',
-          component: staffTitle,
-          name: 'staffTitle',
-          menuShow: true
-        },
-        {
-          path: 'staffClass',
-          component: staffClass,
-          name: 'staffClass',
-          menuShow: true
-        },
-        {
-          path: 'staffStatus',
-          component: staffStatus,
-          name: 'staffStatus',
-          menuShow: true
-        },
-        {
-          path: 'staffSpouse',
-          component: staffSpouse,
-          name: 'staffSpouse',
-          menuShow: true
-        },
-        // 租赁参数
-        {
-          path: 'rentOption',
-          component: rentOption,
-          name: 'rentOption',
-          menuShow: true
-        },
-        {
-          path: 'rentPostArea',
-          component: rentPostArea,
-          name: 'rentPostArea',
-          menuShow: true
-        },
-        {
-          path: 'rentPostVal',
-          component: rentPostVal,
-          name: 'rentPostVal',
-          menuShow: true
-        },
-        {
-          path: 'rentTitleArea',
-          component: rentTitleArea,
-          name: 'rentTitleArea',
-          menuShow: true
-        },
-        {
-          path: 'rentTitleVal',
-          component: rentTitleVal,
-          name: 'rentTitleVal',
-          menuShow: true
-        },
-        // 维修参数
-        {
-          path: 'fixContent',
-          component: fixContent,
-          name: 'fixContent',
-          menuShow: true
-        },
-        // 租金参数
-        {
-          path: 'rentalOption',
-          component: rentalOption,
-          name: 'rentalOption',
-          menuShow: true
-        },
-        {
-          path: 'residentRel',
-          component: residentRel,
-          name: 'residentRel',
-          menuShow: true
-        }
-      ]
-    }]
-  },
-  // 基础数据
-  {
-    path: '/basic',
-    component: Home,
-    name: 'basiceData',
-    meta: {
-      requireAuth: true
-    },
-    menuShow: true,
-    children: [
-      // 区域楼栋
-      {
-        path: 'buildingArea',
-        component: indexbldgRgn,
-        name: 'indexbldgRgn',
+export const constantRouterMap = [
+    { path: '/login', component: _import('login/index') },
+    { path: '/404', component: _import('errorPage/404') },
+    {
+        path: '/',
+        component: Home,
+        redirect: '/index',
         children: [{
-            path: 'region',
-            component: region,
-            name: 'region',
-            menuShow: true
-          },
-          {
-            path: 'building/:id',
-            component: building,
-            name: 'building',
-            menuShow: true
-          }
-        ],
-        menuShow: true
-      },
-      // 房屋
-      {
-        path: 'house',
-        component: indexHouse,
-        name: 'indexHouse',
-        children: [{
-          path: 'byBuilding/:id',
-          component: house,
-          name: 'house',
-          menuShow: true
+            path: 'index',
+            component: HelloWorld,
+            name: 'index',
         }]
-      },
-      // 职工
-      {
-        path: 'staff',
-        component: indexStaff,
-        name: 'indexStaff',
-        children: [{
-          path: 'byDept/:id',
-          component: staffData,
-          name: 'staffData',
-          menuShow: true
-        }, {
-          path: 'byId/:id',
-          component: singleStaffData,
-          name: 'singleStaffData',
-          menuShow: true
-        }, {
-          path: 'add',
-          component: addStaff,
-          name: 'addStaff',
-          menuShow: true
-        }]
-      },
-      // 住房登记
-      {
-        path: 'houseResident',
-        component: indexResident,
-        name: 'indexResident',
-        children: [{
-          path: ':id',
-          component: houseResident,
-          name: 'houseResident',
-          menuShow: true
-        }]
-      },
-      {
-        path: 'importData',
-        component: importData,
-        name: 'importData',
-      }
-    ]
-  },
-  // 维修管理
-  {
-    path: '/fixManage',
-    component: Home,
-    name: 'fixManage',
-    meta: {
-      requireAuth: true
     },
-    menuShow: true,
-    children: [{
-        path: 'fixApply',
-        component: fixApply,
-        name: 'fixApply',
-        menuShow: true
-      },
-      {
-        path: 'fixAccept',
-        component: fixAccept,
-        name: 'fixAccept',
-        menuShow: true,
-      }, {
-        path: 'fixAgree',
-        component: fixAgree,
-        name: 'fixAgree',
-        menuShow: true,
-      },
-      {
-        path: 'fixSuper',
-        component: fixSuper,
-        name: 'fixSuper',
-        menuShow: true,
-      },
-      {
-        path: 'fixApplyManager',
-        component: fixApplyManager,
-        name: 'fixApplyManager',
-        menuShow: true,
-      },
-      {
-        path: 'fixBalance',
-        component: fixBalance,
-        name: 'fixBalance',
-        menuShow: true,
-      }
-    ]
-  },
-  // 租赁管理
-  {
-    path: '/leaseManage',
-    component: Home,
-    name: 'leaseManage',
-    meta: {
-      requireAuth: true
-    },
-    menuShow: true,
-    children: [{
-        path: 'hireAccept',
-        component: hireAccept,
-        name: 'hireAccept',
-        menuShow: true
-      },
-      {
-        path: 'hireAgree',
-        component: hireAgree,
-        name: 'hireAgree',
-        menuShow: true
-      },
-      {
-        path: 'hireApprove',
-        component: hireApprove,
-        name: 'hireApprove',
-        menuShow: true
-      },
-      {
-        path: 'hireSuper',
-        component: hireSuper,
-        name: 'hireSuper',
-        menuShow: true
-      },
-      {
-        path: 'hireContract',
-        component: hireContract,
-        name: 'hireContract',
-        menuShow: true
-      }, {
-        path: 'hireApplyManage',
-        component: hireApplyManage,
-        name: 'hireApplyManage',
-        menuShow: true
-      }, {
-        path: 'rentGenerate',
-        component: rentGenerate,
-        name: 'rentGenerate',
-        menuShow: true
-      },
-
-    ]
-  },
-  // 网上选房
-  {
-    path: '/online',
-    component: Home,
-    name: 'online',
-    meta: {
-      requireAuth: true
-    },
-    menuShow: true,
-    children: [{
-        path: 'hireStafferSet',
-        component: hireStafferSet,
-        name: 'hireStafferSet',
-        menuShow: true
-      },
-      {
-        path: 'hireHouseSet',
-        component: hireHouseSet,
-        name: 'hireHouseSet',
-        menuShow: true
-      },
-      {
-        path: 'selfService',
-        component: selfService,
-        name: 'selfService',
-        menuShow: true
-      },
-      {
-        path: 'hireApply',
-        component: hireApply,
-        name: 'hireApply',
-        menuShow: true
-      },
-    ]
-  }
 ]
 
-// 声明路由
-const router = new Router({
-  mode: 'history',
-  routes: routes
+export default new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRouterMap,
+    mode: 'history',
+    
 })
 
-export default router
+export const asyncRouterMap = [
+    /* 参数设置 */
+    {
+        path: '/sysmanage',
+        component: Home,
+        redirect: '/sysmanage/paramSet',
+        meta: { roles: [ADMIN,STAFF] }, // you can set roles in root nav
+        children: [{
+            path: 'paramSet',
+            component: _import('sysManage/paramSet/indexParam'),
+            name: 'paramSet',
+            children:[
+                { path: 'houseLayout', component: _import('sysManage/paramSet/houseParam/houseLayout'), name: 'houseLayout', meta: { title: 'houseLayout' } },
+                { path: 'houseType', component: _import('sysManage/paramSet/houseParam/houseType'), name: 'houseType', meta: { title: 'houseType' } },
+                { path: 'houseStatus', component: _import('sysManage/paramSet/houseParam/houseStatus'), name: 'houseStatus', meta: { title: 'houseStatus' } },
+                { path: 'houseStruct', component: _import('sysManage/paramSet/houseParam/houseStruct'), name: 'houseStruct', meta: { title: 'houseStruct' } },
+                { path: 'staffDept', component: _import('sysManage/paramSet/staffParam/staffDept'), name: 'staffDept', meta: { title: 'staffDept' } },
+                { path: 'staffPost', component: _import('sysManage/paramSet/staffParam/staffPost'), name: 'staffPost', meta: { title: 'staffPost' } },
+                { path: 'staffTitle', component: _import('sysManage/paramSet/staffParam/staffTitle'), name: 'staffTitle', meta: { title: 'staffTitle' } },
+                { path: 'staffClass', component: _import('sysManage/paramSet/staffParam/staffClass'), name: 'staffClass', meta: { title: 'staffClass' } },
+                { path: 'staffStatus', component: _import('sysManage/paramSet/staffParam/staffStatus'), name: 'staffStatus', meta: { title: 'staffStatus' } },
+                { path: 'staffSpouse', component: _import('sysManage/paramSet/staffParam/staffSpouse'), name: 'staffSpouse', meta: { title: 'staffSpouse' } },
+                { path: 'rentOption', component: _import('sysManage/paramSet/rentParam/rentOption'), name: 'rentOption', meta: { title: 'rentOption' } },
+                { path: 'rentPostArea', component: _import('sysManage/paramSet/rentParam/rentPostArea'), name: 'rentPostArea', meta: { title: 'rentPostArea' } },
+                { path: 'rentPostVal', component: _import('sysManage/paramSet/rentParam/rentPostVal'), name: 'rentPostVal', meta: { title: 'rentPostVal' } },
+                { path: 'rentTitleArea', component: _import('sysManage/paramSet/rentParam/rentTitleArea'), name: 'rentTitleArea', meta: { title: 'rentTitleArea' } },
+                { path: 'rentTitleVal', component: _import('sysManage/paramSet/rentParam/rentTitleVal'), name: 'rentTitleVal', meta: { title: 'rentTitleVal' } },
+                { path: 'fixContent', component: _import('sysManage/paramSet/fixParam/fixContent'), name: 'fixContent', meta: { title: 'fixContent' } },
+                { path: 'rentalOption', component: _import('sysManage/paramSet/rentalParam/rentalOption'), name: 'rentalOption', meta: { title: 'rentalOption' } },
+                { path: 'residentRel', component: _import('sysManage/paramSet/rentalParam/residentRel'), name: 'residentRel', meta: { title: 'residentRel' } },
+            ]
+        }]
+    },
+    /* 基础数据 */
+    {
+        path: '/basic',
+        component: Home,
+        redirect: '/sysmanage/paramSet',
+        meta: { roles: [ADMIN, STAFF], noCache: true }, // you can set roles in root nav
+        children: [
+            // 区域楼栋
+            {
+            path: 'buildingArea',
+            component: _import('basiceData/buildingRegionData/indexNav'),
+            name: 'indexbldgRgn',
+            children: [
+                { path: 'region', component: _import('basiceData/buildingRegionData/regionData'), name: 'region', meta: { title: 'region' } },
+                { path: 'building/:id', component: _import('basiceData/buildingRegionData/buildingData'), name: 'building', meta: { title: 'building' } },
+            ]
+        },
+        // 房屋
+        {
+            path: 'house',
+            component: _import('basiceData/houseData/indexNav'),
+            name: 'indexHouse',
+            children: [
+                { path: 'byBuilding/:id', component: _import('basiceData/houseData/houseData'), name: 'house', meta: { title: 'house' } },
+            ]
+        },
+        // 职工
+        {
+            path: 'staff',
+            component: _import('basiceData/staffData/indexNav'),
+            name: 'indexStaff',
+            children: [
+                { path: 'byDept/:id', component: _import('basiceData/staffData/staffData'), name: 'staffData', meta: { title: 'staffData' } },
+                { path: 'byId/:id', component: _import('basiceData/staffData/singleStaffData'), name: 'singleStaffData', meta: { title: 'singleStaffData' } },
+                { path: 'add', component: _import('basiceData/staffData/addStaff'), name: 'addStaff', meta: { title: 'addStaff' } },
+            ]
+        },
+        // 住房登记
+        {
+            path: 'houseResident',
+            component: _import('basiceData/houseResident/indexNav'),
+            name: 'indexResident',
+            children: [
+                { path: ':id', component: _import('basiceData/houseResident/resident'), name: 'houseResident', meta: { title: 'houseResident' } },
+            ]
+        },
+        // 数据导入
+        {
+            path: 'importData',
+            component: _import('basiceData/importData/importData'),
+            name: 'importData',
+        },
+
+    ]
+    },
+    /* 维修管理 */ 
+    {
+        path: '/fixManage',
+        component: Home,
+        meta: { roles: [ADMIN, STAFF] }, // you can set roles in root nav
+        children: [
+            { path: 'fixApply', component: _import('fixManage/fixApply'), name: 'fixApply', meta: { title: 'fixApply' } },
+            { path: 'fixAccept', component: _import('fixManage/fixAccept'), name: 'fixAccept', meta: { title: 'fixAccept' } },
+            { path: 'fixAgree', component: _import('fixManage/fixAgree'), name: 'fixAgree', meta: { title: 'fixAgree' } },
+            { path: 'fixSuper', component: _import('fixManage/fixSuper'), name: 'fixSuper', meta: { title: 'fixSuper' } },
+            { path: 'fixApplyManager', component: _import('fixManage/fixApplyManager'), name: 'fixApplyManager', meta: { title: 'fixApplyManager' } },
+            { path: 'fixBalance', component: _import('fixManage/fixBalance'), name: 'fixBalance', meta: { title: 'fixBalance' } },   
+        ]
+    },
+    /* 租赁管理 */
+    {
+        path: '/leaseManage',
+        component: Home,
+        meta: { roles: [ADMIN, STAFF] }, // you can set roles in root nav
+        children: [
+            { path: 'hireAccept', component: _import('leaseManage/hireAccept'), name: 'hireAccept', meta: { title: 'hireAccept' } },
+            { path: 'hireAgree', component: _import('leaseManage/hireAgree'), name: 'hireAgree', meta: { title: 'hireAgree' } },
+            { path: 'hireApprove', component: _import('leaseManage/hireApprove'), name: 'hireApprove', meta: { title: 'hireApprove' } },
+            { path: 'hireSuper', component: _import('leaseManage/hireSuper'), name: 'hireSuper', meta: { title: 'hireSuper' } },
+            { path: 'hireContract', component: _import('leaseManage/hireContract'), name: 'hireContract', meta: { title: 'hireContract' } },
+            { path: 'hireApplyManage', component: _import('leaseManage/hireApplyManage'), name: 'hireApplyManage', meta: { title: 'hireApplyManage' } },
+            { path: 'rentGenerate', component: _import('leaseManage/rentGenerate'), name: 'rentGenerate', meta: { title: 'rentGenerate' } },
+        ]
+    },
+    /* 网上选房 */
+    {
+        path: '/online',
+        component: Home,
+        meta: { roles: [ADMIN, STAFF] }, // you can set roles in root nav
+        children: [
+            { path: 'hireStafferSet', component: _import('online/hireStafferSet'), name: 'hireStafferSet', meta: { title: 'hireStafferSet' } },
+            { path: 'hireHouseSet', component: _import('online/hireHouseSet'), name: 'hireHouseSet', meta: { title: 'hireHouseSet' } },
+            { path: 'selfService', component: _import('online/selfService'), name: 'selfService', meta: { title: 'selfService' } },
+            { path: 'hireApply', component: _import('online/hireApply'), name: 'hireApply', meta: { title: 'hireApply' } },
+        ]
+    },
+    /* 个人设置 */
+    {
+        path: '/user',
+        component: Home,
+        children: [
+            { path: 'setting', component: _import('personal/index'), name: 'personal', meta: { title: 'personal' } },
+        ]
+    },
+    /* 错误界面 */
+    { path: '*', redirect: '/404', hidden: true }
+]
