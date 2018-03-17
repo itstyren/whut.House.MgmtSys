@@ -117,7 +117,8 @@ public class Resident {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((houseId == null) ? 0 : houseId.hashCode());
+		result = prime * result + ((houseRel == null) ? 0 : houseRel.hashCode());
+		result = prime * result + ((isDelete == null) ? 0 : isDelete.hashCode());
 		result = prime * result + ((staffId == null) ? 0 : staffId.hashCode());
 		return result;
 	}
@@ -131,10 +132,15 @@ public class Resident {
 		if (getClass() != obj.getClass())
 			return false;
 		Resident other = (Resident) obj;
-		if (houseId == null) {
-			if (other.houseId != null)
+		if (houseRel == null) {
+			if (other.houseRel != null)
 				return false;
-		} else if (!houseId.equals(other.houseId))
+		} else if (!houseRel.equals(other.houseRel))
+			return false;
+		if (isDelete == null) {
+			if (other.isDelete != null)
+				return false;
+		} else if (!isDelete.equals(other.isDelete))
 			return false;
 		if (staffId == null) {
 			if (other.staffId != null)
@@ -142,6 +148,12 @@ public class Resident {
 		} else if (!staffId.equals(other.staffId))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Resident [staffId=" + staffId + ", houseId=" + houseId + ", houseRel=" + houseRel + ", isDelete="
+				+ isDelete + ", rentType=" + rentType + "]";
 	}
     
     

@@ -57,9 +57,9 @@ public class RentStaffShowModel {
 	private Date firstJobTime;
 
 	// 上大学时间
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-	private Date goUniversityTime;
+//	@DateTimeFormat(pattern = "yyyy-MM-dd")
+//	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+//	private Date goUniversityTime;
 
 	// 离退休时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -239,13 +239,13 @@ public class RentStaffShowModel {
 		this.joinTime = joinTime;
 	}
 
-	public Date getGoUniversityTime() {
-		return goUniversityTime;
-	}
-
-	public void setGoUniversityTime(Date goUniversityTime) {
-		this.goUniversityTime = goUniversityTime;
-	}
+//	public Date getGoUniversityTime() {
+//		return goUniversityTime;
+//	}
+//
+//	public void setGoUniversityTime(Date goUniversityTime) {
+//		this.goUniversityTime = goUniversityTime;
+//	}
 
 	public Date getRetireTime() {
 		return retireTime;

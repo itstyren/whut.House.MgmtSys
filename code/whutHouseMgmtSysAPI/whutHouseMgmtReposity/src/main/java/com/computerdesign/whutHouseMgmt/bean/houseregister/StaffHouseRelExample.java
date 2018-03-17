@@ -374,6 +374,126 @@ public class StaffHouseRelExample {
             return (Criteria) this;
         }
 
+        public Criteria andStaffBuyAccountIsNull() {
+            addCriterion("StaffBuyAccount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffBuyAccountIsNotNull() {
+            addCriterion("StaffBuyAccount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffBuyAccountEqualTo(Long value) {
+            addCriterion("StaffBuyAccount =", value, "staffBuyAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffBuyAccountNotEqualTo(Long value) {
+            addCriterion("StaffBuyAccount <>", value, "staffBuyAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffBuyAccountGreaterThan(Long value) {
+            addCriterion("StaffBuyAccount >", value, "staffBuyAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffBuyAccountGreaterThanOrEqualTo(Long value) {
+            addCriterion("StaffBuyAccount >=", value, "staffBuyAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffBuyAccountLessThan(Long value) {
+            addCriterion("StaffBuyAccount <", value, "staffBuyAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffBuyAccountLessThanOrEqualTo(Long value) {
+            addCriterion("StaffBuyAccount <=", value, "staffBuyAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffBuyAccountIn(List<Long> values) {
+            addCriterion("StaffBuyAccount in", values, "staffBuyAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffBuyAccountNotIn(List<Long> values) {
+            addCriterion("StaffBuyAccount not in", values, "staffBuyAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffBuyAccountBetween(Long value1, Long value2) {
+            addCriterion("StaffBuyAccount between", value1, value2, "staffBuyAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffBuyAccountNotBetween(Long value1, Long value2) {
+            addCriterion("StaffBuyAccount not between", value1, value2, "staffBuyAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundIsNull() {
+            addCriterion("StaffFixFund is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundIsNotNull() {
+            addCriterion("StaffFixFund is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundEqualTo(Long value) {
+            addCriterion("StaffFixFund =", value, "staffFixFund");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundNotEqualTo(Long value) {
+            addCriterion("StaffFixFund <>", value, "staffFixFund");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundGreaterThan(Long value) {
+            addCriterion("StaffFixFund >", value, "staffFixFund");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundGreaterThanOrEqualTo(Long value) {
+            addCriterion("StaffFixFund >=", value, "staffFixFund");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundLessThan(Long value) {
+            addCriterion("StaffFixFund <", value, "staffFixFund");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundLessThanOrEqualTo(Long value) {
+            addCriterion("StaffFixFund <=", value, "staffFixFund");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundIn(List<Long> values) {
+            addCriterion("StaffFixFund in", values, "staffFixFund");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundNotIn(List<Long> values) {
+            addCriterion("StaffFixFund not in", values, "staffFixFund");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundBetween(Long value1, Long value2) {
+            addCriterion("StaffFixFund between", value1, value2, "staffFixFund");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffFixFundNotBetween(Long value1, Long value2) {
+            addCriterion("StaffFixFund not between", value1, value2, "staffFixFund");
+            return (Criteria) this;
+        }
+
         public Criteria andAddressIsNull() {
             addCriterion("Address is null");
             return (Criteria) this;

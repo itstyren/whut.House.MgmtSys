@@ -36,9 +36,6 @@ public class HireGetDirectApply {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date joinTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date goUniversityTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
@@ -72,7 +69,6 @@ public class HireGetDirectApply {
     	this.code = viewStaff.getCode();
     	this.tel = viewStaff.getTel();
     	this.remark = viewStaff.getRemark();
-    	this.goUniversityTime = viewStaff.getGoUniversityTime();
     	this.joinTime = viewStaff.getJoinTime();
     	this.retireTime = viewStaff.getRetireTime();
     	this.spouseName = viewStaff.getSpouseName();
@@ -176,14 +172,6 @@ public class HireGetDirectApply {
 
 	public void setJoinTime(Date joinTime) {
 		this.joinTime = joinTime;
-	}
-
-	public Date getGoUniversityTime() {
-		return goUniversityTime;
-	}
-
-	public void setGoUniversityTime(Date goUniversityTime) {
-		this.goUniversityTime = goUniversityTime;
 	}
 
 	public Date getRetireTime() {

@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIwODUxMjYyLCJleHAiOjE1MjA4NTg0NjJ9.Fk7V3f7THQ0AfTzNq8CaECaJqnp2TgKKUpgfOtWdJPo");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMjc4Mzc5LCJleHAiOjE1MjEyODE5Nzl9.zOnlMrH2I3g-ws7HSQRhAl608rap_SQzqw-7JxZ_mCc");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMjc4Mzc5LCJleHAiOjE1MjEyODE5Nzl9.zOnlMrH2I3g-ws7HSQRhAl608rap_SQzqw-7JxZ_mCc");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -371,7 +371,7 @@
 			var data = {
 				//键的名字与Model属性名一致
 				'staffId' : 18,
-				'houseId' : 4,
+				'houseId' : 5,
 				'houseRel' : 26,
 				'bookTime' : '2018-01-28 00:00:00'
 			};

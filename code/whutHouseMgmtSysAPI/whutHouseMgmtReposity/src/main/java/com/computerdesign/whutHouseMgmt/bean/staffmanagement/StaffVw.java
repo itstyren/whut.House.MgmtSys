@@ -31,8 +31,6 @@ public class StaffVw {
 
     private String code;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date joinTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -63,12 +61,8 @@ public class StaffVw {
 
     private Long fixFund;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date secondJoinTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date secondRetireTime;
 
     private String staffDual;
@@ -79,8 +73,6 @@ public class StaffVw {
 
     private Integer familyCode;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date firstJobTime;
 
     private String userName;

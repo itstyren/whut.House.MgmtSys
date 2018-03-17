@@ -582,66 +582,6 @@ public class HireExample {
             return (Criteria) this;
         }
 
-        public Criteria andTotalValIsNull() {
-            addCriterion("TotalVal is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalValIsNotNull() {
-            addCriterion("TotalVal is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalValEqualTo(Double value) {
-            addCriterion("TotalVal =", value, "totalVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalValNotEqualTo(Double value) {
-            addCriterion("TotalVal <>", value, "totalVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalValGreaterThan(Double value) {
-            addCriterion("TotalVal >", value, "totalVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalValGreaterThanOrEqualTo(Double value) {
-            addCriterion("TotalVal >=", value, "totalVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalValLessThan(Double value) {
-            addCriterion("TotalVal <", value, "totalVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalValLessThanOrEqualTo(Double value) {
-            addCriterion("TotalVal <=", value, "totalVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalValIn(List<Double> values) {
-            addCriterion("TotalVal in", values, "totalVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalValNotIn(List<Double> values) {
-            addCriterion("TotalVal not in", values, "totalVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalValBetween(Double value1, Double value2) {
-            addCriterion("TotalVal between", value1, value2, "totalVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalValNotBetween(Double value1, Double value2) {
-            addCriterion("TotalVal not between", value1, value2, "totalVal");
-            return (Criteria) this;
-        }
-
         public Criteria andTitleValIsNull() {
             addCriterion("TitleVal is null");
             return (Criteria) this;
@@ -699,6 +639,66 @@ public class HireExample {
 
         public Criteria andTitleValNotBetween(Double value1, Double value2) {
             addCriterion("TitleVal not between", value1, value2, "titleVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValIsNull() {
+            addCriterion("TotalVal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValIsNotNull() {
+            addCriterion("TotalVal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValEqualTo(Double value) {
+            addCriterion("TotalVal =", value, "totalVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValNotEqualTo(Double value) {
+            addCriterion("TotalVal <>", value, "totalVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValGreaterThan(Double value) {
+            addCriterion("TotalVal >", value, "totalVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValGreaterThanOrEqualTo(Double value) {
+            addCriterion("TotalVal >=", value, "totalVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValLessThan(Double value) {
+            addCriterion("TotalVal <", value, "totalVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValLessThanOrEqualTo(Double value) {
+            addCriterion("TotalVal <=", value, "totalVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValIn(List<Double> values) {
+            addCriterion("TotalVal in", values, "totalVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValNotIn(List<Double> values) {
+            addCriterion("TotalVal not in", values, "totalVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValBetween(Double value1, Double value2) {
+            addCriterion("TotalVal between", value1, value2, "totalVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalValNotBetween(Double value1, Double value2) {
+            addCriterion("TotalVal not between", value1, value2, "totalVal");
             return (Criteria) this;
         }
 
