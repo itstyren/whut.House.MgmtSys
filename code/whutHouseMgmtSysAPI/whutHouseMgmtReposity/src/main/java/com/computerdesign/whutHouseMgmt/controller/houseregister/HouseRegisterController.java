@@ -55,6 +55,9 @@ public class HouseRegisterController {
 	@Autowired
 	private HouseService houseService;
 	
+	@Autowired
+	private HouseParamService houseParamService;
+	
 	/**
 	 * 删除住房关系，即删除住房关系，但是保存住房登记历史记录
 	 * @return
@@ -186,13 +189,26 @@ public class HouseRegisterController {
 		}
 		
 		resident.setFamilyCode(resident.getStaffId().toString());
-		//具体可能要见Rent表
-		resident.setRentType("工资");
+		//具体可能要见Rent表，如果是租赁，则设置为工资
+		String houseParamName = houseParamService.get(resident.getHouseRel()).getHouseParamName();
+		if(houseParamName.equals("租赁")){			
+			resident.setRentType("工资");
+		}
 		
 		if(registerService.getCountByHouseId(resident.getHouseId()) > 0){
-			List<Resident> residents = registerService.getResidentByHouseId(resident.getHouseId());
+			
+			return Msg.error("该住房已有人入住，请您核对......");
+//			List<Resident> residents = registerService.getResidentByHouseId(resident.getHouseId());
+//			if(residents.contains(resident)){
+//				return Msg.error("该职工与该住房已进行过登记,请您核对……");
+//			}
+		}
+		if(registerService.getCountByStaffId(resident.getStaffId()) >0){
+			List<Resident> residents = registerService.getResidentsByStaffId(resident.getStaffId());
+//			System.out.println(residents);
+//			System.out.println(resident);
 			if(residents.contains(resident)){
-				return Msg.error("该职工与该住房已进行过登记,请您核对……");
+				return Msg.error("该职工已购买或租赁一套住房");
 			}
 		}
 		

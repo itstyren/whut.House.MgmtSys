@@ -2,6 +2,10 @@ package com.computerdesign.whutHouseMgmt.bean.staffmanagement;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class StaffVw {
     private Integer id;
 
@@ -29,6 +33,8 @@ public class StaffVw {
 
     private Date joinTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date retireTime;
 
     private String tel;

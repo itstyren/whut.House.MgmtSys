@@ -172,11 +172,11 @@ public class RentGenerateService {
 		}
 		
 		//上大学时间
-		if(staffSelectModel.getGoUniversityTimeRange() != null){
-			Date startTime = staffSelectModel.getGoUniversityTimeRange().getStartTime();
-			Date endTime = staffSelectModel.getGoUniversityTimeRange().getEndTime();
-			criteria.andStaffGoUniversityTimeBetween(startTime, endTime);
-		}
+//		if(staffSelectModel.getGoUniversityTimeRange() != null){
+//			Date startTime = staffSelectModel.getGoUniversityTimeRange().getStartTime();
+//			Date endTime = staffSelectModel.getGoUniversityTimeRange().getEndTime();
+//			criteria.andStaffGoUniversityTimeBetween(startTime, endTime);
+//		}
 		
 		if(staffSelectModel.getRegionName() != null){
 			criteria.andRegionNameEqualTo(staffSelectModel.getRegionName());

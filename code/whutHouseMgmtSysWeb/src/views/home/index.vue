@@ -15,6 +15,8 @@
           </div>
           <!-- 表格区 -->
           <div class="main-data">
+     <component :is="currentRole"></component>
+
           </div>
         </div>
       </div>
@@ -23,15 +25,16 @@
 </template>
 
 <script type="text/ecmascript-6">
+import adminDashboard from './admin/index'
  export default {
    data() {
      return {
-
+currentRole:'adminDashboard'
      }
 
    },
    components: {
-
+adminDashboard
    }
  }
 </script>

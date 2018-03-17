@@ -17,6 +17,7 @@ public class HouseParamService implements BaseService<HouseParameter>{
 	@Autowired
 	HouseParameterMapper houseParameterMapper;
 	
+	
 	public List<Integer> getHouseParamId(Integer paramTypeId) {
 		return houseParameterMapper.selectHouseParamId(paramTypeId);
 	}

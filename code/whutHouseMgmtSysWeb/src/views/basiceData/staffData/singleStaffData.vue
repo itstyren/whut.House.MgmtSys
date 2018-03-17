@@ -357,16 +357,10 @@ export default {
 
 <style scoped lang="scss">
 .main-data {
-  position: relative; // 隐藏滚动条
-  ::-webkit-scrollbar {
-    display: none;
-  }
+
   .from {
-    position: absolute;
-    top: 5px;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;

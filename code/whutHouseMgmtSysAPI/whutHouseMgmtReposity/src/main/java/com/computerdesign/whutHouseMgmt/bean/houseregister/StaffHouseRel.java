@@ -9,6 +9,10 @@ public class StaffHouseRel {
 
     private String houseRel;
 
+    private Long staffBuyAccount;
+
+    private Long staffFixFund;
+
     private String address;
 
     private Boolean isDelete;
@@ -43,6 +47,22 @@ public class StaffHouseRel {
 
     public void setHouseRel(String houseRel) {
         this.houseRel = houseRel == null ? null : houseRel.trim();
+    }
+
+    public Long getStaffBuyAccount() {
+        return staffBuyAccount;
+    }
+
+    public void setStaffBuyAccount(Long staffBuyAccount) {
+        this.staffBuyAccount = staffBuyAccount;
+    }
+
+    public Long getStaffFixFund() {
+        return staffFixFund;
+    }
+
+    public void setStaffFixFund(Long staffFixFund) {
+        this.staffFixFund = staffFixFund;
     }
 
     public String getAddress() {

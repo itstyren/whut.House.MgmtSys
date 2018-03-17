@@ -9,7 +9,7 @@
       <el-tree class="aside-tree" v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode"
         @node-click="nodeClick"></el-tree>
     </aside>
-    <section class="main-container">
+    <section class="special-container">
       <!-- 需要长时间存活的 -->
       <transition>
         <keep-alive>

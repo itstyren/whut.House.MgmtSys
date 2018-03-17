@@ -1,7 +1,7 @@
 export default {
     route:{
         index:'Index',
-        sysManage:'SysMange',
+        sysManage:'SysManage',
         paramSet:'ParamSet',
         basiceData:'BasiceData',
         region:'Region',

@@ -292,7 +292,7 @@ export default {
 
 <style scoped lang="scss">
 .card{
-  height: 96%;
-  padding-bottom: 50px;
+  height: 72vh;
+  padding-bottom: 40px;
 }
 </style>

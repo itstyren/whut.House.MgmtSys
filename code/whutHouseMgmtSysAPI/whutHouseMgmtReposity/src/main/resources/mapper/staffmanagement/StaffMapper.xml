@@ -118,7 +118,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Hs_Staff
+    from hs_staff
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -129,21 +129,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from Hs_Staff
+    from hs_staff
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Hs_Staff
+    delete from hs_staff
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample">
-    delete from Hs_Staff
+    delete from hs_staff
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff">
-    insert into Hs_Staff (Id, No, Name, 
+    insert into hs_staff (Id, No, Name, 
       Sex, MarriageState, Title, 
       Post, Type, Status, 
       Dept, Code, EduQualifications, 
@@ -175,7 +175,7 @@
       #{isOwnPriHouse,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff">
-    insert into Hs_Staff
+    insert into hs_staff
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
@@ -440,13 +440,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample" resultType="java.lang.Long">
-    select count(*) from Hs_Staff
+    select count(*) from hs_staff
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Hs_Staff
+    update hs_staff
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
@@ -583,7 +583,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Hs_Staff
+    update hs_staff
     set Id = #{record.id,jdbcType=INTEGER},
       No = #{record.no,jdbcType=VARCHAR},
       Name = #{record.name,jdbcType=VARCHAR},
@@ -632,7 +632,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff">
-    update Hs_Staff
+    update hs_staff
     <set>
       <if test="no != null">
         No = #{no,jdbcType=VARCHAR},
@@ -764,7 +764,7 @@
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff">
-    update Hs_Staff
+    update hs_staff
     set No = #{no,jdbcType=VARCHAR},
       Name = #{name,jdbcType=VARCHAR},
       Sex = #{sex,jdbcType=VARCHAR},

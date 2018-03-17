@@ -96,66 +96,66 @@ public class StaffController {
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
 	public Msg modifyStaff(@RequestBody @Valid Staff staff, BindingResult result) {
 		System.out.println(staff.getCode() == null);
-//		System.out.println(staff.getCode().equals(""));
-		if(staff.getNo() != null){
-			if(staff.getNo().trim().equals("")){
+		// System.out.println(staff.getCode().equals(""));
+		if (staff.getNo() != null) {
+			if (staff.getNo().trim().equals("")) {
 				return Msg.error("职工编号不能为空");
 			}
 		}
-		
-		if(staff.getName() != null){
-			if(staff.getName().trim().equals("")){
+
+		if (staff.getName() != null) {
+			if (staff.getName().trim().equals("")) {
 				return Msg.error("职工姓名不能为空");
 			}
 		}
-		
-		if(staff.getCode() != null){
-			if(staff.getCode().trim().equals("")){
+
+		if (staff.getCode() != null) {
+			if (staff.getCode().trim().equals("")) {
 				return Msg.error("职工身份证号不能为空");
 			}
 		}
-		
-		if(staff.getTel() != null){
-			if(staff.getTel().trim().equals("")){
+
+		if (staff.getTel() != null) {
+			if (staff.getTel().trim().equals("")) {
 				return Msg.error("职工电话号码不能为空");
 			}
 		}
-		
+
 		if (result.getErrorCount() > 0) {
 			// 根据JSR303验证获取错误信息，并返回前端
 			String message = result.getFieldError().getDefaultMessage();
 			return Msg.error(message);
 		}
-//		staff = staffService.get(staff.getId());
-//		System.out.println(staff.getPost());
-//		if (staff.getNo() == null) {
-//			return Msg.error("职工编号不能为空");
-//		} else if (staff.getName() == null) {
-//			return Msg.error("职工姓名不能为空");
-//		} else if (staff.getSex() == null) {
-//			return Msg.error("职工性别不能为空");
-//		} else if (staff.getMarriageState() == null) {
-//			return Msg.error("职工婚姻状况不能为空");
-//		} else if (staff.getTitle() == null) {
-//			return Msg.error("职工职称不能为空");
-//		} else if (staff.getPost() == null) {
-//			return Msg.error("职工职务不能为空");
-//		} else if (staff.getDept() == null) {
-//			return Msg.error("职工部门不能为空");
-//		} else if (staff.getCode() == null) {
-//			return Msg.error("职工身份证号不能为空");
-//		} else {
-//			staffService.update(staff);
-//			return Msg.success("修改成功").add("data", staff);
-//		}
-//		if (result.getErrorCount() > 0) {
-//			// 根据JSR303验证获取错误信息，并返回前端
-//			String message = result.getFieldError().getDefaultMessage();
-//			return Msg.error(message).add("data", staff);
-//		}else{
-//			staffService.update(staff);
-//			return Msg.success("修改成功").add("data", staff);
-//		}
+		// staff = staffService.get(staff.getId());
+		// System.out.println(staff.getPost());
+		// if (staff.getNo() == null) {
+		// return Msg.error("职工编号不能为空");
+		// } else if (staff.getName() == null) {
+		// return Msg.error("职工姓名不能为空");
+		// } else if (staff.getSex() == null) {
+		// return Msg.error("职工性别不能为空");
+		// } else if (staff.getMarriageState() == null) {
+		// return Msg.error("职工婚姻状况不能为空");
+		// } else if (staff.getTitle() == null) {
+		// return Msg.error("职工职称不能为空");
+		// } else if (staff.getPost() == null) {
+		// return Msg.error("职工职务不能为空");
+		// } else if (staff.getDept() == null) {
+		// return Msg.error("职工部门不能为空");
+		// } else if (staff.getCode() == null) {
+		// return Msg.error("职工身份证号不能为空");
+		// } else {
+		// staffService.update(staff);
+		// return Msg.success("修改成功").add("data", staff);
+		// }
+		// if (result.getErrorCount() > 0) {
+		// // 根据JSR303验证获取错误信息，并返回前端
+		// String message = result.getFieldError().getDefaultMessage();
+		// return Msg.error(message).add("data", staff);
+		// }else{
+		// staffService.update(staff);
+		// return Msg.success("修改成功").add("data", staff);
+		// }
 		staffService.update(staff);
 		return Msg.success("修改成功").add("data", staff);
 	}
@@ -273,7 +273,7 @@ public class StaffController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("getStaffByInput")
+	@RequestMapping(value = "getStaffByInput", method = RequestMethod.GET)
 	public Msg getStaffByInput(@RequestParam(value = "input") String input) {
 		try {
 			input = new String(input.getBytes("iso8859-1"), "utf-8");
@@ -327,7 +327,7 @@ public class StaffController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("get/{staffParamId}")
+	@RequestMapping(value = "get/{staffParamId}",method = RequestMethod.GET)
 	public Msg getStaff(@PathVariable("staffParamId") Integer staffParamId,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
@@ -346,6 +346,5 @@ public class StaffController {
 		}
 
 	}
-	
 
 }
