@@ -1,8 +1,8 @@
 package com.computerdesign.whutHouseMgmt.controller.hire;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,12 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.hire.apply.HireApplyAlready;
-import com.computerdesign.whutHouseMgmt.bean.hire.apply.HireGetApply;
-import com.computerdesign.whutHouseMgmt.bean.hire.apply.HireHouseGetApply;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
-import com.computerdesign.whutHouseMgmt.bean.hire.signcontract.HireGetSignContract;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
@@ -28,6 +24,7 @@ import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
+import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -74,36 +71,29 @@ public class HireController {
 
 		// 获取员工信息
 		ViewStaff viewStaff = viewStaffService.getByStaffId(staffId).get(0);
-		// 将员工信息封装
-		HireGetApply hireGetApply = new HireGetApply(viewStaff);
-
 		// 用StaffHouse表，来判断该员工的房屋信息
-		List<StaffHouse> listStaffHouse = new ArrayList<StaffHouse>();
-		// 根据staffId获取staffHouse的list
-		listStaffHouse = staffHouseService.getStaffHouseByStaffId(staffId);
+		List<StaffHouse> listStaffHouse = staffHouseService.getStaffHouseByStaffId(staffId);
 
+		String[] fileds = { "staffId", "staffNo", "staffName", "staffSex", "staffTitleName", "staffPostName", 
+				"staffTypeName", "staffPostVal", "staffSpousePostVal", "staffDeptName", 
+				"staffCode", "staffTel",  };
+		Map<String, Object> response = ResponseUtil.getResultMap(viewStaff, fileds);
 		// 该员工的房屋不为空
 		if (!listStaffHouse.isEmpty()) {
-			
-			// 该员工的房屋集合
-			List<HireHouseGetApply> listHouseGetApply = new ArrayList<HireHouseGetApply>();
-			
-			for (StaffHouse staffHouseD : listStaffHouse) {
-				// 封装房屋信息
-				listHouseGetApply.add(new HireHouseGetApply(staffHouseD));
-			}
-			hireGetApply.setListHouseGetApply(listHouseGetApply);
+			String[] houseListFileds = { "houseId","houseNo","houseTypeName","houseAddress","houseBuildArea",
+					"houseUsedArea","houseRelName"};
+			List<Map<String, Object>> listHouse = ResponseUtil.getResultMap(listStaffHouse, houseListFileds);
+			response.put("listHouseGetApply", listHouse);
 		}
 
 		// 已申请租赁信息集合
 		if (!viewHireService.getByStaffId(staffId).isEmpty()) {
 			ViewHire viewHirePre = viewHireService.getByStaffId(staffId).get(0);
-			HireApplyAlready hireApplyAlready = new HireApplyAlready(viewHirePre);
-			hireGetApply.setHireApplyAlready(hireApplyAlready);
+			String[] hirePrefileds = { "id","staffNo","totalVal","hireState" };
+			Map<String, Object> listHirePre = ResponseUtil.getResultMap(viewHirePre, hirePrefileds);
+			response.put("hireApplyAlready", listHirePre);
 		}
-
-		
-		return Msg.success("返回住房申请页面").add("data", hireGetApply);
+		return Msg.success("返回住房申请页面").add("data", response);
 
 	}
 
@@ -158,13 +148,15 @@ public class HireController {
 	public Msg HireGetSignContract() {
 		// 获取全部等待签订合同的信息
 		List<ViewHire> listViewHire = viewHireService.getSignContract();
-		List<HireGetSignContract> listHireGetSignContract = new ArrayList<HireGetSignContract>();
-		// 遍历每一个房屋申请信息
-		for (ViewHire viewHire : listViewHire) {
-			// 封装房屋信息
-			listHireGetSignContract.add(new HireGetSignContract(viewHire));
-		}
-		return Msg.success("全部已审批尚未签订合同的房屋申请信息").add("data", listHireGetSignContract);
+		
+		String[] fileds = { "id", "name", "applyTime", "hireState", "reason", "phone", "titleName", "postName",
+				"deptName", "houseNo","houseBuildArea","houseUserArea","houseAddress",
+				"acceptNote", "acceptState","acceptMan", "acceptTime",
+				"agreeNote", "agreeState","agreeMan", "agreeTime",
+				"approveNote", "approveState","approveMan", "approveTime",
+				"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal" };
+		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
+		return Msg.success("全部已审批尚未签订合同的房屋申请信息").add("data", response);
 	}
 
 	/**

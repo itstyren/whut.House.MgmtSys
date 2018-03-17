@@ -1,8 +1,8 @@
 package com.computerdesign.whutHouseMgmt.controller.hire;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.agree.HireAddAgree;
-import com.computerdesign.whutHouseMgmt.bean.hire.agree.HireGetAgree;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,19 +42,26 @@ public class HireAgreeController {
 		}
 		if (agreeState == 0) {
 			List<ViewHire> listViewHire = viewHireService.getAgreeUntil();
-			List<HireGetAgree> listHireGetAgree = new ArrayList<HireGetAgree>();
-			for (ViewHire viewHire : listViewHire) {
-				listHireGetAgree.add(new HireGetAgree(viewHire));
-			}
-			return Msg.success("获取全部的未审核信息").add("data", listHireGetAgree);
+			
+			String[] fileds = { "id", "name", "applyTime", "hireState", "reason", "phone", "titleName", "postName",
+					"deptName", "houseNo","houseBuildArea","houseUserArea","houseAddress",
+					"acceptNote", "acceptState","acceptMan", "acceptTime",
+					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal" };
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
+			
+			return Msg.success("获取全部的未审核信息").add("data", response);
 		} 
 		if (agreeState == 1) {
 			List<ViewHire> listViewHire = viewHireService.getAgreeHasBeen();
-			List<HireGetAgree> listHireGetAgree = new ArrayList<HireGetAgree>();
-			for (ViewHire viewHire : listViewHire) {
-				listHireGetAgree.add(new HireGetAgree(viewHire));
-			}
-			return Msg.success("获取全部的已进行审核操作的信息").add("data", listHireGetAgree);
+			
+			String[] fileds = { "id", "name", "applyTime", "hireState", "reason", "phone", "titleName", "postName",
+					"deptName", "houseNo","houseBuildArea","houseUserArea","houseAddress",
+					"acceptNote", "acceptState","acceptMan", "acceptTime",
+					"agreeNote", "agreeState","agreeMan", "agreeTime",
+					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal" };
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
+			
+			return Msg.success("获取全部的已进行审核操作的信息").add("data", response);
 		} else {
 			return Msg.error("请检查你的网络");
 		}
