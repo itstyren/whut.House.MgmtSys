@@ -1,6 +1,7 @@
 package com.computerdesign.whutHouseMgmt.controller.region;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.building.Building;
+import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
 import com.computerdesign.whutHouseMgmt.bean.region.Region;
 import com.computerdesign.whutHouseMgmt.bean.region.RegionWithBuilding;
 import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
@@ -116,6 +118,7 @@ public class RegionController {
 
 	/**
 	 * 增加一个region
+	 * 
 	 * @param region
 	 * @return
 	 */
@@ -145,12 +148,13 @@ public class RegionController {
 			return Msg.error("区域名不能为空");
 		}
 		List<Region> regions = regionService.getAll();
-		Region thisRegion = regionService.get(region.getId());
-		regions.remove(thisRegion);
-
-		for (Region regionPre : regions) {
-			if (regionPre.getName().equals(region.getName())) {
-				return Msg.error("该名称已存在");
+		// 遍历这些信息
+		Iterator iterator = regions.iterator();
+		while (iterator.hasNext()) {
+			Region regionAlready = (Region) iterator.next();
+			if (regionAlready.getId() != region.getId()
+					&& region.getName().equals(regionAlready.getName())) {
+				return Msg.error("该名称已存在，无法修改");
 			}
 		}
 		regionService.update(region);

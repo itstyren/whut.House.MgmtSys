@@ -74,9 +74,12 @@ public class HireController {
 		// 用StaffHouse表，来判断该员工的房屋信息
 		List<StaffHouse> listStaffHouse = staffHouseService.getStaffHouseByStaffId(staffId);
 
-		String[] fileds = { "staffId", "staffNo", "staffName", "staffSex", "staffTitleName", "staffPostName", 
-				"staffTypeName", "staffPostVal", "staffSpousePostVal", "staffDeptName", 
-				"staffCode", "staffTel",  };
+		if (listStaffHouse.size()>1) {
+			return Msg.error("该员工无法申请房屋");
+		}
+		String[] fileds = { "Id", "No", "Name", "Sex", "TitleName", "PostName", 
+				"TypeName", "PostVal", "SpousePostVal", "DeptName", 
+				"Code", "Tel",  };
 		Map<String, Object> response = ResponseUtil.getResultMap(viewStaff, fileds);
 		// 该员工的房屋不为空
 		if (!listStaffHouse.isEmpty()) {
@@ -92,6 +95,7 @@ public class HireController {
 			String[] hirePrefileds = { "id","staffNo","totalVal","hireState" };
 			Map<String, Object> listHirePre = ResponseUtil.getResultMap(viewHirePre, hirePrefileds);
 			response.put("hireApplyAlready", listHirePre);
+		}else{
 		}
 		return Msg.success("返回住房申请页面").add("data", response);
 

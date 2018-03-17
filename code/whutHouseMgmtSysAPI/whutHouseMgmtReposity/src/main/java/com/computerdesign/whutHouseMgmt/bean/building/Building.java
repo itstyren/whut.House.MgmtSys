@@ -3,6 +3,10 @@ package com.computerdesign.whutHouseMgmt.bean.building;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.swagger.annotations.ApiModelProperty;
 
 public class Building {
@@ -13,6 +17,8 @@ public class Building {
     private String name;
 
 	@ApiModelProperty(example="2017-11-4")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date finishTime;
 
 	@ApiModelProperty(example="96.3")

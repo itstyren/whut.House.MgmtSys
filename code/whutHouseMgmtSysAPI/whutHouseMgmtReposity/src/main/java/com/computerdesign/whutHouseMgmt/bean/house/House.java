@@ -2,6 +2,10 @@ package com.computerdesign.whutHouseMgmt.bean.house;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.swagger.annotations.ApiModelProperty;
 
 public class House {
@@ -53,6 +57,8 @@ public class House {
 	private Double rental;
 
 	@ApiModelProperty(example = "2017-5-11")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date finishTime;
 
 	@ApiModelProperty(example = "0")
