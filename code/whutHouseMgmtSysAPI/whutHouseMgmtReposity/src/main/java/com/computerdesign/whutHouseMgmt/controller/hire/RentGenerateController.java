@@ -69,7 +69,6 @@ public class RentGenerateController {
 			rentStaffShowModel.setDeptName(staffHouse.getStaffDeptName());
 			rentStaffShowModel.setCode(staffHouse.getStaffCode());
 			rentStaffShowModel.setFirstJobTime(staffHouse.getStaffFirstJobTime());
-			rentStaffShowModel.setGoUniversityTime(staffHouse.getStaffGoUniversityTime());
 			rentStaffShowModel.setRetireTime(staffHouse.getStaffRetireTime());
 			rentStaffShowModel.setTel(staffHouse.getStaffTel());
 			rentStaffShowModel.setRemark(staffHouse.getStaffRemark());
@@ -228,7 +227,6 @@ public class RentGenerateController {
 			rentStaffShowModel.setDeptName(staffHouse.getStaffDeptName());
 			rentStaffShowModel.setCode(staffHouse.getStaffCode());
 			rentStaffShowModel.setFirstJobTime(staffHouse.getStaffFirstJobTime());
-			rentStaffShowModel.setGoUniversityTime(staffHouse.getStaffGoUniversityTime());
 			rentStaffShowModel.setRetireTime(staffHouse.getStaffRetireTime());
 			rentStaffShowModel.setTel(staffHouse.getStaffTel());
 			rentStaffShowModel.setRemark(staffHouse.getStaffRemark());
