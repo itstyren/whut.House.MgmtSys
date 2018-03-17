@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIwODUxMjYyLCJleHAiOjE1MjA4NTg0NjJ9.Fk7V3f7THQ0AfTzNq8CaECaJqnp2TgKKUpgfOtWdJPo");
 			},
 			type : "get",
 			contentType : 'application/json',

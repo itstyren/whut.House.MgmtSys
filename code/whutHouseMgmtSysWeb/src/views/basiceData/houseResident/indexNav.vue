@@ -1,14 +1,15 @@
 <template>
   <div class="second-container">
-    <aside :class="{showSidebar:!isCollapse}">
+    <aside>
       <!-- 展开关闭按钮 -->
-      <div class="asid-button">
-       <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
+      <div class="filter-button">
+        <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
       </div>
-            <!-- 主菜单 -->
-            <el-tree v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode" @node-click="nodeClick" ></el-tree>
+      <!-- 主菜单 -->
+      <el-tree v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode"
+        @node-click="nodeClick"></el-tree>
     </aside>
-        <section class="main-container">
+    <section class="special-container">
       <!-- 需要长时间存活的 -->
       <transition>
         <keep-alive>
@@ -24,61 +25,62 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getDept } from "@/api/basiceData";
-import * as types from "../../../store/mutation-types";
-export default {
-  data() {
-    return {
-      isCollapse: false,
-      // 树控件需要的
-      listLoading: false,
-      // 部门信息加职工
-      depData: [],
-      filterText: ""
-    };
-  },
-  created() {
-    this.getList();
-  },
-  watch: {
-    // 监听输入值
-    filterText(val) {
-      this.$refs.staffTree.filter(val);
-    }
-  },
-  methods: {
-    //折叠
-    collapse: function() {
-      this.isCollapse = !this.isCollapse;
+  import {
+    getDept
+  } from "@/api/basiceData";
+  import * as types from "../../../store/mutation-types";
+  export default {
+    data() {
+      return {
+        // 树控件需要的
+        listLoading: false,
+        // 部门信息加职工
+        depData: [],
+        filterText: ""
+      };
     },
-    // 获取部门信息包括职工
-    getList() {
-      this.listLoading = true;
-      let param = {};
-      let num = 0;
-      getDept(param)
-        .then(res => {
-          let deptData = res.data.data.deptData;
-          deptData.forEach(dept => {
-            this.depData.push({
-              id: dept.staffParamId,
-              label: dept.staffParamName,
-              children: []
-            });
-            dept.staffModels.forEach(staff => {
-              this.depData[num].children.push({
-                id: staff.id,
-                label: staff.name
+    created() {
+      this.getList();
+    },
+    watch: {
+      // 监听输入值
+      filterText(val) {
+        this.$refs.staffTree.filter(val);
+      }
+    },
+    methods: {
+      //折叠
+      collapse: function () {
+        this.isCollapse = !this.isCollapse;
+      },
+      // 获取部门信息包括职工
+      getList() {
+        this.listLoading = true;
+        let param = {};
+        let num = 0;
+        getDept(param)
+          .then(res => {
+            let deptData = res.data.data.deptData;
+            deptData.forEach(dept => {
+              this.depData.push({
+                id: dept.staffParamId,
+                label: dept.staffParamName,
+                children: []
               });
+              dept.staffModels.forEach(staff => {
+                this.depData[num].children.push({
+                  id: staff.id,
+                  label: staff.name
+                });
+              });
+              num++;
             });
-            num++;
+            this.listLoading = false;
+          })
+          .catch(err => {
+            console.log(err);
           });
-          this.listLoading = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+      },
     // 渲染函数
     renderContent(h, { node, data, store }) {
       // console.log(node);
@@ -108,52 +110,37 @@ export default {
         );
       }
     },
-    // 筛选函数
-    filterNode(value, data) {
-      if (!value) return true;
-      return data.label.indexOf(value) !== -1;
-    },
-    // 节点被点击时的回调
-    nodeClick(object, node, component) {
-      //console.log(node);
-      if (node.level == 1) {
-        // this.$router.push({
-        //   path: "/basic/staff/byDept/" + object.id
-        // });
-        return;
-      } else if (node.level == 2) {
-        //console.log(object)
-        this.$store.commit(types.RESIDENT_STAFF, object);
-        this.$router.push({
-          path: "/basic/houseResident/" + object.id
-        });
+      // 筛选函数
+      filterNode(value, data) {
+        if (!value) return true;
+        return data.label.indexOf(value) !== -1;
+      },
+      // 节点被点击时的回调
+      nodeClick(object, node, component) {
+        //console.log(node);
+        if (node.level == 1) {
+          // this.$router.push({
+          //   path: "/basic/staff/byDept/" + object.id
+          // });
+          return;
+        } else if (node.level == 2) {
+          //console.log(object)
+          this.$store.commit(types.RESIDENT_STAFF, object);
+          this.$router.push({
+            path: "/basic/houseResident/" + object.id
+          });
+        }
       }
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-@import "../../../styles/variables.scss";
+  @import "../../../styles/variables.scss";
 
-.second-container {
-  background-color: $background-grey;
-  aside {
-    .asid-button {
-      margin: 10px auto 10px;
-      width: 70%;
-    }
-    .el-input__inner {
-      background: #4a5064;
-    }
-    > .el-tree {
-      width: 250px;
-      height: auto;
-    }
-
-    span {
-      padding-left: 20px;
-    }
+  .second-container {
+    background-color: $background-grey;
   }
-}
+
 </style>

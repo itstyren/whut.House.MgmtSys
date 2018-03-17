@@ -1,12 +1,12 @@
 <template>
   <div class="second-container">
-    <aside :class="{showSidebar:!isCollapse}">
+    <aside>
       <!-- 展开关闭按钮 -->
-      <div class="asid-button">
+      <div class="filter-button">
         <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
       </div>
       <!-- 主菜单 -->
-      <el-tree v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode"
+      <el-tree class="aside-tree" v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode"
         @node-click="nodeClick"></el-tree>
     </aside>
     <section class="main-container">
@@ -29,7 +29,6 @@ import { getDept } from "@/api/basiceData";
 export default {
   data() {
     return {
-      isCollapse: false,
       // 树控件需要的
       listLoading: false,
       // 部门信息加职工
@@ -131,21 +130,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-aside {
-  .asid-button {
-    margin: 10px auto 10px;
-    width: 70%;
-  }
-  .el-input__inner {
-    background: #4a5064;
-  }
-  > .el-tree {
-    width: 250px;
-    height: auto;
-  }
+@import "../../../styles/variables.scss";
 
-  span {
-    padding-left: 20px;
-  }
+.second-container {
+  background-color: $background-grey;
 }
 </style>

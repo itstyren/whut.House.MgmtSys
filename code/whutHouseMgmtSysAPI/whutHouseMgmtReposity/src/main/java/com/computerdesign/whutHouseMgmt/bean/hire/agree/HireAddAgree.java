@@ -1,15 +1,22 @@
 package com.computerdesign.whutHouseMgmt.bean.hire.agree;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class HireAddAgree {
 
+	@ApiModelProperty(example = "111")
     private Integer id;
 
+	@ApiModelProperty(example = "2")
     private Integer houseId;
 
+	@ApiModelProperty(example = "麻生周一")
     private String agreeNote;
 
+	@ApiModelProperty(example="通过",value="只能为通过或拒绝")
     private String agreeState;
 
+	@ApiModelProperty(example="古力娜扎")
     private String agreeMan;
 
 	public Integer getId() {

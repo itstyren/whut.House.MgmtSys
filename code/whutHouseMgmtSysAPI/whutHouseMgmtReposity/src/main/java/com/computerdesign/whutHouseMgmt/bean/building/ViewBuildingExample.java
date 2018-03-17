@@ -761,6 +761,136 @@ public class ViewBuildingExample {
             addCriterion("SupportFund not between", value1, value2, "supportFund");
             return (Criteria) this;
         }
+
+        public Criteria andManagerIsNull() {
+            addCriterion("Manager is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerIsNotNull() {
+            addCriterion("Manager is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerEqualTo(String value) {
+            addCriterion("Manager =", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNotEqualTo(String value) {
+            addCriterion("Manager <>", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerGreaterThan(String value) {
+            addCriterion("Manager >", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerGreaterThanOrEqualTo(String value) {
+            addCriterion("Manager >=", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLessThan(String value) {
+            addCriterion("Manager <", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLessThanOrEqualTo(String value) {
+            addCriterion("Manager <=", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLike(String value) {
+            addCriterion("Manager like", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNotLike(String value) {
+            addCriterion("Manager not like", value, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerIn(List<String> values) {
+            addCriterion("Manager in", values, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNotIn(List<String> values) {
+            addCriterion("Manager not in", values, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerBetween(String value1, String value2) {
+            addCriterion("Manager between", value1, value2, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNotBetween(String value1, String value2) {
+            addCriterion("Manager not between", value1, value2, "manager");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountIsNull() {
+            addCriterion("UnitCount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountIsNotNull() {
+            addCriterion("UnitCount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountEqualTo(Integer value) {
+            addCriterion("UnitCount =", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountNotEqualTo(Integer value) {
+            addCriterion("UnitCount <>", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountGreaterThan(Integer value) {
+            addCriterion("UnitCount >", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("UnitCount >=", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountLessThan(Integer value) {
+            addCriterion("UnitCount <", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountLessThanOrEqualTo(Integer value) {
+            addCriterion("UnitCount <=", value, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountIn(List<Integer> values) {
+            addCriterion("UnitCount in", values, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountNotIn(List<Integer> values) {
+            addCriterion("UnitCount not in", values, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountBetween(Integer value1, Integer value2) {
+            addCriterion("UnitCount between", value1, value2, "unitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("UnitCount not between", value1, value2, "unitCount");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

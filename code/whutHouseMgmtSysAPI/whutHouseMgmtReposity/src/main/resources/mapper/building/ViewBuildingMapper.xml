@@ -12,6 +12,8 @@
     <result column="RegionName" jdbcType="VARCHAR" property="regionName" />
     <result column="Description" jdbcType="VARCHAR" property="description" />
     <result column="SupportFund" jdbcType="DECIMAL" property="supportFund" />
+    <result column="Manager" jdbcType="VARCHAR" property="manager" />
+    <result column="UnitCount" jdbcType="INTEGER" property="unitCount" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     Id, Name, FinishTime, FloorArea, UsedArea, FloorCount, RegionId, RegionName, Description, 
-    SupportFund
+    SupportFund, Manager, UnitCount
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.ViewBuildingExample" resultMap="BaseResultMap">
     select
@@ -99,11 +101,13 @@
     insert into view_hs_building (Id, Name, FinishTime, 
       FloorArea, UsedArea, FloorCount, 
       RegionId, RegionName, Description, 
-      SupportFund)
+      SupportFund, Manager, UnitCount
+      )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{finishTime,jdbcType=DATE}, 
       #{floorArea,jdbcType=REAL}, #{usedArea,jdbcType=REAL}, #{floorCount,jdbcType=INTEGER}, 
       #{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{supportFund,jdbcType=DECIMAL})
+      #{supportFund,jdbcType=DECIMAL}, #{manager,jdbcType=VARCHAR}, #{unitCount,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building.ViewBuilding">
     insert into view_hs_building
@@ -138,6 +142,12 @@
       <if test="supportFund != null">
         SupportFund,
       </if>
+      <if test="manager != null">
+        Manager,
+      </if>
+      <if test="unitCount != null">
+        UnitCount,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -169,6 +179,12 @@
       </if>
       <if test="supportFund != null">
         #{supportFund,jdbcType=DECIMAL},
+      </if>
+      <if test="manager != null">
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCount != null">
+        #{unitCount,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -211,6 +227,12 @@
       <if test="record.supportFund != null">
         SupportFund = #{record.supportFund,jdbcType=DECIMAL},
       </if>
+      <if test="record.manager != null">
+        Manager = #{record.manager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitCount != null">
+        UnitCount = #{record.unitCount,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -227,7 +249,9 @@
       RegionId = #{record.regionId,jdbcType=INTEGER},
       RegionName = #{record.regionName,jdbcType=VARCHAR},
       Description = #{record.description,jdbcType=VARCHAR},
-      SupportFund = #{record.supportFund,jdbcType=DECIMAL}
+      SupportFund = #{record.supportFund,jdbcType=DECIMAL},
+      Manager = #{record.manager,jdbcType=VARCHAR},
+      UnitCount = #{record.unitCount,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

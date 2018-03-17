@@ -210,24 +210,25 @@ public class DataImportController {
 						System.out.println("身份证号格式非法,请检查Excel表中是否改为文本模式或知否输入正确");
 					}
 
+					String eduQualification = val[10];
+					staff.setEduQualifications(eduQualification);
+					
 					// 来校工作时间
-					String joinTimeStr = val[10];
+					String joinTimeStr = val[11];
 					Date joinTime = DateConversionUtils.stringToDate(joinTimeStr, "yyyy/MM/dd");
-					// 上大学时间
-					String goUniversityTimeStr = val[11];
-					Date goUniversityTime = DateConversionUtils.stringToDate(goUniversityTimeStr, "yyyy/MM/dd");
+//					// 上大学时间
+//					String goUniversityTimeStr = val[11];
+//					Date goUniversityTime = DateConversionUtils.stringToDate(goUniversityTimeStr, "yyyy/MM/dd");
 					// 离退休时间
 					String retireTimeStr = val[12];
 					Date retireTime = DateConversionUtils.stringToDate(retireTimeStr, "yyyy/MM/dd");
 					if (joinTime == null) {
 						System.out.println("来校工作时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
-					} else if (goUniversityTime == null) {
-						System.out.println("上大学时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
-					} else if (retireTime == null) {
+					}else if (retireTime == null) {
 						System.out.println("离退休时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
 					} else {
 						staff.setJoinTime(joinTime);
-						staff.setGoUniversityTime(goUniversityTime);
+//						staff.setGoUniversityTime(goUniversityTime);
 						staff.setRetireTime(retireTime);
 					}
 

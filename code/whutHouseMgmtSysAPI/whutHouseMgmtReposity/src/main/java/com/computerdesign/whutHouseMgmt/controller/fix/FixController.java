@@ -186,51 +186,7 @@ public class FixController {
 				listFixGetDirectApply.add(fixGetDirectApply);
 			}
 			return Msg.success("根据员工姓名获取维修直批页面").add("data", listFixGetDirectApply);
-			// }else{
-			// //只有一个员工
-			// StaffVw staffVw = listStaffVw.get(0);
-			//
-			// //将员工信息绑入到model中，其中有FixGetDitectApply(StaffVw)构造器的使用
-			// FixGetDirectApply fixGetDirectApply = new
-			// FixGetDirectApply(staffVw);
-			//
-			// //根据staffId获取该员工全部的residentVw信息
-			// List<ResidentVw> listResidentVw =
-			// registerService.getResidentVwByStaffId(staffVw.getId());
-			//
-			// //房屋数组信息
-			// List<HouseGetDirectApply> listHouseGetDirectApply = new
-			// ArrayList<HouseGetDirectApply>();
-			//
-			//
-			// if (listResidentVw.isEmpty()) {
-			// return Msg.success("没有房子").add("data", fixGetDirectApply);
-			// } else {
-			// // 根据每一个房屋登记信息获取每一个house
-			// for (ResidentVw residentVw : listResidentVw) {
-			// if (viewHouseService.get(residentVw.getHouseId()).isEmpty()) {
-			// return Msg.error("没有房子");
-			// }
-			// ViewHouse viewHouse =
-			// viewHouseService.get(residentVw.getHouseId()).get(0);
-			// HouseGetDirectApply houseGetDirectApply = new
-			// HouseGetDirectApply();
-			//
-			// houseGetDirectApply.setBookTime(residentVw.getBookTime());
-			// houseGetDirectApply.setHouseRel(residentVw.getHouseRel());
-			//
-			// houseGetDirectApply.setAddress(viewHouse.getAddress());
-			// houseGetDirectApply.setHouseId(viewHouse.getId());
-			// houseGetDirectApply.setLayoutName(viewHouse.getLayoutName());
-			// houseGetDirectApply.setUsedArea(viewHouse.getUsedArea());
-			//
-			// listHouseGetDirectApply.add(houseGetDirectApply);
-			// }
-			// fixGetDirectApply.setHouseList(listHouseGetDirectApply);
-			//
-			// return Msg.success("根据员工姓名获取维修直批页面").add("data",
-			// fixGetDirectApply);
-			// }
+			
 		}
 	}
 
@@ -288,25 +244,26 @@ public class FixController {
 	 */
 	@RequestMapping(value = "addDirectApply", method = RequestMethod.POST)
 	public Msg addDirectApply(@RequestBody FixAddDirectApply fixAddDirectApply) {
-		Fix fix = new Fix();
-		fix.setFixContentId(fixAddDirectApply.getFixContentId());
-		fix.setApplyTime(new Date());
-		fix.setFixState("已审核");
-		fix.setAcceptState("通过");
-		fix.setAcceptNote("直批");
-		fix.setAcceptMan(fixAddDirectApply.getDirectApplyMan());
-		fix.setAcceptTime(new Date());
-		fix.setAgreeState("通过");
-		fix.setAgreeNote("直批");
-		fix.setAgreeMan(fixAddDirectApply.getDirectApplyMan());
-		fix.setAgreeTime(new Date());
-		fix.setStaffId(fixAddDirectApply.getStaffId());
-		fix.setHouseId(fixAddDirectApply.getHouseId());
-		fix.setMessage("直批");
-		fix.setIsOver(true);
-
-		fixService.add(fix);
-		return Msg.success("直批成功");
+		return Msg.error("无法进行维修直批");
+//		Fix fix = new Fix();
+//		fix.setFixContentId(fixAddDirectApply.getFixContentId());
+//		fix.setApplyTime(new Date());
+//		fix.setFixState("已审核");
+//		fix.setAcceptState("通过");
+//		fix.setAcceptNote("直批");
+//		fix.setAcceptMan(fixAddDirectApply.getDirectApplyMan());
+//		fix.setAcceptTime(new Date());
+//		fix.setAgreeState("通过");
+//		fix.setAgreeNote("直批");
+//		fix.setAgreeMan(fixAddDirectApply.getDirectApplyMan());
+//		fix.setAgreeTime(new Date());
+//		fix.setStaffId(fixAddDirectApply.getStaffId());
+//		fix.setHouseId(fixAddDirectApply.getHouseId());
+//		fix.setMessage("直批");
+//		fix.setIsOver(true);
+//
+//		fixService.add(fix);
+//		return Msg.success("直批成功");
 	}
 
 	/**

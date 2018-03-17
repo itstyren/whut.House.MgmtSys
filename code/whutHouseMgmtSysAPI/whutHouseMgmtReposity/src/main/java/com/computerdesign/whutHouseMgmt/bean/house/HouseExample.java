@@ -262,6 +262,66 @@ public class HouseExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsOutSchoolIsNull() {
+            addCriterion("IsOutSchool is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOutSchoolIsNotNull() {
+            addCriterion("IsOutSchool is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOutSchoolEqualTo(Boolean value) {
+            addCriterion("IsOutSchool =", value, "isOutSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOutSchoolNotEqualTo(Boolean value) {
+            addCriterion("IsOutSchool <>", value, "isOutSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOutSchoolGreaterThan(Boolean value) {
+            addCriterion("IsOutSchool >", value, "isOutSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOutSchoolGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("IsOutSchool >=", value, "isOutSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOutSchoolLessThan(Boolean value) {
+            addCriterion("IsOutSchool <", value, "isOutSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOutSchoolLessThanOrEqualTo(Boolean value) {
+            addCriterion("IsOutSchool <=", value, "isOutSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOutSchoolIn(List<Boolean> values) {
+            addCriterion("IsOutSchool in", values, "isOutSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOutSchoolNotIn(List<Boolean> values) {
+            addCriterion("IsOutSchool not in", values, "isOutSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOutSchoolBetween(Boolean value1, Boolean value2) {
+            addCriterion("IsOutSchool between", value1, value2, "isOutSchool");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOutSchoolNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("IsOutSchool not between", value1, value2, "isOutSchool");
+            return (Criteria) this;
+        }
+
         public Criteria andTypeIsNull() {
             addCriterion("Type is null");
             return (Criteria) this;

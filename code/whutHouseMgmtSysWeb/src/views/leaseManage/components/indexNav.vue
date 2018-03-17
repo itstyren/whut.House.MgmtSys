@@ -1,11 +1,11 @@
 <template>
-    <aside :class="{showSidebar:!isCollapse}">
+    <aside>
       <!-- 展开关闭按钮 -->
-      <div class="asid-button">
+      <div class="filter-button">
         <el-input v-model="filterText" placeholder="输入关键词搜索" class="filter"></el-input>
       </div>
       <!-- 主菜单 -->
-      <el-tree v-loading="listLoading" :data="hireData" :render-content="renderContent" :filter-node-method="filterNode"
+      <el-tree v-loading="listLoading" ref="hireTree" :data="hireData" :render-content="renderContent" :filter-node-method="filterNode"
         @node-click="nodeClick"></el-tree>
     </aside>
 </template>
@@ -15,7 +15,6 @@ import { getHireAccept, getHireAgree, getHireApprove,getHireContract } from "@/a
 export default {
   data() {
     return {
-      isCollapse: false,
       // 树控件需要的
       listLoading: false,
       filterText: "",
@@ -43,7 +42,7 @@ export default {
   watch: {
     // 监听输入值
     filterText(val) {
-      this.$refs.staffTree.filter(val);
+      this.$refs.hireTree.filter(val);
     },
     isSubmit(newVal) {
       this.hireData = [];
@@ -234,9 +233,9 @@ export default {
           <span>
             <span>
               <span>
-                {" "}
+                
                 <my-icon icon-class="bumen" />
-                <span class="label">{node.label}</span>{" "}
+                <span class="label">{node.label}</span>
               </span>
             </span>
           </span>
@@ -246,8 +245,8 @@ export default {
           <span>
             <span>
               <span>
-                {" "}
-                <span class="label">{node.label}</span>{" "}
+                
+                <span class="label" style="font-size:13px;">{node.label}</span>
               </span>
             </span>
           </span>
@@ -273,21 +272,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-aside {
-  .asid-button {
-    margin: 10px auto 10px;
-    width: 70%;
-  }
-  .el-input__inner {
-    background: #4a5064;
-  }
-  > .el-tree {
-    width: 250px;
-    height: auto;
-  }
-
-  span {
-    padding-left: 20px;
-  }
-}
 </style>

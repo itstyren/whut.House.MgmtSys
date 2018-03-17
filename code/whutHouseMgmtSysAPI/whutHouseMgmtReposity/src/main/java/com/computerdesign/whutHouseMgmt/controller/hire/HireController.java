@@ -19,7 +19,6 @@ import com.computerdesign.whutHouseMgmt.bean.hire.apply.HireGetApply;
 import com.computerdesign.whutHouseMgmt.bean.hire.apply.HireHouseGetApply;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
-import com.computerdesign.whutHouseMgmt.bean.hire.signcontract.HireAddSignContract;
 import com.computerdesign.whutHouseMgmt.bean.hire.signcontract.HireGetSignContract;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
@@ -42,7 +41,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @RequestMapping(value = "/hire/")
 @RestController
-@Api(value = "/hire/",tags = "Hire接口")
+@Api(value = "/hire/",description = "Hire接口")
 public class HireController {
 
 	@Autowired
@@ -85,8 +84,10 @@ public class HireController {
 
 		// 该员工的房屋不为空
 		if (!listStaffHouse.isEmpty()) {
+			
 			// 该员工的房屋集合
 			List<HireHouseGetApply> listHouseGetApply = new ArrayList<HireHouseGetApply>();
+			
 			for (StaffHouse staffHouseD : listStaffHouse) {
 				// 封装房屋信息
 				listHouseGetApply.add(new HireHouseGetApply(staffHouseD));
@@ -173,11 +174,11 @@ public class HireController {
 	 * @return
 	 */
 	@Transactional
-	@RequestMapping(value = "addSignContract", method = RequestMethod.POST)
+	@RequestMapping(value = "addSignContract/{id}", method = RequestMethod.POST)
 	@ApiOperation(value = "签订合同",notes="签订合同",httpMethod="POST",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
-	public Msg HireAddSignContract(@RequestBody HireAddSignContract hireAddSignContract) {
+	public Msg HireAddSignContract(@PathVariable("id")Integer id) {
 		// 获取该房屋申请信息
-		Hire hire = hireService.getHireById(hireAddSignContract.getId());
+		Hire hire = hireService.getHireById(id);
 		if (hire.getIsOver()) {
 			return Msg.error("该房屋申请已经签订过合同");
 		}
@@ -185,7 +186,7 @@ public class HireController {
 		hire.setIsOver(true);
 		hireService.update(hire);
 		//TODO 78为当前数据库租赁对于的id
-		houseService.updateHouseStatus(hire.getHouseId(), 78);
+		houseService.updateHouseStatus(id, 78);
 		registerService.registerByHire(hire);
 		return Msg.success("成功签订合同");
 	}

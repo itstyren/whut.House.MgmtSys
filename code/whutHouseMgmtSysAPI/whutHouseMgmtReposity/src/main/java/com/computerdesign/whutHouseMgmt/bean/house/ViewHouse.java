@@ -2,14 +2,12 @@ package com.computerdesign.whutHouseMgmt.bean.house;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class ViewHouse {
     private Integer id;
 
     private String no;
+
+    private Boolean isOutSchool;
 
     private Integer type;
 
@@ -50,9 +48,7 @@ public class ViewHouse {
     private String image;
 
     private Double rental;
-    
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+
     private Date finishTime;
 
     private Integer recordStatus;
@@ -71,6 +67,14 @@ public class ViewHouse {
 
     public void setNo(String no) {
         this.no = no == null ? null : no.trim();
+    }
+
+    public Boolean getIsOutSchool() {
+        return isOutSchool;
+    }
+
+    public void setIsOutSchool(Boolean isOutSchool) {
+        this.isOutSchool = isOutSchool;
     }
 
     public Integer getType() {

@@ -37,10 +37,6 @@ public class StaffVw {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
    	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date goUniversityTime;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date retireTime;
 
     private String tel;
@@ -191,14 +187,6 @@ public class StaffVw {
 
     public void setJoinTime(Date joinTime) {
         this.joinTime = joinTime;
-    }
-
-    public Date getGoUniversityTime() {
-        return goUniversityTime;
-    }
-
-    public void setGoUniversityTime(Date goUniversityTime) {
-        this.goUniversityTime = goUniversityTime;
     }
 
     public Date getRetireTime() {

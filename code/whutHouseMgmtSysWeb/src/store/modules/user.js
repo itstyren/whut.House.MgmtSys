@@ -12,7 +12,7 @@ const user = {
   state: {
     token: getToken(),
     name: '',
-    roleId: -1,
+    roles: [],
     no:-1
   },
   mutations: {
@@ -26,7 +26,7 @@ const user = {
     },
     // set login staff role ID
     [types.SET_ROLEID]: (state, roleId) => {
-      state.roleId = roleId
+      state.roles.push(roleId) 
     },
     // set login staff NO
     [types.SET_USERNO]:(state,staffNO)=>{
@@ -59,10 +59,11 @@ const user = {
     GetUserInfo({commit,state}) {
       return new Promise((resolve, reject) => {
         getUserInfo(state.token).then(res => {
-          if (res.data.status == 'erroe') { 
+          if (res.data.status == 'error') { 
             reject('error')
           }
-          const data = res.data.data.data
+          const data = res.data.data.data[0]
+         // console.log(data)
           commit(types.SET_ROLEID, data.roleId)
           commit(types.SET_NAME, data.name)
           commit(types.SET_USERNO,data.no)
@@ -83,6 +84,7 @@ const user = {
       })
     },
     LogOut({commit}){
+     // console.log(1)
       return new Promise((resolve, reject) => {
         logout().then(() => {
           commit(types.SET_TOKEN, '')

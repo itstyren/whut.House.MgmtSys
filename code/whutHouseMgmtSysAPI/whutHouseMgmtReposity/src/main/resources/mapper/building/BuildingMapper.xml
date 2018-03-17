@@ -4,13 +4,15 @@
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.building.Building">
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
-    <result column="FinishTime" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="FinishTime" jdbcType="DATE" property="finishTime" />
     <result column="FloorArea" jdbcType="REAL" property="floorArea" />
     <result column="UsedArea" jdbcType="REAL" property="usedArea" />
     <result column="FloorCount" jdbcType="INTEGER" property="floorCount" />
     <result column="RegionId" jdbcType="INTEGER" property="regionId" />
     <result column="Description" jdbcType="VARCHAR" property="description" />
     <result column="SupportFund" jdbcType="DECIMAL" property="supportFund" />
+    <result column="Manager" jdbcType="VARCHAR" property="manager" />
+    <result column="UnitCount" jdbcType="INTEGER" property="unitCount" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, Name, FinishTime, FloorArea, UsedArea, FloorCount, RegionId, Description, SupportFund
+    Id, Name, FinishTime, FloorArea, UsedArea, FloorCount, RegionId, Description, SupportFund, 
+    Manager, UnitCount
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample" resultMap="BaseResultMap">
     select
@@ -106,12 +109,12 @@
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
     insert into Hs_Building (Id, Name, FinishTime, 
       FloorArea, UsedArea, FloorCount, 
-      RegionId, Description, SupportFund
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{finishTime,jdbcType=TIMESTAMP}, 
+      RegionId, Description, SupportFund, 
+      Manager, UnitCount)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{finishTime,jdbcType=DATE}, 
       #{floorArea,jdbcType=REAL}, #{usedArea,jdbcType=REAL}, #{floorCount,jdbcType=INTEGER}, 
-      #{regionId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{supportFund,jdbcType=DECIMAL}
-      )
+      #{regionId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{supportFund,jdbcType=DECIMAL}, 
+      #{manager,jdbcType=VARCHAR}, #{unitCount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
     insert into Hs_Building
@@ -143,6 +146,12 @@
       <if test="supportFund != null">
         SupportFund,
       </if>
+      <if test="manager != null">
+        Manager,
+      </if>
+      <if test="unitCount != null">
+        UnitCount,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -152,7 +161,7 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="finishTime != null">
-        #{finishTime,jdbcType=TIMESTAMP},
+        #{finishTime,jdbcType=DATE},
       </if>
       <if test="floorArea != null">
         #{floorArea,jdbcType=REAL},
@@ -172,6 +181,12 @@
       <if test="supportFund != null">
         #{supportFund,jdbcType=DECIMAL},
       </if>
+      <if test="manager != null">
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCount != null">
+        #{unitCount,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample" resultType="java.lang.Long">
@@ -190,7 +205,7 @@
         Name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.finishTime != null">
-        FinishTime = #{record.finishTime,jdbcType=TIMESTAMP},
+        FinishTime = #{record.finishTime,jdbcType=DATE},
       </if>
       <if test="record.floorArea != null">
         FloorArea = #{record.floorArea,jdbcType=REAL},
@@ -210,6 +225,12 @@
       <if test="record.supportFund != null">
         SupportFund = #{record.supportFund,jdbcType=DECIMAL},
       </if>
+      <if test="record.manager != null">
+        Manager = #{record.manager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitCount != null">
+        UnitCount = #{record.unitCount,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -219,13 +240,15 @@
     update Hs_Building
     set Id = #{record.id,jdbcType=INTEGER},
       Name = #{record.name,jdbcType=VARCHAR},
-      FinishTime = #{record.finishTime,jdbcType=TIMESTAMP},
+      FinishTime = #{record.finishTime,jdbcType=DATE},
       FloorArea = #{record.floorArea,jdbcType=REAL},
       UsedArea = #{record.usedArea,jdbcType=REAL},
       FloorCount = #{record.floorCount,jdbcType=INTEGER},
       RegionId = #{record.regionId,jdbcType=INTEGER},
       Description = #{record.description,jdbcType=VARCHAR},
-      SupportFund = #{record.supportFund,jdbcType=DECIMAL}
+      SupportFund = #{record.supportFund,jdbcType=DECIMAL},
+      Manager = #{record.manager,jdbcType=VARCHAR},
+      UnitCount = #{record.unitCount,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -237,7 +260,7 @@
         Name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="finishTime != null">
-        FinishTime = #{finishTime,jdbcType=TIMESTAMP},
+        FinishTime = #{finishTime,jdbcType=DATE},
       </if>
       <if test="floorArea != null">
         FloorArea = #{floorArea,jdbcType=REAL},
@@ -257,19 +280,27 @@
       <if test="supportFund != null">
         SupportFund = #{supportFund,jdbcType=DECIMAL},
       </if>
+      <if test="manager != null">
+        Manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCount != null">
+        UnitCount = #{unitCount,jdbcType=INTEGER},
+      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
     update Hs_Building
     set Name = #{name,jdbcType=VARCHAR},
-      FinishTime = #{finishTime,jdbcType=TIMESTAMP},
+      FinishTime = #{finishTime,jdbcType=DATE},
       FloorArea = #{floorArea,jdbcType=REAL},
       UsedArea = #{usedArea,jdbcType=REAL},
       FloorCount = #{floorCount,jdbcType=INTEGER},
       RegionId = #{regionId,jdbcType=INTEGER},
       Description = #{description,jdbcType=VARCHAR},
-      SupportFund = #{supportFund,jdbcType=DECIMAL}
+      SupportFund = #{supportFund,jdbcType=DECIMAL},
+      Manager = #{manager,jdbcType=VARCHAR},
+      UnitCount = #{unitCount,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

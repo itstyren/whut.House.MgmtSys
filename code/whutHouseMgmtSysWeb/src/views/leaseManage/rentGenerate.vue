@@ -44,7 +44,7 @@
             <el-tabs v-model="activeName" type="border-card" style="margin:10px 10px 10px">
               <el-tab-pane name="staff">
                 <span slot="label">
-                  <my-icon icon-class="users"/>租赁员工</span>
+                  <my-icon icon-class="users"></my-icon> 租赁员工</span>
                 <keep-alive>
                   <div v-if="activeName=='staff'" class="table-tabs">
                   <el-table  :data="hireStaffData" class="table" style="width: 100%" height="string" v-loading="listLoading" @selection-change="setSelectionChange">

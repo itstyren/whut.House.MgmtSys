@@ -240,7 +240,7 @@ export default {
     width: 80%;
     background-color: $white;
     padding: 50px;
-    height: 80%;
+    height: 80vh;
     margin: auto;
     position: relative;
     & .personal-info {

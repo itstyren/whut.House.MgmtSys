@@ -100,17 +100,34 @@ public class UserLoginController extends BaseController{
 			throw new ExpiredTokenException();
 		}
 		
-		request.setAttribute("staffId", userId);
+		request.setAttribute("userId", userId);
 		Integer staffId = Integer.parseInt(userId);
 		viewStaffService.getByStaffId(staffId);
 		return Msg.success().add("data", viewStaffService.getByStaffId(staffId));
 
 	}
 
+	/**
+	 * 退出登陆
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	@ResponseBody
 	public Msg logout(HttpServletRequest request) {
-		SubjectUtil.getInstance().expireToken(getUserId(request), getToken(request));
+		System.out.println(getUserId(request));
+		String token = getToken(request);
+		String userId = null;
+		try { // 解析token
+			userId = SubjectUtil.getInstance().parseToken(token).getSubject();
+		} catch (ExpiredJwtException e) {
+			SubjectUtil.getInstance().expireToken(userId, token); // 从缓存中移除过期的token
+			throw new ExpiredTokenException();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ErrorTokenException();
+		}
+		SubjectUtil.getInstance().expireToken(userId, token);
 		return Msg.success("退出登陆");
 	}
 }

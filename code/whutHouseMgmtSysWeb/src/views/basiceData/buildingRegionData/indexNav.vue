@@ -1,13 +1,13 @@
 <template>
   <div class="second-container">
-    <aside :class="{showSidebar:!isCollapse}">
+    <aside :class="{hideSidebar:isCollapse}">
       <!-- 展开关闭按钮 -->
       <div class="asid-button" @click.prevent="collapse">
         <my-icon icon-class="next" v-show="isCollapse" />
         <my-icon icon-class="pre" v-show="!isCollapse" />
       </div>
       <!-- 主菜单 -->
-      <el-menu :collapse="isCollapse" :default-active="$route.path" router>
+      <el-menu class="aside-menu" :collapse="isCollapse" :default-active="$route.path" background-color="#373d41" text-color="#fff" active-text-color="#4682B4" router>
         <!-- 楼栋区域 -->
         <el-menu-item index="/basic/buildingArea/region">
           <my-icon icon-class="link" />
@@ -93,19 +93,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
-aside {
-  > .el-menu {
-    width: 280px;
-  }
-  .el-menu--collapse {
-    width: 60px;
-  }
-  span {
-    padding-left: 20px;
-  }
-}
+// aside {
+//   > .el-menu {
+//     width: 280px;
+//   }
+//   .el-menu--collapse {
+//     width: 60px;
+//   }
+//   span {
+//     padding-left: 20px;
+//   }
+// }
 
-.el-menu-item.is-active {
-  background-color: rgba($color: #000000, $alpha: 0);
-}
+// .el-menu-item.is-active {
+//   background-color: rgba($color: #000000, $alpha: 0);
+// }
 </style>

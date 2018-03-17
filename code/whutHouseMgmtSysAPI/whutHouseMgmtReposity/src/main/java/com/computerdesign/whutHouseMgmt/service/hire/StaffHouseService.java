@@ -39,4 +39,6 @@ public class StaffHouseService {
 		criteria.andStaffIdEqualTo(staffId);
 		return staffHouseMapper.selectByExample(example);
 	}
+	
+	
 }

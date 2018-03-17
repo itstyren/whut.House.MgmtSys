@@ -18,6 +18,7 @@ import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
+import com.wf.etp.authz.annotation.RequiresPermissions;
 
 @RequestMapping(value = "/fix/")
 @RestController
@@ -34,6 +35,7 @@ public class FixAcceptController {
 	 * 
 	 * @return
 	 */
+	@RequiresPermissions("fix/accept")
 	@RequestMapping(value = "getAccept/{acceptState}", method = RequestMethod.GET)
 	public Msg getFixAccept(@PathVariable("acceptState") Integer acceptState) {
 

@@ -79,7 +79,6 @@ public class FixGetDirectApply {
 		this.tel = staffVw.getTel();
 		this.code = staffVw.getCode();
 		this.joinTime= staffVw.getJoinTime();
-		this.goUniversityTime = staffVw.getGoUniversityTime();
 		this.remark = staffVw.getRemark();
 		this.spouseCode = staffVw.getSpouseCode();
 		this.spouseDept = staffVw.getSpouseDept();

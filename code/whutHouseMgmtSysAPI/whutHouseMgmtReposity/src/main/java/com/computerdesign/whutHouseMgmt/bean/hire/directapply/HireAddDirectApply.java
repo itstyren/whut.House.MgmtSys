@@ -1,14 +1,19 @@
 package com.computerdesign.whutHouseMgmt.bean.hire.directapply;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class HireAddDirectApply {
 
-	//id为员工id
+	@ApiModelProperty(example ="1",value="员工id")
     private Integer id;
 
+	@ApiModelProperty(example="1")
     private Integer houseId;
 
+	@ApiModelProperty(example="直批直批")
     private String directApplyNote;
 
+	@ApiModelProperty(example="乔布斯")
     private String directApplyMan;
 
 	public Integer getId() {

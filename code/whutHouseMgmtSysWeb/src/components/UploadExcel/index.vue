@@ -22,10 +22,10 @@ export default {
     }
   },
   methods: {
-    generateDate({ header, results }) {
+    generateDate({ header, results },itemFile) {
       this.excelData.header = header
       this.excelData.results = results
-      this.$emit('on-selected-file', this.excelData)
+      this.$emit('on-selected-file', this.excelData,itemFile)
     },
     handleDrop(e) {
       e.stopPropagation()
@@ -51,6 +51,7 @@ export default {
     handkeFileChange(e) {
       const files = e.target.files
       const itemFile = files[0] // only use files[0]
+      //console.log(itemFile)
       this.readerData(itemFile)
     },
     readerData(itemFile) {
@@ -63,7 +64,7 @@ export default {
         const worksheet = workbook.Sheets[firstSheetName]
         const header = this.get_header_row(worksheet)
         const results = XLSX.utils.sheet_to_json(worksheet)
-        this.generateDate({ header, results })
+        this.generateDate({ header, results },itemFile)
       }
       reader.readAsArrayBuffer(itemFile)
     },

@@ -27,7 +27,7 @@
       <!-- 表单区 -->
       <div class="main-data">
         <!-- 两个表单的大盒子 -->
-        <div class="from">
+        <div class="from card">
           <el-form :model="staffForm" label-width="110px" ref="staffForm" :rules="rules">
             <h1>员工本人信息</h1>
             <!-- 员工信息 -->
@@ -363,16 +363,14 @@ export default {
   }
   .from {
     position: absolute;
-    top: 20px;
+    top: 5px;
     bottom: 10px;
-    left: 20px;
-    right: 20px;
+    left: 10px;
+    right: 10px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    border: 1px solid #eaeaea;
-    -webkit-box-shadow: 0 0 25px #cac6c6;
-    box-shadow: 0 0 25px #cac6c6;
+    background-color: #fff;
     .el-select {
       display: inline-block;
       position: relative;

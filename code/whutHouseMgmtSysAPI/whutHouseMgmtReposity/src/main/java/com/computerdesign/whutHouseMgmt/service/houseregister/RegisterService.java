@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
-import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameter;
-import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample;
-import com.computerdesign.whutHouseMgmt.bean.houseparam.HouseParameterExample.Criteria;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentHistory;
@@ -18,11 +15,14 @@ import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentHistoryExampl
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentModel;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample;
+import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
+import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameterExample;
+import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameterExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.house.HouseMapper;
-import com.computerdesign.whutHouseMgmt.dao.houseparam.HouseParameterMapper;
 import com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentHistoryMapper;
 import com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentMapper;
 import com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentVwMapper;
+import com.computerdesign.whutHouseMgmt.dao.param.houseparam.HouseParameterMapper;
 
 /**
  * 住房登记，使用hs_resident表
@@ -199,7 +199,7 @@ public class RegisterService{
 		// 设置ExpireTime时间为两年后
 		Calendar bookTime = Calendar.getInstance();
 		bookTime.setTime(new Date());
-		bookTime.add(Calendar.YEAR, +2);
+		bookTime.add(Calendar.YEAR, +1);
 		Date expireTime = bookTime.getTime();
 		resident.setExpireTime(expireTime);
 
