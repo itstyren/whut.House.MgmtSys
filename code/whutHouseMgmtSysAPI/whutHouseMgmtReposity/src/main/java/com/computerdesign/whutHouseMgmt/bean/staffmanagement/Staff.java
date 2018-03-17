@@ -3,6 +3,10 @@ package com.computerdesign.whutHouseMgmt.bean.staffmanagement;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Staff {
     private Integer id;
 
@@ -27,13 +31,17 @@ public class Staff {
     private String code;
 
     private String eduQualifications;
-
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date joinTime;
-
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date retireTime;
 
     private String tel;
-
+    
     private String email;
 
     private String remark;
@@ -50,7 +58,15 @@ public class Staff {
 
     private Integer spouseKind;
 
-    private Boolean isDeptManage;
+    public Date getJoinTime() {
+		return joinTime;
+	}
+
+	public void setJoinTime(Date joinTime) {
+		this.joinTime = joinTime;
+	}
+
+	private Boolean isDeptManage;
 
     private String staffPassword;
 
@@ -87,10 +103,12 @@ public class Staff {
     private Integer roleId;
 
     private Boolean accountStatus;
-
+    
     private Boolean isOwnPriHouse;
 
-    public Integer getId() {
+
+
+	public Integer getId() {
         return id;
     }
 
@@ -184,14 +202,6 @@ public class Staff {
 
     public void setEduQualifications(String eduQualifications) {
         this.eduQualifications = eduQualifications == null ? null : eduQualifications.trim();
-    }
-
-    public Date getJoinTime() {
-        return joinTime;
-    }
-
-    public void setJoinTime(Date joinTime) {
-        this.joinTime = joinTime;
     }
 
     public Date getRetireTime() {

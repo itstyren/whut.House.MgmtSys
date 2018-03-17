@@ -53,8 +53,6 @@ public class StaffHouse {
 
     private Date staffJoinTime;
 
-    private Date staffGoUniversityTime;
-
     private Date staffRetireTime;
 
     private String staffTel;
@@ -353,14 +351,6 @@ public class StaffHouse {
 
     public void setStaffJoinTime(Date staffJoinTime) {
         this.staffJoinTime = staffJoinTime;
-    }
-
-    public Date getStaffGoUniversityTime() {
-        return staffGoUniversityTime;
-    }
-
-    public void setStaffGoUniversityTime(Date staffGoUniversityTime) {
-        this.staffGoUniversityTime = staffGoUniversityTime;
     }
 
     public Date getStaffRetireTime() {

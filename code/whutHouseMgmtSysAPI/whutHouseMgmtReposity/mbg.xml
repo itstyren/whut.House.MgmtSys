@@ -12,7 +12,7 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql:///whlglease" userId="root" password="">
+			connectionURL="jdbc:mysql:///whlglease" userId="root" password="XH05250619.">
 		</jdbcConnection>
 
 		<javaTypeResolver>
@@ -21,7 +21,7 @@
  
 		<!-- 指定javabean的生成位置 -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.fix.common"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.houseregister"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -29,22 +29,38 @@
 
 		<!-- 指定sql映射文件的生成位置 -->
 
-		<sqlMapGenerator targetPackage="mapper.fix" targetProject=".\src\main\resources">
-			<property name="enableSubPackages" value="true" /> 
+		<sqlMapGenerator targetPackage="mapper.houseregister" targetProject=".\src\main\resources">
+			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.fix" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.houseregister" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
+		
+		
+		
+		<!-- 
+		<table tableName="View_Hs_House" domainObjectName="ViewHouse">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		
+		<!-- <table tableName="hs_staff" domainObjectName="Staff">
+			<property name="useActualColumnNames" value="true"></property>
+		</table>
+		<table tableName="view_hs_staff" domainObjectName="StaffVw">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
 
-		<table tableName="View_Hs_Fix" domainObjectName="ViewFix">
+		
+		<!-- <table tableName="view_hs_staffhouse" domainObjectName="StaffHouse">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<table tableName="view_hs_staffhouserel" domainObjectName="StaffHouseRel">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
-		<table tableName="Hs_Fix" domainObjectName="Fix">
-			<property name="useActualColumnNames" value="true"></property>
-		</table>
+
 
 	</context>
 </generatorConfiguration>

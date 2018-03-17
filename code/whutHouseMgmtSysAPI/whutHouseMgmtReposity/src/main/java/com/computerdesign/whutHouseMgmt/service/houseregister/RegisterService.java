@@ -95,7 +95,9 @@ public class RegisterService{
 		criteria.andHouseRelEqualTo(resident.getHouseRel());
 		criteria.andBookTimeEqualTo(resident.getBookTime());
 		criteria.andIsDeleteEqualTo(resident.getIsDelete());
-		criteria.andRentTypeEqualTo(resident.getRentType());
+		if(resident.getRentType() != null){			
+			criteria.andRentTypeEqualTo(resident.getRentType());
+		}
 		criteria.andFamilyCodeEqualTo(resident.getFamilyCode());
 		return residentMapper.selectByExample(example).get(0); 
 	}
@@ -180,6 +182,18 @@ public class RegisterService{
 		ResidentExample example = new ResidentExample();
 		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
 		criteria.andHouseIdEqualTo(houseId);
+		return residentMapper.countByExample(example);
+	}
+	
+	/**
+	 * 根据staffId查找记录数，用于判断该职工是否已有房登记过
+	 * @param staffId
+	 * @return
+	 */
+	public long getCountByStaffId(Integer staffId){
+		ResidentExample example = new ResidentExample();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
 		return residentMapper.countByExample(example);
 	}
 	

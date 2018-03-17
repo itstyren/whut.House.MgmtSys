@@ -39,6 +39,7 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.house.House;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.service.dataimport.DataImportService;
+import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.utils.DateConversionUtils;
 import com.computerdesign.whutHouseMgmt.utils.DownloadUtils;
 import com.computerdesign.whutHouseMgmt.utils.ExcelUtils;
@@ -49,59 +50,61 @@ public class DataImportController {
 
 	@Autowired
 	private DataImportService dataImportService;
+	
+	@Autowired
+	private HouseService houseService;
 
 	// 用于存储导入的职工数据
-	private List<Staff> staffList;
+	// private List<Staff> staffList;
 
 	// 用于存储导入的住房数据
-	private List<House> houseList;
-	
-	public List<House> getHouseList() {
-		return houseList;
-	}
+	// private List<House> houseList;
 
-	public void setHouseList(List<House> houseList) {
-		this.houseList = houseList;
-	}
-
-	public List<Staff> getStaffList() {
-		return staffList;
-	}
-
-	public void setStaffList(List<Staff> staffList) {
-		this.staffList = staffList;
-	}
+	// public List<House> getHouseList() {
+	// return houseList;
+	// }
+	//
+	// public void setHouseList(List<House> houseList) {
+	// this.houseList = houseList;
+	// }
+	//
+	// public List<Staff> getStaffList() {
+	// return staffList;
+	// }
+	//
+	// public void setStaffList(List<Staff> staffList) {
+	// this.staffList = staffList;
+	// }
 
 	/**
 	 * 保存导入的职工数据
 	 * 
 	 * @return
 	 */
-	@ResponseBody
-	@RequestMapping(value = "saveData", method = RequestMethod.POST)
-	public Msg saveData() {
-		if (getStaffList() != null) {
-			for (Staff staff : getStaffList()) {
-				dataImportService.insertStaff(staff);
-			}
-			// 保存完成后将数据清空
-			setStaffList(null);
-			return Msg.success("保存职工数据成功");
-		}else if(getHouseList() != null){
-			for (House house :getHouseList()){
-				dataImportService.insertHouse(house);
-			}
-			// 保存完成后将数据清空
-			setHouseList(null);
-			return Msg.success("保存职工数据成功");
-		}else {
-			return Msg.error("请先导入数据");
-		}
-	}
-	
+	// @ResponseBody
+	// @RequestMapping(value = "saveData", method = RequestMethod.POST)
+	// public Msg saveData() {
+	// if (getStaffList() != null) {
+	// for (Staff staff : getStaffList()) {
+	// dataImportService.insertStaff(staff);
+	// }
+	// // 保存完成后将数据清空
+	// setStaffList(null);
+	// return Msg.success("保存职工数据成功");
+	// }else if(getHouseList() != null){
+	// for (House house :getHouseList()){
+	// dataImportService.insertHouse(house);
+	// }
+	// // 保存完成后将数据清空
+	// setHouseList(null);
+	// return Msg.success("保存职工数据成功");
+	// }else {
+	// return Msg.error("请先导入数据");
+	// }
+	// }
 
 	/**
-	 * 导入职工数据
+	 * 导入职工数据，并保存
 	 * 
 	 * @param multipartFile
 	 * @return
@@ -113,11 +116,11 @@ public class DataImportController {
 		System.out.println("访问成功");
 		// 用于存放导入的对象集
 		List<Staff> staffs = new ArrayList<Staff>();
-		
+
 		try {
 			Workbook workBook = null;
 			// System.out.println(multipartFile.getOriginalFilename());
-			
+
 			if (!ExcelUtils.validateExcel(multipartFile.getOriginalFilename())) {
 				return Msg.error("请上传Excel格式的文件");
 			}
@@ -207,24 +210,25 @@ public class DataImportController {
 						System.out.println("身份证号格式非法,请检查Excel表中是否改为文本模式或知否输入正确");
 					}
 
+					String eduQualification = val[10];
+					staff.setEduQualifications(eduQualification);
+					
 					// 来校工作时间
-					String joinTimeStr = val[10];
+					String joinTimeStr = val[11];
 					Date joinTime = DateConversionUtils.stringToDate(joinTimeStr, "yyyy/MM/dd");
-					// 上大学时间
-					String goUniversityTimeStr = val[11];
-					Date goUniversityTime = DateConversionUtils.stringToDate(goUniversityTimeStr, "yyyy/MM/dd");
+//					// 上大学时间
+//					String goUniversityTimeStr = val[11];
+//					Date goUniversityTime = DateConversionUtils.stringToDate(goUniversityTimeStr, "yyyy/MM/dd");
 					// 离退休时间
 					String retireTimeStr = val[12];
 					Date retireTime = DateConversionUtils.stringToDate(retireTimeStr, "yyyy/MM/dd");
 					if (joinTime == null) {
 						System.out.println("来校工作时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
-					} else if (goUniversityTime == null) {
-						System.out.println("上大学时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
-					} else if (retireTime == null) {
+					}else if (retireTime == null) {
 						System.out.println("离退休时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
 					} else {
 						staff.setJoinTime(joinTime);
-						staff.setGoUniversityTime(goUniversityTime);
+//						staff.setGoUniversityTime(goUniversityTime);
 						staff.setRetireTime(retireTime);
 					}
 
@@ -237,7 +241,7 @@ public class DataImportController {
 					} else {
 						System.out.println("电话号码格式非法,请检查EXCEL表是否为文本格式或是否输入正确");
 					}
-					
+
 					// 备注
 					staff.setRemark(val[14]);
 					// 配偶姓名
@@ -284,15 +288,19 @@ public class DataImportController {
 
 					// 维修基金
 					String fixFund = val[22];
+					System.out.println(fixFund);
 					if (fixFund.indexOf('.') != -1) {
 						fixFund = fixFund.substring(0, fixFund.indexOf('.'));
 					}
 					staff.setFixFund((long) Integer.parseInt(fixFund));
 
-					// 将封装好的数据插入数据库
-					// dataImportService.insertStaff(staff);
+					// 数据库字段Relation不能为空
+					staff.setRelation("active");
 
 					staffs.add(staff);
+
+					// 将封装好的数据插入数据库
+					dataImportService.insertStaff(staff);
 
 				}
 			}
@@ -300,12 +308,16 @@ public class DataImportController {
 			return Msg.error("导入失败,可能有数据在数据库中不存在或删除");
 		}
 
-		setStaffList(staffs);
+		// 保存数据
+		// setStaffList(staffs);
+		// for (Staff staff : staffs){
+		// dataImportService.insertStaff(staff);
+		// }
 		return Msg.success("导入数据成功").add("data", staffs);
 	}
 
 	/**
-	 * 导入住房数据
+	 * 导入住房数据，并保存
 	 * 
 	 * @param multipartFile
 	 * @return
@@ -395,33 +407,33 @@ public class DataImportController {
 						house.setLayout(layout);
 						house.setStruct(struct);
 					}
-					
+
 					System.out.println(house);
-					
-					//建筑面积
+
+					// 建筑面积
 					Double buildArea = Double.valueOf(val[4]);
 					house.setBuildArea(buildArea);
-					
-					//使用面积
+
+					// 使用面积
 					Double usedArea = Double.valueOf(val[5]);
 					house.setUsedArea(usedArea);
-					
-					//地下室面积
+
+					// 地下室面积
 					Double basementArea = Double.valueOf(val[6]);
 					house.setBasementArea(basementArea);
-					
-					//地址
+
+					// 地址
 					house.setAddress(val[7]);
-					
-					//所属楼栋
+
+					// 所属楼栋
 					Integer buildingId = dataImportService.getBuildingParamId(val[8]);
 					if (buildingId == null) {
 						System.out.println("该住房所属楼栋名称不存在");
 					} else {
 						house.setBuildingId(buildingId);
 					}
-					
-					//房屋产权证号
+
+					// 房屋产权证号
 					// 若Excel单元格为数字型，则末尾会多出“.0”，需要去除
 					String proId = val[9];
 					// System.out.println(no.indexOf('.'));
@@ -430,32 +442,37 @@ public class DataImportController {
 						proId = proId.substring(0, proId.indexOf('.'));
 					}
 					house.setProId(proId);
-					
-					//租金
+
+					// 租金
 					Double rental = Double.valueOf(val[10]);
 					house.setRental(rental);
-					
-					//备注
-					house.setRemark(val[11]);
-					
-					//竣工时间
-					String finishTimeStr = val[12];
-					 Date finishTime =
-					 DateConversionUtils.stringToDate(finishTimeStr,
-					 "yyyy/MM/dd");
-					 if (finishTime == null) {
-					 System.out.println("竣工时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
-					 } else {
-						 house.setFinishTime(finishTime);
-					 }
-					 houses.add(house);
 
+					// 备注
+					house.setRemark(val[11]);
+
+					// 竣工时间
+					String finishTimeStr = val[12];
+//					System.out.println(finishTimeStr);
+					Date finishTime = DateConversionUtils.stringToDate(finishTimeStr, "yyyy/MM/dd");
+					if (finishTime == null) {
+						System.out.println("竣工时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
+					} else {
+						house.setFinishTime(finishTime);
+					}
+					
+					houseService.add(house);
+					
+					houses.add(house);
+
+					
 				}
 			}
 		} catch (Exception e) {
 			return Msg.error("导入失败,可能有数据在数据库中不存在或删除");
 		}
-		setHouseList(houses);
+
+		// 保存数据
+		// setHouseList(houses);
 		return Msg.success("导入数据成功").add("data", houses);
 	}
 
@@ -467,13 +484,13 @@ public class DataImportController {
 	@RequestMapping("staffDownLoad")
 	public void staffDownLoad(HttpServletResponse response) {
 		try {
-			DownloadUtils.downloadSolve("D:\\staffImport.xls","职工模板.xls", response);
+			DownloadUtils.downloadSolve("D:\\staffImport.xls", "职工模板.xls", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	/**
 	 * 住房模板下载
 	 * 
@@ -482,7 +499,7 @@ public class DataImportController {
 	@RequestMapping("houseDownLoad")
 	public void houseDownLoad(HttpServletResponse response) {
 		try {
-			DownloadUtils.downloadSolve("D:\\houseImport.xls","住房模板.xls", response);
+			DownloadUtils.downloadSolve("D:\\houseImport.xls", "住房模板.xls", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
