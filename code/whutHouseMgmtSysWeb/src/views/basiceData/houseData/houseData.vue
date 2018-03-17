@@ -38,10 +38,21 @@
         <el-table :data="houseData" class="table" height="string" v-loading="listLoading">
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column prop="no" label="编号" sortable align="center" width="85"></el-table-column>
-          <el-table-column prop="address" label="地址" sortable align="center"></el-table-column>
-          <el-table-column prop="typeName" label="住房类型" sortable align="center" width="130"></el-table-column>
-          <el-table-column prop="layoutName" label="户型" sortable align="center" width="130"></el-table-column>
-          <el-table-column prop="buildArea" label="面积" sortable align="center" width="85"></el-table-column>
+          <el-table-column prop="address" label="地址" align="center"></el-table-column>
+          <el-table-column prop="typeName" label="住房类型" align="center" width="130"></el-table-column>
+          <el-table-column prop="layoutName" label="户型" align="center" width="130"></el-table-column>
+          <el-table-column label="面积" sortable align="center" width="85">
+            <template slot-scope="scope">
+              <el-popover trigger="hover" placement="top">
+                <p>使用面积: {{ scope.row.usedArea }}</p>
+                <p>建筑面积: {{ scope.row.buildArea }}</p>
+                <p>地下室面积: {{ scope.row.basementArea }}</p>
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium" type="info">{{ scope.row.buildArea }}</el-tag>
+                </div>
+              </el-popover>
+            </template>
+          </el-table-column>
           <el-table-column prop="rental" label="租金" sortable align="center" width="85"></el-table-column>
           <el-table-column label="操作" width="300" align="center">
             <template slot-scope="scope">
@@ -64,11 +75,13 @@
           <!-- 左边文字部分 -->
           <div class="detailFrom">
             <!-- 上部分 -->
-            <div class="topFrom">
-              <el-form-item label="房屋编号" prop="no">
-                <el-input v-model="detailData.no" placeholder="请输入房屋标号" :readonly="!ismodify"></el-input>
-              </el-form-item>
-            </div>
+            <el-row>
+              <el-col :span="11">
+                <el-form-item label="房屋编号" prop="no">
+                  <el-input v-model="detailData.no" placeholder="请输入房屋标号" :readonly="!ismodify"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
             <!-- 中间部分 -->
             <div class="mainFrom">
               <!-- 中间左边 -->
@@ -154,7 +167,7 @@
           </div>
           <!-- 右边图片部分 -->
           <div class="picFrom">
-            <el-form-item  label="相关图片">
+            <el-form-item label="相关图片">
               <img class="file" :src="detailData.image" alt="暂无证明材料">
             </el-form-item>
             <el-form-item v-if="ismodify" label="上传图片">
@@ -166,7 +179,7 @@
             <el-form-item label="备注">
               <el-input v-model="detailData.remark" placeholder="请输入...." type="textarea" :autosize="{ minRows: 2, maxRows: 4}" :readonly="!ismodify"></el-input>
             </el-form-item>
-                        <el-form-item v-if="ismodify" label=" " style="margin-top:20px;margin-left:40px">
+            <el-form-item v-if="ismodify" label=" " style="margin-top:20px;margin-left:40px">
               <el-button type="primary" @click.native="modifySubmit">提交</el-button>
               <el-button @click="cancelAdd">取消</el-button>
             </el-form-item>
@@ -279,474 +292,473 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {
-  getHouse,
-  getHouseByBuildingID,
-  getHouseByRegionID,
-  postHouseData,
-  deleteHouseData,
-  putHouseData
-} from "@/api/basiceData";
-import { getHouseParam } from "@/api/sysManage";
-import { checkNum, checkNULL } from "@/assets/function/validator";
-import utils from "@/utils/index.js";
-export default {
-  data() {
-    return {
-      // 是否处于编辑状态
-      ismodify: false,
-      // 七牛云令牌
-      postData: {
-        token: this.$store.state.uploadToken
-      },
-      // 表格数据
-      houseData: [],
-      listLoading: false,
-      totalNum: 0,
-      page: 1,
-      size: 10,
+  import {
+    getHouse,
+    getHouseByBuildingID,
+    getHouseByRegionID,
+    postHouseData,
+    deleteHouseData,
+    putHouseData
+  } from "@/api/basiceData";
+  import {
+    getHouseParam
+  } from "@/api/sysManage";
+  import {
+    checkNum,
+    checkNULL
+  } from "@/assets/function/validator";
+  import utils from "@/utils/index.js";
+  export default {
+    data() {
+      return {
+        // 是否处于编辑状态
+        ismodify: false,
+        // 七牛云令牌
+        postData: {
+          token: this.$store.state.uploadToken
+        },
+        // 表格数据
+        houseData: [],
+        listLoading: false,
+        totalNum: 0,
+        page: 1,
+        size: 10,
 
-      //查询需要的数据
-      buildingData: [],
-      queryStatus: 0, //0 代表列表查，1代表全部，2代表区域查，3代表楼栋查
-      // 查询选项
-      queryOption: {
-        regionId: "",
-        buildingId: ""
-      },
-      // 详情表单数据
-      detailFormVisible: false,
-      detailLoading: false,
-      detailData: {},
-      title: "详情",
-      modified: false,
+        //查询需要的数据
+        buildingData: [],
+        queryStatus: 0, //0 代表列表查，1代表全部，2代表区域查，3代表楼栋查
+        // 查询选项
+        queryOption: {
+          regionId: "",
+          buildingId: ""
+        },
+        // 详情表单数据
+        detailFormVisible: false,
+        detailLoading: false,
+        detailData: {},
+        title: "详情",
+        modified: false,
 
-      // 新增表单相关数据
-      submitLoading: false,
-      addFormVisible: false,
-      addFormBody: {
-        no: "",
-        type: ""
-      },
-      addFormParam: [],
-      regionBuilding: [],
-      // 表单验证规则
-      rules: {
-        no: [
-          {
-            required: true,
-            message: "请输入住房编号",
-            trigger: "blur"
-          },
-          {
-            validator: checkNum,
-            trigger: "blur"
-          }
-        ],
-        type: [
-          {
+        // 新增表单相关数据
+        submitLoading: false,
+        addFormVisible: false,
+        addFormBody: {
+          no: "",
+          type: ""
+        },
+        addFormParam: [],
+        regionBuilding: [],
+        // 表单验证规则
+        rules: {
+          no: [{
+              required: true,
+              message: "请输入住房编号",
+              trigger: "blur"
+            },
+            {
+              validator: checkNum,
+              trigger: "blur"
+            }
+          ],
+          type: [{
             validator: checkNULL,
             trigger: "change"
-          }
-        ],
-        struct: {
-          validator: checkNULL,
-          trigger: "change"
-        },
-        usedArea: [
-          {
+          }],
+          struct: {
+            validator: checkNULL,
+            trigger: "change"
+          },
+          usedArea: [{
+              required: true,
+              message: "请输入使用面积",
+              trigger: "blur"
+            },
+            {
+              validator: checkNum,
+              trigger: "blur"
+            }
+          ],
+          regionId: {
+            validator: checkNULL,
+            trigger: "change"
+          },
+          layout: {
+            validator: checkNULL,
+            trigger: "change"
+          },
+          buildArea: [{
+              required: true,
+              message: "请输入建筑面积",
+              trigger: "blur"
+            },
+            {
+              validator: checkNum,
+              trigger: "blur"
+            }
+          ],
+          basementArea: [{
+              required: true,
+              message: "请输入地下室面积",
+              trigger: "blur"
+            },
+            {
+              validator: checkNum,
+              trigger: "blur"
+            }
+          ],
+          buildingId: {
+            validator: checkNULL,
+            trigger: "change"
+          },
+          address: {
             required: true,
-            message: "请输入使用面积",
+            message: "请输入地址",
             trigger: "blur"
           },
-          {
-            validator: checkNum,
-            trigger: "blur"
-          }
-        ],
-        regionId: {
-          validator: checkNULL,
-          trigger: "change"
-        },
-        layout: {
-          validator: checkNULL,
-          trigger: "change"
-        },
-        buildArea: [
-          {
+          proId: [{
+              required: true,
+              message: "请输入使用产权编号",
+              trigger: "blur"
+            },
+            {
+              validator: checkNum,
+              trigger: "blur"
+            }
+          ],
+          rental: [{
+              required: true,
+              message: "请输入使用租金",
+              trigger: "blur"
+            },
+            {
+              validator: checkNum,
+              trigger: "blur"
+            }
+          ],
+          finishTime: {
             required: true,
-            message: "请输入建筑面积",
-            trigger: "blur"
-          },
-          {
-            validator: checkNum,
+            message: "请选择使用竣工时间",
             trigger: "blur"
           }
-        ],
-        basementArea: [
-          {
-            required: true,
-            message: "请输入地下室面积",
-            trigger: "blur"
-          },
-          {
-            validator: checkNum,
-            trigger: "blur"
-          }
-        ],
-        buildingId: {
-          validator: checkNULL,
-          trigger: "change"
-        },
-        address: {
-          required: true,
-          message: "请输入地址",
-          trigger: "blur"
-        },
-        proId: [
-          {
-            required: true,
-            message: "请输入使用产权编号",
-            trigger: "blur"
-          },
-          {
-            validator: checkNum,
-            trigger: "blur"
-          }
-        ],
-        rental: [
-          {
-            required: true,
-            message: "请输入使用租金",
-            trigger: "blur"
-          },
-          {
-            validator: checkNum,
-            trigger: "blur"
-          }
-        ],
-        finishTime: {
-          required: true,
-          message: "请选择使用竣工时间",
-          trigger: "blur"
         }
-      }
-    };
-  },
-  // 获取父组件传递的数据
-  props: ["regionBuildingData"],
-  computed: {
-    selectRegion() {
-      return this.queryOption.regionId;
-    },
-    addSelectRegion() {
-      return this.addFormBody.regionId || this.detailData.regionId;
-    }
-  },
-  watch: {
-    // 监听选项的变动
-    selectRegion(newval) {
-      for (var region of this.regionBuildingData) {
-        if (region.id == newval) this.buildingData = region.buildingList;
-      }
-    },
-    // 监听新增表单区域选择变动
-    addSelectRegion(newval) {
-      // console.log('2')
-      //this.addFormBody.buildingId=null
-      for (var region of this.regionBuildingData) {
-        if (region.id == newval) this.regionBuilding = region.buildingList;
-      }
-    },
-    // 监听路由
-    $route() {
-      this.queryStatus = 0;
-      this.getList();
-    }
-  },
-  methods: {
-    // 判定查询的类型
-    queryData() {
-      if (this.queryOption.regionId == "") {
-        this.queryStatus = 1;
-        this.getList();
-      } else if (this.queryOption.buildingId == "") {
-        this.queryStatus = 2;
-        this.getList();
-      } else {
-        this.queryStatus = 3;
-        this.getList();
-      }
-    },
-
-    // 获取房屋列表
-    getList() {
-      //console.log(this.queryStatus);
-      this.listLoading = true;
-      let param = {
-        page: this.page,
-        size: this.size
       };
-      // 在这里判断执行哪种查询方法
-      if (this.queryStatus == 0) {
-        var switchFunction = getHouseByBuildingID;
-        var queryID = this.$route.params.id;
-      } else if (this.queryStatus == 1) var switchFunction = getHouse;
-      else if (this.queryStatus == 2) {
-        var switchFunction = getHouseByRegionID;
-        var queryID = this.queryOption.regionId;
-      } else {
-        var switchFunction = getHouseByBuildingID;
-        var queryID = this.queryOption.buildingId;
-      }
-      switchFunction(param, queryID)
-        .then(res => {
-          this.houseData = res.data.data.data.list;
-          this.totalNum = res.data.data.data.total;
-          this.listLoading = false;
-          //console.log(this.houseData);
-        })
-        .catch(err => {
-          console.log(err);
-        });
     },
-    // 新增表单需要填充的
-    addFromGetList() {
-      this.submitLoading = true;
-      let param,
-        paramNum = 4;
-      for (let paramClass = 1; paramClass <= paramNum; paramClass++) {
-        getHouseParam(param, paramClass)
+    // 获取父组件传递的数据
+    props: ["regionBuildingData"],
+    computed: {
+      selectRegion() {
+        return this.queryOption.regionId;
+      },
+      addSelectRegion() {
+        return this.addFormBody.regionId || this.detailData.regionId;
+      }
+    },
+    watch: {
+      // 监听选项的变动
+      selectRegion(newval) {
+        for (var region of this.regionBuildingData) {
+          if (region.id == newval) this.buildingData = region.buildingList;
+        }
+      },
+      // 监听新增表单区域选择变动
+      addSelectRegion(newval) {
+        // console.log('2')
+        //this.addFormBody.buildingId=null
+        for (var region of this.regionBuildingData) {
+          if (region.id == newval) this.regionBuilding = region.buildingList;
+        }
+      },
+      // 监听路由
+      $route() {
+        this.queryStatus = 0;
+        this.getList();
+      }
+    },
+    methods: {
+      // 判定查询的类型
+      queryData() {
+        if (this.queryOption.regionId == "") {
+          this.queryStatus = 1;
+          this.getList();
+        } else if (this.queryOption.buildingId == "") {
+          this.queryStatus = 2;
+          this.getList();
+        } else {
+          this.queryStatus = 3;
+          this.getList();
+        }
+      },
+
+      // 获取房屋列表
+      getList() {
+        //console.log(this.queryStatus);
+        this.listLoading = true;
+        let param = {
+          page: this.page,
+          size: this.size
+        };
+        // 在这里判断执行哪种查询方法
+        if (this.queryStatus == 0) {
+          var switchFunction = getHouseByBuildingID;
+          var queryID = this.$route.params.id;
+        } else if (this.queryStatus == 1) var switchFunction = getHouse;
+        else if (this.queryStatus == 2) {
+          var switchFunction = getHouseByRegionID;
+          var queryID = this.queryOption.regionId;
+        } else {
+          var switchFunction = getHouseByBuildingID;
+          var queryID = this.queryOption.buildingId;
+        }
+        switchFunction(param, queryID)
           .then(res => {
-            //console.log(res.data.data);
-            this.addFormParam[paramClass] = res.data.data.data.list;
-            // console.log(res.data.data.list)
-            if (this.addFormParam[4] != null) this.submitLoading = false;
+            this.houseData = res.data.data.data.list;
+            this.totalNum = res.data.data.data.total;
+            this.listLoading = false;
+            //console.log(this.houseData);
           })
           .catch(err => {
             console.log(err);
           });
-      }
-    },
-    // 新增表单取消时
-    cancelAdd() {
-      this.$refs["addForm"].resetFields();
-      this.addFormVisible = false;
-    },
-    // 新增表单提交
-    addSubmit() {
-      //console.log(this.addFormBody);
-      this.$refs["addForm"].validate(valid => {
-        if (valid) {
-          this.submitLoading = true;
-          //复制字符串
-          let para = Object.assign({}, this.addFormBody);
-          postHouseData(para).then(res => {
-            this.submitLoading = false;
-            //公共提示方法，传入当前的vue以及res.data
-            utils.statusinfo(this, res.data);
-            this.$refs["addForm"].resetFields();
-            this.addFormVisible = false;
-          });
-        }
-      });
-    },
-    //选择的区域变化时
-    selectRegionChange(region) {
-      this.buildingData = region.buildingList;
-    },
-    // 显示新增页面
-    showAddForm() {
-      // if (this.addFormParam == "")
-      this.addFromGetList();
-      this.addFormVisible = true;
-    },
-    // 显示详情页面
-    showDetailDialog(index, row) {
-      this.title = "详情";
-      this.ismodify = false;
-      this.detailFormVisible = true;
-      this.detailData = Object.assign({}, row);
-    },
-    //显示编辑
-    showModifyDialog(index, row) {
-      this.modified = false;
-      this.title = "编辑";
-      this.ismodify = true;
-      if (this.addFormParam.length == 0) {
+      },
+      // 新增表单需要填充的
+      addFromGetList() {
+        this.submitLoading = true;
         let param,
           paramNum = 4;
         for (let paramClass = 1; paramClass <= paramNum; paramClass++) {
           getHouseParam(param, paramClass)
             .then(res => {
+              //console.log(res.data.data);
               this.addFormParam[paramClass] = res.data.data.data.list;
+              // console.log(res.data.data.list)
               if (this.addFormParam[4] != null) this.submitLoading = false;
             })
             .catch(err => {
               console.log(err);
             });
         }
-      }
-      this.detailFormVisible = true;
-      this.detailData = Object.assign({}, row);
-    },
-    //编辑提交
-    modifySubmit() {
-      this.$refs["modifyFrom"].validate(valid => {
-        if (valid) {
-          this.detailLoading = true;
-          let param = Object.assign({}, this.detailData);
-          param.regionId = this.$route.params.id;
-          putHouseData(param).then(res => {
-            utils.statusinfo(this, res.data);
-            this.detailLoading = false;
-            this.$refs["modifyFrom"].resetFields();
-            this.modified = true;
-            this.detailFormVisible = false;
-            this.getList();
-          });
-        }
-      });
-    },
-    // 编辑框关闭时候回调
-    modifyFromClose() {
-      if (this.modified == false && this.title != "详情") {
-        this.$notify.info({
-          title: "提示",
-          message: "已取消编辑"
-        });
-        this.$refs["modifyFrom"].resetFields();
-      }
-    },
-    //在图片提交前进行验证
-    beforePicUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isPNG = file.type === "image/png";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isJPG && !isPNG) {
-        this.$message.error("上传头像图片只能是 JPG/PNG 格式!");
-        return false;
-      } else if (!isLt2M) {
-        this.$message.error("上传证明图片大小不能超过 2MB!");
-        return false;
-      }
-      return true;
-    },
-    // 清空搜索的区域时
-    clearRegion() {
-      this.queryStatus = 1;
-      this.queryOption.buildingId = "";
-    },
-    // 清空搜索的楼栋时
-    clearBuilding() {
-      this.queryStatus = 2;
-    },
-
-    // 上传成功钩子
-    successUpload(res, file, fileLis) {
-      //console.log(res)
-      if (this.addFormVisible == false) {
-        this.detailData.image = this.$store.state.uploadUrl + res.key;
-      } else this.addFormBody.image = this.$store.state.uploadUrl + res.key;
-      //console.log(this.addFormBody.image);
-    },
-    // 删除功能
-    delectHouse(index, row) {
-      this.$confirm("此操作将删除该房屋", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          let param = row.id;
-          this.listLoading = true;
-          deleteHouseData(param)
-            .then(res => {
-              // 公共提示方法
+      },
+      // 新增表单取消时
+      cancelAdd() {
+        this.$refs["addForm"].resetFields();
+        this.addFormVisible = false;
+      },
+      // 新增表单提交
+      addSubmit() {
+        //console.log(this.addFormBody);
+        this.$refs["addForm"].validate(valid => {
+          if (valid) {
+            this.submitLoading = true;
+            //复制字符串
+            let para = Object.assign({}, this.addFormBody);
+            postHouseData(para).then(res => {
+              this.submitLoading = false;
+              //公共提示方法，传入当前的vue以及res.data
               utils.statusinfo(this, res.data);
-              this.getList();
-            })
-            .catch(err => {
-              console.log(err);
+              this.$refs["addForm"].resetFields();
+              this.addFormVisible = false;
             });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
+          }
         });
-    },
-    //更换每页数量
-    SizeChangeEvent(val) {
-      this.listLoading = true;
-      this.size = val;
-      this.getList();
-    },
-    //页码切换时
-    CurrentChangeEvent(val) {
-      this.listLoading = true;
-      this.page = val;
-      this.getList();
+      },
+      //选择的区域变化时
+      selectRegionChange(region) {
+        this.buildingData = region.buildingList;
+      },
+      // 显示新增页面
+      showAddForm() {
+        // if (this.addFormParam == "")
+        this.addFromGetList();
+        this.addFormVisible = true;
+      },
+      // 显示详情页面
+      showDetailDialog(index, row) {
+        this.title = "详情";
+        this.ismodify = false;
+        this.detailFormVisible = true;
+        this.detailData = Object.assign({}, row);
+      },
+      //显示编辑
+      showModifyDialog(index, row) {
+        this.modified = false;
+        this.title = "编辑";
+        this.ismodify = true;
+        if (this.addFormParam.length == 0) {
+          let param,
+            paramNum = 4;
+          for (let paramClass = 1; paramClass <= paramNum; paramClass++) {
+            getHouseParam(param, paramClass)
+              .then(res => {
+                this.addFormParam[paramClass] = res.data.data.data.list;
+                if (this.addFormParam[4] != null) this.submitLoading = false;
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }
+        }
+        this.detailFormVisible = true;
+        this.detailData = Object.assign({}, row);
+      },
+      //编辑提交
+      modifySubmit() {
+        this.$refs["modifyFrom"].validate(valid => {
+          if (valid) {
+            this.detailLoading = true;
+            let param = Object.assign({}, this.detailData);
+            param.regionId = this.$route.params.id;
+            putHouseData(param).then(res => {
+              utils.statusinfo(this, res.data);
+              this.detailLoading = false;
+              this.$refs["modifyFrom"].resetFields();
+              this.modified = true;
+              this.detailFormVisible = false;
+              this.getList();
+            });
+          }
+        });
+      },
+      // 编辑框关闭时候回调
+      modifyFromClose() {
+        if (this.modified == false && this.title != "详情") {
+          this.$notify.info({
+            title: "提示",
+            message: "已取消编辑"
+          });
+          this.$refs["modifyFrom"].resetFields();
+        }
+      },
+      //在图片提交前进行验证
+      beforePicUpload(file) {
+        const isJPG = file.type === "image/jpeg";
+        const isPNG = file.type === "image/png";
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isJPG && !isPNG) {
+          this.$message.error("上传头像图片只能是 JPG/PNG 格式!");
+          return false;
+        } else if (!isLt2M) {
+          this.$message.error("上传证明图片大小不能超过 2MB!");
+          return false;
+        }
+        return true;
+      },
+      // 清空搜索的区域时
+      clearRegion() {
+        this.queryStatus = 1;
+        this.queryOption.buildingId = "";
+      },
+      // 清空搜索的楼栋时
+      clearBuilding() {
+        this.queryStatus = 2;
+      },
+
+      // 上传成功钩子
+      successUpload(res, file, fileLis) {
+        //console.log(res)
+        if (this.addFormVisible == false) {
+          this.detailData.image = this.$store.state.uploadUrl + res.key;
+        } else this.addFormBody.image = this.$store.state.uploadUrl + res.key;
+        //console.log(this.addFormBody.image);
+      },
+      // 删除功能
+      delectHouse(index, row) {
+        this.$confirm("此操作将删除该房屋", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            let param = row.id;
+            this.listLoading = true;
+            deleteHouseData(param)
+              .then(res => {
+                // 公共提示方法
+                utils.statusinfo(this, res.data);
+                this.getList();
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除"
+            });
+          });
+      },
+      //更换每页数量
+      SizeChangeEvent(val) {
+        this.listLoading = true;
+        this.size = val;
+        this.getList();
+      },
+      //页码切换时
+      CurrentChangeEvent(val) {
+        this.listLoading = true;
+        this.page = val;
+        this.getList();
+      }
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-.detail-modify {
-  .fromBody {
-    display: flex;
-    flex-direction: row;
-    .detailFrom {
+  .detail-modify {
+    .fromBody {
       display: flex;
-      flex-direction: column;
-      .topFrom {
-        width: 50%;
-        flex: 0;
-      }
-      .mainFrom {
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
-        padding-top: 20px;
+      flex-direction: row;
+      .detailFrom {
         display: flex;
-        flex: 1;
-        .singleFrom {
-          flex: 1;
+        flex-direction: column;
+        .topFrom {
           width: 50%;
-          .el-input {
-            width: 222px;
-          }
+          flex: 0;
         }
-      }
-      .singRowFrom {
-        padding-top: 20px;
-        border-bottom: 1px solid black; //border-right: 1px solid black;
-      }
-      .bottomFrom {
-        padding-top: 20px;
-        display: flex;
-        flex-direction: row;
-        .singleFrom {
+        .mainFrom {
+          border-top: 1px solid black;
+          border-bottom: 1px solid black;
+          padding-top: 20px;
+          display: flex;
           flex: 1;
-          .el-input {
-            width: 140px;
+          .singleFrom {
+            flex: 1;
+            width: 50%;
+            .el-input {
+              width: 222px;
+            }
+          }
+        }
+        .singRowFrom {
+          padding-top: 20px;
+          border-bottom: 1px solid black; //border-right: 1px solid black;
+        }
+        .bottomFrom {
+          padding-top: 20px;
+          display: flex;
+          flex-direction: row;
+          .singleFrom {
+            flex: 1;
+            .el-input {
+              width: 140px;
+            }
           }
         }
       }
-    }
-    .picFrom {
-      border-top: 1px solid black;
-      margin-top: 63px;
-      padding-top: 10px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      img {
-        width: 100%;
-        height: 200px;
+      .picFrom {
+        border-top: 1px solid black;
+        margin-top: 63px;
+        padding-top: 10px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        img {
+          width: 100%;
+          height: 200px;
+        }
       }
     }
   }
-}
+
 </style>

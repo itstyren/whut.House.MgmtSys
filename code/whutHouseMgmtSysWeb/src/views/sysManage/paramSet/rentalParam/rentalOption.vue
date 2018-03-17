@@ -33,13 +33,13 @@
     <el-dialog title="新增选房设置" :visible.sync="modifyFormVisible" v-loading="submitLoading">
       <el-form :model="modifyFromBody" label-width="220px" ref="addForm" auto>
         <el-form-item label="新老职工分界点：" prop="rentalTimeDiv">
-          <el-slider v-model="modifyFromBody.rentalTimeDiv" show-input style="width:400px; padding-left:20px"></el-slider>
+          <el-slider v-model="modifyFromBody.rentalTimeDiv" show-input :max="9999" style="width:400px; padding-left:20px"></el-slider>
         </el-form-item>
         <el-form-item label="老职工优惠比例:" prop="rentalOldDct">
           <el-slider v-model="modifyFromBody.rentalOldDct" show-input :step="0.01" :max="1" style="width:400px; padding-left:20px"></el-slider>
         </el-form-item>
         <el-form-item label="新职工优惠年限:" prop="rentalNewDctYear">
-          <el-slider v-model="modifyFromBody.rentalNewDctYear" show-input :max="20" style="width:400px; padding-left:20px"></el-slider>
+          <el-slider v-model="modifyFromBody.rentalNewDctYear" show-input :max="9999" style="width:400px; padding-left:20px"></el-slider>
         </el-form-item>
         <el-form-item label="新职工优惠比例:" prop="rentalNewDct">
           <el-slider v-model="modifyFromBody.rentalNewDct" show-input :step="0.01" :max="1" style="width:400px; padding-left:20px"></el-slider>
