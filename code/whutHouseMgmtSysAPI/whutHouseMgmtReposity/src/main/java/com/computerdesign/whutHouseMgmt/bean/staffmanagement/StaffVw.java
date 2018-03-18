@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.bean.staffmanagement;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,6 +32,10 @@ public class StaffVw {
 
     private String code;
 
+    private String eduQualifications;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date joinTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -38,6 +43,8 @@ public class StaffVw {
     private Date retireTime;
 
     private String tel;
+
+    private String email;
 
     private String remark;
 
@@ -59,10 +66,16 @@ public class StaffVw {
 
     private Long buyAccount;
 
+    private BigDecimal compensate;
+
     private Long fixFund;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date secondJoinTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date secondRetireTime;
 
     private String staffDual;
@@ -73,9 +86,13 @@ public class StaffVw {
 
     private Integer familyCode;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date firstJobTime;
 
     private String userName;
+
+    private Boolean isOwnPriHouse;
 
     public Integer getId() {
         return id;
@@ -173,6 +190,14 @@ public class StaffVw {
         this.code = code == null ? null : code.trim();
     }
 
+    public String getEduQualifications() {
+        return eduQualifications;
+    }
+
+    public void setEduQualifications(String eduQualifications) {
+        this.eduQualifications = eduQualifications == null ? null : eduQualifications.trim();
+    }
+
     public Date getJoinTime() {
         return joinTime;
     }
@@ -195,6 +220,14 @@ public class StaffVw {
 
     public void setTel(String tel) {
         this.tel = tel == null ? null : tel.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public String getRemark() {
@@ -277,6 +310,14 @@ public class StaffVw {
         this.buyAccount = buyAccount;
     }
 
+    public BigDecimal getCompensate() {
+        return compensate;
+    }
+
+    public void setCompensate(BigDecimal compensate) {
+        this.compensate = compensate;
+    }
+
     public Long getFixFund() {
         return fixFund;
     }
@@ -347,5 +388,13 @@ public class StaffVw {
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
+    }
+
+    public Boolean getIsOwnPriHouse() {
+        return isOwnPriHouse;
+    }
+
+    public void setIsOwnPriHouse(Boolean isOwnPriHouse) {
+        this.isOwnPriHouse = isOwnPriHouse;
     }
 }

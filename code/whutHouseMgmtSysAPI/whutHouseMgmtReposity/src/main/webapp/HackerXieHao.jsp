@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMjc4Mzc5LCJleHAiOjE1MjEyODE5Nzl9.zOnlMrH2I3g-ws7HSQRhAl608rap_SQzqw-7JxZ_mCc");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzU2MDkwLCJleHAiOjE1MjEzNTk2OTB9.TkXI5FvHpq4AlQWaXtBfhmEPZZLtyv1VJFQR2uLYwDc");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMjc4Mzc5LCJleHAiOjE1MjEyODE5Nzl9.zOnlMrH2I3g-ws7HSQRhAl608rap_SQzqw-7JxZ_mCc");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzU2MDkwLCJleHAiOjE1MjEzNTk2OTB9.TkXI5FvHpq4AlQWaXtBfhmEPZZLtyv1VJFQR2uLYwDc");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -266,7 +266,7 @@
 
 		$("#staffAdd").click(function() {
 			var data = {
-				'no' : '9',
+				'no' : '15',
 				'name' : '任天宇',
 				'sex' : '男',
 				'marriageState' : '未知',
@@ -277,7 +277,6 @@
 				'dept' : 49,
 				'code' : '429006198711208702',
 				'joinTime' : '2017-11-20',
-				'goUniversityTime' : '2015-9-6',
 				'retireTime' : '2020-11-2',
 				'tel' : '13129917437',
 				'remark' : '无',
@@ -301,7 +300,6 @@
 				'code' : ' 429006199704237849',
 				'firstJobTime' : '2014-11-20',
 				'joinTime' : '2017-11-20',
-				'goUniversityTime' : '2015-9-6',
 				'retireTime' : '2020-11-2',
 				'tel' : '13277582789',
 				'remark' : '无',
@@ -591,7 +589,7 @@
 
 		$("#setCanselect").click(function() {
 			//传递的是职工编号staffNo数组
-			var data = [ 6 ];
+			var data = [ 6,8 ];
 			ajaxRequestPostType("selHouseQuaAuth/setCanselect", "POST", data);
 
 		})

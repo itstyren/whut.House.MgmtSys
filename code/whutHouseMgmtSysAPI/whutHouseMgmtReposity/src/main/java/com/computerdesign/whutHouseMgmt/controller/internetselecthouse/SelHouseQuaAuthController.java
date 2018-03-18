@@ -99,6 +99,7 @@ public class SelHouseQuaAuthController {
 	@ResponseBody
 	@RequestMapping(value = "cancelCanselect", method = RequestMethod.POST)
 	public Msg cancelCanselect(@RequestBody String[] staffNos) {
+		
 		for (String staffNo : staffNos) {
 			Staff staff = staffService.getByStaffNo(staffNo).get(0);
 			staff.setRelation("active");
@@ -121,8 +122,15 @@ public class SelHouseQuaAuthController {
 	@ResponseBody
 	@RequestMapping(value = "setCanselect", method = RequestMethod.POST)
 	public Msg setCanselect(@RequestBody String[] staffNos) {
+		String message = "";
 		for (String staffNo : staffNos) {
 			Staff staff = staffService.getByStaffNo(staffNo).get(0);
+			StaffSelectHouse staffSelectHouseModel = staffSelectHouseService.getByStaffId(staff.getId());
+			//判断是否已是可点房职工，测试用，防止重复插入点房职工
+			if(staffSelectHouseModel != null && staffSelectHouseModel.getRecordStatus().equals("canselect")){
+				message = message + staff.getName() + " ";
+				continue;
+			}
 			staff.setRelation("canselect");
 			staffService.update(staff);
 
@@ -178,7 +186,12 @@ public class SelHouseQuaAuthController {
 			}
 
 		}
-		return Msg.success("设置点房职工成功");
+		if(message.equals("")){
+			return Msg.success("设置点房职工成功");
+		}else{			
+			//测试用，防止重复插入点房职工
+			return Msg.success("设置点房职工成功").add("已点房职工姓名", message);
+		}
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.bean.staffmanagement;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -952,6 +953,76 @@ public class StaffVwExample {
             return (Criteria) this;
         }
 
+        public Criteria andEduQualificationsIsNull() {
+            addCriterion("EduQualifications is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsIsNotNull() {
+            addCriterion("EduQualifications is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsEqualTo(String value) {
+            addCriterion("EduQualifications =", value, "eduQualifications");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsNotEqualTo(String value) {
+            addCriterion("EduQualifications <>", value, "eduQualifications");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsGreaterThan(String value) {
+            addCriterion("EduQualifications >", value, "eduQualifications");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsGreaterThanOrEqualTo(String value) {
+            addCriterion("EduQualifications >=", value, "eduQualifications");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsLessThan(String value) {
+            addCriterion("EduQualifications <", value, "eduQualifications");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsLessThanOrEqualTo(String value) {
+            addCriterion("EduQualifications <=", value, "eduQualifications");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsLike(String value) {
+            addCriterion("EduQualifications like", value, "eduQualifications");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsNotLike(String value) {
+            addCriterion("EduQualifications not like", value, "eduQualifications");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsIn(List<String> values) {
+            addCriterion("EduQualifications in", values, "eduQualifications");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsNotIn(List<String> values) {
+            addCriterion("EduQualifications not in", values, "eduQualifications");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsBetween(String value1, String value2) {
+            addCriterion("EduQualifications between", value1, value2, "eduQualifications");
+            return (Criteria) this;
+        }
+
+        public Criteria andEduQualificationsNotBetween(String value1, String value2) {
+            addCriterion("EduQualifications not between", value1, value2, "eduQualifications");
+            return (Criteria) this;
+        }
+
         public Criteria andJoinTimeIsNull() {
             addCriterion("JoinTime is null");
             return (Criteria) this;
@@ -1139,6 +1210,76 @@ public class StaffVwExample {
 
         public Criteria andTelNotBetween(String value1, String value2) {
             addCriterion("Tel not between", value1, value2, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailIsNull() {
+            addCriterion("Email is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailIsNotNull() {
+            addCriterion("Email is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailEqualTo(String value) {
+            addCriterion("Email =", value, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailNotEqualTo(String value) {
+            addCriterion("Email <>", value, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailGreaterThan(String value) {
+            addCriterion("Email >", value, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailGreaterThanOrEqualTo(String value) {
+            addCriterion("Email >=", value, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailLessThan(String value) {
+            addCriterion("Email <", value, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailLessThanOrEqualTo(String value) {
+            addCriterion("Email <=", value, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailLike(String value) {
+            addCriterion("Email like", value, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailNotLike(String value) {
+            addCriterion("Email not like", value, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailIn(List<String> values) {
+            addCriterion("Email in", values, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailNotIn(List<String> values) {
+            addCriterion("Email not in", values, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailBetween(String value1, String value2) {
+            addCriterion("Email between", value1, value2, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailNotBetween(String value1, String value2) {
+            addCriterion("Email not between", value1, value2, "email");
             return (Criteria) this;
         }
 
@@ -1812,6 +1953,66 @@ public class StaffVwExample {
             return (Criteria) this;
         }
 
+        public Criteria andCompensateIsNull() {
+            addCriterion("Compensate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompensateIsNotNull() {
+            addCriterion("Compensate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompensateEqualTo(BigDecimal value) {
+            addCriterion("Compensate =", value, "compensate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompensateNotEqualTo(BigDecimal value) {
+            addCriterion("Compensate <>", value, "compensate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompensateGreaterThan(BigDecimal value) {
+            addCriterion("Compensate >", value, "compensate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompensateGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("Compensate >=", value, "compensate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompensateLessThan(BigDecimal value) {
+            addCriterion("Compensate <", value, "compensate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompensateLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("Compensate <=", value, "compensate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompensateIn(List<BigDecimal> values) {
+            addCriterion("Compensate in", values, "compensate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompensateNotIn(List<BigDecimal> values) {
+            addCriterion("Compensate not in", values, "compensate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompensateBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("Compensate between", value1, value2, "compensate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompensateNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("Compensate not between", value1, value2, "compensate");
+            return (Criteria) this;
+        }
+
         public Criteria andFixFundIsNull() {
             addCriterion("FixFund is null");
             return (Criteria) this;
@@ -2379,6 +2580,66 @@ public class StaffVwExample {
 
         public Criteria andUserNameNotBetween(String value1, String value2) {
             addCriterion("UserName not between", value1, value2, "userName");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseIsNull() {
+            addCriterion("IsOwnPriHouse is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseIsNotNull() {
+            addCriterion("IsOwnPriHouse is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseEqualTo(Boolean value) {
+            addCriterion("IsOwnPriHouse =", value, "isOwnPriHouse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseNotEqualTo(Boolean value) {
+            addCriterion("IsOwnPriHouse <>", value, "isOwnPriHouse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseGreaterThan(Boolean value) {
+            addCriterion("IsOwnPriHouse >", value, "isOwnPriHouse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("IsOwnPriHouse >=", value, "isOwnPriHouse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseLessThan(Boolean value) {
+            addCriterion("IsOwnPriHouse <", value, "isOwnPriHouse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseLessThanOrEqualTo(Boolean value) {
+            addCriterion("IsOwnPriHouse <=", value, "isOwnPriHouse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseIn(List<Boolean> values) {
+            addCriterion("IsOwnPriHouse in", values, "isOwnPriHouse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseNotIn(List<Boolean> values) {
+            addCriterion("IsOwnPriHouse not in", values, "isOwnPriHouse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseBetween(Boolean value1, Boolean value2) {
+            addCriterion("IsOwnPriHouse between", value1, value2, "isOwnPriHouse");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOwnPriHouseNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("IsOwnPriHouse not between", value1, value2, "isOwnPriHouse");
             return (Criteria) this;
         }
     }
