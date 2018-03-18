@@ -20,7 +20,6 @@
           </el-menu-item>
         </template>
       </el-submenu>
-
     </template>
   </el-menu>
 </template>
