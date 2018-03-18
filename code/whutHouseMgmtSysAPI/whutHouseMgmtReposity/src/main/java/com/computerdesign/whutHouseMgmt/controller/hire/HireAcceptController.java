@@ -124,7 +124,7 @@ public class HireAcceptController {
 			hire.setIsOver(true);
 
 			hireService.update(hire);
-			return Msg.success("受理拒绝");
+			return Msg.success("受理拒绝").add("message", "您的租赁申请状态已更新");
 		} else if ("通过".equals(hireAddAccept.getAcceptState())) {
 			Hire hire = hireService.getHireById(hireAddAccept.getId());
 			hire.setAcceptMan(hireAddAccept.getAcceptMan());
@@ -139,7 +139,7 @@ public class HireAcceptController {
 			hire.setAcceptTime(new Date());
 			hire.setHireState("待审核");
 			hireService.update(hire);
-			return Msg.success("受理成功").add("data", hire);
+			return Msg.success("受理成功").add("data", hire).add("message", "您的租赁申请状态已更新");
 		} else {
 			return Msg.error("请输入正确的信息");
 		}
@@ -174,6 +174,6 @@ public class HireAcceptController {
 		hire.setHireState("待受理");
 		hire.setIsOver(false);
 		hireService.updateStrict(hire);
-		return Msg.success("重新受理").add("data", hire);
+		return Msg.success("重新受理").add("data", hire).add("message", "您的租赁申请状态已更新");
 	}
 }

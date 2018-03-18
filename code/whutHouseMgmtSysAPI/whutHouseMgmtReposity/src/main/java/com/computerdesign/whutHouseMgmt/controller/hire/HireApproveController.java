@@ -87,7 +87,7 @@ public class HireApproveController {
 			
 			hire.setHireState("已审批");
 			hireService.updateStrict(hire);
-			return Msg.success("审批成功").add("data", hire);
+			return Msg.success("审批成功").add("data", hire).add("message", "您的租赁申请状态已更新");
 		}else if ("拒绝".equals(hireAddApprove.getApproveState())) {
 			hire.setApproveMan(hireAddApprove.getApproveMan());
 			hire.setApproveNote(hireAddApprove.getApproveNote());
@@ -97,7 +97,7 @@ public class HireApproveController {
 			hire.setHireState("审批拒绝");
 			hire.setIsOver(true);
 			hireService.updateStrict(hire);
-			return Msg.success("审批拒绝").add("data", hire);
+			return Msg.success("审批拒绝").add("data", hire).add("message", "您的租赁申请状态已更新");
 		}else {
 			return Msg.error("请检查你的网络");
 		}
@@ -126,7 +126,7 @@ public class HireApproveController {
 		hire.setIsOver(false);
 		
 		hireService.updateStrict(hire);
-		return Msg.success("重新审批成功").add("data", hire);
+		return Msg.success("重新审批成功").add("data", hire).add("message", "您的租赁申请状态已更新");
 		//TODO 不需要data
 	
 	}

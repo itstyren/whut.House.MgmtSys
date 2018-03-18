@@ -35,7 +35,7 @@
 		$.ajax({
 			url : uri,
 			beforeSend: function(request) {
-				request.setRequestHeader("X-token", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIwODUxMjYyLCJleHAiOjE1MjA4NTg0NjJ9.Fk7V3f7THQ0AfTzNq8CaECaJqnp2TgKKUpgfOtWdJPo");
+				request.setRequestHeader("X-token", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzg3MDYxLCJleHAiOjE1MjEzOTA2NjF9.GKtRhPkV_muxWjKHGWo2cHjp8_06QSM92O6dW3FQhjM");
 		    },
 			type : "get", 
 			contentType : 'application/json',
@@ -57,7 +57,7 @@
 			contentType : 'application/json;charset=UTF-8',
 			dataType : 'json',
 			beforeSend: function(request) {
-				request.setRequestHeader("X-token", "OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+				request.setRequestHeader("X-token", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzg3MDYxLCJleHAiOjE1MjEzOTA2NjF9.GKtRhPkV_muxWjKHGWo2cHjp8_06QSM92O6dW3FQhjM");
 		    },
 			data : JSON.stringify(data),
 			url : uri,

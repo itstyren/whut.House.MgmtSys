@@ -29,7 +29,7 @@ public class FixAcceptController {
 
 	@Autowired
 	private ViewFixService viewFixService;
-
+	
 	/**
 	 * 获取受理页面信息
 	 * 
@@ -93,7 +93,7 @@ public class FixAcceptController {
 			fix.setFixState("受理拒绝");
 			fix.setIsOver(true);
 			fixService.update(fix);
-			return Msg.success("受理拒绝").add("data", fix);
+			return Msg.success("受理拒绝").add("data", fix).add("message", "您的维修申请状态已更新");
 			// TODO 不需要add data
 
 		} else if ("通过".equals(fixAddAccept.getAcceptState())) {
@@ -106,7 +106,7 @@ public class FixAcceptController {
 			// 维修状态改变
 			fix.setFixState("待审核");
 			fixService.update(fix);
-			return Msg.success("受理成功").add("data", fix);
+			return Msg.success("受理成功").add("data", fix).add("message", "您的维修申请状态已更新");
 		} else {
 			return Msg.error("请输入正确的信息");
 		}
@@ -134,6 +134,6 @@ public class FixAcceptController {
 		fix.setIsOver(false);
 
 		fixService.updateStrict(fix);
-		return Msg.success("重新受理成功");
+		return Msg.success("重新受理成功").add("message", "您的维修申请状态已更新");
 	}
 }

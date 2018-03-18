@@ -94,7 +94,7 @@ public class HireAgreeController {
 			hire.setHireState("审批拒绝");
 			hire.setIsOver(true);
 			hireService.update(hire);
-			return Msg.success("审核拒绝").add("data", hire);
+			return Msg.success("审核拒绝").add("data", hire).add("message", "您的租赁申请状态已更新");
 		}else if ("通过".equals(hireAddAgree.getAgreeState())) {
 			hire.setAgreeMan(hireAddAgree.getAgreeMan());
 			hire.setAgreeNote(hireAddAgree.getAgreeNote());
@@ -107,7 +107,7 @@ public class HireAgreeController {
 			hire.setHireState("待审批");
 			hireService.update(hire);
 						
-			return Msg.success("审核成功").add("data", hire);
+			return Msg.success("审核成功").add("data", hire).add("message", "您的租赁申请状态已更新");
 		}else {
 			return Msg.error("请检查你的网络");
 		}
@@ -138,7 +138,7 @@ public class HireAgreeController {
 		hire.setIsOver(false);
 		
 		hireService.updateStrict(hire);
-		return Msg.success("重新审核成功").add("data", hire);
+		return Msg.success("重新审核成功").add("data", hire).add("message", "您的租赁申请状态已更新");
 		//TODO 不需要data
 		
 	}
