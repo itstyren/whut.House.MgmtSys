@@ -1,5 +1,7 @@
 package com.computerdesign.whutHouseMgmt.service.fix;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +49,21 @@ public class FixService {
 	public void updateStrict(Fix fix){
 		fixMapper.updateByPrimaryKey(fix);
 	}
-	public void getRegister(String staffId) {
+	
+	/**
+	 * 通过员工id查询指定员工维修信息
+	 * @param staffId
+	 * @return
+	 */
+//	public List<Fix> getByStaffId(Integer staffId){
+//		FixExample example = new FixExample();
+//		Criteria criteria = example.createCriteria();
+//		criteria.andStaffIdEqualTo(staffId);
+//		return fixMapper.selectByExample(example);
+//	}
+	
+	
+	public void getResident(String staffId) {
 		ResidentExample example = new ResidentExample();
 		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
 		//等待谢豪修改数据库

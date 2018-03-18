@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzQ2NjgzLCJleHAiOjE1MjEzNTAyODN9.sOFqzwx0qSKM38WBcNY3GypW5bbpajVW7_HlxxPLuLU");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzgwMjg0LCJleHAiOjE1MjEzODM4ODR9.74ojwj9ZaVEthRa9NUzjhE2OSwsxiDXxT1P8USHLpJI");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzQ2NjgzLCJleHAiOjE1MjEzNTAyODN9.sOFqzwx0qSKM38WBcNY3GypW5bbpajVW7_HlxxPLuLU");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzgwMjg0LCJleHAiOjE1MjEzODM4ODR9.74ojwj9ZaVEthRa9NUzjhE2OSwsxiDXxT1P8USHLpJI");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -589,7 +589,7 @@
 
 		$("#setCanselect").click(function() {
 			//传递的是职工编号staffNo数组
-			var data = [ 6 ];
+			var data = [ 6,8 ];
 			ajaxRequestPostType("selHouseQuaAuth/setCanselect", "POST", data);
 
 		})
@@ -679,6 +679,23 @@
 									"POST", data);
 						})
 	})
+	
+	//个人信息
+	$(function() {
+
+		$("#getFixInfoByStaffId")
+				.click(
+						function() {
+							ajaxRequestGet("fix/getByStaffId/3");
+						})
+						
+		$("#getHireInfoByStaffId")
+				.click(
+						function() {
+							ajaxRequestGet("hire/getAllByStaffId/3");
+						})
+	})
+	
 </script>
 
 </head>
@@ -704,6 +721,7 @@
 		<li><a href="#dataImport" data-toggle="tab">数据导入</a></li>
 		<li><a href="#internetSelectHouse" data-toggle="tab">网上选房</a></li>
 		<li><a href="#rentGenerate" data-toggle="tab">租金生成</a></li>
+		<li><a href="#personalInfo" data-toggle="tab">个人信息</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="rentEvent">
@@ -910,6 +928,19 @@
 			<h4>租金生成</h4>
 			<input class="btn btn-info btn-lg" type="button" value="RentGen"
 				id="rentGen" /> <br>
+		</div>
+		
+		<div class="tab-pane fade" id="personalInfo">
+			<h4>根据职工id获取维修信息</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetFixInfoByStaffId" id="getFixInfoByStaffId" />
+			<br>
+			<h4>根据职工id获取租赁信息</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetHireInfoByStaffId" id="getHireInfoByStaffId" />
+			<br>
+			
+				
 		</div>
 
 	</div>

@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.controller.hire;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.hire.PersonalHireRecord;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
@@ -59,6 +62,38 @@ public class HireController {
 	@Autowired
 	private HouseService houseService;
 
+	/**
+	 * 根据职工id获取其所有租赁信息
+	 * @param staffId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="getAllByStaffId/{staffId}",method=RequestMethod.GET)
+	public Msg getAllByStaffId(@PathVariable("staffId") Integer staffId){
+		List<Hire> hires = hireService.getAllByStaffId(staffId);
+		List<PersonalHireRecord> personalHireRecords = new ArrayList<PersonalHireRecord>();
+		for (Hire hire : hires){
+			PersonalHireRecord personalHireRecord = new PersonalHireRecord();
+			personalHireRecord.setReason(hire.getReason());
+			//获取地址
+			String address = houseService.get(hire.getHouseId()).getAddress();
+			personalHireRecord.setAddress(address);
+			String processReason = null;
+			//判断审核流程进行到了哪一步
+			if(hire.getAgreeNote() != null){
+				processReason = hire.getAgreeNote();
+			}else if(hire.getAcceptNote() != null){
+				processReason = hire.getAgreeNote();
+			}else{
+				processReason = "无意见";
+			}
+			personalHireRecord.setHireState(hire.getHireState());
+			personalHireRecord.setApplyTime(hire.getApplyTime());
+			personalHireRecords.add(personalHireRecord);
+		}
+		return Msg.success().add("data", personalHireRecords);
+	}
+	
 	/**
 	 * 获取住房申请页面
 	 * 

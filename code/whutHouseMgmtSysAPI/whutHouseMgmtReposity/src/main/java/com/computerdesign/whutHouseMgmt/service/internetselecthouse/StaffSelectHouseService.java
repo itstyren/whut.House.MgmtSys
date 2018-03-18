@@ -29,7 +29,11 @@ public class StaffSelectHouseService {
 		StaffSelectHouseExample example = new StaffSelectHouseExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStaffIdEqualTo(staffId);
-		return staffSelectHouseMapper.selectByExample(example).get(0);
+		if(staffSelectHouseMapper.selectByExample(example).size() > 0){
+			return staffSelectHouseMapper.selectByExample(example).get(0);
+		}else{
+			return null;
+		}
 	}
 	
 	/**

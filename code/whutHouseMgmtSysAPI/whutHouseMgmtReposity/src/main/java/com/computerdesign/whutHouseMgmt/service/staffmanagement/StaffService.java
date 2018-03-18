@@ -36,6 +36,15 @@ public class StaffService implements BaseService<Staff> {
 	}
 	
 	/**
+	 * 根据员工id获取员工
+	 * @param no
+	 * @return
+	 */
+	public Staff getByStaffId(Integer id){
+		return staffMapper.selectByPrimaryKey(id);
+	}
+	
+	/**
 	 * 根据员工编号获取员工，用于验证员工编号是否重复
 	 * @param no
 	 * @return

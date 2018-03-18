@@ -34,7 +34,10 @@ public class HouseParamService implements BaseService<HouseParameter>{
 	 */
 	@Override
 	public List<HouseParameter> getAll(){
-		List<HouseParameter> houseParameters=houseParameterMapper.selectByExample(null);
+		HouseParameterExample example=new HouseParameterExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andIsDeleteEqualTo(false);
+		List<HouseParameter> houseParameters=houseParameterMapper.selectByExample(example);
 		return houseParameters;
 	}
 	
@@ -47,6 +50,7 @@ public class HouseParamService implements BaseService<HouseParameter>{
 		HouseParameterExample example=new HouseParameterExample();
 		Criteria criteria=example.createCriteria();
 		criteria.andParamTypeIdEqualTo(paramTypeId);
+		criteria.andIsDeleteEqualTo(false);
 		List<HouseParameter> houseParameters=houseParameterMapper.selectByExample(example);
 		return houseParameters;
 	}
