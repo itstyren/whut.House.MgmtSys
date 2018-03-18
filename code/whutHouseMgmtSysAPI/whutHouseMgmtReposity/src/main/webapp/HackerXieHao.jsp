@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzQ2NjgzLCJleHAiOjE1MjEzNTAyODN9.sOFqzwx0qSKM38WBcNY3GypW5bbpajVW7_HlxxPLuLU");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzUxMzMxLCJleHAiOjE1MjEzNTQ5MzF9.vzxOK_fP-juA534_GAuNCNbVTvd71dv-hL-UKm1pXfM");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzQ2NjgzLCJleHAiOjE1MjEzNTAyODN9.sOFqzwx0qSKM38WBcNY3GypW5bbpajVW7_HlxxPLuLU");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzUxMzMxLCJleHAiOjE1MjEzNTQ5MzF9.vzxOK_fP-juA534_GAuNCNbVTvd71dv-hL-UKm1pXfM");
 			},
 			data : JSON.stringify(data),
 			url : uri,
