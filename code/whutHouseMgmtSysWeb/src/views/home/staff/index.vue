@@ -9,7 +9,8 @@
            <notification></notification>
        </el-row>
       </el-col>
-      <el-col :span="18" class="pannel-group">
+      <el-col :span="18" class="proclamation">
+          <proclamation></proclamation>
       </el-col>
     </el-row>
 
@@ -19,6 +20,7 @@
 <script type="text/ecmascript-6">
   import infoCard from '../components/infoCard'
   import notification from './components/notification.vue'
+  import proclamation from './components/proclamation .vue'
   export default {
     data() {
       return {
@@ -28,7 +30,8 @@
     },
     components: {
       infoCard,
-      notification
+      notification,
+      proclamation
     }
   }
 
@@ -37,6 +40,9 @@
 <style scoped lang="scss">
 .Notification{
     height: 100%
+}
+.proclamation{
+    height: 81vh;
 }
 
 </style>

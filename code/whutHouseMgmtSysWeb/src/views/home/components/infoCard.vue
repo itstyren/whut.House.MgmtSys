@@ -69,6 +69,8 @@
 </script>
 
 <style scoped lang="scss">
+.info-card {
+  height: 29vh;
   .top {
     position: relative;
     padding-bottom: 20px;
@@ -85,8 +87,8 @@
       right: 5%;
     }
     .avatar {
-      width: 100px;
-      height: 100px;
+      width: 15vh;
+      height: 15vh;
       border-radius: 50%;
       overflow: hidden;
     }
@@ -105,5 +107,5 @@
     padding-bottom: 25px;
     line-height: 20px;
   }
-
+}
 </style>
