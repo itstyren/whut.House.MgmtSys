@@ -1,8 +1,8 @@
 package com.computerdesign.whutHouseMgmt.controller.hire;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.approve.HireAddApprove;
-import com.computerdesign.whutHouseMgmt.bean.hire.approve.HireGetApprove;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -37,19 +37,28 @@ public class HireApproveController {
 	@ApiOperation(value = "进入房屋申请审批页面 0代表未经审批流程的全部信息，1代表审批过程结束的全部信息",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getHireApprove(@PathVariable("approveState")Integer approveState){
 		if(approveState == 0){
-			List<HireGetApprove> listHireGetApprove = new ArrayList<HireGetApprove>();
 			List<ViewHire> listViewHire = viewHireService.getApproveUntil();
-			for (ViewHire viewHire : listViewHire) {
-				listHireGetApprove.add(new HireGetApprove(viewHire));
-			}
-			return Msg.success("返回所有的待审批的房屋请求信息").add("data", listHireGetApprove);
+			
+			String[] fileds = { "id", "name", "applyTime", "hireState", "reason", "phone", "titleName", "postName",
+					"deptName", "houseNo","houseBuildArea","houseUserArea","houseAddress",
+					"acceptNote", "acceptState","acceptMan", "acceptTime",
+					"agreeNote", "agreeState","agreeMan", "agreeTime",
+					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal" };
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
+			
+			return Msg.success("返回所有的待审批的房屋请求信息").add("data", response);
 		}else if (approveState == 1) {
-			List<HireGetApprove> listHireGetApprove = new ArrayList<HireGetApprove>();
 			List<ViewHire> listViewHire = viewHireService.getApproveHasBeen();
-			for (ViewHire viewHire : listViewHire) {
-				listHireGetApprove.add(new HireGetApprove(viewHire));
-			}
-			return Msg.success("返回所有的已审批的房屋请求信息").add("data", listHireGetApprove);
+			
+			String[] fileds = { "id", "name", "applyTime", "hireState", "reason", "phone", "titleName", "postName",
+					"deptName", "houseNo","houseBuildArea","houseUserArea","houseAddress",
+					"acceptNote", "acceptState","acceptMan", "acceptTime",
+					"agreeNote", "agreeState","agreeMan", "agreeTime",
+					"approveNote", "approveState","approveMan", "approveTime",
+					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal" };
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
+			
+			return Msg.success("返回所有的已审批的房屋请求信息").add("data", response);
 		}else {
 			return Msg.error("请检查您的网络");
 		}

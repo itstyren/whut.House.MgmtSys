@@ -35,7 +35,6 @@ public class FixAcceptController {
 	 * 
 	 * @return
 	 */
-	@RequiresPermissions("fix/accept")
 	@RequestMapping(value = "getAccept/{acceptState}", method = RequestMethod.GET)
 	public Msg getFixAccept(@PathVariable("acceptState") Integer acceptState) {
 

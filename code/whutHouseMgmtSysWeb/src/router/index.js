@@ -134,12 +134,12 @@ export const asyncRouterMap = [
         name: 'fixManage',                
         meta: { roles: [ADMIN, STAFF], title: 'fixManage'  }, // you can set roles in root nav
         children: [
-            { path: 'fixApply', component: _import('fixManage/fixApply'), name: 'fixApply', meta: { title: 'fixApply' } },
             { path: 'fixAccept', component: _import('fixManage/fixAccept'), name: 'fixAccept', meta: { title: 'fixAccept' } },
             { path: 'fixAgree', component: _import('fixManage/fixAgree'), name: 'fixAgree', meta: { title: 'fixAgree' } },
             { path: 'fixSuper', component: _import('fixManage/fixSuper'), name: 'fixSuper', meta: { title: 'fixSuper' } },
             { path: 'fixApplyManager', component: _import('fixManage/fixApplyManager'), name: 'fixApplyManager', meta: { title: 'fixApplyManager' } },
             { path: 'fixBalance', component: _import('fixManage/fixBalance'), name: 'fixBalance', meta: { title: 'fixBalance' } },   
+            { path: 'fixApply', component: _import('fixManage/fixApply'), name: 'fixApply', meta: { title: 'fixApply' } },
         ]
     },
     /* 租赁管理 */

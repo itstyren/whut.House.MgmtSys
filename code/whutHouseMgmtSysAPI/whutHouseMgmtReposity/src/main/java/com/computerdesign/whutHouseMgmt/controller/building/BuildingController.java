@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.controller.building;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.building.Building;
 import com.computerdesign.whutHouseMgmt.bean.building.ViewBuilding;
+import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
 import com.computerdesign.whutHouseMgmt.bean.region.Region;
 import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
 import com.computerdesign.whutHouseMgmt.service.building.ViewBuildingService;
@@ -98,6 +100,7 @@ public class BuildingController {
 
 	/**
 	 * 增加一个楼栋
+	 * 
 	 * @param building
 	 * @return
 	 */
@@ -172,16 +175,16 @@ public class BuildingController {
 		}
 		// 根据楼栋名获取全部的buildings
 		List<Building> buildings = buildingService.getAll();
-		// 根据id获取要修改的building
-		Building thisBuilding = buildingService.getBuildingById(building.getId());
-		// 移除这个building
-		buildings.remove(thisBuilding);
-		for (Building buildingPre : buildings) {
-			if (buildingPre.getName().equals(building.getName())) {
-				return Msg.error("楼栋名称已经存在");
+		// 遍历这些信息
+		Iterator iterator = buildings.iterator();
+		while (iterator.hasNext()) {
+			Building buildingAlready = (Building) iterator.next();
+			if (buildingAlready.getId() != building.getId()
+					&& building.getName().equals(buildingAlready.getName())) {
+				return Msg.error("该名称已存在，无法修改");
 			}
 		}
-		
+
 		buildingService.update(building);
 		return Msg.success().add("data", building);
 	}

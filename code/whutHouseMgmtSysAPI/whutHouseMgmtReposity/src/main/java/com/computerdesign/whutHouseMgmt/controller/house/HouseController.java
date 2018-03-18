@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.controller.house;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.house.House;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
+import com.computerdesign.whutHouseMgmt.bean.region.Region;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
+import com.computerdesign.whutHouseMgmt.utils.Arith;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -41,7 +44,7 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "get/{id}", method = RequestMethod.GET)
-	@ApiOperation(value="根据house的id获取一个house")
+	@ApiOperation(value = "根据house的id获取一个house")
 	public Msg get(@PathVariable("id") Integer id) {
 		if (viewHouseService.get(id).isEmpty()) {
 			return Msg.error("查找不到数据");
@@ -50,7 +53,7 @@ public class HouseController {
 		// 每平方米的价格
 		double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
 		// 每平方米的价格*面积
-		viewHouse.setRental(rentPer * viewHouse.getBuildArea());
+		viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
 		return Msg.success().add("data", viewHouse);
 	}
 
@@ -62,7 +65,7 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "get", method = RequestMethod.GET)
-	@ApiOperation(value = "获取全部的house",notes="不分页，并且除了根据id获取外，都不查找到校外的房屋")
+	@ApiOperation(value = "获取全部的house", notes = "不分页，并且除了根据id获取外，都不查找到校外的房屋")
 	public Msg get(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 
@@ -76,7 +79,7 @@ public class HouseController {
 			// 每平方米的价格
 			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
 			// 每平方米的价格*面积
-			viewHouse.setRental(rentPer * viewHouse.getBuildArea());
+			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
 		}
 		PageInfo pageInfo = new PageInfo(viewHouseList);
 
@@ -93,12 +96,11 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getViewHousesByRegionId/{regionId}", method = RequestMethod.GET)
-	@ApiOperation(value= "查找某一区域的房屋信息")
+	@ApiOperation(value = "查找某一区域的房屋信息")
 	public Msg getViewHouseByRegionId(@PathVariable("regionId") Integer regionId,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 
-		
 		PageHelper.startPage(page, size);
 		List<ViewHouse> viewHouseList = viewHouseService.getViewHousesByRegionId(regionId);
 
@@ -106,7 +108,7 @@ public class HouseController {
 			// 每平方米的价格
 			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
 			// 每平方米的价格*面积
-			viewHouse.setRental(rentPer * viewHouse.getBuildArea());
+			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
 		}
 		PageInfo pageInfo = new PageInfo(viewHouseList);
 
@@ -122,7 +124,7 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getViewHousesByBuildingId/{buildingId}", method = RequestMethod.GET)
-	@ApiOperation(value="查找某一栋楼的房屋信息")
+	@ApiOperation(value = "查找某一栋楼的房屋信息")
 	public Msg getViewHousesByBuildingId(@PathVariable("buildingId") Integer buildingId,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
@@ -134,7 +136,7 @@ public class HouseController {
 			// 每平方米的价格
 			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
 			// 每平方米的价格*面积
-			viewHouse.setRental(rentPer * viewHouse.getBuildArea());
+			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
 		}
 		PageInfo pageInfo = new PageInfo(viewHouseList);
 
@@ -148,7 +150,7 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	@ApiOperation(value= "添加一个房屋",notes="IsOutSchoole用来表示校内还是校外")
+	@ApiOperation(value = "添加一个房屋", notes = "IsOutSchoole用来表示校内还是校外")
 	public Msg addHouse(@RequestBody House house) {
 
 		if (house.getNo() == null) {
@@ -188,7 +190,7 @@ public class HouseController {
 			return Msg.error("不存在的住房类型");
 		}
 
-		//TODO 这个地方是房屋状态为空闲
+		// TODO 这个地方是房屋状态为空闲
 		house.setStatus(24);
 		houseService.add(house);
 		return Msg.success().add("data", house);
@@ -201,7 +203,7 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
-	@ApiOperation(value= "删除一个房屋",notes="删除失败可能是存在外键")
+	@ApiOperation(value = "删除一个房屋", notes = "删除失败可能是存在外键")
 	public Msg deleteHouse(@PathVariable("id") Integer id) {
 		// 不存在该id
 		if (houseService.get(id) == null) {
@@ -224,7 +226,7 @@ public class HouseController {
 	 * @return
 	 */
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
-	@ApiOperation(value= "更改房屋信息",notes="!!!!!!!!!!!!!!!!!!!!!!!!!!!!非常重要，更改楼栋时，所有的信息请《手动输入》，你需要更改哪一项就输入哪一项，不填的默认不更改",response=com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "更改房屋信息", notes = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!非常重要，更改楼栋时，所有的信息请《手动输入》，你需要更改哪一项就输入哪一项，不填的默认不更改", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg modifyHouse(@RequestBody House house) {
 		// 基本不会出现这样的情况
 
@@ -250,6 +252,7 @@ public class HouseController {
 				return Msg.error("房屋已经存在");
 			}
 		}
+		
 
 		List<Integer> houseTypeParamIds = houseParamService.getHouseParamId(1);
 		if (!houseTypeParamIds.contains(house.getType())) {

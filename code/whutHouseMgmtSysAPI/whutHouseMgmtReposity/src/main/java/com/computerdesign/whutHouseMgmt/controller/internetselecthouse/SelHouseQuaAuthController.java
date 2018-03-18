@@ -292,7 +292,6 @@ public class SelHouseQuaAuthController {
 			staffShowModel.setDeptName(staffHouse.getStaffDeptName());
 			staffShowModel.setCode(staffHouse.getStaffCode());
 			staffShowModel.setJoinTime(staffHouse.getStaffJoinTime());
-//			staffShowModel.setGoUniversityTime(staffHouse.getStaffGoUniversityTime());
 			staffShowModel.setRetireTime(staffHouse.getStaffRetireTime());
 			staffShowModel.setTel(staffHouse.getStaffTel());
 			staffShowModel.setRemark(staffHouse.getStaffRemark());

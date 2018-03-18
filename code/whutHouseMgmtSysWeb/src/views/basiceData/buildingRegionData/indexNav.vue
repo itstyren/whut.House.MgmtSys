@@ -23,15 +23,8 @@
       </el-menu>
     </aside>
     <section class="main-container">
-      <!-- 需要长时间存活的 -->
-      <transition>
-        <keep-alive>
-          <router-view v-if="$route.meta.keepAlive"></router-view>
-        </keep-alive>
-      </transition>
-      <!-- 不需要长时间保存的 -->
       <transition mode="out-in">
-        <router-view v-if="!$route.meta.keepAlive"></router-view>
+        <router-view></router-view>
       </transition>
     </section>
   </div>

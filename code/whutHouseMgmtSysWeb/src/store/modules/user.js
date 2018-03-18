@@ -63,12 +63,9 @@ const user = {
             reject('error')
           }
           const data = res.data.data.data[0]
-         // console.log(data)
           commit(types.SET_ROLEID, data.roleId)
           commit(types.SET_NAME, data.name)
           commit(types.SET_USERNO,data.no)
-          // commit('SET_AVATAR', data.avatar)
-          // commit('SET_INTRODUCTION', data.introduction)
           resolve(res)
         }).catch(error => {
           reject(error)

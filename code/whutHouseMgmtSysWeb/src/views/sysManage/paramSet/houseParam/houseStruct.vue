@@ -2,7 +2,7 @@
   <div class="third-container">
     <!-- 面包屑导航 -->
     <div class="warp-breadcrum">
-            <el-breadcrumb separator="/">
+      <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/' }">
           <b>首页</b>
         </el-breadcrumb-item>
@@ -20,10 +20,11 @@
       </div>
       <!-- 表格区 -->
       <div class="main-data">
-        <el-table class="table" :data="structData"  v-loading="listLoading" height="string">
+        <el-table class="table" :data="structData" v-loading="listLoading" height="string">
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
           <el-table-column prop="houseParamName" label="住房结构" sortable align="center"></el-table-column>
+          <el-table-column prop="structRent" label="租金" sortable align="center"></el-table-column>
           <el-table-column label="操作" width="200" align="center">
             <template slot-scope="scope">
               <el-button size="small" @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
@@ -42,6 +43,9 @@
         <el-form-item label="住房结构" prop="houseParamName">
           <el-input v-model="addFormBody.houseParamName" placeholder="请输入住房结构"></el-input>
         </el-form-item>
+        <el-form-item label="租金" prop="structRent">
+          <el-input v-model="addFormBody.structRent" placeholder="请输入租金"></el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" addFormVisible = false">取消</el-button>
@@ -54,6 +58,9 @@
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules">
         <el-form-item label="住房结构" prop="houseParamName">
           <el-input v-model="modifyFromBody.houseParamName" placeholder="请输入住房结构"></el-input>
+        </el-form-item>
+        <el-form-item label="租金" prop="structRent">
+          <el-input v-model="modifyFromBody.structRent" placeholder="请输入租金"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -131,7 +138,7 @@
       },
       // 删除功能
       delectStruct(index, row) {
-        this.$confirm('此操作将删除该户型选项', '提示', {
+        this.$confirm('此操作将删除该结构选项', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'

@@ -1,6 +1,7 @@
 package com.computerdesign.whutHouseMgmt.controller.houseparam;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.aspectj.weaver.ast.Var;
@@ -24,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RequestMapping("/houseParam/")
 @Controller
-@Api(value = "住房参数Controller",description="住房参数接口")
+@Api(value = "住房参数Controller", description = "住房参数接口")
 public class HouseParameterController {
 
 	@Autowired
@@ -38,7 +39,7 @@ public class HouseParameterController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getHouseParamId/{paramTypeId}", method = RequestMethod.GET)
-	@ApiOperation(value = "获取某一种参数类型的全部id",notes= "根据房屋参数类型的id获取该种类型的所有房屋参数信息的id",response=com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "获取某一种参数类型的全部id", notes = "根据房屋参数类型的id获取该种类型的所有房屋参数信息的id", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getHouseTypePar(@PathVariable("paramTypeId") Integer paramTypeId) {
 		List<Integer> houseParamIds = houseParamService.getHouseParamId(paramTypeId);
 		return Msg.success().add("data", houseParamIds);
@@ -52,7 +53,7 @@ public class HouseParameterController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getWithoutPage/{paramTypeId}", method = RequestMethod.GET)
-	@ApiOperation(value = "获取某一种类型的房屋参数",notes="根据paramTypeId获取某一种类型的全部房屋参数,不分页",response=com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "获取某一种类型的房屋参数", notes = "根据paramTypeId获取某一种类型的全部房屋参数,不分页", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getHouseParameter(@PathVariable("paramTypeId") Integer paramTypeId) {
 		List<HouseParameter> houseParams = houseParamService.getbyParamTypeId(paramTypeId);
 
@@ -71,7 +72,7 @@ public class HouseParameterController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "get/{paramTypeId}", method = RequestMethod.GET)
-	@ApiOperation(value = "获取某一种类型的房屋参数",notes="根据paramTypeId获取某一种类型的全部房屋参数,分页",httpMethod = "GET",response=com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "获取某一种类型的房屋参数", notes = "根据paramTypeId获取某一种类型的全部房屋参数,分页", httpMethod = "GET", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getHouseParameter(@PathVariable("paramTypeId") Integer paramTypeId,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
@@ -122,7 +123,7 @@ public class HouseParameterController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "delete/{houseParamId}", method = RequestMethod.DELETE)
-	@ApiOperation(value = "删除一个房屋信息",notes="删除一个服务信息",httpMethod="DELETE",response= com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "删除一个房屋信息", notes = "删除一个服务信息", httpMethod = "DELETE", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg deleteHouseParam(@PathVariable("houseParamId") Integer houseParamId) {
 		HouseParameter houseParameter = houseParamService.get(houseParamId);
 		if (houseParameter == null) {
@@ -130,12 +131,11 @@ public class HouseParameterController {
 		}
 		try {
 			houseParameter.setIsDelete(true);
-			// 更新操作，且不可逆
 			houseParamService.update(houseParameter);
 			return Msg.success().add("data", houseParameter);
 		} catch (Exception e) {
 			// TODO: handle exception
-			return Msg.error();
+			return Msg.error("该住房参数无法删除");
 		}
 	}
 
@@ -145,7 +145,7 @@ public class HouseParameterController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
-	@ApiOperation(value = "修改一个房屋参数信息",httpMethod="PUT",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "修改一个房屋参数信息", httpMethod = "PUT", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg modifyHouseParam(@RequestBody HouseParameter houseParameter) {
 		if (houseParameter.getHouseParamName() == null) {
 			return Msg.error("必要信息不完整，添加失败");
@@ -158,15 +158,16 @@ public class HouseParameterController {
 		}
 		// 遍历全部已有的房屋参数信息
 		List<HouseParameter> listHouseParameter = houseParamService.getbyParamTypeId(houseParameter.getParamTypeId());
-		HouseParameter thisHouseParameter = houseParamService.get(houseParameter.getHouseParamId());
-		// 移除该条信息
-		listHouseParameter.remove(thisHouseParameter);
-		for (HouseParameter houseParamAlready : listHouseParameter) {
-			// 检查房屋参数信息的名称是否已经存在
-			if (houseParameter.getHouseParamName().equals(houseParamAlready.getHouseParamName())) {
-				return Msg.error("该名称已存在，无法添加");
+		// 遍历这些信息
+		Iterator iterator = listHouseParameter.iterator();
+		while (iterator.hasNext()) {
+			HouseParameter houseParamAlready = (HouseParameter) iterator.next();
+			if (houseParamAlready.getHouseParamId() != houseParameter.getHouseParamId()
+					&& houseParameter.getHouseParamName().equals(houseParamAlready.getHouseParamName())) {
+				return Msg.error("该名称已存在，无法修改");
 			}
 		}
+		
 		try {
 			houseParamService.update(houseParameter);
 			return Msg.success().add("data", houseParameter);

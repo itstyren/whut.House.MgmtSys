@@ -2,6 +2,10 @@ package com.computerdesign.whutHouseMgmt.bean.house;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ViewHouse {
     private Integer id;
 
@@ -49,6 +53,8 @@ public class ViewHouse {
 
     private Double rental;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date finishTime;
 
     private Integer recordStatus;

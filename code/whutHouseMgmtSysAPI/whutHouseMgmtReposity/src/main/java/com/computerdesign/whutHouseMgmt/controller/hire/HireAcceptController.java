@@ -1,20 +1,18 @@
 package com.computerdesign.whutHouseMgmt.controller.hire;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.accept.HireAddAccept;
-import com.computerdesign.whutHouseMgmt.bean.hire.accept.HireGetAccept;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
@@ -22,6 +20,7 @@ import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
+import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.wf.etp.authz.annotation.RequiresPermissions;
 
 import io.swagger.annotations.Api;
@@ -50,36 +49,44 @@ public class HireAcceptController {
 	 * @param acceptState
 	 * @return
 	 */
-	@RequiresPermissions("hire/accept")
 	@RequestMapping(value = "getAccept/{acceptState}", method = RequestMethod.GET)
-	@ApiOperation(value = "获取全部的受理信息",notes="进入房屋申请受理页面 0代表未经受理流程的全部信息，1代表受理过程结束的全部信息",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "获取全部的受理信息", notes = "进入房屋申请受理页面 0代表未经受理流程的全部信息，1代表受理过程结束的全部信息", httpMethod = "GET", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getAccept(@PathVariable("acceptState") Integer acceptState) {
 		if (acceptState == null) {
 			return Msg.error("请检查你的网络");
-		} 
-		if (acceptState == 0) {//获取全部待受理的信息
+		}
+		if (acceptState == 0) {// 获取全部待受理的信息
 			List<ViewHire> listViewHire = viewHireService.getAcceptUntil();
-			List<HireGetAccept> listHireGetAccept = new ArrayList<HireGetAccept>();
+			// 设置titleVal自动计算和totalVal自动计算
 			for (ViewHire viewHire : listViewHire) {
 				ViewStaff viewStaff = viewStaffService.getByStaffId(viewHire.getStaffId()).get(0);
-				Double titleVal = (double)staffParameterService.getValByStaffParamId(viewStaff.getTitle());
-				Double totalVal = titleVal+viewStaff.getOtherVal()+viewStaff.getTimeVal();
+				Double titleVal = (double) staffParameterService.getValByStaffParamId(viewStaff.getTitle());
+				Double totalVal = titleVal + viewStaff.getOtherVal() + viewStaff.getTimeVal();
 				viewHire.setTitleVal(titleVal);
-				listHireGetAccept.add(new HireGetAccept(viewHire));
-				
+				viewHire.setTotalVal(totalVal);
 			}
-			return Msg.success("获取全部的待受理信息").add("data", listHireGetAccept);
+			// 需要传出的字段
+			String[] fileds = { "id", "name", "applyTime", "hireState", "reason", "phone", "titleName", "postName",
+					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal" };
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
+
+			return Msg.success("获取全部的待受理信息").add("data", response);
 		} else if (acceptState == 1) {
 			List<ViewHire> listViewHire = viewHireService.getAcceptHasBeen();
-			List<HireGetAccept> listHireGetAccept = new ArrayList<HireGetAccept>();
 			for (ViewHire viewHire : listViewHire) {
 				ViewStaff viewStaff = viewStaffService.getByStaffId(viewHire.getStaffId()).get(0);
-				Double titleVal = (double)staffParameterService.getValByStaffParamId(viewStaff.getTitle());
-				Double totalVal = titleVal+viewHire.getOtherVal()+viewHire.getTimeVal()+viewHire.getSpouseVal();
+				Double titleVal = (double) staffParameterService.getValByStaffParamId(viewStaff.getTitle());
+				Double totalVal = titleVal + viewHire.getOtherVal() + viewHire.getTimeVal() + viewHire.getSpouseVal();
 				viewHire.setTitleVal(titleVal);
-				listHireGetAccept.add(new HireGetAccept(viewHire));
+				viewHire.setTotalVal(totalVal);
 			}
-			return Msg.success("获取全部的已进行受理操作的信息").add("data", listHireGetAccept);
+			
+			String[] fileds = { "id", "name", "applyTime", "hireState", "reason", "phone", "titleName", "postName",
+					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal", "acceptNote", "acceptState",
+					"acceptMan", "acceptTime" };
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
+			
+			return Msg.success("获取全部的已进行受理操作的信息").add("data", response);
 		} else {
 			return Msg.error("请检查你的网络");
 		}
