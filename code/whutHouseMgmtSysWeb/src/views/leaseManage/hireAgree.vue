@@ -59,44 +59,51 @@
                     </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="5" :offset="1">
+                    <el-col :span="7" :offset="1">
                       <el-form-item label="职称分">
                         <el-input v-model="agreeForm.titleVal" size="small" readonly></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="5">
+                    <el-col :span="7">
                       <el-form-item label="职务分">
                         <el-input v-model="agreeForm.titleVal" size="small" readonly></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="5">
-                      <el-form-item label="配偶分">
-                        <el-input v-model="agreeForm.spouseVal" size="small" readonly></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="5">
-                      <el-form-item label="其他分">
-                        <el-input v-model="agreeForm.otherVal" size="small" readonly></el-input>
+                    <el-col :span="7">
+                      <el-form-item label="工龄分">
+                        <el-input v-model="agreeForm.timeVal" size="small" readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="5" :offset="1">
+                    <el-col :span="7" :offset="1">
+                      <el-form-item label="配偶分">
+                        <el-input v-model="agreeForm.spouseVal" size="small" readonly></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                      <el-form-item label="其他分">
+                        <el-input v-model="agreeForm.otherVal" size="small" readonly></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
                       <el-form-item label="总得分">
                         <el-input v-model="agreeForm.totalVal" size="small" readonly></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="5">
+                  </el-row>
+                  <el-row>
+                    <el-col :span="7" :offset="1">
                       <el-form-item label="受理人">
                         <el-input v-model="agreeForm.acceptMan" size="small" readonly placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="5">
+                    <el-col :span="7">
                       <el-form-item label="受理状态">
                         <el-input v-model="agreeForm.acceptState" size="small" readonly placeholder="状态未知"></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="5">
+                    <el-col :span="7">
                       <el-form-item label="受理时间">
                         <el-input v-model="agreeForm.acceptTime" size="small" readonly placeholder="受理时间未知"></el-input>
                       </el-form-item>
@@ -106,6 +113,20 @@
                     <el-col :span="9" :offset="1">
                       <el-form-item label="受理说明">
                         <el-input v-model="agreeForm.acceptNote" readonly type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row v-if="status">
+                    <el-col :span="14" :offset="1">
+                      <el-form-item label="预分配住房">
+                        <el-input v-model="agreeForm.houseAddress" size="small" readonly>
+                        </el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                      <el-form-item label="预分配面积">
+                        <el-input v-model="agreeForm.houseBuildArea" size="small" readonly placeholder="请选择住房">
+                        </el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -138,7 +159,7 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="start" v-if="!status">                  
+                  <el-row type="flex" justify="start" v-if="!status">
                     <el-col :span="6" :offset="1">
                       <el-form-item label="审核状态" prop="agreeState">
                         <el-switch v-model="agreeForm.agreeState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
@@ -177,121 +198,125 @@
 </template>
 
 <script type="text/ecmascript-6">
-import indexNav from "./components/indexNav";
-import seachHouse from "@/views/tools/seachHouse";
-import { putHireAgree } from "@/api/leaseManage";
-import utils from "@/utils/index.js";
-export default {
-  data() {
-    return {
-      listLoading: false,
-      agreeForm: {},
-      status: false,
-      hireStatus: "agree",
-      isSubmit: false,
-      selectHouseId: "",
-      // 表单验证规则
-      rules: {
-        agreeNote: {
-          required: true,
-          message: "请输入审核意见",
-          trigger: "blur"
-        }
+  import indexNav from "./components/indexNav";
+  import seachHouse from "@/views/tools/seachHouse";
+  import {
+    putHireAgree
+  } from "@/api/leaseManage";
+  import utils from "@/utils/index.js";
+  export default {
+    data() {
+      return {
+        listLoading: false,
+        agreeForm: {},
+        status: false,
+        hireStatus: "agree",
+        isSubmit: false,
+        selectHouseId: "",
+        // 表单验证规则
+        rules: {
+          agreeNote: {
+            required: true,
+            message: "请输入审核意见",
+            trigger: "blur"
+          }
+        },
+        dialogVisible: false
+      };
+    },
+    // 注册组件
+    components: {
+      seachHouse,
+      indexNav
+    },
+    computed: {
+      totalVal: function () {
+        return (
+          parseInt(this.agreeForm.otherVal) + parseInt(this.agreeForm.titleVal)
+        );
+      }
+    },
+    methods: {
+      // 从子组件获取
+      getList(object) {
+        this.agreeForm = object.content;
+        this.agreeForm.otherVal = 0;
+        this.status = object.status;
       },
-      dialogVisible: false
-    };
-  },
-  // 注册组件
-  components: {
-    seachHouse,
-    indexNav
-  },
-  computed: {
-    totalVal: function() {
-      return (
-        parseInt(this.agreeForm.otherVal) + parseInt(this.agreeForm.titleVal)
-      );
-    }
-  },
-  methods: {
-    // 从子组件获取
-    getList(object) {
-      this.agreeForm = object.content;
-      this.agreeForm.otherVal = 0;
-      this.status = object.status;
-    },
-    // 审核信息提交
-    agreeSubmit() {
-      if (this.agreeForm.agreeState == null)
-        this.agreeForm.agreeState = "通过";
-      this.$confirm(`确认${this.agreeForm.agreeState}审核`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$refs["agreeForm"].validate(valid => {
-            if (valid) {
-              this.listLoading = true;
-              let agreeForm = this.agreeForm;
-              let param = {
-                agreeMan: this.$store.getters.userName,
-                agreeNote: agreeForm.agreeNote,
-                agreeState: agreeForm.agreeState,
-                id: agreeForm.id,
-                houseId:this.selectHouseId
-              };
-              putHireAgree(param).then(res => {
-                this.agreeForm = {};
-                utils.statusinfo(this, res.data);
-                this.isSubmit = !this.isSubmit;
-                this.listLoading = false;
-              });
-            }
+      // 审核信息提交
+      agreeSubmit() {
+        if (this.agreeForm.agreeState == null)
+          this.agreeForm.agreeState = "通过";
+        this.$confirm(`确认${this.agreeForm.agreeState}审核`, "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            this.$refs["agreeForm"].validate(valid => {
+              if (valid) {
+                this.listLoading = true;
+                let agreeForm = this.agreeForm;
+                let param = {
+                  agreeMan: this.$store.getters.userName,
+                  agreeNote: agreeForm.agreeNote,
+                  agreeState: agreeForm.agreeState,
+                  id: agreeForm.id,
+                  houseId: this.selectHouseId
+                };
+                putHireAgree(param).then(res => {
+                  this.agreeForm = {};
+                  utils.statusinfo(this, res.data);
+                  this.isSubmit = !this.isSubmit;
+                  this.listLoading = false;
+                });
+              }
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消审核"
+            });
           });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消审核"
-          });
-        });
-    },
-    // 从组件中传递
-    selectHouse(data) {
-      this.$set(this.agreeForm,'houseName',data[0])
-      this.selectHouseId = data[1];
+      },
+      // 从组件中传递
+      selectHouse(data) {
+        this.$set(this.agreeForm, 'houseName', data[0])
+        this.selectHouseId = data[1];
+      }
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-@import "../../styles/variables.scss";
+  @import "../../styles/variables.scss";
 
-.second-container {
-  background-color: $background-grey;
-  & .main-data {
-    padding-top: 20px;
-    & .accept-form {
-      width: 80%;
-      background-color: #fff;
-      padding: 10px;
-      padding-bottom: 30px;
-      margin:20px auto;
-      position: relative;
-      & .need-accept {
-        h1 {
-          text-align: center;
-          margin-bottom: 30px;
-        }
-        & .is-agree {
-          position: relative;
-          border-bottom: 1px solid #e6ebf5;
-          margin-bottom: 20px;
+  .second-container {
+    background-color: $background-grey;
+    & .main-data {
+      padding-top: 20px;
+      & .accept-form {
+        width: 80%;
+        background-color: #fff;
+        padding: 10px;
+        padding-bottom: 30px;
+        margin: 20px auto;
+        position: relative;
+        & .need-accept {
+          h1 {
+            text-align: center;
+            margin-bottom: 30px;
+          }
+          & .is-agree {
+            position: relative;
+            border-bottom: 1px solid #e6ebf5;
+            margin-bottom: 20px;
+          }
         }
       }
     }
   }
-}
+
 </style>

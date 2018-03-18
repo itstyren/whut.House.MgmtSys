@@ -1,7 +1,7 @@
 <template>
   <div class="second-container">
     <div class="main-container">
-      <div class="third-container">
+      <div class="special-container">
         <!-- 面包屑导航 -->
         <div class="warp-breadcrum">
           <el-breadcrumb separator="/">
@@ -170,7 +170,7 @@ export default {
 .second-container {
   background-color: $background-grey;
   & .waiting-staff {
-    height: 25vh;
+    height: 40vh;
     text-align: center;
     position: relative;
     padding-top: 25px;
@@ -186,7 +186,7 @@ export default {
     }
   }
   & .able-house {
-    height: 25vh;
+    height: 40vh;
     text-align: center;
     position: relative;
     padding-top: 25px;

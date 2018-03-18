@@ -95,8 +95,13 @@
           </div>
           <!-- 表格区 -->
           <div class="main-data">
+                        <el-tabs v-model="activeName" type="border-card" style="margin:10px 10px 10px">
+              <el-tab-pane name="canSelect">
+                <span slot="label">
+                  <my-icon icon-class="users"></my-icon>待选员工</span>
+                <keep-alive>
             <!-- 未设置选房的表格 -->
-            <div class="card can-select">
+            <div v-if="activeName=='canSelect'" class="table-tabs">
               <el-table :data="canSelectData" class="table" height="string" v-loading="listLoading" @selection-change="setSelectionChange">
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
@@ -128,8 +133,14 @@
                 <el-button type="primary" size="small" @click="setSelect">设为可选</el-button>
               </div>
             </div>
+                </keep-alive>
+              </el-tab-pane>
+              <el-tab-pane name="haveSleect">
+                <span slot="label">
+                  <my-icon icon-class="users"></my-icon>可选员工</span>
+                <keep-alive>
             <!-- 已设置选房的表格 -->
-            <div class="card can-select">
+            <div v-if="activeName=='haveSleect'" class="table-tabs">
               <el-table :data="haveSelectData" class="table" height="string" v-loading="listLoading1" @selection-change="cancelSelectionChange">
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
@@ -161,6 +172,9 @@
                 <el-button type="warning" size="small" @click="cancelSelect">撤销可选</el-button>
               </div>
             </div>
+                </keep-alive>
+              </el-tab-pane>
+              </el-tabs>
           </div>
         </div>
       </div>
@@ -185,6 +199,7 @@
   export default {
     data() {
       return {
+        activeName:'canSelect',
         // 多重查找表单
         queryForm: {},
         time: [],
@@ -418,14 +433,14 @@
         padding: 10px;
       }
     }
-    .can-select {
-      height: 33vh;
-      padding-bottom: 6vh;
+    .table-tabs {
+      height: 57vh;
+      padding-bottom: 40px;
       position: relative;
       &>.bottom-tool {
         position: absolute;
         bottom: 5px;
-        left: 10px;
+        left: 15px;
       }
     }
   }
