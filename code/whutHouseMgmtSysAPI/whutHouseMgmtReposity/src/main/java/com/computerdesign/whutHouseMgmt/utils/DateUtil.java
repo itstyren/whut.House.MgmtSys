@@ -50,6 +50,23 @@ public class DateUtil {
 	}
 	
 	/**
+	 * 得到当前时间(yyyy-MM-dd)
+	 * @return
+	 */
+	public static String getCurrentSimpleDate() {
+		return formatDate(new Date(), "yyyy-MM-dd");
+	}
+	
+	/**
+	 * 时间格式转化(yyyy-MM-dd)
+	 * @return
+	 */
+	public static String getCurrentSimpleDate(Date date) {
+		return formatDate(date, "yyyy-MM-dd");
+	}
+	
+	
+	/**
 	 * 得到当前年份字符串
 	 */
 	public static String getCurrentYear() {
