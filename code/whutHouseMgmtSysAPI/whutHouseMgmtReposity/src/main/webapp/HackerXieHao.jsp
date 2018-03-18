@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzUxMzMxLCJleHAiOjE1MjEzNTQ5MzF9.vzxOK_fP-juA534_GAuNCNbVTvd71dv-hL-UKm1pXfM");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzU2MDkwLCJleHAiOjE1MjEzNTk2OTB9.TkXI5FvHpq4AlQWaXtBfhmEPZZLtyv1VJFQR2uLYwDc");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzUxMzMxLCJleHAiOjE1MjEzNTQ5MzF9.vzxOK_fP-juA534_GAuNCNbVTvd71dv-hL-UKm1pXfM");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzU2MDkwLCJleHAiOjE1MjEzNTk2OTB9.TkXI5FvHpq4AlQWaXtBfhmEPZZLtyv1VJFQR2uLYwDc");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -589,7 +589,7 @@
 
 		$("#setCanselect").click(function() {
 			//传递的是职工编号staffNo数组
-			var data = [ 6 ];
+			var data = [ 6,8 ];
 			ajaxRequestPostType("selHouseQuaAuth/setCanselect", "POST", data);
 
 		})

@@ -47,7 +47,9 @@ public class FixService {
 	public void updateStrict(Fix fix){
 		fixMapper.updateByPrimaryKey(fix);
 	}
-	public void getRegister(String staffId) {
+	
+	
+	public void getResident(String staffId) {
 		ResidentExample example = new ResidentExample();
 		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
 		//等待谢豪修改数据库
