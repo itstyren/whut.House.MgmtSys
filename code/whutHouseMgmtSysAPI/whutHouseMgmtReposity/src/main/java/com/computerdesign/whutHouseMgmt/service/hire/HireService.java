@@ -29,6 +29,19 @@ public class HireService {
 	}
 
 	/**
+	 * 根据staffId获取该职工所有相关hire信息
+	 * 
+	 * @param staffId
+	 * @return
+	 */
+	public List<Hire> getAllByStaffId(Integer staffId) {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		return hireMapper.selectByExample(example);
+	}
+	
+	/**
 	 * 根据staffId获取hire信息
 	 * 
 	 * @param staffId

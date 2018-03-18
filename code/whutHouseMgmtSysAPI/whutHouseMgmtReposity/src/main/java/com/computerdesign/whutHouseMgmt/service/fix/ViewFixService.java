@@ -20,6 +20,18 @@ public class ViewFixService {
 	@Autowired
 	private ViewFixMapper viewFixMapper;
 	
+	/**
+	 * 根据职工id获取所有维修信息
+	 * @param staffId
+	 * @return
+	 */
+	public List<ViewFix> getByStaffId(Integer staffId){
+		ViewFixExample example = new ViewFixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		return viewFixMapper.selectByExample(example);
+	}
+	
 	public List<ViewFix> getAll() {
 		return viewFixMapper.selectByExample(null);
 	}
