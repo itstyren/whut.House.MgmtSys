@@ -19,8 +19,14 @@
 	<dependencies>
 
 
-		
-		<!-- swagger api文档生产 --> 
+		<!-- freeMarker -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.23</version>
+		</dependency>
+
+		<!-- swagger api文档生产 -->
 		<!--springfox的核心jar包 -->
 		<dependency>
 			<groupId>io.springfox</groupId>

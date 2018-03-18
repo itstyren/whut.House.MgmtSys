@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.house.House;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
+import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -30,6 +32,8 @@ public class HouseParameterController {
 
 	@Autowired
 	private HouseParamService houseParamService;
+	@Autowired
+	private HouseService houseService;
 
 	/**
 	 * 获取全部的houseParamId
@@ -118,6 +122,7 @@ public class HouseParameterController {
 	}
 
 	/**
+	 * 
 	 * @param houseParamId
 	 * @return
 	 */
@@ -129,14 +134,13 @@ public class HouseParameterController {
 		if (houseParameter == null) {
 			return Msg.error("找不到该id，删除出错");
 		}
-		try {
-			houseParameter.setIsDelete(true);
-			houseParamService.update(houseParameter);
-			return Msg.success().add("data", houseParameter);
-		} catch (Exception e) {
-			// TODO: handle exception
+		List<House> houses = houseService.getHousesByParamId(houseParameter.getParamTypeId(), houseParamId);
+		if (!houses.isEmpty()) {
 			return Msg.error("该住房参数无法删除");
 		}
+		houseParameter.setIsDelete(true);
+		houseParamService.update(houseParameter);
+		return Msg.success().add("data", houseParameter);
 	}
 
 	/**
@@ -167,7 +171,7 @@ public class HouseParameterController {
 				return Msg.error("该名称已存在，无法修改");
 			}
 		}
-		
+
 		try {
 			houseParamService.update(houseParameter);
 			return Msg.success().add("data", houseParameter);
