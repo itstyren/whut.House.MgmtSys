@@ -1443,6 +1443,76 @@ public class StaffExample {
             return (Criteria) this;
         }
 
+        public Criteria andSpouseTelIsNull() {
+            addCriterion("SpouseTel is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelIsNotNull() {
+            addCriterion("SpouseTel is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelEqualTo(String value) {
+            addCriterion("SpouseTel =", value, "spouseTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelNotEqualTo(String value) {
+            addCriterion("SpouseTel <>", value, "spouseTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelGreaterThan(String value) {
+            addCriterion("SpouseTel >", value, "spouseTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelGreaterThanOrEqualTo(String value) {
+            addCriterion("SpouseTel >=", value, "spouseTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelLessThan(String value) {
+            addCriterion("SpouseTel <", value, "spouseTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelLessThanOrEqualTo(String value) {
+            addCriterion("SpouseTel <=", value, "spouseTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelLike(String value) {
+            addCriterion("SpouseTel like", value, "spouseTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelNotLike(String value) {
+            addCriterion("SpouseTel not like", value, "spouseTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelIn(List<String> values) {
+            addCriterion("SpouseTel in", values, "spouseTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelNotIn(List<String> values) {
+            addCriterion("SpouseTel not in", values, "spouseTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelBetween(String value1, String value2) {
+            addCriterion("SpouseTel between", value1, value2, "spouseTel");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpouseTelNotBetween(String value1, String value2) {
+            addCriterion("SpouseTel not between", value1, value2, "spouseTel");
+            return (Criteria) this;
+        }
+
         public Criteria andSpousePostIsNull() {
             addCriterion("SpousePost is null");
             return (Criteria) this;

@@ -35,6 +35,9 @@
     <result column="OtherVal" jdbcType="DOUBLE" property="otherVal" />
     <result column="TimeVal" jdbcType="DOUBLE" property="timeVal" />
     <result column="TotalVal" jdbcType="DOUBLE" property="totalVal" />
+    <result column="EduQualifications" jdbcType="VARCHAR" property="eduQualifications" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="SpouseTel" jdbcType="VARCHAR" property="spouseTel" />
     <result column="IsSuper" jdbcType="TINYINT" property="isSuper" />
     <result column="SpouseDept" jdbcType="VARCHAR" property="spouseDept" />
     <result column="SpouseKind" jdbcType="INTEGER" property="spouseKind" />
@@ -116,10 +119,10 @@
     Id, No, Name, Sex, MarriageState, Title, TitleName, TitleVal, SpouseTitleVal, Post, 
     PostName, PostVal, SpousePostVal, Type, TypeName, Status, StatusName, Dept, DeptName, 
     Code, JoinTime, RetireTime, Tel, Remark, SpouseName, SpouseCode, SpouseTitle, SpouseTitleName, 
-    SpousePost, SpousePostName, OtherVal, TimeVal, TotalVal, IsSuper, SpouseDept, SpouseKind, 
-    SpouseKindName, IsDeptManage, StaffPassword, BuyAccount, FixFund, SecondJoinTime, 
-    SecondRetireTime, StaffDual, Relation, DiscountRate, FamilyCode, FirstJobTime, UserName, 
-    RoleId, AccountStatus
+    SpousePost, SpousePostName, OtherVal, TimeVal, TotalVal, EduQualifications, Email, 
+    SpouseTel, IsSuper, SpouseDept, SpouseKind, SpouseKindName, IsDeptManage, StaffPassword, 
+    BuyAccount, FixFund, SecondJoinTime, SecondRetireTime, StaffDual, Relation, DiscountRate, 
+    FamilyCode, FirstJobTime, UserName, RoleId, AccountStatus
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaffExample" resultMap="BaseResultMap">
     select
@@ -153,6 +156,7 @@
       SpouseName, SpouseCode, SpouseTitle, 
       SpouseTitleName, SpousePost, SpousePostName, 
       OtherVal, TimeVal, TotalVal, 
+      EduQualifications, Email, SpouseTel, 
       IsSuper, SpouseDept, SpouseKind, 
       SpouseKindName, IsDeptManage, StaffPassword, 
       BuyAccount, FixFund, SecondJoinTime, 
@@ -171,6 +175,7 @@
       #{spouseName,jdbcType=VARCHAR}, #{spouseCode,jdbcType=VARCHAR}, #{spouseTitle,jdbcType=INTEGER}, 
       #{spouseTitleName,jdbcType=VARCHAR}, #{spousePost,jdbcType=INTEGER}, #{spousePostName,jdbcType=VARCHAR}, 
       #{otherVal,jdbcType=DOUBLE}, #{timeVal,jdbcType=DOUBLE}, #{totalVal,jdbcType=DOUBLE}, 
+      #{eduQualifications,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{spouseTel,jdbcType=VARCHAR}, 
       #{isSuper,jdbcType=TINYINT}, #{spouseDept,jdbcType=VARCHAR}, #{spouseKind,jdbcType=INTEGER}, 
       #{spouseKindName,jdbcType=VARCHAR}, #{isDeptManage,jdbcType=BIT}, #{staffPassword,jdbcType=VARCHAR}, 
       #{buyAccount,jdbcType=DECIMAL}, #{fixFund,jdbcType=DECIMAL}, #{secondJoinTime,jdbcType=DATE}, 
@@ -280,6 +285,15 @@
       </if>
       <if test="totalVal != null">
         TotalVal,
+      </if>
+      <if test="eduQualifications != null">
+        EduQualifications,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="spouseTel != null">
+        SpouseTel,
       </if>
       <if test="isSuper != null">
         IsSuper,
@@ -435,6 +449,15 @@
       </if>
       <if test="totalVal != null">
         #{totalVal,jdbcType=DOUBLE},
+      </if>
+      <if test="eduQualifications != null">
+        #{eduQualifications,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseTel != null">
+        #{spouseTel,jdbcType=VARCHAR},
       </if>
       <if test="isSuper != null">
         #{isSuper,jdbcType=TINYINT},
@@ -600,6 +623,15 @@
       <if test="record.totalVal != null">
         TotalVal = #{record.totalVal,jdbcType=DOUBLE},
       </if>
+      <if test="record.eduQualifications != null">
+        EduQualifications = #{record.eduQualifications,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spouseTel != null">
+        SpouseTel = #{record.spouseTel,jdbcType=VARCHAR},
+      </if>
       <if test="record.isSuper != null">
         IsSuper = #{record.isSuper,jdbcType=TINYINT},
       </if>
@@ -694,6 +726,9 @@
       OtherVal = #{record.otherVal,jdbcType=DOUBLE},
       TimeVal = #{record.timeVal,jdbcType=DOUBLE},
       TotalVal = #{record.totalVal,jdbcType=DOUBLE},
+      EduQualifications = #{record.eduQualifications,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      SpouseTel = #{record.spouseTel,jdbcType=VARCHAR},
       IsSuper = #{record.isSuper,jdbcType=TINYINT},
       SpouseDept = #{record.spouseDept,jdbcType=VARCHAR},
       SpouseKind = #{record.spouseKind,jdbcType=INTEGER},

@@ -22,6 +22,7 @@
     <result column="SpouseName" jdbcType="VARCHAR" property="spouseName" />
     <result column="SpouseCode" jdbcType="VARCHAR" property="spouseCode" />
     <result column="SpouseTitle" jdbcType="INTEGER" property="spouseTitle" />
+    <result column="SpouseTel" jdbcType="VARCHAR" property="spouseTel" />
     <result column="SpousePost" jdbcType="INTEGER" property="spousePost" />
     <result column="SpouseDept" jdbcType="VARCHAR" property="spouseDept" />
     <result column="SpouseKind" jdbcType="INTEGER" property="spouseKind" />
@@ -106,10 +107,10 @@
   </sql>
   <sql id="Base_Column_List">
     Id, No, Name, Sex, MarriageState, Title, Post, Type, Status, Dept, Code, EduQualifications, 
-    JoinTime, RetireTime, Tel, Email, Remark, SpouseName, SpouseCode, SpouseTitle, SpousePost, 
-    SpouseDept, SpouseKind, IsDeptManage, StaffPassword, BuyAccount, Compensate, FixFund, 
-    SecondJoinTime, SecondRetireTime, StaffDual, Relation, OtherVal, TimeVal, TotalVal, 
-    DiscountRate, FamilyCode, FirstJobTime, UserName, IsSuper, RoleId, AccountStatus, 
+    JoinTime, RetireTime, Tel, Email, Remark, SpouseName, SpouseCode, SpouseTitle, SpouseTel, 
+    SpousePost, SpouseDept, SpouseKind, IsDeptManage, StaffPassword, BuyAccount, Compensate, 
+    FixFund, SecondJoinTime, SecondRetireTime, StaffDual, Relation, OtherVal, TimeVal, 
+    TotalVal, DiscountRate, FamilyCode, FirstJobTime, UserName, IsSuper, RoleId, AccountStatus, 
     IsOwnPriHouse
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample" resultMap="BaseResultMap">
@@ -118,7 +119,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from hs_staff
+    from Hs_Staff
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -129,53 +130,53 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from hs_staff
+    from Hs_Staff
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hs_staff
+    delete from Hs_Staff
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample">
-    delete from hs_staff
+    delete from Hs_Staff
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff">
-    insert into hs_staff (Id, No, Name, 
+    insert into Hs_Staff (Id, No, Name, 
       Sex, MarriageState, Title, 
       Post, Type, Status, 
       Dept, Code, EduQualifications, 
       JoinTime, RetireTime, Tel, 
       Email, Remark, SpouseName, 
-      SpouseCode, SpouseTitle, SpousePost, 
-      SpouseDept, SpouseKind, IsDeptManage, 
-      StaffPassword, BuyAccount, Compensate, 
-      FixFund, SecondJoinTime, SecondRetireTime, 
-      StaffDual, Relation, OtherVal, 
-      TimeVal, TotalVal, DiscountRate, 
-      FamilyCode, FirstJobTime, UserName, 
-      IsSuper, RoleId, AccountStatus, 
-      IsOwnPriHouse)
+      SpouseCode, SpouseTitle, SpouseTel, 
+      SpousePost, SpouseDept, SpouseKind, 
+      IsDeptManage, StaffPassword, BuyAccount, 
+      Compensate, FixFund, SecondJoinTime, 
+      SecondRetireTime, StaffDual, Relation, 
+      OtherVal, TimeVal, TotalVal, 
+      DiscountRate, FamilyCode, FirstJobTime, 
+      UserName, IsSuper, RoleId, 
+      AccountStatus, IsOwnPriHouse)
     values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{marriageState,jdbcType=VARCHAR}, #{title,jdbcType=INTEGER}, 
       #{post,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{dept,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{eduQualifications,jdbcType=VARCHAR}, 
       #{joinTime,jdbcType=DATE}, #{retireTime,jdbcType=DATE}, #{tel,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{spouseName,jdbcType=VARCHAR}, 
-      #{spouseCode,jdbcType=VARCHAR}, #{spouseTitle,jdbcType=INTEGER}, #{spousePost,jdbcType=INTEGER}, 
-      #{spouseDept,jdbcType=VARCHAR}, #{spouseKind,jdbcType=INTEGER}, #{isDeptManage,jdbcType=BIT}, 
-      #{staffPassword,jdbcType=VARCHAR}, #{buyAccount,jdbcType=DECIMAL}, #{compensate,jdbcType=DECIMAL}, 
-      #{fixFund,jdbcType=DECIMAL}, #{secondJoinTime,jdbcType=DATE}, #{secondRetireTime,jdbcType=DATE}, 
-      #{staffDual,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, #{otherVal,jdbcType=DOUBLE}, 
-      #{timeVal,jdbcType=DOUBLE}, #{totalVal,jdbcType=DOUBLE}, #{discountRate,jdbcType=DOUBLE}, 
-      #{familyCode,jdbcType=INTEGER}, #{firstJobTime,jdbcType=DATE}, #{userName,jdbcType=VARCHAR}, 
-      #{isSuper,jdbcType=TINYINT}, #{roleId,jdbcType=INTEGER}, #{accountStatus,jdbcType=BIT}, 
-      #{isOwnPriHouse,jdbcType=BIT})
+      #{spouseCode,jdbcType=VARCHAR}, #{spouseTitle,jdbcType=INTEGER}, #{spouseTel,jdbcType=VARCHAR}, 
+      #{spousePost,jdbcType=INTEGER}, #{spouseDept,jdbcType=VARCHAR}, #{spouseKind,jdbcType=INTEGER}, 
+      #{isDeptManage,jdbcType=BIT}, #{staffPassword,jdbcType=VARCHAR}, #{buyAccount,jdbcType=DECIMAL}, 
+      #{compensate,jdbcType=DECIMAL}, #{fixFund,jdbcType=DECIMAL}, #{secondJoinTime,jdbcType=DATE}, 
+      #{secondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, 
+      #{otherVal,jdbcType=DOUBLE}, #{timeVal,jdbcType=DOUBLE}, #{totalVal,jdbcType=DOUBLE}, 
+      #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, #{firstJobTime,jdbcType=DATE}, 
+      #{userName,jdbcType=VARCHAR}, #{isSuper,jdbcType=TINYINT}, #{roleId,jdbcType=INTEGER}, 
+      #{accountStatus,jdbcType=BIT}, #{isOwnPriHouse,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff">
-    insert into hs_staff
+    insert into Hs_Staff
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
@@ -236,6 +237,9 @@
       </if>
       <if test="spouseTitle != null">
         SpouseTitle,
+      </if>
+      <if test="spouseTel != null">
+        SpouseTel,
       </if>
       <if test="spousePost != null">
         SpousePost,
@@ -368,6 +372,9 @@
       <if test="spouseTitle != null">
         #{spouseTitle,jdbcType=INTEGER},
       </if>
+      <if test="spouseTel != null">
+        #{spouseTel,jdbcType=VARCHAR},
+      </if>
       <if test="spousePost != null">
         #{spousePost,jdbcType=INTEGER},
       </if>
@@ -440,13 +447,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample" resultType="java.lang.Long">
-    select count(*) from hs_staff
+    select count(*) from Hs_Staff
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update hs_staff
+    update Hs_Staff
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
@@ -507,6 +514,9 @@
       </if>
       <if test="record.spouseTitle != null">
         SpouseTitle = #{record.spouseTitle,jdbcType=INTEGER},
+      </if>
+      <if test="record.spouseTel != null">
+        SpouseTel = #{record.spouseTel,jdbcType=VARCHAR},
       </if>
       <if test="record.spousePost != null">
         SpousePost = #{record.spousePost,jdbcType=INTEGER},
@@ -583,7 +593,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update hs_staff
+    update Hs_Staff
     set Id = #{record.id,jdbcType=INTEGER},
       No = #{record.no,jdbcType=VARCHAR},
       Name = #{record.name,jdbcType=VARCHAR},
@@ -604,6 +614,7 @@
       SpouseName = #{record.spouseName,jdbcType=VARCHAR},
       SpouseCode = #{record.spouseCode,jdbcType=VARCHAR},
       SpouseTitle = #{record.spouseTitle,jdbcType=INTEGER},
+      SpouseTel = #{record.spouseTel,jdbcType=VARCHAR},
       SpousePost = #{record.spousePost,jdbcType=INTEGER},
       SpouseDept = #{record.spouseDept,jdbcType=VARCHAR},
       SpouseKind = #{record.spouseKind,jdbcType=INTEGER},
@@ -632,7 +643,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff">
-    update hs_staff
+    update Hs_Staff
     <set>
       <if test="no != null">
         No = #{no,jdbcType=VARCHAR},
@@ -690,6 +701,9 @@
       </if>
       <if test="spouseTitle != null">
         SpouseTitle = #{spouseTitle,jdbcType=INTEGER},
+      </if>
+      <if test="spouseTel != null">
+        SpouseTel = #{spouseTel,jdbcType=VARCHAR},
       </if>
       <if test="spousePost != null">
         SpousePost = #{spousePost,jdbcType=INTEGER},
@@ -764,7 +778,7 @@
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff">
-    update hs_staff
+    update Hs_Staff
     set No = #{no,jdbcType=VARCHAR},
       Name = #{name,jdbcType=VARCHAR},
       Sex = #{sex,jdbcType=VARCHAR},
@@ -784,6 +798,7 @@
       SpouseName = #{spouseName,jdbcType=VARCHAR},
       SpouseCode = #{spouseCode,jdbcType=VARCHAR},
       SpouseTitle = #{spouseTitle,jdbcType=INTEGER},
+      SpouseTel = #{spouseTel,jdbcType=VARCHAR},
       SpousePost = #{spousePost,jdbcType=INTEGER},
       SpouseDept = #{spouseDept,jdbcType=VARCHAR},
       SpouseKind = #{spouseKind,jdbcType=INTEGER},
