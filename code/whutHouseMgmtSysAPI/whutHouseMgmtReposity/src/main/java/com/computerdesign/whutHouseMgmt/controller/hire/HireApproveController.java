@@ -17,7 +17,9 @@ import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastHireRecordService;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
+import com.computerdesign.whutHouseMgmt.utils.StaffHomePageUtils;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -31,7 +33,9 @@ public class HireApproveController {
 	@Autowired
 	private ViewHireService viewHireService;
 
-
+	@Autowired
+	private LastHireRecordService lastHireRecordService;
+	
 	
 	@RequestMapping(value = "getApprove/{approveState}",method = RequestMethod.GET)
 	@ApiOperation(value = "进入房屋申请审批页面 0代表未经审批流程的全部信息，1代表审批过程结束的全部信息",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
@@ -85,19 +89,25 @@ public class HireApproveController {
 			hire.setApproveState(hireAddApprove.getApproveState());
 			hire.setApproveTime(new Date());
 			
+			//保存上一级租赁状态
+			StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+			
 			hire.setHireState("已审批");
 			hireService.updateStrict(hire);
-			return Msg.success("审批成功").add("data", hire).add("message", "您的租赁申请状态已更新");
+			return Msg.success("审批成功").add("data", hire);
 		}else if ("拒绝".equals(hireAddApprove.getApproveState())) {
 			hire.setApproveMan(hireAddApprove.getApproveMan());
 			hire.setApproveNote(hireAddApprove.getApproveNote());
 			hire.setApproveState(hireAddApprove.getApproveState());
 			hire.setApproveTime(new Date());
 			
+			//保存上一级租赁状态
+			StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+			
 			hire.setHireState("审批拒绝");
 			hire.setIsOver(true);
 			hireService.updateStrict(hire);
-			return Msg.success("审批拒绝").add("data", hire).add("message", "您的租赁申请状态已更新");
+			return Msg.success("审批拒绝").add("data", hire);
 		}else {
 			return Msg.error("请检查你的网络");
 		}
@@ -122,11 +132,14 @@ public class HireApproveController {
 		hire.setApproveState(null);
 		hire.setApproveTime(null);
 		
+		//保存上一级租赁状态
+		StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+		
 		hire.setHireState("待审批");
 		hire.setIsOver(false);
 		
 		hireService.updateStrict(hire);
-		return Msg.success("重新审批成功").add("data", hire).add("message", "您的租赁申请状态已更新");
+		return Msg.success("重新审批成功").add("data", hire);
 		//TODO 不需要data
 	
 	}

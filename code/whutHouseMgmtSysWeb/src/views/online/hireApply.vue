@@ -65,7 +65,7 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                                    <el-row type="flex" justify="center">
+                  <el-row type="flex" justify="center">
                     <el-col :span="10">
                       <el-form-item label="手机号" prop="staffTel">
                         <el-input v-model="accoutInfo.staffTel" placeholder="请输入手机号"></el-input>
@@ -80,7 +80,7 @@
                 </div>
                 <!-- 信息确认 -->
                 <div v-if="active==1" class="house-info">
-                                                      <el-row type="flex" justify="center" class="list-title">
+                  <el-row type="flex" justify="center" class="list-title">
                     <el-col :span="3">
                       <span>已有住房</span>
                     </el-col>
@@ -97,7 +97,7 @@
                       </el-table>
                     </el-col>
                   </el-row>
-                                    <el-row type="flex" justify="center" class="list-title">
+                  <el-row type="flex" justify="center" class="list-title">
                     <el-col :span="3">
                       <span>已申请信息</span>
                     </el-col>
@@ -134,9 +134,9 @@
                     </el-col>
                   </el-row> -->
                 </div>
-                                <div v-if="active==3" class="apply-result" v-loading="listLoading">
+                <div v-if="active==3" class="apply-result" v-loading="listLoading">
                   <span>{{resMessage}}</span>
-                </div>  
+                </div>
                 <div class="opera-area">
                   <el-button @click="backButton" v-if="active>=3&&active<3">上一步</el-button>
                   <el-button @click="nextButton" v-if="active<2">下一步</el-button>
@@ -152,149 +152,170 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getStaffHireInfo, postHireApply } from "@/api/online";
-import { checkTel } from "@/assets/function/validator";
-import utils from "@/utils/index.js";
-export default {
-  data() {
-    return {
-      listLoading: false,
-      // 进度信息
-      active: 0,
-      // 个人信息填充
-      accoutInfo: {},
-      //表单验证规则
-      //表单验证规则
-      rules: {},
-      // 信息确认区域
-      listLoading: [],
-      resMessage: ""
-    };
-  },
-  created() {
-    this.getList();
-  },
-  methods: {
-    // 获取个人信息
-    getList() {
-      this.listLoading = true;
-      let staffID = this.$store.getters.userNO;
-      let param = {};
-      getStaffHireInfo(param, staffID)
-        .then(res => {
-          this.accoutInfo = res.data.data.data;
-          let array = [];
-          if (this.accoutInfo.hireApplyAlready) {
-            array[0] = this.accoutInfo.hireApplyAlready;
-          }
-          this.accoutInfo.array = array;
-          console.log(this.accoutInfo);
-          // console.log(res.data.data.list)
-          this.listLoading = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+  import {
+    getStaffHireInfo,
+    postHireApply
+  } from "@/api/online";
+  import {
+    checkTel
+  } from "@/assets/function/validator";
+  import utils from "@/utils/index.js";
+  import {
+    MessageBox
+  } from 'element-ui'
+  import router from '../../router'
+  export default {
+    data() {
+      return {
+        listLoading: false,
+        // 进度信息
+        active: 0,
+        // 个人信息填充
+        accoutInfo: {},
+        //表单验证规则
+        //表单验证规则
+        rules: {},
+        // 信息确认区域
+        listLoading: [],
+        resMessage: ""
+      };
     },
-    // 前进一步
-    nextButton() {
-      let vaild = true;
-      console.log(this.active);
-      if (this.active++ > 2) this.active = 0;
+    created() {
+      this.getList();
     },
-    // 返回一步
-    backButton() {
-      this.active--;
-    },
-    // 提交住房申请
-    addSubmit() {
-      this.active++;
-      this.listLoading = true;
-      this.$refs["hireApplyForm"].validate(valid => {
-        if (valid) {
-          let applyForm = {
-            reason: this.accoutInfo.reason,
-            email: this.accoutInfo.email,
-            phone: this.accoutInfo.staffTel,
-            staffId: this.$store.getters.userNO
-          };
-          postHireApply(applyForm).then(res => {
-            this.resMessage = res.data.message;
-            //utils.statusinfo(this, res.data);
-            this.listLoading = false;
-            // if (res.data.status == "success")
-            //   this.$refs["fixApplyForm"].resetFields();
+    methods: {
+      // 获取个人信息
+      getList() {
+        this.listLoading = true;
+        let staffID = this.$store.getters.userNO;
+        let param = {};
+        getStaffHireInfo(param, staffID)
+          .then(res => {
+            if (res.data.status == "error") {
+              MessageBox.confirm('你已购买政策性住房，无法再次申请', '警告', {
+                confirmButtonText: '确认',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(() => {
+                router.go(-1)
+              })
+            } else {
+              this.accoutInfo = res.data.data.data;
+              let array = [];
+              if (this.accoutInfo.hireApplyAlready) {
+                array[0] = this.accoutInfo.hireApplyAlready;
+              }
+              this.accoutInfo.array = array;
+              console.log(this.accoutInfo);
+              // console.log(res.data.data.list)
+              this.listLoading = false;
+            }
+          })
+          .catch(err => {
+            console.log(err);
           });
-        }
-      });
+      },
+      // 前进一步
+      nextButton() {
+        let vaild = true;
+        console.log(this.active);
+        if (this.active++ > 2) this.active = 0;
+      },
+      // 返回一步
+      backButton() {
+        this.active--;
+      },
+      // 提交住房申请
+      addSubmit() {
+        this.active++;
+        this.listLoading = true;
+        this.$refs["hireApplyForm"].validate(valid => {
+          if (valid) {
+            let applyForm = {
+              reason: this.accoutInfo.reason,
+              email: this.accoutInfo.email,
+              phone: this.accoutInfo.staffTel,
+              staffId: this.$store.getters.userNO
+            };
+            postHireApply(applyForm).then(res => {
+              this.resMessage = res.data.message;
+              //utils.statusinfo(this, res.data);
+              this.listLoading = false;
+              // if (res.data.status == "success")
+              //   this.$refs["fixApplyForm"].resetFields();
+            });
+          }
+        });
+      }
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-@import "../../styles/variables.scss";
-.second-container {
-  background-color: $background-grey;
-  & .apply-from {
-    width: 80%;
-    background-color: $white;
-    padding: 50px;
-    height: 80vh;
-    margin: auto;
-    position: relative;
-    & .personal-info {
-      padding-top: 3%;
-      margin-bottom: 5vh;
-    }
-    & .house-info {
-      // padding-top: 20px;
-      margin-bottom: 5vh;
+  @import "../../styles/variables.scss";
+  .second-container {
+    background-color: $background-grey;
+    & .apply-from {
+      width: 80%;
+      background-color: $white;
+      padding: 50px;
+      height: 80vh;
+      margin: auto;
       position: relative;
-      & .list-title {
-        padding: 2vh;
-        font-size: 14px;
-        font-weight: 700;
+      & .personal-info {
+        padding-top: 3%;
+        margin-bottom: 5vh;
       }
-      & .house-list {
-        height: 23vh;
+      & .house-info {
+        // padding-top: 20px;
+        margin-bottom: 5vh;
+        position: relative;
+        & .list-title {
+          padding: 2vh;
+          font-size: 14px;
+          font-weight: 700;
+        }
+        & .house-list {
+          height: 23vh;
+        }
+        & .apply-list {
+          // padding-top: 2vh;
+          // height: 15vh;
+        }
+        & .remark {
+          padding-top: 10px;
+          font-size: 12px;
+        }
       }
-      & .apply-list {
-        // padding-top: 2vh;
-        // height: 15vh;
+      & .hire-reason {
+        padding-top: 12vh;
+        margin-bottom: 5vh;
+        & .remark {
+          padding-left: 100px;
+          font-size: 12px;
+          color: red;
+        }
       }
-      & .remark {
-        padding-top: 10px;
-        font-size: 12px;
+      & .apply-result {
+        margin: 150px auto 100px;
+        width: 500px;
+        text-align: center;
+        &>span {
+          font-size: 22px;
+        }
       }
-    }
-    & .hire-reason {
-      padding-top: 12vh;
-      margin-bottom: 5vh;
-      & .remark {
-        padding-left: 100px;
-        font-size: 12px;
-        color: red;
+      & .opera-area {
+        position: absolute;
+        bottom: 7%;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: space-around;
       }
-    }
-    & .apply-result {
-      margin: 150px auto 100px;
-      width: 500px;
-      text-align: center;
-      & > span {
-        font-size: 22px;
-      }
-    }
-    & .opera-area {
-      position: absolute;
-      bottom: 7%;
-      left: 0;
-      right: 0;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-content: space-around;
     }
   }
-}
+
 </style>

@@ -16,8 +16,11 @@ import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixAddAgree;
 import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixGetAgree;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
+import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastFixRecord;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
+import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastFixRecordService;
+import com.computerdesign.whutHouseMgmt.utils.StaffHomePageUtils;
 
 @RequestMapping(value = "/fix/")
 @RestController
@@ -30,6 +33,8 @@ public class FixAgreeController {
 	@Autowired
 	private ViewFixService viewFixService;
 
+	@Autowired
+	private LastFixRecordService lastFixRecordService;
 	
 	/**
 	 * 获取维修审核页面的信息，agreeState=1为获取全部的已经过审核操作的信息
@@ -79,11 +84,15 @@ public class FixAgreeController {
 			fix.setAgreeState(fixAddAgree.getAgreeState());
 			fix.setAgreeNote(fixAddAgree.getAgreeNote());
 			fix.setAgreeTime(new Date());
+			
+			//保存上一级维修状态
+			StaffHomePageUtils.saveLastFixRecord(lastFixRecordService, fix);
+			
 			//维修状态改变
 			fix.setFixState("审核拒绝");
 			fix.setIsOver(true);
 			fixService.update(fix);
-			return Msg.success("审核拒绝").add("data", fix).add("message", "您的维修申请状态已更新");
+			return Msg.success("审核拒绝").add("data", fix);
 			
 		}else if ("通过".equals(fixAddAgree.getAgreeState())) {
 			//根据传递的id获取一个Fix对象
@@ -93,10 +102,15 @@ public class FixAgreeController {
 			fix.setAgreeNote(fixAddAgree.getAgreeNote());
 			fix.setIsOver(true);
 			fix.setAgreeTime(new Date());
+			
+			//保存上一级维修状态
+			StaffHomePageUtils.saveLastFixRecord(lastFixRecordService, fix);
+			
+			
 			//维修状态改变
 			fix.setFixState("已审核");
 			fixService.update(fix);
-			return Msg.success("审核成功").add("data", fix).add("message", "您的维修申请状态已更新");
+			return Msg.success("审核成功").add("data", fix);
 		}else  {
 			return Msg.error("请输入正确的信息");
 		}
@@ -119,11 +133,15 @@ public class FixAgreeController {
 		fix.setAgreeNote(null);
 		fix.setAgreeState(null);
 		fix.setAgreeTime(null);
+		
+		//保存上一级维修状态
+		StaffHomePageUtils.saveLastFixRecord(lastFixRecordService, fix);
+		
 		 fix.setFixState("待审核");
 		fix.setIsOver(false);
 		
 		fixService.updateStrict(fix);
-		return Msg.success("重新审核成功").add("message", "您的维修申请状态已更新"); 
+		return Msg.success("重新审核成功"); 
 	}
 	
 }

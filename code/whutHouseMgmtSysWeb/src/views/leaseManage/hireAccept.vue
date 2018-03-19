@@ -95,23 +95,13 @@
                     </el-col>
                   </el-row>
                   <el-row v-if="!acceptStatus">
-                    <el-col :span="5" :offset="1">
+                    <el-col :span="10" :offset="1">
                       <el-form-item label="职称分">
                         <el-input v-model="acceptForm.titleVal" readonly></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="5">
+                    <el-col :span="10">
                       <el-form-item label="职务分">
-                        <el-input v-model="acceptForm.jobLevelVal" readonly></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="5">
-                      <el-form-item label="工龄分">
-                        <el-input v-model="acceptForm.jobLevelVal" readonly></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="5">
-                      <el-form-item label="配偶加分">
                         <el-input v-model="acceptForm.jobLevelVal" readonly></el-input>
                       </el-form-item>
                     </el-col>
@@ -129,7 +119,7 @@
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="工龄分">
-                        <el-input v-model="acceptForm.jobLevelVal" readonly></el-input>
+                        <el-input v-model="acceptForm.timeVal" readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -142,50 +132,62 @@
                   </el-row>
                   <!-- 操作区域 -->
                   <el-row type="flex" justify="start" v-if="!acceptStatus">
-                    <el-col :span="10" :push="4">
-                      <el-form-item label="受理意见" prop="acceptNote">
-                        <el-input v-model="acceptForm.acceptNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                    <el-col :span="7" :push="1">
+                      <el-form-item label="工龄分">
+                        <el-input v-model="acceptForm.timeVal"></el-input>
                       </el-form-item>
                     </el-col>
-                  </el-row>
-                  <el-row type="flex" justify="start" v-if="!acceptStatus">
-                    <el-col :span="4" :push="4">
+                    <el-col :span="7" :push="1">
+                      <el-form-item label="配偶加分">
+                        <el-input v-model="acceptForm.spouseVal"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7" :push="1">
                       <el-form-item label="其他加分">
                         <el-input v-model="acceptForm.otherVal"></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="4" :push="4">
+                  </el-row>
+                  <el-row type="flex" justify="start" v-if="!acceptStatus">
+                    <el-col :span="7" :push="1">
                       <el-form-item label="总计得分">
                         <el-input v-model="totalVal"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row type="flex" justify="start" v-if="!acceptStatus">
-                    <el-col :span="6" :push="4">
+                    <el-col :span="10" :push="1">
+                      <el-form-item label="受理意见" prop="acceptNote">
+                        <el-input v-model="acceptForm.acceptNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row type="flex" justify="start" v-if="!acceptStatus">
+                    <el-col :span="6" :push="1">
                       <el-form-item label="受理状态">
                         <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
                           inactive-text="通过" inactive-value="通过"></el-switch>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="1" :push="4">
+                    <el-col :span="1" :push="1">
                       <el-button type="primary" v-if="!acceptStatus" @click="acceptSubmit">提交</el-button>
                     </el-col>
                   </el-row>
                   <!-- 非操作区域 -->
                   <el-row v-if="acceptStatus">
                     <el-col :span="7" :offset="1">
+                      <el-form-item label="配偶加分">
+                        <el-input v-model="acceptForm.spouseVal" placeholder="无配偶分"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
                       <el-form-item label="其他分">
-                        <el-input v-model="acceptForm.acceptMan" placeholder="受理人未知"></el-input>
+                        <el-input v-model="acceptForm.otherVal" placeholder="无其他分"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="总分">
-                        <el-input v-model="acceptForm.acceptMan" placeholder="受理人未知"></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="7">
-                      <el-form-item label="受理时间">
-                        <el-input v-model="acceptForm.acceptTime" placeholder="受理人未知"></el-input>
+                        <el-input v-model="acceptForm.totalVal"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -193,6 +195,11 @@
                     <el-col :span="10" :offset="1">
                       <el-form-item label="受理人">
                         <el-input v-model="acceptForm.acceptMan" placeholder="受理人未知"></el-input>
+                      </el-form-item>
+                    </el-col>
+                               <el-col :span="11">
+                      <el-form-item label="受理时间">
+                        <el-input v-model="acceptForm.acceptTime" placeholder="受理时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -248,7 +255,8 @@
     computed: {
       totalVal: function () {
         return (
-          parseInt(this.acceptForm.otherVal) + parseInt(this.acceptForm.titleVal)
+          parseInt(this.acceptForm.otherVal) + parseInt(this.acceptForm.titleVal) +
+          parseInt(this.acceptForm.spouseVal) + parseInt(this.acceptForm.timeVal)
         );
       }
     },
@@ -284,7 +292,6 @@
                   otherVal: acceptForm.otherVal,
                   spouseVal: acceptForm.spouseVal,
                   timeVal: acceptForm.timeVal,
-                  titleVal: acceptForm.titleVal,
                   totalVal: this.totalVal
                 };
                 putHireAccept(param).then(res => {
@@ -322,7 +329,7 @@
         background-color: #fff;
         padding: 10px;
         padding-bottom: 30px; // height: 90%;
-      margin:20px auto;
+        margin: 20px auto;
         position: relative;
         & .need-accept {
           h1 {

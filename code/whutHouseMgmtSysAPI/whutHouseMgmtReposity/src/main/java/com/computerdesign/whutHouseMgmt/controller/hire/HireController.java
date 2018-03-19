@@ -20,12 +20,14 @@ import com.computerdesign.whutHouseMgmt.bean.hire.PersonalHireRecord;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
+import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastHireRecord;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.StaffHouseService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
+import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastHireRecordService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
@@ -41,7 +43,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @RequestMapping(value = "/hire/")
 @RestController
-@Api(value = "/hire/",description = "Hire接口")
+@Api(value = "/hire/", description = "Hire接口")
 public class HireController {
 
 	@Autowired
@@ -58,33 +60,37 @@ public class HireController {
 
 	@Autowired
 	private RegisterService registerService;
-	
+
 	@Autowired
 	private HouseService houseService;
 
+	@Autowired
+	private LastHireRecordService lastHireRecordService;
+
 	/**
 	 * 根据职工id获取其所有租赁信息
+	 * 
 	 * @param staffId
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="getAllByStaffId/{staffId}",method=RequestMethod.GET)
-	public Msg getAllByStaffId(@PathVariable("staffId") Integer staffId){
+	@RequestMapping(value = "getAllByStaffId/{staffId}", method = RequestMethod.GET)
+	public Msg getAllByStaffId(@PathVariable("staffId") Integer staffId) {
 		List<Hire> hires = hireService.getAllByStaffId(staffId);
 		List<PersonalHireRecord> personalHireRecords = new ArrayList<PersonalHireRecord>();
-		for (Hire hire : hires){
+		for (Hire hire : hires) {
 			PersonalHireRecord personalHireRecord = new PersonalHireRecord();
 			personalHireRecord.setReason(hire.getReason());
-			//获取地址
+			// 获取地址
 			String address = houseService.get(hire.getHouseId()).getAddress();
 			personalHireRecord.setAddress(address);
 			String processReason = null;
-			//判断审核流程进行到了哪一步
-			if(hire.getAgreeNote() != null){
+			// 判断审核流程进行到了哪一步
+			if (hire.getAgreeNote() != null) {
 				processReason = hire.getAgreeNote();
-			}else if(hire.getAcceptNote() != null){
+			} else if (hire.getAcceptNote() != null) {
 				processReason = hire.getAgreeNote();
-			}else{
+			} else {
 				processReason = "无意见";
 			}
 			personalHireRecord.setHireState(hire.getHireState());
@@ -93,7 +99,7 @@ public class HireController {
 		}
 		return Msg.success().add("data", personalHireRecords);
 	}
-	
+
 	/**
 	 * 获取住房申请页面
 	 * 
@@ -101,7 +107,7 @@ public class HireController {
 	 * @return
 	 */
 	@RequestMapping(value = "getApply/{staffId}", method = RequestMethod.GET)
-	@ApiOperation(value = "住房申请页面",notes="住房申请页面",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "住房申请页面", notes = "住房申请页面", httpMethod = "GET", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getHireApply(@PathVariable("staffId") Integer staffId) {
 
 		// 获取员工信息
@@ -109,17 +115,16 @@ public class HireController {
 		// 用StaffHouse表，来判断该员工的房屋信息
 		List<StaffHouse> listStaffHouse = staffHouseService.getStaffHouseByStaffId(staffId);
 
-		if (listStaffHouse.size()>1) {
+		if (listStaffHouse.size() > 1) {
 			return Msg.error("该员工无法申请房屋");
 		}
-		String[] fileds = { "Id", "No", "Name", "Sex", "TitleName", "PostName", 
-				"TypeName", "PostVal", "SpousePostVal", "DeptName", 
-				"Code", "Tel",  };
+		String[] fileds = { "Id", "No", "Name", "Sex", "TitleName", "PostName", "TypeName", "PostVal", "SpousePostVal",
+				"DeptName", "Code", "Tel", };
 		Map<String, Object> response = ResponseUtil.getResultMap(viewStaff, fileds);
 		// 该员工的房屋不为空
 		if (!listStaffHouse.isEmpty()) {
-			String[] houseListFileds = { "houseId","houseNo","houseTypeName","houseAddress","houseBuildArea",
-					"houseUsedArea","houseRelName"};
+			String[] houseListFileds = { "houseId", "houseNo", "houseTypeName", "houseAddress", "houseBuildArea",
+					"houseUsedArea", "houseRelName" };
 			List<Map<String, Object>> listHouse = ResponseUtil.getResultMap(listStaffHouse, houseListFileds);
 			response.put("listHouseGetApply", listHouse);
 		}
@@ -127,10 +132,10 @@ public class HireController {
 		// 已申请租赁信息集合
 		if (!viewHireService.getByStaffId(staffId).isEmpty()) {
 			ViewHire viewHirePre = viewHireService.getByStaffId(staffId).get(0);
-			String[] hirePrefileds = { "id","staffNo","totalVal","hireState" };
+			String[] hirePrefileds = { "id", "staffNo", "totalVal", "hireState" };
 			Map<String, Object> listHirePre = ResponseUtil.getResultMap(viewHirePre, hirePrefileds);
 			response.put("hireApplyAlready", listHirePre);
-		}else{
+		} else {
 		}
 		return Msg.success("返回住房申请页面").add("data", response);
 
@@ -142,9 +147,9 @@ public class HireController {
 	 * @param hire
 	 * @return
 	 */
-	
+
 	@RequestMapping(value = "addApply", method = RequestMethod.POST)
-	@ApiOperation(value = "住房申请",notes="住房申请",httpMethod="POST",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "住房申请", notes = "住房申请", httpMethod = "POST", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg addHireApply(@RequestBody Hire hire) {
 
 		// 判断该员工是否已经申请房屋
@@ -166,11 +171,11 @@ public class HireController {
 		hire.setOtherVal(viewStaff.getOtherVal());
 		hire.setSpouseVal(viewStaff.getSpouseTitleVal().doubleValue());
 
-		if(viewStaff.getTitleVal()!=null){
-			hire.setTitleVal(viewStaff.getTitleVal().doubleValue());			
+		if (viewStaff.getTitleVal() != null) {
+			hire.setTitleVal(viewStaff.getTitleVal().doubleValue());
 		}
-		if (viewStaff.getTotalVal()!=null) {
-			hire.setTotalVal(viewStaff.getTotalVal().doubleValue());			
+		if (viewStaff.getTotalVal() != null) {
+			hire.setTotalVal(viewStaff.getTotalVal().doubleValue());
 		}
 
 		hireService.add(hire);
@@ -183,17 +188,16 @@ public class HireController {
 	 * @return
 	 */
 	@RequestMapping(value = "getSignContract", method = RequestMethod.GET)
-	@ApiOperation(value = "签订合同页面",notes="签订合同页面",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "签订合同页面", notes = "签订合同页面", httpMethod = "GET", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg HireGetSignContract() {
 		// 获取全部等待签订合同的信息
 		List<ViewHire> listViewHire = viewHireService.getSignContract();
-		
+
 		String[] fileds = { "id", "name", "applyTime", "hireState", "reason", "phone", "titleName", "postName",
-				"deptName", "houseNo","houseBuildArea","houseUserArea","houseAddress",
-				"acceptNote", "acceptState","acceptMan", "acceptTime",
-				"agreeNote", "agreeState","agreeMan", "agreeTime",
-				"approveNote", "approveState","approveMan", "approveTime",
-				"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal" };
+				"deptName", "houseNo", "houseBuildArea", "houseUserArea", "houseAddress", "acceptNote", "acceptState",
+				"acceptMan", "acceptTime", "agreeNote", "agreeState", "agreeMan", "agreeTime", "approveNote",
+				"approveState", "approveMan", "approveTime", "totalVal", "titleVal", "timeVal", "spouseVal",
+				"otherVal" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
 		return Msg.success("全部已审批尚未签订合同的房屋申请信息").add("data", response);
 	}
@@ -206,8 +210,8 @@ public class HireController {
 	 */
 	@Transactional
 	@RequestMapping(value = "addSignContract/{id}", method = RequestMethod.POST)
-	@ApiOperation(value = "签订合同",notes="签订合同",httpMethod="POST",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
-	public Msg HireAddSignContract(@PathVariable("id")Integer id) {
+	@ApiOperation(value = "签订合同", notes = "签订合同", httpMethod = "POST", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	public Msg HireAddSignContract(@PathVariable("id") Integer id) {
 		// 获取该房屋申请信息
 		Hire hire = hireService.getHireById(id);
 		if (hire.getIsOver()) {
@@ -215,41 +219,51 @@ public class HireController {
 		}
 		// 设置该申请已结束
 		hire.setIsOver(true);
+
 		hireService.update(hire);
-		//TODO 78为当前数据库租赁对于的id
+		// TODO 78为当前数据库租赁对于的id
 		houseService.updateHouseStatus(id, 78);
 		registerService.registerByHire(hire);
+
+		// 同步lastHireRecord表，申请结束标识
+		String staffHire = hire.getStaffId() + "-" + hire.getId();
+		LastHireRecord lastHireRecord = lastHireRecordService.getLastHireRecordByStaffAndHire(staffHire);
+		lastHireRecord.setState("已签订合同");
+		lastHireRecord.setUpdateTime(new Date());
+		lastHireRecord.setIsOver(true);
+		lastHireRecordService.update(lastHireRecord);
+
 		return Msg.success("成功签订合同");
 	}
 
-	
-	
 	/**
 	 * 房屋申请书管理页面
+	 * 
 	 * @param page
 	 * @param size
 	 * @return
 	 */
-	@RequestMapping(value = "getManagement",method = RequestMethod.GET)
-	@ApiOperation(value = "住房申请书页面",notes="住房申请书页面",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
-	public Msg getManagement(@RequestParam(value = "page", defaultValue = "0")Integer page,
-			@RequestParam(value = "size", defaultValue = "0")Integer size){
+	@RequestMapping(value = "getManagement", method = RequestMethod.GET)
+	@ApiOperation(value = "住房申请书页面", notes = "住房申请书页面", httpMethod = "GET", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	public Msg getManagement(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 		PageHelper.startPage(page, size);
 		List<ViewHire> listViewHire = viewHireService.getAllViewHire();
 		PageInfo pageInfo = new PageInfo<>(listViewHire);
 		return Msg.success().add("data", pageInfo);
 	}
-	
+
 	/**
 	 * 根据hireId删除一条hire
+	 * 
 	 * @param hireId
 	 * @return
 	 */
-	@RequestMapping(value = "delete/{hireId}",method = RequestMethod.DELETE)
-	@ApiOperation(value = "删除",notes="删除",httpMethod="DELETE",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
-	public Msg hireDelete(@PathVariable(value = "hireId")Integer hireId){
+	@RequestMapping(value = "delete/{hireId}", method = RequestMethod.DELETE)
+	@ApiOperation(value = "删除", notes = "删除", httpMethod = "DELETE", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	public Msg hireDelete(@PathVariable(value = "hireId") Integer hireId) {
 		Hire hire = hireService.getHireById(hireId);
-		if (hire==null) {
+		if (hire == null) {
 			return Msg.error("错误的请求");
 		}
 		hireService.delete(hireId);

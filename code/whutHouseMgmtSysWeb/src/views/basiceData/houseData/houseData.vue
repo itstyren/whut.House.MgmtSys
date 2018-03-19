@@ -155,7 +155,7 @@
               </div>
               <div class="singleFrom">
                 <el-form-item label="租金">
-                  <el-input v-model="detailData.rental" :readonly="!ismodify"></el-input>
+                  <el-input v-model="detailData.rental" readonly></el-input>
                 </el-form-item>
               </div>
               <div class="singleFrom">

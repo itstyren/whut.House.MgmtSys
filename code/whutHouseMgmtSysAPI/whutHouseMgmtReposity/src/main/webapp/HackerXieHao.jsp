@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzgwMjg0LCJleHAiOjE1MjEzODM4ODR9.74ojwj9ZaVEthRa9NUzjhE2OSwsxiDXxT1P8USHLpJI");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNDY0NjA4LCJleHAiOjE1MjE0NjgyMDh9.2ULVuHY8MsWQpg3jR_nbo0kxIsUiQYvp_qPwp5Ecmpg");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzgwMjg0LCJleHAiOjE1MjEzODM4ODR9.74ojwj9ZaVEthRa9NUzjhE2OSwsxiDXxT1P8USHLpJI");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNDY0NjA4LCJleHAiOjE1MjE0NjgyMDh9.2ULVuHY8MsWQpg3jR_nbo0kxIsUiQYvp_qPwp5Ecmpg");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -694,6 +694,18 @@
 						function() {
 							ajaxRequestGet("hire/getAllByStaffId/3");
 						})
+		$("#getFixProcessStateChangeInfo")
+				.click(
+						function() {
+							ajaxRequestGet("staffHomePage/getFixProcessStateChangeInfo/6");
+						})
+		
+		$("#getHireProcessStateChangeInfo")
+				.click(
+						function() {
+							ajaxRequestGet("staffHomePage/getHireProcessStateChangeInfo/18");
+						})
+		
 	})
 	
 </script>
@@ -938,6 +950,14 @@
 			<h4>根据职工id获取租赁信息</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetHireInfoByStaffId" id="getHireInfoByStaffId" />
+			<br>
+			<h4>首页维修信息更新通知</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetFixProcessStateChangeInfo" id="getFixProcessStateChangeInfo" />
+			<br>
+			<h4>首页住房申请信息更新通知</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetHireProcessStateChangeInfo" id="getHireProcessStateChangeInfo" />
 			<br>
 			
 				

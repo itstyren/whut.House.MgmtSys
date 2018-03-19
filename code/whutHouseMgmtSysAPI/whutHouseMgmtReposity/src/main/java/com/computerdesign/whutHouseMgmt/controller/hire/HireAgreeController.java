@@ -17,7 +17,9 @@ import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastHireRecordService;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
+import com.computerdesign.whutHouseMgmt.utils.StaffHomePageUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +34,9 @@ public class HireAgreeController {
 
 	@Autowired
 	private ViewHireService viewHireService;
+	
+	@Autowired
+	private LastHireRecordService lastHireRecordService;
 
 	
 	@RequestMapping(value = "getAgree/{agreeState}",method = RequestMethod.GET)
@@ -91,10 +96,13 @@ public class HireAgreeController {
 			
 			hire.setAgreeTime(new Date());
 			
+			//保存上一级租赁状态
+			StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+			
 			hire.setHireState("审批拒绝");
 			hire.setIsOver(true);
 			hireService.update(hire);
-			return Msg.success("审核拒绝").add("data", hire).add("message", "您的租赁申请状态已更新");
+			return Msg.success("审核拒绝").add("data", hire);
 		}else if ("通过".equals(hireAddAgree.getAgreeState())) {
 			hire.setAgreeMan(hireAddAgree.getAgreeMan());
 			hire.setAgreeNote(hireAddAgree.getAgreeNote());
@@ -104,10 +112,13 @@ public class HireAgreeController {
 			
 			hire.setHouseId(hireAddAgree.getHouseId());
 			
+			//保存上一级租赁状态
+			StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+			
 			hire.setHireState("待审批");
 			hireService.update(hire);
 						
-			return Msg.success("审核成功").add("data", hire).add("message", "您的租赁申请状态已更新");
+			return Msg.success("审核成功").add("data", hire);
 		}else {
 			return Msg.error("请检查你的网络");
 		}
@@ -134,11 +145,15 @@ public class HireAgreeController {
 		hire.setAgreeTime(null);
 		
 		hire.setHouseId(null);
+		
+		//保存上一级租赁状态
+		StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+		
 		hire.setHireState("待审核");
 		hire.setIsOver(false);
 		
 		hireService.updateStrict(hire);
-		return Msg.success("重新审核成功").add("data", hire).add("message", "您的租赁申请状态已更新");
+		return Msg.success("重新审核成功").add("data", hire);
 		//TODO 不需要data
 		
 	}
