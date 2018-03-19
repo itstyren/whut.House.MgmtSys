@@ -44,5 +44,16 @@ public class ViewStaffService {
 		return viewStaffMapper.selectByExample(example);
 	}
 	
+	/**
+	 * 根据姓名获取员工列表
+	 * @param staffName
+	 * @return
+	 */
+	public List<ViewStaff> getViewStaffsByName(String staffName) {
+		ViewStaffExample example = new ViewStaffExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andNameEqualTo(staffName);
+		return viewStaffMapper.selectByExample(example);
+	}
 	
 }

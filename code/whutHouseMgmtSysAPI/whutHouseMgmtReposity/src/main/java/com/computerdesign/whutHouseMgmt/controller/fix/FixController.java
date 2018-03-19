@@ -4,7 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,9 +22,6 @@ import com.computerdesign.whutHouseMgmt.bean.fix.FixAddCheck;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixAddPrice;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetCheck;
 import com.computerdesign.whutHouseMgmt.bean.fix.PersonalFixRecord;
-import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixGetAgree;
-import com.computerdesign.whutHouseMgmt.bean.fix.apply.FixGetApply;
-import com.computerdesign.whutHouseMgmt.bean.fix.apply.HouseGetApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.bean.fix.directapply.FixAddDirectApply;
@@ -32,11 +31,14 @@ import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
+import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
+import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -48,7 +50,7 @@ public class FixController {
 	private FixService fixService;
 
 	@Autowired
-	private StaffVwService staffVwService;
+	private ViewStaffService viewStaffService;
 
 	@Autowired
 	private ViewHouseService viewHouseService;
@@ -58,28 +60,29 @@ public class FixController {
 
 	@Autowired
 	private RegisterService registerService;
-	
+
 	/**
 	 * 个人信息页面，通过id获取维修信息
+	 * 
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="getByStaffId/{staffId}",method=RequestMethod.GET)
-	public Msg getByStaffId(@PathVariable("staffId") Integer staffId){
+	@RequestMapping(value = "getByStaffId/{staffId}", method = RequestMethod.GET)
+	public Msg getByStaffId(@PathVariable("staffId") Integer staffId) {
 		List<ViewFix> fixs = viewFixService.getByStaffId(staffId);
 		List<PersonalFixRecord> personalFixRecords = new ArrayList<PersonalFixRecord>();
-		for (ViewFix fix : fixs){
+		for (ViewFix fix : fixs) {
 			PersonalFixRecord personalFixRecord = new PersonalFixRecord();
 			personalFixRecord.setFixType(fix.getFixContentName());
 			personalFixRecord.setDescription(fix.getDescription());
 			personalFixRecord.setFixState(fix.getFixState());
 			String processReason = null;
-			//判断审核流程进行到了哪一步
-			if(fix.getAgreeNote() != null){
+			// 判断审核流程进行到了哪一步
+			if (fix.getAgreeNote() != null) {
 				processReason = fix.getAgreeNote();
-			}else if(fix.getAcceptNote() != null){
+			} else if (fix.getAcceptNote() != null) {
 				processReason = fix.getAgreeNote();
-			}else{
+			} else {
 				processReason = "无意见";
 			}
 			personalFixRecord.setProcessReason(processReason);
@@ -98,28 +101,35 @@ public class FixController {
 	@RequestMapping(value = "getApply/{staffId}", method = RequestMethod.GET)
 	public Msg getFixApply(@PathVariable("staffId") Integer staffId) {
 
-		StaffVw staffVw = staffVwService.getByID(staffId);
-		FixGetApply fixGetApply = new FixGetApply(staffVw);
+		// 获取员工信息
+		if (viewStaffService.getByStaffId(staffId).isEmpty()) {
+			return Msg.error("不存在该员工Id");
+		}
+		ViewStaff viewStaff = viewStaffService.getByStaffId(staffId).get(0);
+
+		// 封装需要的员工信息
+		String[] fixFileds = { "id", "no", "name", "sex", "code", "postName", "deptName", "tel" };
+		Map<String, Object> fixGetApplyResponse = ResponseUtil.getResultMap(viewStaff, fixFileds);
 
 		// 根据staffId获取该员工全部的resident信息
 		List<Resident> listResident = registerService.getResidentsByStaffId(staffId);
-
 		if (listResident.isEmpty()) {
-			return Msg.success("没有房子").add("data", fixGetApply);
-		} else {
-			List<ViewHouse> listViewHouse = new ArrayList<ViewHouse>();
-			// 根据每一个房屋登记信息获取每一个house
-			for (Resident resident : listResident) {
-				listViewHouse.addAll(viewHouseService.get(resident.getHouseId()));
-			}
-			List<HouseGetApply> listHouseGetApply = new ArrayList<HouseGetApply>();
-			// 增加house信息到新的model中
-			for (ViewHouse viewHouse : listViewHouse) {
-				listHouseGetApply.add(new HouseGetApply(viewHouse));
-			}
-			fixGetApply.setHousesList(listHouseGetApply);
-			return Msg.success("维修申请页面").add("data", fixGetApply);
+			fixGetApplyResponse.put("listHouseGetApply", null);
+			return Msg.success("没有房子").add("data", fixGetApplyResponse);
 		}
+
+		List<ViewHouse> listViewHouse = new ArrayList<ViewHouse>();
+		// 根据每一个房屋登记信息获取每一个house
+		for (Resident resident : listResident) {
+			listViewHouse.addAll(viewHouseService.get(resident.getHouseId()));
+		}
+
+		// 房屋信息封装
+		String[] houseFileds = { "id", "no", "typeName", "address", "buildArea", "usedArea", "statusName" };
+		List<Map<String, Object>> listHouseGetApply = ResponseUtil.getResultMap(listViewHouse, houseFileds);
+
+		fixGetApplyResponse.put("listHouseGetApply", listHouseGetApply);
+		return Msg.success("维修申请页面").add("data", fixGetApplyResponse);
 	}
 
 	/**
@@ -164,62 +174,58 @@ public class FixController {
 		try {
 			staffName = URLDecoder.decode(staffName, "utf-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 		System.out.println(staffName);
-		// 根据姓名获取全部的StaffVw
-		List<StaffVw> listStaffVw = staffVwService.getByStaffName(staffName);
-		// 无该姓名的员工
-		if (listStaffVw.isEmpty()) {
+		// 根据姓名获取全部的ViewStaff
+		List<ViewStaff> listViewStaff = viewStaffService.getViewStaffsByName(staffName);
+
+		if (listViewStaff.isEmpty()) {
 			return Msg.error("无该员工");
 		}
-		// 该姓名员工不止一个
-		else {
-			// 返回FixGetDirectApply数组
-			List<FixGetDirectApply> listFixGetDirectApply = new ArrayList<FixGetDirectApply>();
+		// 该姓名员工可能不止一个
+		List<Map<String, Object>> listFixGetDirectApply = new ArrayList<Map<String, Object>>();
 
-			// 将员工信息绑入到model中，其中有FixGetDitectApply(StaffVw)构造器的使用
-			for (StaffVw staffVw : listStaffVw) {
-				FixGetDirectApply fixGetDirectApply = new FixGetDirectApply(staffVw);
+		for (ViewStaff viewStaff : listViewStaff) {
 
-				// 根据staffId获取该员工全部的residentVw信息
-				List<ResidentVw> listResidentVw = registerService.getResidentVwByStaffId(staffVw.getId());
+			String[] fileds = { "id", "no", "name", "Sex", "marriageState", "TitleName", "PostName", "TypeName",
+					"statusName", "DeptId", "DeptName", "Tel", "Code", "joinTime", "remark", "SpouseName", "spouseCode",
+					"spouseDept", "spouseKind", "spousePostName", "spouseTitleName", };
+			Map<String, Object> viewStaffResponse = ResponseUtil.getResultMap(viewStaff, fileds);
 
-				// 房屋数组信息
-				List<HouseGetDirectApply> listHouseGetDirectApply = new ArrayList<HouseGetDirectApply>();
+			// 根据staffId获取该员工全部的residentVw信息
+			List<ResidentVw> listResidentVw = registerService.getResidentVwByStaffId(viewStaff.getId());
+			// 房屋数组信息
+			List<Map<String, Object>> listHouse = new ArrayList<Map<String, Object>>();
 
-				if (listResidentVw.isEmpty()) {
-					// return Msg.success("没有房子").add("data",
-					// fixGetDirectApply);
-					fixGetDirectApply.setHouseList(null);
-				} else {
-					// 根据每一个房屋登记信息获取每一个house
-					for (ResidentVw residentVw : listResidentVw) {
-						if (viewHouseService.get(residentVw.getHouseId()).isEmpty()) {
-							// return Msg.error("没有房子");
-						} else {
-							ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
-							HouseGetDirectApply houseGetDirectApply = new HouseGetDirectApply();
+			if (listResidentVw.isEmpty()) {
+				viewStaffResponse.put("houseList", null);
+			} else {
+				// 根据每一个房屋登记信息获取每一个house
+				for (ResidentVw residentVw : listResidentVw) {
+					if (viewHouseService.get(residentVw.getHouseId()).isEmpty()) {
+						// return Msg.error("没有房子");
+					} else {
+						ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
+						Map<String, Object> mapHouse = new HashMap<>();
+						mapHouse.put("bookTime", residentVw.getBookTime());
+						mapHouse.put("houseRel", residentVw.getHouseRel());
 
-							houseGetDirectApply.setBookTime(residentVw.getBookTime());
-							houseGetDirectApply.setHouseRel(residentVw.getHouseRel());
+						mapHouse.put("address", viewHouse.getAddress());
+						mapHouse.put("houseId", viewHouse.getId());
+						mapHouse.put("layoutName", viewHouse.getLayoutName());
+						mapHouse.put("usedArea", viewHouse.getUsedArea());
 
-							houseGetDirectApply.setAddress(viewHouse.getAddress());
-							houseGetDirectApply.setHouseId(viewHouse.getId());
-							houseGetDirectApply.setLayoutName(viewHouse.getLayoutName());
-							houseGetDirectApply.setUsedArea(viewHouse.getUsedArea());
-
-							listHouseGetDirectApply.add(houseGetDirectApply);
-						}
+						listHouse.add(mapHouse);
 					}
-					fixGetDirectApply.setHouseList(listHouseGetDirectApply);
 				}
-				listFixGetDirectApply.add(fixGetDirectApply);
+				viewStaffResponse.put("houseList", listHouse);
 			}
-			return Msg.success("根据员工姓名获取维修直批页面").add("data", listFixGetDirectApply);
-			
+			listFixGetDirectApply.add(viewStaffResponse);
 		}
+		return Msg.success("根据员工姓名获取维修直批页面").add("data", listFixGetDirectApply);
 	}
 
 	/**
@@ -230,46 +236,49 @@ public class FixController {
 	 */
 	@RequestMapping(value = "getDirectApplyByStaffId/{staffId}", method = RequestMethod.GET)
 	public Msg getDirectApplyByStaffId(@PathVariable("staffId") Integer staffId) {
-		StaffVw staffVw = staffVwService.getByID(staffId);
-		// 将员工信息绑入到model中，其中有FixGetDitectApply(StaffVw)构造器的使用
-		FixGetDirectApply fixGetDirectApply = new FixGetDirectApply(staffVw);
+		ViewStaff viewStaff = viewStaffService.getByStaffId(staffId).get(0);
+
+		String[] fileds = { "id", "no", "name", "Sex", "marriageState", "TitleName", "PostName", "TypeName",
+				"statusName", "DeptId", "DeptName", "Tel", "Code", "joinTime", "remark", "SpouseName", "spouseCode",
+				"spouseDept", "spouseKind", "spousePostName", "spouseTitleName", };
+		Map<String, Object> viewStaffResponse = ResponseUtil.getResultMap(viewStaff, fileds);
 
 		// 根据staffId获取该员工全部的residentVw信息
 		List<ResidentVw> listResidentVw = registerService.getResidentVwByStaffId(staffId);
-		// TODO 未设置IsDelete导致筛选过多
 
 		// 房屋数组信息
-		List<HouseGetDirectApply> listHouseGetDirectApply = new ArrayList<HouseGetDirectApply>();
+		List<Map<String, Object>> listHouse = new ArrayList<Map<String, Object>>();
 
 		if (listResidentVw.isEmpty()) {
-			return Msg.success("没有房子").add("data", fixGetDirectApply);
+			viewStaffResponse.put("houseList", null);
+			return Msg.success("没有房子").add("data", viewStaffResponse);
 		} else {
 			// 根据每一个房屋登记信息获取每一个house
 			for (ResidentVw residentVw : listResidentVw) {
 				if (viewHouseService.get(residentVw.getHouseId()).isEmpty()) {
-					return Msg.error("没有房子");
+					// return Msg.error("没有房子");
+				} else {
+					ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
+					Map<String, Object> mapHouse = new HashMap<>();
+					mapHouse.put("bookTime", residentVw.getBookTime());
+					mapHouse.put("houseRel", residentVw.getHouseRel());
+
+					mapHouse.put("address", viewHouse.getAddress());
+					mapHouse.put("houseId", viewHouse.getId());
+					mapHouse.put("layoutName", viewHouse.getLayoutName());
+					mapHouse.put("usedArea", viewHouse.getUsedArea());
+
+					listHouse.add(mapHouse);
 				}
-				ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
-				HouseGetDirectApply houseGetDirectApply = new HouseGetDirectApply();
-
-				houseGetDirectApply.setBookTime(residentVw.getBookTime());
-				houseGetDirectApply.setHouseRel(residentVw.getHouseRel());
-
-				houseGetDirectApply.setAddress(viewHouse.getAddress());
-				houseGetDirectApply.setHouseId(viewHouse.getId());
-				houseGetDirectApply.setLayoutName(viewHouse.getLayoutName());
-				houseGetDirectApply.setUsedArea(viewHouse.getUsedArea());
-
-				listHouseGetDirectApply.add(houseGetDirectApply);
 			}
-			fixGetDirectApply.setHouseList(listHouseGetDirectApply);
+			viewStaffResponse.put("houseList", listHouse);
 
-			return Msg.success("根据员工id获取维修直批页面").add("data", fixGetDirectApply);
+			return Msg.success("根据员工id获取维修直批页面").add("data", viewStaffResponse);
 		}
 	}
 
 	/**
-	 * 维修直批
+	 * 维修直批，该功能取消
 	 * 
 	 * @param fixAddDirectApply
 	 * @return
@@ -277,25 +286,25 @@ public class FixController {
 	@RequestMapping(value = "addDirectApply", method = RequestMethod.POST)
 	public Msg addDirectApply(@RequestBody FixAddDirectApply fixAddDirectApply) {
 		return Msg.error("无法进行维修直批");
-//		Fix fix = new Fix();
-//		fix.setFixContentId(fixAddDirectApply.getFixContentId());
-//		fix.setApplyTime(new Date());
-//		fix.setFixState("已审核");
-//		fix.setAcceptState("通过");
-//		fix.setAcceptNote("直批");
-//		fix.setAcceptMan(fixAddDirectApply.getDirectApplyMan());
-//		fix.setAcceptTime(new Date());
-//		fix.setAgreeState("通过");
-//		fix.setAgreeNote("直批");
-//		fix.setAgreeMan(fixAddDirectApply.getDirectApplyMan());
-//		fix.setAgreeTime(new Date());
-//		fix.setStaffId(fixAddDirectApply.getStaffId());
-//		fix.setHouseId(fixAddDirectApply.getHouseId());
-//		fix.setMessage("直批");
-//		fix.setIsOver(true);
-//
-//		fixService.add(fix);
-//		return Msg.success("直批成功");
+		// Fix fix = new Fix();
+		// fix.setFixContentId(fixAddDirectApply.getFixContentId());
+		// fix.setApplyTime(new Date());
+		// fix.setFixState("已审核");
+		// fix.setAcceptState("通过");
+		// fix.setAcceptNote("直批");
+		// fix.setAcceptMan(fixAddDirectApply.getDirectApplyMan());
+		// fix.setAcceptTime(new Date());
+		// fix.setAgreeState("通过");
+		// fix.setAgreeNote("直批");
+		// fix.setAgreeMan(fixAddDirectApply.getDirectApplyMan());
+		// fix.setAgreeTime(new Date());
+		// fix.setStaffId(fixAddDirectApply.getStaffId());
+		// fix.setHouseId(fixAddDirectApply.getHouseId());
+		// fix.setMessage("直批");
+		// fix.setIsOver(true);
+		//
+		// fixService.add(fix);
+		// return Msg.success("直批成功");
 	}
 
 	/**
@@ -307,17 +316,16 @@ public class FixController {
 	public Msg getFixManagement(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 
-		List<FixGetAgree> listFixGetAgree = new ArrayList<FixGetAgree>();
-
 		PageHelper.startPage(page, size);
 		List<ViewFix> listViewFix = viewFixService.getManagement();
 
-		for (ViewFix viewFix : listViewFix) {
-			listFixGetAgree.add(new FixGetAgree(viewFix));
-		}
+		String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
+				"titleName", "postName", "deptName", "phone", "staffAddress", "acceptMan", "acceptNote", "acceptTime",
+				"acceptState", "agreeMan", "agreeNote", "agreeTime", "agreeState" };
+		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);
 		// 让listViewFix设置好pageInfo中的各项属性，再替换pageInfo中的list
 		PageInfo pageInfo = new PageInfo(listViewFix);
-		pageInfo.setList(listFixGetAgree);
+		pageInfo.setList(response);
 
 		return Msg.success("获取全部尚未定价的维修信息").add("data", pageInfo);
 		// PageInfo pageInfo = new PageInfo(listViewFix);

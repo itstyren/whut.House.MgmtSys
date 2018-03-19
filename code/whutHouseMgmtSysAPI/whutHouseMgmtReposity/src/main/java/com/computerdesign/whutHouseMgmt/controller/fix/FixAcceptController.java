@@ -1,8 +1,8 @@
 package com.computerdesign.whutHouseMgmt.controller.fix;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.fix.accept.FixAddAccept;
-import com.computerdesign.whutHouseMgmt.bean.fix.accept.FixGetAccept;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
-import com.wf.etp.authz.annotation.RequiresPermissions;
+import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 
 @RequestMapping(value = "/fix/")
 @RestController
@@ -43,20 +42,18 @@ public class FixAcceptController {
 			// acceptState=0表示待受理的
 		} else if (0 == acceptState) {
 			List<ViewFix> list = viewFixService.getAcceptUntil();
-			List<FixGetAccept> listFixGetAccept = new ArrayList<FixGetAccept>();
-			// 将viewHouse中信息存入到list中
-			for (ViewFix viewFix : list) {
-				listFixGetAccept.add(new FixGetAccept(viewFix));
-			}
-			return Msg.success("获取全部的待受理信息").add("data", listFixGetAccept);
+			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
+					"titleName", "postName", "deptName", "phone", "staffAddress"};
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
+			return Msg.success("获取全部的待受理信息").add("data", response);
+
 		} else if (1 == acceptState) {
 			List<ViewFix> list = viewFixService.getAcceptHasBeen();
-			List<FixGetAccept> listFixGetAccept = new ArrayList<FixGetAccept>();
-			// 将viewHouse中信息存入到list中
-			for (ViewFix viewFix : list) {
-				listFixGetAccept.add(new FixGetAccept(viewFix));
-			}
-			return Msg.success("获取全部的已进行受理操作的信息").add("data", listFixGetAccept);
+			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
+					"titleName", "postName", "deptName", "phone", "staffAddress", "acceptMan", "acceptNote",
+					"acceptTime", "acceptState" };
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
+			return Msg.success("获取全部的已进行受理操作的信息").add("data", response);
 		} else {
 			return Msg.error("请检查你的网络");
 		}

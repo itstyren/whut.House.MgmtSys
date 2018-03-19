@@ -114,7 +114,7 @@ public class HireController {
 		}
 		String[] fileds = { "Id", "No", "Name", "Sex", "TitleName", "PostName", 
 				"TypeName", "PostVal", "SpousePostVal", "DeptName", 
-				"Code", "Tel",  };
+				"Code", "Tel" };
 		Map<String, Object> response = ResponseUtil.getResultMap(viewStaff, fileds);
 		// 该员工的房屋不为空
 		if (!listStaffHouse.isEmpty()) {
