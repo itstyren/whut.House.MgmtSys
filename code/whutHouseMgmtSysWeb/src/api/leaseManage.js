@@ -145,3 +145,11 @@ export function postHireRentalQuery(params, data) {
     data: data
   })
 }
+
+// 根据职工获取租赁信息
+export function getHireByStaffID(staffID) {
+  return request({
+    url: `/hire/getAllByStaffId/${staffID}`,
+    method: 'get',
+  })
+}
