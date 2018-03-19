@@ -54,11 +54,12 @@ public class StaffHomePageController {
 			String staffHire = "" + staffId + "-" + hire.getId();
 			System.out.println(staffHire);
 			LastHireRecord lastHireRecord = lastHireRecordService.getLastHireRecordByStaffAndHire(staffHire);
-			if (!lastHireRecord.getState().equals(hire.getHireState())) {
-				String message = "您在" + DateUtil.getCurrentSimpleDate(hire.getApplyTime()) + "的住房申请状态已更新";
-				messages.put(lastHireRecord.getId(),message);
+			if(lastHireRecord != null){
+				if (!lastHireRecord.getState().equals(hire.getHireState())) {
+					String message = "您在" + DateUtil.getCurrentSimpleDate(hire.getApplyTime()) + "的住房申请状态已更新";
+					messages.put(lastHireRecord.getId(),message);
+				}
 			}
-
 		}
 		return Msg.success().add("data", messages);
 	}
@@ -77,10 +78,13 @@ public class StaffHomePageController {
 			String staffFix = "" + staffId + "-" + fix.getId();
 			System.out.println(staffFix);
 			LastFixRecord lastFixRecord = lastFixRecordService.getLastFixRecordByStaffAndFix(staffFix);
-			if (!lastFixRecord.getState().equals(fix.getFixState())) {
-				String message = "您在" + DateUtil.getCurrentSimpleDate(fix.getApplyTime()) + "申请的维修单状态已更新";
-				messages.put(lastFixRecord.getId(),message);
+			if(lastFixRecord != null){
+				if (!lastFixRecord.getState().equals(fix.getFixState())) {
+					String message = "您在" + DateUtil.getCurrentSimpleDate(fix.getApplyTime()) + "申请的维修单状态已更新";
+					messages.put(lastFixRecord.getId(),message);
+				}
 			}
+			
 
 		}
 		return Msg.success().add("data", messages);
