@@ -13,9 +13,14 @@
     <el-row>
       <pannel-group></pannel-group>
     </el-row>
-    <el-row>
-      <el-col :span="11" >
+    <el-row >
+      <el-col :span="23"  >
 <page-view :height="'35vh'"></page-view>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        <fix-pie :height="'40vh'"></fix-pie>
       </el-col>
     </el-row>
   </el-col>
@@ -29,6 +34,7 @@ import infoCard from "../components/infoCard";
 import pannelGroup from "../components/pannelGroup";
 import todoList from "./components/todoList";
 import pageView from "./components/pageView";
+import fixPie from './components/fixPie'
 export default {
   data() {
     return {};
@@ -37,10 +43,11 @@ export default {
     infoCard,
     pannelGroup,
     todoList,
-    pageView
+    pageView,fixPie
   }
 };
 </script>
 
 <style scoped lang="scss">
+
 </style>

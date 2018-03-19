@@ -69,7 +69,7 @@ countTo
 
 <style scoped lang="scss">
   .notification {
-    height: 50vh;
+    height: 63vh;
     padding: 20px;
     .title {
       position: relative;

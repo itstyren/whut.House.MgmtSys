@@ -106,7 +106,7 @@ export default {
       width: 100%;
       &::after {
         content: "";
-        width: 100%;
+        width: 98%;
         height: 2px;
         background-color: #dcdcdc;
         position: absolute;
