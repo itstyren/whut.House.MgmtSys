@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.bean.staffmanagement;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.validation.constraints.Pattern;
@@ -33,11 +34,11 @@ public class Staff {
     private String code;
 
     private String eduQualifications;
-    
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date joinTime;
-    
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date retireTime;
@@ -46,7 +47,7 @@ public class Staff {
     private String tel;
 
     private String email;
-    
+
     private String remark;
 
     private String spouseName;
@@ -55,6 +56,9 @@ public class Staff {
     private String spouseCode;
 
     private Integer spouseTitle;
+
+    @Pattern(regexp="^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",message="电话号码格式错误")
+    private String spouseTel;
 
     private Integer spousePost;
 
@@ -67,8 +71,8 @@ public class Staff {
     private String staffPassword;
 
     private Long buyAccount;
-    
-    private Long compensate;
+
+    private BigDecimal compensate;
 
     private Long fixFund;
 
@@ -107,40 +111,8 @@ public class Staff {
     private Boolean accountStatus;
 
     private Boolean isOwnPriHouse;
-    
-    public String getEduQualifications() {
-		return eduQualifications;
-	}
 
-	public void setEduQualifications(String eduQualifications) {
-		this.eduQualifications = eduQualifications;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Long getCompensate() {
-		return compensate;
-	}
-
-	public void setCompensate(Long compensate) {
-		this.compensate = compensate;
-	}
-
-	public Boolean getIsOwnPriHouse() {
-		return isOwnPriHouse;
-	}
-
-	public void setIsOwnPriHouse(Boolean isOwnPriHouse) {
-		this.isOwnPriHouse = isOwnPriHouse;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -228,6 +200,14 @@ public class Staff {
         this.code = code == null ? null : code.trim();
     }
 
+    public String getEduQualifications() {
+        return eduQualifications;
+    }
+
+    public void setEduQualifications(String eduQualifications) {
+        this.eduQualifications = eduQualifications == null ? null : eduQualifications.trim();
+    }
+
     public Date getJoinTime() {
         return joinTime;
     }
@@ -250,6 +230,14 @@ public class Staff {
 
     public void setTel(String tel) {
         this.tel = tel == null ? null : tel.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public String getRemark() {
@@ -282,6 +270,14 @@ public class Staff {
 
     public void setSpouseTitle(Integer spouseTitle) {
         this.spouseTitle = spouseTitle;
+    }
+
+    public String getSpouseTel() {
+        return spouseTel;
+    }
+
+    public void setSpouseTel(String spouseTel) {
+        this.spouseTel = spouseTel == null ? null : spouseTel.trim();
     }
 
     public Integer getSpousePost() {
@@ -330,6 +326,14 @@ public class Staff {
 
     public void setBuyAccount(Long buyAccount) {
         this.buyAccount = buyAccount;
+    }
+
+    public BigDecimal getCompensate() {
+        return compensate;
+    }
+
+    public void setCompensate(BigDecimal compensate) {
+        this.compensate = compensate;
     }
 
     public Long getFixFund() {
@@ -451,10 +455,12 @@ public class Staff {
     public void setAccountStatus(Boolean accountStatus) {
         this.accountStatus = accountStatus;
     }
-    
-    @Override
-	public String toString() {
-		return "Staff [id=" + id + ", no=" + no + ", name=" + name + ", sex=" + sex + ", marriageState=" + marriageState
-				+ "]";
-	}
+
+    public Boolean getIsOwnPriHouse() {
+        return isOwnPriHouse;
+    }
+
+    public void setIsOwnPriHouse(Boolean isOwnPriHouse) {
+        this.isOwnPriHouse = isOwnPriHouse;
+    }
 }

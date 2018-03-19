@@ -2,6 +2,8 @@ package com.computerdesign.whutHouseMgmt.bean.staffmanagement;
 
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -45,6 +47,7 @@ public class ViewStaff {
 
     private String deptName;
 
+    @Pattern(regexp="(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)",message="身份证号码为18位或15位，最后一位为校验位，可以为数字或字母X")
     private String code;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -55,12 +58,14 @@ public class ViewStaff {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date retireTime;
 
+    @Pattern(regexp="^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",message="电话号码格式错误")
     private String tel;
 
     private String remark;
 
     private String spouseName;
 
+    @Pattern(regexp="(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)",message="身份证号码为18位或15位，最后一位为校验位，可以为数字或字母X")
     private String spouseCode;
 
     private Integer spouseTitle;
@@ -76,6 +81,13 @@ public class ViewStaff {
     private Double timeVal;
 
     private Double totalVal;
+
+    private String eduQualifications;
+
+    private String email;
+
+    @Pattern(regexp="^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",message="电话号码格式错误")
+    private String spouseTel;
 
     private Byte isSuper;
 
@@ -381,6 +393,30 @@ public class ViewStaff {
 
     public void setTotalVal(Double totalVal) {
         this.totalVal = totalVal;
+    }
+
+    public String getEduQualifications() {
+        return eduQualifications;
+    }
+
+    public void setEduQualifications(String eduQualifications) {
+        this.eduQualifications = eduQualifications == null ? null : eduQualifications.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public String getSpouseTel() {
+        return spouseTel;
+    }
+
+    public void setSpouseTel(String spouseTel) {
+        this.spouseTel = spouseTel == null ? null : spouseTel.trim();
     }
 
     public Byte getIsSuper() {
