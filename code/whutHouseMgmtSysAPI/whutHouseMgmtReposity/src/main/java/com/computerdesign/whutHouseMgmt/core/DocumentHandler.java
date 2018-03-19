@@ -8,8 +8,11 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Map;
 
+import javax.servlet.http.HttpServlet;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import net.bytebuddy.asm.Advice.This;
 
 /**
  *
@@ -17,7 +20,7 @@ import freemarker.template.Template;
  * @date 2018年3月18日 下午3:20:15
  * 
  */
-public class DocumentHandler {
+public class DocumentHandler{
 
 	private Configuration configuration = null;
 
@@ -29,7 +32,12 @@ public class DocumentHandler {
 	public byte[] createDocArea(Map<String, Object> dataMap, String outFilePath, String fileName) throws Exception {
 //		 this.configuration.setClassForTemplateLoading(DocumentHandler.class, "D:\\");//第一种模板路径
 		System.out.println("---进入createDocArea---");
+		System.out.println( DocumentHandler.class.getClassLoader());
+		System.out.println(DocumentHandler.class.getClassLoader().getResource("../../"));
+		System.out.println(DocumentHandler.class.getClassLoader().getResource("../../").getPath());
+		 final String templateFolder = DocumentHandler.class.getClassLoader().getResource("../../").getPath() + "WEB-INF/HireFiles/";
 		this.configuration.setDirectoryForTemplateLoading(new File("D:\\"));// 第二种模板路径
+//		this.configuration.set
 		Template t = null;
 		File outFile = null;
 		byte[] bFile = null;

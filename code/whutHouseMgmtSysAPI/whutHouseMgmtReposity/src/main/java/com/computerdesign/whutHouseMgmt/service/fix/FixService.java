@@ -55,12 +55,12 @@ public class FixService {
 	 * @param staffId
 	 * @return
 	 */
-//	public List<Fix> getByStaffId(Integer staffId){
-//		FixExample example = new FixExample();
-//		Criteria criteria = example.createCriteria();
-//		criteria.andStaffIdEqualTo(staffId);
-//		return fixMapper.selectByExample(example);
-//	}
+	public List<Fix> getByStaffId(Integer staffId){
+		FixExample example = new FixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		return fixMapper.selectByExample(example);
+	}
 	
 	
 	public void getResident(String staffId) {

@@ -35,7 +35,7 @@
 		$.ajax({
 			url : uri,
 			beforeSend: function(request) {
-				request.setRequestHeader("X-token", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIwODUxMjYyLCJleHAiOjE1MjA4NTg0NjJ9.Fk7V3f7THQ0AfTzNq8CaECaJqnp2TgKKUpgfOtWdJPo");
+				request.setRequestHeader("X-token", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNDY0NjA4LCJleHAiOjE1MjE0NjgyMDh9.2ULVuHY8MsWQpg3jR_nbo0kxIsUiQYvp_qPwp5Ecmpg");
 		    },
 			type : "get", 
 			contentType : 'application/json',
@@ -57,7 +57,7 @@
 			contentType : 'application/json;charset=UTF-8',
 			dataType : 'json',
 			beforeSend: function(request) {
-				request.setRequestHeader("X-token", "OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+				request.setRequestHeader("X-token", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNDY0NjA4LCJleHAiOjE1MjE0NjgyMDh9.2ULVuHY8MsWQpg3jR_nbo0kxIsUiQYvp_qPwp5Ecmpg");
 		    },
 			data : JSON.stringify(data),
 			url : uri,
@@ -358,7 +358,7 @@
 			var data = {
 				'fixContentId':4,
 				'description':'有什么东西坏了',
-				'staffId':4,
+				'staffId':6,
 				'houseId':4,
 				'phone':'13329911694',
 				'email':'123456@qq.com'
@@ -372,7 +372,7 @@
 
 		$("#fixAddAccept").click(function() {
 			var data = {
-				'id':45,
+				'id':72,
 				'acceptState':'通过',
 				'acceptNote':'先给他',
 				'acceptMan':'任天宇'
@@ -396,7 +396,7 @@
 		
 		$("#fixAddAgree").click(function() {
 			var data = {
-				'id':45,
+				'id':72,
 				'agreeState':'拒绝',
 				'agreeNote':'先给他同意，先给他同意',
 				'agreeMan':'任天宇'
@@ -445,11 +445,11 @@
 		})
 		
 		$("#fixReAccept").click(function() {
-			ajaxRequestGet("fix/reAccept/45");
+			ajaxRequestGet("fix/reAccept/72");
 		})
 		
 		$("#fixReAgree").click(function() {
-			ajaxRequestGet("fix/reAgree/45");
+			ajaxRequestGet("fix/reAgree/72");
 		})
 		
 		$("#fixGetManagement").click(function() {
@@ -466,7 +466,7 @@
 		
 		$("#hireAddApply").click(function() {
 			var data = {
-				'staffId' : 18,
+				'staffId' : 7,
 				'phone' : '1654646465',
 				'email' : '546456@163.com',
 				'reason':'心情不好'
@@ -480,7 +480,7 @@
 
 		$("#hireAddAccept").click(function() {
 			var data = {
-				'id':91,
+				'id':94,
 				'totalVal':54,
 				'titleVal':54,
 				'timeVal':2,
@@ -494,7 +494,7 @@
 		})
 		
 		$("#hireReAccept").click(function() {
-			ajaxRequestGet("hire/reAccept/91");
+			ajaxRequestGet("hire/reAccept/94");
 		})
 		
 		
@@ -504,7 +504,7 @@
 		
 		$("#hireAddAgree").click(function() {
 			var data = {
-				'id':91,
+				'id':94,
 				'houseId':7,
 				'agreeNote':'可以可以',
 				'agreeMan':'ky',
@@ -514,7 +514,7 @@
 		})
 		
 		$("#hireReAgree").click(function() {
-			ajaxRequestGet("hire/reAgree/91");
+			ajaxRequestGet("hire/reAgree/94");
 		})
 		
 		$("#hireGetApprove").click(function() {
@@ -523,7 +523,7 @@
 		
 		$("#hireAddApprove").click(function() {
 			var data = {
-				'id':91,
+				'id':94,
 				'approveNote':'可以可以',
 				'approveMan':'ky',
 				'approveState':'通过'
@@ -532,7 +532,7 @@
 		})
 		
 		$("#hireReApprove").click(function() {
-			ajaxRequestGet("hire/reApprove/91");
+			ajaxRequestGet("hire/reApprove/94");
 		})
 		
 		$("#hireGetDirectApply").click(function() {
@@ -560,9 +560,9 @@
 		
 		$("#hireAddSignContract").click(function() {
 			var data = {
-				'id':91,
+				'id':94,
 				'bookTime':'2017-01-31'
-			};
+			}; 
 			ajaxRequestPostType("hire/addSignContract", "POST", data);
 		})
 		

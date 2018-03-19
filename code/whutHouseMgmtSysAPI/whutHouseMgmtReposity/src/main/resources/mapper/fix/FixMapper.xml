@@ -100,7 +100,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Hs_Fix
+    from hs_fix
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -111,21 +111,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from Hs_Fix
+    from hs_fix
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Hs_Fix
+    delete from hs_fix
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample">
-    delete from Hs_Fix
+    delete from hs_fix
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.Fix">
-    insert into Hs_Fix (Id, FixContentId, Description, 
+    insert into hs_fix (Id, FixContentId, Description, 
       ApplyTime, FixState, AcceptState, 
       AcceptNote, AcceptTime, AcceptMan, 
       AgreeState, AgreeNote, AgreeTime, 
@@ -147,7 +147,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.Fix">
-    insert into Hs_Fix
+    insert into hs_fix
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
@@ -316,13 +316,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample" resultType="java.lang.Long">
-    select count(*) from Hs_Fix
+    select count(*) from hs_fix
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Hs_Fix
+    update hs_fix
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
@@ -411,7 +411,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Hs_Fix
+    update hs_fix
     set Id = #{record.id,jdbcType=INTEGER},
       FixContentId = #{record.fixContentId,jdbcType=VARCHAR},
       Description = #{record.description,jdbcType=VARCHAR},
@@ -444,7 +444,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.Fix">
-    update Hs_Fix
+    update hs_fix
     <set>
       <if test="fixContentId != null">
         FixContentId = #{fixContentId,jdbcType=VARCHAR},
@@ -528,7 +528,7 @@
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.Fix">
-    update Hs_Fix
+    update hs_fix
     set FixContentId = #{fixContentId,jdbcType=VARCHAR},
       Description = #{description,jdbcType=VARCHAR},
       ApplyTime = #{applyTime,jdbcType=DATE},

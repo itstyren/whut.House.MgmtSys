@@ -31,11 +31,13 @@ import com.computerdesign.whutHouseMgmt.bean.fix.directapply.HouseGetDirectApply
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
+import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastFixRecord;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
+import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastFixRecordService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -58,6 +60,7 @@ public class FixController {
 
 	@Autowired
 	private RegisterService registerService;
+	
 	
 	/**
 	 * 个人信息页面，通过id获取维修信息
@@ -144,6 +147,7 @@ public class FixController {
 			return Msg.error("维修类型不能为空");
 		}
 		fix.setApplyTime(new Date());
+		
 		fix.setFixState("待受理");
 		fix.setIsCheck(false);
 		fix.setIsOver(false);
