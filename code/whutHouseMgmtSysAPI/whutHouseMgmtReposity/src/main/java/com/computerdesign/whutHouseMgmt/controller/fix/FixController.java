@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixAddCheck;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixAddPrice;
 import com.computerdesign.whutHouseMgmt.bean.fix.FixGetCheck;
+import com.computerdesign.whutHouseMgmt.bean.fix.PersonalFixRecord;
 import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixGetAgree;
 import com.computerdesign.whutHouseMgmt.bean.fix.apply.FixGetApply;
 import com.computerdesign.whutHouseMgmt.bean.fix.apply.HouseGetApply;
@@ -56,6 +58,36 @@ public class FixController {
 
 	@Autowired
 	private RegisterService registerService;
+	
+	/**
+	 * 个人信息页面，通过id获取维修信息
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="getByStaffId/{staffId}",method=RequestMethod.GET)
+	public Msg getByStaffId(@PathVariable("staffId") Integer staffId){
+		List<ViewFix> fixs = viewFixService.getByStaffId(staffId);
+		List<PersonalFixRecord> personalFixRecords = new ArrayList<PersonalFixRecord>();
+		for (ViewFix fix : fixs){
+			PersonalFixRecord personalFixRecord = new PersonalFixRecord();
+			personalFixRecord.setFixType(fix.getFixContentName());
+			personalFixRecord.setDescription(fix.getDescription());
+			personalFixRecord.setFixState(fix.getFixState());
+			String processReason = null;
+			//判断审核流程进行到了哪一步
+			if(fix.getAgreeNote() != null){
+				processReason = fix.getAgreeNote();
+			}else if(fix.getAcceptNote() != null){
+				processReason = fix.getAgreeNote();
+			}else{
+				processReason = "无意见";
+			}
+			personalFixRecord.setProcessReason(processReason);
+			personalFixRecord.setApplyTime(fix.getApplyTime());
+			personalFixRecords.add(personalFixRecord);
+		}
+		return Msg.success().add("data", personalFixRecords);
+	}
 
 	/**
 	 * 返回申请页面得到的数据
