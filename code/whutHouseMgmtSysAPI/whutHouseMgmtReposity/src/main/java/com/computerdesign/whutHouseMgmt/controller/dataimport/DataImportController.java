@@ -443,15 +443,15 @@ public class DataImportController {
 					}
 					house.setProId(proId);
 
-					// 租金
-					Double rental = Double.valueOf(val[10]);
-					house.setRental(rental);
+//					// 租金
+//					Double rental = Double.valueOf(val[10]);
+//					house.setRental(rental);
 
 					// 备注
-					house.setRemark(val[11]);
+					house.setRemark(val[10]);
 
 					// 竣工时间
-					String finishTimeStr = val[12];
+					String finishTimeStr = val[11];
 //					System.out.println(finishTimeStr);
 					Date finishTime = DateConversionUtils.stringToDate(finishTimeStr, "yyyy/MM/dd");
 					if (finishTime == null) {

@@ -82,8 +82,12 @@ public class HireController {
 			PersonalHireRecord personalHireRecord = new PersonalHireRecord();
 			personalHireRecord.setReason(hire.getReason());
 			// 获取地址
-			String address = houseService.get(hire.getHouseId()).getAddress();
-			personalHireRecord.setAddress(address);
+			if(houseService.get(hire.getHouseId()) != null){
+				String address = houseService.get(hire.getHouseId()).getAddress();
+				personalHireRecord.setAddress(address);
+			}else{
+				personalHireRecord.setAddress("在申请中...");
+			}
 			String processReason = null;
 			// 判断审核流程进行到了哪一步
 			if (hire.getAgreeNote() != null) {
