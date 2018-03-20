@@ -5,10 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import eu.bitwalker.useragentutils.UserAgent;
 
 /**
- * 获取客户端设备信息
  * 
- * @author wangfan
- * @date 2017-7-24 下午3:47:39
+ * @author wanhaoran
+ * @date 2018年3月20日
  */
 public class UserAgentGetter {
 	private UserAgent userAgent;
