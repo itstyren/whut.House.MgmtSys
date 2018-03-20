@@ -172,13 +172,11 @@ public class FixController {
 	public Msg getDirectApplyByName(@RequestParam(value = "staffName") String staffName) {
 		// TODO 按照姓名获取页面
 		try {
-			staffName = URLDecoder.decode(staffName, "utf-8");
+			staffName = new String(staffName.getBytes("8859_1"), "utf8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
-		
-		System.out.println(staffName);
+
 		// 根据姓名获取全部的ViewStaff
 		List<ViewStaff> listViewStaff = viewStaffService.getViewStaffsByName(staffName);
 
@@ -191,7 +189,7 @@ public class FixController {
 		for (ViewStaff viewStaff : listViewStaff) {
 
 			String[] fileds = { "id", "no", "name", "Sex", "marriageState", "TitleName", "PostName", "TypeName",
-					"statusName", "DeptId", "DeptName", "Tel", "Code", "joinTime", "remark", "SpouseName", "spouseCode",
+					"statusName", "Dept", "DeptName", "Tel", "Code", "joinTime", "remark", "SpouseName", "spouseCode",
 					"spouseDept", "spouseKind", "spousePostName", "spouseTitleName", };
 			Map<String, Object> viewStaffResponse = ResponseUtil.getResultMap(viewStaff, fileds);
 

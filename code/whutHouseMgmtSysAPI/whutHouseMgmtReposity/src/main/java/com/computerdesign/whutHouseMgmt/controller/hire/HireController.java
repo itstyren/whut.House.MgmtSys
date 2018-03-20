@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -205,20 +206,20 @@ public class HireController {
 	 * @return
 	 */
 	@Transactional
-	@RequestMapping(value = "addSignContract/{id}", method = RequestMethod.POST)
-	@ApiOperation(value = "签订合同",notes="签订合同",httpMethod="POST",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@GetMapping(value = "addSignContract/{id}")
+	@ApiOperation(value = "签订合同",notes="签订合同",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg HireAddSignContract(@PathVariable("id")Integer id) {
 		// 获取该房屋申请信息
 		Hire hire = hireService.getHireById(id);
 		if (hire.getIsOver()) {
 			return Msg.error("该房屋申请已经签订过合同");
 		}
+		if (!"已审批".equals(hire.getHireState())) {
+			return Msg.error("该房屋无法签订合同");
+		}
 		// 设置该申请已结束
 		hire.setIsOver(true);
-		hireService.update(hire);
-		//TODO 78为当前数据库租赁对于的id
-		houseService.updateHouseStatus(id, 78);
-		registerService.registerByHire(hire);
+		hireService.addSignContract(hire);
 		return Msg.success("成功签订合同");
 	}
 
