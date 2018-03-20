@@ -70,7 +70,7 @@
 
 <style scoped lang="scss">
 .info-card {
-  height: 29vh;
+  height: 230px;
   .top {
     position: relative;
     padding-bottom: 20px;

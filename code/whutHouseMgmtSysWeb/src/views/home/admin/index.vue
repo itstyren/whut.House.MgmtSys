@@ -8,19 +8,25 @@
     <el-row>
       <todo-list></todo-list>
     </el-row>
+    <el-row>
+      <flowmeter></flowmeter>
+    </el-row>
   </el-col>
   <el-col :span="18" class="pannel-group">
     <el-row>
       <pannel-group></pannel-group>
     </el-row>
     <el-row >
-      <el-col :span="23"  >
-<page-view :height="'35vh'"></page-view>
+      <el-col class="pag-view" >
+<page-view :height="'275px'"></page-view>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12">
-        <fix-pie :height="'40vh'"></fix-pie>
+      <el-col :span="11">
+        <fix-pie :height="'300px'"></fix-pie>
+      </el-col>
+      <el-col :span="12" style="margin-left:30px;">
+        <fix-bar :height="'300px'"></fix-bar>
       </el-col>
     </el-row>
   </el-col>
@@ -34,7 +40,9 @@ import infoCard from "../components/infoCard";
 import pannelGroup from "../components/pannelGroup";
 import todoList from "./components/todoList";
 import pageView from "./components/pageView";
-import fixPie from './components/fixPie'
+import fixPie from "./components/fixPie";
+import fixBar from "./components/fixBar";
+import flowmeter from "./components/flowmeter";
 export default {
   data() {
     return {};
@@ -43,11 +51,16 @@ export default {
     infoCard,
     pannelGroup,
     todoList,
-    pageView,fixPie
+    pageView,
+    fixPie,
+    fixBar,
+    flowmeter
   }
 };
 </script>
 
 <style scoped lang="scss">
-
+.pag-view {
+  width: calc(100% - 20px);
+}
 </style>

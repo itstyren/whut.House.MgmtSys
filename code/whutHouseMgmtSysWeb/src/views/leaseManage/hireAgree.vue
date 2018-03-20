@@ -27,85 +27,85 @@
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="申请人姓名">
-                        <el-input v-model="agreeForm.name" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.name"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="申请时间">
-                        <el-input v-model="agreeForm.applyTime" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.applyTime"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="联系电话">
-                        <el-input v-model="agreeForm.phone" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.phone"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="工作部门">
-                        <el-input v-model="agreeForm.deptName" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.deptName"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职称">
-                        <el-input v-model="agreeForm.postName" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.postName"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职务">
-                        <el-input v-model="agreeForm.titleName" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.titleName"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="职称分">
-                        <el-input v-model="agreeForm.titleVal" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.titleVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职务分">
-                        <el-input v-model="agreeForm.titleVal" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.titleVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="工龄分">
-                        <el-input v-model="agreeForm.timeVal" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.timeVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="配偶分">
-                        <el-input v-model="agreeForm.spouseVal" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.spouseVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="其他分">
-                        <el-input v-model="agreeForm.otherVal" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.otherVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="总得分">
-                        <el-input v-model="agreeForm.totalVal" size="small" readonly></el-input>
+                        <el-input v-model="agreeForm.totalVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="受理人">
-                        <el-input v-model="agreeForm.acceptMan" size="small" readonly placeholder="受理人未知"></el-input>
+                        <el-input v-model="agreeForm.acceptMan"  readonly placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="受理状态">
-                        <el-input v-model="agreeForm.acceptState" size="small" readonly placeholder="状态未知"></el-input>
+                        <el-input v-model="agreeForm.acceptState"  readonly placeholder="状态未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="受理时间">
-                        <el-input v-model="agreeForm.acceptTime" size="small" readonly placeholder="受理时间未知"></el-input>
+                        <el-input v-model="agreeForm.acceptTime"  readonly placeholder="受理时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -119,13 +119,13 @@
                   <el-row v-if="status">
                     <el-col :span="14" :offset="1">
                       <el-form-item label="预分配住房">
-                        <el-input v-model="agreeForm.houseAddress" size="small" readonly>
+                        <el-input v-model="agreeForm.houseAddress"  readonly>
                         </el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="预分配面积">
-                        <el-input v-model="agreeForm.houseBuildArea" size="small" readonly placeholder="请选择住房">
+                        <el-input v-model="agreeForm.houseBuildArea"  readonly placeholder="请选择住房">
                         </el-input>
                       </el-form-item>
                     </el-col>
@@ -146,7 +146,7 @@
                   <el-row type="flex" justify="start" v-if="!status">
                     <el-col :span="16" :offset="1">
                       <el-form-item label="住房分配" prop="houseName">
-                        <el-input v-model="agreeForm.houseName" size="small" readonly placeholder="请选择住房">
+                        <el-input v-model="agreeForm.houseName"  readonly placeholder="请选择住房">
                           <el-button slot="append" icon="el-icon-search" @click="dialogVisible=!dialogVisible"></el-button>
                         </el-input>
                       </el-form-item>

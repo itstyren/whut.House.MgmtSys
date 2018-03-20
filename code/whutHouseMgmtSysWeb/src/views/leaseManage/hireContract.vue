@@ -27,103 +27,103 @@
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="申请人姓名">
-                        <el-input v-model="contractForm.name" size="small" readonly></el-input>
+                        <el-input v-model="contractForm.name"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="申请时间">
-                        <el-input v-model="contractForm.applyTime" size="small" readonly></el-input>
+                        <el-input v-model="contractForm.applyTime"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="联系电话">
-                        <el-input v-model="contractForm.phone" size="small" readonly></el-input>
+                        <el-input v-model="contractForm.phone"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="工作部门">
-                        <el-input v-model="contractForm.deptName" size="small" readonly></el-input>
+                        <el-input v-model="contractForm.deptName"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职称">
-                        <el-input v-model="contractForm.postName" size="small" readonly></el-input>
+                        <el-input v-model="contractForm.postName"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职务">
-                        <el-input v-model="contractForm.titleName" size="small" readonly></el-input>
+                        <el-input v-model="contractForm.titleName"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <!-- <el-row>
                     <el-col :span="5" :offset="1">
                       <el-form-item label="职称分">
-                        <el-input v-model="contractForm.titleVal" size="small" readonly></el-input>
+                        <el-input v-model="contractForm.titleVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="5">
                       <el-form-item label="职务分">
-                        <el-input v-model="contractForm.titleVal" size="small" readonly></el-input>
+                        <el-input v-model="contractForm.titleVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="5">
                       <el-form-item label="配偶分">
-                        <el-input v-model="contractForm.spouseVal" size="small" readonly></el-input>
+                        <el-input v-model="contractForm.spouseVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="5">
                       <el-form-item label="其他分">
-                        <el-input v-model="contractForm.otherVal" size="small" readonly></el-input>
+                        <el-input v-model="contractForm.otherVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row> -->
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="受理人">
-                        <el-input v-model="contractForm.acceptMan" size="small" readonly placeholder="受理人未知"></el-input>
+                        <el-input v-model="contractForm.acceptMan"  readonly placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="受理状态">
-                        <el-input v-model="contractForm.acceptState" size="small" readonly placeholder="状态未知"></el-input>
+                        <el-input v-model="contractForm.acceptState"  readonly placeholder="状态未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="受理时间">
-                        <el-input v-model="contractForm.acceptTime" size="small" readonly placeholder="受理时间未知"></el-input>
+                        <el-input v-model="contractForm.acceptTime"  readonly placeholder="受理时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="审核人">
-                        <el-input v-model="contractForm.agreeMan" size="small" readonly placeholder="受理人未知"></el-input>
+                        <el-input v-model="contractForm.agreeMan"  readonly placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="审核状态">
-                        <el-input v-model="contractForm.agreeState" size="small" readonly placeholder="状态未知"></el-input>
+                        <el-input v-model="contractForm.agreeState"  readonly placeholder="状态未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="审核时间">
-                        <el-input v-model="contractForm.agreeTime" size="small" readonly placeholder="受理时间未知"></el-input>
+                        <el-input v-model="contractForm.agreeTime"  readonly placeholder="受理时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="14" :offset="1">
                       <el-form-item label="预分配住房">
-                        <el-input v-model="contractForm.houseAddress" size="small" readonly>
+                        <el-input v-model="contractForm.houseAddress"  readonly>
                         </el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="预分配面积">
-                        <el-input v-model="contractForm.houseBuildArea" size="small" readonly placeholder="请选择住房">
+                        <el-input v-model="contractForm.houseBuildArea"  readonly placeholder="请选择住房">
                         </el-input>
                       </el-form-item>
                     </el-col>
@@ -161,7 +161,7 @@
                   <el-row type="flex" justify="start" v-if="!status">
                     <el-col :span="8" :offset="1">
                       <el-form-item label="登记时间">
-                        <el-date-picker v-model="contractForm.bookTime" size="small" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+                        <el-date-picker v-model="contractForm.bookTime"  placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
                       </el-form-item>
                     </el-col>
                     <el-col :span="2" :offset="2">
