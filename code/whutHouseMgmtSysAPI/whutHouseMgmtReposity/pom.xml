@@ -18,6 +18,13 @@
 	<!-- 引入项目依赖的jar包 -->
 	<dependencies>
 
+		<!-- UserAgentUtils -->
+		<dependency>
+			<groupId>eu.bitwalker</groupId>
+			<artifactId>UserAgentUtils</artifactId>
+			<version>1.20</version>
+		</dependency>
+
 
 		<!-- freeMarker -->
 		<dependency>
