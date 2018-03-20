@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.login.LoginRecord;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.bean.user.UserLogin;
 import com.computerdesign.whutHouseMgmt.controller.BaseController;
+import com.computerdesign.whutHouseMgmt.service.login.LoginRecordService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
+import com.computerdesign.whutHouseMgmt.utils.UserAgentGetter;
 import com.wf.etp.authz.SubjectUtil;
 import com.wf.etp.authz.exception.ErrorTokenException;
 import com.wf.etp.authz.exception.ExpiredTokenException;
@@ -31,7 +34,8 @@ import io.jsonwebtoken.ExpiredJwtException;
 @Controller
 public class UserLoginController extends BaseController{
 
-
+	@Autowired
+	private LoginRecordService loginRecordService;
 
 	@Autowired
 	private ViewStaffService viewStaffService;
@@ -64,10 +68,13 @@ public class UserLoginController extends BaseController{
 		}
 
 		String userId = viewStaff.getId().toString();
+		addLoginRecord(request, userId);
 		String token = SubjectUtil.getInstance().createToken(userId, DateUtil.getAppointHour(new Date(), 1));
 		return Msg.success().add("token", token);
 
 	}
+	
+	
 
 	/**
 	 * 登陆后获取用户信息
@@ -129,5 +136,22 @@ public class UserLoginController extends BaseController{
 		}
 		SubjectUtil.getInstance().expireToken(userId, token);
 		return Msg.success("退出登陆");
+	}
+	
+	/**
+	 * 添加登录日志
+	 */
+	private void addLoginRecord(HttpServletRequest request, String userId) {
+		UserAgentGetter agentGetter = new UserAgentGetter(request);
+		// 添加到登录日志
+		Integer staffId = Integer.parseInt(userId);
+		LoginRecord loginRecord = new LoginRecord();
+		loginRecord.setStaffId(staffId);
+		loginRecord.setIp(agentGetter.getIpAddr());
+		loginRecord.setDevice(agentGetter.getDevice());
+		loginRecord.setBrowser(agentGetter.getBrowser());
+		loginRecord.setOsName(agentGetter.getOS());
+		loginRecord.setLoginTime(new Date());
+		loginRecordService.addLoginRecord(loginRecord);
 	}
 }
