@@ -79,9 +79,11 @@ public class HousingSetController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "activeHouseShowByMultiCondition", method = RequestMethod.POST)
-	public Msg activeHouseShowByMultiCondition(@RequestBody HouseAllSelectModel houseAllSelectModel) {
+	public Msg activeHouseShowByMultiCondition(@RequestBody HouseAllSelectModel houseAllSelectModel,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "5") Integer size) {
 		// System.out.println(houseAllSelectModel.getAreaParameter().getAreaParamName());
-		PageHelper.startPage(houseAllSelectModel.getPage(), houseAllSelectModel.getSize());
+		PageHelper.startPage(page, size);
 		List<ViewHouse> viewHouses = housingSetService.selectActiveHousingMultiCondition(houseAllSelectModel);
 		List<HousingInfo> housingInfos = new ArrayList<HousingInfo>();
 		for (ViewHouse viewHouse : viewHouses) {
@@ -107,8 +109,10 @@ public class HousingSetController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "canselectHouseShowByMultiCondition", method = RequestMethod.POST)
-	public Msg canselectHouseShowByMultiCondition(@RequestBody HouseAllSelectModel houseAllSelectModel) {
-		PageHelper.startPage(houseAllSelectModel.getPage(), houseAllSelectModel.getSize());
+	public Msg canselectHouseShowByMultiCondition(@RequestBody HouseAllSelectModel houseAllSelectModel,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "5") Integer size) {
+		PageHelper.startPage(page, size);
 		List<ViewHouse> viewHouses = housingSetService.selectCanselectHousingMultiCondition(houseAllSelectModel);
 		List<HousingInfo> housingInfos = new ArrayList<HousingInfo>();
 		for (ViewHouse viewHouse : viewHouses) {
@@ -124,7 +128,7 @@ public class HousingSetController {
 		}
 		PageInfo pageInfo = new PageInfo(viewHouses);
 		pageInfo.setList(housingInfos);
-		
+
 		return Msg.success().add("data", pageInfo);
 	}
 

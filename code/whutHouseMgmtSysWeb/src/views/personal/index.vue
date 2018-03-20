@@ -36,7 +36,7 @@
                     <my-icon icon-class="baoxiu"></my-icon>
                     <span slot="title">我的维修</span>
                   </el-menu-item>
-                  <el-menu-item index="5">
+                  <el-menu-item index="hire">
                     <my-icon icon-class="detail"></my-icon>
                     <span slot="title">我的申请</span>
                   </el-menu-item>
@@ -204,13 +204,104 @@
                     <h1>维修信息</h1>
                   </div>
                   <div class="card fix-result">
-                    <el-table :data="fixFormList" class="table" height="string" v-loading="listLoading">
-                      <el-table-column label="维修类型" align="center"></el-table-column>
-                      <el-table-column label="申请时间" align="center"></el-table-column>
-                      <el-table-column label="处理状态" align="center"></el-table-column>
+                    <el-table ref=fixTable :data="fixFormList" class="table" height="string" v-loading="listLoading">
+                      <el-table-column type="expand">
+                        <template slot-scope="props">
+                          <el-row style="margin-bottom:20px; font-size:16px">
+                            <el-col :span="4">
+                              <strong>维修类型</strong>
+                            </el-col>
+                            <el-col :span="8">
+                              <span>{{ props.row.fixType }}</span>
+                            </el-col>
+                            <el-col :span="4">
+                              <strong>申请时间</strong>
+                            </el-col>
+                            <el-col :span="8">
+                              <span>{{ props.row.applyTime }}</span>
+                            </el-col>
+                          </el-row>
+                          <el-row style="margin-bottom:20px; font-size:16px">
+                            <el-col :span="4">
+                              <strong>处理状态</strong>
+                            </el-col>
+                            <el-col :span="8">
+                              <span>{{ props.row.fixState }}</span>
+                            </el-col>
+                          </el-row>
+                          <el-row style="margin-bottom:20px; font-size:16px">  
+                            <el-col :span="4">
+                              <strong>处理说明</strong>
+                            </el-col>
+                            <el-col :span="8">
+                              <span>{{ props.row.processReason }}</span>
+                            </el-col>
+                          </el-row>
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="维修类型" prop="fixType" align="center"></el-table-column>
+                      <el-table-column label="申请时间" prop="applyTime" align="center"></el-table-column>
+                      <el-table-column label="处理状态" prop="fixState" align="center"></el-table-column>
                       <el-table-column label="操作" align="center">
                         <template slot-scope="scope">
-                          <el-button type="infor" size="small">评价</el-button>
+                          <el-button @click="expand(scope.row)" type="infor" size="small" >查看</el-button>
+                          <el-button type="success" v-if="scope.row.fixState=='已审核'" size="small">评价</el-button>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </div>
+                </el-col>
+              </keep-alive>
+              <!-- 租赁信息 -->
+                            <!-- 维修信息 -->
+              <keep-alive>
+                <el-col :span="14" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='hire'">
+                  <div class="title">
+                    <h1>租赁信息</h1>
+                  </div>
+                  <div class="card hire-result">
+                    <el-table ref=hireTable :data="fixFormList" class="table" height="string" v-loading="listLoading">
+                      <el-table-column type="expand">
+                        <template slot-scope="props">
+                          <el-row style="margin-bottom:20px; font-size:16px">
+                            <el-col :span="4">
+                              <strong>维修类型</strong>
+                            </el-col>
+                            <el-col :span="8">
+                              <span>{{ props.row.fixType }}</span>
+                            </el-col>
+                            <el-col :span="4">
+                              <strong>申请时间</strong>
+                            </el-col>
+                            <el-col :span="8">
+                              <span>{{ props.row.applyTime }}</span>
+                            </el-col>
+                          </el-row>
+                          <el-row style="margin-bottom:20px; font-size:16px">
+                            <el-col :span="4">
+                              <strong>处理状态</strong>
+                            </el-col>
+                            <el-col :span="8">
+                              <span>{{ props.row.fixState }}</span>
+                            </el-col>
+                          </el-row>
+                          <el-row style="margin-bottom:20px; font-size:16px">  
+                            <el-col :span="4">
+                              <strong>处理说明</strong>
+                            </el-col>
+                            <el-col :span="8">
+                              <span>{{ props.row.processReason }}</span>
+                            </el-col>
+                          </el-row>
+                        </template>
+                      </el-table-column>
+                      <el-table-column label="维修类型" prop="fixType" align="center"></el-table-column>
+                      <el-table-column label="申请时间" prop="applyTime" align="center"></el-table-column>
+                      <el-table-column label="处理状态" prop="fixState" align="center"></el-table-column>
+                      <el-table-column label="操作" align="center">
+                        <template slot-scope="scope">
+                          <el-button @click="expand(scope.row)" type="infor" size="small" >查看</el-button>
+                          <el-button type="success" v-if="scope.row.fixState=='已审核'" size="small">评价</el-button>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -226,122 +317,138 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import countdownButton from "@/components/countdown/button";
-  import {
-    getStaff,
-    getStaffHouseRel
-  } from "@/api/basiceData";
-  import {
-    getUserHouse
-  } from "@/api/user";
-  export default {
-    data() {
-      return {
-        listLoading: false,
-        staffInfo: {
-          name: "",
-          deptName: "",
-          titleName: "",
-          postName: "",
-          tel: "",
-          email: ""
-        },
-        phoneChange: false,
-        identifyCode: "",
-        menuIndex: "personal",
-        houseList: [],
-        selectHouse: "",
-        fixFormList: []
-      };
-    },
-    components: {
-      countdownButton
-    },
-    created() {
-      this.getStaff(), this.getStaffHouseRel();
-    },
-    methods: {
-      modifyPhone() {
-        this.phoneChange = true;
+import countdownButton from "@/components/countdown/button";
+import { getStaff, getStaffHouseRel } from "@/api/basiceData";
+import { getUserHouse } from "@/api/user";
+import { getFixByStaffID } from "@/api/fixManage";
+import { getHireByStaffID } from "@/api/leaseManage";
+export default {
+  data() {
+    return {
+      listLoading: false,
+      staffID: this.$store.getters.userNO,
+      staffInfo: {
+        name: "",
+        deptName: "",
+        titleName: "",
+        postName: "",
+        tel: "",
+        email: ""
       },
-      menuSelect(index, indexPath) {
-        this.menuIndex = index;
-      },
-      getStaff() {
-        this.listLoading = true;
-        let params = {};
-        const staffID = this.$store.getters.userNO;
-        getStaff(params, staffID).then(res => {
-          this.staffInfo = res.data.data.data;
-          this.listLoading = false;
-        });
-      },
-      getStaffHouseRel() {
-        this.listLoading = true;
-        const staffID = this.$store.getters.userNO;
-        getUserHouse(staffID).then(res => {
-          console.log(res.data);
-          this.houseList = res.data;
-          this.listLoading = false;
-        });
-      }
+      phoneChange: false,
+      identifyCode: "",
+      menuIndex: "personal",
+      houseList: [],
+      selectHouse: "",
+      fixFormList: []
+    };
+  },
+  components: {
+    countdownButton
+  },
+  created() {
+    this.getStaff(), this.getStaffHouseRel(), this.getFix(), this.getHire();
+  },
+  methods: {
+    modifyPhone() {
+      this.phoneChange = true;
+    },
+    menuSelect(index, indexPath) {
+      this.menuIndex = index;
+    },
+    // 获取职工个人信息
+    getStaff() {
+      this.listLoading = true;
+      let params = {};
+      //const staffID = this.$store.getters.userNO;
+      getStaff(params, this.staffID).then(res => {
+        this.staffInfo = res.data.data.data;
+        this.listLoading = false;
+      });
+    },
+    getStaffHouseRel() {
+      this.listLoading = true;
+      //var staffID = this.$store.getters.userNO;
+      getUserHouse(this.staffID).then(res => {
+        //console.log(res.data);
+        this.houseList = res.data;
+        this.listLoading = false;
+      });
+    },
+    // 获取维修信息
+    getFix() {
+      this.listLoading = true;
+      //var staffID = this.$store.getters.userNO;
+      getFixByStaffID(this.staffID).then(res => {
+        this.fixFormList = res.data.data.data;
+        console.log(res.data.data.data);
+        this.listLoading = false;
+      });
+    },
+    getHire() {
+      this.listLoading = true;
+      getHireByStaffID(this.staffID).then(res => {
+        console.log(res.data.data.data);
+      });
+    },
+    expand(row) {
+      this.$refs.fixTable.toggleRowExpansion(row);
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  .user-info {
-    margin: 5px auto;
-    width: 80%;
-    .nav {
-      margin-top: 70px;
-      .title {
-        width: 100%;
-        text-align: center;
-        line-height: 42px;
-        font-weight: bold;
-        padding-top: 3px;
-        background-color: #f3f5f8;
-      }
-      .el-menu {
-        border-right: none;
-      }
+.user-info {
+  margin: 5px auto;
+  width: 80%;
+  .nav {
+    margin-top: 70px;
+    .title {
+      width: 100%;
+      text-align: center;
+      line-height: 42px;
+      font-weight: bold;
+      padding-top: 3px;
+      background-color: #f3f5f8;
     }
-    .info-form {
-      &>.title {
-        width: 100%;
-        border-bottom: 2px solid #ccc;
-        margin-bottom: 50px;
-      }
-      .info-row {
-        border-bottom: 1px solid #eee;
-        padding: 10px;
-        height: 45px;
-      }
-      .is-change {
-        background-color: #f5f5f5;
-        border-bottom: 1px solid #eee;
-        padding: 10px;
-        .old-vertify {
-          margin-bottom: 5px;
-          &::after {
-            content: " *";
-            color: #ed1c24;
-          }
-        }
-      }
-      .no-result {
-        height: 50vh;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        text-align: center;
-      }
-      .fix-result {
-        height: 60vh;
-      }
+    .el-menu {
+      border-right: none;
     }
   }
-
+  .info-form {
+    & > .title {
+      width: 100%;
+      border-bottom: 2px solid #ccc;
+      margin-bottom: 50px;
+    }
+    .info-row {
+      border-bottom: 1px solid #eee;
+      padding: 10px;
+      height: 45px;
+    }
+    .is-change {
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #eee;
+      padding: 10px;
+      .old-vertify {
+        margin-bottom: 5px;
+        &::after {
+          content: " *";
+          color: #ed1c24;
+        }
+      }
+    }
+    .no-result {
+      height: 50vh;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    .fix-result, .hire-result {
+      height: 60vh;
+    }
+  }
+}
 </style>

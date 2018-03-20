@@ -38,27 +38,27 @@ public class HouseAllSelectModel {
 	// 租金
 	private RentalScope rentalScope;
 	
-	//页码
-	private Integer page;
-	
-	//每页数量
-	private Integer size;
+//	//页码
+//	private Integer page;
+//	
+//	//每页数量
+//	private Integer size;
 
-	public Integer getPage() {
-		return page;
-	}
-
-	public void setPage(Integer page) {
-		this.page = page;
-	}
-
-	public Integer getSize() {
-		return size;
-	}
-
-	public void setSize(Integer size) {
-		this.size = size;
-	}
+//	public Integer getPage() {
+//		return page;
+//	}
+//
+//	public void setPage(Integer page) {
+//		this.page = page;
+//	}
+//
+//	public Integer getSize() {
+//		return size;
+//	}
+//
+//	public void setSize(Integer size) {
+//		this.size = size;
+//	}
 
 	public RentalScope getRentalScope() {
 		return rentalScope;

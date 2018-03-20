@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computerdesign.whutHouseMgmt.dao.houseregister.StaffHouseRelMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel">
-    <result column="ResidentId" jdbcType="INTEGER" property="residentId" />
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.houseregister.OutSchoolHouseVwMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouseVw">
+    <result column="Id" jdbcType="INTEGER" property="id" />
     <result column="StaffId" jdbcType="INTEGER" property="staffId" />
-    <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
     <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
-    <result column="HouseRel" jdbcType="VARCHAR" property="houseRel" />
-    <result column="StaffBuyAccount" jdbcType="DECIMAL" property="staffBuyAccount" />
-    <result column="StaffFixFund" jdbcType="DECIMAL" property="staffFixFund" />
+    <result column="HouseRel" jdbcType="INTEGER" property="houseRel" />
+    <result column="HouseRelName" jdbcType="VARCHAR" property="houseRelName" />
     <result column="Address" jdbcType="VARCHAR" property="address" />
-    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
+    <result column="BookTime" jdbcType="TIMESTAMP" property="bookTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,16 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ResidentId, StaffId, StaffNo, StaffName, HouseRel, StaffBuyAccount, StaffFixFund, 
-    Address, IsDelete
+    Id, StaffId, StaffName, HouseRel, HouseRelName, Address, BookTime
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRelExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouseVwExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from view_hs_staffhouserel
+    from view_hs_outschoolhouse
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,33 +85,28 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRelExample">
-    delete from view_hs_staffhouserel
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouseVwExample">
+    delete from view_hs_outschoolhouse
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel">
-    insert into view_hs_staffhouserel (ResidentId, StaffId, StaffNo, 
-      StaffName, HouseRel, StaffBuyAccount, 
-      StaffFixFund, Address, IsDelete
-      )
-    values (#{residentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, 
-      #{staffName,jdbcType=VARCHAR}, #{houseRel,jdbcType=VARCHAR}, #{staffBuyAccount,jdbcType=DECIMAL}, 
-      #{staffFixFund,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
-      )
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouseVw">
+    insert into view_hs_outschoolhouse (Id, StaffId, StaffName, 
+      HouseRel, HouseRelName, Address, 
+      BookTime)
+    values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{staffName,jdbcType=VARCHAR}, 
+      #{houseRel,jdbcType=INTEGER}, #{houseRelName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{bookTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel">
-    insert into view_hs_staffhouserel
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouseVw">
+    insert into view_hs_outschoolhouse
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="residentId != null">
-        ResidentId,
+      <if test="id != null">
+        Id,
       </if>
       <if test="staffId != null">
         StaffId,
-      </if>
-      <if test="staffNo != null">
-        StaffNo,
       </if>
       <if test="staffName != null">
         StaffName,
@@ -122,84 +114,69 @@
       <if test="houseRel != null">
         HouseRel,
       </if>
-      <if test="staffBuyAccount != null">
-        StaffBuyAccount,
-      </if>
-      <if test="staffFixFund != null">
-        StaffFixFund,
+      <if test="houseRelName != null">
+        HouseRelName,
       </if>
       <if test="address != null">
         Address,
       </if>
-      <if test="isDelete != null">
-        IsDelete,
+      <if test="bookTime != null">
+        BookTime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="residentId != null">
-        #{residentId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="staffId != null">
         #{staffId,jdbcType=INTEGER},
-      </if>
-      <if test="staffNo != null">
-        #{staffNo,jdbcType=VARCHAR},
       </if>
       <if test="staffName != null">
         #{staffName,jdbcType=VARCHAR},
       </if>
       <if test="houseRel != null">
-        #{houseRel,jdbcType=VARCHAR},
+        #{houseRel,jdbcType=INTEGER},
       </if>
-      <if test="staffBuyAccount != null">
-        #{staffBuyAccount,jdbcType=DECIMAL},
-      </if>
-      <if test="staffFixFund != null">
-        #{staffFixFund,jdbcType=DECIMAL},
+      <if test="houseRelName != null">
+        #{houseRelName,jdbcType=VARCHAR},
       </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="isDelete != null">
-        #{isDelete,jdbcType=BIT},
+      <if test="bookTime != null">
+        #{bookTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRelExample" resultType="java.lang.Long">
-    select count(*) from view_hs_staffhouserel
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouseVwExample" resultType="java.lang.Long">
+    select count(*) from view_hs_outschoolhouse
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update view_hs_staffhouserel
+    update view_hs_outschoolhouse
     <set>
-      <if test="record.residentId != null">
-        ResidentId = #{record.residentId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.staffId != null">
         StaffId = #{record.staffId,jdbcType=INTEGER},
-      </if>
-      <if test="record.staffNo != null">
-        StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       </if>
       <if test="record.staffName != null">
         StaffName = #{record.staffName,jdbcType=VARCHAR},
       </if>
       <if test="record.houseRel != null">
-        HouseRel = #{record.houseRel,jdbcType=VARCHAR},
+        HouseRel = #{record.houseRel,jdbcType=INTEGER},
       </if>
-      <if test="record.staffBuyAccount != null">
-        StaffBuyAccount = #{record.staffBuyAccount,jdbcType=DECIMAL},
-      </if>
-      <if test="record.staffFixFund != null">
-        StaffFixFund = #{record.staffFixFund,jdbcType=DECIMAL},
+      <if test="record.houseRelName != null">
+        HouseRelName = #{record.houseRelName,jdbcType=VARCHAR},
       </if>
       <if test="record.address != null">
         Address = #{record.address,jdbcType=VARCHAR},
       </if>
-      <if test="record.isDelete != null">
-        IsDelete = #{record.isDelete,jdbcType=BIT},
+      <if test="record.bookTime != null">
+        BookTime = #{record.bookTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -207,16 +184,14 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update view_hs_staffhouserel
-    set ResidentId = #{record.residentId,jdbcType=INTEGER},
+    update view_hs_outschoolhouse
+    set Id = #{record.id,jdbcType=INTEGER},
       StaffId = #{record.staffId,jdbcType=INTEGER},
-      StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       StaffName = #{record.staffName,jdbcType=VARCHAR},
-      HouseRel = #{record.houseRel,jdbcType=VARCHAR},
-      StaffBuyAccount = #{record.staffBuyAccount,jdbcType=DECIMAL},
-      StaffFixFund = #{record.staffFixFund,jdbcType=DECIMAL},
+      HouseRel = #{record.houseRel,jdbcType=INTEGER},
+      HouseRelName = #{record.houseRelName,jdbcType=VARCHAR},
       Address = #{record.address,jdbcType=VARCHAR},
-      IsDelete = #{record.isDelete,jdbcType=BIT}
+      BookTime = #{record.bookTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

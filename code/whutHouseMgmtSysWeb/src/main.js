@@ -4,6 +4,7 @@ import Vue from 'vue'
 // 引用elementUI
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import VCharts from 'v-charts'
 // 全局组件引入
 import myIcon from '@/components/SvgIcon'
 // 引入vue全家桶
@@ -32,6 +33,7 @@ Vue.use(Element, {
   //size: 'medium', // set element-ui default size
   i18n: (key, value) => i18n.t(key, value)
 })
+Vue.use(VCharts)
 Vue.config.productionTip = false
 
 Vue.component('my-icon', myIcon)

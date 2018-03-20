@@ -146,6 +146,7 @@ public class RentGenerateController {
 			rentVwShowModels.add(rentVwShowModel);
 		}
 		PageInfo pageInfo = new PageInfo(rentVws);
+		pageInfo.setList(rentVwShowModels);
 		return Msg.success().add("data", pageInfo);
 	}
 

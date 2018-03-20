@@ -61,12 +61,11 @@ a:hover {
 }
 
 .right-main {
-  float: left; 
+  float: left;
   margin: 5px 20px 0 0px;
   padding: 5px 45px 15px 45px;
   width: 100%;
 }
-
 
 .query-table {
   .el-table__body-wrapper {
@@ -80,4 +79,9 @@ a:hover {
   border: 1px solid #e6ebf5;
   background-color: $white;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  transition: all .2s ease-in-out;
+  &:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    border-color: #eee;
+  }
 }
