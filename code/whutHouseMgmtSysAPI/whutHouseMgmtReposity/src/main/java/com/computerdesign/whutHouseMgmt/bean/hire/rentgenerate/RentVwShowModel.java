@@ -2,6 +2,10 @@ package com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class RentVwShowModel {
 	//职工号
 	private String staffNo;
@@ -14,10 +18,14 @@ public class RentVwShowModel {
 	
 	//地址
 	private String address;
-	
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	//开始时间
 	private Date rentBeginTime;
-	
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	//结束时间
 	private Date rentEndTime;
 	
@@ -36,9 +44,13 @@ public class RentVwShowModel {
     //是否结算
     private Byte rentIsGet;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     //入住时间
     private Date bookTime;
     
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     //到期时间
     private Date expireTime;
 

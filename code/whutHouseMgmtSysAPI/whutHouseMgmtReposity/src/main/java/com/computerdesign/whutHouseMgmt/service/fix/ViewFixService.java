@@ -123,6 +123,7 @@ public class ViewFixService {
 	 */
 	public List<ViewFix> getAcceptHasBeen() {
 		ViewFixExample example = new ViewFixExample();
+		example.setOrderByClause("ApplyTime DESC");
 		Criteria criteria = example.createCriteria();
 		//已经受理的信息在AcceptState不为空
 		criteria.andAcceptStateIsNotNull();
@@ -149,6 +150,7 @@ public class ViewFixService {
 	 */
 	public List<ViewFix> getAgreeHasBeen() {
 		ViewFixExample example = new ViewFixExample();
+		example.setOrderByClause("ApplyTime DESC");
 		Criteria criteria = example.createCriteria();
 		criteria.andIsOverEqualTo(true);
 		//已经审核的信息在AgreeState不为空

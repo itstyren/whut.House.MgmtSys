@@ -3,6 +3,8 @@ package com.computerdesign.whutHouseMgmt.bean.houseregister;
 public class StaffHouseRel {
     private Integer residentId;
 
+    private Integer staffId;
+
     private String staffNo;
 
     private String staffName;
@@ -23,6 +25,14 @@ public class StaffHouseRel {
 
     public void setResidentId(Integer residentId) {
         this.residentId = residentId;
+    }
+
+    public Integer getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(Integer staffId) {
+        this.staffId = staffId;
     }
 
     public String getStaffNo() {

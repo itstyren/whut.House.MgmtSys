@@ -17,14 +17,14 @@ public class StaffHouseRelService {
 	private StaffHouseRelMapper staffHouseRelMapper;
 	
 	/**
-	 * 通过员工编号查询员工与房屋的关系记录
-	 * @param staffNo
+	 * 通过员工ID查询员工与房屋的关系记录
+	 * @param staffId
 	 * @return
 	 */
-	public List<StaffHouseRel> selectByStaffNo(String staffNo){
+	public List<StaffHouseRel> selectByStaffId(Integer staffId){
 		StaffHouseRelExample example = new StaffHouseRelExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andStaffNoEqualTo(staffNo);
+		criteria.andStaffIdEqualTo(staffId);
 		criteria.andIsDeleteEqualTo(false);
 		return staffHouseRelMapper.selectByExample(example);
 	}

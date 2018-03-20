@@ -168,6 +168,16 @@ public class HouseController {
 		if (house.getBuildingId() == null) {
 			return Msg.error("房屋楼栋不能为空");
 		}
+		if(house.getUsedArea()==null){
+			return Msg.error("使用面积不能为空");
+		}
+		if (house.getBuildArea()==null) {
+			return Msg.error("建筑面积不能为空");
+		}
+		if (house.getAddress()==null) {
+			return Msg.error("房屋地址不能为空");
+		}
+		
 
 		List<House> housePres = houseService.getHouseByNo(house.getNo());
 		if (!housePres.isEmpty()) {

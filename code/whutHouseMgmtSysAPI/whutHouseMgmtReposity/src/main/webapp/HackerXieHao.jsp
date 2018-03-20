@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNDY0NjA4LCJleHAiOjE1MjE0NjgyMDh9.2ULVuHY8MsWQpg3jR_nbo0kxIsUiQYvp_qPwp5Ecmpg");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNDY0NjA4LCJleHAiOjE1MjE0NjgyMDh9.2ULVuHY8MsWQpg3jR_nbo0kxIsUiQYvp_qPwp5Ecmpg");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -82,7 +82,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -113,7 +113,7 @@
 			contentType : false,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
 			},
 			success : function(response) {
 				console.log(response);
@@ -353,24 +353,24 @@
 						'finishTime' : {
 							'startTime' : '2017-01-31',
 							'endTime' : '2017-02-02'
-						},
-						'page' : 1,
-						'size' : 2
+						}
+						//'page' : 1,
+						//'size' : 2 
 					};
-					ajaxRequestPostType("houseRegister/getByAllMultiCondition",
+					ajaxRequestPostType("houseRegister/getByAllMultiCondition?page=1&&size=2",
 							"POST", data);
 				})
 
 		$("#getStaffHouseRel").click(function() {
-			ajaxRequestGet("houseRegister/getStaffHouseRel/3");
+			ajaxRequestGet("houseRegister/getStaffHouseRel/2");
 		})
 
 		$("#register").click(function() {
 			var data = {
 				//键的名字与Model属性名一致
-				'staffId' : 18,
-				'houseId' : 5,
-				'houseRel' : 26,
+				'staffId' : 2,
+				'house' : "腾讯大楼",
+				'houseRel' : 82,
 				'bookTime' : '2018-01-28 00:00:00'
 			};
 			ajaxRequestPostType("houseRegister/register", "PUT", data);
@@ -485,11 +485,11 @@
 							'minArea' : 20,
 							'maxArea' : 40
 						},
-						'page' : 1,
-						'size' : 2
+						//'page' : 1,
+						//'size' : 2
 					};
 					ajaxRequestPostType(
-							"housingSet/activeHouseShowByMultiCondition",
+							"housingSet/activeHouseShowByMultiCondition?page=1&&size=2",
 							"POST", data);
 				})
 
@@ -511,11 +511,11 @@
 							'minArea' : 20,
 							'maxArea' : 40
 						},
-						'page' : 1,
-						'size' : 2
+						//'page' : 1,
+						//'size' : 2
 					};
 					ajaxRequestPostType(
-							"housingSet/canselectHouseShowByMultiCondition",
+							"housingSet/canselectHouseShowByMultiCondition?page=1&&size=2",
 							"POST", data);
 				})
 
@@ -665,10 +665,10 @@
 									'startTime' : '1965-01-27',
 									'endTime' : '1965-06-05'
 								},
-								'goUniversityTimeRange' : {
+								/* 'goUniversityTimeRange' : {
 									'startTime' : '2015-12-5',
 									'endTime' : '2015-12-25'
-								},
+								}, */
 								'sex' : '女',
 								'isExpire' : true,
 								'regionName' : '武汉市洪山区工大路20号'
@@ -860,6 +860,8 @@
 			<h4>下载</h4>
 			<a href="dataImport/staffDownLoad">职工模板下载</a> <br> <br> <a
 				href="dataImport/houseDownLoad">住房模板下载</a>
+				
+			<a href="exportToWord/hire/18">word</a>
 			<!-- <input type="file" id="upfile" name="upfile" placeholder="" />
 			<button onclick="importExp();">导入</button> -->
 			<!-- <input class="btn btn-info btn-lg" type="file"
