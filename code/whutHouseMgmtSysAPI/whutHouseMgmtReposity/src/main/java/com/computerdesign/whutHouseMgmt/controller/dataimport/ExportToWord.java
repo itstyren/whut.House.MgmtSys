@@ -1,6 +1,9 @@
-﻿package com.computerdesign.whutHouseMgmt.controller.dataimport;
+package com.computerdesign.whutHouseMgmt.controller.dataimport;
 
+import java.io.IOException;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.core.DocumentHandler;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
+import com.computerdesign.whutHouseMgmt.utils.DownloadUtils;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 
 /**
@@ -29,11 +33,11 @@ public class ExportToWord {
 	private ViewStaffService viewStaffService;
 	
 	@GetMapping(value= "hire/{staffId}")
-	public Msg downloadHireApply(@PathVariable("staffId")Integer staffId) throws Exception {
+	public void downloadHireApply(@PathVariable("staffId")Integer staffId,HttpServletResponse httpServletResponse) throws Exception {
 		
 		if (viewStaffService.getByStaffId(staffId).isEmpty()) {
 			//TODO
-			return Msg.error();
+			return ;
 		}
 		ViewStaff viewStaff = viewStaffService.getByStaffId(staffId).get(0);
 		String[] fileds = { "Id", "No", "MarriageState","Name", "Sex","EduQualifications","TitleName", "DeptName", "Tel", 
@@ -47,12 +51,18 @@ public class ExportToWord {
 //		String outFilePath = DocumentHandler.class.getClassLoader().getResource("../../").getPath() + "WEB-INF/HireFiles/"+outFileName+".doc";
 
 
-		String outFilePath = "C:\\Users\\user\\Desktop\\"+outFileName+".doc";
+		String outFilePath = "C:\\Users\\wanhaoran\\Desktop\\"+outFileName+".doc";
 
 		String modelFileName = "申请租赁住房表格.ftl";
 		
 		documentHandler.createDocArea(response, outFilePath, modelFileName);
-		return Msg.success();
+		
+		try {
+			DownloadUtils.downloadSolve(outFilePath, "testword.doc", httpServletResponse);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 
 	}
 

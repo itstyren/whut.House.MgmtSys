@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNTI0NDkzLCJleHAiOjE1MjE1MjgwOTN9.0kNayN35GwVtQte4qvcHXH-5LXeE9nYh2dV_i6ldfRg");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNTI0NDkzLCJleHAiOjE1MjE1MjgwOTN9.0kNayN35GwVtQte4qvcHXH-5LXeE9nYh2dV_i6ldfRg");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -82,7 +82,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -113,7 +113,7 @@
 			contentType : false,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
 			},
 			success : function(response) {
 				console.log(response);
@@ -860,6 +860,8 @@
 			<h4>下载</h4>
 			<a href="dataImport/staffDownLoad">职工模板下载</a> <br> <br> <a
 				href="dataImport/houseDownLoad">住房模板下载</a>
+				
+			<a href="exportToWord/hire/18">word</a>
 			<!-- <input type="file" id="upfile" name="upfile" placeholder="" />
 			<button onclick="importExp();">导入</button> -->
 			<!-- <input class="btn btn-info btn-lg" type="file"
