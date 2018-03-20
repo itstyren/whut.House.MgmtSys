@@ -129,3 +129,11 @@ export function putFixcheck(data) {
         data: data
     })
 }
+
+// 根据职工id获取维修信息
+export function getFixByStaffID(staffID) {
+    return request({
+        url: `/fix/getByStaffId/${staffID}`,
+        method: 'get',
+    })
+}

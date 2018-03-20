@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.controller.fix;
+﻿package com.computerdesign.whutHouseMgmt.controller.fix;
 
 import java.util.Date;
 import java.util.List;
@@ -15,9 +15,15 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.fix.accept.FixAddAccept;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
+import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastFixRecord;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
+
+import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastFixRecordService;
+import com.computerdesign.whutHouseMgmt.utils.StaffHomePageUtils;
+import com.wf.etp.authz.annotation.RequiresPermissions;
+
 
 @RequestMapping(value = "/fix/")
 @RestController
@@ -28,7 +34,10 @@ public class FixAcceptController {
 
 	@Autowired
 	private ViewFixService viewFixService;
-
+	
+	@Autowired
+	private LastFixRecordService lastFixRecordService;
+	
 	/**
 	 * 获取受理页面信息
 	 * 
@@ -86,6 +95,10 @@ public class FixAcceptController {
 			fix.setAcceptState(fixAddAccept.getAcceptState());
 			fix.setAcceptNote(fixAddAccept.getAcceptNote());
 			fix.setAcceptTime(new Date());
+			
+			//保存上一级维修状态
+			StaffHomePageUtils.saveLastFixRecord(lastFixRecordService, fix);
+			
 			// 维修状态改变
 			fix.setFixState("受理拒绝");
 			fix.setIsOver(true);
@@ -100,6 +113,10 @@ public class FixAcceptController {
 			fix.setAcceptState(fixAddAccept.getAcceptState());
 			fix.setAcceptNote(fixAddAccept.getAcceptNote());
 			fix.setAcceptTime(new Date());
+			
+			//保存上一级维修状态
+			StaffHomePageUtils.saveLastFixRecord(lastFixRecordService, fix);
+			
 			// 维修状态改变
 			fix.setFixState("待审核");
 			fixService.update(fix);
@@ -127,10 +144,15 @@ public class FixAcceptController {
 		fix.setAcceptNote(null);
 		fix.setAcceptState(null);
 		fix.setAcceptTime(null);
+		
+		//保存上一级维修状态
+		StaffHomePageUtils.saveLastFixRecord(lastFixRecordService, fix);
+		
 		fix.setFixState("待受理");
 		fix.setIsOver(false);
 
 		fixService.updateStrict(fix);
 		return Msg.success("重新受理成功");
 	}
+	
 }

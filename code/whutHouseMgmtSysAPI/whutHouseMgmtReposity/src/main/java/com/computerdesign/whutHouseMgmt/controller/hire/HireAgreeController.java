@@ -17,7 +17,9 @@ import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastHireRecordService;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
+import com.computerdesign.whutHouseMgmt.utils.StaffHomePageUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +34,9 @@ public class HireAgreeController {
 
 	@Autowired
 	private ViewHireService viewHireService;
+	
+	@Autowired
+	private LastHireRecordService lastHireRecordService;
 
 	
 	@RequestMapping(value = "getAgree/{agreeState}",method = RequestMethod.GET)
@@ -91,6 +96,9 @@ public class HireAgreeController {
 			
 			hire.setAgreeTime(new Date());
 			
+			//保存上一级租赁状态
+			StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+			
 			hire.setHireState("审批拒绝");
 			hire.setIsOver(true);
 			hireService.update(hire);
@@ -103,6 +111,9 @@ public class HireAgreeController {
 			hire.setAgreeTime(new Date());
 			
 			hire.setHouseId(hireAddAgree.getHouseId());
+			
+			//保存上一级租赁状态
+			StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
 			
 			hire.setHireState("待审批");
 			hireService.update(hire);
@@ -134,6 +145,10 @@ public class HireAgreeController {
 		hire.setAgreeTime(null);
 		
 		hire.setHouseId(null);
+		
+		//保存上一级租赁状态
+		StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+		
 		hire.setHireState("待审核");
 		hire.setIsOver(false);
 		

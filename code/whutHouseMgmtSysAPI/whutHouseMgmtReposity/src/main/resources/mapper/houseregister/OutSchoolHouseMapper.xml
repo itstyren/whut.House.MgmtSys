@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.houseregister.OutSchoolHouseMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouse">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="HouseRel" jdbcType="INTEGER" property="houseRel" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
+    <result column="BookTime" jdbcType="TIMESTAMP" property="bookTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, StaffId, HouseRel, Address, BookTime
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hs_outschoolhouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hs_outschoolhouse
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hs_outschoolhouse
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouseExample">
+    delete from hs_outschoolhouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouse">
+    insert into hs_outschoolhouse (Id, StaffId, HouseRel, 
+      Address, BookTime)
+    values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseRel,jdbcType=INTEGER}, 
+      #{address,jdbcType=VARCHAR}, #{bookTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouse">
+    insert into hs_outschoolhouse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="staffId != null">
+        StaffId,
+      </if>
+      <if test="houseRel != null">
+        HouseRel,
+      </if>
+      <if test="address != null">
+        Address,
+      </if>
+      <if test="bookTime != null">
+        BookTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="houseRel != null">
+        #{houseRel,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="bookTime != null">
+        #{bookTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouseExample" resultType="java.lang.Long">
+    select count(*) from hs_outschoolhouse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update hs_outschoolhouse
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffId != null">
+        StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseRel != null">
+        HouseRel = #{record.houseRel,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null">
+        Address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookTime != null">
+        BookTime = #{record.bookTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update hs_outschoolhouse
+    set Id = #{record.id,jdbcType=INTEGER},
+      StaffId = #{record.staffId,jdbcType=INTEGER},
+      HouseRel = #{record.houseRel,jdbcType=INTEGER},
+      Address = #{record.address,jdbcType=VARCHAR},
+      BookTime = #{record.bookTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouse">
+    update hs_outschoolhouse
+    <set>
+      <if test="staffId != null">
+        StaffId = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="houseRel != null">
+        HouseRel = #{houseRel,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        Address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="bookTime != null">
+        BookTime = #{bookTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.OutSchoolHouse">
+    update hs_outschoolhouse
+    set StaffId = #{staffId,jdbcType=INTEGER},
+      HouseRel = #{houseRel,jdbcType=INTEGER},
+      Address = #{address,jdbcType=VARCHAR},
+      BookTime = #{bookTime,jdbcType=TIMESTAMP}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

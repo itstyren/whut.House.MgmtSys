@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.controller.fix;
+﻿package com.computerdesign.whutHouseMgmt.controller.fix;
 
 import java.util.Date;
 import java.util.List;
@@ -15,9 +15,15 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixAddAgree;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
+import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastFixRecord;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
+
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
+
+import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastFixRecordService;
+import com.computerdesign.whutHouseMgmt.utils.StaffHomePageUtils;
+
 
 @RequestMapping(value = "/fix/")
 @RestController
@@ -30,6 +36,8 @@ public class FixAgreeController {
 	@Autowired
 	private ViewFixService viewFixService;
 
+	@Autowired
+	private LastFixRecordService lastFixRecordService;
 	
 	/**
 	 * 获取维修审核页面的信息，agreeState=1为获取全部的已经过审核操作的信息
@@ -81,6 +89,10 @@ public class FixAgreeController {
 			fix.setAgreeState(fixAddAgree.getAgreeState());
 			fix.setAgreeNote(fixAddAgree.getAgreeNote());
 			fix.setAgreeTime(new Date());
+			
+			//保存上一级维修状态
+			StaffHomePageUtils.saveLastFixRecord(lastFixRecordService, fix);
+			
 			//维修状态改变
 			fix.setFixState("审核拒绝");
 			fix.setIsOver(true);
@@ -95,6 +107,11 @@ public class FixAgreeController {
 			fix.setAgreeNote(fixAddAgree.getAgreeNote());
 			fix.setIsOver(true);
 			fix.setAgreeTime(new Date());
+			
+			//保存上一级维修状态
+			StaffHomePageUtils.saveLastFixRecord(lastFixRecordService, fix);
+			
+			
 			//维修状态改变
 			fix.setFixState("已审核");
 			fixService.update(fix);
@@ -121,6 +138,10 @@ public class FixAgreeController {
 		fix.setAgreeNote(null);
 		fix.setAgreeState(null);
 		fix.setAgreeTime(null);
+		
+		//保存上一级维修状态
+		StaffHomePageUtils.saveLastFixRecord(lastFixRecordService, fix);
+		
 		 fix.setFixState("待审核");
 		fix.setIsOver(false);
 		

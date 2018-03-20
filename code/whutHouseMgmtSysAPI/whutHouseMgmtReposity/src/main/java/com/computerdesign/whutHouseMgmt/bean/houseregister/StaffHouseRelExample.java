@@ -164,6 +164,66 @@ public class StaffHouseRelExample {
             return (Criteria) this;
         }
 
+        public Criteria andStaffIdIsNull() {
+            addCriterion("StaffId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdIsNotNull() {
+            addCriterion("StaffId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdEqualTo(Integer value) {
+            addCriterion("StaffId =", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdNotEqualTo(Integer value) {
+            addCriterion("StaffId <>", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdGreaterThan(Integer value) {
+            addCriterion("StaffId >", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("StaffId >=", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdLessThan(Integer value) {
+            addCriterion("StaffId <", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdLessThanOrEqualTo(Integer value) {
+            addCriterion("StaffId <=", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdIn(List<Integer> values) {
+            addCriterion("StaffId in", values, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdNotIn(List<Integer> values) {
+            addCriterion("StaffId not in", values, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdBetween(Integer value1, Integer value2) {
+            addCriterion("StaffId between", value1, value2, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("StaffId not between", value1, value2, "staffId");
+            return (Criteria) this;
+        }
+
         public Criteria andStaffNoIsNull() {
             addCriterion("StaffNo is null");
             return (Criteria) this;

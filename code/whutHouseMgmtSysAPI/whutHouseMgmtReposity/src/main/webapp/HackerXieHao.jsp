@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzgwMjg0LCJleHAiOjE1MjEzODM4ODR9.74ojwj9ZaVEthRa9NUzjhE2OSwsxiDXxT1P8USHLpJI");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNTI0NDkzLCJleHAiOjE1MjE1MjgwOTN9.0kNayN35GwVtQte4qvcHXH-5LXeE9nYh2dV_i6ldfRg");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxMzgwMjg0LCJleHAiOjE1MjEzODM4ODR9.74ojwj9ZaVEthRa9NUzjhE2OSwsxiDXxT1P8USHLpJI");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNTI0NDkzLCJleHAiOjE1MjE1MjgwOTN9.0kNayN35GwVtQte4qvcHXH-5LXeE9nYh2dV_i6ldfRg");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -353,24 +353,24 @@
 						'finishTime' : {
 							'startTime' : '2017-01-31',
 							'endTime' : '2017-02-02'
-						},
-						'page' : 1,
-						'size' : 2
+						}
+						//'page' : 1,
+						//'size' : 2 
 					};
-					ajaxRequestPostType("houseRegister/getByAllMultiCondition",
+					ajaxRequestPostType("houseRegister/getByAllMultiCondition?page=1&&size=2",
 							"POST", data);
 				})
 
 		$("#getStaffHouseRel").click(function() {
-			ajaxRequestGet("houseRegister/getStaffHouseRel/3");
+			ajaxRequestGet("houseRegister/getStaffHouseRel/2");
 		})
 
 		$("#register").click(function() {
 			var data = {
 				//键的名字与Model属性名一致
-				'staffId' : 18,
-				'houseId' : 5,
-				'houseRel' : 26,
+				'staffId' : 2,
+				'house' : "腾讯大楼",
+				'houseRel' : 82,
 				'bookTime' : '2018-01-28 00:00:00'
 			};
 			ajaxRequestPostType("houseRegister/register", "PUT", data);
@@ -485,11 +485,11 @@
 							'minArea' : 20,
 							'maxArea' : 40
 						},
-						'page' : 1,
-						'size' : 2
+						//'page' : 1,
+						//'size' : 2
 					};
 					ajaxRequestPostType(
-							"housingSet/activeHouseShowByMultiCondition",
+							"housingSet/activeHouseShowByMultiCondition?page=1&&size=2",
 							"POST", data);
 				})
 
@@ -511,11 +511,11 @@
 							'minArea' : 20,
 							'maxArea' : 40
 						},
-						'page' : 1,
-						'size' : 2
+						//'page' : 1,
+						//'size' : 2
 					};
 					ajaxRequestPostType(
-							"housingSet/canselectHouseShowByMultiCondition",
+							"housingSet/canselectHouseShowByMultiCondition?page=1&&size=2",
 							"POST", data);
 				})
 
@@ -665,10 +665,10 @@
 									'startTime' : '1965-01-27',
 									'endTime' : '1965-06-05'
 								},
-								'goUniversityTimeRange' : {
+								/* 'goUniversityTimeRange' : {
 									'startTime' : '2015-12-5',
 									'endTime' : '2015-12-25'
-								},
+								}, */
 								'sex' : '女',
 								'isExpire' : true,
 								'regionName' : '武汉市洪山区工大路20号'
@@ -694,6 +694,18 @@
 						function() {
 							ajaxRequestGet("hire/getAllByStaffId/3");
 						})
+		$("#getFixProcessStateChangeInfo")
+				.click(
+						function() {
+							ajaxRequestGet("staffHomePage/getFixProcessStateChangeInfo/6");
+						})
+		
+		$("#getHireProcessStateChangeInfo")
+				.click(
+						function() {
+							ajaxRequestGet("staffHomePage/getHireProcessStateChangeInfo/18");
+						})
+		
 	})
 	
 </script>
@@ -938,6 +950,14 @@
 			<h4>根据职工id获取租赁信息</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetHireInfoByStaffId" id="getHireInfoByStaffId" />
+			<br>
+			<h4>首页维修信息更新通知</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetFixProcessStateChangeInfo" id="getFixProcessStateChangeInfo" />
+			<br>
+			<h4>首页住房申请信息更新通知</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetHireProcessStateChangeInfo" id="getHireProcessStateChangeInfo" />
 			<br>
 			
 				

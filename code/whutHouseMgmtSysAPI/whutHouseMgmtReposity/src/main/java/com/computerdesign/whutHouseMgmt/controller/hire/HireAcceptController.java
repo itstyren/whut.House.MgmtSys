@@ -15,12 +15,16 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.accept.HireAddAccept;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
+import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastFixRecord;
+import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastHireRecord;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastHireRecordService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
+import com.computerdesign.whutHouseMgmt.utils.StaffHomePageUtils;
 import com.wf.etp.authz.annotation.RequiresPermissions;
 
 import io.swagger.annotations.Api;
@@ -43,6 +47,9 @@ public class HireAcceptController {
 	@Autowired
 	private StaffParameterService staffParameterService;
 
+	@Autowired
+	private LastHireRecordService lastHireRecordService;
+	
 	/**
 	 * 获取房屋申请受理页面
 	 * 
@@ -67,7 +74,7 @@ public class HireAcceptController {
 			}
 			// 需要传出的字段
 			String[] fileds = { "id", "name", "applyTime", "hireState", "reason", "phone", "titleName", "postName",
-					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal" };
+					"totalVal","deptName", "titleVal", "timeVal", "spouseVal", "otherVal" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
 
 			return Msg.success("获取全部的待受理信息").add("data", response);
@@ -120,6 +127,10 @@ public class HireAcceptController {
 			hire.setSpouseVal(hireAddAccept.getSpouseVal());
 
 			hire.setAcceptTime(new Date());
+			
+			//保存上一级租赁状态
+			StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+			
 			hire.setHireState("受理拒绝");
 			hire.setIsOver(true);
 
@@ -137,6 +148,10 @@ public class HireAcceptController {
 			hire.setSpouseVal(hireAddAccept.getSpouseVal());
 
 			hire.setAcceptTime(new Date());
+			
+			//保存上一级租赁状态
+			StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+			
 			hire.setHireState("待审核");
 			hireService.update(hire);
 			return Msg.success("受理成功").add("data", hire);
@@ -145,6 +160,8 @@ public class HireAcceptController {
 		}
 	}
 
+	
+	
 	/**
 	 * 重新受理房屋申请
 	 * 
@@ -171,6 +188,9 @@ public class HireAcceptController {
 		hire.setOtherVal(null);
 		hire.setSpouseVal(null);
 
+		//保存上一级租赁状态
+		StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+		
 		hire.setHireState("待受理");
 		hire.setIsOver(false);
 		hireService.updateStrict(hire);

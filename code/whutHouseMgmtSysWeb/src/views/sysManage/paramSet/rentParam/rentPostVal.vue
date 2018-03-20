@@ -29,7 +29,7 @@
         <el-table :data="PostValData" class="table" v-loading="listLoading" height="string">
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
-          <el-table-column prop="staffParamName" label="职工类别" sortable align="center"></el-table-column>
+          <el-table-column prop="staffParamName" label="职务" sortable align="center"></el-table-column>
           <el-table-column prop="staffParamVal" label="职务分" sortable align="center"></el-table-column>
           <el-table-column prop="staffParamSpouseVal" label="配偶职务分" sortable align="center"></el-table-column>
           <el-table-column label="操作" width="200" align="center">
@@ -46,7 +46,7 @@
     <!-- 编辑表单 -->
     <el-dialog title="编辑职务分" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
       <el-form :model="modifyFromBody" label-width="100px" ref="modifyFrom" :rules="rules">
-        <el-form-item label="职工类别" prop="staffParamName">
+        <el-form-item label="职务" prop="staffParamName">
           <el-input v-model="modifyFromBody.staffParamName" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="职务分" prop="staffParamVal">

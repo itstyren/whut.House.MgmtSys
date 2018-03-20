@@ -1,6 +1,6 @@
 <template>
   <el-row class="panel-group" :gutter="15">
-      <el-col :span="6" class="card-panel-col " style="height:217px">
+      <el-col :span="6" class="card-panel-col " >
       <div class='card' @click="handleSetLineChartData('newVisitis')">
         <div class="card-panel-icon-wrapper icon-people">
           <my-icon icon-class="studio" class-name="card-panel-icon" />

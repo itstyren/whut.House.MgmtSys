@@ -91,31 +91,33 @@
                     <el-option v-for="param in staffParam[5]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="优惠比例" prop="discountRate">
-                  <el-input v-model="staffForm.discountRate" :readonly="!ismodify">
+                <el-form-item label="邮箱" prop="email">
+                  <el-input v-model="staffForm.email" :readonly="!ismodify">
                   </el-input>
                 </el-form-item>
               </div>
               <!-- 右半边的信息 -->
               <div class="single-staff-from">
-                <el-form-item label="上大学时间" prop="goUniversityTime">
-                  <el-date-picker v-model="staffForm.goUniversityTime" :readonly="!ismodify" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
+                <el-form-item label="学历" prop="goUniversityTime">
+                  <el-input v-model="staffForm.eduQualifications" :readonly="!ismodify" placeholder="请输入学历"></el-input>
                 </el-form-item>
                 <el-form-item label="参加工作时间" prop="joinTime">
-                  <el-date-picker v-model="staffForm.joinTime" :readonly="!ismodify" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
+                  <el-date-picker v-model="staffForm.joinTime" :disabled="!ismodify" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
                 </el-form-item>
                 <el-form-item label="来校工作时间" prop="firstJobTime">
-                  <el-date-picker v-model="staffForm.firstJobTime" :readonly="!ismodify" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
+                  <el-date-picker v-model="staffForm.firstJobTime" :disabled="!ismodify" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
                 </el-form-item>
                 <el-form-item label="离退休时间" prop="retireTime">
-                  <el-date-picker v-model="staffForm.retireTime" :readonly="!ismodify" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
+                  <el-date-picker v-model="staffForm.retireTime" :disabled="!ismodify" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
                 </el-form-item>
-                <el-form-item label="购房款" prop="buyAccount">
-                  <el-input v-model="staffForm.buyAccount" :readonly="!ismodify">
-                  </el-input>
+                <el-form-item label="购买校内房" prop="isOwnPriHouse">
+                  <el-switch :class="{'is-own-wsitch':!isOwn}" v-model="staffForm.isOwnPriHouse" active-color="#ff4949" inactive-color="#13ce66"
+                    active-text="否" inactive-text="是" :disabled="!ismodify">
+                  </el-switch>
+                  <el-button v-if="isOwn" @click="checkHouse" :class="{'is-own':isOwn}" size="mini" type="info">查看</el-button>
                 </el-form-item>
-                <el-form-item label="维修基金" prop="fixFund">
-                  <el-input v-model="staffForm.fixFund" :readonly="!ismodify">
+                <el-form-item label="货币化补偿金" prop="compensate">
+                  <el-input v-model="staffForm.compensate" :readonly="!ismodify" placeholder="无">
                   </el-input>
                 </el-form-item>
               </div>
@@ -168,227 +170,256 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getStaff,  putStaffData } from "@/api/basiceData";
-import { getStaffParam } from "@/api/sysManage";
-import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
-import * as OPTION from "@/assets/data/formOption";
-import utils from "@/utils/index.js";
-export default {
-  data() {
-    return {
-      // 是否处于编辑状态
-      ismodify: false,
-      // 表单需要的信息
-      staffForm: {},
-      oldStaffForm: {},
-      listLoading: false,
-      formOption: OPTION,
-      // 编辑时候需要填充的数据
-      staffParam: [],
-      // 表单验证规则
-      rules: {
-        no: [
-          {
+  import {
+    getStaff,
+    putStaffData
+  } from "@/api/basiceData";
+  import {
+    getStaffParam
+  } from "@/api/sysManage";
+  import {
+    checkNum,
+    checkNULL,
+    checkTel
+  } from "@/assets/function/validator";
+  import * as OPTION from "@/assets/data/formOption";
+  import utils from "@/utils/index.js";
+  export default {
+    data() {
+      return {
+        isOwn: false,
+        // 是否处于编辑状态
+        ismodify: false,
+        // 表单需要的信息
+        staffForm: {},
+        oldStaffForm: {},
+        listLoading: false,
+        formOption: OPTION,
+        // 编辑时候需要填充的数据
+        staffParam: [],
+        // 表单验证规则
+        rules: {
+          no: [{
+              required: true,
+              message: "请输入职工编号",
+              trigger: "blur"
+            },
+            {
+              validator: checkNum,
+              trigger: "blur"
+            }
+          ],
+          name: {
             required: true,
-            message: "请输入职工编号",
+            message: "请输入姓名",
             trigger: "blur"
           },
-          {
+          sex: {
+            required: true,
+            message: "请选择",
+            trigger: "blur"
+          },
+          marriageState: {
+            required: true,
+            message: "请选择",
+            trigger: "blur"
+          },
+          code: [{
+              required: true,
+              message: "请输入身份证号",
+              trigger: "blur"
+            },
+            {
+              validator: checkNum,
+              trigger: "blur"
+            }
+          ],
+          tel: [{
+              required: true,
+              message: "请输入手机号码",
+              trigger: "blur"
+            },
+            {
+              validator: checkTel,
+              trigger: "blur"
+            }
+          ],
+          buyAccount: {
+            validator: checkNum,
+            trigger: "blur"
+          },
+          spouseCode: {
             validator: checkNum,
             trigger: "blur"
           }
-        ],
-        name: {
-          required: true,
-          message: "请输入姓名",
-          trigger: "blur"
-        },
-        sex: {
-          required: true,
-          message: "请选择",
-          trigger: "blur"
-        },
-        marriageState: {
-          required: true,
-          message: "请选择",
-          trigger: "blur"
-        },
-        code: [
-          {
-            required: true,
-            message: "请输入身份证号",
-            trigger: "blur"
-          },
-          {
-            validator: checkNum,
-            trigger: "blur"
-          }
-        ],
-        tel: [
-          {
-            required: true,
-            message: "请输入手机号码",
-            trigger: "blur"
-          },
-          {
-            validator: checkTel,
-            trigger: "blur"
-          }
-        ],
-        buyAccount: {
-          validator: checkNum,
-          trigger: "blur"
-        },
-        spouseCode: {
-          validator: checkNum,
-          trigger: "blur"
         }
-      }
-    };
-  },
-  // 监听
-  watch: {
-    $route: "getList",
-    oldStaffForm: {
-      handler: function(newVal) {
-        console.log(newVal);
-      },
-      deep: true
-    }
-  },
-  created() {
-    if (this.$store.state.staffModify == false) {
-      this.ismodify = false;
-    } else this.ismodify = true;
-    this.getList();
-  },
-  // 方法集合
-  methods: {
-    // 获取列表
-    getList() {
-      let param = "";
-      this.listLoading = true;
-      let staffID = this.$route.params.id;
-      if (this.$store.state.staffData.id == staffID) {
-        this.staffForm = this.$store.state.staffData;
-        Object.assign(this.oldStaffForm, this.$store.state.staffData);
-        return;
-      }
-      getStaff(param, staffID)
-        .then(res => {
-          this.staffForm = res.data.data.data;
-          Object.assign(this.oldStaffForm, res.data.data.data);
-          this.listLoading = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      };
     },
-    // 当点击编辑时
-    modifyForm() {
-      this.getParam();
-      this.ismodify = !this.ismodify;
+    // 监听
+    watch: {
+      $route: "getList",
+      oldStaffForm: {
+        handler: function (newVal) {
+          console.log(newVal);
+        },
+        deep: true
+      }
     },
-    // 编辑时候需要获取的数据
-    getParam() {
-      if (this.staffParam[5] != null) return;
-      this.submitLoading = true;
-      let param,
-        // 职工时候是5-10
-        paramNum = 10;
-      for (let paramClass = 5; paramClass <= paramNum; paramClass++) {
-        getStaffParam(param, paramClass)
+    created() {
+      if (this.$store.state.staffModify == false) {
+        this.ismodify = false;
+      } else this.ismodify = true;
+      this.getList();
+    },
+    // 方法集合
+    methods: {
+      // 获取列表
+      getList() {
+        let param = "";
+        this.listLoading = true;
+        let staffID = this.$route.params.id;
+        if (this.$store.state.staffData.id == staffID) {
+          this.staffForm = this.$store.state.staffData;
+          Object.assign(this.oldStaffForm, this.$store.state.staffData);
+          return;
+        }
+        getStaff(param, staffID)
           .then(res => {
-            this.$set(this.staffParam,paramClass,res.data.data.data.list)
-            if (this.staffParam[10] != null) this.submitLoading = false;
+            this.staffForm = res.data.data.data;
+            if (this.staffForm.isOwnPriHouse == 0) {
+              this.isOwn = false
+              this.staffForm.isOwnPriHouse++;
+            } else {
+              this.isOwn = true
+              this.staffForm.isOwnPriHouse--;
+            }
+            // console.log(this.staffForm.isOwnPriHouse)
+            Object.assign(this.oldStaffForm, res.data.data.data);
+            this.listLoading = false;
           })
           .catch(err => {
             console.log(err);
           });
-      }
-    },
-    // 编辑之前的处理
-    beforModify() {
-      const postForm={}
-      postForm.id=this.oldStaffForm.id
-      let newVal = this.staffForm;
-      let oldVal = this.oldStaffForm;
-      for (let v in newVal) {
-        if (newVal[v] != oldVal[v]) {
-          postForm[v]=newVal[v]
+      },
+      // 当点击编辑时
+      modifyForm() {
+        this.getParam();
+        this.ismodify = !this.ismodify;
+      },
+      // 编辑时候需要获取的数据
+      getParam() {
+        if (this.staffParam[5] != null) return;
+        this.submitLoading = true;
+        let param,
+          // 职工时候是5-10
+          paramNum = 10;
+        for (let paramClass = 5; paramClass <= paramNum; paramClass++) {
+          getStaffParam(param, paramClass)
+            .then(res => {
+              this.$set(this.staffParam, paramClass, res.data.data.data.list);
+              if (this.staffParam[10] != null) this.submitLoading = false;
+            })
+            .catch(err => {
+              console.log(err);
+            });
         }
-      }
-      this.modifySubmit(postForm)
-    },
-    // 编辑提交
-    modifySubmit(postForm) {
-      this.$confirm("此操作保存编辑", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$refs["staffForm"].validate(valid => {
-            if (valid) {
-              this.listLoading = true;
-              //let param = Object.assign({}, this.staffForm);
-              putStaffData(postForm).then(res => {
-                utils.statusinfo(this, res.data);
-                this.detailLoading = false;
-                this.$refs["staffForm"].resetFields();
-              });
-            }
-          });
+      },
+      // 查看住房
+      checkHouse(){
+        this.$router.push({
+          path:`/basic/houseResident/${this.staffForm.id}`
         })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消修改"
+      },
+      // 编辑之前的处理
+      beforModify() {
+        const postForm = {};
+        postForm.id = this.oldStaffForm.id;
+        let newVal = this.staffForm;
+        let oldVal = this.oldStaffForm;
+        for (let v in newVal) {
+          if (newVal[v] != oldVal[v]) {
+            postForm[v] = newVal[v];
+          }
+        }
+        this.modifySubmit(postForm);
+      },
+      // 编辑提交
+      modifySubmit(postForm) {
+        this.$confirm("此操作保存编辑", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            this.$refs["staffForm"].validate(valid => {
+              if (valid) {
+                this.listLoading = true;
+                //let param = Object.assign({}, this.staffForm);
+                putStaffData(postForm).then(res => {
+                  utils.statusinfo(this, res.data);
+                  this.detailLoading = false;
+                  this.$refs["staffForm"].resetFields();
+                });
+              }
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消修改"
+            });
           });
-        });
-    },
-    // 路由返回
-    routerBack() {
-      this.$router.go(-1);
+      },
+      // 路由返回
+      routerBack() {
+        this.$router.go(-1);
+      }
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-.main-data {
-
-  .from {
-    margin-bottom: 40px;
-    padding-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    background-color: #fff;
-    .el-select {
-      display: inline-block;
-      position: relative;
-      width: 205px;
-    } // 员工主表
-    h1 {
-      margin-left: 15px;
-    }
-    .staff-from {
-      margin: 10px auto 0px;
+  .main-data {
+    .from {
+      margin-bottom: 40px;
+      padding-bottom: 10px;
       display: flex;
-      flex-direction: row;
-      .single-staff-from {
-        padding-top: 10px; // border: 1px solid black;
-        align-items: center;
-        width: 33.3%; //margin: 10px;
+      flex-direction: column;
+      overflow-y: auto;
+      background-color: #fff;
+      .el-select {
+        display: inline-block;
+        position: relative;
+        width: 205px;
+      } // 员工主表
+      h1 {
+        margin-left: 15px;
+      }
+      .staff-from {
+        margin: 10px auto 0px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        .is-own-wsitch {
+          width: 220px;
+        }
+        .is-own {
+          margin-left: 50px;
+          margin-right: 30px;
+        }
+        .single-staff-from {
+          padding-top: 10px; // border: 1px solid black;
+          align-items: center;
+          width: 33.3%; //margin: 10px;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+        }
+      } // 员工配偶表单
+      .staff-spouse-from {
         flex: 1;
       }
-    } // 员工配偶表单
-    .staff-spouse-from {
-      flex: 1;
     }
   }
-}
+
 </style>
