@@ -74,7 +74,7 @@ public class HireAcceptController {
 			}
 			// 需要传出的字段
 			String[] fileds = { "id", "name", "applyTime", "hireState", "reason", "phone", "titleName", "postName",
-					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal" };
+					"totalVal","deptName", "titleVal", "timeVal", "spouseVal", "otherVal" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
 
 			return Msg.success("获取全部的待受理信息").add("data", response);
