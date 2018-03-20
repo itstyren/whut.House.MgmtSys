@@ -23,10 +23,10 @@
     </el-row>
     <el-row>
       <el-col :span="11">
-        <fix-pie :height="'300px'"></fix-pie>
+        <fix-pie :height="'290px'"></fix-pie>
       </el-col>
       <el-col :span="12" style="margin-left:30px;">
-        <fix-bar :height="'300px'"></fix-bar>
+        <fix-bar :height="'290px'"></fix-bar>
       </el-col>
     </el-row>
   </el-col>
