@@ -31,11 +31,28 @@
 </template>
 
 <script type="text/ecmascript-6">
+import {getUserFix,getUserHire} from '@/api/user.js'
   export default {
     data() {
-      return {};
+      return {
+        staffID:this.$store.getters.userID,
+        listLongding:false
+      };
     },
-    components: {}
+    mounted () {
+      this.getUserInfo()
+    },
+    methods: {
+      getUserInfo(){
+        this.listLongding=true
+        getUserFix(this.staffID).then(res=>{
+            console.log(res.data.data)          
+          getUserHire(this.staffID).then(res=>{
+            console.log(res.data.data)
+          })
+        })
+      }
+    }
   };
 
 </script>

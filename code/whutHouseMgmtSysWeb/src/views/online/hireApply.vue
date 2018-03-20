@@ -187,7 +187,7 @@
       // 获取个人信息
       getList() {
         this.listLoading = true;
-        let staffID = this.$store.getters.userNO;
+        let staffID = this.$store.getters.userID;
         let param = {};
         getStaffHireInfo(param, staffID)
           .then(res => {
@@ -235,7 +235,7 @@
               reason: this.accoutInfo.reason,
               email: this.accoutInfo.email,
               phone: this.accoutInfo.staffTel,
-              staffId: this.$store.getters.userNO
+              staffId: this.$store.getters.userID
             };
             postHireApply(applyForm).then(res => {
               this.resMessage = res.data.message;

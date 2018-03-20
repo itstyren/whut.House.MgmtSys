@@ -334,7 +334,7 @@ export default {
   data() {
     return {
       listLoading: false,
-      staffID: this.$store.getters.userNO,
+      staffID: this.$store.getters.userID,
       staffInfo: {
         name: "",
         deptName: "",

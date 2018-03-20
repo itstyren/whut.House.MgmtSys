@@ -259,7 +259,7 @@ export default {
     // 获取个人信息
     getList() {
       this.listLoading = true;
-      let staffID = this.$store.getters.userNO;
+      let staffID = this.$store.getters.userID;
       let param = {};
       getStaffInfo(param, staffID)
         .then(res => {
@@ -293,7 +293,7 @@ export default {
             fixContentId: this.accoutInfo.fixContentId,
             houseId: this.accoutInfo.houseId,
             phone: this.accoutInfo.tel,
-            staffId: this.$store.getters.userNO
+            staffId: this.$store.getters.userID
           };
           postFixApply(applyForm).then(res => {
             utils.statusinfo(this, res.data);
