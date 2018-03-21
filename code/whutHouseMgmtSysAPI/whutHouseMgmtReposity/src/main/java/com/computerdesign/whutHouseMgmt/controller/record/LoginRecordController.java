@@ -23,6 +23,8 @@ import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import io.swagger.annotations.ApiOperation;
+
 @RequestMapping(value = "/record/")
 @RestController
 public class LoginRecordController {
@@ -46,17 +48,25 @@ public class LoginRecordController {
 		PageInfo pageInfo = new PageInfo<>(listLoginRecord);
 		return Msg.success("登陆信息").add("data", pageInfo);
 	}
-	
 
-
-//	@GetMapping(value = "login")
-//	public Msg getLoginRecord(@RequestParam(value = "day", defaultValue = "7") Integer day) {
-//		Date startDate = DateUtil.getDelayAppointDate(new Date(), day);
-//		Date endDate = new Date();
-//		List<Long> list = new ArrayList<>();
-//		for (int i = day; i < 31; i += day) {
-//			list.add(loginRecordService.getLoginRecord(startDate, startDate));
-//			startDate = DateUtil.getDelayAppointDate(startDate,day);
-//		}
-//	}
+	/**
+	 * 登录信息
+	 * @param day
+	 * @return
+	 */
+	@GetMapping(value = "login")
+	@ApiOperation(value="按周获取访问量",notes="获取5个周的访问量")
+	public Msg getLoginRecord(@RequestParam(value = "day", defaultValue = "7") Integer day) {
+		Date startDate = DateUtil.getFirstDayOfWeek();
+		Date endDate = new Date();
+		
+		List<Long> list = new ArrayList<>();
+		for (int i = 0; i < 5; i ++) {
+			list.add(loginRecordService.getLoginRecord(startDate, endDate));
+			endDate = DateUtil.getDelayAppointDate(startDate,1);
+			startDate = DateUtil.getDelayAppointDate(startDate,day);
+			System.out.println(startDate+" "+endDate);
+		}
+		return Msg.success().add("data", list);
+	}
 }
