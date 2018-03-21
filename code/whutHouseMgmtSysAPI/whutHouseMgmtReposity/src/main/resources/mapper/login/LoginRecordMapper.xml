@@ -8,6 +8,7 @@
     <result column="Device" jdbcType="VARCHAR" property="device" />
     <result column="Browser" jdbcType="VARCHAR" property="browser" />
     <result column="Ip" jdbcType="VARCHAR" property="ip" />
+    <result column="Place" jdbcType="VARCHAR" property="place" />
     <result column="LoginTime" jdbcType="DATE" property="loginTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, StaffId, OsName, Device, Browser, Ip, LoginTime
+    Id, StaffId, OsName, Device, Browser, Ip, Place, LoginTime
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.login.LoginRecordExample" resultMap="BaseResultMap">
     select
@@ -104,10 +105,10 @@
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.login.LoginRecord">
     insert into Pm_LoginRecord (Id, StaffId, OsName, 
       Device, Browser, Ip, 
-      LoginTime)
+      Place, LoginTime)
     values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{osName,jdbcType=VARCHAR}, 
       #{device,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
-      #{loginTime,jdbcType=DATE})
+      #{place,jdbcType=VARCHAR}, #{loginTime,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.login.LoginRecord">
     insert into Pm_LoginRecord
@@ -129,6 +130,9 @@
       </if>
       <if test="ip != null">
         Ip,
+      </if>
+      <if test="place != null">
+        Place,
       </if>
       <if test="loginTime != null">
         LoginTime,
@@ -152,6 +156,9 @@
       </if>
       <if test="ip != null">
         #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        #{place,jdbcType=VARCHAR},
       </if>
       <if test="loginTime != null">
         #{loginTime,jdbcType=DATE},
@@ -185,6 +192,9 @@
       <if test="record.ip != null">
         Ip = #{record.ip,jdbcType=VARCHAR},
       </if>
+      <if test="record.place != null">
+        Place = #{record.place,jdbcType=VARCHAR},
+      </if>
       <if test="record.loginTime != null">
         LoginTime = #{record.loginTime,jdbcType=DATE},
       </if>
@@ -201,6 +211,7 @@
       Device = #{record.device,jdbcType=VARCHAR},
       Browser = #{record.browser,jdbcType=VARCHAR},
       Ip = #{record.ip,jdbcType=VARCHAR},
+      Place = #{record.place,jdbcType=VARCHAR},
       LoginTime = #{record.loginTime,jdbcType=DATE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -224,6 +235,9 @@
       <if test="ip != null">
         Ip = #{ip,jdbcType=VARCHAR},
       </if>
+      <if test="place != null">
+        Place = #{place,jdbcType=VARCHAR},
+      </if>
       <if test="loginTime != null">
         LoginTime = #{loginTime,jdbcType=DATE},
       </if>
@@ -237,6 +251,7 @@
       Device = #{device,jdbcType=VARCHAR},
       Browser = #{browser,jdbcType=VARCHAR},
       Ip = #{ip,jdbcType=VARCHAR},
+      Place = #{place,jdbcType=VARCHAR},
       LoginTime = #{loginTime,jdbcType=DATE}
     where Id = #{id,jdbcType=INTEGER}
   </update>
