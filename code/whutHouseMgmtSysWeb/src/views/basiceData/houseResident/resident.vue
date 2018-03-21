@@ -29,7 +29,7 @@
         <!-- 住房登记区 -->
         <el-row class="house-resident card">
           <el-col :span="24">
-            <house-resident :select-house="selectHouseName" :select-house-id="selectHouseId" @dialog-visible="actionDialog"></house-resident>
+            <house-resident :select-house="selectHouseName" :select-house-id="selectHouseId" ></house-resident>
           </el-col>
         </el-row>
         <!-- 房屋查询区 -->
@@ -88,7 +88,7 @@
       </div>
     </div>
     <!-- 详细查找表单 -->
-    <seach-house :select-form-visible="dialogVisible" @select-house="selectHouse"></seach-house>
+    <seach-house  @select-house="selectHouse"></seach-house>
   </div>
 </template>
 
@@ -124,7 +124,6 @@
         houseData: [],
         selectHouseName: "",
         selectHouseId: "",
-        dialogVisible: false
       };
     },
     // 组件信息
@@ -202,10 +201,6 @@
           .catch(err => {
             console.log(err);
           });
-      },
-      // 登记从组件相应
-      actionDialog() {
-        this.dialogVisible = true;
       },
       // 从详细查找组件传递
       selectHouse(data) {

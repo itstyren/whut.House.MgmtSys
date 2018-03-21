@@ -10,7 +10,7 @@
         <el-col :span="15">
           <el-form-item label="住房" prop="houseId">
             <el-input v-model="residentForm.houseId" style="width:550px" size="small" placeholder="请选择" :readonly="true">
-              <el-button slot="append" icon="el-icon-search" @click="dialogVisible=!dialogVisible"></el-button>
+              <el-button slot="append" icon="el-icon-search" @click="dialogVisible"></el-button>
             </el-input>
           </el-form-item>
         </el-col>
@@ -54,7 +54,6 @@ export default {
         houseId: "",
         staffId: ""
       },
-      dialogVisible: false,
       // 表格数据
       statusData: [],
       listLoading: false,
@@ -89,9 +88,6 @@ export default {
     selectHouse(newVal) {
       this.residentForm.houseId = newVal;
     },
-    dialogVisible() {
-      this.$emit("dialog-visible");
-    }
   },
   created() {
     this.getStaffName();
@@ -127,7 +123,7 @@ export default {
       this.$refs["residentForm"].validate(valid => {
         if (valid) {
           let staffName = this.residentForm.staffId;
-          this.residentForm.houseId = this.selectHouseId;
+          this.residentForm.house = this.selectHouseId;
           this.residentForm.staffId = this.$store.state.residentStaffData.id;
           this.$confirm(`此操作将登记职工【${staffName}】的住房关系`, "提示", {
             confirmButtonText: "确定",
@@ -157,6 +153,9 @@ export default {
             });
         }
       });
+    },
+    dialogVisible(){
+      this.$store.dispatch('setSeachHouse',true)      
     }
   }
 };

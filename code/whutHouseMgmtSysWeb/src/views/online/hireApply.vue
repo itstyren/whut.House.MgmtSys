@@ -192,7 +192,7 @@
         getStaffHireInfo(param, staffID)
           .then(res => {
             if (res.data.status == "error") {
-              MessageBox.confirm('你已购买政策性住房，无法再次申请', '警告', {
+              MessageBox.confirm('你已购买或租赁政策性住房，无法再次申请', '警告', {
                 confirmButtonText: '确认',
                 cancelButtonText: '取消',
                 type: 'warning'

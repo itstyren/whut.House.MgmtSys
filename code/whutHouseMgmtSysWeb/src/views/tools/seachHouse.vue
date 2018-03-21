@@ -1,6 +1,6 @@
 <template>
   <div class="seach">
-    <el-dialog title="选择住房" custom-class="query" :visible.sync="formVisible" v-loading="selectLoading" @open="openDialog">
+    <el-dialog title="选择住房" custom-class="query" @close="dialogClose" :visible.sync="formVisible" v-loading="selectLoading" @open="openDialog">
       <div class="query-tool">
         <el-form :model="queryForm" label-width="80px" ref="queryForm">
           <el-row type="flex" justify="start">
@@ -113,13 +113,13 @@ import {
   getRegionWithBuildings,
   postHouseByComplexMultiCondition
 } from "@/api/basiceData";
-import {getHouseParam} from '@/api/sysManage'
+import { getHouseParam } from "@/api/sysManage";
+import { get } from "http";
 export default {
   data() {
     return {
       // 选择住房窗口
       selectLoading: false,
-      formVisible: false,
       // 查询表单
       queryForm: {
         houseZone: "",
@@ -147,23 +147,20 @@ export default {
       size: 10
     };
   },
-  // 获取父组件传递的数据
-  props: {
-    selectFormVisible: {
-      type: Boolean,
-      default: false
-    }
-  },
+  // },
   // 计算属性
   computed: {
     selectRegion() {
       return this.queryForm.houseZone;
+    },
+    formVisible: {
+      get: function() {
+        return this.$store.getters.seachVisible;
+      },
+      set: function() {}
     }
   },
   watch: {
-    selectFormVisible() {
-      this.formVisible = true;
-    },
     // 监听选项的变动
     selectRegion(newval) {
       // console.log("1");
@@ -178,6 +175,9 @@ export default {
     this.getRegionWithBuilding();
   },
   methods: {
+    dialogClose() {
+      this.$store.dispatch("setSeachHouse", false);
+    },
     // 窗口打开时回调
     openDialog() {
       this.getList();
@@ -186,7 +186,7 @@ export default {
     getHouseParam() {
       this.selectLoading = true;
       let param = {
-           size: 999
+        size: 999
       };
       // http请求
       // 住房类型1
@@ -299,7 +299,7 @@ export default {
       }`;
       const houseID = row.houseId;
       this.$emit("select-house", [houseName, houseID]);
-      this.formVisible=false
+      this.$store.dispatch("setSeachHouse", false);
     },
     // 重置查询表单
     resseting() {
