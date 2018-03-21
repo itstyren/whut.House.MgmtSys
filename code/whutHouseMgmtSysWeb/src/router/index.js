@@ -167,7 +167,7 @@ export const asyncRouterMap = [
         children: [
             { path: 'hireStafferSet', component: _import('online/hireStafferSet'), name: 'hireStafferSet', meta: { title: 'hireStafferSet' } },
             { path: 'hireHouseSet', component: _import('online/hireHouseSet'), name: 'hireHouseSet', meta: { title: 'hireHouseSet' } },
-            { path: 'selfService', component: _import('online/selfService'), name: 'selfService', meta: { title: 'selfService' } },
+            { path: 'selfService', component: _import('online/selfService/index'), name: 'selfService', meta: { title: 'selfService' } },
             { path: 'hireApply', component: _import('online/hireApply'), name: 'hireApply', meta: { title: 'hireApply' } },
         ]
     },

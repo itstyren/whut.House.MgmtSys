@@ -1,38 +1,38 @@
 <template>
   <div class="dashboard-admin">
-<el-row>
-  <el-col :span="6" style="margin-left:50x">
     <el-row>
-      <info-card></info-card>
-    </el-row>
-    <el-row>
-      <todo-list></todo-list>
-    </el-row>
-    <el-row>
-      <flowmeter></flowmeter>
-    </el-row>
-  </el-col>
-  <el-col :span="18" class="pannel-group">
-    <el-row>
-      <pannel-group></pannel-group>
-    </el-row>
-    <el-row >
-      <el-col class="pag-view" >
-<page-view :height="'275px'"></page-view>
+      <el-col :span="6" style="margin-left:50x">
+        <el-row>
+          <info-card></info-card>
+        </el-row>
+        <el-row>
+          <todo-list></todo-list>
+        </el-row>
+        <el-row>
+          <flowmeter></flowmeter>
+        </el-row>
+      </el-col>
+      <el-col :span="18" class="pannel-group">
+        <el-row>
+          <pannel-group></pannel-group>
+        </el-row>
+        <el-row>
+          <el-col class="pag-view">
+            <page-view :height="'275px'"></page-view>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="11">
+            <fix-pie :height="'290px'"></fix-pie>
+          </el-col>
+          <el-col :span="12" style="margin-left:30px;">
+            <fix-bar :height="'290px'"></fix-bar>
+          </el-col>
+        </el-row>
       </el-col>
     </el-row>
-    <el-row>
-      <el-col :span="11">
-        <fix-pie :height="'290px'"></fix-pie>
-      </el-col>
-      <el-col :span="12" style="margin-left:30px;">
-        <fix-bar :height="'290px'"></fix-bar>
-      </el-col>
-    </el-row>
-  </el-col>
-</el-row>
 
- </div>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">

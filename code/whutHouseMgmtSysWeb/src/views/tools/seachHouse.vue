@@ -114,7 +114,6 @@ import {
   postHouseByComplexMultiCondition
 } from "@/api/basiceData";
 import { getHouseParam } from "@/api/sysManage";
-import { get } from "http";
 export default {
   data() {
     return {
@@ -249,13 +248,15 @@ export default {
     // 获取房屋数据
     getList() {
       this.tableLoading = true;
-      let param = Object.assign({}, this.queryForm);
-      for (let v in param) {
-        if (param[v] == "") delete param[v];
+      let data = Object.assign({}, this.queryForm);
+      for (let v in data) {
+        if (data[v] == "") delete data[v];
       }
-      param.page = this.page;
-      param.size = this.size;
-      postHouseByComplexMultiCondition(param).then(res => {
+      let params = {
+        page: this.page,
+        size: this.size
+      };
+      postHouseByComplexMultiCondition(params, data).then(res => {
         utils.statusinfo(this, res.data);
         this.tableLoading = false;
         this.houseData = res.data.data.data.list;

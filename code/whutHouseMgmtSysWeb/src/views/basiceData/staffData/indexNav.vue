@@ -9,7 +9,7 @@
       <el-tree class="aside-tree" v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode"
         @node-click="nodeClick"></el-tree>
     </aside>
-    <section class="special-container">
+    <section  :class="{'special-container':staffShow,'main-container':!staffShow}">
       <!-- 需要长时间存活的 -->
       <transition>
         <keep-alive>
@@ -33,7 +33,8 @@ export default {
       listLoading: false,
       // 部门信息加职工
       depData: [],
-      filterText: ""
+      filterText: "",
+      staffShow:false,
     };
   },
   created() {
@@ -116,10 +117,12 @@ export default {
     nodeClick(object, node, component) {
       //console.log(node);
       if (node.level == 1) {
+        this.staffShow=false    
         this.$router.push({
           path: "/basic/staff/byDept/" + object.id
         });
       } else if (node.level == 2) {
+        this.staffShow=true
         this.$router.push({
           path: "/basic/staff/byId/" + object.id
         });
@@ -132,7 +135,7 @@ export default {
 <style scoped lang="scss">
 @import "../../../styles/variables.scss";
 
-.second-container {
+.special-container {
   background-color: $background-grey;
 }
 </style>

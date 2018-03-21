@@ -18,31 +18,26 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import infoCard from '../components/infoCard'
-  import notification from './components/notification.vue'
-  import proclamation from './components/proclamation .vue'
-  export default {
-    data() {
-      return {
-
-      }
-
-    },
-    components: {
-      infoCard,
-      notification,
-      proclamation
-    }
+import infoCard from "../components/infoCard";
+import notification from "./components/notification.vue";
+import proclamation from "./components/proclamation .vue";
+export default {
+  data() {
+    return {};
+  },
+  components: {
+    infoCard,
+    notification,
+    proclamation
   }
-
+};
 </script>
 
 <style scoped lang="scss">
-.Notification{
-    height: 100%
+.Notification {
+  height: 100%;
 }
-.proclamation{
-    height: 81vh;
+.proclamation {
+  height: 81vh;
 }
-
 </style>

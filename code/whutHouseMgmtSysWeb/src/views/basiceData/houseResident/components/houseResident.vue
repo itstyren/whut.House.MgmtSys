@@ -123,15 +123,18 @@ export default {
       this.$refs["residentForm"].validate(valid => {
         if (valid) {
           let staffName = this.residentForm.staffId;
-          this.residentForm.house = this.selectHouseId;
-          this.residentForm.staffId = this.$store.state.residentStaffData.id;
           this.$confirm(`此操作将登记职工【${staffName}】的住房关系`, "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           })
             .then(() => {
-              let param = this.residentForm;
+              let param ={
+                bookTime:this.residentForm.bookTime,
+                house:this.selectHouseId,
+                houseRel:this.residentForm.houseRel,
+                staffId:this.$store.state.residentStaffData.id
+              };
               this.listLoading = true;
               putHouseRegister(param)
                 .then(res => {

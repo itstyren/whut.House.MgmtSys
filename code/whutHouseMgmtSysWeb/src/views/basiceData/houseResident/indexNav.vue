@@ -125,7 +125,6 @@
           // });
           return;
         } else if (node.level == 2) {
-          console.log(object)
           this.$store.commit(types.RESIDENT_STAFF, object);
           this.$router.push({
             path: "/basic/houseResident/" + object.id

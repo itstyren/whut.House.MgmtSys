@@ -51,12 +51,27 @@
   text-align: center;
 }
 
-.user-info{
-        .el-input.is-disabled .el-input__inner {
-          color: #000;
-        }
-.nav .el-menu{
-  padding-left: 12px;
-
+.user-info {
+  .el-input.is-disabled .el-input__inner {
+    color: #000;
+  }
+  .nav .el-menu {
+    padding-left: 12px;
+  }
 }
+
+.change-password {
+  .el-form-item__label {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 0;
+  }
+  .el-form-item{
+    margin-bottom: 10px;
+}
+}
+.fix-comment{
+  .el-dialog{
+    width: 30%;
+  }
 }
