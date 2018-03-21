@@ -40,6 +40,7 @@ import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastFixRecordService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
+import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -192,8 +193,8 @@ public class FixController {
 
 		for (ViewStaff viewStaff : listViewStaff) {
 
-			String[] fileds = { "id", "no", "name", "Sex", "marriageState", "TitleName", "PostName", "TypeName",
-					"statusName", "Dept", "DeptName", "Tel", "Code", "joinTime", "remark", "SpouseName", "spouseCode",
+			String[] fileds = { "id", "no", "name", "sex", "marriageState", "titleName", "postName", "typeName",
+					"statusName", "dept", "deptName", "tel", "code", "joinTime", "remark", "spouseName", "spouseCode",
 					"spouseDept", "spouseKind", "spousePostName", "spouseTitleName", };
 			Map<String, Object> viewStaffResponse = ResponseUtil.getResultMap(viewStaff, fileds);
 
@@ -212,7 +213,7 @@ public class FixController {
 					} else {
 						ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
 						Map<String, Object> mapHouse = new HashMap<>();
-						mapHouse.put("bookTime", residentVw.getBookTime());
+						mapHouse.put("bookTime", DateUtil.getCurrentSimpleDate(residentVw.getBookTime()));
 						mapHouse.put("houseRel", residentVw.getHouseRel());
 
 						mapHouse.put("address", viewHouse.getAddress());
@@ -240,8 +241,8 @@ public class FixController {
 	public Msg getDirectApplyByStaffId(@PathVariable("staffId") Integer staffId) {
 		ViewStaff viewStaff = viewStaffService.getByStaffId(staffId).get(0);
 
-		String[] fileds = { "id", "no", "name", "Sex", "marriageState", "TitleName", "PostName", "TypeName",
-				"statusName", "DeptId", "DeptName", "Tel", "Code", "joinTime", "remark", "SpouseName", "spouseCode",
+		String[] fileds = { "id", "no", "name", "sex", "marriageState", "titleName", "postName", "typeName",
+				"statusName", "dept", "deptName", "tel", "code", "joinTime", "remark", "spouseName", "spouseCode",
 				"spouseDept", "spouseKind", "spousePostName", "spouseTitleName", };
 		Map<String, Object> viewStaffResponse = ResponseUtil.getResultMap(viewStaff, fileds);
 
@@ -262,7 +263,7 @@ public class FixController {
 				} else {
 					ViewHouse viewHouse = viewHouseService.get(residentVw.getHouseId()).get(0);
 					Map<String, Object> mapHouse = new HashMap<>();
-					mapHouse.put("bookTime", residentVw.getBookTime());
+					mapHouse.put("bookTime", DateUtil.getCurrentSimpleDate(residentVw.getBookTime()));
 					mapHouse.put("houseRel", residentVw.getHouseRel());
 
 					mapHouse.put("address", viewHouse.getAddress());
@@ -321,7 +322,7 @@ public class FixController {
 		PageHelper.startPage(page, size);
 		List<ViewFix> listViewFix = viewFixService.getManagement();
 
-		String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
+		String[] fileds = { "id", "fixContentId", "fixContentName","fixState", "description", "applyTime", "staffName",
 				"titleName", "postName", "deptName", "phone", "staffAddress", "acceptMan", "acceptNote", "acceptTime",
 				"acceptState", "agreeMan", "agreeNote", "agreeTime", "agreeState" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);

@@ -212,10 +212,11 @@ export function getHouseByMultiCondition(data) {
   })
 }
 // 全面多条件查找
-export function postHouseByComplexMultiCondition(data) {
+export function postHouseByComplexMultiCondition(params,data) {
   return request({
     url: `/houseRegister/getByAllMultiCondition`,
     method: 'post',
+    params:params,
     data: data
   })
 }

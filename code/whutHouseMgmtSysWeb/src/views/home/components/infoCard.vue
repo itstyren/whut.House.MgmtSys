@@ -29,7 +29,7 @@
               <strong>上次登录时间:</strong>
             </el-col>
             <el-col :span="12">
-              <strong>2018.03.18</strong>
+              <strong>{{loginTime}}</strong>
             </el-col>
           </el-row>
           <el-row style="padding-top:5px;">
@@ -37,7 +37,7 @@
               <strong>上次登录地址:</strong>
             </el-col>
             <el-col :span="12">
-              <strong>湖北省武汉市</strong>
+              <strong>{{ip}}</strong>
             </el-col>
           </el-row>
         </el-col>
@@ -54,11 +54,13 @@
       return {
         img_avatar,
         staffName: this.$store.getters.userName,
-        roleName:''
+        roleName:'',
+        ip:this.$store.state.user.ip,
+        loginTime:this.$store.state.user.loginTime
       };
     },
     mounted () {
-      if(this.$store.getters.roles==3){
+      if(this.$store.getters.roles==0){
         this.roleName='超级管理员'
       }else{
         this.roleName='职工'

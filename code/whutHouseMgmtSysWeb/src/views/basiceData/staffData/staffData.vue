@@ -14,27 +14,26 @@
     <!-- 下方主内容 -->
     <div class="warp-body">
       <!-- 工具栏 -->
-      <div class="toolbar">
+      <div class="toolbar" style="margin-left:10px;">
         <el-form :model="queryOption" :inline="true" :rules="queryRules" ref="queryForm">
-            <el-form-item label="部门" prop="deptId">
-              <el-select v-model="queryOption.deptId" :clearable="true" @clear="clearDept" placeholder="所有部门" style="width:200px" @change="selectDeptChange">
-                <el-option v-for="dept in depData" :key="dept.id" :value="dept.id" :label="dept.label"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="姓名" prop="staff">  
-              <el-select v-model="queryOption.staffId" :clearable="true" @clear="clearStaff" placeholder="全部职工" style="width:200px">
-                <el-option v-for="staff in staffData" :key="staff.id" :value="staff.id" :label="staff.label"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-button type="primary" @click="queryData">查询</el-button>
+          <el-form-item label="部门" prop="deptId">
+            <el-select v-model="queryOption.deptId" :clearable="true" @clear="clearDept" placeholder="所有部门" style="width:200px" @change="selectDeptChange">
+              <el-option v-for="dept in depData" :key="dept.id" :value="dept.id" :label="dept.label"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="姓名" prop="staff">
+            <el-select v-model="queryOption.staffId" :clearable="true" @clear="clearStaff" placeholder="全部职工" style="width:200px">
+              <el-option v-for="staff in staffData" :key="staff.id" :value="staff.id" :label="staff.label"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-button type="primary" @click="queryData">查询</el-button>
           <el-form-item>
             <el-button type="primary" @click="addStaff()">新增员工</el-button>
           </el-form-item>
         </el-form>
       </div>
       <!-- 表格区 -->
-      <div class="main-data" >
-        <div class="card">
+      <div class="main-data">
         <el-table :data="deptStaffData" class="table" height="string" v-loading="listLoading">
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column prop="no" label="职工号" sortable align="center"></el-table-column>
@@ -48,16 +47,15 @@
             <template slot-scope="scope">
               <el-button size="small" @click="showDetailDialog(scope.$index,scope.row)">详情</el-button>
               <el-button type="success" size="small" @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
-              <el-button type="warning" size="small" @click="resetStaffPwd(scope.$index,scope.row)">重置</el-button>             
+              <el-button type="warning" size="small" @click="resetStaffPwd(scope.$index,scope.row)">重置</el-button>
               <el-button type="danger" size="small" @click="delectStaff(scope.$index,scope.row)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
+      </div>
               <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent"
-        :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
-      </el-pagination>
-      </div>
-      </div>
+          :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
+        </el-pagination>
     </div>
   </div>
 </template>
@@ -175,7 +173,6 @@ export default {
       }
       switchFunction(param, queryID)
         .then(res => {
-          console.log(this.queryStatus);
           if (this.queryStatus == 3) {
             this.deptStaffData = [];
             this.deptStaffData[0] = res.data.data.data;
@@ -183,7 +180,12 @@ export default {
             this.deptStaffData = res.data.data.data.list;
           }
           if (this.queryStatus !== 2) {
-            this.depName = this.deptStaffData[0].deptName;
+            if (this.deptStaffData[0] != null)
+              this.depName = this.deptStaffData[0].deptName;
+            else {
+              this.listLoading = false;
+              return;
+            }
           } else {
             for (var dept of this.depData) {
               if (dept.id == queryID) this.depName = dept.label;
@@ -291,8 +293,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.card{
-  height: 72vh;
-  padding-bottom: 40px;
-}
+
 </style>

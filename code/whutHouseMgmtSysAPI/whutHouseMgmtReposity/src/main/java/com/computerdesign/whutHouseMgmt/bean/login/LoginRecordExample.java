@@ -532,6 +532,76 @@ public class LoginRecordExample {
             return (Criteria) this;
         }
 
+        public Criteria andPlaceIsNull() {
+            addCriterion("Place is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceIsNotNull() {
+            addCriterion("Place is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceEqualTo(String value) {
+            addCriterion("Place =", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceNotEqualTo(String value) {
+            addCriterion("Place <>", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceGreaterThan(String value) {
+            addCriterion("Place >", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceGreaterThanOrEqualTo(String value) {
+            addCriterion("Place >=", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceLessThan(String value) {
+            addCriterion("Place <", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceLessThanOrEqualTo(String value) {
+            addCriterion("Place <=", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceLike(String value) {
+            addCriterion("Place like", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceNotLike(String value) {
+            addCriterion("Place not like", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceIn(List<String> values) {
+            addCriterion("Place in", values, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceNotIn(List<String> values) {
+            addCriterion("Place not in", values, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceBetween(String value1, String value2) {
+            addCriterion("Place between", value1, value2, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceNotBetween(String value1, String value2) {
+            addCriterion("Place not between", value1, value2, "place");
+            return (Criteria) this;
+        }
+
         public Criteria andLoginTimeIsNull() {
             addCriterion("LoginTime is null");
             return (Criteria) this;

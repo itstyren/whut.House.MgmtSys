@@ -4,7 +4,9 @@ import {
   removeToken
 } from '@/utils/auth'
 import {
-  loginByUsername, getUserInfo, logout
+  loginByUsername,
+  getUserInfo,
+  logout
 } from '@/api/login'
 import * as types from '../mutation-types.js'
 
@@ -13,8 +15,10 @@ const user = {
     token: getToken(),
     name: '',
     roles: [],
-    no:-1,
-    id:-1,
+    no: -1,
+    id: -1,
+    ip:-1,
+    loginTime:-1,
   },
   mutations: {
     // 设置token
@@ -27,15 +31,21 @@ const user = {
     },
     // set login staff role ID
     [types.SET_ROLEID]: (state, roleId) => {
-      state.roles.push(roleId) 
+      state.roles.push(roleId)
     },
     // set login staff NO
-    [types.SET_USERNO]:(state,staffNO)=>{
-      state.no=staffNO
+    [types.SET_USERNO]: (state, staffNO) => {
+      state.no = staffNO
     },
-    // set login staff NO
+    // set login staff ID
     [types.SET_USERID]: (state, staffID) => {
       state.id = staffID
+    },
+    [types.SET_USERIP]: (state, ip) => {
+      state.ip = ip
+    },
+    [types.SET_USERLASTLOGIN]: (state, loginTime) => {
+      state.loginTime = loginTime
     },
   },
 
@@ -61,17 +71,23 @@ const user = {
       })
     },
     // 获取用户信息
-    GetUserInfo({commit,state}) {
+    GetUserInfo({
+      commit,
+      state
+    }) {
       return new Promise((resolve, reject) => {
         getUserInfo(state.token).then(res => {
-          if (res.data.status == 'error') { 
+          if (res.data.status == 'error') {
             reject('error')
           }
           const data = res.data.data.data[0]
+          const logindata =res.data.data.logindata
           commit(types.SET_ROLEID, data.roleId)
           commit(types.SET_NAME, data.name)
-          commit(types.SET_USERNO,data.no)
-          commit(types.SET_USERID,data.id)
+          commit(types.SET_USERNO, data.no)
+          commit(types.SET_USERID, data.id)
+          commit(types.SET_USERIP, logindata.ip)
+          commit(types.SET_USERLASTLOGIN, logindata.loginTime)
           resolve(res)
         }).catch(error => {
           reject(error)
@@ -79,15 +95,19 @@ const user = {
       })
     },
     // 前端 登出，当登录令牌有误时使用
-    FedLogOut({ commit }) {
+    FedLogOut({
+      commit
+    }) {
       return new Promise(resolve => {
         commit(types.SET_TOKEN, '')
         removeToken()
         resolve()
       })
     },
-    LogOut({commit}){
-     // console.log(1)
+    LogOut({
+      commit
+    }) {
+      // console.log(1)
       return new Promise((resolve, reject) => {
         logout().then(() => {
           commit(types.SET_TOKEN, '')

@@ -7,5 +7,6 @@ const getters = {
   userID:state=>state.user.id,
   addRouters: state => state.permission.addRouters,
   permission_routers: state => state.permission.routers,
+  seachVisible: state => state.app.seachVisible
 }
 export default getters

@@ -162,7 +162,7 @@ public class HireController {
 		// 判断该员工是否已经申请房屋
 		if (!viewHireService.getByStaffId(hire.getStaffId()).isEmpty()) {
 			ViewHire viewHirePre = viewHireService.getByStaffId(hire.getStaffId()).get(0);
-			if (viewHirePre.getAcceptState() != null) {
+			if (viewHirePre.getHireState() != null) {
 				return Msg.error("该员工正在申请房屋，无法再次申请");
 			}
 		}

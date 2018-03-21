@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { getVisitRecord} from "@/api/dataAnalysis";
 import echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
 let _ = require("underscore");
