@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class PersonalFixRecord {
 	
+	//维修ID
+	private Integer fixId;
+	
 	//维修类型
 	private String fixType;
 	
@@ -21,6 +24,14 @@ public class PersonalFixRecord {
 	//申请时间
 	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	private Date applyTime;
+
+	public Integer getFixId() {
+		return fixId;
+	}
+
+	public void setFixId(Integer fixId) {
+		this.fixId = fixId;
+	}
 
 	public String getFixType() {
 		return fixType;

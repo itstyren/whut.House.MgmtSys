@@ -75,6 +75,7 @@ public class FixController {
 		List<PersonalFixRecord> personalFixRecords = new ArrayList<PersonalFixRecord>();
 		for (ViewFix fix : fixs) {
 			PersonalFixRecord personalFixRecord = new PersonalFixRecord();
+			personalFixRecord.setFixId(fix.getId());
 			personalFixRecord.setFixType(fix.getFixContentName());
 			personalFixRecord.setDescription(fix.getDescription());
 			personalFixRecord.setFixState(fix.getFixState());
@@ -83,7 +84,7 @@ public class FixController {
 			if (fix.getAgreeNote() != null) {
 				processReason = fix.getAgreeNote();
 			} else if (fix.getAcceptNote() != null) {
-				processReason = fix.getAgreeNote();
+				processReason = fix.getAcceptNote();
 			} else {
 				processReason = "无意见";
 			}

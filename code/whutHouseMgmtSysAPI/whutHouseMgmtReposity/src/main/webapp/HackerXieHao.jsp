@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjExODMzLCJleHAiOjE1MjE2MTU0MzN9.IW52i0ocBaubjXekDMHPnfv82nu_g98F3Ag4Ma0xZnc");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjQ2NDgzLCJleHAiOjE1MjE2NTAwODN9.Lk2DY3fSUvujh7qriLgyIb1gXWSwE8pAvl51Htur6RM");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjExODMzLCJleHAiOjE1MjE2MTU0MzN9.IW52i0ocBaubjXekDMHPnfv82nu_g98F3Ag4Ma0xZnc");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjQ2NDgzLCJleHAiOjE1MjE2NTAwODN9.Lk2DY3fSUvujh7qriLgyIb1gXWSwE8pAvl51Htur6RM");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -715,7 +715,12 @@
 							};
 							ajaxRequestPostType("fixRatings/fixEvaluation","PUT",data);
 						})
-						
+		$("#getResidentHouseByStaffId")
+				.click(
+						function() {
+							ajaxRequestGet("houseInfo/getResidentHouseByStaffId/2");
+						})
+									
 	})
 	
 </script>
@@ -974,6 +979,10 @@
 			<h4>维修评价</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="FixEvaluation" id="fixEvaluation" />
+			<br>
+			<h4>获取职工房屋信息</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetResidentHouseByStaffId" id="getResidentHouseByStaffId" />
 			<br>
 			
 				
