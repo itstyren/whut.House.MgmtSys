@@ -61,237 +61,237 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    getSingleDept,
-    getStaff,
-    deleteStaffData,
-    putResetStaffPwd
-  } from "@/api/basiceData";
-  import {
-    checkNum,
-    checkNULL
-  } from "@/assets/function/validator";
-  import utils from "@/utils/index.js";
-  import * as types from "../../../store/mutation-types";
-  export default {
-    data() {
-      return {
-        // 表格数据
-        deptStaffData: [],
-        depName: "",
-        listLoading: false,
-        totalNum: 0,
-        page: 1,
-        size: 10,
-        //查询需要的数据
-        staffData: [],
-        queryStatus: 0, //0 代表列表查，1代表全部，2代表部门查，3代表楼栋查
-        // 查询选项
-        queryOption: {
-          deptId: "",
-          staffId: ""
-        },
-        // 查询表达验证规则
-        queryRules: {}
-      };
-    },
-    // 获取父组件传递的数据
-    props: ["depData"],
-    computed: {
-      selectDept() {
-        return this.queryOption.deptId;
+import {
+  getSingleDept,
+  getStaff,
+  deleteStaffData,
+  putResetStaffPwd
+} from "@/api/basiceData";
+import { checkNum, checkNULL } from "@/assets/function/validator";
+import utils from "@/utils/index.js";
+import * as types from "../../../store/mutation-types";
+export default {
+  data() {
+    return {
+      // 表格数据
+      deptStaffData: [],
+      depName: "",
+      listLoading: false,
+      totalNum: 0,
+      page: 1,
+      size: 10,
+      //查询需要的数据
+      staffData: [],
+      queryStatus: 0, //0 代表列表查，1代表全部，2代表部门查，3代表楼栋查
+      // 查询选项
+      queryOption: {
+        deptId: "",
+        staffId: ""
       },
-      addSelectRegion() {
-        return this.addFormBody.deptId || this.detailData.deptId;
+      // 查询表达验证规则
+      queryRules: {}
+    };
+  },
+  // 获取父组件传递的数据
+  props: ["depData"],
+  computed: {
+    selectDept() {
+      return this.queryOption.deptId;
+    },
+    addSelectRegion() {
+      return this.addFormBody.deptId || this.detailData.deptId;
+    }
+  },
+  // 监听
+  watch: {
+    // 监听选项的变动
+    selectDept(newval) {
+      for (var dept of this.depData) {
+        if (dept.id == newval) this.staffData = dept.children;
       }
     },
-    // 监听
-    watch: {
-      // 监听选项的变动
-      selectDept(newval) {
-        for (var dept of this.depData) {
-          if (dept.id == newval) this.staffData = dept.children;
-        }
-      },
-      // 监听路由
-      $route() {
-        this.queryStatus = 0;
+    // 监听路由
+    $route() {
+      this.queryStatus = 0;
+      this.getList();
+    }
+  },
+  created() {
+    this.getList();
+  },
+  // 方法集合
+  methods: {
+    //选择的区域变化时
+    selectDeptChange(dept) {
+      this.staffData = dept.buildingList;
+    },
+    // 清空搜索的区域时
+    clearDept() {
+      this.queryStatus = 1;
+      this.queryOption.staffId = "";
+    },
+    // 清空搜索的楼栋时
+    clearStaff() {
+      this.queryStatus = 2;
+    },
+
+    // 判定查询的类型
+    queryData() {
+      // this.$refs["queryForm"].validate(valid => {
+      // if (valid) {
+      if (this.queryOption.deptId == "") {
+        this.queryStatus = 1;
+        // this.getList();   //还不能获取全部员工
+      } else if (this.queryOption.staffId == "") {
+        this.queryStatus = 2;
+        this.getList();
+      } else {
+        this.queryStatus = 3;
         this.getList();
       }
+      // }
+      // });
     },
-    created() {
+    // 获取列表
+    getList() {
+      this.listLoading = true;
+      let param = {
+        page: this.page,
+        size: this.size
+      };
+      // 在这里判断执行哪种查询方法
+      if (this.queryStatus == 0) {
+        var switchFunction = getSingleDept;
+        var queryID = this.$route.params.id;
+      } else if (this.queryStatus == 1) var switchFunction = getHouse;
+      else if (this.queryStatus == 2) {
+        var switchFunction = getSingleDept;
+        var queryID = this.queryOption.deptId;
+      } else {
+        var switchFunction = getStaff;
+        var queryID = this.queryOption.staffId;
+      }
+      switchFunction(param, queryID)
+        .then(res => {
+          if (this.queryStatus == 3) {
+            this.deptStaffData = [];
+            this.deptStaffData[0] = res.data.data.data;
+          } else {
+            this.deptStaffData = res.data.data.data.list;
+          }
+          if (this.queryStatus !== 2) {
+            if (this.deptStaffData[0] != null)
+              this.depName = this.deptStaffData[0].deptName;
+            else {
+              this.listLoading = false;
+              return;
+            }
+          } else {
+            for (var dept of this.depData) {
+              if (dept.id == queryID) this.depName = dept.label;
+            }
+          }
+
+          this.totalNum = res.data.data.data.total;
+          this.listLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 显示详情页面
+    showDetailDialog(index, row) {
+      this.$store.commit(types.STAFF_DATA, row);
+      this.$store.commit(types.STAFF_MODIFY, false);
+      this.$router.push({
+        path: `/basic/staff/byId/${row.id}`
+      });
+    },
+    //切换到编辑
+    showModifyDialog(index, row) {
+      this.$store.commit(types.STAFF_DATA, row);
+      this.$store.commit(types.STAFF_MODIFY, true);
+      this.$router.push({
+        path: `/basic/staff/byId/${row.id}`
+      });
+    },
+    // 切换到新增页面
+    addStaff() {
+      this.$router.push({
+        path: `/basic/staff/add`
+      });
+    },
+    // 重置密码
+    resetStaffPwd(index, row) {
+      this.$confirm(`此操作将重置职工【${row.name}】的系统密码`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let param = {};
+          let staffId = row.id;
+          this.listLoading = true;
+          putResetStaffPwd(param, staffId)
+            .then(res => {
+              // 公共提示方法
+              utils.statusinfo(this, res.data);
+              this.getList();
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消重置"
+          });
+        });
+    },
+    // 删除功能
+    delectStaff(index, row) {
+      this.$confirm("此操作将删除该职工", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let param = row.id;
+          this.listLoading = true;
+          deleteStaffData(param)
+            .then(res => {
+              // 公共提示方法
+              utils.statusinfo(this, res.data);
+              this.getList();
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
+    //更换每页数量
+    SizeChangeEvent(val) {
+      this.listLoading = true;
+      this.size = val;
       this.getList();
     },
-    // 方法集合
-    methods: {
-      //选择的区域变化时
-      selectDeptChange(dept) {
-        this.staffData = dept.buildingList;
-      },
-      // 清空搜索的区域时
-      clearDept() {
-        this.queryStatus = 1;
-        this.queryOption.staffId = "";
-      },
-      // 清空搜索的楼栋时
-      clearStaff() {
-        this.queryStatus = 2;
-      },
-
-      // 判定查询的类型
-      queryData() {
-        // this.$refs["queryForm"].validate(valid => {
-        // if (valid) {
-        if (this.queryOption.deptId == "") {
-          this.queryStatus = 1;
-          // this.getList();   //还不能获取全部员工
-        } else if (this.queryOption.staffId == "") {
-          this.queryStatus = 2;
-          this.getList();
-        } else {
-          this.queryStatus = 3;
-          this.getList();
-        }
-        // }
-        // });
-      },
-      // 获取列表
-      getList() {
-        this.listLoading = true;
-        let param = {
-          page: this.page,
-          size: this.size
-        };
-        // 在这里判断执行哪种查询方法
-        if (this.queryStatus == 0) {
-          var switchFunction = getSingleDept;
-          var queryID = this.$route.params.id;
-        } else if (this.queryStatus == 1) var switchFunction = getHouse;
-        else if (this.queryStatus == 2) {
-          var switchFunction = getSingleDept;
-          var queryID = this.queryOption.deptId;
-        } else {
-          var switchFunction = getStaff;
-          var queryID = this.queryOption.staffId;
-        }
-        switchFunction(param, queryID)
-          .then(res => {
-            if (this.queryStatus == 3) {
-              this.deptStaffData = [];
-              this.deptStaffData[0] = res.data.data.data;
-            } else {
-              this.deptStaffData = res.data.data.data.list;
-            }
-            if (this.queryStatus !== 2) {
-              this.depName = this.deptStaffData[0].deptName;
-            } else {
-              for (var dept of this.depData) {
-                if (dept.id == queryID) this.depName = dept.label;
-              }
-            }
-
-            this.totalNum = res.data.data.data.total;
-            this.listLoading = false;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      },
-      // 显示详情页面
-      showDetailDialog(index, row) {
-        this.$store.commit(types.STAFF_DATA, row);
-        this.$store.commit(types.STAFF_MODIFY, false);
-        this.$router.push({
-          path: `/basic/staff/byId/${row.id}`
-        });
-      },
-      //切换到编辑
-      showModifyDialog(index, row) {
-        this.$store.commit(types.STAFF_DATA, row);
-        this.$store.commit(types.STAFF_MODIFY, true);
-        this.$router.push({
-          path: `/basic/staff/byId/${row.id}`
-        });
-      },
-      // 切换到新增页面
-      addStaff() {
-        this.$router.push({
-          path: `/basic/staff/add`
-        });
-      },
-      // 重置密码
-      resetStaffPwd(index, row) {
-        this.$confirm(`此操作将重置职工【${row.name}】的系统密码`, "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(() => {
-            let param = {};
-            let staffId = row.id;
-            this.listLoading = true;
-            putResetStaffPwd(param, staffId)
-              .then(res => {
-                // 公共提示方法
-                utils.statusinfo(this, res.data);
-                this.getList();
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          })
-          .catch(() => {
-            this.$message({
-              type: "info",
-              message: "已取消重置"
-            });
-          });
-      },
-      // 删除功能
-      delectStaff(index, row) {
-        this.$confirm("此操作将删除该职工", "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(() => {
-            let param = row.id;
-            this.listLoading = true;
-            deleteStaffData(param)
-              .then(res => {
-                // 公共提示方法
-                utils.statusinfo(this, res.data);
-                this.getList();
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          })
-          .catch(() => {
-            this.$message({
-              type: "info",
-              message: "已取消删除"
-            });
-          });
-      },
-      //更换每页数量
-      SizeChangeEvent(val) {
-        this.listLoading = true;
-        this.size = val;
-        this.getList();
-      },
-      //页码切换时
-      CurrentChangeEvent(val) {
-        this.listLoading = true;
-        this.page = val;
-        this.getList();
-      }
+    //页码切换时
+    CurrentChangeEvent(val) {
+      this.listLoading = true;
+      this.page = val;
+      this.getList();
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-
 
 </style>

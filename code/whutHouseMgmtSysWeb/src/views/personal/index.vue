@@ -327,7 +327,7 @@
                     <h1>修改密码</h1>
                   </div>
                   <div class="card change-password">
-                    <el-form :model="passwordForm" status-icon label-width="100px" label-position="top" :rules="passwordRules">
+                    <el-form :model="passwordForm" ref="changePassForm" status-icon label-width="100px" label-position="top" :rules="passwordRules">
                       <el-row>
                         <el-col :span="10" :offset="3">
                           <el-form-item label="旧密码" prop="oldPassword">
@@ -351,7 +351,7 @@
                       </el-row>
                     </el-form>
                     <div class="tool">
-                      <el-button type="primary">提交</el-button>
+                      <el-button type="primary" @click="changePass">提交</el-button>
                       <el-button type="infor">取消</el-button>
                     </div>
                   </div>
@@ -390,7 +390,7 @@
             <el-form-item label="评价">
               <el-row>
                 <el-col :span="24">
-              <el-input v-model="fixCommentForm.note" placeholder="请输入...." type="textarea" :autosize="{ minRows: 2, maxRows: 4}" ></el-input>                
+              <el-input v-model="fixCommentForm.description" placeholder="请输入...." type="textarea" :autosize="{ minRows: 2, maxRows: 4}" ></el-input>                
               </el-col>
               </el-row>
               <el-row style="margin-top:20px;">
@@ -411,9 +411,10 @@
 <script type="text/ecmascript-6">
 import countdownButton from "@/components/countdown/button";
 import { getStaff, getStaffHouseRel } from "@/api/basiceData";
-import { getUserHouse } from "@/api/user";
+import { getUserHouse, putChangePassword,putFixComment } from "@/api/user";
 import { getFixByStaffID } from "@/api/fixManage";
 import { getHireByStaffID } from "@/api/leaseManage";
+import utils from "@/utils/index.js";
 export default {
   data() {
     var checkPassword = (rule, value, callback) => {
@@ -553,6 +554,32 @@ export default {
     },
     expand(row) {
       this.$refs.fixTable.toggleRowExpansion(row);
+    },
+    // 修改密码
+    changePass() {
+      this.$refs["changePassForm"].validate(valid => {
+        if (valid) {
+          this.listLoading = true;
+          let param = {
+            newPsw: this.passwordForm.newPassword,
+            oldPsw: this.passwordForm.oldPassword
+          };
+          putChangePassword(param).then(res => {
+            utils.statusinfo(this, res.data);
+            this.listLoading = false;
+            this.$refs.changePassForm.resetFields()
+          });
+        }
+      });
+    },
+    // 提交评价
+    submitComment(){
+      this.listLoading=true
+      let data={
+        description:this.fixCommentForm.description,
+        
+      }
+
     },
     // 导出申请单
     downloadApply() {

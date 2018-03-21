@@ -23,3 +23,19 @@ export function getUserHire(staffID) {
     method: 'get',
   })
 }
+// 修改密码
+export function putChangePassword(params) {
+  return request({
+    url: `/staff/updatePassword`,
+    method: 'put',
+    params: params
+  })
+}
+// 维修结果评价
+export function putFixComment(data) {
+  return request({
+    url: `/fixRatings/fixEvaluation`,
+    method: 'put',
+    data:data
+  })
+}

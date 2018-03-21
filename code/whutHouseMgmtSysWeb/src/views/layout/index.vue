@@ -34,7 +34,7 @@
               </router-link>
             </el-dropdown-item>
             <el-dropdown-item>
-              <router-link to="/account/PassWord">
+              <router-link :to="{name:'personal',params:{menuIndex:'password'}}">
                 <span style=" color: #000; font-size: 14px;">修改密码</span>
               </router-link>
             </el-dropdown-item>
