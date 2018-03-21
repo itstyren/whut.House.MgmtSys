@@ -58,7 +58,7 @@
       };
     },
     mounted () {
-      if(this.$store.getters.roles==3){
+      if(this.$store.getters.roles==0){
         this.roleName='超级管理员'
       }else{
         this.roleName='职工'

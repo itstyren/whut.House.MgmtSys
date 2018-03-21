@@ -23,8 +23,8 @@
 
 <style scoped lang="scss">
   .proclamation {
-    height: 83vh;
-    padding: 3vh;
+    height: 660px;
+    padding: 20px;
     .title {
       font-size: 26px;
       font-weight: 400;

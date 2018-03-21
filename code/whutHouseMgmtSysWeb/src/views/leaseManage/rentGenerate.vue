@@ -31,7 +31,7 @@
                 <el-button type="primary" @click="showDialog">条件检索</el-button>
               </el-col>
               <el-col :span="8" :offset="1" >
-                <el-date-picker v-model="timeRange" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期"
+                <el-date-picker v-model="timeRange" type="daterange" align="right" unlink-panels range-separator="-" start-placeholder="开始日期"
                   end-placeholder="结束日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd">
                 </el-date-picker>
               </el-col>
@@ -125,52 +125,12 @@
                 <keep-alive>
                   <div v-if="activeName=='rental'" class="table-tabs">                  
                   <el-table :data="rentalData" class="table" style="width: 100%" height="string" v-loading="listLoading1">
-                    <el-table-column prop="houseNo" fixed label="职工号" width="70" align="center"></el-table-column>
-                    <el-table-column label="姓名" prop="" width="70" fixed align="center">
-                    </el-table-column>
-                    <el-table-column prop="bookTime" label="住房号" fixed width="100" align="center"></el-table-column>
-                    <el-table-column label="地址" fixed width="260" align="center">
-                      <template slot-scope="scope">
-                        <el-popover trigger="hover" placement="top">
-                          <p>所属楼栋: {{ scope.row.buildingName }}</p>
-                          <p>竣工时间: {{ scope.row.houseFinishTime }}</p>
-                          <p>建筑面积: {{ scope.row.houseBulidArea }}</p>
-                          <p>使用面积: {{ scope.row.houseUsedArea }}</p>
-                          <p>地下室面积: {{ scope.row.houseBasementArea }}</p>
-                          <div slot="reference" class="name-wrapper">
-                            <el-tag size="medium" type="success">{{ scope.row.houseAddress }}</el-tag>
-                          </div>
-                        </el-popover>
-                      </template>
-                    </el-table-column>
-                    <el-table-column prop="expireTime" label="到期时间" width="100" align="center"></el-table-column>
-                    <el-table-column prop="joinTime" label="来校时间" width="100" align="center"></el-table-column>
-                    <el-table-column prop="sex" label="性别" width="50" align="center"></el-table-column>
-                    <el-table-column prop="marriageState" label="婚姻状况" width="80" align="center"></el-table-column>
-                    <el-table-column prop="postName" label="职称" align="center"></el-table-column>
-                    <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
-                    <el-table-column prop="typeName" label="职工类别" width="120" align="center"></el-table-column>
-                    <el-table-column prop="statusName" label="工作状态" width="80" align="center"></el-table-column>
-                    <el-table-column prop="deptName" label="工作部门" width="150" align="center"></el-table-column>
-                    <el-table-column label="配偶姓名" width="80" align="center">
-                      <template slot-scope="scope">
-                        <el-popover trigger="hover" placement="top">
-                          <p>姓名: {{ scope.row.spouseName }}</p>
-                          <p>单位: {{ scope.row.spouseDeptName }}</p>
-                          <p>单位性质: {{ scope.row.spouseKindName }}</p>
-                          <p>身份证号: {{ scope.row.spouseCode }}</p>
-                          <div slot="reference" class="name-wrapper">
-                            <el-tag size="medium">{{ scope.row.spouseName }}</el-tag>
-                          </div>
-                        </el-popover>
-                      </template>
-                    </el-table-column>
-                    <el-table-column prop="spousePostName" label="配偶职称" width="80" align="center"></el-table-column>
-                    <el-table-column prop="spousePostName" label="配偶职务" width="80" align="center"></el-table-column>
-                    <el-table-column prop="houseTypeName" label="住房类型" width="80" align="center"></el-table-column>
-                    <el-table-column prop="houseLayoutName" label="户型" width="80" align="center"></el-table-column>
-                    <el-table-column prop="houseStructName" label="结构" width="80" align="center"></el-table-column>
-                    <el-table-column prop="houseStatusName" label="使用状态" width="80" align="center"></el-table-column>
+                    <el-table-column type="index" label="序号" width="70" align="center"></el-table-column>
+                    <el-table-column prop="staffNo"  label="职工号" width="70" align="center"></el-table-column>
+                    <el-table-column prop="staffName" label="姓名"  width="70"  align="center"></el-table-column>
+                    <el-table-column prop="deptName" label="工作部门" width="150" align="center"></el-table-column>                   
+                    <el-table-column prop="address" label="住房地址"  align="center"></el-table-column>
+                    <el-table-column prop="rentInitMoney" label="租金" width="100" align="center"></el-table-column>                    
                   </el-table>
                   </div>
                 </keep-alive>
@@ -556,7 +516,7 @@ export default {
     padding: 15px;
   }
   .table-tabs {
-    height: 50vh;
+    height: 57vh;
     padding-bottom: 40px;
     position: relative;
     & > .bottom-tool {
