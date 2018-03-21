@@ -14,7 +14,7 @@ public class DownloadUtils {
 		response.setContentType("application/x-msdownload");
 
 		//通知浏览器不再由浏览器自行处理要下载的文件，而由用户手工完成
-		response.setHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "UTF-8"));
+		response.setHeader("Content-Disposition", "attachment;fileName=" + new String(fileName.getBytes("gb2312"),"ISO8859-1"));
 
 		//获取输出流，以IO流的形式传给客户端
 		OutputStream os = response.getOutputStream();

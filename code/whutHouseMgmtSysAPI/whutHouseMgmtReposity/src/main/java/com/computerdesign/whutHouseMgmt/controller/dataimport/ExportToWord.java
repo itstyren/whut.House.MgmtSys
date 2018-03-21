@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.controller.dataimport;
+﻿package com.computerdesign.whutHouseMgmt.controller.dataimport;
 
 import java.io.IOException;
 import java.util.Map;
@@ -58,7 +58,7 @@ public class ExportToWord {
 		documentHandler.createDocArea(response, outFilePath, modelFileName);
 		
 		try {
-			DownloadUtils.downloadSolve(outFilePath, "testword.doc", httpServletResponse);
+			DownloadUtils.downloadSolve(outFilePath, outFileName+".doc", httpServletResponse);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
