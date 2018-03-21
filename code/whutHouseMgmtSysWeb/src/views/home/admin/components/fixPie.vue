@@ -9,6 +9,7 @@
 
 <script>
 import echarts from "echarts";
+import { getFixNameByDay, getFixContentByDay } from "@/api/dataAnalysis.js";
 require("echarts/theme/macarons"); // echarts theme
 let _ = require("underscore");
 export default {
@@ -28,7 +29,7 @@ export default {
   },
   data() {
     return {
-      chart: null,
+      chart: null
     };
   },
   mounted() {
@@ -41,6 +42,7 @@ export default {
       }, 100);
       window.addEventListener("resize", this.__resizeHanlder);
     }
+    this.getData();
   },
   watch: {
     chartData: {
@@ -51,6 +53,29 @@ export default {
     }
   },
   methods: {
+    getData() {
+      let params = {
+        day: 7
+      };
+      this.chart.showLoading();
+      getFixNameByDay(params).then(res => {
+        const name = res.data.data.data;
+        //console.log(res.data.data.data);
+        getFixContentByDay(params).then(res => {
+          console.log(name)
+          const content = res.data.data.data;
+          this.chart.setOption({
+            legend: {
+              data: name
+            },
+            series:{
+            data: content
+            }
+          });
+          this.chart.hideLoading();
+        });
+      });
+    },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {
@@ -62,7 +87,7 @@ export default {
           orient: "vertical",
           show: true,
           x: "left",
-          data: ["窗户", "漏水", "没电", "太小了", "跟南湖宿舍一样"]
+          data: []
         },
         series: [
           {
@@ -103,28 +128,7 @@ export default {
                 }
               }
             },
-            data: [
-              {
-                value: 135,
-                name: "窗户"
-              },
-              {
-                value: 1048,
-                name: "漏水"
-              },
-              {
-                value: 251,
-                name: "没电"
-              },
-              {
-                value: 147,
-                name: "太小了"
-              },
-              {
-                value: 102,
-                name: "跟南湖宿舍一样"
-              }
-            ]
+            data: []
           }
         ],
         animationDuration: 2800,
