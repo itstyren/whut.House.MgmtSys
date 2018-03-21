@@ -190,7 +190,9 @@ public class HouseRegisterController {
 		// 根据数据库中的记录数+1
 		// resident.setId(registerService.getCount()+1);
 		try {
+//			System.out.println(residentRegister.getHouse());
 			Integer houseId = Integer.parseInt(residentRegister.getHouse());
+//			System.out.println(houseId);
 			Resident resident = new Resident();
 			resident.setStaffId(residentRegister.getStaffId());
 			resident.setHouseId(houseId);

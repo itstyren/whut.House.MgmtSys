@@ -4,16 +4,15 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.ws.rs.FormParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffModel;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterModel;
+import com.computerdesign.whutHouseMgmt.controller.BaseController;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
@@ -36,7 +35,7 @@ import com.github.pagehelper.PageInfo;
 
 @RequestMapping("/staff/")
 @Controller
-public class StaffController {
+public class StaffController extends BaseController {
 
 	@Autowired
 	private StaffParameterService staffParameterSerivce;
@@ -65,6 +64,30 @@ public class StaffController {
 			return Msg.error("该员工不存在");
 		}
 
+	}
+
+	/**
+	 * 修改密码
+	 * @param request
+	 * @param newPsw
+	 * @param oldPsw
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updatePassword",method = RequestMethod.PUT)
+	public Msg updatePassword(HttpServletRequest request,@FormParam("newPsw")String newPsw,@FormParam("oldPsw")String oldPsw){
+		String userId = getUserId(request);
+		Integer staffId = Integer.parseInt(userId);
+		Staff staff = staffService.get(staffId);
+		if (staff == null) {
+			return Msg.error("该员工不存在");
+		} 
+		if (!oldPsw.equals(staff.getStaffPassword())) {
+			return Msg.error("密码错误");
+		}
+		staff.setStaffPassword(newPsw);
+		staffService.resetPassword(staff);
+		return Msg.success("修改成功");
 	}
 
 	/**
@@ -327,7 +350,7 @@ public class StaffController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "get/{staffParamId}",method = RequestMethod.GET)
+	@RequestMapping(value = "get/{staffParamId}", method = RequestMethod.GET)
 	public Msg getStaff(@PathVariable("staffParamId") Integer staffParamId,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
