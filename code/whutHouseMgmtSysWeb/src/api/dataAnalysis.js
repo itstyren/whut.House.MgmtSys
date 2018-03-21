@@ -16,3 +16,11 @@ export function getFixContentByDay(params) {
         params: params
     })
 }
+// 获取周访问量
+export function getVisitRecord(params) {
+    return request({
+        url: `/record/login`,
+        method: 'get',
+        params: params
+    })
+}

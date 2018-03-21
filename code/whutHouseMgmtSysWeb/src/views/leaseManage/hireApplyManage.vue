@@ -31,7 +31,7 @@
               </el-table-column>
               <el-table-column prop="isOver" label="合同签订" :formatter="isOverFormat" align="center">
                 <template slot-scope="scope">
-                  <my-icon v-if="scope.row.isOver" icon-class="qiandinghetong"></my-icon>
+                  <my-icon v-if="scope.row.isOver" icon-class="dengji1"></my-icon>
                 </template>
               </el-table-column>
               <el-table-column prop="name" label="申请人" align="center"></el-table-column>

@@ -32,7 +32,7 @@ export function putChangePassword(params) {
   })
 }
 // 维修结果评价
-export function getChangePassword(data) {
+export function putFixComment(data) {
   return request({
     url: `/fixRatings/fixEvaluation`,
     method: 'put',
