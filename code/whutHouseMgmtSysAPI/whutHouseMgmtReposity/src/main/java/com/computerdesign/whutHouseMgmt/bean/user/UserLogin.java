@@ -8,7 +8,7 @@ public class UserLogin {
 	@ApiModelProperty(example = "3")
 	private String no;
 
-	@ApiModelProperty(example = "123")
+	@ApiModelProperty(example = "999")
 	private String password;
 
 	@ApiModelProperty(example = "3")

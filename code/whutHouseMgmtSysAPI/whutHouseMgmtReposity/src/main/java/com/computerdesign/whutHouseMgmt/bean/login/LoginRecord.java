@@ -2,10 +2,6 @@ package com.computerdesign.whutHouseMgmt.bean.login;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class LoginRecord {
     private Integer id;
 
@@ -19,8 +15,8 @@ public class LoginRecord {
 
     private String ip;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private String place;
+
     private Date loginTime;
 
     public Integer getId() {
@@ -69,6 +65,14 @@ public class LoginRecord {
 
     public void setIp(String ip) {
         this.ip = ip == null ? null : ip.trim();
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place == null ? null : place.trim();
     }
 
     public Date getLoginTime() {

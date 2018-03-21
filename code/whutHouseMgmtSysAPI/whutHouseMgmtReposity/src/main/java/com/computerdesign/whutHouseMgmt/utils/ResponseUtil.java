@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.utils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +18,7 @@ import com.computerdesign.whutHouseMgmt.utils.StringUtil;
 public class ResponseUtil {
 
 	public static <T> Map<String, Object> getResultMap(T t, String[] fileds) {
+
 		Map<String, Object> map = new HashMap<>();
 		Class<?> clazz = t.getClass();
 		for (int i = 0; i < fileds.length; i++) {
@@ -45,12 +47,12 @@ public class ResponseUtil {
 		}
 		return rs;
 	}
-	
-//	
-//	public static List<Map<String,Integer>> getKeyValueMap(String[] names) {
-//		Map<String, Integer> map = new HashMap<>();
-//		for (String string : names) {
-//			map.put(string,0);
-//		}
-//	}
+
+	//
+	// public static List<Map<String,Integer>> getKeyValueMap(String[] names) {
+	// Map<String, Integer> map = new HashMap<>();
+	// for (String string : names) {
+	// map.put(string,0);
+	// }
+	// }
 }

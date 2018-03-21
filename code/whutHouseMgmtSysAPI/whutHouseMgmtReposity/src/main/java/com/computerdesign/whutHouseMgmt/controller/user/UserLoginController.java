@@ -68,7 +68,6 @@ public class UserLoginController extends BaseController{
 		}
 
 		String userId = viewStaff.getId().toString();
-		addLoginRecord(request, userId);
 		String token = SubjectUtil.getInstance().createToken(userId, DateUtil.getAppointHour(new Date(), 1));
 		return Msg.success().add("token", token);
 
@@ -110,7 +109,9 @@ public class UserLoginController extends BaseController{
 		request.setAttribute("userId", userId);
 		Integer staffId = Integer.parseInt(userId);
 		viewStaffService.getByStaffId(staffId);
-		return Msg.success().add("data", viewStaffService.getByStaffId(staffId));
+		LoginRecord loginRecord = loginRecordService.getStaffLoginRecord(staffId);
+		addLoginRecord(request, userId);
+		return Msg.success().add("data", viewStaffService.getByStaffId(staffId)).add("logindata", loginRecord);
 
 	}
 
