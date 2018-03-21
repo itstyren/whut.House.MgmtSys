@@ -54,19 +54,37 @@ public class LoginRecordController {
 	 * @param day
 	 * @return
 	 */
-	@GetMapping(value = "login")
+	@GetMapping(value = "visitCapacity")
 	@ApiOperation(value="按周获取访问量",notes="获取5个周的访问量")
-	public Msg getLoginRecord(@RequestParam(value = "day", defaultValue = "7") Integer day) {
-		Date startDate = DateUtil.getFirstDayOfWeek();
-		Date endDate = new Date();
+	public Msg getLoginRecord(@RequestParam(value = "week",defaultValue="0")Integer week) {
 		
-		List<Long> list = new ArrayList<>();
-		for (int i = 0; i < 5; i ++) {
-			list.add(loginRecordService.getLoginRecord(startDate, endDate));
-			endDate = DateUtil.getDelayAppointDate(startDate,1);
-			startDate = DateUtil.getDelayAppointDate(startDate,day);
-			System.out.println(startDate+" "+endDate);
+		if (week>1) {
+			Date startDate = DateUtil.getFirstDayOfWeek();
+			Date endDate = new Date();
+			
+			List<Long> list = new ArrayList<>();
+			for (int i = 0; i < week; i ++) {
+				list.add(loginRecordService.getLoginRecord(startDate, endDate));
+				endDate = DateUtil.getDelayAppointDate(startDate,1);
+				startDate = DateUtil.getDelayAppointDate(startDate,7);
+				System.out.println(startDate+" "+endDate);
+			}
+			return Msg.success().add("data", list);
 		}
-		return Msg.success().add("data", list);
+		if (week==1) {
+			Date startDate = DateUtil.getFirstDayOfWeek();
+			Date endDate = new Date();
+			double dis = DateUtil.getDistanceOfTwoDate(startDate, endDate);
+			System.out.println(dis);
+			List<Long> list = new ArrayList<>();
+			for (int i = 0; i <= dis; i ++) {
+				System.out.println(startDate);
+				list.add(loginRecordService.getLoginRecord(startDate));
+				startDate = DateUtil.getAppointDate(startDate,1);
+			}
+			return Msg.success().add("data", list);
+		}
+		return Msg.error();
+		
 	}
 }

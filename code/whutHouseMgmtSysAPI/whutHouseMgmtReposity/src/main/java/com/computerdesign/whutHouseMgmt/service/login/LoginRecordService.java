@@ -70,4 +70,17 @@ public class LoginRecordService {
 		criteria.andLoginTimeBetween(startTime, endTime);
 		return loginRecordMapper.countByExample(example);
 	}
+	
+	/**
+	 * 根据时间获取登陆信息
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	public long getLoginRecord(Date time) {
+		LoginRecordExample example = new LoginRecordExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andLoginTimeEqualTo(time);
+		return loginRecordMapper.countByExample(example);
+	}
 }
