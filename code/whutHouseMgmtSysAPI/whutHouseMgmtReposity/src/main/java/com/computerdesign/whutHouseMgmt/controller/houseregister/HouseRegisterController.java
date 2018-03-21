@@ -190,7 +190,9 @@ public class HouseRegisterController {
 		// 根据数据库中的记录数+1
 		// resident.setId(registerService.getCount()+1);
 		try {
+//			System.out.println(residentRegister.getHouse());
 			Integer houseId = Integer.parseInt(residentRegister.getHouse());
+//			System.out.println(houseId);
 			Resident resident = new Resident();
 			resident.setStaffId(residentRegister.getStaffId());
 			resident.setHouseId(houseId);
@@ -253,7 +255,7 @@ public class HouseRegisterController {
 			registerService.registerHistory(residentHistory);
 
 			return Msg.success().add("data", resident);
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			// 当传入的houseId为字符串时，插入到校外房表即hs_outschoolhouse
 			// System.out.println(houseParamService.get(residentRegister.getHouseRel()).getHouseParamName());
 			if (houseParamService.get(residentRegister.getHouseRel()).getHouseParamName().equals("私有")) {

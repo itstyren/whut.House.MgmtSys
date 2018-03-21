@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNTI0NDkzLCJleHAiOjE1MjE1MjgwOTN9.0kNayN35GwVtQte4qvcHXH-5LXeE9nYh2dV_i6ldfRg");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjExODMzLCJleHAiOjE1MjE2MTU0MzN9.IW52i0ocBaubjXekDMHPnfv82nu_g98F3Ag4Ma0xZnc");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNTI0NDkzLCJleHAiOjE1MjE1MjgwOTN9.0kNayN35GwVtQte4qvcHXH-5LXeE9nYh2dV_i6ldfRg");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjExODMzLCJleHAiOjE1MjE2MTU0MzN9.IW52i0ocBaubjXekDMHPnfv82nu_g98F3Ag4Ma0xZnc");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -357,7 +357,7 @@
 						//'page' : 1,
 						//'size' : 2 
 					};
-					ajaxRequestPostType("houseRegister/getByAllMultiCondition?page=1&&size=2",
+					ajaxRequestPostType("houseRegister/getByAllMultiCondition?page=1&&size=25",
 							"POST", data);
 				})
 
@@ -705,7 +705,17 @@
 						function() {
 							ajaxRequestGet("staffHomePage/getHireProcessStateChangeInfo/18");
 						})
-		
+		$("#fixEvaluation")
+				.click(
+						function() {
+							var data ={
+								'fixId':63,
+								'ratings':3,
+								'description':'还行'
+							};
+							ajaxRequestPostType("fixRatings/fixEvaluation","PUT",data);
+						})
+						
 	})
 	
 </script>
@@ -958,6 +968,10 @@
 			<h4>首页住房申请信息更新通知</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetHireProcessStateChangeInfo" id="getHireProcessStateChangeInfo" />
+			<br>
+			<h4>维修评价</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="FixEvaluation" id="fixEvaluation" />
 			<br>
 			
 				
