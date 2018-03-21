@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -82,7 +82,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -113,7 +113,7 @@
 			contentType : false,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"OF8xMjNfM18yMDE4LTAzLTA2IDEwOjI4OjAy");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
 			},
 			success : function(response) {
 				console.log(response);
@@ -870,6 +870,8 @@
 			<h4>下载</h4>
 			<a href="dataImport/staffDownLoad">职工模板下载</a> <br> <br> <a
 				href="dataImport/houseDownLoad">住房模板下载</a>
+				
+			<a href="exportToWord/hire/18">word</a>
 			<!-- <input type="file" id="upfile" name="upfile" placeholder="" />
 			<button onclick="importExp();">导入</button> -->
 			<!-- <input class="btn btn-info btn-lg" type="file"

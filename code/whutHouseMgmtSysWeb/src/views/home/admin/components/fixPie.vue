@@ -1,9 +1,9 @@
 <template>
-<div class="card" :style="{height:height,width:width}">
+  <div class="card" :style="{height:height,width:width}">
     <div class="title">
       <strong>周维修类型统计</strong>
     </div>
-  <div class="chart" ref="pageView"></div>
+    <div class="chart" ref="pageView"></div>
   </div>
 </template>
 
@@ -29,7 +29,6 @@ export default {
   data() {
     return {
       chart: null,
-      data: [820, 932, 901, 934, 1290, 1330, 1320]
     };
   },
   mounted() {
@@ -105,11 +104,26 @@ export default {
               }
             },
             data: [
-              { value: 135, name: "窗户" },
-              { value: 1048, name: "漏水" },
-              { value: 251, name: "没电" },
-              { value: 147, name: "太小了" },
-              { value: 102, name: "跟南湖宿舍一样" }
+              {
+                value: 135,
+                name: "窗户"
+              },
+              {
+                value: 1048,
+                name: "漏水"
+              },
+              {
+                value: 251,
+                name: "没电"
+              },
+              {
+                value: 147,
+                name: "太小了"
+              },
+              {
+                value: 102,
+                name: "跟南湖宿舍一样"
+              }
             ]
           }
         ],
@@ -133,7 +147,7 @@ export default {
   width: 100%;
   &::after {
     content: "";
-    width: 100%;
+    width: 95%;
     height: 2px;
     background-color: #dcdcdc;
     position: absolute;
@@ -143,6 +157,7 @@ export default {
     right: 1%;
   }
 }
+
 .chart {
   margin-top: 30px;
   height: calc(100% - 55px);

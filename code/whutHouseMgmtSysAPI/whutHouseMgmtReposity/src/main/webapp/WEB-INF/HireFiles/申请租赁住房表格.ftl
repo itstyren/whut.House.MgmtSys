@@ -1323,7 +1323,7 @@
                                 <w:sz w:val="24" />
                                 <w:sz-cs w:val="24" />
                             </w:rPr>
-                            <w:t>${EduQualifications}</w:t>
+                            <w:t>${EduQualifications!""}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -1588,7 +1588,7 @@
                                 <w:sz w:val="24" />
                                 <w:sz-cs w:val="24" />
                             </w:rPr>
-                            <w:t>${SpouseName}</w:t>
+                            <w:t>${SpouseName!""}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -1661,7 +1661,7 @@
                                 <w:sz w:val="24" />
                                 <w:sz-cs w:val="24" />
                             </w:rPr>
-                            <w:t>${SpouseKindName}</w:t>
+                            <w:t>${SpouseKindName!""}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -1768,7 +1768,7 @@
                                 <w:sz w:val="24" />
                                 <w:sz-cs w:val="24" />
                             </w:rPr>
-                            <w:t>${SpouseDept}</w:t>
+                            <w:t>${SpouseDept!""}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -1874,7 +1874,7 @@
                                 <w:sz w:val="24" />
                                 <w:sz-cs w:val="24" />
                             </w:rPr>
-                            <w:t>${SpouseTitleName}</w:t>
+                            <w:t>${SpouseTitleName!""}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -1949,7 +1949,7 @@
                                 <w:sz w:val="24" />
                                 <w:sz-cs w:val="24" />
                             </w:rPr>
-                            <w:t>${SpouseTel}</w:t>
+                            <w:t>${SpouseTel!""}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>

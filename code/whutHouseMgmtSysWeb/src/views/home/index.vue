@@ -36,7 +36,7 @@ export default {
     ...mapGetters(["roles"])
   },
   mounted() {
-    if (this.roles[0] == 3) {
+    if (this.roles[0] == 0) {
       this.currentRole = "adminDashboard";
     } else {
       this.currentRole = "staffDashboard";

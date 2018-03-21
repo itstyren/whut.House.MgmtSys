@@ -13,7 +13,8 @@ const user = {
     token: getToken(),
     name: '',
     roles: [],
-    no:-1
+    no:-1,
+    id:-1,
   },
   mutations: {
     // 设置token
@@ -31,7 +32,11 @@ const user = {
     // set login staff NO
     [types.SET_USERNO]:(state,staffNO)=>{
       state.no=staffNO
-    }
+    },
+    // set login staff NO
+    [types.SET_USERID]: (state, staffID) => {
+      state.id = staffID
+    },
   },
 
   actions: {
@@ -66,6 +71,7 @@ const user = {
           commit(types.SET_ROLEID, data.roleId)
           commit(types.SET_NAME, data.name)
           commit(types.SET_USERNO,data.no)
+          commit(types.SET_USERID,data.id)
           resolve(res)
         }).catch(error => {
           reject(error)

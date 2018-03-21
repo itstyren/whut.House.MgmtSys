@@ -10,14 +10,23 @@ import org.springframework.stereotype.Service;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.house.House;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.dao.hire.HireMapper;
+import com.computerdesign.whutHouseMgmt.dao.house.HouseMapper;
+import com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentMapper;
 
 @Service
 public class HireService {
 
 	@Autowired
 	private HireMapper hireMapper;
+
+	@Autowired
+	private HouseMapper houseMapper;
+
+	@Autowired
+	private ResidentMapper residentMapper;
 
 	/**
 	 * 
@@ -40,7 +49,7 @@ public class HireService {
 		criteria.andStaffIdEqualTo(staffId);
 		return hireMapper.selectByExample(example);
 	}
-	
+
 	/**
 	 * 根据staffId获取hire信息
 	 * 
@@ -73,8 +82,6 @@ public class HireService {
 		hireMapper.updateByPrimaryKeySelective(hire);
 	}
 
-	
-
 	/**
 	 * 严格的修改一个hire
 	 * 
@@ -91,5 +98,39 @@ public class HireService {
 	 */
 	public void delete(Integer hireId) {
 		hireMapper.deleteByPrimaryKey(hireId);
+	}
+
+	/**
+	 * 签订合同
+	 * 
+	 * @param hire
+	 */
+	public void addSignContract(Hire hire) {
+
+		hireMapper.updateByPrimaryKeySelective(hire);
+		House house = houseMapper.selectByPrimaryKey(hire.getHouseId());
+		// TODO
+		house.setStatus(78);
+		houseMapper.updateByPrimaryKeySelective(house);
+
+		// 住房登记信息
+		Resident resident = new Resident();
+		resident.setBookTime(new Date());
+		resident.setStaffId(hire.getStaffId());
+		resident.setHouseId(hire.getHouseId());
+		resident.setIsDelete(false);
+
+		// 设置ExpireTime时间为两年后
+		Calendar bookTime = Calendar.getInstance();
+		bookTime.setTime(new Date());
+		bookTime.add(Calendar.YEAR, +1);
+		Date expireTime = bookTime.getTime();
+		resident.setExpireTime(expireTime);
+
+		resident.setRentType("工资");
+		// TODO 这里的HouseRel应该是租赁，修改数据库后注意审查
+		resident.setHouseRel(78);
+		residentMapper.insertSelective(resident);
+
 	}
 }

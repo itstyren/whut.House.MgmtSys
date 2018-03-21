@@ -70,7 +70,7 @@
 
 <style scoped lang="scss">
 .info-card {
-  height: 29vh;
+  height: 220px;
   .top {
     position: relative;
     padding-bottom: 20px;
@@ -94,11 +94,11 @@
     }
     .basice-info-name {
       font-size: 22px;
-      padding-top: 3vh;
+      padding-top: 30px;
       color: #2d8cf0;
     }
     .basice-info-role {
-      margin-top: 1vh;
+      margin-top: 10px;
       font-size: 18px;
     }
   }

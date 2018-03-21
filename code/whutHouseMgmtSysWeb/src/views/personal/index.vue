@@ -229,7 +229,7 @@
                               <span>{{ props.row.fixState }}</span>
                             </el-col>
                           </el-row>
-                          <el-row style="margin-bottom:20px; font-size:16px">  
+                          <el-row style="margin-bottom:20px; font-size:16px">
                             <el-col :span="4">
                               <strong>处理说明</strong>
                             </el-col>
@@ -241,10 +241,14 @@
                       </el-table-column>
                       <el-table-column label="维修类型" prop="fixType" align="center"></el-table-column>
                       <el-table-column label="申请时间" prop="applyTime" align="center"></el-table-column>
-                      <el-table-column label="处理状态" prop="fixState" align="center"></el-table-column>
+                      <el-table-column label="处理状态" prop="fixState" align="center">
+                        <template slot-scope="scope">
+                          <el-tag :type="scope.row.fixState | fixStatusFilter">{{scope.row.fixState}}</el-tag>
+                        </template>
+                      </el-table-column>
                       <el-table-column label="操作" align="center">
                         <template slot-scope="scope">
-                          <el-button @click="expand(scope.row)" type="infor" size="small" >查看</el-button>
+                          <el-button @click="expand(scope.row)" type="infor" size="small">查看</el-button>
                           <el-button type="success" v-if="scope.row.fixState=='已审核'" size="small">评价</el-button>
                         </template>
                       </el-table-column>
@@ -253,39 +257,39 @@
                 </el-col>
               </keep-alive>
               <!-- 租赁信息 -->
-                            <!-- 维修信息 -->
+              <!-- 维修信息 -->
               <keep-alive>
                 <el-col :span="14" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='hire'">
                   <div class="title">
                     <h1>租赁信息</h1>
                   </div>
                   <div class="card hire-result">
-                    <el-table ref=hireTable :data="fixFormList" class="table" height="string" v-loading="listLoading">
+                    <el-table ref=hireTable :data="hireFormList" class="table" height="string" v-loading="listLoading">
                       <el-table-column type="expand">
                         <template slot-scope="props">
                           <el-row style="margin-bottom:20px; font-size:16px">
-                            <el-col :span="4">
-                              <strong>维修类型</strong>
-                            </el-col>
-                            <el-col :span="8">
-                              <span>{{ props.row.fixType }}</span>
-                            </el-col>
                             <el-col :span="4">
                               <strong>申请时间</strong>
                             </el-col>
                             <el-col :span="8">
                               <span>{{ props.row.applyTime }}</span>
                             </el-col>
-                          </el-row>
-                          <el-row style="margin-bottom:20px; font-size:16px">
                             <el-col :span="4">
                               <strong>处理状态</strong>
                             </el-col>
                             <el-col :span="8">
-                              <span>{{ props.row.fixState }}</span>
+                              <span>{{ props.row.hireState }}</span>
                             </el-col>
                           </el-row>
-                          <el-row style="margin-bottom:20px; font-size:16px">  
+                          <el-row style="margin-bottom:20px; font-size:16px">
+                            <el-col :span="4">
+                              <strong>预分配地址</strong>
+                            </el-col>
+                            <el-col :span="20">
+                              <span>{{ props.row.address }}</span>
+                            </el-col>
+                          </el-row>
+                          <el-row style="margin-bottom:20px; font-size:16px">
                             <el-col :span="4">
                               <strong>处理说明</strong>
                             </el-col>
@@ -295,12 +299,16 @@
                           </el-row>
                         </template>
                       </el-table-column>
-                      <el-table-column label="维修类型" prop="fixType" align="center"></el-table-column>
+                      <el-table-column label="预分配地址" width="280" prop="address" align="center"></el-table-column>
                       <el-table-column label="申请时间" prop="applyTime" align="center"></el-table-column>
-                      <el-table-column label="处理状态" prop="fixState" align="center"></el-table-column>
+                      <el-table-column label="处理状态" align="center">
+                        <template slot-scope="scope">
+                          <el-tag :type="scope.row.hireState | hireStatusFilter">{{scope.row.hireState}}</el-tag>
+                        </template>
+                      </el-table-column>
                       <el-table-column label="操作" align="center">
                         <template slot-scope="scope">
-                          <el-button @click="expand(scope.row)" type="infor" size="small" >查看</el-button>
+                          <el-button @click="expand(scope.row)" type="infor" size="small">查看</el-button>
                           <el-button type="success" v-if="scope.row.fixState=='已审核'" size="small">评价</el-button>
                         </template>
                       </el-table-column>
@@ -326,7 +334,7 @@ export default {
   data() {
     return {
       listLoading: false,
-      staffID: this.$store.getters.userNO,
+      staffID: this.$store.getters.userID,
       staffInfo: {
         name: "",
         deptName: "",
@@ -340,8 +348,33 @@ export default {
       menuIndex: "personal",
       houseList: [],
       selectHouse: "",
-      fixFormList: []
+      fixFormList: [],
+      hireFormList: []
     };
+  },
+  filters: {
+    fixStatusFilter(status) {
+      const statusMap = {
+        待审核: "warning",
+        待受理: "warning",
+        审核拒绝: "danger",
+        受理拒绝: "danger",
+        已审核: "success"
+      };
+      return statusMap[status];
+    },
+    hireStatusFilter(status) {
+      const statusMap = {
+        待审核: "warning",
+        待受理: "warning",
+        待审批: "warning",
+        审核拒绝: "danger",
+        受理拒绝: "danger",
+        审批拒绝: "danger",
+        已审批: "success"
+      };
+      return statusMap[status];
+    }
   },
   components: {
     countdownButton
@@ -389,6 +422,7 @@ export default {
       this.listLoading = true;
       getHireByStaffID(this.staffID).then(res => {
         console.log(res.data.data.data);
+        this.hireFormList = res.data.data.data;
       });
     },
     expand(row) {
@@ -446,7 +480,8 @@ export default {
       flex-direction: column;
       text-align: center;
     }
-    .fix-result, .hire-result {
+    .fix-result,
+    .hire-result {
       height: 60vh;
     }
   }

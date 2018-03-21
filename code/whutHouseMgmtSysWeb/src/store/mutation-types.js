@@ -4,6 +4,7 @@ export const SET_TOKEN="setToken"
 export const SET_NAME = "setName"
 export const SET_ROLEID = "setRoleId"
 export const SET_USERNO = "setUserNO"
+export const SET_USERID = "setUserID"
 
 
 export const LOGIN = 'login'

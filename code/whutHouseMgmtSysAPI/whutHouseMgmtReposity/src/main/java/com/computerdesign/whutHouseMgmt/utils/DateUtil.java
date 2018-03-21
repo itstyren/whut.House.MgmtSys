@@ -192,6 +192,19 @@ public class DateUtil {
 		return calendar.getTime();
 	}
 	
+	/**
+	 * 得到给定时间的之前给定天数的日期
+	 * @param date
+	 * @param day
+	 * @return
+	 */
+	public static Date getDelayAppointDate(Date date,int day) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DAY_OF_YEAR, -day);
+		return calendar.getTime();
+	}
+	
 	
 	/**
 	 * 得到给定时间的给定小时后的日期

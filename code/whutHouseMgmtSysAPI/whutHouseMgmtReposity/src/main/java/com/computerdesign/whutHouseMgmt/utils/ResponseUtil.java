@@ -45,4 +45,12 @@ public class ResponseUtil {
 		}
 		return rs;
 	}
+	
+//	
+//	public static List<Map<String,Integer>> getKeyValueMap(String[] names) {
+//		Map<String, Integer> map = new HashMap<>();
+//		for (String string : names) {
+//			map.put(string,0);
+//		}
+//	}
 }

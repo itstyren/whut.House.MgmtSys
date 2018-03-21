@@ -36,6 +36,7 @@ public class StaffHouseService {
 	public List<StaffHouse> getStaffHouseByStaffId(Integer staffId) {
 		StaffHouseExample example = new StaffHouseExample();
 		Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(false);
 		criteria.andStaffIdEqualTo(staffId);
 		return staffHouseMapper.selectByExample(example);
 	}

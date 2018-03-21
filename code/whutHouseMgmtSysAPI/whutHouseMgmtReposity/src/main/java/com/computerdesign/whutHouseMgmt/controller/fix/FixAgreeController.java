@@ -1,8 +1,8 @@
-package com.computerdesign.whutHouseMgmt.controller.fix;
+﻿package com.computerdesign.whutHouseMgmt.controller.fix;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixAddAgree;
-import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixGetAgree;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastFixRecord;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
+
+import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
+
 import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastFixRecordService;
 import com.computerdesign.whutHouseMgmt.utils.StaffHomePageUtils;
+
 
 @RequestMapping(value = "/fix/")
 @RestController
@@ -47,18 +50,20 @@ public class FixAgreeController {
 			return Msg.error("请检查你的网络");
 		}else if(0 == agreeState){
 			List<ViewFix> list = viewFixService.getAgreeUntil();
-			List<FixGetAgree> listFixGetAgree = new ArrayList<FixGetAgree>();
-			for (ViewFix viewFix : list) {
-				listFixGetAgree.add(new FixGetAgree(viewFix));
-			}
-			return Msg.success("获取全部的待审核信息").add("data", listFixGetAgree);
+			
+			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
+					"titleName", "postName", "deptName", "phone", "staffAddress", "acceptMan", "acceptNote",
+					"acceptTime", "acceptState" };
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
+			return Msg.success("获取全部的待审核信息").add("data", response);
 		}else if (1 == agreeState) {
 			List<ViewFix> list = viewFixService.getAgreeHasBeen();
-			List<FixGetAgree> listFixGetAgree = new ArrayList<FixGetAgree>();
-			for (ViewFix viewFix : list) {
-				listFixGetAgree.add(new FixGetAgree(viewFix));
-			}
-			return Msg.success("获取全部的已经过审核操作的信息").add("data", listFixGetAgree);
+			
+			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
+					"titleName", "postName", "deptName", "phone", "staffAddress", "acceptMan", "acceptNote",
+					"acceptTime", "acceptState" ,"agreeMan", "agreeNote","agreeTime", "agreeState"};
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
+			return Msg.success("获取全部的已经过审核操作的信息").add("data", response);
 		}else{
 			return Msg.error("请检查你的网络");
 		}

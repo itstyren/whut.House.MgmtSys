@@ -84,7 +84,7 @@
                     <el-col :span="20">
                       <el-form-item label="住房" prop="houseId">
                         <el-select v-model="accoutInfo.houseId" placeholder="请选择住房" style="width:300px" clearable>
-                          <el-option v-for="house in accoutInfo.housesList" :key="house.id" :value="house.id" :label="house.address"></el-option>
+                          <el-option v-for="house in accoutInfo.listHouseGetApply" :key="house.id" :value="house.id" :label="house.address"></el-option>
                         </el-select>
                       </el-form-item>
                     </el-col>
@@ -224,7 +224,7 @@ export default {
   //　监视者
   watch: {
     selectHouse(newVal) {
-      this.accoutInfo.housesList.forEach(house => {
+      this.accoutInfo.listHouseGetApply.forEach(house => {
         if (house.id == newVal) {
           this.accoutInfo.no = house.no;
           this.accoutInfo.address = house.address;
@@ -259,7 +259,7 @@ export default {
     // 获取个人信息
     getList() {
       this.listLoading = true;
-      let staffID = this.$store.getters.userNO;
+      let staffID = this.$store.getters.userID;
       let param = {};
       getStaffInfo(param, staffID)
         .then(res => {
@@ -293,7 +293,7 @@ export default {
             fixContentId: this.accoutInfo.fixContentId,
             houseId: this.accoutInfo.houseId,
             phone: this.accoutInfo.tel,
-            staffId: this.$store.getters.userNO
+            staffId: this.$store.getters.userID
           };
           postFixApply(applyForm).then(res => {
             utils.statusinfo(this, res.data);

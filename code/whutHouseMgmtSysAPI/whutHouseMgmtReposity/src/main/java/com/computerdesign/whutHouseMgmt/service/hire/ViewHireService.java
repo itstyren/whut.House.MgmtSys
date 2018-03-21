@@ -71,6 +71,7 @@ public class ViewHireService {
 	 */
 	public List<ViewHire> getAcceptHasBeen() {
 		ViewHireExample example = new ViewHireExample();
+		example.setOrderByClause("ApplyTime DESC");
 		Criteria criteria = example.createCriteria();
 		criteria.andAcceptStateIsNotNull();
 		return viewHireMapper.selectByExample(example);
@@ -94,6 +95,7 @@ public class ViewHireService {
 	 */
 	public List<ViewHire> getAgreeHasBeen() {
 		ViewHireExample example = new ViewHireExample();
+		example.setOrderByClause("ApplyTime DESC");
 		Criteria criteria = example.createCriteria();
 		criteria.andAgreeStateIsNotNull();
 		return viewHireMapper.selectByExample(example);
@@ -119,6 +121,7 @@ public class ViewHireService {
 	 */
 	public List<ViewHire> getApproveHasBeen() {
 		ViewHireExample example = new ViewHireExample();
+		example.setOrderByClause("ApplyTime DESC");
 		Criteria criteria = example.createCriteria();
 		criteria.andApproveStateIsNotNull();
 		return viewHireMapper.selectByExample(example);
@@ -133,6 +136,7 @@ public class ViewHireService {
 	 */
 	public List<ViewHire> getSignContract() {
 		ViewHireExample example = new ViewHireExample();
+		example.setOrderByClause("ApplyTime DESC");
 		Criteria criteria = example.createCriteria();
 		criteria.andHireStateEqualTo("已审批");
 		criteria.andIsOverEqualTo(false);
