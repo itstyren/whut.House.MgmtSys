@@ -27,103 +27,103 @@
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="申请人姓名">
-                        <el-input v-model="approveForm.name" size="small" readonly></el-input>
+                        <el-input v-model="approveForm.name"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="申请时间">
-                        <el-input v-model="approveForm.applyTime" size="small" readonly></el-input>
+                        <el-input v-model="approveForm.applyTime"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="联系电话">
-                        <el-input v-model="approveForm.phone" size="small" readonly></el-input>
+                        <el-input v-model="approveForm.phone"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="工作部门">
-                        <el-input v-model="approveForm.deptName" size="small" readonly></el-input>
+                        <el-input v-model="approveForm.deptName"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职称">
-                        <el-input v-model="approveForm.postName" size="small" readonly></el-input>
+                        <el-input v-model="approveForm.postName"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职务">
-                        <el-input v-model="approveForm.titleName" size="small" readonly></el-input>
+                        <el-input v-model="approveForm.titleName"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <!-- <el-row>
                     <el-col :span="5" :offset="1">
                       <el-form-item label="职称分">
-                        <el-input v-model="approveForm.titleVal" size="small" readonly></el-input>
+                        <el-input v-model="approveForm.titleVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="5">
                       <el-form-item label="职务分">
-                        <el-input v-model="approveForm.titleVal" size="small" readonly></el-input>
+                        <el-input v-model="approveForm.titleVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="5">
                       <el-form-item label="配偶分">
-                        <el-input v-model="approveForm.spouseVal" size="small" readonly></el-input>
+                        <el-input v-model="approveForm.spouseVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="5">
                       <el-form-item label="其他分">
-                        <el-input v-model="approveForm.otherVal" size="small" readonly></el-input>
+                        <el-input v-model="approveForm.otherVal"  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row> -->
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="受理人">
-                        <el-input v-model="approveForm.acceptMan" size="small" readonly placeholder="受理人未知"></el-input>
+                        <el-input v-model="approveForm.acceptMan"  readonly placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="受理状态">
-                        <el-input v-model="approveForm.acceptState" size="small" readonly placeholder="状态未知"></el-input>
+                        <el-input v-model="approveForm.acceptState"  readonly placeholder="状态未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="受理时间">
-                        <el-input v-model="approveForm.acceptTime" size="small" readonly placeholder="受理时间未知"></el-input>
+                        <el-input v-model="approveForm.acceptTime"  readonly placeholder="受理时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="7" :offset="1">
                       <el-form-item label="审核人">
-                        <el-input v-model="approveForm.agreeMan" size="small" readonly placeholder="受理人未知"></el-input>
+                        <el-input v-model="approveForm.agreeMan"  readonly placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="审核状态">
-                        <el-input v-model="approveForm.agreeState" size="small" readonly placeholder="状态未知"></el-input>
+                        <el-input v-model="approveForm.agreeState"  readonly placeholder="状态未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="审核时间">
-                        <el-input v-model="approveForm.agreeTime" size="small" readonly placeholder="受理时间未知"></el-input>
+                        <el-input v-model="approveForm.agreeTime"  readonly placeholder="受理时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="14" :offset="1">
                       <el-form-item label="预分配住房">
-                        <el-input v-model="approveForm.houseAddress" size="small" readonly>
+                        <el-input v-model="approveForm.houseAddress"  readonly>
                         </el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="预分配面积">
-                        <el-input v-model="approveForm.houseBuildArea" size="small" readonly placeholder="请选择住房">
+                        <el-input v-model="approveForm.houseBuildArea"  readonly placeholder="请选择住房">
                         </el-input>
                       </el-form-item>
                     </el-col>

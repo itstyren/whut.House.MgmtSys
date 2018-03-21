@@ -68,6 +68,7 @@
                 children: []
               });
               dept.staffModels.forEach(staff => {
+                // console.log(staff)
                 this.depData[num].children.push({
                   id: staff.id,
                   label: staff.name
@@ -124,7 +125,7 @@
           // });
           return;
         } else if (node.level == 2) {
-          //console.log(object)
+          console.log(object)
           this.$store.commit(types.RESIDENT_STAFF, object);
           this.$router.push({
             path: "/basic/houseResident/" + object.id

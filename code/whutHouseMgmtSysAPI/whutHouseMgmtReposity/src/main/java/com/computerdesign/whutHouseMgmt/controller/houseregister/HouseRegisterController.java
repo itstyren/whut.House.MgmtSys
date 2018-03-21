@@ -253,7 +253,7 @@ public class HouseRegisterController {
 			registerService.registerHistory(residentHistory);
 
 			return Msg.success().add("data", resident);
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			// 当传入的houseId为字符串时，插入到校外房表即hs_outschoolhouse
 			// System.out.println(houseParamService.get(residentRegister.getHouseRel()).getHouseParamName());
 			if (houseParamService.get(residentRegister.getHouseRel()).getHouseParamName().equals("私有")) {

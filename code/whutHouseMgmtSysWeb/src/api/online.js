@@ -127,3 +127,4 @@ export function postHireApply(data) {
         data: data
     })
 }
+
