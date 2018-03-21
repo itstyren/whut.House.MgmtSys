@@ -320,7 +320,7 @@ public class FixController {
 		PageHelper.startPage(page, size);
 		List<ViewFix> listViewFix = viewFixService.getManagement();
 
-		String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
+		String[] fileds = { "id", "fixContentId", "fixContentName","fixState", "description", "applyTime", "staffName",
 				"titleName", "postName", "deptName", "phone", "staffAddress", "acceptMan", "acceptNote", "acceptTime",
 				"acceptState", "agreeMan", "agreeNote", "agreeTime", "agreeState" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);
