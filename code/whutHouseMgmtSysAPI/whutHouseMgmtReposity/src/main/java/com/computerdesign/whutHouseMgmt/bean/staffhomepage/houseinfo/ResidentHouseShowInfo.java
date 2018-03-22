@@ -1,18 +1,20 @@
 package com.computerdesign.whutHouseMgmt.bean.staffhomepage.houseinfo;
 
 public class ResidentHouseShowInfo {
-	
+
 	private Integer houseId;
-	
+
 	private String address;
-	
+
 	private String regionName;
-	
+
 	private String structName;
-	
+
 	private String layoutName;
-	
+
 	private String houseRelName;
+
+	private Boolean isResidentHouse;
 
 	public Integer getHouseId() {
 		return houseId;
@@ -61,7 +63,13 @@ public class ResidentHouseShowInfo {
 	public void setHouseRelName(String houseRelName) {
 		this.houseRelName = houseRelName;
 	}
-	
-	
-	
+
+	public Boolean getIsResidentHouse() {
+		return isResidentHouse;
+	}
+
+	public void setIsResidentHouse(Boolean isResidentHouse) {
+		this.isResidentHouse = isResidentHouse;
+	}
+
 }

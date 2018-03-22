@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjQ2NDgzLCJleHAiOjE1MjE2NTAwODN9.Lk2DY3fSUvujh7qriLgyIb1gXWSwE8pAvl51Htur6RM");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjgwNTYxLCJleHAiOjE1MjE2ODQxNjF9.4FMssKEnl0eC-VQ0qVA4D-33AP4KEc0gIsKYDcLT7AI");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjQ2NDgzLCJleHAiOjE1MjE2NTAwODN9.Lk2DY3fSUvujh7qriLgyIb1gXWSwE8pAvl51Htur6RM");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjgwNTYxLCJleHAiOjE1MjE2ODQxNjF9.4FMssKEnl0eC-VQ0qVA4D-33AP4KEc0gIsKYDcLT7AI");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -325,10 +325,10 @@
 				function() {
 					var data = {
 						//键的名字与Model属性名一致
-						'houseType' : '周转房342萨达',
+						/* 'houseType' : '周转房342萨达',
 						'useStatus' : '空闲',
 						'houseZone' : '武汉市洪山区工大路20号',
-						'building' : '1栋（原鉴湖401栋）'
+						'building' : '1栋（原鉴湖401栋）' */
 					};
 					ajaxRequestPostType("houseRegister/getByMultiCondition",
 							"POST", data);

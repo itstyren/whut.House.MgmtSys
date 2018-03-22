@@ -354,6 +354,7 @@ public class HouseRegisterController {
 	public Msg getByMultiCondition(@RequestBody HouseSelectModel houseSelectModel) {
 		// 查询出所有符合条件的视图所有数据
 		List<ViewHouse> viewHouses = houseRegisterSelectService.getByMultiConditionQuery(houseSelectModel);
+		System.out.println(houseSelectModel == null); //false
 
 		// 声明一个list，用于封装需要的数据
 		List<HouseShowModel> houseShowModels = new ArrayList<HouseShowModel>();

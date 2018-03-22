@@ -48,25 +48,32 @@ public class HouseInfoController {
 				residentHouseShowInfo.setRegionName(residentHouse.getRegionName());
 				residentHouseShowInfo.setStructName(residentHouse.getHouseStructName());
 				residentHouseShowInfo.setLayoutName(residentHouse.getHouseLayoutName());
+				residentHouseShowInfo.setIsResidentHouse(true);
 				residentHouseShowInfos.add(residentHouseShowInfo);
 			}
 		}
 		
 		//校外房
 		List<OutSchoolHouseVw> outSchoolHouseVws = outSchoolHouseService.getOutSchoolHouseVwByStaffId(staffId);
-		List<ResidentOutshcoolHouseShow> residentOutshcoolHouseShows = new ArrayList<ResidentOutshcoolHouseShow>();
+//		List<ResidentOutshcoolHouseShow> residentOutshcoolHouseShows = new ArrayList<ResidentOutshcoolHouseShow>();
 		if(outSchoolHouseVws != null){
 			for (OutSchoolHouseVw outSchoolHouseVw : outSchoolHouseVws){
-				ResidentOutshcoolHouseShow residentOutshcoolHouseShow = new ResidentOutshcoolHouseShow();
-				residentOutshcoolHouseShow.setId(outSchoolHouseVw.getId());
-				residentOutshcoolHouseShow.setHouseRelName(outSchoolHouseVw.getHouseRelName());
-				residentOutshcoolHouseShow.setAddress(outSchoolHouseVw.getAddress());
-				residentOutshcoolHouseShows.add(residentOutshcoolHouseShow);
+//				ResidentOutshcoolHouseShow residentOutshcoolHouseShow = new ResidentOutshcoolHouseShow();
+//				residentOutshcoolHouseShow.setId(outSchoolHouseVw.getId());
+//				residentOutshcoolHouseShow.setHouseRelName(outSchoolHouseVw.getHouseRelName());
+//				residentOutshcoolHouseShow.setAddress(outSchoolHouseVw.getAddress());
+//				residentOutshcoolHouseShows.add(residentOutshcoolHouseShow);
+				ResidentHouseShowInfo residentHouseShowInfo = new ResidentHouseShowInfo();
+				residentHouseShowInfo.setHouseId(outSchoolHouseVw.getId());
+				residentHouseShowInfo.setAddress(outSchoolHouseVw.getAddress());
+				residentHouseShowInfo.setHouseRelName(outSchoolHouseVw.getHouseRelName());
+				residentHouseShowInfo.setIsResidentHouse(false);
+				residentHouseShowInfos.add(residentHouseShowInfo);
 			}
 		}
 		
 		
-		return Msg.success().add("houses", residentHouseShowInfos).add("outschoolHouses", residentOutshcoolHouseShows);
+		return Msg.success().add("data", residentHouseShowInfos);
 	}
 	
 }
