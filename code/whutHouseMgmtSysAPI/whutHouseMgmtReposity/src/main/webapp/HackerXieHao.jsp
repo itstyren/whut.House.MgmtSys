@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjk2MTIxLCJleHAiOjE1MjE2OTk3MjF9.VBIUFBhGZJJtbLInx60QbjQ8ko7aByqVdZZI7n6JuyM");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNzE3ODY3LCJleHAiOjE1MjE3MjE0NjZ9.5Qb3QoFwnmrhWTj1LeM8ZOhw9gOwBhq9KAO3f0YLTUo");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNjk2MTIxLCJleHAiOjE1MjE2OTk3MjF9.VBIUFBhGZJJtbLInx60QbjQ8ko7aByqVdZZI7n6JuyM");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNzE3ODY3LCJleHAiOjE1MjE3MjE0NjZ9.5Qb3QoFwnmrhWTj1LeM8ZOhw9gOwBhq9KAO3f0YLTUo");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -239,6 +239,13 @@
 
 	//职工管理
 	$(function() {
+		
+		$("#calculateStaffValueByStaffNo").click(function() {
+			ajaxRequestPostType("staff/calculateStaffValueByStaffNo/2788", "POST", null);
+		})
+		$("#calculateAllStaffValue").click(function() {
+			ajaxRequestPostType("staff/calculateAllStaffValue", "POST", null);
+		})
 		$("#resetPassword").click(function() {
 			ajaxRequestPostType("staff/resetPassword/1", "PUT", null);
 		})
@@ -266,7 +273,7 @@
 
 		$("#staffAdd").click(function() {
 			var data = {
-				'no' : '15',
+				'no' : '2788',
 				'name' : '任天宇',
 				'sex' : '男',
 				'marriageState' : '未知',
@@ -801,6 +808,12 @@
 				value="staffParamModify" id="staffParamModify" /><br>
 		</div>
 		<div class="tab-pane fade" id="staffManagement">
+			<h4>计算单个职工总分</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="calculateStaffValueByStaffNo" id="calculateStaffValueByStaffNo" /> <br> <br>
+			<h4>计算所有职工总分</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="CalculateAllStaffValue" id="calculateAllStaffValue" /> <br> <br>
 			<h4>根据ID重置该员工密码</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="resetPassword" id="resetPassword" /> <br> <br>

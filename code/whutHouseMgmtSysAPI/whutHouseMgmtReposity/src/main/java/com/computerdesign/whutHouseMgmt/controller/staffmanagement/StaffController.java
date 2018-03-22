@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffModel;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValue;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterModel;
@@ -47,6 +48,88 @@ public class StaffController extends BaseController {
 	private StaffService staffService;
 
 	/**
+	 * 计算单个职工的总分，主要用于新增员工时计算
+	 * @param staffNo
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "calculateStaffValueByStaffNo/{staffNo}", method = RequestMethod.POST)
+	public Msg calculateStaffValueByStaffNo(@PathVariable("staffNo") String staffNo){
+		System.out.println(staffNo);
+		StaffValue staffValue = staffService.getStaffValueByStaffNo(staffNo);
+		if(staffValue != null){
+			int titleValue = 0;
+			if(staffValue.getStaffTitleValue() != null){
+				titleValue = staffValue.getStaffTitleValue();
+			}
+			int postValue = 0;
+			if (staffValue.getStaffPostValue() != null){
+				postValue = staffValue.getStaffPostValue();
+			}
+			int spouseTitleValue = 0;
+			if(staffValue.getSpouseTitleValue() != null){
+				spouseTitleValue = staffValue.getSpouseTitleValue();
+			}
+			int spousePostValue = 0;
+			if(staffValue.getSpousePostValue() != null){
+				spousePostValue = staffValue.getSpousePostValue();
+			}
+			double otherValue = staffValue.getOtherValue();
+			double timeValue = staffValue.getTimeValue();
+			double totalValue = titleValue + postValue + spouseTitleValue + spousePostValue + otherValue + timeValue;
+			
+			//更新计算的总分
+			Staff staff = staffService.get(staffValue.getId());
+			staff.setTotalVal(totalValue);
+			staffService.update(staff);
+			return Msg.success();
+		}else{
+			return Msg.error("无该编号的职工");
+		}
+	}
+	
+	/**
+	 * 计算所有职工总分
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "calculateAllStaffValue", method = RequestMethod.POST)
+	public Msg calculateAllStaffValue() {
+		List<StaffValue> staffValues = staffService.getAllStaffValues();
+		if(staffValues != null){
+			for (StaffValue staffValue : staffValues) {
+				int titleValue = 0;
+				if(staffValue.getStaffTitleValue() != null){
+					titleValue = staffValue.getStaffTitleValue();
+				}
+				int postValue = 0;
+				if (staffValue.getStaffPostValue() != null){
+					postValue = staffValue.getStaffPostValue();
+				}
+				int spouseTitleValue = 0;
+				if(staffValue.getSpouseTitleValue() != null){
+					spouseTitleValue = staffValue.getSpouseTitleValue();
+				}
+				int spousePostValue = 0;
+				if(staffValue.getSpousePostValue() != null){
+					spousePostValue = staffValue.getSpousePostValue();
+				}
+				double otherValue = staffValue.getOtherValue();
+				double timeValue = staffValue.getTimeValue();
+				double totalValue = titleValue + postValue + spouseTitleValue + spousePostValue + otherValue + timeValue;
+				
+				//更新计算的总分
+				Staff staff = staffService.get(staffValue.getId());
+				staff.setTotalVal(totalValue);
+				staffService.update(staff);
+			}
+			return Msg.success();
+		}else {
+			return Msg.error("无数据可处理");
+		}
+	}
+
+	/**
 	 * 根据id重置该员工密码
 	 * 
 	 * @param id
@@ -68,20 +151,22 @@ public class StaffController extends BaseController {
 
 	/**
 	 * 修改密码
+	 * 
 	 * @param request
 	 * @param newPsw
 	 * @param oldPsw
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "updatePassword",method = RequestMethod.PUT)
-	public Msg updatePassword(HttpServletRequest request,@FormParam("newPsw")String newPsw,@FormParam("oldPsw")String oldPsw){
+	@RequestMapping(value = "updatePassword", method = RequestMethod.PUT)
+	public Msg updatePassword(HttpServletRequest request, @FormParam("newPsw") String newPsw,
+			@FormParam("oldPsw") String oldPsw) {
 		String userId = getUserId(request);
 		Integer staffId = Integer.parseInt(userId);
 		Staff staff = staffService.get(staffId);
 		if (staff == null) {
 			return Msg.error("该员工不存在");
-		} 
+		}
 		if (!oldPsw.equals(staff.getStaffPassword())) {
 			return Msg.error("密码错误");
 		}

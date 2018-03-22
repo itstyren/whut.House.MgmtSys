@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.staffmanagement.StaffValueMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValue">
+    <result column="Id" jdbcType="INTEGER" property="id" />
+    <result column="No" jdbcType="VARCHAR" property="no" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="TitleId" jdbcType="INTEGER" property="titleId" />
+    <result column="TitleName" jdbcType="VARCHAR" property="titleName" />
+    <result column="StaffTitleValue" jdbcType="INTEGER" property="staffTitleValue" />
+    <result column="PostId" jdbcType="INTEGER" property="postId" />
+    <result column="PostName" jdbcType="VARCHAR" property="postName" />
+    <result column="StaffPostValue" jdbcType="INTEGER" property="staffPostValue" />
+    <result column="SpouseTitleId" jdbcType="INTEGER" property="spouseTitleId" />
+    <result column="SpouseTitleName" jdbcType="VARCHAR" property="spouseTitleName" />
+    <result column="SpouseTitleValue" jdbcType="INTEGER" property="spouseTitleValue" />
+    <result column="SpousePostId" jdbcType="INTEGER" property="spousePostId" />
+    <result column="SpousePostName" jdbcType="VARCHAR" property="spousePostName" />
+    <result column="SpousePostValue" jdbcType="INTEGER" property="spousePostValue" />
+    <result column="OtherValue" jdbcType="DOUBLE" property="otherValue" />
+    <result column="TimeValue" jdbcType="DOUBLE" property="timeValue" />
+    <result column="TotalValue" jdbcType="DOUBLE" property="totalValue" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, No, Name, TitleId, TitleName, StaffTitleValue, PostId, PostName, StaffPostValue, 
+    SpouseTitleId, SpouseTitleName, SpouseTitleValue, SpousePostId, SpousePostName, SpousePostValue, 
+    OtherValue, TimeValue, TotalValue
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValueExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from view_hs_staffvalue
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValueExample">
+    delete from view_hs_staffvalue
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValue">
+    insert into view_hs_staffvalue (Id, No, Name, 
+      TitleId, TitleName, StaffTitleValue, 
+      PostId, PostName, StaffPostValue, 
+      SpouseTitleId, SpouseTitleName, SpouseTitleValue, 
+      SpousePostId, SpousePostName, SpousePostValue, 
+      OtherValue, TimeValue, TotalValue
+      )
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{titleId,jdbcType=INTEGER}, #{titleName,jdbcType=VARCHAR}, #{staffTitleValue,jdbcType=INTEGER}, 
+      #{postId,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR}, #{staffPostValue,jdbcType=INTEGER}, 
+      #{spouseTitleId,jdbcType=INTEGER}, #{spouseTitleName,jdbcType=VARCHAR}, #{spouseTitleValue,jdbcType=INTEGER}, 
+      #{spousePostId,jdbcType=INTEGER}, #{spousePostName,jdbcType=VARCHAR}, #{spousePostValue,jdbcType=INTEGER}, 
+      #{otherValue,jdbcType=DOUBLE}, #{timeValue,jdbcType=DOUBLE}, #{totalValue,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValue">
+    insert into view_hs_staffvalue
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="no != null">
+        No,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="titleId != null">
+        TitleId,
+      </if>
+      <if test="titleName != null">
+        TitleName,
+      </if>
+      <if test="staffTitleValue != null">
+        StaffTitleValue,
+      </if>
+      <if test="postId != null">
+        PostId,
+      </if>
+      <if test="postName != null">
+        PostName,
+      </if>
+      <if test="staffPostValue != null">
+        StaffPostValue,
+      </if>
+      <if test="spouseTitleId != null">
+        SpouseTitleId,
+      </if>
+      <if test="spouseTitleName != null">
+        SpouseTitleName,
+      </if>
+      <if test="spouseTitleValue != null">
+        SpouseTitleValue,
+      </if>
+      <if test="spousePostId != null">
+        SpousePostId,
+      </if>
+      <if test="spousePostName != null">
+        SpousePostName,
+      </if>
+      <if test="spousePostValue != null">
+        SpousePostValue,
+      </if>
+      <if test="otherValue != null">
+        OtherValue,
+      </if>
+      <if test="timeValue != null">
+        TimeValue,
+      </if>
+      <if test="totalValue != null">
+        TotalValue,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null">
+        #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="titleName != null">
+        #{titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffTitleValue != null">
+        #{staffTitleValue,jdbcType=INTEGER},
+      </if>
+      <if test="postId != null">
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="postName != null">
+        #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffPostValue != null">
+        #{staffPostValue,jdbcType=INTEGER},
+      </if>
+      <if test="spouseTitleId != null">
+        #{spouseTitleId,jdbcType=INTEGER},
+      </if>
+      <if test="spouseTitleName != null">
+        #{spouseTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseTitleValue != null">
+        #{spouseTitleValue,jdbcType=INTEGER},
+      </if>
+      <if test="spousePostId != null">
+        #{spousePostId,jdbcType=INTEGER},
+      </if>
+      <if test="spousePostName != null">
+        #{spousePostName,jdbcType=VARCHAR},
+      </if>
+      <if test="spousePostValue != null">
+        #{spousePostValue,jdbcType=INTEGER},
+      </if>
+      <if test="otherValue != null">
+        #{otherValue,jdbcType=DOUBLE},
+      </if>
+      <if test="timeValue != null">
+        #{timeValue,jdbcType=DOUBLE},
+      </if>
+      <if test="totalValue != null">
+        #{totalValue,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValueExample" resultType="java.lang.Long">
+    select count(*) from view_hs_staffvalue
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update view_hs_staffvalue
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.no != null">
+        No = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleId != null">
+        TitleId = #{record.titleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.titleName != null">
+        TitleName = #{record.titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffTitleValue != null">
+        StaffTitleValue = #{record.staffTitleValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.postId != null">
+        PostId = #{record.postId,jdbcType=INTEGER},
+      </if>
+      <if test="record.postName != null">
+        PostName = #{record.postName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffPostValue != null">
+        StaffPostValue = #{record.staffPostValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.spouseTitleId != null">
+        SpouseTitleId = #{record.spouseTitleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spouseTitleName != null">
+        SpouseTitleName = #{record.spouseTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spouseTitleValue != null">
+        SpouseTitleValue = #{record.spouseTitleValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.spousePostId != null">
+        SpousePostId = #{record.spousePostId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spousePostName != null">
+        SpousePostName = #{record.spousePostName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spousePostValue != null">
+        SpousePostValue = #{record.spousePostValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.otherValue != null">
+        OtherValue = #{record.otherValue,jdbcType=DOUBLE},
+      </if>
+      <if test="record.timeValue != null">
+        TimeValue = #{record.timeValue,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalValue != null">
+        TotalValue = #{record.totalValue,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update view_hs_staffvalue
+    set Id = #{record.id,jdbcType=INTEGER},
+      No = #{record.no,jdbcType=VARCHAR},
+      Name = #{record.name,jdbcType=VARCHAR},
+      TitleId = #{record.titleId,jdbcType=INTEGER},
+      TitleName = #{record.titleName,jdbcType=VARCHAR},
+      StaffTitleValue = #{record.staffTitleValue,jdbcType=INTEGER},
+      PostId = #{record.postId,jdbcType=INTEGER},
+      PostName = #{record.postName,jdbcType=VARCHAR},
+      StaffPostValue = #{record.staffPostValue,jdbcType=INTEGER},
+      SpouseTitleId = #{record.spouseTitleId,jdbcType=INTEGER},
+      SpouseTitleName = #{record.spouseTitleName,jdbcType=VARCHAR},
+      SpouseTitleValue = #{record.spouseTitleValue,jdbcType=INTEGER},
+      SpousePostId = #{record.spousePostId,jdbcType=INTEGER},
+      SpousePostName = #{record.spousePostName,jdbcType=VARCHAR},
+      SpousePostValue = #{record.spousePostValue,jdbcType=INTEGER},
+      OtherValue = #{record.otherValue,jdbcType=DOUBLE},
+      TimeValue = #{record.timeValue,jdbcType=DOUBLE},
+      TotalValue = #{record.totalValue,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
