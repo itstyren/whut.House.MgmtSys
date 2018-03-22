@@ -362,15 +362,33 @@ public class HouseRegisterController {
 		// 给需要返回显示的数据赋值
 		for (ViewHouse viewHouse : viewHouses) {
 			HouseShowModel houseShowModel = new HouseShowModel();
-			houseShowModel.setHouseId(viewHouse.getId());
-			houseShowModel.setHouseNo(viewHouse.getNo());
-			houseShowModel.setHouseSort(viewHouse.getTypeName());
-			houseShowModel.setHouseType(viewHouse.getLayoutName());
-			houseShowModel.setUseStatus(viewHouse.getStatusName());
-			houseShowModel.setUsedArea(viewHouse.getUsedArea());
-			houseShowModel.setAddress(viewHouse.getAddress());
-			houseShowModel.setZoneName(viewHouse.getRegionName());
-			houseShowModel.setBuildingName(viewHouse.getBuildingName());
+			if(viewHouse.getId() != null){
+				houseShowModel.setHouseId(viewHouse.getId());
+			}
+			if(viewHouse.getNo() != null){
+				houseShowModel.setHouseNo(viewHouse.getNo());
+			}
+			if(viewHouse.getTypeName() != null){
+				houseShowModel.setHouseSort(viewHouse.getTypeName());
+			}
+			if(viewHouse.getLayoutName() != null){
+				houseShowModel.setHouseType(viewHouse.getLayoutName());
+			}
+			if(viewHouse.getStatusName() != null){
+				houseShowModel.setUseStatus(viewHouse.getStatusName());
+			}
+			if(viewHouse.getUsedArea() != null){
+				houseShowModel.setUsedArea(viewHouse.getUsedArea());
+			}
+			if(viewHouse.getAddress() != null){
+				houseShowModel.setAddress(viewHouse.getAddress());
+			}
+			if(viewHouse.getRegionName() != null){
+				houseShowModel.setZoneName(viewHouse.getRegionName());
+			}
+			if(viewHouse.getBuildingName() != null){
+				houseShowModel.setBuildingName(viewHouse.getBuildingName());
+			}
 			houseShowModels.add(houseShowModel);
 		}
 

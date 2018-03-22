@@ -34,19 +34,20 @@ public class HouseRegisterSelectService {
 	public List<ViewHouse> getByMultiConditionQuery(HouseSelectModel houseSelectModel){
 		ViewHouseExample example = new ViewHouseExample();
 		Criteria criteria = example.createCriteria();
-		if(houseSelectModel.getHouseType() != null){			
-			criteria.andTypeNameEqualTo(houseSelectModel.getHouseType());
-		}
-		if(houseSelectModel.getUseStatus() != null){			
-			criteria.andStatusNameEqualTo(houseSelectModel.getUseStatus());
-		}
-		if(houseSelectModel.getHouseZone() != null){			
-			criteria.andRegionNameEqualTo(houseSelectModel.getHouseZone());
-			if(houseSelectModel.getBuilding() !=null){				
-				criteria.andBuildingNameEqualTo(houseSelectModel.getBuilding());
+		if(houseSelectModel != null){
+			if(houseSelectModel.getHouseType() != null){			
+				criteria.andTypeNameEqualTo(houseSelectModel.getHouseType());
+			}
+			if(houseSelectModel.getUseStatus() != null){			
+				criteria.andStatusNameEqualTo(houseSelectModel.getUseStatus());
+			}
+			if(houseSelectModel.getHouseZone() != null){			
+				criteria.andRegionNameEqualTo(houseSelectModel.getHouseZone());
+				if(houseSelectModel.getBuilding() !=null){				
+					criteria.andBuildingNameEqualTo(houseSelectModel.getBuilding());
+				}
 			}
 		}
-		
 		return viewHouseMapper.selectByExample(example);
 	}
 	
