@@ -157,28 +157,28 @@
                             <strong style="color:#666">{{item.address}}</strong>
                           </el-col>
                         </el-row>
-                        <el-row class="info-row">
+                        <el-row class="info-row" v-if="item.houseRelName!='私有'">
                           <el-col :span="7">
                             <strong>区域</strong>
                           </el-col>
                           <el-col :span="14">
-                            <strong style="color:#666">{{item.region}}</strong>
+                            <strong style="color:#666">{{item.regionName}}</strong>
                           </el-col>
                         </el-row>
-                        <el-row class="info-row">
+                        <el-row class="info-row" v-if="item.houseRelName!='私有'">
                           <el-col :span="7">
                             <strong>结构</strong>
                           </el-col>
                           <el-col :span="14">
-                            <strong style="color:#666">{{item.struct}}</strong>
+                            <strong style="color:#666">{{item.structName}}</strong>
                           </el-col>
                         </el-row>
-                        <el-row class="info-row">
+                        <el-row class="info-row" v-if="item.houseRelName!='私有'">
                           <el-col :span="7">
                             <strong>户型</strong>
                           </el-col>
                           <el-col :span="14">
-                            <strong style="color:#666">{{item.layout}}</strong>
+                            <strong style="color:#666">{{item.layoutName}}</strong>
                           </el-col>
                         </el-row>
                         <el-row class="info-row">
@@ -186,7 +186,7 @@
                             <strong>房屋状态</strong>
                           </el-col>
                           <el-col :span="14">
-                            <strong style="color:#666">{{item.houseRel}}</strong>
+                            <strong style="color:#666">{{item.houseRelName}}</strong>
                           </el-col>
                         </el-row>
                       </div>
@@ -362,7 +362,7 @@
         </div>
       </div>
     </div>
-    <el-dialog title="维修评价" class="fix-comment" :visible.sync="fixCommentVisible">
+    <el-dialog title="维修评价" class="fix-comment" :visible.sync="fixCommentVisible" v-loading="commentLoading">
       <el-form :model="fixCommentForm" label-width="100px">
         <el-row>
           <el-col :span="18" :offset="1">
@@ -394,7 +394,9 @@
               </el-col>
               </el-row>
               <el-row style="margin-top:20px;">
-              <el-rate v-model="fixCommentForm.comment" show-text></el-rate>                
+                <el-col :span="20" :offset="2">
+              <el-rate v-model="fixCommentForm.comment" show-text></el-rate>                                  
+                </el-col>
               </el-row>
             </el-form-item>
           </el-col>
@@ -411,7 +413,7 @@
 <script type="text/ecmascript-6">
 import countdownButton from "@/components/countdown/button";
 import { getStaff, getStaffHouseRel } from "@/api/basiceData";
-import { getUserHouse, putChangePassword,putFixComment } from "@/api/user";
+import { putChangePassword, putFixComment, getUserHouse } from "@/api/user";
 import { getFixByStaffID } from "@/api/fixManage";
 import { getHireByStaffID } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
@@ -445,6 +447,7 @@ export default {
       fixFormList: [],
       fixCommentForm: {},
       fixCommentVisible: false,
+      commentLoading:false,
       hireFormList: [],
       passwordForm: {},
       passwordRules: {
@@ -522,6 +525,7 @@ export default {
       this.listLoading = true;
       let params = {};
       getStaff(params, this.staffID).then(res => {
+        console.log(res.data.data.data);
         this.staffInfo = res.data.data.data;
         this.listLoading = false;
       });
@@ -529,7 +533,7 @@ export default {
     getStaffHouseRel() {
       this.listLoading = true;
       getUserHouse(this.staffID).then(res => {
-        this.houseList = res.data;
+        this.houseList = res.data.data.data;
         this.listLoading = false;
       });
     },
@@ -567,19 +571,26 @@ export default {
           putChangePassword(param).then(res => {
             utils.statusinfo(this, res.data);
             this.listLoading = false;
-            this.$refs.changePassForm.resetFields()
+            this.$refs.changePassForm.resetFields();
           });
         }
       });
     },
     // 提交评价
-    submitComment(){
-      this.listLoading=true
-      let data={
-        description:this.fixCommentForm.description,
-        
-      }
-
+    submitComment() {
+      this.commentLoading = true;
+      let data = {
+        description: this.fixCommentForm.description,
+        fixId: this.fixCommentForm.fixId,
+        description: this.fixCommentForm.description,
+        ratings: this.fixCommentForm.comment
+      };
+      putFixComment(data).then(res => {
+        utils.statusinfo(this, res.data);
+        this.commentLoading = false;
+        this.fixCommentVisible = false;
+        //this.getList();
+      });
     },
     // 导出申请单
     downloadApply() {

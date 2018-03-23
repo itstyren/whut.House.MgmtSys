@@ -31,7 +31,7 @@ export default {
         hireApply: '住房申请'
     },
     header: {
-        title: '武汉理工大学房屋管理与货币化补贴系统',
+        title: '高校房屋管理与货币化补贴系统',
         swich:'切换语言成功',
         screenfull:'全屏',
         screenfull_message: 'you browser can not work'                       

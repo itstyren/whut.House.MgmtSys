@@ -1,14 +1,14 @@
 import request from '@/utils/request'
 
-export function getUserHouse(staffID) {
-  return request({
-    url: '/user/getHouseList',
-    method: 'get',
-    params: {
-      staffID
-    }
-  })
-}
+// export function getUserHouse(staffID) {
+//   return request({
+//     url: '/user/getHouseList',
+//     method: 'get',
+//     params: {
+//       staffID
+//     }
+//   })
+// }
 // 个人信息界面维修更新信息
 export function getUserFix(staffID) {
   return request({
@@ -37,5 +37,12 @@ export function putFixComment(data) {
     url: `/fixRatings/fixEvaluation`,
     method: 'put',
     data:data
+  })
+}
+// 获取职工房屋数据
+export function getUserHouse(staffID) {
+  return request({
+    url: `/houseInfo/getResidentHouseByStaffId/${staffID}`,
+    method: 'get',
   })
 }

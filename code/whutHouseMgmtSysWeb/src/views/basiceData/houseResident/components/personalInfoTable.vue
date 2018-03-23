@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="personalInfo" border  stripe   class="table" height="string" v-loading="listLoading">
+  <el-table :data="personalInfo"   stripe   class="table" height="string" v-loading="listLoading">
     <el-table-column prop="index"   align="center" label="信息项"></el-table-column>
     <el-table-column prop="value"   align="center" label="信息值"></el-table-column>
   </el-table>
