@@ -18,8 +18,7 @@ public class FixService {
 
 	@Autowired
 	private FixMapper fixMapper;
-	@Autowired
-	private ResidentMapper residentMapper;
+
 	
 
 	/**
@@ -62,12 +61,40 @@ public class FixService {
 		return fixMapper.selectByExample(example);
 	}
 	
+	/**
+	 * 获取全部待结算的请求
+	 * @return
+	 */
+	public Long getCountToCheck(){
+		FixExample example = new FixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAgreeStateIsNotNull();
+		criteria.andIsCheckEqualTo(false);
+		return fixMapper.countByExample(example);
+	}
 	
-	public void getResident(String staffId) {
-		ResidentExample example = new ResidentExample();
-		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
-		//等待谢豪修改数据库
-		
-		residentMapper.selectByExample(example);
+	/**
+	 * 获取全部待处理的维修请求
+	 * @return
+	 */
+	public Long getCountToHandle() {
+		FixExample example = new FixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAgreeNoteIsNull();
+		criteria.andIsOverEqualTo(false);
+		return fixMapper.countByExample(example);
+	}
+
+	/**
+	 * 根据维修类型参数获取数目
+	 * @param fixParamId
+	 * @return
+	 */
+	public Long getCountByFixParamId(Integer fixParamId) {
+		FixExample example = new FixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIsCheckEqualTo(false);
+		criteria.andFixContentIdEqualTo(fixParamId.toString());
+		return fixMapper.countByExample(example);
 	}
 }

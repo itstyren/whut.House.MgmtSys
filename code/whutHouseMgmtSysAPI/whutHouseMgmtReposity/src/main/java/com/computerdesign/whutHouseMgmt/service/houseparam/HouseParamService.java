@@ -23,14 +23,14 @@ public class HouseParamService implements BaseService<HouseParameter>{
 	}
 	
 	/**
-	 * »ñÈ¡Ò»¸öhouseParameter¶ÔÏó
+	 * è·å–ä¸€ä¸ªhouseParameterå¯¹è±¡
 	 * @return
 	 */
 	public HouseParameter get(Integer houseParamId){
 		return houseParameterMapper.selectByPrimaryKey(houseParamId);
 	}
 	/**
-	 * »ñÈ¡È«²¿µÄ·¿Îİ²ÎÊıĞÅÏ¢
+	 * è·å–å…¨éƒ¨çš„æˆ¿å±‹å‚æ•°ä¿¡æ¯
 	 */
 	@Override
 	public List<HouseParameter> getAll(){
@@ -42,7 +42,7 @@ public class HouseParamService implements BaseService<HouseParameter>{
 	}
 	
 	/**
-	 * ¸ù¾İparamTypeId½øĞĞÑ¡Ôñ
+	 * æ ¹æ®paramTypeIdè¿›è¡Œé€‰æ‹©
 	 * @param paramTypeId
 	 * @return
 	 */
@@ -56,8 +56,8 @@ public class HouseParamService implements BaseService<HouseParameter>{
 	}
 	
 	/**
-	 * ¸ù¾İstructId»ñÈ¡¸Ã½á¹¹µÄÃ¿Æ½·½Ã×µÄ¼Û¸ñ
-	 * structId¾ÍÊÇhouseParamId
+	 * æ ¹æ®structIdè·å–è¯¥ç»“æ„çš„æ¯å¹³æ–¹ç±³çš„ä»·æ ¼
+	 * structIdå°±æ˜¯houseParamId
 	 * 
 	 * @param structId
 	 * @return

@@ -28,10 +28,30 @@ public class FixParamService implements BaseService<FixParameter>{
 		FixParameterExample example=new FixParameterExample();
 		Criteria criteria=example.createCriteria();
 		criteria.andParamTypeIdEqualTo(paramTypeId);
+		criteria.andIsDeleteEqualTo(false);
 		List<FixParameter> fixParameters=fixParameterMapper.selectByExample(example);
 		return fixParameters;
 	}
+	/**
+	 * 获取该name的维修参数的数量
+	 * @param fixParamName
+	 * @return
+	 */
+	public long getCountByParamName(String fixParamName) {
+		FixParameterExample example=new FixParameterExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andFixParamNameEqualTo(fixParamName);
+		criteria.andIsDeleteEqualTo(false);
+		return fixParameterMapper.countByExample(example);
+	}
 	
+	public List<FixParameter> getByParamName(String fixParamName) {
+		FixParameterExample example=new FixParameterExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andFixParamNameEqualTo(fixParamName);
+		criteria.andIsDeleteEqualTo(false);
+		return fixParameterMapper.selectByExample(example);
+	}
 	@Override
 	public List<FixParameter> getAll(){
 		List<FixParameter> fixParameters=fixParameterMapper.selectByExample(null);

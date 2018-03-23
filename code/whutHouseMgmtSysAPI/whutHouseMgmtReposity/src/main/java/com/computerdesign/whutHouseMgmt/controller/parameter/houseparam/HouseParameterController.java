@@ -1,10 +1,8 @@
-package com.computerdesign.whutHouseMgmt.controller.houseparam;
+package com.computerdesign.whutHouseMgmt.controller.parameter.houseparam;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RequestMapping("/houseParam/")
 @Controller
-@Api(value = "×¡·¿²ÎÊıController", description = "×¡·¿²ÎÊı½Ó¿Ú")
+@Api(value = "ä½æˆ¿å‚æ•°Controller", description = "ä½æˆ¿å‚æ•°æ¥å£")
 public class HouseParameterController {
 
 	@Autowired
@@ -36,47 +34,47 @@ public class HouseParameterController {
 	private HouseService houseService;
 
 	/**
-	 * »ñÈ¡È«²¿µÄhouseParamId
+	 * è·å–å…¨éƒ¨çš„houseParamId
 	 * 
 	 * @param paramTypeId
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getHouseParamId/{paramTypeId}", method = RequestMethod.GET)
-	@ApiOperation(value = "»ñÈ¡Ä³Ò»ÖÖ²ÎÊıÀàĞÍµÄÈ«²¿id", notes = "¸ù¾İ·¿Îİ²ÎÊıÀàĞÍµÄid»ñÈ¡¸ÃÖÖÀàĞÍµÄËùÓĞ·¿Îİ²ÎÊıĞÅÏ¢µÄid", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "è·å–æŸä¸€ç§å‚æ•°ç±»å‹çš„å…¨éƒ¨id", notes = "æ ¹æ®æˆ¿å±‹å‚æ•°ç±»å‹çš„idè·å–è¯¥ç§ç±»å‹çš„æ‰€æœ‰æˆ¿å±‹å‚æ•°ä¿¡æ¯çš„id", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getHouseTypePar(@PathVariable("paramTypeId") Integer paramTypeId) {
 		List<Integer> houseParamIds = houseParamService.getHouseParamId(paramTypeId);
 		return Msg.success().add("data", houseParamIds);
 	}
 
 	/**
-	 * ¸ù¾İ×¡·¿²ÎÊı»ñÈ¡È«²¿µÄ×¡·¿²ÎÊıĞÅÏ¢
+	 * æ ¹æ®ä½æˆ¿å‚æ•°è·å–å…¨éƒ¨çš„ä½æˆ¿å‚æ•°ä¿¡æ¯
 	 * 
 	 * @param paramTypeId
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getWithoutPage/{paramTypeId}", method = RequestMethod.GET)
-	@ApiOperation(value = "»ñÈ¡Ä³Ò»ÖÖÀàĞÍµÄ·¿Îİ²ÎÊı", notes = "¸ù¾İparamTypeId»ñÈ¡Ä³Ò»ÖÖÀàĞÍµÄÈ«²¿·¿Îİ²ÎÊı,²»·ÖÒ³", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "è·å–æŸä¸€ç§ç±»å‹çš„æˆ¿å±‹å‚æ•°", notes = "æ ¹æ®paramTypeIdè·å–æŸä¸€ç§ç±»å‹çš„å…¨éƒ¨æˆ¿å±‹å‚æ•°,ä¸åˆ†é¡µ", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getHouseParameter(@PathVariable("paramTypeId") Integer paramTypeId) {
 		List<HouseParameter> houseParams = houseParamService.getbyParamTypeId(paramTypeId);
 
 		if (houseParams != null) {
 			return Msg.success().add("data", houseParams);
 		} else {
-			return Msg.error("²»´æÔÚ¶ÔÓÚµÄ×¡·¿ĞÅÏ¢");
+			return Msg.error("ä¸å­˜åœ¨å¯¹äºçš„ä½æˆ¿ä¿¡æ¯");
 		}
 	}
 
 	/**
-	 * paramTypeId£º 1-×¡·¿ÀàĞÍ 2-»§ĞÍ 3-Ê¹ÓÃ×´Ì¬ 4-×¡·¿½á¹¹
+	 * paramTypeIdï¼š 1-ä½æˆ¿ç±»å‹ 2-æˆ·å‹ 3-ä½¿ç”¨çŠ¶æ€ 4-ä½æˆ¿ç»“æ„
 	 * 
 	 * @param paramTypeId
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "get/{paramTypeId}", method = RequestMethod.GET)
-	@ApiOperation(value = "»ñÈ¡Ä³Ò»ÖÖÀàĞÍµÄ·¿Îİ²ÎÊı", notes = "¸ù¾İparamTypeId»ñÈ¡Ä³Ò»ÖÖÀàĞÍµÄÈ«²¿·¿Îİ²ÎÊı,·ÖÒ³", httpMethod = "GET", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "è·å–æŸä¸€ç§ç±»å‹çš„æˆ¿å±‹å‚æ•°", notes = "æ ¹æ®paramTypeIdè·å–æŸä¸€ç§ç±»å‹çš„å…¨éƒ¨æˆ¿å±‹å‚æ•°,åˆ†é¡µ", httpMethod = "GET", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg getHouseParameter(@PathVariable("paramTypeId") Integer paramTypeId,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
@@ -88,7 +86,7 @@ public class HouseParameterController {
 		if (houseParams != null) {
 			return Msg.success().add("data", pageInfo);
 		} else {
-			return Msg.error("²»´æÔÚ¶ÔÓÚµÄ×¡·¿ĞÅÏ¢");
+			return Msg.error("ä¸å­˜åœ¨å¯¹äºçš„ä½æˆ¿ä¿¡æ¯");
 		}
 	}
 
@@ -98,23 +96,23 @@ public class HouseParameterController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	@ApiOperation(value = "Ôö¼ÓÒ»¸ö×¡·¿²ÎÊıĞÅÏ¢", notes = "Ôö¼ÓÒ»¸ö×¡·¿²ÎÊıĞÅÏ¢", httpMethod = "POST", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "å¢åŠ ä¸€ä¸ªä½æˆ¿å‚æ•°ä¿¡æ¯", notes = "å¢åŠ ä¸€ä¸ªä½æˆ¿å‚æ•°ä¿¡æ¯", httpMethod = "POST", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg addHouseParameter(@RequestBody HouseParameter houseParameter) {
 		if (houseParameter.getHouseParamName() == null) {
-			return Msg.error("±ØÒªĞÅÏ¢²»ÍêÕû£¬Ìí¼ÓÊ§°Ü");
+			return Msg.error("å¿…è¦ä¿¡æ¯ä¸å®Œæ•´ï¼Œæ·»åŠ å¤±è´¥");
 		}
 		if (houseParameter.getParamTypeId() == null) {
-			return Msg.error("±ØÒªĞÅÏ¢²»ÍêÕû£¬Ìí¼ÓÊ§°Ü");
+			return Msg.error("å¿…è¦ä¿¡æ¯ä¸å®Œæ•´ï¼Œæ·»åŠ å¤±è´¥");
 		}
-		if (houseParameter.getParamTypeId() == 4 && houseParameter.getStructRent() == null) {// ×¡·¿½á¹¹ĞÅÏ¢
-			return Msg.error("×¡·¿½á¹¹ĞÅÏ¢±ØĞëÉèÖÃ·¿ÎİÃ¿Æ½Ã××â½ğ²ÎÊı");
+		if (houseParameter.getParamTypeId() == 4 && houseParameter.getStructRent() == null) {// ä½æˆ¿ç»“æ„ä¿¡æ¯
+			return Msg.error("ä½æˆ¿ç»“æ„ä¿¡æ¯å¿…é¡»è®¾ç½®æˆ¿å±‹æ¯å¹³ç±³ç§Ÿé‡‘å‚æ•°");
 		}
-		// ±éÀúÈ«²¿ÒÑÓĞµÄ·¿Îİ²ÎÊıĞÅÏ¢
+		// éå†å…¨éƒ¨å·²æœ‰çš„æˆ¿å±‹å‚æ•°ä¿¡æ¯
 		List<HouseParameter> listHouseParameter = houseParamService.getbyParamTypeId(houseParameter.getParamTypeId());
 		for (HouseParameter houseParamAlready : listHouseParameter) {
-			// ¼ì²é·¿Îİ²ÎÊıĞÅÏ¢µÄÃû³ÆÊÇ·ñÒÑ¾­´æÔÚ
+			// æ£€æŸ¥æˆ¿å±‹å‚æ•°ä¿¡æ¯çš„åç§°æ˜¯å¦å·²ç»å­˜åœ¨
 			if (houseParameter.getHouseParamName().equals(houseParamAlready.getHouseParamName())) {
-				return Msg.error("¸ÃÃû³ÆÒÑ´æÔÚ£¬ÎŞ·¨Ìí¼Ó");
+				return Msg.error("è¯¥åç§°å·²å­˜åœ¨ï¼Œæ— æ³•æ·»åŠ ");
 			}
 		}
 		houseParamService.add(houseParameter);
@@ -128,15 +126,15 @@ public class HouseParameterController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "delete/{houseParamId}", method = RequestMethod.DELETE)
-	@ApiOperation(value = "É¾³ıÒ»¸ö·¿ÎİĞÅÏ¢", notes = "É¾³ıÒ»¸ö·şÎñĞÅÏ¢", httpMethod = "DELETE", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "åˆ é™¤ä¸€ä¸ªæˆ¿å±‹ä¿¡æ¯", notes = "åˆ é™¤ä¸€ä¸ªæœåŠ¡ä¿¡æ¯", httpMethod = "DELETE", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg deleteHouseParam(@PathVariable("houseParamId") Integer houseParamId) {
 		HouseParameter houseParameter = houseParamService.get(houseParamId);
 		if (houseParameter == null) {
-			return Msg.error("ÕÒ²»µ½¸Ãid£¬É¾³ı³ö´í");
+			return Msg.error("æ‰¾ä¸åˆ°è¯¥idï¼Œåˆ é™¤å‡ºé”™");
 		}
 		List<House> houses = houseService.getHousesByParamId(houseParameter.getParamTypeId(), houseParamId);
 		if (!houses.isEmpty()) {
-			return Msg.error("¸Ã×¡·¿²ÎÊıÎŞ·¨É¾³ı");
+			return Msg.error("è¯¥ä½æˆ¿å‚æ•°æ— æ³•åˆ é™¤");
 		}
 		houseParameter.setIsDelete(true);
 		houseParamService.update(houseParameter);
@@ -149,26 +147,26 @@ public class HouseParameterController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
-	@ApiOperation(value = "ĞŞ¸ÄÒ»¸ö·¿Îİ²ÎÊıĞÅÏ¢", httpMethod = "PUT", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
+	@ApiOperation(value = "ä¿®æ”¹ä¸€ä¸ªæˆ¿å±‹å‚æ•°ä¿¡æ¯", httpMethod = "PUT", response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg modifyHouseParam(@RequestBody HouseParameter houseParameter) {
 		if (houseParameter.getHouseParamName() == null) {
-			return Msg.error("±ØÒªĞÅÏ¢²»ÍêÕû£¬Ìí¼ÓÊ§°Ü");
+			return Msg.error("å¿…è¦ä¿¡æ¯ä¸å®Œæ•´ï¼Œæ·»åŠ å¤±è´¥");
 		}
 		if (houseParameter.getParamTypeId() == null) {
-			return Msg.error("±ØÒªĞÅÏ¢²»ÍêÕû£¬Ìí¼ÓÊ§°Ü");
+			return Msg.error("å¿…è¦ä¿¡æ¯ä¸å®Œæ•´ï¼Œæ·»åŠ å¤±è´¥");
 		}
-		if (houseParameter.getParamTypeId() == 4 && houseParameter.getStructRent() == null) {// ×¡·¿½á¹¹ĞÅÏ¢
-			return Msg.error("×¡·¿½á¹¹ĞÅÏ¢±ØĞëÉèÖÃ·¿ÎİÃ¿Æ½Ã××â½ğ²ÎÊı");
+		if (houseParameter.getParamTypeId() == 4 && houseParameter.getStructRent() == null) {// ä½æˆ¿ç»“æ„ä¿¡æ¯
+			return Msg.error("ä½æˆ¿ç»“æ„ä¿¡æ¯å¿…é¡»è®¾ç½®æˆ¿å±‹æ¯å¹³ç±³ç§Ÿé‡‘å‚æ•°");
 		}
-		// ±éÀúÈ«²¿ÒÑÓĞµÄ·¿Îİ²ÎÊıĞÅÏ¢
+		// éå†å…¨éƒ¨å·²æœ‰çš„æˆ¿å±‹å‚æ•°ä¿¡æ¯
 		List<HouseParameter> listHouseParameter = houseParamService.getbyParamTypeId(houseParameter.getParamTypeId());
-		// ±éÀúÕâĞ©ĞÅÏ¢
+		// éå†è¿™äº›ä¿¡æ¯
 		Iterator iterator = listHouseParameter.iterator();
 		while (iterator.hasNext()) {
 			HouseParameter houseParamAlready = (HouseParameter) iterator.next();
 			if (houseParamAlready.getHouseParamId() != houseParameter.getHouseParamId()
 					&& houseParameter.getHouseParamName().equals(houseParamAlready.getHouseParamName())) {
-				return Msg.error("¸ÃÃû³ÆÒÑ´æÔÚ£¬ÎŞ·¨ĞŞ¸Ä");
+				return Msg.error("è¯¥åç§°å·²å­˜åœ¨ï¼Œæ— æ³•ä¿®æ”¹");
 			}
 		}
 
@@ -177,7 +175,7 @@ public class HouseParameterController {
 			return Msg.success().add("data", houseParameter);
 		} catch (Exception e) {
 			// TODO: handle exception
-			return Msg.error("Êı¾İ¿âÖĞÃ»ÓĞÕÒµ½´ËÌõ¼ÇÂ¼£¬ĞŞ¸ÄÊ§°Ü ");
+			return Msg.error("æ•°æ®åº“ä¸­æ²¡æœ‰æ‰¾åˆ°æ­¤æ¡è®°å½•ï¼Œä¿®æ”¹å¤±è´¥ ");
 		}
 	}
 }

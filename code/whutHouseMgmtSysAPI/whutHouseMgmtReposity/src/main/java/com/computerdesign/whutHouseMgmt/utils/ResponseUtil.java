@@ -25,9 +25,11 @@ public class ResponseUtil {
 			String filed = fileds[i];
 			try {
 				Method mf = clazz.getMethod("get" + StringUtil.upperHeadChar(filed));
-				if (filed.contains("time") || filed.contains("Time")) {// 时间参数的处理
+				if ((filed.contains("time") || filed.contains("Time"))&&!filed.contains("Val")) {// 时间参数的处理
 					Date time = (Date) mf.invoke(t);
-					map.put(filed, DateUtil.getCurrentSimpleDate(time));
+					if (time!=null) {
+						map.put(filed, DateUtil.getCurrentSimpleDate(time));						
+					}
 				} else {
 					map.put(filed, mf.invoke(t));
 				}
