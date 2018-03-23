@@ -20,12 +20,14 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.PersonalHireRecord;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
+import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.StaffHouseService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
+import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastHireRecordService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
@@ -65,6 +67,8 @@ public class HireController {
 	private HouseService houseService;
 
 	@Autowired
+	private ViewHouseService viewHouseService;
+	@Autowired
 	private LastHireRecordService lastHireRecordService;
 
 	/**
@@ -76,7 +80,7 @@ public class HireController {
 	@ResponseBody
 	@RequestMapping(value = "getAllByStaffId/{staffId}", method = RequestMethod.GET)
 	public Msg getAllByStaffId(@PathVariable("staffId") Integer staffId) {
-		List<Hire> hires = hireService.getAllByStaffId(staffId);
+		List<Hire> hires = hireService.getByStaffId(staffId);
 		List<PersonalHireRecord> personalHireRecords = new ArrayList<PersonalHireRecord>();
 		for (Hire hire : hires) {
 			PersonalHireRecord personalHireRecord = new PersonalHireRecord();
@@ -119,8 +123,10 @@ public class HireController {
 		// 用StaffHouse表，来判断该员工的房屋信息
 		List<StaffHouse> listStaffHouse = staffHouseService.getStaffHouseByStaffId(staffId);
 
-		if (listStaffHouse.size() > 1) {
-			return Msg.error("该员工无法申请房屋");
+		for (StaffHouse staffHouse : listStaffHouse) {
+			if (staffHouse.getHouseRelName().equals("租赁")) {
+				return Msg.error("该员工已申请过住房，无法再次申请");
+			}
 		}
 
 		String[] fileds = { "Id", "No", "Name", "Sex", "TitleName", "PostName", 
@@ -219,7 +225,7 @@ public class HireController {
 
 	@GetMapping(value = "addSignContract/{id}")
 	@ApiOperation(value = "签订合同",notes="签订合同",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
-	public Msg HireAddSignContract(@PathVariable("id")Integer id) {
+	public Msg hireAddSignContract(@PathVariable("id")Integer id) {
 
 		// 获取该房屋申请信息
 		Hire hire = hireService.getHireById(id);
@@ -228,6 +234,10 @@ public class HireController {
 		}
 		if (!"已审批".equals(hire.getHireState())) {
 			return Msg.error("该房屋无法签订合同");
+		}
+		ViewHouse viewHouse = viewHouseService.get(hire.getHouseId()).get(0);
+		if (!viewHouse.getStatusName().equals("空闲")) {
+			return Msg.error("该房屋已被他人租赁或购买，无法操作");
 		}
 		// 设置该申请已结束
 		hire.setIsOver(true);

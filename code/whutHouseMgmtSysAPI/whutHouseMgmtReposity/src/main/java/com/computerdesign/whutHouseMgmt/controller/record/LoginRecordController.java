@@ -8,7 +8,9 @@ package com.computerdesign.whutHouseMgmt.controller.record;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.login.LoginRecord;
+import com.computerdesign.whutHouseMgmt.service.fix.FixService;
+import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.login.LoginRecordService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
@@ -31,6 +35,10 @@ public class LoginRecordController {
 
 	@Autowired
 	private LoginRecordService loginRecordService;
+	@Autowired
+	private FixService fixService;
+	@Autowired
+	private HireService hireService;
 
 	/**
 	 * 获取全部的登陆信息
@@ -49,6 +57,20 @@ public class LoginRecordController {
 		return Msg.success("登陆信息").add("data", pageInfo);
 	}
 
+	/**
+	 * 首页的待处理清单
+	 * @return
+	 */
+	@GetMapping(value = "jobList")
+	public Msg getJoeList(){
+		Map<String, Long> map = new HashMap<>();
+		map.put("fixToHandle", fixService.getCountToHandle());
+		map.put("fixToCheck", fixService.getCountToCheck());
+		map.put("hireToHandle", hireService.getCountToHandle());
+		map.put("hireToSign", hireService.getCountToSign());
+		return Msg.success().add("data", map);
+	}
+	
 	/**
 	 * 登录信息
 	 * @param day

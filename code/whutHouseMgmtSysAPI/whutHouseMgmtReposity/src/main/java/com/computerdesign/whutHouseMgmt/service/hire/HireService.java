@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.ss.formula.functions.Count;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,18 +38,8 @@ public class HireService {
 		return hireMapper.selectByPrimaryKey(id);
 	}
 
-	/**
-	 * 根据staffId获取该职工所有相关hire信息
-	 * 
-	 * @param staffId
-	 * @return
-	 */
-	public List<Hire> getAllByStaffId(Integer staffId) {
-		HireExample example = new HireExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andStaffIdEqualTo(staffId);
-		return hireMapper.selectByExample(example);
-	}
+
+
 
 	/**
 	 * 根据staffId获取hire信息
@@ -132,5 +123,40 @@ public class HireService {
 		resident.setHouseRel(78);
 		residentMapper.insertSelective(resident);
 
+	}
+	
+	/**
+	 * 获取全部待处理的租赁信息的数目
+	 * @return
+	 */
+	public Long getCountToHandle() {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andApproveStateIsNull();
+		return hireMapper.countByExample(example);
+	}
+	
+	/**
+	 * 获取全部待签订合同的租赁信息的数目
+	 * @return
+	 */
+	public Long getCountToSign() {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIsOverEqualTo(false);
+		return hireMapper.countByExample(example);
+	}
+	
+	/**
+	 * 查看租赁信息中该houseId的有几套房子
+	 * @param houseId
+	 * @return
+	 */
+	public Long getCountByHouseId(Integer houseId) {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIsOverEqualTo(false);
+		criteria.andHouseIdEqualTo(houseId);
+		return hireMapper.countByExample(example);
 	}
 }
