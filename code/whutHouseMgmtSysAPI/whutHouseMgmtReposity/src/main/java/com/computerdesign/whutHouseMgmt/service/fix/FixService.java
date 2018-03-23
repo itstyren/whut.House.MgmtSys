@@ -85,4 +85,16 @@ public class FixService {
 		return fixMapper.countByExample(example);
 	}
 
+	/**
+	 * 根据维修类型参数获取数目
+	 * @param fixParamId
+	 * @return
+	 */
+	public Long getCountByFixParamId(Integer fixParamId) {
+		FixExample example = new FixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIsCheckEqualTo(false);
+		criteria.andFixContentIdEqualTo(fixParamId.toString());
+		return fixMapper.countByExample(example);
+	}
 }
