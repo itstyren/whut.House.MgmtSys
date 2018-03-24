@@ -203,14 +203,16 @@ export default {
     showDetailDialog(index, row) {
       this.$store.commit(types.STAFF_DATA, row);
       this.$store.commit(types.STAFF_MODIFY, false);
+      this.$store.commit('SET_STAFF_SHOW',true)
       this.$router.push({
-        path: `/basic/staff/byId/${row.id}`
+        path: `/basic/staff/byId/${row.id}`,
       });
     },
     //切换到编辑
     showModifyDialog(index, row) {
       this.$store.commit(types.STAFF_DATA, row);
       this.$store.commit(types.STAFF_MODIFY, true);
+      this.$store.commit('SET_STAFF_SHOW',true)              
       this.$router.push({
         path: `/basic/staff/byId/${row.id}`
       });

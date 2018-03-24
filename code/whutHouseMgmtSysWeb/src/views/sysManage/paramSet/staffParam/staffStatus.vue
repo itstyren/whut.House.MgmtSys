@@ -20,7 +20,7 @@
       </div>
       <!-- 表格区 -->
       <div class="main-data">
-        <el-table :data="statusDate" border style="width:100%" v-loading="listLoading" max-height="450">
+        <el-table :data="statusDate" class="table" v-loading="listLoading" height="string">
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
           <el-table-column prop="staffParamName" label="状态名" sortable align="center"></el-table-column>
@@ -37,11 +37,15 @@
       </el-pagination>
     </div>
     <!-- 新增表单 -->
-    <el-dialog title="新增状态名称" :visible.sync="addFormVisible" v-loading="submitLoading">
+    <el-dialog title="新增状态名称" class="paramDialog" :visible.sync="addFormVisible" v-loading="submitLoading">
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="状态名称" prop="staffParamName">
-          <el-input v-model="addFormBody.staffParamName" placeholder="请输入状态名称"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="状态名称" prop="staffParamName">
+              <el-input v-model="addFormBody.staffParamName" placeholder="请输入状态名称"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" addFormVisible = false">取消</el-button>
@@ -50,11 +54,15 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑状态名称" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
+    <el-dialog title="编辑状态名称" class="paramDialog" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules">
-        <el-form-item label="状态名称" prop="staffParamName">
-          <el-input v-model="modifyFromBody.staffParamName" placeholder="请输入状态名称"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="状态名称" prop="staffParamName">
+              <el-input v-model="modifyFromBody.staffParamName" placeholder="请输入状态名称"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" modifyFormVisible = false">取消</el-button>

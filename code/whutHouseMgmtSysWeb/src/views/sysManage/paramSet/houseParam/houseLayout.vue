@@ -13,7 +13,7 @@
       </div>
       <!-- 表格区 -->
       <div class="main-data">
-        <el-table class="table" :data="layoutData"  v-loading="listLoading" height="string">
+        <el-table class="table" :data="layoutData" v-loading="listLoading" height="string">
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
           <el-table-column prop="houseParamName" label="住房户型" sortable align="center"></el-table-column>
@@ -30,11 +30,15 @@
       </el-pagination>
     </div>
     <!-- 新增表单 -->
-    <el-dialog title="新增住房户型" :visible.sync="addFormVisible" v-loading="submitLoading">
+    <el-dialog title="新增住房户型" class="paramDialog" :visible.sync="addFormVisible" v-loading="submitLoading">
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="住房户型" prop="houseParamName">
-          <el-input v-model="addFormBody.houseParamName" placeholder="请输入住房户型"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="住房户型" prop="houseParamName">
+              <el-input v-model="addFormBody.houseParamName" placeholder="请输入住房户型"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" addFormVisible = false">取消</el-button>
@@ -43,11 +47,15 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑住房类型" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
+    <el-dialog title="编辑住房类型" class="paramDialog" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules">
-        <el-form-item label="住房类型" prop="houseParamName">
-          <el-input v-model="modifyFromBody.houseParamName" placeholder="请输入住房类型"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="住房类型" prop="houseParamName">
+              <el-input v-model="modifyFromBody.houseParamName" placeholder="请输入住房类型"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" modifyFormVisible = false">取消</el-button>

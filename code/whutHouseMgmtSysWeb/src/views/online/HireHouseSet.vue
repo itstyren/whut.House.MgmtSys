@@ -65,16 +65,16 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="5">
+                  <el-col :span="6">
                     <el-form-item label="住房区域">
-                      <el-select v-model="queryForm.houseZone" :clearable="true" @clear="clearRegion" placeholder="全部区域" @change="selectRegionChange">
+                      <el-select v-model="queryForm.houseZone" size="small"  :clearable="true" @clear="clearRegion" placeholder="全部区域" @change="selectRegionChange">
                         <el-option v-for="region in regionBuildingData" :key="region.id" :value="region.id" :label="region.name"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="4">
+                  <el-col :span="6">
                     <el-form-item label="住房楼栋">
-                      <el-select v-model="queryForm.building" :clearable="true" placeholder="全部房屋">
+                      <el-select v-model="queryForm.building" size="small"  :clearable="true" placeholder="全部房屋">
                         <el-option v-for="building in buildingData" :key="building.id" :value="building.id" :label="building.name"></el-option>
                       </el-select>
                     </el-form-item>
