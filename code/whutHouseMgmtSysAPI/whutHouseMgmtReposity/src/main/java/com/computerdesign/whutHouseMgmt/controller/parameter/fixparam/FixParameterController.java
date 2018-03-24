@@ -20,8 +20,11 @@ import com.computerdesign.whutHouseMgmt.service.fixparam.FixParamService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import io.swagger.annotations.Api;
+
 @RequestMapping(value = "/fixParam/")
 @Controller
+@Api(description="维修参数接口")
 public class FixParameterController {
 
 	@Autowired
