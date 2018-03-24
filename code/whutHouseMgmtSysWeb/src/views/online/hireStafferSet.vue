@@ -83,11 +83,9 @@
                       <el-input v-model="queryForm.query" size="small" placeholder="请输入搜索"></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="4">
-                    <el-form-item label=" ">
+                  <el-col :span="3" :offset="1">
                       <el-button type="danger" size="small" @click="resseting">重置</el-button>
                       <el-button type="primary" size="small" @click="muticonditionQuery">查询</el-button>
-                    </el-form-item>
                   </el-col>
                 </el-row>
               </div>

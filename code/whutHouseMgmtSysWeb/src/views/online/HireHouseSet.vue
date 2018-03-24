@@ -79,11 +79,9 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="4">
-                    <el-form-item label=" ">
+                  <el-col :span="4" :offset="1">
                       <el-button type="danger" size="small" @click="resseting">重置</el-button>
                       <el-button type="primary" size="small" @click="muticonditionQuery">查询</el-button>
-                    </el-form-item>
                   </el-col>
                 </el-row>
               </div>
@@ -199,7 +197,7 @@
     },
     computed: {
       selectRegion() {
-        return this.queryForm.regionId;
+        return this.queryForm.houseZone;
       }
     },
     watch: {
