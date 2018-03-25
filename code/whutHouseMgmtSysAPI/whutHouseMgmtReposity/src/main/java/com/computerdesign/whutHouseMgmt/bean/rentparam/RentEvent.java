@@ -13,7 +13,7 @@ public class RentEvent {
 
     private String paramTypeName;
 
-    private Boolean rentIsOpenSel;
+    private String rentOpenSelStatus;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -51,12 +51,12 @@ public class RentEvent {
         this.paramTypeName = paramTypeName == null ? null : paramTypeName.trim();
     }
 
-    public Boolean getRentIsOpenSel() {
-        return rentIsOpenSel;
+    public String getRentOpenSelStatus() {
+        return rentOpenSelStatus;
     }
 
-    public void setRentIsOpenSel(Boolean rentIsOpenSel) {
-        this.rentIsOpenSel = rentIsOpenSel;
+    public void setRentOpenSelStatus(String rentOpenSelStatus) {
+        this.rentOpenSelStatus = rentOpenSelStatus == null ? null : rentOpenSelStatus.trim();
     }
 
     public Date getRentTimeBegin() {
@@ -98,19 +98,21 @@ public class RentEvent {
     public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
     }
-    
-    public RentEvent(Integer paramTypeId, String paramTypeName, Boolean rentIsOpenSel, Boolean isDelete) {
-		super();
-		this.paramTypeId = paramTypeId;
-		this.paramTypeName = paramTypeName;
-		this.rentIsOpenSel = rentIsOpenSel;
-		this.isDelete = isDelete;
-	}
 
+    
+    
 	public RentEvent() {
 		super();
 	}
-    
-    
 
+	public RentEvent(Integer paramTypeId, String paramTypeName, String rentOpenSelStatus, Boolean isDelete) {
+		super();
+		this.paramTypeId = paramTypeId;
+		this.paramTypeName = paramTypeName;
+		this.rentOpenSelStatus = rentOpenSelStatus;
+		this.isDelete = isDelete;
+	}
+    
+    
+    
 }

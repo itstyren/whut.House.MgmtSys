@@ -109,25 +109,40 @@ public class SelfHelpSelectHouseController {
 		long endTime = selfHelpSelectHouse.getHouseSelectEnd().getTime();
 		System.out.println(selfHelpSelectHouse.getHouseSelectEnd());
 		// 获取选房开始时间,默认先使用id为1的选房参数
-		RentEvent rentEvent = rentEventService.get(1);
-		long beginTime = rentEvent.getRentTimeBegin().getTime();
-		// 判断当前是否还有选房活动
-		if (beginTime <= new Date().getTime() && endTime >= new Date().getTime()) {
-			Date staffStartTimeNow = staffSelectHouseNow.getSelectStart();
-			Date staffEndTimeNow = staffSelectHouseNow.getSelectEnd();
-			// 封装需要返回的数据
-			IsSelectingHouseInfo isSelectingHouseInfo = new IsSelectingHouseInfo();
-			isSelectingHouseInfo.setStaffStartTimeNow(staffStartTimeNow);
-			isSelectingHouseInfo.setStaffEndTimeNow(staffEndTimeNow);
-			isSelectingHouseInfo.setIsSelectingStaffName(isSelecting.getStaffName());
-			isSelectingHouseInfo.setIsSelectingStaffEndTime(isSelecting.getHouseSelectEnd());
-			if (nextSelecting.getStaffName() != null) {
-				isSelectingHouseInfo.setNextSelectingStaffName(nextSelecting.getStaffName());
+//		RentEvent rentEvent = rentEventService.get(1);
+		RentEvent rentEvent = rentEventService.getNowRule();
+		
+		
+		if(rentEvent != null){
+			long beginTime = rentEvent.getRentTimeBegin().getTime();
+			// 判断当前是否还有选房活动
+			if (beginTime <= new Date().getTime() && endTime >= new Date().getTime()) {
+				Date staffStartTimeNow = staffSelectHouseNow.getSelectStart();
+				Date staffEndTimeNow = staffSelectHouseNow.getSelectEnd();
+				
+				// 封装需要返回的数据
+				IsSelectingHouseInfo isSelectingHouseInfo = new IsSelectingHouseInfo();
+				isSelectingHouseInfo.setSelectTime(rentEvent.getRentTimeRanges());
+				isSelectingHouseInfo.setStaffStartTimeNow(staffStartTimeNow);
+				isSelectingHouseInfo.setStaffEndTimeNow(staffEndTimeNow);
+				isSelectingHouseInfo.setIsSelectingStaffName(isSelecting.getStaffName());
+				isSelectingHouseInfo.setIsSelectingStaffEndTime(isSelecting.getHouseSelectEnd());
+				if (nextSelecting.getStaffName() != null) {
+					isSelectingHouseInfo.setNextSelectingStaffName(nextSelecting.getStaffName());
+				}
+				isSelectingHouseInfo.setSystemNowTime(new Date());
+				return Msg.success().add("data", isSelectingHouseInfo);
+			} else if(beginTime >= new Date().getTime()){
+				return Msg.success("选房活动未开始");
+			}else{
+				rentEvent.setRentOpenSelStatus("日期已过");
+				rentEventService.update(rentEvent);
+				return Msg.success("选房活动已结束");
 			}
-			return Msg.success().add("data", isSelectingHouseInfo);
-		} else {
-			return Msg.success("当前无选房活动，或选房活动已结束！");
+		}else{
+			return Msg.success("当前无选房活动");
 		}
+		
 	}
 
 	/**

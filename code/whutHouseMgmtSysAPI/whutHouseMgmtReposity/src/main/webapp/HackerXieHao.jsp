@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNzE3ODY3LCJleHAiOjE1MjE3MjE0NjZ9.5Qb3QoFwnmrhWTj1LeM8ZOhw9gOwBhq9KAO3f0YLTUo");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTYwNTU3LCJleHAiOjE1MjE5NjQxNTd9.eAhzt0z7KsAJHeCDw6r_O4U7iA9w6N-TBrdBr2JrOJ0");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxNzE3ODY3LCJleHAiOjE1MjE3MjE0NjZ9.5Qb3QoFwnmrhWTj1LeM8ZOhw9gOwBhq9KAO3f0YLTUo");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTYwNTU3LCJleHAiOjE1MjE5NjQxNTd9.eAhzt0z7KsAJHeCDw6r_O4U7iA9w6N-TBrdBr2JrOJ0");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -82,7 +82,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTUzNzU4LCJleHAiOjE1MjE5NTczNTh9.VDMxBC1_KXGNIQYLU72_zubaZGf-rwtxbEYVGwjL3Oo");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -113,7 +113,7 @@
 			contentType : false,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTIxNTMwMzUzLCJleHAiOjE1MjE1MzM5NTN9.bLiDZGA0SiSCr36YW-1FjE_WKnkn6O41wRS7of7krRk");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTUzNzU4LCJleHAiOjE1MjE5NTczNTh9.VDMxBC1_KXGNIQYLU72_zubaZGf-rwtxbEYVGwjL3Oo");
 			},
 			success : function(response) {
 				console.log(response);
@@ -134,7 +134,7 @@
 	//租赁历史
 	$(function() {
 		$("#rentEventGet").click(function() {
-			ajaxRequestGet("rentEvent/get?page=1&size=5");
+			ajaxRequestGet("rentEvent/get?page=3&size=10");
 		})
 
 		$("#rentEventModify").click(function() {
@@ -150,7 +150,7 @@
 
 		$("#rentEventDelete").click(function() {
 			//var data={"rentParamId":2}
-			ajaxRequestPostType("rentEvent/delete/2", "DELETE", null);
+			ajaxRequestPostType("rentEvent/delete/3", "DELETE", null);
 		})
 
 		$("#rentEventAdd").click(function() {
@@ -503,7 +503,7 @@
 		$("#canselectHouseShowByMultiCondition").click(
 				function() {
 					var data = {
-						'houseType' : '周转房342萨达',
+						/* 'houseType' : '周转房342萨达',
 						'useStatus' : '空闲',
 						'houseZone' : '武汉市洪山区工大路20号',
 						'structName' : '砖木',
@@ -517,7 +517,7 @@
 							'areaParamName' : '使用面积',
 							'minArea' : 20,
 							'maxArea' : 40
-						},
+						}, */
 						//'page' : 1,
 						//'size' : 2
 					};

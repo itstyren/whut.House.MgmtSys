@@ -21,6 +21,23 @@ public class RentEventService implements BaseService<RentEvent>{
 		return rentEventMapper.selectByPrimaryKey(rentEventId);
 	}
 	
+	public RentEvent getNowRule(){
+		RentEventExample example = new RentEventExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andRentOpenSelStatusEqualTo("正在选房");
+		if(rentEventMapper.selectByExample(example) != null){
+			return rentEventMapper.selectByExample(example).get(0);
+		}else{
+			return null;
+		}
+	}
+	
+	public long getCount(){
+		RentEventExample example = new RentEventExample();
+		Criteria criteria = example.createCriteria();
+		return rentEventMapper.countByExample(example);
+	}
+	
 	@Override
 	public List<RentEvent> getAll() {
 		RentEventExample rentEventExample = new RentEventExample();
@@ -37,6 +54,7 @@ public class RentEventService implements BaseService<RentEvent>{
 
 	@Override
 	public void add(RentEvent entities) {
+		entities.setRentOpenSelStatus("选房活动未开始");
 		rentEventMapper.insertSelective(entities);
 	}
 
