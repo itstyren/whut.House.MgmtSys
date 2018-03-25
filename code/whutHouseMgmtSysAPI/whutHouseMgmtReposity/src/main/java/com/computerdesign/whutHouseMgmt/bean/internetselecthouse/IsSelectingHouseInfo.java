@@ -18,7 +18,7 @@ public class IsSelectingHouseInfo {
 	private String isSelectingStaffName;
 	
 	//正在选房职工选房结束时间
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+//	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date isSelectingStaffEndTime;
 	
 	//下一位选房员工

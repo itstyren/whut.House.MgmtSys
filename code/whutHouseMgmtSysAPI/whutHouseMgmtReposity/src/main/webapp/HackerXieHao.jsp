@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTYwNTU3LCJleHAiOjE1MjE5NjQxNTd9.eAhzt0z7KsAJHeCDw6r_O4U7iA9w6N-TBrdBr2JrOJ0");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTkxNjc3LCJleHAiOjE1MjE5OTUyNzd9.PCdADRC3n3CN6q0E9rD0bism1hMhRxmRFSN4IZNyb_M");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTYwNTU3LCJleHAiOjE1MjE5NjQxNTd9.eAhzt0z7KsAJHeCDw6r_O4U7iA9w6N-TBrdBr2JrOJ0");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTkxNjc3LCJleHAiOjE1MjE5OTUyNzd9.PCdADRC3n3CN6q0E9rD0bism1hMhRxmRFSN4IZNyb_M");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -140,7 +140,7 @@
 		$("#rentEventModify").click(function() {
 			var data = {
 				"rentEventId" : 1,
-				"rentTimeBegin" : "2018-03-11 21:55:21",
+				"rentTimeBegin" : "2018-03-25 23:40:21",
 				"rentTimeRanges" : 30,
 				"rentSelValReq" : 5,
 				"rentSelRules" : "无规则"
@@ -155,7 +155,7 @@
 
 		$("#rentEventAdd").click(function() {
 			var data = {
-				"rentTimeBegin" : "2017-10-30 11:21:00",
+				"rentTimeBegin" : "2018-3-30 11:21:00",
 				//"rentTimeRanges" : "2017-11-4",
 				"rentTimeRanges" : 2,
 				"rentSelValReq" : 5,

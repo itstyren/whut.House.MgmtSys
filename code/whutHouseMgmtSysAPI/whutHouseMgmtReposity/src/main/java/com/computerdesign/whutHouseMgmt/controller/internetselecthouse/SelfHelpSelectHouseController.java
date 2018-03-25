@@ -99,11 +99,24 @@ public class SelfHelpSelectHouseController {
 				break;
 			}
 		}
+		
+		
 		// 如果当前选房人有数据，且不是最后一个选房者，则获取下一个选房者
 		if (isSelecting.getStaffName() != null && flag != selfHelpSelectHouses.size()) {
 			nextSelecting = selfHelpSelectHouses.get(flag);
 		}
 
+		if(staffSelectHouseNow.getStaffId().equals(isSelecting.getStaffId())){
+			//如果轮到本人选房，返回哪些数据
+			IsSelectingHouseInfo isSelectingHouseInfo = new IsSelectingHouseInfo();
+			isSelectingHouseInfo.setIsSelectingStaffName(isSelecting.getStaffName());
+			isSelectingHouseInfo.setIsSelectingStaffEndTime(isSelecting.getHouseSelectEnd());
+			isSelectingHouseInfo.setNextSelectingStaffName(nextSelecting.getStaffName());
+			isSelectingHouseInfo.setSystemNowTime(new Date());
+			return Msg.success().add("data", isSelectingHouseInfo);
+		}
+		
+		
 		// 获取选房结束时间
 		SelfHelpSelectHouse selfHelpSelectHouse = selfHelpSelectHouses.get(selfHelpSelectHouses.size() - 1);
 		long endTime = selfHelpSelectHouse.getHouseSelectEnd().getTime();
