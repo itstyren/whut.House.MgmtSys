@@ -15,9 +15,9 @@
     <div class="warp-body">
       <!-- 工具栏 -->
       <div class="toolbar">
-            <el-form :inline="true">
-      <el-button type="primary" @click="addFormVisible = true" >新增状态</el-button>
-    </el-form>   
+        <el-form :inline="true">
+          <el-button type="primary" @click="addFormVisible = true">新增状态</el-button>
+        </el-form>
       </div>
       <!-- 表格区 -->
       <div class="main-data">
@@ -38,11 +38,15 @@
       </el-pagination>
     </div>
     <!-- 新增表单 -->
-    <el-dialog title="新增使用状态" :visible.sync="addFormVisible" v-loading="submitLoading">
+    <el-dialog title="新增使用状态" class="paramDialog" :visible.sync="addFormVisible" v-loading="submitLoading">
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="使用状态" prop="houseParamName">
-          <el-input v-model="addFormBody.houseParamName" placeholder="请输入使用状态"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="使用状态" prop="houseParamName">
+              <el-input v-model="addFormBody.houseParamName" placeholder="请输入使用状态"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" addFormVisible = false">取消</el-button>
@@ -51,11 +55,15 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑使用状态" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
+    <el-dialog title="编辑使用状态" class="paramDialog" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules">
-        <el-form-item label="使用状态" prop="houseParamName">
-          <el-input v-model="modifyFromBody.houseParamName" placeholder="请输入使用状态"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="使用状态" prop="houseParamName">
+              <el-input v-model="modifyFromBody.houseParamName" placeholder="请输入使用状态"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" modifyFormVisible = false">取消</el-button>

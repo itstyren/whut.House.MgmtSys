@@ -178,7 +178,7 @@ export const asyncRouterMap = [
         meta: { roles: [ADMIN, STAFF], title: 'analysis' }, // you can set roles in root nav                                              
         children: [
             { path: 'house', component: _import('dataAnalysis/house/index'), name: 'houseAnalysis', meta: { title: 'houseAnalysis' } },
-            { path: 'house', component: _import('dataAnalysis/house/index'), name: 'houseAnalysis', meta: { title: 'houseAnalysis' } },
+            { path: 'hous', component: _import('dataAnalysis/house/index'), name: 'houseAnalysi', meta: { title: 'houseAnalysis' } },
         ]
     },
     /* 个人设置 */

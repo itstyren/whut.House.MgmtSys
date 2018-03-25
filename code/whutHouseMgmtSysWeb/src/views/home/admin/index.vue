@@ -12,7 +12,7 @@
           <flowmeter></flowmeter>
         </el-row>
       </el-col>
-      <el-col :span="18" class="pannel-group">
+      <el-col :span="18" class="right">
         <el-row>
           <pannel-group></pannel-group>
         </el-row>
@@ -29,6 +29,11 @@
             <fix-bar :height="'290px'"></fix-bar>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col class="channel">          
+         <channel></channel>
+          </el-col>
+        </el-row>
       </el-col>
     </el-row>
 
@@ -43,6 +48,7 @@ import pageView from "./components/pageView";
 import fixPie from "./components/fixPie";
 import fixBar from "./components/fixBar";
 import flowmeter from "./components/flowmeter";
+import channel from './components/channel'
 export default {
   data() {
     return {};
@@ -54,13 +60,14 @@ export default {
     pageView,
     fixPie,
     fixBar,
-    flowmeter
+    flowmeter,
+    channel
   }
 };
 </script>
 
 <style scoped lang="scss">
-.pag-view {
+.pag-view,.channel {
   width: calc(100% - 20px);
 }
 </style>

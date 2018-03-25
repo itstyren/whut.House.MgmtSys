@@ -17,77 +17,7 @@
         <div class="warp-body">
           <!-- 工具栏 -->
           <div class="toolbar">
-            <el-form :model="queryForm" label-width="80px">
-              <div class="card">
-                <el-row>
-                  <el-col :span="4">
-                    <el-form-item label="住房类型">
-                      <el-select v-model="queryForm.houseType" size="small" :clearable="true" placeholder="所有类型">
-                        <el-option v-for="v in typeData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="4">
-                    <el-form-item label="使用状态">
-                      <el-select v-model="queryForm.useStatus" size="small" :clearable="true" placeholder="所有状态">
-                        <el-option v-for="v in statusData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="4">
-                    <el-form-item label="住房结构">
-                      <el-select v-model="queryForm.structName" size="small" :clearable="true" placeholder="所有结构">
-                        <el-option v-for="v in structData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="4">
-                    <el-form-item label="住房户型">
-                      <el-select v-model="queryForm.layoutName" size="small" :clearable="true" placeholder="所有户型">
-                        <el-option v-for="v in layoutData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="4">
-                    <el-form-item label="租金">
-                      <el-row>
-                        <el-col :span="8">
-                          <el-input v-model="queryForm.rentalScope.minRental" size="small" placeholder=""></el-input>
-                        </el-col>
-                        <el-col :span="4" style=" text-align: center;">
-                          <span>至</span>
-                        </el-col>
-                        <el-col :span="8">
-                          <el-input v-model="queryForm.rentalScope.maxRental" size="small" placeholder=""></el-input>
-                        </el-col>
-                      </el-row>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="5">
-                    <el-form-item label="住房区域">
-                      <el-select v-model="queryForm.houseZone" :clearable="true" @clear="clearRegion" placeholder="全部区域" @change="selectRegionChange">
-                        <el-option v-for="region in regionBuildingData" :key="region.id" :value="region.id" :label="region.name"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="4">
-                    <el-form-item label="住房楼栋">
-                      <el-select v-model="queryForm.building" :clearable="true" placeholder="全部房屋">
-                        <el-option v-for="building in buildingData" :key="building.id" :value="building.id" :label="building.name"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="4">
-                    <el-form-item label=" ">
-                      <el-button type="danger" size="small" @click="resseting">重置</el-button>
-                      <el-button type="primary" size="small" @click="muticonditionQuery">查询</el-button>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-              </div>
-            </el-form>
+            <house-filter @query-house="queryHandle"></house-filter>
           </div>
           <!-- 表格区 -->
           <div class="main-data">
@@ -153,6 +83,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import houseFilter from '@/views/tools/houseFilter'
   import {
     getActiveHouse,
     getSetHouse,
@@ -160,28 +91,11 @@
     postSetHouse,
     postcancelHouse
   } from "@/api/online";
-  import {
-    getRegionWithBuildings
-  } from "@/api/basiceData";
-  import {
-    getHouseParam
-  } from "@/api/sysManage";
   import utils from "@/utils/index.js";
   export default {
     data() {
       return {
         activeName: 'canSelect',
-        // 多重查找表单
-        queryForm: {
-          rentalScope: {}
-        },
-        time: [],
-        typeData: [],
-        layoutData: [],
-        statusData: [],
-        structData: [],
-        regionBuildingData: [],
-        buildingData: [],
         // 表格区域
         listLoading: false,
         listLoading1: false,
@@ -197,87 +111,14 @@
         size1: 10
       };
     },
-    computed: {
-      selectRegion() {
-        return this.queryForm.regionId;
-      }
-    },
-    watch: {
-      // 监听选项的变动
-      selectRegion(newval) {
-        for (var region of this.regionBuildingData) {
-          if (region.id == newval) this.buildingData = region.buildingList;
-        }
-      }
+    components: {
+      houseFilter
     },
     created() {
-      this.initalGet();
-      this.getRegionWithBuilding();
       this.getList();
       this.getList1();
     },
     methods: {
-      //初始查询条件获取
-      initalGet() {
-        this.listLoading = true;
-        let param = {
-          size: 999
-        };
-        // 类型为1
-        getHouseParam(param, 1)
-          .then(res => {
-            this.typeData = res.data.data.data.list;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        // 户型为2
-        getHouseParam(param, 2)
-          .then(res => {
-            this.layoutData = res.data.data.data.list;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        // 状态为3
-        getHouseParam(param, 3)
-          .then(res => {
-            this.statusData = res.data.data.data.list;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        // 结构为8
-        getHouseParam(param, 4)
-          .then(res => {
-            this.structData = res.data.data.data.list;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      },
-      // 获取区域信息包括楼栋
-      getRegionWithBuilding() {
-        this.listLoading = true;
-        let param = {
-          // page: this.page,
-          // size: this.size
-        };
-        getRegionWithBuildings(param)
-          .then(res => {
-            this.regionBuildingData = res.data.data.data;
-            this.regionBuildingData.forEach(region => {
-              let flag = region.name.indexOf("（");
-              if (flag != -1) {
-                region.name = region.name.substring(0, flag);
-              }
-            });
-            this.listLoading = false;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      },
       // 初始获取数据
       getList() {
         this.listLoading = true;
@@ -287,10 +128,8 @@
         };
         getActiveHouse(param)
           .then(res => {
-            //console.log(res.data.data);
             this.activeHouseData = res.data.data.data.list;
             this.totalNum = res.data.data.data.total;
-            // console.log(res.data.data.list)
             this.listLoading = false;
           })
           .catch(err => {
@@ -317,19 +156,13 @@
           });
       },
       // 多重查找查询
-      muticonditionQuery() {
+      queryHandle(data) {
         this.activeHouseData = [];
-        for (let v in this.queryForm) {
-         // console.log(this.queryForm.rentalScope)
-          if (this.queryForm[v] == ""||Object.keys(this.queryForm[v]).length==0) delete this.queryForm[v];
-        }
         this.listLoading = true;
         let param = {
           page: this.page,
           size: this.size
         };
-        //console.log(this.queryForm);
-        const data = Object.assign({}, this.queryForm);
         postActiveHousemulticondition(param, data).then(res => {
           utils.statusinfo(this, res.data);
           this.activeHouseData = res.data.data.data.list;
@@ -372,19 +205,6 @@
           this.getList1();
         });
       },
-      // 重置查询表单
-      resseting() {
-        this.time = [];
-        this.queryForm = {};
-      },
-      // 清空搜索的区域时
-      clearRegion() {
-        this.queryForm.buildingId = "";
-      },
-      //选择的区域变化时
-      selectRegionChange(region) {
-        this.buildingData = region.buildingList;
-      },
       // 更换每页数量
       sizeChangeEvent(val) {
         this.listLoading = true;
@@ -419,16 +239,9 @@
 
   .second-container {
     background-color: $background-grey;
-    .toolbar {
-      .el-form-item {
-        margin-bottom: 0;
-      }
-      .card {
-        padding: 10px;
-      }
-    }
+
     .table-tabs {
-      height: 54vh;
+      height: 52vh;
       padding-bottom: 40px;
       position: relative;
       &>.bottom-tool {

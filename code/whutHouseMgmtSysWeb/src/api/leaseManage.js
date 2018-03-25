@@ -130,11 +130,12 @@ export function postHireRenterMultiply(params,data) {
     })
 }
 // 生成租金
-export function postHireGenerateRental(data) {
+export function postHireGenerateRental(params,data) {
   return request({
     url: `/rentGenerate/rentGen`,
     method: 'post',
-    data: data
+    data: data,
+    params:params
   })
 }
 // 已生成租金查询

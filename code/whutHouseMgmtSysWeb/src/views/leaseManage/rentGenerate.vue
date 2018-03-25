@@ -30,12 +30,12 @@
               <el-col :span="2">
                 <el-button type="primary" @click="showDialog">条件检索</el-button>
               </el-col>
-              <el-col :span="8" :offset="1">
+              <el-col :span="6" :offset="1">
                 <el-date-picker v-model="timeRange" type="daterange" align="right" unlink-panels range-separator="-" start-placeholder="开始日期"
                   end-placeholder="结束日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd">
                 </el-date-picker>
               </el-col>
-              <el-col :span="2">
+              <el-col :span="2" :offset="1">
                 <el-button type="success" @click="rentalQuery">查询</el-button>
               </el-col>
               <el-col :span="2" :offset="1">
@@ -269,6 +269,9 @@
   import * as OPTION from "@/assets/data/formOption";
   import * as staticData from "@/utils/static";
   import utils from "@/utils/index.js";
+    import {
+    parseTime
+  } from "@/utils/time.js";
   export default {
     data() {
       return {
@@ -413,7 +416,59 @@
       },
       // 处理导出情况
       exportHandle(exportType){
-        
+     //console.log(33)
+        if (exportType == 1) this.handleDownload();
+        else {
+          let param = {
+            page: 1,
+            size: 9999
+          };
+          let data = Object.assign({}, this.queryForm);
+          postHireGenerateRental(param, data).then(res => {
+            const values = res.data.data.data.list;
+            this.handleDownload(values);
+          });
+        }
+      },
+      // 导出
+      handleDownload(...values) {
+        let filename = "租金表统计";
+        this.downloadLoading = true;
+        import ("@/vendor/Export2Excel").then(excel => {
+          const tHeader = [
+            "职工号",
+            "姓名",
+            "工作部门",
+            "住房地址",
+            "租金",
+          ];
+          const filterVal = [
+            "staffNo",
+            "staffName",
+            "staffName",
+            "address",
+            "rentInitMoney",
+          ];
+          let list = [];
+          if (arguments.length == 0) list = this.rentalData;
+          else list = arguments[0];
+          const data = this.formatJson(filterVal, list); // 用于自行洗数据
+          let date = new Date();
+          filename = filename + `(${parseTime(date, "{y}-{m}-{d}")})`;
+          excel.export_json_to_excel(tHeader, data, filename);
+          this.downloadLoading = false;
+        });
+      },
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v =>
+          filterVal.map(j => {
+            if (j === "timestamp") {
+              return parseTime(v[j]);
+            } else {
+              return v[j];
+            }
+          })
+        );
       },
       // 显示多条件查询时候
       showDialog() {
@@ -478,7 +533,8 @@
         //console.log(this.setList)
         this.listLoading = true;
         const data = this.setList;
-        postHireGenerateRental(data).then(res => {
+        let params={}
+        postHireGenerateRental(params,data).then(res => {
           utils.statusinfo(this, res.data);
           this.listLoading = false;
         });
