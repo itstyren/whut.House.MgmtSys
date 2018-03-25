@@ -56,6 +56,11 @@ public class HouseService implements BaseService<House> {
 		houseMapper.updateByPrimaryKeySelective(house);
 	}
 
+	/**
+	 * 根据No获取房屋信息
+	 * @param No
+	 * @return
+	 */
 	public List<House> getHouseByNo(String No) {
 		HouseExample example = new HouseExample();
 		Criteria criteria = example.createCriteria();
@@ -63,6 +68,12 @@ public class HouseService implements BaseService<House> {
 		return houseMapper.selectByExample(example);
 	}
 
+	/**
+	 * 根据房屋类别查询信息
+	 * @param paramTypeId
+	 * @param houseParamId
+	 * @return
+	 */
 	public List<House> getHousesByParamId(Integer paramTypeId, Integer houseParamId) {
 		HouseExample example = new HouseExample();
 		Criteria criteria = example.createCriteria();
@@ -81,7 +92,12 @@ public class HouseService implements BaseService<House> {
 		}
 		return houseMapper.selectByExample(example);
 	}
-
+//
+//	public List<String> getDiffParamName(Integer paramTypeId){
+//		HouseExample example = new HouseExample();
+//		Criteria criteria = example.createCriteria();
+//		
+//	}
 	@Override
 	public List<House> getAll() {
 		return houseMapper.selectByExample(null);
