@@ -1,6 +1,6 @@
 <template>
   <div class="components" v-loading="listLoading">
-    <el-form :model="residentForm" label-width="80px" :rules="rules" ref="residentForm">
+    <el-form :model="residentForm" label-width="100px" :rules="rules" ref="residentForm">
       <el-row  type="flex" justify="center" align="middle" >
         <el-col :span="5" >
           <el-form-item label="职工" prop="staffId">

@@ -117,12 +117,12 @@
 .paramDialog {
   .el-dialog {
     width: 30%;
-        margin-top: 25vh !important;
+    margin-top: 20vh !important;
   }
 }
-.paramDialog-large{
-    .el-dialog {
-      width: 40%;
-    }
 
+.paramDialog-large {
+  .el-dialog {
+    width: 40%;
+  }
 }
