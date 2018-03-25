@@ -93,6 +93,13 @@ export function postcancelHouse(data) {
 }
 
 // 网上选房-自助选房
+// 职工选房开始界面
+export function getSelectInfoByName(staffID) {
+  return request({
+    url: `/selfHelpSelectHouse/isSelectingHouse/${staffID}`,
+    method: 'get',
+  })
+}
 // 获取未选房职工
 export function getAllCanselectHouseStaff(params) {
     return request({

@@ -1,41 +1,39 @@
 <template>
   <div class="components" v-loading="listLoading">
-    <el-form :model="residentForm" inline :rules="rules" ref="residentForm">
-      <el-row  >
-        <el-col :span="7" :offset="1">
+    <el-form :model="residentForm" label-width="80px" :rules="rules" ref="residentForm">
+      <el-row  type="flex" justify="center" align="middle" >
+        <el-col :span="5" >
           <el-form-item label="职工" prop="staffId">
-            <el-input v-model="residentForm.staffId" style="width:200px" size="small" :readonly="true"></el-input>
+            <el-input v-model="residentForm.staffId"  size="small" :readonly="true"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="15">
+        <el-col :span="11">
           <el-form-item label="住房" prop="houseId">
-            <el-input v-model="residentForm.houseId" style="width:550px" size="small" placeholder="请选择" :readonly="true">
+            <el-input v-model="residentForm.houseId"  size="small" placeholder="请选择" :readonly="true">
               <el-button slot="append" icon="el-icon-search" @click="dialogVisible"></el-button>
             </el-input>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row  >
-        <el-col :span="7" :offset="1">
+      <el-row type="flex" justify="center" align="middle" >
+        <el-col :span="5" >
           <el-form-item label="关系" class="from-label"  prop="houseRel">
-            <el-select v-model="residentForm.houseRel" style="width:200px" size="small" placeholder="请选择">
+            <el-select v-model="residentForm.houseRel"  size="small" placeholder="请选择">
               <el-option v-for="status in statusData" :key="status.houseParamId" :value="status.houseParamId" :label="status.houseParamName"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="7">
+        <el-col :span="5">
           <el-form-item label="时间" class="from-label" prop="bookTime">
             <el-date-picker v-model="residentForm.bookTime" size="small" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="7">
-          <el-form-item>
-            <el-button type="" @click="resetForm">重置</el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="houseResident">登记</el-button>
-          </el-form-item>
-        </el-col>
+        <el-col :span="2" :offset="3">
+            <el-button style="margin-bottom:10px"  size="small" @click="resetForm">重置</el-button>
+        </el-col>            
+            <el-col :span="1" >
+            <el-button style="margin-bottom:10px" type="primary" size="small" @click="houseResident">登记</el-button>
+            </el-col>
       </el-row>
     </el-form>
   </div>

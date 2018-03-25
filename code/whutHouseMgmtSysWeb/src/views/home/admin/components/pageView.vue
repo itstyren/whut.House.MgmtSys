@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { getVisitRecord} from "@/api/dataAnalysis";
+import { getVisitRecord } from "@/api/dataAnalysis";
 import echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
 let _ = require("underscore");
@@ -69,7 +69,7 @@ export default {
           {
             data: [820, 932, 901, 934, 1290, 1330, 1320],
             type: "line",
-                    areaStyle: {}
+            areaStyle: {}
           }
         ],
         grid: {
@@ -77,7 +77,7 @@ export default {
           right: 20,
           bottom: 20,
           top: 30,
-          containLabel: true,
+          containLabel: true
         },
         tooltip: {
           trigger: "axis",
@@ -101,23 +101,23 @@ export default {
 
 
 <style scoped lang="scss">
-    .title {
-        padding:10px 0 0 10px;
-      position: relative;
-      width: 100%;
-      &::after {
-        content: "";
-        width: 98%;
-        height: 2px;
-        background-color: #dcdcdc;
-        position: absolute;
-        bottom: -10px;
-        z-index: 1;
-        left: 1%;
-        right: 1%;
-      }
-    }
-    .chart{
-        height: calc(100% - (10px + 5px) * 2);
-    }
+.title {
+  padding: 10px 0 0 10px;
+  position: relative;
+  width: 100%;
+  &::after {
+    content: "";
+    width: 98%;
+    height: 2px;
+    background-color: #dcdcdc;
+    position: absolute;
+    bottom: -10px;
+    z-index: 1;
+    left: 1%;
+    right: 1%;
+  }
+}
+.chart {
+  height: calc(100% - (10px + 5px) * 2);
+}
 </style>

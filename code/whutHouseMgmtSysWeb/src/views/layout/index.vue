@@ -115,11 +115,25 @@ $background-color: #373d41;
         background-color: $background-color;
       }
     }
-    > .title {
-      float: left;
-      padding-left: 10px; //border-right: 1px solid #000;
-      > span {
-        font-size: 20px;
+    @media only screen and (min-width: 1024px) {
+      > .title {
+        float: left;
+        padding-left: 10px; //border-right: 1px solid #000;
+
+        span {
+          font-size: 20px;
+        }
+      }
+    }
+    @media only screen and (max-width: 1024px) {
+      .main-menu {
+        margin-left: 25px;
+      }
+      > .title {
+        float: left;
+        span {
+          font-size: 15px;
+        }
       }
     }
     > .account {

@@ -10,15 +10,8 @@
         @node-click="nodeClick"></el-tree>
     </aside>
     <section  :class="{'special-container':staffShow,'main-container':!staffShow}">
-      <!-- 需要长时间存活的 -->
-      <transition>
-        <keep-alive>
-          <router-view v-if="$route.meta.keepAlive" :dep-data="depData"></router-view>
-        </keep-alive>
-      </transition>
-      <!-- 不需要长时间保存的 -->
       <transition mode="out-in">
-        <router-view v-if="!$route.meta.keepAlive" :dep-data="depData"></router-view>
+        <router-view :dep-data="depData"></router-view>
       </transition>
     </section>
   </div>
@@ -34,11 +27,15 @@ export default {
       // 部门信息加职工
       depData: [],
       filterText: "",
-      staffShow:false,
     };
   },
   created() {
     this.getList();
+  },
+  computed: {
+    staffShow(){
+       return this.$store.state.app.staffShow
+    }
   },
   watch: {
     // 监听输入值
@@ -117,12 +114,12 @@ export default {
     nodeClick(object, node, component) {
       //console.log(node);
       if (node.level == 1) {
-        this.staffShow=false    
+      this.$store.commit('SET_STAFF_SHOW',false)  
         this.$router.push({
           path: "/basic/staff/byDept/" + object.id
         });
       } else if (node.level == 2) {
-        this.staffShow=true
+      this.$store.commit('SET_STAFF_SHOW',true)  
         this.$router.push({
           path: "/basic/staff/byId/" + object.id
         });

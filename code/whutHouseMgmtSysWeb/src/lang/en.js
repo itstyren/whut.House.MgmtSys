@@ -28,7 +28,9 @@ export default {
         hireStafferSet:'HireStafferSet',
         hireHouseSet:'HireHouseSet',
         selfService:'SelfService',
-        hireApply:'HireApply'
+        hireApply:'HireApply',
+        analysis:'Analysis',
+        houseAnalysis:'HouseAnalysis'
     },
     header:{
         title:'Wuhan University of Technology',

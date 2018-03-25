@@ -38,14 +38,22 @@
       </el-pagination>
     </div>
     <!-- 新增表单 -->
-    <el-dialog title="新增住房结构" :visible.sync="addFormVisible" v-loading="submitLoading">
+    <el-dialog title="新增住房结构" class="paramDialog" :visible.sync="addFormVisible" v-loading="submitLoading">
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="住房结构" prop="houseParamName">
-          <el-input v-model="addFormBody.houseParamName" placeholder="请输入住房结构"></el-input>
-        </el-form-item>
-        <el-form-item label="租金" prop="structRent">
-          <el-input v-model="addFormBody.structRent" placeholder="请输入租金"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="住房结构" prop="houseParamName">
+              <el-input v-model="addFormBody.houseParamName" placeholder="请输入住房结构"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="租金" prop="structRent">
+              <el-input v-model="addFormBody.structRent" placeholder="请输入租金"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" addFormVisible = false">取消</el-button>
@@ -54,14 +62,22 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑住房结构" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
+    <el-dialog title="编辑住房结构" class="paramDialog" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules">
-        <el-form-item label="住房结构" prop="houseParamName">
-          <el-input v-model="modifyFromBody.houseParamName" placeholder="请输入住房结构"></el-input>
-        </el-form-item>
-        <el-form-item label="租金" prop="structRent">
-          <el-input v-model="modifyFromBody.structRent" placeholder="请输入租金"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="住房结构" prop="houseParamName">
+              <el-input v-model="modifyFromBody.houseParamName" placeholder="请输入住房结构"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="租金" prop="structRent">
+              <el-input v-model="modifyFromBody.structRent" placeholder="请输入租金"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" modifyFormVisible = false">取消</el-button>

@@ -46,60 +46,60 @@
       </el-pagination>
     </div>
     <!-- 新增表单 -->
-    <el-dialog title="新增楼栋" :visible.sync="addFormVisible" v-loading="submitLoading">
+    <el-dialog title="新增楼栋" class="paramDialog-large" :visible.sync="addFormVisible" v-loading="submitLoading">
       <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
         <el-row>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="1">
             <el-form-item label="楼栋名称" prop="name">
               <el-input v-model="addFormBody.name" placeholder="请输入楼栋名称"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="2">
             <el-form-item label="竣工时间" prop="finishTime">
               <el-date-picker v-model="addFormBody.finishTime" placeholder="竣工时间" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="1" >
             <el-form-item label="占地面积" prop="floorArea">
               <el-input v-model="addFormBody.floorArea" placeholder="请输入占地面积"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="2">
             <el-form-item label="使用面积" prop="usedArea">
               <el-input v-model="addFormBody.usedArea" placeholder="请输入使用面积"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="1" >
             <el-form-item label="楼层数" prop="floorCount">
               <el-input v-model="addFormBody.floorCount" placeholder="请输入楼层数"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="2">
             <el-form-item label="单元数" prop="unitCount">
               <el-input v-model="addFormBody.unitCount" placeholder="请输入单元数"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="1" >
             <el-form-item label="负责人" prop="manager">
               <el-input v-model="addFormBody.manager" placeholder="请输入负责人"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="2">
             <el-form-item label="维修基金" prop="supportFund">
               <el-input v-model="addFormBody.supportFund" placeholder="请输入维修基金"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="11" :offset="1">
+          <el-col :span="14" :offset="1">
             <el-form-item label="描述" prop="description">
-              <el-input v-model="addFormBody.description" type="textarea" :rows="2" placeholder="请输入描述"></el-input>
+              <el-input v-model="addFormBody.description" type="textarea" :rows="3" placeholder="请输入描述"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -111,60 +111,60 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑住房类型" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
+    <el-dialog title="编辑住房类型" class="paramDialog-large" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules">
         <el-row>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="1">
             <el-form-item label="楼栋名称" prop="name">
               <el-input v-model="modifyFromBody.name" placeholder="请输入楼栋名称"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="2">
             <el-form-item label="竣工时间" prop="finishTime">
               <el-date-picker v-model="modifyFromBody.finishTime" placeholder="竣工时间" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="1">
             <el-form-item label="占地面积" prop="floorArea">
               <el-input v-model="modifyFromBody.floorArea" placeholder="请输入占地面积"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="2">
             <el-form-item label="使用面积" prop="usedArea">
               <el-input v-model="modifyFromBody.usedArea" placeholder="请输入使用面积"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="1">
             <el-form-item label="楼层数" prop="floorCount">
               <el-input v-model="modifyFromBody.floorCount" placeholder="请输入楼层数"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="2">
             <el-form-item label="单元数" prop="unitCount">
               <el-input v-model="modifyFromBody.unitCount" placeholder="请输入单元数"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="1">
             <el-form-item label="负责人" prop="manager">
               <el-input v-model="modifyFromBody.manager" placeholder="请输入负责人"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11" :offset="1">
+          <el-col :span="10" :offset="2">
             <el-form-item label="维修基金" prop="supportFund">
               <el-input v-model="modifyFromBody.supportFund" placeholder="请输入维修基金"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="11" :offset="1">
+          <el-col :span="14" :offset="1">
             <el-form-item label="描述" prop="description">
-              <el-input v-model="modifyFromBody.description" type="textarea" :rows="2" placeholder="请输入描述"></el-input>
+              <el-input v-model="modifyFromBody.description" type="textarea" :rows="3" placeholder="请输入描述"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

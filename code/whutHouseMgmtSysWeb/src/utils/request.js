@@ -53,7 +53,8 @@ service.interceptors.response.use(
     console.log('err' + error) // for debug
     //  401:Token 过期了;
     const err =error.response
-    if (err.code === 401) {
+    console.log('出现错误')
+    if (err.code == 401) {
       MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
         confirmButtonText: '重新登录',
         cancelButtonText: '取消',

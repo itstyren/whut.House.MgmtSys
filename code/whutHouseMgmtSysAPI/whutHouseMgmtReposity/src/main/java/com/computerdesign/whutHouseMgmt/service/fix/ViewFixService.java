@@ -70,6 +70,7 @@ public class ViewFixService {
 	public List<ViewFix> getByMultiCondition(FixGetCheck fixGetCheck) {
 		ViewFixExample example = new ViewFixExample();
 		Criteria criteria = example.createCriteria();
+		
 		Date startTime = fixGetCheck.getStartTime();
 		Date endTime = fixGetCheck.getEndTime();
 		Integer conditionId = fixGetCheck.getConditionId();
@@ -98,6 +99,8 @@ public class ViewFixService {
 				criteria.andStaffNameEqualTo(conditionContent);
 			}
 		}
+		criteria.andIsOverEqualTo(true);
+		criteria.andAgreeStateEqualTo("通过");
 		return viewFixMapper.selectByExample(example);
 		
 		
@@ -164,6 +167,7 @@ public class ViewFixService {
 	 */
 	public List<ViewFix> getManagement() {
 		ViewFixExample example = new ViewFixExample();
+		example.setOrderByClause("ApplyTime DESC");
 		Criteria criteria = example.createCriteria();
 		criteria.andIsCheckEqualTo(false);
 		criteria.andPriceTimeIsNull();

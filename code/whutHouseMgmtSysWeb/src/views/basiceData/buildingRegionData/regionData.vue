@@ -38,14 +38,22 @@
       </el-pagination>
     </div>
     <!-- 新增表单 -->
-    <el-dialog title="新增区域" :visible.sync="addFormVisible" v-loading="submitLoading" width="35%">
-      <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto style="padding-left: 10%;">
-        <el-form-item label="区域名" prop="name">
-          <el-input v-model="addFormBody.name" placeholder="请输入区域" style="width:300px"></el-input>
-        </el-form-item>
-        <el-form-item label="描述" prop="description">
-          <el-input type="textarea" :autosize="{minRows:2,maxRows:4}" v-model="addFormBody.description" placeholder="请输入描述" style="width:300px"></el-input>
-        </el-form-item>
+    <el-dialog title="新增区域" class="paramDialog" :visible.sync="addFormVisible" v-loading="submitLoading">
+      <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="区域名" prop="name">
+              <el-input v-model="addFormBody.name" placeholder="请输入区域"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="描述" prop="description">
+              <el-input type="textarea" :autosize="{minRows:2,maxRows:4}" v-model="addFormBody.description" placeholder="请输入描述"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" addFormVisible = false">取消</el-button>
@@ -54,14 +62,22 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑楼栋区域" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
+    <el-dialog title="编辑楼栋区域" class="paramDialog" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules">
-        <el-form-item label="区域名" prop="name">
-          <el-input v-model="modifyFromBody.name" placeholder="请输入区域" style="width:300px"></el-input>
-        </el-form-item>
-        <el-form-item label="描述" prop="description">
-          <el-input type="textarea" :autosize="{minRows:2,maxRows:4}" v-model="modifyFromBody.description" placeholder="请输入描述" style="width:300px"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="区域名" prop="name">
+              <el-input v-model="modifyFromBody.name" placeholder="请输入区域"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="描述" prop="description">
+              <el-input type="textarea" :autosize="{minRows:2,maxRows:4}" v-model="modifyFromBody.description" placeholder="请输入描述"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" modifyFormVisible = false">取消</el-button>

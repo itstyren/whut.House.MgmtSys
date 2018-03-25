@@ -28,10 +28,12 @@ export default {
         hireStafferSet: '选房资格认定',
         hireHouseSet: '可选房源设置',
         selfService: '自助选房',
-        hireApply: '住房申请'
+        hireApply: '住房申请',
+        analysis:'数据分析',
+        houseAnalysis:'住房分析'
     },
     header: {
-        title: '武汉理工大学房屋管理与货币化补贴系统',
+        title: '高校房屋管理与货币化补贴系统',
         swich:'切换语言成功',
         screenfull:'全屏',
         screenfull_message: 'you browser can not work'                       

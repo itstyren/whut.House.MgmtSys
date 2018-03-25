@@ -15,8 +15,10 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.agree.HireAddAgree;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
+import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
+import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastHireRecordService;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.computerdesign.whutHouseMgmt.utils.StaffHomePageUtils;
@@ -35,6 +37,8 @@ public class HireAgreeController {
 	@Autowired
 	private ViewHireService viewHireService;
 	
+	@Autowired
+	private ViewHouseService viewHouseService;
 	@Autowired
 	private LastHireRecordService lastHireRecordService;
 
@@ -111,7 +115,10 @@ public class HireAgreeController {
 			hire.setAgreeTime(new Date());
 			
 			hire.setHouseId(hireAddAgree.getHouseId());
-			
+							
+			if (hireService.getCountByHouseId(hire.getHouseId())>0) {
+				return Msg.error("该房屋已被分配给其他员工");
+			}
 			//保存上一级租赁状态
 			StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
 			

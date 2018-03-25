@@ -3,7 +3,8 @@ import Cookies from 'js-cookie'
 const app = {
   state: {
     language: Cookies.get('language') || 'en',
-    seachVisible: false
+    seachVisible: false,
+    staffShow:false,
   },
   mutations: {
     SET_LANGUAGE: (state, language) => {
@@ -12,6 +13,9 @@ const app = {
     },
     SET_DIALOG_VISIBLE:(state,bool)=>{
       state.seachVisible=bool
+    },
+    SET_STAFF_SHOW:(state,bool)=>{
+      state.staffShow=bool
     }
   },
   actions: {

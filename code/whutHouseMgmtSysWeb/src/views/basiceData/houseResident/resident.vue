@@ -27,7 +27,7 @@
           </el-col>
         </el-row>
         <!-- 住房登记区 -->
-        <el-row class="house-resident card">
+        <el-row class="house-resident card"  type="flex" justify="center" align="middle" >
           <el-col :span="24">
             <house-resident :select-house="selectHouseName" :select-house-id="selectHouseId" ></house-resident>
           </el-col>

@@ -88,10 +88,7 @@ public class UserLoginController extends BaseController{
 	public Msg tokenLogin(@RequestParam(value = "token") String token, HttpServletRequest request,
 			HttpServletResponse response) {
 
-		System.out.println(token);
 		String userId = null;
-
-		System.out.println(token);
 		try { // 解析token
 			userId = SubjectUtil.getInstance().parseToken(token).getSubject();
 		} catch (ExpiredJwtException e) {
