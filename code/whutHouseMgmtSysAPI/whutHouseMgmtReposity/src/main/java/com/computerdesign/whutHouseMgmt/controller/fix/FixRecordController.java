@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
-import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 
@@ -40,21 +39,21 @@ public class FixRecordController {
 	 * @param day
 	 * @return
 	 */
-	@GetMapping(value="Name")
-	@ApiOperation(value="获取这一周的维修类型的名称",notes="获取这一周的维修类型的名称",httpMethod="GET")
-	public Msg getFixRecordName(@RequestParam("day")Integer day) {
-		
-		Date startDate = DateUtil.getDelayAppointDate(new Date(), day);
-		Date endDate = new Date();
-		List<ViewFix> listViewFix = viewFixService.getByTime(startDate,endDate);
-		List<String> listString = new ArrayList<String>();
-		for (ViewFix viewFix : listViewFix) {
-			if (!listString.contains(viewFix.getFixContentName())) {
-				listString.add(viewFix.getFixContentName());				
-			}
-		}
-		return Msg.success("返回最近"+day+"天全部的维修类型").add("data", listString);
-	}
+//	@GetMapping(value="Name")
+//	@ApiOperation(value="获取这一周的维修类型的名称",notes="获取这一周的维修类型的名称",httpMethod="GET")
+//	public Msg getFixRecordName(@RequestParam("day")Integer day) {
+//		
+//		Date startDate = DateUtil.getDelayAppointDate(new Date(), day);
+//		Date endDate = new Date();
+//		List<ViewFix> listViewFix = viewFixService.getByTime(startDate,endDate);
+//		List<String> listString = new ArrayList<String>();
+//		for (ViewFix viewFix : listViewFix) {
+//			if (!listString.contains(viewFix.getFixContentName())) {
+//				listString.add(viewFix.getFixContentName());				
+//			}
+//		}
+//		return Msg.success("返回最近"+day+"天全部的维修类型").add("data", listString);
+//	}
 	
 	/**
 	 * 获取这一周的维修类型的名称与对应数量
@@ -67,9 +66,12 @@ public class FixRecordController {
 		Date startDate = DateUtil.getDelayAppointDate(new Date(), day);
 		Date endDate = new Date();
 		List<ViewFix> listViewFix = viewFixService.getByTime(startDate,endDate);
-		
+		List<String> listString = new ArrayList<String>();
 		Map<String, Integer> map =new HashMap<String, Integer>();
 		for (ViewFix viewFix : listViewFix) {
+			if (!listString.contains(viewFix.getFixContentName())) {
+				listString.add(viewFix.getFixContentName());				
+			}
 			if (!map.containsKey(viewFix.getFixContentName())) {
 				map.put(viewFix.getFixContentName(),0);
 			}
@@ -83,6 +85,6 @@ public class FixRecordController {
 			mapAl.put("value", map.get(key).toString());
 			listMap.add(mapAl);
 		}
-		return Msg.success("返回最近"+day+"天全部的维修类型名称与数量").add("data", listMap);
+		return Msg.success("返回最近"+day+"天全部的维修类型名称与数量").add("name", listString).add("count", listMap);
 	}
 }

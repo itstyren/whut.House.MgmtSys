@@ -65,6 +65,14 @@ public class DateUtil {
 		return formatDate(date, "yyyy-MM-dd");
 	}
 	
+	/**
+	 * 时间格式转化(M.d)
+	 * 前端需要
+	 * @return
+	 */
+	public static String getCurrentSimpleRecordDate(Date date) {
+		return formatDate(date, "M.d");
+	}
 	
 	/**
 	 * 得到当前年份字符串

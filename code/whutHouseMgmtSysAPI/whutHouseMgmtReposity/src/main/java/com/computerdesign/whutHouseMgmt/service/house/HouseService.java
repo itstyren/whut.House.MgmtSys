@@ -12,8 +12,6 @@ import com.computerdesign.whutHouseMgmt.bean.house.HouseExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.house.HouseMapper;
 import com.computerdesign.whutHouseMgmt.service.base.BaseService;
 
-import net.sf.jsqlparser.util.AddAliasesVisitor;
-
 @Transactional
 @Service
 public class HouseService implements BaseService<House> {
