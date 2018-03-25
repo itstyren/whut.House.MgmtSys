@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -118,7 +120,7 @@ public class RentEventController {
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public Msg addRentEvent(@RequestBody RentEventModel rentEventModel) {
-		RentEvent rentEvent = new RentEvent(15, "选房选项", false, false);
+		RentEvent rentEvent = new RentEvent(15, "选房选项", "选房活动未开始", false);
 		exchange(rentEvent, rentEventModel);
 		rentEventService.add(rentEvent);
 		return Msg.success().add("data", rentEvent);
@@ -141,9 +143,8 @@ public class RentEventController {
 		List<RentEvent> rentEvents = rentEventService.getAll();
 		// 格式化日期后封装在另一个bean的list
 		// List<RentEventModel> rentEventModels = dateFormat(rentEvents);
-		 isBegin(rentEvents);
+//		 isBegin(rentEvents);
 //		List<RentEventModel> rentEventModels = isBegin(rentEvents);
-
 		PageInfo pageInfo = new PageInfo(rentEvents);
 		// 将封装好的数据设置到pageInfo返回
 //		pageInfo.setList(rentEventModels);
@@ -171,7 +172,7 @@ public class RentEventController {
 			// System.out.println("--------");
 			//if (now.getTime() >= rentTimeBegin.getTime() && now.getTime() <= rentTimeEnd.getTime()) {
 			if (now.getTime() >= rentTimeBegin.getTime()) {
-				rentEvent.setRentIsOpenSel(true);
+				rentEvent.setRentOpenSelStatus("正在选房");
 				// 更新数据库数据
 				rentEventService.update(rentEvent);
 			}

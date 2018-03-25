@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValue;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValueExample;
 import com.computerdesign.whutHouseMgmt.dao.staffmanagement.StaffMapper;
+import com.computerdesign.whutHouseMgmt.dao.staffmanagement.StaffValueMapper;
 import com.computerdesign.whutHouseMgmt.service.base.BaseService;
 
 @Service
@@ -16,6 +19,35 @@ public class StaffService implements BaseService<Staff> {
 
 	@Autowired
 	private StaffMapper staffMapper;
+	
+	@Autowired
+	private StaffValueMapper staffValueMapper;
+	
+	/**
+	 * 根据staffNo获取单个StaffValue记录
+	 * @param staffNo
+	 * @return
+	 */
+	public StaffValue getStaffValueByStaffNo(String staffNo){
+		StaffValueExample example = new StaffValueExample();
+		com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValueExample.Criteria criteria = example.createCriteria();
+		criteria.andNoEqualTo(staffNo);
+		if(staffValueMapper.selectByExample(example) != null){
+			return staffValueMapper.selectByExample(example).get(0);
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取所有职工的分数记录
+	 * @return
+	 */
+	public List<StaffValue> getAllStaffValues(){
+		StaffValueExample example = new StaffValueExample();
+		com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValueExample.Criteria criteria = example.createCriteria();
+		return staffValueMapper.selectByExample(example);
+	}
 	
 	/**
 	 * 根据id重置该员工密码
@@ -97,8 +129,9 @@ public class StaffService implements BaseService<Staff> {
 	
 	@Override
 	public List<Staff> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		StaffExample example = new StaffExample();
+		Criteria criteria = example.createCriteria();
+		return staffMapper.selectByExample(example);
 	}
 
 	@Override
