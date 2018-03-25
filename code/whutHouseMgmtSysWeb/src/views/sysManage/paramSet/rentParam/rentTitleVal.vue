@@ -44,17 +44,29 @@
       </el-pagination>
     </div>
     <!-- 编辑表单 -->
-    <el-dialog title="编辑职称分" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
+    <el-dialog title="编辑职称分" class="paramDialog" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
       <el-form :model="modifyFromBody" label-width="100px" ref="modifyFrom" :rules="rules">
-        <el-form-item label="职工类别" prop="staffParamName">
-          <el-input v-model="modifyFromBody.staffParamName" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="职称分" prop="staffParamVal">
-          <el-input v-model="modifyFromBody.staffParamVal" placeholder="请输入职称分"></el-input>
-        </el-form-item>
-        <el-form-item label="配偶职称分" prop="staffParamSpouseVal">
-          <el-input v-model="modifyFromBody.staffParamSpouseVal" placeholder="请输入配偶职称分"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="职工类别" prop="staffParamName">
+              <el-input v-model="modifyFromBody.staffParamName" :disabled="true"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="职称分" prop="staffParamVal">
+              <el-input v-model="modifyFromBody.staffParamVal" placeholder="请输入职称分"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="配偶职称分" prop="staffParamSpouseVal">
+              <el-input v-model="modifyFromBody.staffParamSpouseVal" placeholder="请输入配偶职称分"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" modifyFormVisible = false">取消</el-button>
@@ -65,117 +77,114 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    getRentParamAboutStaff,
-    putRentParamAboutStaff
-  } from '@/api/sysManage'
-  import utils from '@/utils/index.js'
-  export default {
-    data() {
-      // 正则验证
-      const validateNum = (rule, value, callback) => {
-        const RULES = /^\d+$/
-        if (value == null) {
-          callback(new Error('请输入面积'))
-        } else if (!RULES.test(value)) {
-          callback(new Error('输入值必须为非负整数'))
-        } else {
-          callback()
-        }
+import {
+  getRentParamAboutStaff,
+  putRentParamAboutStaff
+} from "@/api/sysManage";
+import utils from "@/utils/index.js";
+export default {
+  data() {
+    // 正则验证
+    const validateNum = (rule, value, callback) => {
+      const RULES = /^\d+$/;
+      if (value == null) {
+        callback(new Error("请输入面积"));
+      } else if (!RULES.test(value)) {
+        callback(new Error("输入值必须为非负整数"));
+      } else {
+        callback();
       }
-      return {
-        popoverVisible: false,
-        paramClass: '12',
-        // 表格数据
-        PostValData: [],
-        listLoading: false,
-        totalNum: 1,
-        page: 1,
-        size: 10,
+    };
+    return {
+      popoverVisible: false,
+      paramClass: "12",
+      // 表格数据
+      PostValData: [],
+      listLoading: false,
+      totalNum: 1,
+      page: 1,
+      size: 10,
 
-        // 表单规则验证
-        rules: {
-          staffParamSpouseVal: {
-            validator: validateNum,
-            trigger: 'blur'
-          },
-          staffParamSpouseVal: {
-            validator: validateNum,
-            trigger: 'blur'
-          }
+      // 表单规则验证
+      rules: {
+        staffParamSpouseVal: {
+          validator: validateNum,
+          trigger: "blur"
         },
-
-        //编辑表单相关数据
-        modifyFormVisible: false,
-        modifyLoading: false,
-        modifyFromBody: {
-          staffParamName: '',
-          staffParamVal: '',
-          staffParamSpouseVal: ''
-
-        },
-
-      }
-
-    },
-    mounted() {
-      this.getList()
-    },
-    methods: {
-      // 获取职工职称
-      getList() {
-        this.listLoading = true
-        let param = {
-          page: this.page,
-          size: this.size
+        staffParamSpouseVal: {
+          validator: validateNum,
+          trigger: "blur"
         }
-        // http请求
-        getRentParamAboutStaff(param, this.paramClass).then((res) => {
-          this.PostValData = res.data.data.data.list
-          this.totalNum = res.data.data.data.total
-          this.listLoading = false
-        }).catch((err) => {
-          console.log(err)
-        })
       },
-      //显示编辑
-      showModifyDialog(index, row) {
-        this.modifyFormVisible = true
-        this.modifyFromBody = Object.assign({}, row)
-        this.selectRowIndex = index
-        //console.log(this.selectRowIndex)
-      },
-      //编辑提交
-      modifySubmit() {
-        this.$refs['modifyFrom'].validate((valid) => {
-          if (valid) {
-            this.modifyLoading = true
-            let param = Object.assign({}, this.modifyFromBody)
-            putRentParamAboutStaff(param).then((res) => {
-              utils.statusinfo(this, res.data)
-              this.modifyLoading = false
-              this.modifyFormVisible = false
-              this.getList()
-            })
-          }
-        })
-      },
-      //更换每页数量
-      SizeChangeEvent(val) {
-        this.size = val;
-        this.getList();
-      },
-      //页码切换时
-      CurrentChangeEvent(val) {
-        this.page = val;
-        this.getList();
+
+      //编辑表单相关数据
+      modifyFormVisible: false,
+      modifyLoading: false,
+      modifyFromBody: {
+        staffParamName: "",
+        staffParamVal: "",
+        staffParamSpouseVal: ""
       }
+    };
+  },
+  mounted() {
+    this.getList();
+  },
+  methods: {
+    // 获取职工职称
+    getList() {
+      this.listLoading = true;
+      let param = {
+        page: this.page,
+        size: this.size
+      };
+      // http请求
+      getRentParamAboutStaff(param, this.paramClass)
+        .then(res => {
+          this.PostValData = res.data.data.data.list;
+          this.totalNum = res.data.data.data.total;
+          this.listLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    //显示编辑
+    showModifyDialog(index, row) {
+      this.modifyFormVisible = true;
+      this.modifyFromBody = Object.assign({}, row);
+      this.selectRowIndex = index;
+      //console.log(this.selectRowIndex)
+    },
+    //编辑提交
+    modifySubmit() {
+      this.$refs["modifyFrom"].validate(valid => {
+        if (valid) {
+          this.modifyLoading = true;
+          let param = Object.assign({}, this.modifyFromBody);
+          putRentParamAboutStaff(param).then(res => {
+            utils.statusinfo(this, res.data);
+            this.modifyLoading = false;
+            this.modifyFormVisible = false;
+            this.getList();
+          });
+        }
+      });
+    },
+    //更换每页数量
+    SizeChangeEvent(val) {
+      this.size = val;
+      this.getList();
+    },
+    //页码切换时
+    CurrentChangeEvent(val) {
+      this.page = val;
+      this.getList();
     }
   }
-
+};
 </script>
 
 <style scoped lang="scss">
-
 
 </style>

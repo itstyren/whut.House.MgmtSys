@@ -2,7 +2,7 @@
   <div class="seach">
     <el-dialog title="选择住房" custom-class="query" @close="dialogClose" :visible.sync="formVisible" v-loading="selectLoading" @open="openDialog">
       <div class="query-tool">
-        <el-form :model="queryForm" label-width="80px" ref="queryForm">
+        <el-form :model="queryForm" label-width="100px" ref="queryForm">
           <el-row type="flex" justify="start">
             <el-col :span="7">
               <el-form-item label="住房类型">

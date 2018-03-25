@@ -43,14 +43,22 @@
       </el-pagination>
     </div>
     <!-- 编辑表单 -->
-    <el-dialog title="编辑职务分" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
+    <el-dialog title="编辑职务分" class="paramDialog" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
       <el-form :model="modifyFromBody" label-width="100px" ref="modifyFrom" :rules="rules">
-        <el-form-item label="职务类别" prop="staffParamName">
-          <el-input v-model="modifyFromBody.staffParamName" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="享受面积" prop="staffParamHouseArea">
-          <el-input v-model="modifyFromBody.staffParamHouseArea" placeholder="请输入享受面积"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="职务类别" prop="staffParamName">
+              <el-input v-model="modifyFromBody.staffParamName" :disabled="true"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="享受面积" prop="staffParamHouseArea">
+              <el-input v-model="modifyFromBody.staffParamHouseArea" placeholder="请输入享受面积"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" modifyFormVisible = false">取消</el-button>

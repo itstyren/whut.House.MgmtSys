@@ -89,9 +89,8 @@ export function getRentParamAboutEvent(params) {
   return request({
     url: `/rentEvent/get`,
     method: 'get',
-    params: {
-      params
-    }
+    params: params
+
   })
 }
 // 删除方法【选房选项】

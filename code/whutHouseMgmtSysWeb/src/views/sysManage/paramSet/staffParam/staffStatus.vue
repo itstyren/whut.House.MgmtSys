@@ -38,7 +38,7 @@
     </div>
     <!-- 新增表单 -->
     <el-dialog title="新增状态名称" class="paramDialog" :visible.sync="addFormVisible" v-loading="submitLoading">
-      <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
+      <el-form :model="addFormBody" label-width="100px" ref="addForm" :rules="rules" auto>
         <el-row>
           <el-col :span="20">
             <el-form-item label="状态名称" prop="staffParamName">
@@ -55,7 +55,7 @@
 
     <!-- 编辑表单 -->
     <el-dialog title="编辑状态名称" class="paramDialog" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
-      <el-form :model="modifyFromBody" label-width="80px" ref="modifyFrom" :rules="rules">
+      <el-form :model="modifyFromBody" label-width="100px" ref="modifyFrom" :rules="rules">
         <el-row>
           <el-col :span="20">
             <el-form-item label="状态名称" prop="staffParamName">

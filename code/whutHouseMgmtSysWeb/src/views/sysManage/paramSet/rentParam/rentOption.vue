@@ -21,7 +21,7 @@
       <!-- 表格区 -->
       <div class="main-data">
         <el-table :data="rentOptionData" class="table" v-loading="listLoading" height="string">
-          <el-table-column type="expand" label="住房规则">
+          <el-table-column type="expand">
             <template slot-scope="props">
               <el-form label-position="top" inline>
                 <el-form-item label="住房规则">
@@ -47,21 +47,39 @@
       </el-pagination>
     </div>
     <!-- 新增表单 -->
-    <el-dialog title="新增选房设置" :visible.sync="addFormVisible" v-loading="submitLoading">
-      <el-form :model="addFormBody" label-width="80px" ref="addForm" :rules="rules" auto>
-        <el-form-item label="所需积分" prop="rentSelValReq">
-          <el-input v-model="addFormBody.rentSelValReq" placeholder="请输入积分" style="width:350px"></el-input>
-        </el-form-item>
-        <el-form-item label="开始时间" prop="rentTimeBegin">
-              <el-date-picker v-model="addFormBody.rentTimeBegin" value-format="yyyy-MM-dd HH:mm:ss" type="datetime"  placeholder="选择日期时间"> </el-date-picker>
-        </el-form-item>
-                <el-form-item label="选房间隔" prop="rentSelRules">
-          <el-input-number v-model="addFormBody.rentTimeRanges" controls-position="right" :min="1" :max="30"></el-input-number>
-        </el-form-item>
-        <el-form-item label="选房规则" prop="rentSelRules">
-          <el-input type="textarea" :autosize="{minRows:3,maxRows:6}" placeholder="请输入内容" v-model="addFormBody.rentSelRules" style="width:350px">
-          </el-input>
-        </el-form-item>
+    <el-dialog title="新增选房设置" class="paramDialog" :visible.sync="addFormVisible" v-loading="submitLoading">
+      <el-form :model="addFormBody" label-width="100px" ref="addForm" :rules="rules" auto>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="所需积分" prop="rentSelValReq">
+              <el-input v-model="addFormBody.rentSelValReq" placeholder="请输入积分"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="开始时间" prop="rentTimeBegin">
+              <el-date-picker v-model="addFormBody.rentTimeBegin" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期时间">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="选房间隔" prop="rentSelRules">
+              <el-input-number v-model="addFormBody.rentTimeRanges" controls-position="right" :min="1" :max="30"></el-input-number>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="选房规则" prop="rentSelRules">
+              <el-input type="textarea" :autosize="{minRows:3,maxRows:6}" placeholder="请输入内容" v-model="addFormBody.rentSelRules">
+              </el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" addFormVisible = false">取消</el-button>
@@ -70,21 +88,39 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑选房选项" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
+    <el-dialog title="编辑选房选项" class="paramDialog" :visible.sync="modifyFormVisible" v-loading="modifyLoading" width="35%">
       <el-form :model="modifyFromBody" label-width="100px" ref="modifyFrom" :rules="rules">
-        <el-form-item label="所需积分" prop="rentSelValReq">
-          <el-input v-model="modifyFromBody.rentSelValReq" placeholder="请输入积分" style="width:350px"></el-input>
-        </el-form-item>
-        <el-form-item label="选房时间" prop="rentTimeBegin">
-              <el-date-picker v-model="modifyFromBody.rentTimeBegin" value-format="yyyy-MM-dd HH:mm:ss"  type="datetime"  placeholder="选择日期时间"> </el-date-picker>         
-        </el-form-item>
-                        <el-form-item label="选房间隔" prop="rentSelRules">
-          <el-input-number v-model="modifyFromBody.rentTimeRanges" controls-position="right" :min="1" :max="30"></el-input-number>
-        </el-form-item>
-        <el-form-item label="选房规则" prop="rentSelRules">
-          <el-input type="textarea" :autosize="{minRows:3,maxRows:6}" placeholder="请输入内容" v-model="modifyFromBody.rentSelRules" style="width:350px">
-          </el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="所需积分" prop="rentSelValReq">
+              <el-input v-model="modifyFromBody.rentSelValReq" placeholder="请输入积分"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="选房时间" prop="rentTimeBegin">
+              <el-date-picker v-model="modifyFromBody.rentTimeBegin" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期时间">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="选房间隔" prop="rentSelRules">
+              <el-input-number v-model="modifyFromBody.rentTimeRanges" controls-position="right" :min="1" :max="30"></el-input-number>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="选房规则" prop="rentSelRules">
+              <el-input type="textarea" :autosize="{minRows:3,maxRows:6}" placeholder="请输入内容" v-model="modifyFromBody.rentSelRules">
+              </el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native=" modifyFormVisible = false">取消</el-button>
@@ -167,12 +203,12 @@
       // 获取职工职务
       getList() {
         this.listLoading = true
-        let param = {
+        let params = {
           page: this.page,
           size: this.size
         }
         // http请求
-        getRentParamAboutEvent(param).then((res) => {
+        getRentParamAboutEvent(params).then((res) => {
           this.rentOptionData = res.data.data.data.list
           this.totalNum = res.data.data.data.total
           this.listLoading = false
@@ -204,13 +240,13 @@
         this.$refs['modifyFrom'].validate((valid) => {
           if (valid) {
             this.modifyLoading = true
-            const form =this.modifyFromBody
+            const form = this.modifyFromBody
             let param = {
-              rentEventId:form.rentEventId,
-              rentSelRules:form.rentSelRules,
-              rentSelValReq:parseInt(form.rentSelValReq),
-              rentTimeBegin:form.rentTimeBegin,
-              rentTimeRanges:form.rentTimeRanges
+              rentEventId: form.rentEventId,
+              rentSelRules: form.rentSelRules,
+              rentSelValReq: parseInt(form.rentSelValReq),
+              rentTimeBegin: form.rentTimeBegin,
+              rentTimeRanges: form.rentTimeRanges
             }
             putRentParamAboutEvent(param).then((res) => {
               utils.statusinfo(this, res.data)

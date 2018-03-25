@@ -17,7 +17,7 @@
         <div class="warp-body">
           <!-- 工具栏 -->
           <div class="toolbar">
-            <el-form :model="queryForm" label-width="80px">
+            <el-form :model="queryForm" label-width="100px">
               <div class="card">
                 <el-row>
                   <el-col :span="4">
@@ -79,7 +79,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="4">
-                    <el-form-item label="姓名/工号">
+                    <el-form-item label="直接查询">
                       <el-input v-model="queryForm.query" size="small" placeholder="请输入搜索"></el-input>
                     </el-form-item>
                   </el-col>
