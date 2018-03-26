@@ -24,3 +24,11 @@ export function getVisitRecord(params) {
         params: params
     })
 }
+// 获取7日访问量
+export function getVisitCapacity(params) {
+    return request({
+        url: `/record/visitCapacity`,
+        method: 'get',
+        params: params
+    })
+}
