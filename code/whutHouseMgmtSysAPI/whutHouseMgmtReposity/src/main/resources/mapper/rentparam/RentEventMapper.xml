@@ -5,7 +5,7 @@
     <id column="RentEventId" jdbcType="INTEGER" property="rentEventId" />
     <result column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
     <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
-    <result column="RentOpenSelStatus" jdbcType="VARCHAR" property="rentOpenSelStatus" />
+    <result column="RentIsOpenSel" jdbcType="BIT" property="rentIsOpenSel" />
     <result column="RentTimeBegin" jdbcType="TIMESTAMP" property="rentTimeBegin" />
     <result column="RentTimeRanges" jdbcType="INTEGER" property="rentTimeRanges" />
     <result column="RentSelValReq" jdbcType="VARCHAR" property="rentSelValReq" />
@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    RentEventId, ParamTypeId, ParamTypeName, RentOpenSelStatus, RentTimeBegin, RentTimeRanges, 
+    RentEventId, ParamTypeId, ParamTypeName, RentIsOpenSel, RentTimeBegin, RentTimeRanges, 
     RentSelValReq, RentSelRules, IsDelete
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEventExample" resultMap="BaseResultMap">
@@ -106,11 +106,11 @@
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent">
     insert into pm_rentevent (RentEventId, ParamTypeId, ParamTypeName, 
-      RentOpenSelStatus, RentTimeBegin, RentTimeRanges, 
+      RentIsOpenSel, RentTimeBegin, RentTimeRanges, 
       RentSelValReq, RentSelRules, IsDelete
       )
     values (#{rentEventId,jdbcType=INTEGER}, #{paramTypeId,jdbcType=INTEGER}, #{paramTypeName,jdbcType=VARCHAR}, 
-      #{rentOpenSelStatus,jdbcType=VARCHAR}, #{rentTimeBegin,jdbcType=TIMESTAMP}, #{rentTimeRanges,jdbcType=INTEGER}, 
+      #{rentIsOpenSel,jdbcType=BIT}, #{rentTimeBegin,jdbcType=TIMESTAMP}, #{rentTimeRanges,jdbcType=INTEGER}, 
       #{rentSelValReq,jdbcType=VARCHAR}, #{rentSelRules,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
       )
   </insert>
@@ -126,8 +126,8 @@
       <if test="paramTypeName != null">
         ParamTypeName,
       </if>
-      <if test="rentOpenSelStatus != null">
-        RentOpenSelStatus,
+      <if test="rentIsOpenSel != null">
+        RentIsOpenSel,
       </if>
       <if test="rentTimeBegin != null">
         RentTimeBegin,
@@ -155,8 +155,8 @@
       <if test="paramTypeName != null">
         #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="rentOpenSelStatus != null">
-        #{rentOpenSelStatus,jdbcType=VARCHAR},
+      <if test="rentIsOpenSel != null">
+        #{rentIsOpenSel,jdbcType=BIT},
       </if>
       <if test="rentTimeBegin != null">
         #{rentTimeBegin,jdbcType=TIMESTAMP},
@@ -193,8 +193,8 @@
       <if test="record.paramTypeName != null">
         ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.rentOpenSelStatus != null">
-        RentOpenSelStatus = #{record.rentOpenSelStatus,jdbcType=VARCHAR},
+      <if test="record.rentIsOpenSel != null">
+        RentIsOpenSel = #{record.rentIsOpenSel,jdbcType=BIT},
       </if>
       <if test="record.rentTimeBegin != null">
         RentTimeBegin = #{record.rentTimeBegin,jdbcType=TIMESTAMP},
@@ -221,7 +221,7 @@
     set RentEventId = #{record.rentEventId,jdbcType=INTEGER},
       ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
-      RentOpenSelStatus = #{record.rentOpenSelStatus,jdbcType=VARCHAR},
+      RentIsOpenSel = #{record.rentIsOpenSel,jdbcType=BIT},
       RentTimeBegin = #{record.rentTimeBegin,jdbcType=TIMESTAMP},
       RentTimeRanges = #{record.rentTimeRanges,jdbcType=INTEGER},
       RentSelValReq = #{record.rentSelValReq,jdbcType=VARCHAR},
@@ -240,8 +240,8 @@
       <if test="paramTypeName != null">
         ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="rentOpenSelStatus != null">
-        RentOpenSelStatus = #{rentOpenSelStatus,jdbcType=VARCHAR},
+      <if test="rentIsOpenSel != null">
+        RentIsOpenSel = #{rentIsOpenSel,jdbcType=BIT},
       </if>
       <if test="rentTimeBegin != null">
         RentTimeBegin = #{rentTimeBegin,jdbcType=TIMESTAMP},
@@ -265,7 +265,7 @@
     update pm_rentevent
     set ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
-      RentOpenSelStatus = #{rentOpenSelStatus,jdbcType=VARCHAR},
+      RentIsOpenSel = #{rentIsOpenSel,jdbcType=BIT},
       RentTimeBegin = #{rentTimeBegin,jdbcType=TIMESTAMP},
       RentTimeRanges = #{rentTimeRanges,jdbcType=INTEGER},
       RentSelValReq = #{rentSelValReq,jdbcType=VARCHAR},

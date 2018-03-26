@@ -1,10 +1,13 @@
 package com.computerdesign.whutHouseMgmt.controller.internetselecthouse;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,99 +65,108 @@ public class SelfHelpSelectHouseController {
 	@ResponseBody
 	@RequestMapping(value = "isSelectingHouse/{staffId}", method = RequestMethod.GET)
 	public Msg isSelectingHouse(@PathVariable("staffId") Integer staffId) {
+//		RentEvent rentEvent = rentEventService.get(1);
+		//获取正在进行的选房规则
+		RentEvent rentEvent = rentEventService.getNowRule();
+		
 		// 获取当前员工选房信息
 		StaffSelectHouse staffSelectHouseNow = staffSelectHouseService.getByStaffId(staffId);
 
 		List<SelfHelpSelectHouse> selfHelpSelectHouses = selfHelpSelectHouseService.getAllCanselectHouse();
-		Collections.sort(selfHelpSelectHouses, new Comparator<SelfHelpSelectHouse>() {
-			@Override
-			public int compare(SelfHelpSelectHouse o1, SelfHelpSelectHouse o2) {
-				// 升序
-				if (o1.getHouseSelectEnd().getTime() - o2.getHouseSelectEnd().getTime() > 0) {
-					return 1;
-				} else if (o1.getHouseSelectEnd().getTime() - o2.getHouseSelectEnd().getTime() < 0) {
-					return -1;
-				} else {
-					return 0;
+		if(selfHelpSelectHouses != null){
+			Collections.sort(selfHelpSelectHouses, new Comparator<SelfHelpSelectHouse>() {
+				@Override
+				public int compare(SelfHelpSelectHouse o1, SelfHelpSelectHouse o2) {
+					// 升序
+					if (o1.getHouseSelectEnd().getTime() - o2.getHouseSelectEnd().getTime() > 0) {
+						return 1;
+					} else if (o1.getHouseSelectEnd().getTime() - o2.getHouseSelectEnd().getTime() < 0) {
+						return -1;
+					} else {
+						return 0;
+					}
+				}
+			});
+			// 验证是否排序成功
+			// for (SelfHelpSelectHouse selfHelpSelectHouse : selfHelpSelectHouses){
+			// System.out.println(selfHelpSelectHouse.getHouseSelectEnd());
+			// }
+
+			// 用于保存正在选房人的信息
+			SelfHelpSelectHouse isSelecting = new SelfHelpSelectHouse();
+			// 用于保存下一个正在选房人的信息
+			SelfHelpSelectHouse nextSelecting = new SelfHelpSelectHouse();
+			int flag = 0;
+			// 遍历排好序后的数据
+			for (SelfHelpSelectHouse selfHelpSelectHouse : selfHelpSelectHouses) {
+				flag++;
+				long begin = selfHelpSelectHouse.getHouseSelectStart().getTime();
+				long end = selfHelpSelectHouse.getHouseSelectEnd().getTime();
+				if (begin <= new Date().getTime() && end >= new Date().getTime()) {
+					isSelecting = selfHelpSelectHouse;
+					break;
 				}
 			}
-		});
-		// 验证是否排序成功
-		// for (SelfHelpSelectHouse selfHelpSelectHouse : selfHelpSelectHouses){
-		// System.out.println(selfHelpSelectHouse.getHouseSelectEnd());
-		// }
-
-		// 用于保存正在选房人的信息
-		SelfHelpSelectHouse isSelecting = new SelfHelpSelectHouse();
-		// 用于保存下一个正在选房人的信息
-		SelfHelpSelectHouse nextSelecting = new SelfHelpSelectHouse();
-		int flag = 0;
-		// 遍历排好序后的数据
-		for (SelfHelpSelectHouse selfHelpSelectHouse : selfHelpSelectHouses) {
-			flag++;
-			long begin = selfHelpSelectHouse.getHouseSelectStart().getTime();
-			long end = selfHelpSelectHouse.getHouseSelectEnd().getTime();
-			if (begin <= new Date().getTime() && end >= new Date().getTime()) {
-				isSelecting = selfHelpSelectHouse;
-				break;
+			
+			
+			// 如果当前选房人有数据，且不是最后一个选房者，则获取下一个选房者
+			if (isSelecting.getStaffName() != null && flag != selfHelpSelectHouses.size()) {
+				nextSelecting = selfHelpSelectHouses.get(flag);
 			}
-		}
-		
-		
-		// 如果当前选房人有数据，且不是最后一个选房者，则获取下一个选房者
-		if (isSelecting.getStaffName() != null && flag != selfHelpSelectHouses.size()) {
-			nextSelecting = selfHelpSelectHouses.get(flag);
-		}
 
-		if(staffSelectHouseNow.getStaffId().equals(isSelecting.getStaffId())){
-			//如果轮到本人选房，返回哪些数据
-			IsSelectingHouseInfo isSelectingHouseInfo = new IsSelectingHouseInfo();
-			isSelectingHouseInfo.setIsSelectingStaffName(isSelecting.getStaffName());
-			isSelectingHouseInfo.setIsSelectingStaffEndTime(isSelecting.getHouseSelectEnd());
-			isSelectingHouseInfo.setNextSelectingStaffName(nextSelecting.getStaffName());
-			isSelectingHouseInfo.setSystemNowTime(new Date());
-			return Msg.success().add("data", isSelectingHouseInfo);
-		}
-		
-		
-		// 获取选房结束时间
-		SelfHelpSelectHouse selfHelpSelectHouse = selfHelpSelectHouses.get(selfHelpSelectHouses.size() - 1);
-		long endTime = selfHelpSelectHouse.getHouseSelectEnd().getTime();
-		System.out.println(selfHelpSelectHouse.getHouseSelectEnd());
-		// 获取选房开始时间,默认先使用id为1的选房参数
-//		RentEvent rentEvent = rentEventService.get(1);
-		RentEvent rentEvent = rentEventService.getNowRule();
-		
-		
-		if(rentEvent != null){
-			long beginTime = rentEvent.getRentTimeBegin().getTime();
-			// 判断当前是否还有选房活动
-			if (beginTime <= new Date().getTime() && endTime >= new Date().getTime()) {
-				Date staffStartTimeNow = staffSelectHouseNow.getSelectStart();
-				Date staffEndTimeNow = staffSelectHouseNow.getSelectEnd();
-				
-				// 封装需要返回的数据
+			if(staffSelectHouseNow.getStaffId().equals(isSelecting.getStaffId())){
+				//如果轮到本人选房，返回哪些数据
 				IsSelectingHouseInfo isSelectingHouseInfo = new IsSelectingHouseInfo();
-				isSelectingHouseInfo.setSelectTime(rentEvent.getRentTimeRanges());
-				isSelectingHouseInfo.setStaffStartTimeNow(staffStartTimeNow);
-				isSelectingHouseInfo.setStaffEndTimeNow(staffEndTimeNow);
 				isSelectingHouseInfo.setIsSelectingStaffName(isSelecting.getStaffName());
 				isSelectingHouseInfo.setIsSelectingStaffEndTime(isSelecting.getHouseSelectEnd());
-				if (nextSelecting.getStaffName() != null) {
-					isSelectingHouseInfo.setNextSelectingStaffName(nextSelecting.getStaffName());
-				}
+				isSelectingHouseInfo.setNextSelectingStaffName(nextSelecting.getStaffName());
 				isSelectingHouseInfo.setSystemNowTime(new Date());
 				return Msg.success().add("data", isSelectingHouseInfo);
-			} else if(beginTime >= new Date().getTime()){
-				return Msg.success("选房活动未开始");
+			}
+			
+			
+			// 获取选房结束时间
+			SelfHelpSelectHouse selfHelpSelectHouse = selfHelpSelectHouses.get(selfHelpSelectHouses.size() - 1);
+			long endTime = selfHelpSelectHouse.getHouseSelectEnd().getTime();
+			System.out.println(selfHelpSelectHouse.getHouseSelectEnd());
+			// 获取选房开始时间,默认先使用id为1的选房参数
+
+			
+			
+			if(rentEvent != null){
+				long beginTime = rentEvent.getRentTimeBegin().getTime();
+				// 判断当前是否还有选房活动
+				if (beginTime <= new Date().getTime() && endTime >= new Date().getTime()) {
+					Date staffStartTimeNow = staffSelectHouseNow.getSelectStart();
+					Date staffEndTimeNow = staffSelectHouseNow.getSelectEnd();
+					
+					// 封装需要返回的数据
+					IsSelectingHouseInfo isSelectingHouseInfo = new IsSelectingHouseInfo();
+					isSelectingHouseInfo.setSelectTime(rentEvent.getRentTimeRanges());
+					isSelectingHouseInfo.setStaffStartTimeNow(staffStartTimeNow);
+					isSelectingHouseInfo.setStaffEndTimeNow(staffEndTimeNow);
+					isSelectingHouseInfo.setIsSelectingStaffName(isSelecting.getStaffName());
+					isSelectingHouseInfo.setIsSelectingStaffEndTime(isSelecting.getHouseSelectEnd());
+					if (nextSelecting.getStaffName() != null) {
+						isSelectingHouseInfo.setNextSelectingStaffName(nextSelecting.getStaffName());
+					}
+					isSelectingHouseInfo.setSystemNowTime(new Date());
+					return Msg.success().add("data", isSelectingHouseInfo);
+				} else if(beginTime >= new Date().getTime()){
+					return Msg.success("选房活动未开始");
+				}else{
+					rentEvent.setRentIsOpenSel(false);
+					rentEventService.update(rentEvent);
+					return Msg.success("选房活动已结束");
+				}
 			}else{
-				rentEvent.setRentOpenSelStatus("日期已过");
-				rentEventService.update(rentEvent);
-				return Msg.success("选房活动已结束");
+				return Msg.success("当前无选房活动");
 			}
 		}else{
-			return Msg.success("当前无选房活动");
+			//当没有设置可选房职工时
+			return Msg.success("无选房职工，选房活动已结束");
 		}
+		
 		
 	}
 

@@ -24,13 +24,25 @@ public class RentEventService implements BaseService<RentEvent>{
 	public RentEvent getNowRule(){
 		RentEventExample example = new RentEventExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andRentOpenSelStatusEqualTo("正在选房");
+		criteria.andRentIsOpenSelEqualTo(true);
 		criteria.andIsDeleteEqualTo(false);
 		if(rentEventMapper.selectByExample(example) != null){
 			return rentEventMapper.selectByExample(example).get(0);
 		}else{
 			return null;
 		}
+	}
+	
+	/**
+	 * 获取开放的选房规则数量，用于判断能否添加新的选房规则
+	 * @return
+	 */
+	public long getOpenRuleCount(){
+		RentEventExample example = new RentEventExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andRentIsOpenSelEqualTo(true);
+		criteria.andIsDeleteEqualTo(false);
+		return rentEventMapper.countByExample(example);
 	}
 	
 	public long getCount(){
@@ -42,6 +54,8 @@ public class RentEventService implements BaseService<RentEvent>{
 	@Override
 	public List<RentEvent> getAll() {
 		RentEventExample rentEventExample = new RentEventExample();
+		//根据RentEventId排序
+		rentEventExample.setOrderByClause("RentEventId DESC");
 		Criteria criteria = rentEventExample.createCriteria();
 		criteria.andIsDeleteEqualTo(false);
 		return rentEventMapper.selectByExample(rentEventExample);
@@ -55,7 +69,6 @@ public class RentEventService implements BaseService<RentEvent>{
 
 	@Override
 	public void add(RentEvent entities) {
-		entities.setRentOpenSelStatus("选房活动未开始");
 		rentEventMapper.insertSelective(entities);
 	}
 

@@ -223,7 +223,8 @@ public class FixController {
 						mapHouse.put("houseId", viewHouse.getId());
 						mapHouse.put("layoutName", viewHouse.getLayoutName());
 						mapHouse.put("usedArea", viewHouse.getUsedArea());
-
+						mapHouse.put("typeName",viewHouse.getTypeName());
+						
 						listHouse.add(mapHouse);
 					}
 				}
@@ -273,6 +274,7 @@ public class FixController {
 					mapHouse.put("houseId", viewHouse.getId());
 					mapHouse.put("layoutName", viewHouse.getLayoutName());
 					mapHouse.put("usedArea", viewHouse.getUsedArea());
+					mapHouse.put("typeName",viewHouse.getTypeName());
 
 					listHouse.add(mapHouse);
 				}
