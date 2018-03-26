@@ -85,8 +85,20 @@
     font-size: 26px;
   }
 }
+    @media only screen and (max-width: 1200px){
+        .el-menu--horizontal {
+          .el-menu-item {
+            font-size: 12px;
+          }
+          .el-submenu__title {
+            padding: 0 8px;
+            font-size: 12px;
+          }
+        }
 
-@media only screen and (max-width: 1024px) {
+    }
+
+@media only screen and (max-width: 1060px) {
   .el-menu--horizontal {
     .el-menu-item {
       font-size: 12px;

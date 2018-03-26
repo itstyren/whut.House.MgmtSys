@@ -3,27 +3,21 @@
     <div class="title">
       <strong>工作清单</strong>
     </div>
-    <div class="content">
+    <div class="content" v-loading="listLoading">
       <el-row class="info-row">
         <el-col :span="1">
           <my-icon icon-class="information"></my-icon>
         </el-col>
         <el-col :span="16" :offset="2">
-          <span>有<span style="color:red;"><count-to class="card-panel-num" :startVal="0" :endVal="902" :duration="3200"></count-to></span>条维修信息待处理</span>
+          <span>有
+            <span style="color:red;">
+              <count-to class="card-panel-num" :startVal="0" :endVal="todoList.fixToCheck" :duration="3200"></count-to>
+            </span>条维修信息待处理</span>
         </el-col>
         <el-col :span="4" :offset="1">
-<router-link to="/fixManage/fixAccept"><el-button size="mini" type="">查看</el-button></router-link>
-        </el-col>
-      </el-row>
-            <el-row class="info-row">
-        <el-col :span="1">
-          <my-icon icon-class="information"></my-icon>
-        </el-col>
-        <el-col :span="16" :offset="2">
-          <span>有<span style="color:red;"><count-to class="card-panel-num" :startVal="0" :endVal="0" :duration="3200"></count-to></span>条维修信息待结算</span>
-        </el-col>
-        <el-col :span="4" :offset="1">
-<router-link to="/fixManage/fixBalance"><el-button size="mini" type="">查看</el-button></router-link>
+          <router-link to="/fixManage/fixAccept">
+            <el-button size="mini" type="">查看</el-button>
+          </router-link>
         </el-col>
       </el-row>
       <el-row class="info-row">
@@ -31,21 +25,47 @@
           <my-icon icon-class="information"></my-icon>
         </el-col>
         <el-col :span="16" :offset="2">
-          <span>有<span style="color:red;"><count-to class="card-panel-num" :startVal="0" :endVal="121" :duration="3200"></count-to></span>条租赁信息待处理</span>
+          <span>有
+            <span style="color:red;">
+              <count-to class="card-panel-num" :startVal="0" :endVal="todoList.fixToHandle" :duration="3200"></count-to>
+            </span>条维修信息待结算</span>
         </el-col>
         <el-col :span="4" :offset="1">
-          <router-link to="/leaseManage/hireAccept"><el-button size="mini" type="">查看</el-button></router-link>
+          <router-link to="/fixManage/fixBalance">
+            <el-button size="mini" type="">查看</el-button>
+          </router-link>
         </el-col>
       </el-row>
-            <el-row class="info-row">
+      <el-row class="info-row">
         <el-col :span="1">
           <my-icon icon-class="information"></my-icon>
         </el-col>
         <el-col :span="16" :offset="2">
-          <span>有<span style="color:red;"><count-to class="card-panel-num" :startVal="0" :endVal="29" :duration="3200"></count-to></span>条租赁合同待签订</span>
+          <span>有
+            <span style="color:red;">
+              <count-to class="card-panel-num" :startVal="0" :endVal="todoList.hireToHandle" :duration="3200"></count-to>
+            </span>条租赁信息待处理</span>
         </el-col>
         <el-col :span="4" :offset="1">
-          <router-link to="/leaseManage/hireContract"><el-button size="mini" type="">查看</el-button></router-link>
+          <router-link to="/leaseManage/hireAccept">
+            <el-button size="mini" type="">查看</el-button>
+          </router-link>
+        </el-col>
+      </el-row>
+      <el-row class="info-row">
+        <el-col :span="1">
+          <my-icon icon-class="information"></my-icon>
+        </el-col>
+        <el-col :span="16" :offset="2">
+          <span>有
+            <span style="color:red;">
+              <count-to class="card-panel-num" :startVal="0" :endVal="todoList.hireToSign" :duration="3200"></count-to>
+            </span>条租赁合同待签订</span>
+        </el-col>
+        <el-col :span="4" :offset="1">
+          <router-link to="/leaseManage/hireContract">
+            <el-button size="mini" type="">查看</el-button>
+          </router-link>
         </el-col>
       </el-row>
     </div>
@@ -53,23 +73,45 @@
 </template>
 
 <script type="text/ecmascript-6">
-import countTo from 'vue-count-to'
- export default {
-   data() {
-     return {
+  import countTo from "vue-count-to";
+  import {
+    getJobList
+  } from "@/api/user";
+  export default {
+    data() {
+      return {
+        listLoading: false,
+        todoList: {
+          hireToSign: 0,
+          fixToHandle: 0,
+          hireToHandle: 0,
+          fixToCheck: 0
+        }
+      };
+    },
+    created() {
+      this.getList();
+    },
+    components: {
+      countTo
+    },
+    methods: {
+      getList() {
+        this.listLoading = true;
+        getJobList().then(res => {
+          this.todoList = res.data.data.data;
+          console.log(this.todoList);
+          this.listLoading = false
+        });
+      }
+    }
+  };
 
-     }
-
-   },
-   components: {
-countTo
-   }
- }
 </script>
 
 <style scoped lang="scss">
   .notification {
-    height: 480px;
+    height: 460px;
     padding: 20px;
     .title {
       position: relative;
@@ -93,10 +135,9 @@ countTo
         padding: 10px;
         height: 45px;
         font-size: 16px;
-        font-weight: 500
+        font-weight: 500;
       }
     }
   }
 
- 
 </style>

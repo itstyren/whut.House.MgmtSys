@@ -54,6 +54,8 @@ public class RentEventService implements BaseService<RentEvent>{
 	@Override
 	public List<RentEvent> getAll() {
 		RentEventExample rentEventExample = new RentEventExample();
+		//根据RentEventId排序
+		rentEventExample.setOrderByClause("RentEventId DESC");
 		Criteria criteria = rentEventExample.createCriteria();
 		criteria.andIsDeleteEqualTo(false);
 		return rentEventMapper.selectByExample(rentEventExample);

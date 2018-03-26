@@ -39,7 +39,7 @@
               </router-link>
             </el-dropdown-item>
             <el-dropdown-item divided>
-              <span style="font-size: 14px;" @click.prevent="logout">退出登录</span>
+              <span  @click.prevent="logout">退出登录</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -115,7 +115,12 @@ $background-color: #373d41;
         background-color: $background-color;
       }
     }
-    @media only screen and (min-width: 1024px) {
+        @media only screen and (max-width: 1060px) {
+      > .title {
+        display: none;
+      }
+    }
+    @media only screen and (min-width: 1200px) {
       > .title {
         float: left;
         padding-left: 10px; //border-right: 1px solid #000;
@@ -125,7 +130,7 @@ $background-color: #373d41;
         }
       }
     }
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (max-width: 1200px) {
       .main-menu {
         margin-left: 25px;
       }
@@ -138,7 +143,8 @@ $background-color: #373d41;
     }
     > .account {
       float: right;
-      padding-right: 15px;
+      padding-right: 12px;
+      font-size: 12px;
       .right-menu-item {
         display: inline-block;
         margin: 0 8px;

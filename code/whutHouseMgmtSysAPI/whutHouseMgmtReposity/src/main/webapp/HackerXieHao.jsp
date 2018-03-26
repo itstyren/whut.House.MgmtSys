@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyMDQ4NzA4LCJleHAiOjE1MjIwNTIzMDh9.DOr4b685hD1i_RhtGO48l1X3T7txAV8hHLshwS5EUmw");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyMDY0Mjg3LCJleHAiOjE1MjIwNjc4ODd9.oT1FXZ8TX-V87Qi3mcs0kQ8YkZne6Ixk1Fs_5JTB9ss");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyMDQ4NzA4LCJleHAiOjE1MjIwNTIzMDh9.DOr4b685hD1i_RhtGO48l1X3T7txAV8hHLshwS5EUmw");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyMDY0Mjg3LCJleHAiOjE1MjIwNjc4ODd9.oT1FXZ8TX-V87Qi3mcs0kQ8YkZne6Ixk1Fs_5JTB9ss");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -134,7 +134,7 @@
 	//租赁历史
 	$(function() {
 		$("#rentEventGet").click(function() {
-			ajaxRequestGet("rentEvent/get?page=3&size=10");
+			ajaxRequestGet("rentEvent/get?page=1&size=10");
 		})
 
 		$("#rentEventModify").click(function() {

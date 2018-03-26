@@ -68,7 +68,7 @@
 
 <style scoped lang="scss">
   .notification {
-    height: 420px;
+    height: 400px;
     padding: 20px;
     .title {
       position: relative;
