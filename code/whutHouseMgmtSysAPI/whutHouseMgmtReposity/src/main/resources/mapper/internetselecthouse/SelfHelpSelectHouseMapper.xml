@@ -3,6 +3,7 @@
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.internetselecthouse.SelfHelpSelectHouseMapper">
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.SelfHelpSelectHouse">
     <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
+    <result column="StaffId" jdbcType="INTEGER" property="staffId" />
     <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
     <result column="StaffTitleId" jdbcType="INTEGER" property="staffTitleId" />
     <result column="StaffTitleName" jdbcType="VARCHAR" property="staffTitleName" />
@@ -84,10 +85,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    StaffName, StaffNo, StaffTitleId, StaffTitleName, StaffPostId, StaffPostName, StaffTypeId, 
-    StaffTypeName, StaffStatusId, StaffStatusName, StaffDeptId, StaffDeptName, StaffPostVal, 
-    StaffTitleVal, StaffSpousePostVal, StaffSpouseTitleVal, StaffTimeVal, StaffOtherVal, 
-    StaffTotalVal, HouseSelectStart, HouseSelectEnd, RecordStatus
+    StaffName, StaffId, StaffNo, StaffTitleId, StaffTitleName, StaffPostId, StaffPostName, 
+    StaffTypeId, StaffTypeName, StaffStatusId, StaffStatusName, StaffDeptId, StaffDeptName, 
+    StaffPostVal, StaffTitleVal, StaffSpousePostVal, StaffSpouseTitleVal, StaffTimeVal, 
+    StaffOtherVal, StaffTotalVal, HouseSelectStart, HouseSelectEnd, RecordStatus
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.SelfHelpSelectHouseExample" resultMap="BaseResultMap">
     select
@@ -110,28 +111,33 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.SelfHelpSelectHouse">
-    insert into view_hs_selfhelpselecthouse (StaffName, StaffNo, StaffTitleId, 
-      StaffTitleName, StaffPostId, StaffPostName, 
-      StaffTypeId, StaffTypeName, StaffStatusId, 
-      StaffStatusName, StaffDeptId, StaffDeptName, 
-      StaffPostVal, StaffTitleVal, StaffSpousePostVal, 
-      StaffSpouseTitleVal, StaffTimeVal, StaffOtherVal, 
-      StaffTotalVal, HouseSelectStart, HouseSelectEnd, 
-      RecordStatus)
-    values (#{staffName,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{staffTitleId,jdbcType=INTEGER}, 
-      #{staffTitleName,jdbcType=VARCHAR}, #{staffPostId,jdbcType=INTEGER}, #{staffPostName,jdbcType=VARCHAR}, 
-      #{staffTypeId,jdbcType=INTEGER}, #{staffTypeName,jdbcType=VARCHAR}, #{staffStatusId,jdbcType=INTEGER}, 
-      #{staffStatusName,jdbcType=VARCHAR}, #{staffDeptId,jdbcType=INTEGER}, #{staffDeptName,jdbcType=VARCHAR}, 
-      #{staffPostVal,jdbcType=INTEGER}, #{staffTitleVal,jdbcType=INTEGER}, #{staffSpousePostVal,jdbcType=INTEGER}, 
-      #{staffSpouseTitleVal,jdbcType=INTEGER}, #{staffTimeVal,jdbcType=DOUBLE}, #{staffOtherVal,jdbcType=DOUBLE}, 
-      #{staffTotalVal,jdbcType=DOUBLE}, #{houseSelectStart,jdbcType=TIMESTAMP}, #{houseSelectEnd,jdbcType=TIMESTAMP}, 
-      #{recordStatus,jdbcType=VARCHAR})
+    insert into view_hs_selfhelpselecthouse (StaffName, StaffId, StaffNo, 
+      StaffTitleId, StaffTitleName, StaffPostId, 
+      StaffPostName, StaffTypeId, StaffTypeName, 
+      StaffStatusId, StaffStatusName, StaffDeptId, 
+      StaffDeptName, StaffPostVal, StaffTitleVal, 
+      StaffSpousePostVal, StaffSpouseTitleVal, 
+      StaffTimeVal, StaffOtherVal, StaffTotalVal, 
+      HouseSelectStart, HouseSelectEnd, RecordStatus
+      )
+    values (#{staffName,jdbcType=VARCHAR}, #{staffId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, 
+      #{staffTitleId,jdbcType=INTEGER}, #{staffTitleName,jdbcType=VARCHAR}, #{staffPostId,jdbcType=INTEGER}, 
+      #{staffPostName,jdbcType=VARCHAR}, #{staffTypeId,jdbcType=INTEGER}, #{staffTypeName,jdbcType=VARCHAR}, 
+      #{staffStatusId,jdbcType=INTEGER}, #{staffStatusName,jdbcType=VARCHAR}, #{staffDeptId,jdbcType=INTEGER}, 
+      #{staffDeptName,jdbcType=VARCHAR}, #{staffPostVal,jdbcType=INTEGER}, #{staffTitleVal,jdbcType=INTEGER}, 
+      #{staffSpousePostVal,jdbcType=INTEGER}, #{staffSpouseTitleVal,jdbcType=INTEGER}, 
+      #{staffTimeVal,jdbcType=DOUBLE}, #{staffOtherVal,jdbcType=DOUBLE}, #{staffTotalVal,jdbcType=DOUBLE}, 
+      #{houseSelectStart,jdbcType=TIMESTAMP}, #{houseSelectEnd,jdbcType=TIMESTAMP}, #{recordStatus,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.SelfHelpSelectHouse">
     insert into view_hs_selfhelpselecthouse
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="staffName != null">
         StaffName,
+      </if>
+      <if test="staffId != null">
+        StaffId,
       </if>
       <if test="staffNo != null">
         StaffNo,
@@ -200,6 +206,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="staffName != null">
         #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
       </if>
       <if test="staffNo != null">
         #{staffNo,jdbcType=VARCHAR},
@@ -278,6 +287,9 @@
       <if test="record.staffName != null">
         StaffName = #{record.staffName,jdbcType=VARCHAR},
       </if>
+      <if test="record.staffId != null">
+        StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
       <if test="record.staffNo != null">
         StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       </if>
@@ -349,6 +361,7 @@
   <update id="updateByExample" parameterType="map">
     update view_hs_selfhelpselecthouse
     set StaffName = #{record.staffName,jdbcType=VARCHAR},
+      StaffId = #{record.staffId,jdbcType=INTEGER},
       StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       StaffTitleId = #{record.staffTitleId,jdbcType=INTEGER},
       StaffTitleName = #{record.staffTitleName,jdbcType=VARCHAR},

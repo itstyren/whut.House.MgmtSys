@@ -117,6 +117,7 @@ public class HousingSetController {
 		List<HousingInfo> housingInfos = new ArrayList<HousingInfo>();
 		for (ViewHouse viewHouse : viewHouses) {
 			HousingInfo housingInfo = new HousingInfo();
+			housingInfo.setId(viewHouse.getId());
 			housingInfo.setNo(viewHouse.getNo());
 			housingInfo.setLayout(viewHouse.getLayoutName());
 			housingInfo.setUsedArea(viewHouse.getUsedArea());

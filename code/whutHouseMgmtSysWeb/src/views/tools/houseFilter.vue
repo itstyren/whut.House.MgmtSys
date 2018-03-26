@@ -1,6 +1,6 @@
 <template>
 <div class="house-filter card">
-  <el-form :model="queryForm" label-width="80px">
+  <el-form :model="queryForm" label-width="100px">
       <el-row>
         <el-col :span="4">
           <el-form-item label="住房类型">

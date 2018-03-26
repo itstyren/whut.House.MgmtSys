@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class SelfHelpSelectHouse {
     private String staffName;
 
+    private Integer staffId;
+    
     private String staffNo;
 
     private Integer staffTitleId;
@@ -63,7 +65,15 @@ public class SelfHelpSelectHouse {
         this.staffName = staffName == null ? null : staffName.trim();
     }
 
-    public String getStaffNo() {
+    public Integer getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(Integer staffId) {
+		this.staffId = staffId;
+	}
+
+	public String getStaffNo() {
         return staffNo;
     }
 

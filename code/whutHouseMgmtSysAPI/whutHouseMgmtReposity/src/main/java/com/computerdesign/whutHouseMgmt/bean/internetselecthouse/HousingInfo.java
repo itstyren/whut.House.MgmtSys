@@ -2,6 +2,9 @@ package com.computerdesign.whutHouseMgmt.bean.internetselecthouse;
 
 public class HousingInfo {
 
+	//住房ID
+	private Integer id;
+	
 	// 住房号
 	private String no;
 
@@ -22,6 +25,14 @@ public class HousingInfo {
 
 	// 租金
 	private Double rental;
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getNo() {
 		return no;
