@@ -11,6 +11,7 @@
 import echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
 let _ = require("underscore");
+import { getHouseParamCount } from "@/api/dataAnalysis";
 export default {
   props: {
     width: {
@@ -33,6 +34,7 @@ export default {
   },
   mounted() {
     this.initChart();
+    this.getData();
     if (this.autoResize) {
       this.__resizeHanlder = _.debounce(() => {
         if (this.chart) {
@@ -42,58 +44,71 @@ export default {
       window.addEventListener("resize", this.__resizeHanlder);
     }
   },
-  watch: {
-    chartData: {
-      deep: true,
-      handler(val) {
-        this.setOptions(val);
-      }
-    }
-  },
   methods: {
-
+    getData() {
+      let params = {
+        paramTypeId: 1
+      };
+      this.chart.showLoading();
+      getHouseParamCount(params).then(res => {
+        console.log(res.data.data);
+        this.chart.setOption({
+          series: {
+            data: res.data.data.content
+          }
+        });
+        this.chart.hideLoading();
+      });
+    },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
-
-    tooltip : {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
-    },
-
-    visualMap: {
-        show: false,
-        min: 80,
-        max: 600,
-        inRange: {
-            colorLightness: [0, 1]
-        }
-    },
-    series : [
-        {
-            name:'访问来源',
-            type:'pie',
-            radius : '85%',
-            center: ['50%', '45%'],
-            data:[
-                {value:335, name:'钢混'},
-                {value:310, name:'砖混'},
-                {value:274, name:'水泥'},
-                {value:235, name:'钢筋'},
-            ].sort(function (a, b) { return a.value - b.value}),
-            roseType: 'angle',
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        series: [
+          {
+            name: "结构占比",
+            type: "pie",
+            radius: [30, "85%"],
+            center: ["50%", "45%"],
+            roseType: "radius",
+            //color: ['#f2c955', '#00a69d', '#46d185', '#ec5845'],
             label: {
-                normal: {
+              normal: {
+                textStyle: {
+                  fontSize: 14
+                },
+                formatter: function(param) {
+                  return param.name + ":\n" + Math.round(param.percent) + "%";
                 }
+              }
             },
             labelLine: {
-                normal: {
-                    smooth: 0.2,
-                    length: 10,
-                    length2: 20
+              normal: {
+                smooth: true,
+                lineStyle: {
+                  width: 2
                 }
+              },
+              smooth: 0.2,
+              length: 10,
+              length2: 20
             },
-        }
-    ],
+            itemStyle: {
+              normal: {
+                shadowBlur: 30,
+                shadowColor: "rgba(0, 0, 0, 0.1)"
+              }
+            },
+
+            animationType: "scale",
+            animationEasing: "elasticOut",
+            animationDelay: function(idx) {
+              return Math.random() * 200;
+            }
+          }
+        ],
         animationDuration: 2800,
         animationEasing: "cubicInOut"
       });
