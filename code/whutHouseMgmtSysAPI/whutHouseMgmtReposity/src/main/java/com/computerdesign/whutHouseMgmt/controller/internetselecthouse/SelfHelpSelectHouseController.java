@@ -134,7 +134,8 @@ public class SelfHelpSelectHouseController {
 			
 			
 			if(rentEvent != null){
-				long beginTime = rentEvent.getRentTimeBegin().getTime();
+//				long beginTime = rentEvent.getRentTimeBegin().getTime();
+				long beginTime = selfHelpSelectHouses.get(0).getHouseSelectStart().getTime();
 				// 判断当前是否还有选房活动
 				if (beginTime <= new Date().getTime() && endTime >= new Date().getTime()) {
 					Date staffStartTimeNow = staffSelectHouseNow.getSelectStart();
