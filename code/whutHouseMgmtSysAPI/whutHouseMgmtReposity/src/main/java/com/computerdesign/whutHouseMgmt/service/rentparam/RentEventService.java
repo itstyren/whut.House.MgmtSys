@@ -24,7 +24,7 @@ public class RentEventService implements BaseService<RentEvent>{
 	public RentEvent getNowRule(){
 		RentEventExample example = new RentEventExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andRentOpenSelStatusEqualTo("正在选房");
+		criteria.andRentIsOpenSelEqualTo(true);
 		criteria.andIsDeleteEqualTo(false);
 		if(rentEventMapper.selectByExample(example) != null){
 			return rentEventMapper.selectByExample(example).get(0);
@@ -55,7 +55,6 @@ public class RentEventService implements BaseService<RentEvent>{
 
 	@Override
 	public void add(RentEvent entities) {
-		entities.setRentOpenSelStatus("选房活动未开始");
 		rentEventMapper.insertSelective(entities);
 	}
 

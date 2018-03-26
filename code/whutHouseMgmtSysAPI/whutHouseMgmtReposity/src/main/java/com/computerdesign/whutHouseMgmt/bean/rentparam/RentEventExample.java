@@ -295,73 +295,63 @@ public class RentEventExample {
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusIsNull() {
-            addCriterion("RentOpenSelStatus is null");
+        public Criteria andRentIsOpenSelIsNull() {
+            addCriterion("RentIsOpenSel is null");
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusIsNotNull() {
-            addCriterion("RentOpenSelStatus is not null");
+        public Criteria andRentIsOpenSelIsNotNull() {
+            addCriterion("RentIsOpenSel is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusEqualTo(String value) {
-            addCriterion("RentOpenSelStatus =", value, "rentOpenSelStatus");
+        public Criteria andRentIsOpenSelEqualTo(Boolean value) {
+            addCriterion("RentIsOpenSel =", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusNotEqualTo(String value) {
-            addCriterion("RentOpenSelStatus <>", value, "rentOpenSelStatus");
+        public Criteria andRentIsOpenSelNotEqualTo(Boolean value) {
+            addCriterion("RentIsOpenSel <>", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusGreaterThan(String value) {
-            addCriterion("RentOpenSelStatus >", value, "rentOpenSelStatus");
+        public Criteria andRentIsOpenSelGreaterThan(Boolean value) {
+            addCriterion("RentIsOpenSel >", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusGreaterThanOrEqualTo(String value) {
-            addCriterion("RentOpenSelStatus >=", value, "rentOpenSelStatus");
+        public Criteria andRentIsOpenSelGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("RentIsOpenSel >=", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusLessThan(String value) {
-            addCriterion("RentOpenSelStatus <", value, "rentOpenSelStatus");
+        public Criteria andRentIsOpenSelLessThan(Boolean value) {
+            addCriterion("RentIsOpenSel <", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusLessThanOrEqualTo(String value) {
-            addCriterion("RentOpenSelStatus <=", value, "rentOpenSelStatus");
+        public Criteria andRentIsOpenSelLessThanOrEqualTo(Boolean value) {
+            addCriterion("RentIsOpenSel <=", value, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusLike(String value) {
-            addCriterion("RentOpenSelStatus like", value, "rentOpenSelStatus");
+        public Criteria andRentIsOpenSelIn(List<Boolean> values) {
+            addCriterion("RentIsOpenSel in", values, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusNotLike(String value) {
-            addCriterion("RentOpenSelStatus not like", value, "rentOpenSelStatus");
+        public Criteria andRentIsOpenSelNotIn(List<Boolean> values) {
+            addCriterion("RentIsOpenSel not in", values, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusIn(List<String> values) {
-            addCriterion("RentOpenSelStatus in", values, "rentOpenSelStatus");
+        public Criteria andRentIsOpenSelBetween(Boolean value1, Boolean value2) {
+            addCriterion("RentIsOpenSel between", value1, value2, "rentIsOpenSel");
             return (Criteria) this;
         }
 
-        public Criteria andRentOpenSelStatusNotIn(List<String> values) {
-            addCriterion("RentOpenSelStatus not in", values, "rentOpenSelStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andRentOpenSelStatusBetween(String value1, String value2) {
-            addCriterion("RentOpenSelStatus between", value1, value2, "rentOpenSelStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andRentOpenSelStatusNotBetween(String value1, String value2) {
-            addCriterion("RentOpenSelStatus not between", value1, value2, "rentOpenSelStatus");
+        public Criteria andRentIsOpenSelNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("RentIsOpenSel not between", value1, value2, "rentIsOpenSel");
             return (Criteria) this;
         }
 
