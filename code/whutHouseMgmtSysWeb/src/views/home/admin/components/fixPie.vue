@@ -9,7 +9,7 @@
 
 <script>
 import echarts from "echarts";
-import { getFixNameByDay, getFixContentByDay } from "@/api/dataAnalysis.js";
+import {  getFixContentByDay } from "@/api/dataAnalysis.js";
 require("echarts/theme/macarons"); // echarts theme
 let _ = require("underscore");
 export default {
@@ -58,23 +58,19 @@ export default {
         day: 7
       };
       this.chart.showLoading();
-      getFixNameByDay(params).then(res => {
-        const name = res.data.data.data;
-        //console.log(res.data.data.data);
         getFixContentByDay(params).then(res => {
-          console.log(name)
-          const content = res.data.data.data;
+          console.log(res.data.data)
+          //const content = res.data.data.data;
           this.chart.setOption({
             legend: {
-              data: name
+              data: res.data.data.name
             },
             series:{
-            data: content
+            data: res.data.data.count
             }
           });
           this.chart.hideLoading();
         });
-      });
     },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({

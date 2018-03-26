@@ -46,3 +46,18 @@ export function getUserHouse(staffID) {
     method: 'get',
   })
 }
+// 工作清单
+export function getJobList(staffID) {
+  return request({
+    url: `/record/jobList`,
+    method: 'get',
+  })
+}
+// 获取7日访问量
+export function getVisitCapacity(params) {
+  return request({
+    url: `/record/visitCapacity`,
+    method: 'get',
+    params:params
+  })
+}

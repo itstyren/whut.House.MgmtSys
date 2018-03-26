@@ -23,7 +23,7 @@
             <el-row style="margin:0 10px 0 -10px;" :gutter="20" >
               <el-col :span="10">
                 <el-row>
-                    <status-pie></status-pie>
+                  <num-list></num-list>                  
                 </el-row>
                 <el-row>
                    <struct-pie></struct-pie>
@@ -34,7 +34,10 @@
               </el-col>
               <el-col :span="14">
                 <el-row>
-                  <region-bar></region-bar>
+                  <region-bar :height="'718px'"></region-bar>
+                </el-row>
+                <el-row>
+                    <status-pie></status-pie>                  
                 </el-row>
               </el-col>
             </el-row>
@@ -57,6 +60,7 @@
   import regionBar from './components/regionBar.vue'
   import structPie from './components/structPie.vue'
   import occupancyRate from './components/occupancyRate.vue'
+  import numList from './components/numList.vue'
   export default {
     data() {
       return {};
@@ -67,7 +71,8 @@
       statusPie,
       regionBar,
       structPie,
-      occupancyRate
+      occupancyRate,
+      numList
     }
   };
 
