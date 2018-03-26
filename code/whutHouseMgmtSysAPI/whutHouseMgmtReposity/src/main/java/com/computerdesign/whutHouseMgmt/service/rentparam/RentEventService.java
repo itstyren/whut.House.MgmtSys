@@ -33,6 +33,18 @@ public class RentEventService implements BaseService<RentEvent>{
 		}
 	}
 	
+	/**
+	 * 获取开放的选房规则数量，用于判断能否添加新的选房规则
+	 * @return
+	 */
+	public long getOpenRuleCount(){
+		RentEventExample example = new RentEventExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andRentIsOpenSelEqualTo(true);
+		criteria.andIsDeleteEqualTo(false);
+		return rentEventMapper.countByExample(example);
+	}
+	
 	public long getCount(){
 		RentEventExample example = new RentEventExample();
 		Criteria criteria = example.createCriteria();

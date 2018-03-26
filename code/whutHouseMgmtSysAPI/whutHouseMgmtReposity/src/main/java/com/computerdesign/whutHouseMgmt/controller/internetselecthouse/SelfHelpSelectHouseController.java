@@ -66,6 +66,7 @@ public class SelfHelpSelectHouseController {
 	@RequestMapping(value = "isSelectingHouse/{staffId}", method = RequestMethod.GET)
 	public Msg isSelectingHouse(@PathVariable("staffId") Integer staffId) {
 //		RentEvent rentEvent = rentEventService.get(1);
+		//获取正在进行的选房规则
 		RentEvent rentEvent = rentEventService.getNowRule();
 		
 		// 获取当前员工选房信息
