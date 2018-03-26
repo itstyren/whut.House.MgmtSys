@@ -7,13 +7,17 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
+import com.computerdesign.whutHouseMgmt.service.houseregister.HouseRegisterSelectService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,11 +37,14 @@ public class HouseRecordController {
 	@Autowired
 	private ViewHouseService viewhouseService;
 
+	@Autowired
+	private HouseRegisterSelectService houseRegisterSelectService;
 	
-	@GetMapping(value="Content")
+	@PostMapping(value="Content")
 	@ApiOperation(notes="获取房屋类型", value = "获取房屋类型")
-	public Msg getHouseRecordContent(@RequestParam("paramTypeId")Integer paramTypeId){
-		List<ViewHouse> listViewHouse = viewhouseService.getAll();
+	public Msg getHouseRecordContent(@RequestParam("paramTypeId")Integer paramTypeId,
+			@RequestBody HouseAllSelectModel houseAllSelectModel){
+		List<ViewHouse> listViewHouse = houseRegisterSelectService.getByAllMultiConditionQuery(houseAllSelectModel);
 		
 		List<String> listString = new ArrayList<>();
 		Map<String, Integer> map = new HashMap<>();
