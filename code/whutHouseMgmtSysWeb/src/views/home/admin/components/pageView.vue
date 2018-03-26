@@ -1,7 +1,7 @@
 <template>
 <div class="card" :style="{height:height,width:width}">
     <div class="title">
-      <strong>周访问量</strong>
+      <strong>近7天访问量</strong>
     </div>
   <div class="chart" ref="pageView"></div>
   </div>
@@ -43,6 +43,7 @@ export default {
       }, 100);
       window.addEventListener("resize", this.__resizeHanlder);
     }
+    this.getData()
   },
   watch: {
     chartData: {
@@ -53,11 +54,29 @@ export default {
     }
   },
   methods: {
+    getData() {
+      let params = {
+        week: 1
+      };
+      this.chart.showLoading();
+      getVisitCapacity(params).then(res => {
+        //console.log(res.data.data);
+         this.chart.setOption({
+           xAxis:{
+             data:res.data.data.name
+           },
+           series:[{
+             data:res.data.data.count
+           }]
+         })
+          this.chart.hideLoading();
+        
+      });
+    },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         xAxis: {
           type: "category",
-          data: ["周一", "周二", "周三", "周四", "周五", "周六", "周天"],
           boundaryGap: false
         },
         yAxis: {
@@ -67,7 +86,6 @@ export default {
         },
         series: [
           {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
             type: "line",
             areaStyle: {}
           }

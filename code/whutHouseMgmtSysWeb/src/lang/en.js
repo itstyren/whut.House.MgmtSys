@@ -30,7 +30,8 @@ export default {
         selfService:'SelfService',
         hireApply:'HireApply',
         analysis:'Analysis',
-        houseAnalysis:'HouseAnalysis'
+        houseAnalysis:'HouseAnalysis',
+        scanning:'Scanning',
     },
     header:{
         title:'Wuhan University of Technology',

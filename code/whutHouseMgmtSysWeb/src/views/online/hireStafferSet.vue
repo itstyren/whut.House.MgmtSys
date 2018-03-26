@@ -84,8 +84,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="3" :offset="1">
-                      <el-button type="danger" size="small" @click="resseting">重置</el-button>
-                      <el-button type="primary" size="small" @click="muticonditionQuery">查询</el-button>
+                    <el-button type="danger" size="small" @click="resseting">重置</el-button>
+                    <el-button type="primary" size="small" @click="muticonditionQuery">查询</el-button>
                   </el-col>
                 </el-row>
               </div>
@@ -93,86 +93,86 @@
           </div>
           <!-- 表格区 -->
           <div class="main-data">
-                        <el-tabs v-model="activeName" type="border-card" style="margin:10px 10px 10px">
+            <el-tabs v-model="activeName" type="border-card" style="margin:10px 10px 10px">
               <el-tab-pane name="canSelect">
                 <span slot="label">
                   <my-icon icon-class="users"></my-icon>待选员工</span>
                 <keep-alive>
-            <!-- 未设置选房的表格 -->
-            <div v-if="activeName=='canSelect'" class="table-tabs">
-              <el-table :data="canSelectData" class="table" height="string" v-loading="listLoading" @selection-change="setSelectionChange">
-                <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
-                <el-table-column label="姓名" sortable align="center">
-                  <template slot-scope="scope">
-                    <el-popover trigger="hover" placement="top">
-                      <p>姓名: {{ scope.row.staffName }}</p>
-                      <p>来校工作时间: {{ scope.row.joinTime }}</p>
-                      <p>预计退休时间: {{ scope.row.retireTime }}</p>
-                      <div slot="reference" class="name-wrapper">
-                        <el-tag size="medium" type="info">{{ scope.row.staffName }}</el-tag>
-                      </div>
-                    </el-popover>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="totalVal" label="总分" sortable align="center"></el-table-column>
-                <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
-                <el-table-column prop="marriageState" label="婚姻状况" align="center"></el-table-column>
-                <el-table-column prop="postName" label="职称" align="center"></el-table-column>
-                <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
-                <el-table-column prop="typeName" label="职工类别" align="center"></el-table-column>
-                <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
-                <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
-              </el-table>
-              <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
-                :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
-              </el-pagination>
-              <div class="bottom-tool">
-                <el-button type="primary" size="small" @click="setSelect">设为可选</el-button>
-              </div>
-            </div>
+                  <!-- 未设置选房的表格 -->
+                  <div v-if="activeName=='canSelect'" class="table-tabs">
+                    <el-table :data="canSelectData" class="table" height="string" v-loading="listLoading" @selection-change="setSelectionChange">
+                      <el-table-column type="selection" width="55"></el-table-column>
+                      <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
+                      <el-table-column label="姓名" sortable align="center">
+                        <template slot-scope="scope">
+                          <el-popover trigger="hover" placement="top">
+                            <p>姓名: {{ scope.row.staffName }}</p>
+                            <p>来校工作时间: {{ scope.row.joinTime }}</p>
+                            <p>预计退休时间: {{ scope.row.retireTime }}</p>
+                            <div slot="reference" class="name-wrapper">
+                              <el-tag size="medium" type="info">{{ scope.row.staffName }}</el-tag>
+                            </div>
+                          </el-popover>
+                        </template>
+                      </el-table-column>
+                      <el-table-column prop="totalVal" label="总分" sortable align="center"></el-table-column>
+                      <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
+                      <el-table-column prop="marriageState" label="婚姻状况" align="center"></el-table-column>
+                      <el-table-column prop="postName" label="职称" align="center"></el-table-column>
+                      <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
+                      <el-table-column prop="typeName" label="职工类别" align="center"></el-table-column>
+                      <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
+                      <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
+                    </el-table>
+                    <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
+                      :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
+                    </el-pagination>
+                    <div class="bottom-tool">
+                      <el-button type="primary" size="small" @click="setSelect">设为可选</el-button>
+                    </div>
+                  </div>
                 </keep-alive>
               </el-tab-pane>
               <el-tab-pane name="haveSleect">
                 <span slot="label">
                   <my-icon icon-class="users"></my-icon>可选员工</span>
                 <keep-alive>
-            <!-- 已设置选房的表格 -->
-            <div v-if="activeName=='haveSleect'" class="table-tabs">
-              <el-table :data="haveSelectData" class="table" height="string" v-loading="listLoading1" @selection-change="cancelSelectionChange">
-                <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
-                <el-table-column label="姓名" sortable align="center">
-                  <template slot-scope="scope">
-                    <el-popover trigger="hover" placement="top">
-                      <p>姓名: {{ scope.row.staffName }}</p>
-                      <p>来校工作时间: {{ scope.row.joinTime }}</p>
-                      <p>离退休时间: {{ scope.row.retireTime }}</p>
-                      <div slot="reference" class="name-wrapper">
-                        <el-tag size="medium" type="info">{{ scope.row.staffName }}</el-tag>
-                      </div>
-                    </el-popover>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="totalVal" label="总分" sortable align="center"></el-table-column>
-                <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
-                <el-table-column prop="marriageState" label="婚姻状况" align="center"></el-table-column>
-                <el-table-column prop="postName" label="职称" align="center"></el-table-column>
-                <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
-                <el-table-column prop="typeName" label="职工类别" align="center"></el-table-column>
-                <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
-                <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
-              </el-table>
-              <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent1" @current-change="currentChangeEvent1"
-                :page-size="size1" :page-sizes="[10,15,20,25,30]" :total="totalNum1">
-              </el-pagination>
-              <div class="bottom-tool">
-                <el-button type="warning" size="small" @click="cancelSelect">撤销可选</el-button>
-              </div>
-            </div>
+                  <!-- 已设置选房的表格 -->
+                  <div v-if="activeName=='haveSleect'" class="table-tabs">
+                    <el-table :data="haveSelectData" class="table" height="string" v-loading="listLoading1" @selection-change="cancelSelectionChange">
+                      <el-table-column type="selection" width="55"></el-table-column>
+                      <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
+                      <el-table-column label="姓名" sortable align="center">
+                        <template slot-scope="scope">
+                          <el-popover trigger="hover" placement="top">
+                            <p>姓名: {{ scope.row.staffName }}</p>
+                            <p>来校工作时间: {{ scope.row.joinTime }}</p>
+                            <p>离退休时间: {{ scope.row.retireTime }}</p>
+                            <div slot="reference" class="name-wrapper">
+                              <el-tag size="medium" type="info">{{ scope.row.staffName }}</el-tag>
+                            </div>
+                          </el-popover>
+                        </template>
+                      </el-table-column>
+                      <el-table-column prop="totalVal" label="总分" sortable align="center"></el-table-column>
+                      <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
+                      <el-table-column prop="marriageState" label="婚姻状况" align="center"></el-table-column>
+                      <el-table-column prop="postName" label="职称" align="center"></el-table-column>
+                      <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
+                      <el-table-column prop="typeName" label="职工类别" align="center"></el-table-column>
+                      <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
+                      <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
+                    </el-table>
+                    <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent1" @current-change="currentChangeEvent1"
+                      :page-size="size1" :page-sizes="[10,15,20,25,30]" :total="totalNum1">
+                    </el-pagination>
+                    <div class="bottom-tool">
+                      <el-button type="warning" size="small" @click="cancelSelect">撤销可选</el-button>
+                    </div>
+                  </div>
                 </keep-alive>
               </el-tab-pane>
-              </el-tabs>
+            </el-tabs>
           </div>
         </div>
       </div>
@@ -193,11 +193,11 @@
   } from "@/api/sysManage";
   import * as OPTION from "@/assets/data/formOption";
   import utils from "@/utils/index.js";
-  import * as staticData from "@/utils/static";  
+  import * as staticData from "@/utils/static";
   export default {
     data() {
       return {
-        activeName:'canSelect',
+        activeName: 'canSelect',
         // 多重查找表单
         queryForm: {},
         time: [],

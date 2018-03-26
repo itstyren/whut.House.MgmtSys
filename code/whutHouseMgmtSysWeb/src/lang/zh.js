@@ -30,7 +30,8 @@ export default {
         selfService: '自助选房',
         hireApply: '住房申请',
         analysis:'数据分析',
-        houseAnalysis:'住房分析'
+        houseAnalysis:'住房分析',
+        scanning:'多套住房核对'
     },
     header: {
         title: '高校房屋管理与货币化补贴系统',

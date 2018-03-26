@@ -75,7 +75,7 @@
                   <span v-else>{{ scope.row.fixMoney }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="isOver" label="是否定价" align="center">
+              <el-table-column prop="isOver" label="是否结算" align="center">
                 <template slot-scope="scope">
                   <my-icon v-if="scope.row.isOver" icon-class="icon-" />
                 </template>
