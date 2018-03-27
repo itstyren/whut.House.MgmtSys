@@ -34,6 +34,7 @@ import com.computerdesign.whutHouseMgmt.service.internetselecthouse.StaffSelectH
 import com.computerdesign.whutHouseMgmt.service.rentparam.RentEventService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
+import com.computerdesign.whutHouseMgmt.utils.DateConversionUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -109,9 +110,13 @@ public class SelfHelpSelectHouseController {
 			}
 			
 			
-			// 如果当前选房人有数据，且不是最后一个选房者，则获取下一个选房者
+			// 如果当前选房人有数据，且不是最后一个选房者，则获取下一个选房者,否则返回“选房活动未开始”
 			if (isSelecting.getStaffName() != null && flag != selfHelpSelectHouses.size()) {
 				nextSelecting = selfHelpSelectHouses.get(flag);
+			}else{
+				//当前选房人无数据，由于选房时间有限，未选房员工都在第二天选房
+//				System.out.println(staffSelectHouseNow.getSelectStart());
+				return Msg.success("选房活动未开始，您的选房开始时间是" + DateConversionUtils.dateToString(staffSelectHouseNow.getSelectStart(), "yyyy年MM月dd日 HH时mm分ss秒"));
 			}
 
 			if(staffSelectHouseNow.getStaffId().equals(isSelecting.getStaffId())){
@@ -136,7 +141,7 @@ public class SelfHelpSelectHouseController {
 			if(rentEvent != null){
 //				long beginTime = rentEvent.getRentTimeBegin().getTime();
 				long beginTime = selfHelpSelectHouses.get(0).getHouseSelectStart().getTime();
-				// 判断当前是否还有选房活动
+				// 判断当前是否还有选房活动，开始时间是第一个选房职工的开始时间，结束时间是最后一个选房职工的结束时间
 				if (beginTime <= new Date().getTime() && endTime >= new Date().getTime()) {
 					Date staffStartTimeNow = staffSelectHouseNow.getSelectStart();
 					Date staffEndTimeNow = staffSelectHouseNow.getSelectEnd();
