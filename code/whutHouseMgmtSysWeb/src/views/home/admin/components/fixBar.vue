@@ -56,54 +56,107 @@ export default {
         tooltip: {
           trigger: "axis",
           axisPointer: {
-            type: "cross"
+            type: "shadow",
+            textStyle: {
+              color: "#fff"
+            }
           }
         },
         grid: {
-          right: "7%"
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: { show: true }
-          },
-          right: "20"
+          borderWidth: 0,
+          textStyle: {
+            color: "#fff"
+          }
         },
         legend: {
-          data: ["待处理", "已处理","已拒绝", "申请量"]
+          data: ["未处理", "已审核", "已拒绝"]
         },
+
+        calculable: true,
         xAxis: [
           {
             type: "category",
-            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周天"]
+            axisLine: {
+              lineStyle: {
+                color: "#90979c"
+              }
+            },
+            splitLine: {
+              show: false
+            },
+            axisTick: {
+              show: false
+            },
+            splitArea: {
+              show: false
+            },
+            axisLabel: {
+              interval: 0
+            },
+            data: ["3.21", "3.22", "3.23", "3.24", "3.25", "3.26",'3.27']
           }
         ],
         yAxis: [
           {
             type: "value",
-            name: "个数",
-            position: "left"
+            splitLine: {
+              show: false
+            },
+            axisLine: {
+              lineStyle: {
+                color: "#90979c"
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              interval: 0
+            },
+            splitArea: {
+              show: false
+            }
           }
         ],
         series: [
           {
-            name: "待处理",
+            name: "未处理",
             type: "bar",
-            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 23]
+            stack: "总量",
+            data: [709, 1999, 2455, 2610, 1719, 1433,1323]
+          },
+
+          {
+            name: "已审核",
+            type: "bar",
+            stack: "总量",
+            data: [327, 1776, 507, 1200, 800, 482,444]
           },
           {
-            name: "已处理",
-            type: "bar",
-            data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 23]
-          },
-                    {
             name: "已拒绝",
             type: "bar",
-            data: [3, 7, 2, 23, 31, 40, 20]
+            stack: "总量",
+            data: [327, 1776, 507, 1200, 800, 482,211]
           },
           {
-            name: "申请量",
+            name: "总数",
             type: "line",
-            data: [21.6, 52.9, 94.0, 26.4, 38.7, 70.7, 21]
+            stack: "总量",
+            symbolSize: 10,
+            symbol: "circle",
+            itemStyle: {
+              normal: {
+                barBorderRadius: 0,
+                label: {
+                  show: true,
+                  position: "top",
+                  formatter: function(p) {
+                    return p.value > 0 ? p.value : "";
+                  }
+                }
+              }
+            },
+            data: [1036, 3693, 2962, 3810, 2519, 1915,2020]
           }
         ],
         animationDuration: 2800,

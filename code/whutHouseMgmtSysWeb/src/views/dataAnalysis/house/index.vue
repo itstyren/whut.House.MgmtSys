@@ -29,6 +29,7 @@
                    <struct-pie></struct-pie>
                 </el-row>
                 <el-row>
+                  <status-pie></status-pie>
                 </el-row>
               </el-col>
               <el-col :span="14">
@@ -36,7 +37,7 @@
                   <region-bar :height="'718px'"></region-bar>
                 </el-row>
                 <el-row>
-                    <status-pie></status-pie>                  
+                   <house-bar></house-bar>               
                 </el-row>
               </el-col>
             </el-row>
@@ -55,11 +56,12 @@
 <script type="text/ecmascript-6">
   import houseFilter from "@/views/tools/houseFilter";
   import wuhanmMap from './components/map'
-  import statusPie from './components/statusPie'
+  import houseBar from './components/houseBar'
   import regionBar from './components/regionBar.vue'
   import structPie from './components/structPie.vue'
   import occupancyRate from './components/occupancyRate.vue'
   import numList from './components/numList.vue'
+  import statusPie from './components/statusPie.vue'
   export default {
     data() {
       return {};
@@ -67,11 +69,11 @@
     components: {
       houseFilter,
       wuhanmMap,
-      statusPie,
+      houseBar,
       regionBar,
       structPie,
       occupancyRate,
-      numList,
+      numList,statusPie
     }
   };
 
