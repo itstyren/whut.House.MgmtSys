@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,12 @@ public class HouseRecordController {
 	@Autowired
 	private HouseRegisterSelectService houseRegisterSelectService;
 	
+	/**
+	 * 按照查询条件获取房屋类型统计
+	 * @param paramTypeId
+	 * @param houseAllSelectModel
+	 * @return
+	 */
 	@PostMapping(value="Content")
 	@ApiOperation(notes="获取房屋类型", value = "获取房屋类型")
 	public Msg getHouseRecordContent(@RequestParam("paramTypeId")Integer paramTypeId,
@@ -93,10 +100,10 @@ public class HouseRecordController {
 			}
 		}
 		List<Map<String, String>> listMap =new ArrayList<Map<String,String>>();
-		for (String key : map.keySet()) {
+		for (Entry<String, Integer> entry : map.entrySet()) {
 			Map<String, String> mapAl =new HashMap<String, String>();
-			mapAl.put("name", key);
-			mapAl.put("value", map.get(key).toString());
+			mapAl.put("name", entry.getKey());
+			mapAl.put("value", entry.getValue().toString());
 			listMap.add(mapAl);
 		}
 		return Msg.success("获取房屋统计").add("name", listString).add("content", listMap);

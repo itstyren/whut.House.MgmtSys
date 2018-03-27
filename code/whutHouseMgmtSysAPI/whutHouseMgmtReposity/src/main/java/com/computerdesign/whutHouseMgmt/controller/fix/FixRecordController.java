@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,10 +80,10 @@ public class FixRecordController {
 		}
 		
 		List<Map<String, String>> listMap = new ArrayList<>();
-		for(String key:map.keySet()){
+		for(Entry<String, Integer> entry:map.entrySet()){
 			Map<String, String> mapAl =new HashMap<String, String>();
-			mapAl.put("name", key);
-			mapAl.put("value", map.get(key).toString());
+			mapAl.put("name", entry.getKey());
+			mapAl.put("value", entry.getValue().toString());
 			listMap.add(mapAl);
 		}
 		return Msg.success("返回最近"+day+"天全部的维修类型名称与数量").add("name", listString).add("count", listMap);
