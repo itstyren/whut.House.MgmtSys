@@ -53,6 +53,16 @@ public class RentVwShowModel {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     //到期时间
     private Date expireTime;
+    
+    private String staffDeptName;
+    
+	public String getStaffDeptName() {
+		return staffDeptName;
+	}
+
+	public void setStaffDeptName(String staffDeptName) {
+		this.staffDeptName = staffDeptName;
+	}
 
 	public String getStaffNo() {
 		return staffNo;

@@ -144,6 +144,7 @@ public class HireService {
 		HireExample example = new HireExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andIsOverEqualTo(false);
+		criteria.andHireStateEqualTo("已审批");
 		return hireMapper.countByExample(example);
 	}
 	

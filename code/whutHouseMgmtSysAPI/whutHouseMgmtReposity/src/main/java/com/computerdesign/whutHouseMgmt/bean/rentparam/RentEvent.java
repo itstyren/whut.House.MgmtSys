@@ -20,6 +20,8 @@ public class RentEvent {
     private Date rentTimeBegin;
 
     private Integer rentTimeRanges;
+    
+    private String daySelectTimeRange;
 
     private String rentSelValReq;
 
@@ -75,7 +77,15 @@ public class RentEvent {
         this.rentTimeRanges = rentTimeRanges;
     }
 
-    public String getRentSelValReq() {
+    public String getDaySelectTimeRange() {
+		return daySelectTimeRange;
+	}
+
+	public void setDaySelectTimeRange(String daySelectTimeRange) {
+		this.daySelectTimeRange = daySelectTimeRange;
+	}
+
+	public String getRentSelValReq() {
         return rentSelValReq;
     }
 

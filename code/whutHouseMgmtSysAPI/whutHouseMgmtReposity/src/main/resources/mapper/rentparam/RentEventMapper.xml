@@ -8,6 +8,7 @@
     <result column="RentIsOpenSel" jdbcType="BIT" property="rentIsOpenSel" />
     <result column="RentTimeBegin" jdbcType="TIMESTAMP" property="rentTimeBegin" />
     <result column="RentTimeRanges" jdbcType="INTEGER" property="rentTimeRanges" />
+    <result column="daySelectTimeRange" jdbcType="VARCHAR" property="daySelectTimeRange" />
     <result column="RentSelValReq" jdbcType="VARCHAR" property="rentSelValReq" />
     <result column="RentSelRules" jdbcType="VARCHAR" property="rentSelRules" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
@@ -72,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List">
     RentEventId, ParamTypeId, ParamTypeName, RentIsOpenSel, RentTimeBegin, RentTimeRanges, 
-    RentSelValReq, RentSelRules, IsDelete
+    daySelectTimeRange, RentSelValReq, RentSelRules, IsDelete
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEventExample" resultMap="BaseResultMap">
     select
@@ -107,12 +108,12 @@
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent">
     insert into pm_rentevent (RentEventId, ParamTypeId, ParamTypeName, 
       RentIsOpenSel, RentTimeBegin, RentTimeRanges, 
-      RentSelValReq, RentSelRules, IsDelete
-      )
+      daySelectTimeRange, RentSelValReq, RentSelRules, 
+      IsDelete)
     values (#{rentEventId,jdbcType=INTEGER}, #{paramTypeId,jdbcType=INTEGER}, #{paramTypeName,jdbcType=VARCHAR}, 
       #{rentIsOpenSel,jdbcType=BIT}, #{rentTimeBegin,jdbcType=TIMESTAMP}, #{rentTimeRanges,jdbcType=INTEGER}, 
-      #{rentSelValReq,jdbcType=VARCHAR}, #{rentSelRules,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
-      )
+      #{daySelectTimeRange,jdbcType=VARCHAR}, #{rentSelValReq,jdbcType=VARCHAR}, #{rentSelRules,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent">
     insert into pm_rentevent
@@ -134,6 +135,9 @@
       </if>
       <if test="rentTimeRanges != null">
         RentTimeRanges,
+      </if>
+      <if test="daySelectTimeRange != null">
+        daySelectTimeRange,
       </if>
       <if test="rentSelValReq != null">
         RentSelValReq,
@@ -163,6 +167,9 @@
       </if>
       <if test="rentTimeRanges != null">
         #{rentTimeRanges,jdbcType=INTEGER},
+      </if>
+      <if test="daySelectTimeRange != null">
+        #{daySelectTimeRange,jdbcType=VARCHAR},
       </if>
       <if test="rentSelValReq != null">
         #{rentSelValReq,jdbcType=VARCHAR},
@@ -202,6 +209,9 @@
       <if test="record.rentTimeRanges != null">
         RentTimeRanges = #{record.rentTimeRanges,jdbcType=INTEGER},
       </if>
+      <if test="record.daySelectTimeRange != null">
+        daySelectTimeRange = #{record.daySelectTimeRange,jdbcType=VARCHAR},
+      </if>
       <if test="record.rentSelValReq != null">
         RentSelValReq = #{record.rentSelValReq,jdbcType=VARCHAR},
       </if>
@@ -224,6 +234,7 @@
       RentIsOpenSel = #{record.rentIsOpenSel,jdbcType=BIT},
       RentTimeBegin = #{record.rentTimeBegin,jdbcType=TIMESTAMP},
       RentTimeRanges = #{record.rentTimeRanges,jdbcType=INTEGER},
+      daySelectTimeRange = #{record.daySelectTimeRange,jdbcType=VARCHAR},
       RentSelValReq = #{record.rentSelValReq,jdbcType=VARCHAR},
       RentSelRules = #{record.rentSelRules,jdbcType=VARCHAR},
       IsDelete = #{record.isDelete,jdbcType=BIT}
@@ -249,6 +260,9 @@
       <if test="rentTimeRanges != null">
         RentTimeRanges = #{rentTimeRanges,jdbcType=INTEGER},
       </if>
+      <if test="daySelectTimeRange != null">
+        daySelectTimeRange = #{daySelectTimeRange,jdbcType=VARCHAR},
+      </if>
       <if test="rentSelValReq != null">
         RentSelValReq = #{rentSelValReq,jdbcType=VARCHAR},
       </if>
@@ -268,6 +282,7 @@
       RentIsOpenSel = #{rentIsOpenSel,jdbcType=BIT},
       RentTimeBegin = #{rentTimeBegin,jdbcType=TIMESTAMP},
       RentTimeRanges = #{rentTimeRanges,jdbcType=INTEGER},
+      daySelectTimeRange = #{daySelectTimeRange,jdbcType=VARCHAR},
       RentSelValReq = #{rentSelValReq,jdbcType=VARCHAR},
       RentSelRules = #{rentSelRules,jdbcType=VARCHAR},
       IsDelete = #{isDelete,jdbcType=BIT}

@@ -96,12 +96,12 @@ public class LoginRecordController {
 			return Msg.success().add("data", list);
 		}
 		if (week==1) {
-			Date date = new Date();
+			Date date = DateUtil.getDelayAppointDate(new Date(),8);
 			List<String> listString = new ArrayList<>();
 			List<Long> listCount = new ArrayList<>();
 			
 			for (int i = 0; i < 7; i++) {
-				date = DateUtil.getDelayAppointDate(date,1);
+				date = DateUtil.getAppointDate(date,1);
 				listString.add(DateUtil.getCurrentSimpleRecordDate(date));
 				listCount.add(loginRecordService.getLoginRecord(date));
 			}

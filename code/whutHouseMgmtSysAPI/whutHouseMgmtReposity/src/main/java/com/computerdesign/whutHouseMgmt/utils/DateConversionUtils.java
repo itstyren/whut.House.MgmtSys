@@ -36,6 +36,8 @@ public class DateConversionUtils {
 	 * @return
 	 */
 	public static String dateToString(Date date, String pattern){
-		return null;
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		
+		return sdf.format(date);
 	}
 }
