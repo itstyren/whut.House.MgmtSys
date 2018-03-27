@@ -30,7 +30,8 @@ export default {
   data() {
     return {
       chart: null,
-      data: [820, 932, 901, 934, 1290, 1330, 1320]
+      name: [],
+      data: []
     };
   },
   mounted() {
@@ -43,7 +44,6 @@ export default {
       }, 100);
       window.addEventListener("resize", this.__resizeHanlder);
     }
-    this.getData()
   },
   watch: {
     chartData: {
@@ -55,29 +55,23 @@ export default {
   },
   methods: {
     getData() {
-      let params = {
-        week: 1
-      };
-      this.chart.showLoading();
-      getVisitCapacity(params).then(res => {
-        //console.log(res.data.data);
-         this.chart.setOption({
-           xAxis:{
-             data:res.data.data.name
-           },
-           series:[{
-             data:res.data.data.count
-           }]
-         })
-          this.chart.hideLoading();
-        
+      return new Promise((resolve, reject) => {
+        let params = {
+          week: 1
+        };
+        getVisitCapacity(params).then(res => {
+          this.name = res.data.data.name;
+          this.data = res.data.data.count;
+          resolve();
+        });
       });
     },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         xAxis: {
           type: "category",
-          boundaryGap: false
+          boundaryGap: false,
+          data:this.name
         },
         yAxis: {
           axisTick: {
@@ -87,7 +81,8 @@ export default {
         series: [
           {
             type: "line",
-            areaStyle: {}
+            areaStyle: {},
+            data:this.data
           }
         ],
         grid: {
@@ -105,13 +100,16 @@ export default {
           padding: [5, 10]
         },
         smooth: 0.2,
-        animationDuration: 2800,
+        animationDuration: 3300,
         animationEasing: "cubicInOut"
       });
     },
     initChart() {
       this.chart = echarts.init(this.$refs.pageView, "macarons");
-      this.setOptions(this.chartData);
+
+      this.getData().then(() => {
+        this.setOptions(this.chartData);
+      });
     }
   }
 };

@@ -29,7 +29,6 @@
                    <struct-pie></struct-pie>
                 </el-row>
                 <el-row>
-                    <status-pie></status-pie>
                 </el-row>
               </el-col>
               <el-col :span="14">
@@ -72,7 +71,7 @@
       regionBar,
       structPie,
       occupancyRate,
-      numList
+      numList,
     }
   };
 

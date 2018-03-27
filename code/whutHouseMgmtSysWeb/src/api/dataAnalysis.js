@@ -24,3 +24,11 @@ export function getVisitCapacity(params) {
         params: params
     })
 }
+// 住房参数统计分析接口
+export function getHouseParamCount(params) {
+    return request({
+        url: `/houseRecord/Content`,
+        method: 'get',
+        params: params
+    })
+}
