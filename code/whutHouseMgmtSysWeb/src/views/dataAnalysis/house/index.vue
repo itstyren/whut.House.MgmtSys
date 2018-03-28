@@ -16,7 +16,7 @@
         <div class="warp-body">
           <!-- 工具栏 -->
           <div class="toolbar">
-            <house-filter></house-filter>
+            <house-filter @query-house="queryHandle"></house-filter>
           </div>
           <!-- 表格区 -->
           <div class="main-data">
@@ -26,7 +26,7 @@
                   <num-list></num-list>                  
                 </el-row>
                 <el-row>
-                   <struct-pie></struct-pie>
+                   <struct-pie :filters-data="filtersData"></struct-pie>
                 </el-row>
                 <el-row>
                   <status-pie></status-pie>
@@ -64,7 +64,9 @@
   import statusPie from './components/statusPie.vue'
   export default {
     data() {
-      return {};
+      return {
+        filtersData:{}
+      };
     },
     components: {
       houseFilter,
@@ -73,9 +75,15 @@
       regionBar,
       structPie,
       occupancyRate,
-      numList,statusPie
+      numList,statusPie,
+    },
+    methods: {
+            // 多重查找查询
+      queryHandle(data) {
+this.filtersData=data
+      },
     }
-  };
+  }
 
 </script>
 

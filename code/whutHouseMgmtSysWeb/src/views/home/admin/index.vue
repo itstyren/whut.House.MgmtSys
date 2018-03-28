@@ -19,7 +19,6 @@
         <el-row>
           <el-col class="pag-view">
          <channel :height="'275px'"></channel>
-
           </el-col>
         </el-row>
         <el-row>
