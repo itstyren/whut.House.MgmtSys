@@ -31,8 +31,9 @@
             </template>
           </el-table-column>
           <el-table-column prop="rentTimeBegin" label="开始时间" sortable align="center"></el-table-column>
-          <el-table-column prop="rentTimeRanges" label="选房间隔（分钟）" sortable align="center"></el-table-column>
-          <el-table-column prop="rentIsOpenSel" label="是否开启" sortable align="center" :formatter="transfOpenStatus"></el-table-column>
+          <el-table-column prop="rentTimeRanges" label="单人可选分钟" sortable align="center"></el-table-column>
+          <el-table-column prop="daySelectTimeRange" label="选房时间段" sortable align="center"></el-table-column>          
+          <el-table-column prop="rentIsOpenSel" label="状态" sortable align="center" :formatter="transfOpenStatus"></el-table-column>
           <el-table-column prop="rentSelValReq" label="所需积分" sortable align="center"></el-table-column>
           <el-table-column label="操作" width="200" align="center">
             <template slot-scope="scope">

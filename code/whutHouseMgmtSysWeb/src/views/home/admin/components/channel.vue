@@ -3,6 +3,16 @@
 <div class="title">
       <strong>快速通道</strong> 
 </div>
+<el-row>
+  <el-col :span="24">
+    <ul>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+    </ul>
+  </el-col>
+</el-row>
  </div>
 </template>
 

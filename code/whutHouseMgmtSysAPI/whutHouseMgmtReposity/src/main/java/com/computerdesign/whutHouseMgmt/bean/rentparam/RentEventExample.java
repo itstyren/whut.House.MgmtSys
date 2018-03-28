@@ -475,6 +475,76 @@ public class RentEventExample {
             return (Criteria) this;
         }
 
+        public Criteria andDaySelectTimeRangeIsNull() {
+            addCriterion("daySelectTimeRange is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeIsNotNull() {
+            addCriterion("daySelectTimeRange is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeEqualTo(String value) {
+            addCriterion("daySelectTimeRange =", value, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeNotEqualTo(String value) {
+            addCriterion("daySelectTimeRange <>", value, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeGreaterThan(String value) {
+            addCriterion("daySelectTimeRange >", value, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeGreaterThanOrEqualTo(String value) {
+            addCriterion("daySelectTimeRange >=", value, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeLessThan(String value) {
+            addCriterion("daySelectTimeRange <", value, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeLessThanOrEqualTo(String value) {
+            addCriterion("daySelectTimeRange <=", value, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeLike(String value) {
+            addCriterion("daySelectTimeRange like", value, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeNotLike(String value) {
+            addCriterion("daySelectTimeRange not like", value, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeIn(List<String> values) {
+            addCriterion("daySelectTimeRange in", values, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeNotIn(List<String> values) {
+            addCriterion("daySelectTimeRange not in", values, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeBetween(String value1, String value2) {
+            addCriterion("daySelectTimeRange between", value1, value2, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDaySelectTimeRangeNotBetween(String value1, String value2) {
+            addCriterion("daySelectTimeRange not between", value1, value2, "daySelectTimeRange");
+            return (Criteria) this;
+        }
+
         public Criteria andRentSelValReqIsNull() {
             addCriterion("RentSelValReq is null");
             return (Criteria) this;

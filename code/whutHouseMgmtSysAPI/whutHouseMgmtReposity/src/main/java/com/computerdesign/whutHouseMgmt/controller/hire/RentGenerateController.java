@@ -143,6 +143,8 @@ public class RentGenerateController {
 			rentVwShowModel.setBookTime(rentVw.getBookTime());
 			//到期时间
 			rentVwShowModel.setExpireTime(rentVw.getExpireTime());
+			//工作部门
+			rentVwShowModel.setStaffDeptName(rentVw.getStaffDeptName());
 			rentVwShowModels.add(rentVwShowModel);
 		}
 		PageInfo pageInfo = new PageInfo(rentVws);

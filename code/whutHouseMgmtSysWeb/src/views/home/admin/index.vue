@@ -18,7 +18,7 @@
         </el-row>
         <el-row>
           <el-col class="pag-view">
-            <page-view :height="'275px'"></page-view>
+         <channel :height="'275px'"></channel>
           </el-col>
         </el-row>
         <el-row>
@@ -26,12 +26,12 @@
             <fix-pie :height="'290px'"></fix-pie>
           </el-col>
           <el-col :span="12" style="margin-left:30px;">
-            <fix-bar :height="'290px'"></fix-bar>
+            <page-view :height="'290px'"></page-view>     
           </el-col>
         </el-row>
         <el-row>
           <el-col class="channel">          
-         <channel></channel>
+            <fix-bar :height="'350px'"></fix-bar>
           </el-col>
         </el-row>
       </el-col>

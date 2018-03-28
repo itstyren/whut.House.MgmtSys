@@ -51,12 +51,25 @@ public class RentEventController {
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
 	public Msg modifyRentEvent(@RequestBody RentEventModel rentEventModel) {
 		RentEvent rentEvent = rentEventService.get(rentEventModel.getRentEventId());
+		if(rentEvent.getRentIsOpenSel() == false){
+			return Msg.error("只能编辑正在使用的选房规则");
+		}
 		System.out.println(rentEventModel.getRentTimeBegin());
 		if (rentEvent != null) {
 			rentEvent.setRentSelValReq(rentEventModel.getRentSelValReq());
 			rentEvent.setRentSelRules(rentEventModel.getRentSelRules());
 			rentEvent.setRentTimeBegin(rentEventModel.getRentTimeBegin());
 			rentEvent.setRentTimeRanges(rentEventModel.getRentTimeRanges());
+			
+			//每日选房时间范围
+			Integer dayRentTimeBegin = rentEventModel.getDayRentTimeBegin();
+			Integer dayRentTimeEnd = rentEventModel.getDayRentTimeEnd();
+			if(dayRentTimeBegin < 0 || dayRentTimeBegin > 24 || dayRentTimeEnd < 0 || dayRentTimeEnd > 24){
+				return Msg.error("每日选房时间范围只能在0~24之间");
+			}
+			rentEvent.setDaySelectTimeRange(dayRentTimeBegin + "-" + dayRentTimeEnd);
+			
+			
 			rentEventService.update(rentEvent);
 			
 			//获取设置的选房开始时间以及选房时间
@@ -103,7 +116,7 @@ public class RentEventController {
 	            //创建一个新的日历类，用于保存每个人的选房开始时间，判断是否推迟到下一天
 	            Calendar calendar2 = Calendar.getInstance();
 	            calendar2.setTime(staffSelectHouse3.getSelectStart());
-	            if(calendar.get(Calendar.HOUR_OF_DAY) >= 8 && calendar.get(Calendar.HOUR_OF_DAY) <= 17 && calendar2.get(Calendar.HOUR_OF_DAY) < 17){
+	            if(calendar.get(Calendar.HOUR_OF_DAY) >= dayRentTimeBegin && calendar.get(Calendar.HOUR_OF_DAY) <= dayRentTimeEnd && calendar2.get(Calendar.HOUR_OF_DAY) < dayRentTimeEnd){
 	            	staffSelectHouse3.setSelectEnd(calendar.getTime());
 	            }else{
 	            	int year = calendar.get(Calendar.YEAR);
@@ -111,7 +124,7 @@ public class RentEventController {
 	            	calendar.add(Calendar.DATE, 1);
 	            	int month = calendar.get(Calendar.MONTH);
 	            	int date = calendar.get(Calendar.DATE);
-	            	int hour = 8;
+	            	int hour = dayRentTimeBegin;
 	            	calendar.set(year, month, date,hour,0);
 	            	staffSelectHouse3.setSelectStart(calendar.getTime());
 	            	calendar.add(Calendar.MINUTE, rentEvent.getRentTimeRanges());
@@ -190,7 +203,12 @@ public class RentEventController {
 		          //创建一个新的日历类，用于保存每个人的选房开始时间，判断是否推迟到下一天
 		            Calendar calendar2 = Calendar.getInstance();
 		            calendar2.setTime(staffSelectHouse3.getSelectStart());
-		            if(calendar.get(Calendar.HOUR_OF_DAY) >= 8 && calendar.get(Calendar.HOUR_OF_DAY) <= 17 && calendar2.get(Calendar.HOUR_OF_DAY) < 17){
+		            
+		            //获取每日选房开始及结束时间
+		            Integer dayRentTimeBegin = rentEventModel.getDayRentTimeBegin();
+		            Integer dayRentTimeEnd = rentEventModel.getDayRentTimeEnd();
+		            
+		            if(calendar.get(Calendar.HOUR_OF_DAY) >= dayRentTimeBegin && calendar.get(Calendar.HOUR_OF_DAY) <= dayRentTimeEnd && calendar2.get(Calendar.HOUR_OF_DAY) < dayRentTimeEnd){
 		            	staffSelectHouse3.setSelectEnd(calendar.getTime());
 		            }else{
 		            	int year = calendar.get(Calendar.YEAR);
@@ -198,7 +216,7 @@ public class RentEventController {
 		            	calendar.add(Calendar.DATE, 1);
 		            	int month = calendar.get(Calendar.MONTH);
 		            	int date = calendar.get(Calendar.DATE);
-		            	int hour = 8;
+		            	int hour = dayRentTimeBegin;
 		            	calendar.set(year, month, date,hour,0);
 		            	staffSelectHouse3.setSelectStart(calendar.getTime());
 		            	calendar.add(Calendar.MINUTE, rentEvent.getRentTimeRanges());
@@ -218,6 +236,7 @@ public class RentEventController {
 		rentEvent.setRentSelRules(rentEventModel.getRentSelRules());
 		rentEvent.setRentTimeBegin(rentEventModel.getRentTimeBegin());
 		rentEvent.setRentTimeRanges(rentEventModel.getRentTimeRanges());
+		rentEvent.setDaySelectTimeRange(rentEventModel.getDayRentTimeBegin() + "-" + rentEventModel.getDayRentTimeEnd());
 	}
 
 	@ResponseBody

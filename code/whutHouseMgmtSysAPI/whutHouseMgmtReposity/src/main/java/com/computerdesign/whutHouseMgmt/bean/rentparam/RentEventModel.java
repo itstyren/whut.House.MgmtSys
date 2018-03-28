@@ -18,6 +18,10 @@ public class RentEventModel {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date rentTimeBegin;
 	
+	private Integer dayRentTimeBegin;
+	
+	private Integer dayRentTimeEnd;
+	
 	private Integer rentTimeRanges;
 
 	private String rentSelValReq;
@@ -28,6 +32,22 @@ public class RentEventModel {
 
 	public Integer getRentEventId() {
 		return rentEventId;
+	}
+
+	public Integer getDayRentTimeBegin() {
+		return dayRentTimeBegin;
+	}
+
+	public void setDayRentTimeBegin(Integer dayRentTimeBegin) {
+		this.dayRentTimeBegin = dayRentTimeBegin;
+	}
+
+	public Integer getDayRentTimeEnd() {
+		return dayRentTimeEnd;
+	}
+
+	public void setDayRentTimeEnd(Integer dayRentTimeEnd) {
+		this.dayRentTimeEnd = dayRentTimeEnd;
 	}
 
 	public void setRentEventId(Integer rentEventId) {
