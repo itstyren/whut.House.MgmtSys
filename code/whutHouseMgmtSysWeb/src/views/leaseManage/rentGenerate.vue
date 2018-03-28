@@ -131,7 +131,7 @@
                       <el-table-column type="index" label="序号" width="70" align="center"></el-table-column>
                       <el-table-column prop="staffNo" label="职工号" width="70" align="center"></el-table-column>
                       <el-table-column prop="staffName" label="姓名" width="70" align="center"></el-table-column>
-                      <el-table-column prop="deptName" label="工作部门" width="150" align="center"></el-table-column>
+                      <el-table-column prop="staffDeptName" label="工作部门" width="150" align="center"></el-table-column>
                       <el-table-column prop="address" label="住房地址" align="center"></el-table-column>
                       <el-table-column prop="rentInitMoney" label="租金" width="100" align="center"></el-table-column>
                     </el-table>
@@ -251,296 +251,171 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import exportPopover from "@/components/exportPopover";
-  import staffIndex from "@/views/fixManage/components/staffIndex";
-  import {
-    getHouseParam,
-    getStaffParam
-  } from "@/api/sysManage";
-  import {
-    getRegionData
-  } from "@/api/basiceData";
-  import {
-    postHireRenterMultiply,
-    getHireRenter,
-    postHireGenerateRental,
-    postHireRentalQuery
-  } from "@/api/leaseManage";
-  import * as OPTION from "@/assets/data/formOption";
-  import * as staticData from "@/utils/static";
-  import utils from "@/utils/index.js";
-    import {
-    parseTime
-  } from "@/utils/time.js";
-  export default {
-    data() {
-      return {
-        downloadLoading:false,
-        // Tabs需要的
-        activeName: "staff",
-        // 查询需要相关的
-        directQuery: "",
-        // isFillStaff: false,
-        // 查询租金记录
-        timeRange: [],
-        // 多条件查找区
-        dialogLoading: false,
-        dialogVisible: false,
-        queryForm: {},
-        deptData: [],
-        postData: [],
-        titleData: [],
-        classData: [],
-        statusData: [],
-        regionData: [],
-        typeData: [],
-        joinTime: [],
-        goUniversityTimeRange: [],
-        formOption: OPTION,
-        setList: [],
-        // 时间选择区域
-        pickerOptions: {
-          shortcuts: staticData.longSpanPickerOptions
-        },
-        // 员工表格
-        hireStaffData: [],
-        listLoading: false,
-        totalNum: 0,
-        page: 1,
-        size: 10,
-        // 租金生成表格
-        rentalData: [],
-        listLoading1: false,
-        totalNum1: 0,
-        page1: 1,
-        size1: 10
-      };
-    },
-    // watch: {
-    //   hireStaffData(newVal) {
-    //     if (newVal != []) {
-    //       this.isFillStaff = true;
-    //     }
-    //   }
-    // },
-    components: {
-      staffIndex,
-      exportPopover
-    },
-    methods: {
-      // 从组件获取id
-      getStaff(object) {
-        console.log(object);
+import exportPopover from "@/components/exportPopover";
+import staffIndex from "@/views/fixManage/components/staffIndex";
+import { getHouseParam, getStaffParam } from "@/api/sysManage";
+import { getRegionData } from "@/api/basiceData";
+import {
+  postHireRenterMultiply,
+  getHireRenter,
+  postHireGenerateRental,
+  postHireRentalQuery
+} from "@/api/leaseManage";
+import * as OPTION from "@/assets/data/formOption";
+import * as staticData from "@/utils/static";
+import utils from "@/utils/index.js";
+import { parseTime } from "@/utils/time.js";
+export default {
+  data() {
+    return {
+      downloadLoading: false,
+      // Tabs需要的
+      activeName: "staff",
+      // 查询需要相关的
+      directQuery: "",
+      // isFillStaff: false,
+      // 查询租金记录
+      timeRange: [],
+      // 多条件查找区
+      dialogLoading: false,
+      dialogVisible: false,
+      queryForm: {},
+      deptData: [],
+      postData: [],
+      titleData: [],
+      classData: [],
+      statusData: [],
+      regionData: [],
+      typeData: [],
+      joinTime: [],
+      goUniversityTimeRange: [],
+      formOption: OPTION,
+      setList: [],
+      // 时间选择区域
+      pickerOptions: {
+        shortcuts: staticData.longSpanPickerOptions
       },
-      //初始查询条件获取
-      initalGet() {
-        return new Promise((resolve, reject) => {
-          if (this.deptData.length == 0) {
-            this.dialogLoading = true;
-            let param = {
-              size: 999
-            };
-            //部门5
-            getStaffParam(param, 5)
-              .then(res => {
-                this.deptData = res.data.data.data.list;
-              })
-              .catch(err => {
-                console.log(err);
-                reject(err);
-              });
-            // 职务为6
-            getStaffParam(param, 6)
-              .then(res => {
-                this.postData = res.data.data.data.list;
-              })
-              .catch(err => {
-                console.log(err);
-                reject(err);
-              });
-            // 职称为7
-            getStaffParam(param, 7)
-              .then(res => {
-                this.titleData = res.data.data.data.list;
-              })
-              .catch(err => {
-                console.log(err);
-                reject(err);
-              });
-            // 类别为8
-            getStaffParam(param, 8)
-              .then(res => {
-                this.classData = res.data.data.data.list;
-              })
-              .catch(err => {
-                console.log(err);
-                reject(err);
-              });
-            // 状态为9
-            getStaffParam(param, 9)
-              .then(res => {
-                this.statusData = res.data.data.data.list;
-                this.listLoading = false;
-              })
-              .catch(err => {
-                console.log(err);
-                reject(err);
-              });
-            // 住房类型1
-            getHouseParam(param, 1)
-              .then(res => {
-                this.typeData = res.data.data.data.list;
-              })
-              .catch(err => {
-                console.log(err);
-              });
-            // 获取全部区域
-            getRegionData(param)
-              .then(res => {
-                this.regionData = res.data.data.data.list;
-                this.regionData.forEach(region => {
-                  let flag = region.name.indexOf("（");
-                  if (flag != -1) {
-                    region.name = region.name.substring(0, flag);
-                  }
-                });
-                resolve();
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          } else {
-            resolve();
-          }
-        });
-      },
-      // 处理导出情况
-      exportHandle(exportType){
-     //console.log(33)
-        if (exportType == 1) this.handleDownload();
-        else {
+      // 员工表格
+      hireStaffData: [],
+      listLoading: false,
+      totalNum: 0,
+      page: 1,
+      size: 10,
+      // 租金生成表格
+      rentalData: [],
+      listLoading1: false,
+      totalNum1: 0,
+      page1: 1,
+      size1: 10
+    };
+  },
+  // watch: {
+  //   hireStaffData(newVal) {
+  //     if (newVal != []) {
+  //       this.isFillStaff = true;
+  //     }
+  //   }
+  // },
+  components: {
+    staffIndex,
+    exportPopover
+  },
+  methods: {
+    // 从组件获取id
+    getStaff(object) {
+      console.log(object);
+    },
+    //初始查询条件获取
+    initalGet() {
+      return new Promise((resolve, reject) => {
+        if (this.deptData.length == 0) {
+          this.dialogLoading = true;
           let param = {
-            page: 1,
-            size: 9999
+            size: 999
           };
-          let data = Object.assign({}, this.queryForm);
-          postHireGenerateRental(param, data).then(res => {
-            const values = res.data.data.data.list;
-            this.handleDownload(values);
-          });
+          //部门5
+          getStaffParam(param, 5)
+            .then(res => {
+              this.deptData = res.data.data.data.list;
+            })
+            .catch(err => {
+              console.log(err);
+              reject(err);
+            });
+          // 职务为6
+          getStaffParam(param, 6)
+            .then(res => {
+              this.postData = res.data.data.data.list;
+            })
+            .catch(err => {
+              console.log(err);
+              reject(err);
+            });
+          // 职称为7
+          getStaffParam(param, 7)
+            .then(res => {
+              this.titleData = res.data.data.data.list;
+            })
+            .catch(err => {
+              console.log(err);
+              reject(err);
+            });
+          // 类别为8
+          getStaffParam(param, 8)
+            .then(res => {
+              this.classData = res.data.data.data.list;
+            })
+            .catch(err => {
+              console.log(err);
+              reject(err);
+            });
+          // 状态为9
+          getStaffParam(param, 9)
+            .then(res => {
+              this.statusData = res.data.data.data.list;
+              this.listLoading = false;
+            })
+            .catch(err => {
+              console.log(err);
+              reject(err);
+            });
+          // 住房类型1
+          getHouseParam(param, 1)
+            .then(res => {
+              this.typeData = res.data.data.data.list;
+            })
+            .catch(err => {
+              console.log(err);
+            });
+          // 获取全部区域
+          getRegionData(param)
+            .then(res => {
+              this.regionData = res.data.data.data.list;
+              this.regionData.forEach(region => {
+                let flag = region.name.indexOf("（");
+                if (flag != -1) {
+                  region.name = region.name.substring(0, flag);
+                }
+              });
+              resolve();
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        } else {
+          resolve();
         }
-      },
-      // 导出
-      handleDownload(...values) {
-        let filename = "租金表统计";
-        this.downloadLoading = true;
-        import ("@/vendor/Export2Excel").then(excel => {
-          const tHeader = [
-            "职工号",
-            "姓名",
-            "工作部门",
-            "住房地址",
-            "租金",
-          ];
-          const filterVal = [
-            "staffNo",
-            "staffName",
-            "staffName",
-            "address",
-            "rentInitMoney",
-          ];
-          let list = [];
-          if (arguments.length == 0) list = this.rentalData;
-          else list = arguments[0];
-          const data = this.formatJson(filterVal, list); // 用于自行洗数据
-          let date = new Date();
-          filename = filename + `(${parseTime(date, "{y}-{m}-{d}")})`;
-          excel.export_json_to_excel(tHeader, data, filename);
-          this.downloadLoading = false;
-        });
-      },
-      formatJson(filterVal, jsonData) {
-        return jsonData.map(v =>
-          filterVal.map(j => {
-            if (j === "timestamp") {
-              return parseTime(v[j]);
-            } else {
-              return v[j];
-            }
-          })
-        );
-      },
-      // 显示多条件查询时候
-      showDialog() {
-        this.dialogVisible = true;
-        this.initalGet().then((this.dialogLoading = false));
-      },
-      // 直接查询的方法
-      directQueryMthod() {
-        this.listLoading = true;
-        let params = {
-          conditionValue: this.directQuery,
-          page: this.page,
-          size: this.size
-        };
-        getHireRenter(params).then(res => {
-          utils.statusinfo(this, res.data);
-          this.hireStaffData = res.data.data.data.list;
-          this.totalNum = res.data.data.data.total;
-          this.listLoading = false;
-        });
-      },
-      // 多条件查询操作
-      multiplyQuery() {
-        this.dialogVisible = false;
-        if (this.joinTime.length != 0) {
-          this.queryForm.joinTime = {
-            startTime: this.time[0],
-            endTime: this.time[1]
-          };
-        }
-        if (this.goUniversityTimeRange.length != 0) {
-          this.queryForm.goUniversityTimeRange = {
-            startTime: this.time[0],
-            endTime: this.time[1]
-          };
-        }
-        for (let v in this.queryForm) {
-          if (this.queryForm[v] == "") delete this.queryForm[v];
-        }
-        this.listLoading = true;
+      });
+    },
+    // 处理导出情况
+    exportHandle(exportType) {
+      //console.log(33)
+      if (exportType == 1) this.handleDownload();
+      else {
         let param = {
-          page: this.page,
-          size: this.size
+          page: 1,
+          size: 9999
         };
-        const data = Object.assign({}, this.queryForm);
-        postHireRenterMultiply(param, data).then(res => {
-          utils.statusinfo(this, res.data);
-          this.hireStaffData = res.data.data.data.list;
-          this.totalNum = res.data.data.data.total;
-          this.listLoading = false;
-        });
-      },
-      // 监听多选生成租金
-      setSelectionChange(selection) {
-        this.setList = [];
-        selection.forEach(v => {
-          this.setList.push(v.houseNo);
-        });
-      },
-      // 生成租金
-      generateSelectRental() {
-        //console.log(this.setList)
-        this.listLoading = true;
-        const data = this.setList;
-        let params={}
-        postHireGenerateRental(params,data).then(res => {
-          utils.statusinfo(this, res.data);
-          this.listLoading = false;
-        });
-      },
-      // 时间段已经生成租金查询
-      rentalQuery() {
         let data = {};
         if (this.timeRange.length != 0) {
           data = {
@@ -550,71 +425,189 @@
         } else {
           return true;
         }
-        this.listLoading1 = true;
-        let params = {
-          size: this.size1,
-          page: this.page1
-        };
-        postHireRentalQuery(params, data).then(res => {
-          utils.statusinfo(this, res.data);
-          this.rentalData = res.data.data.data.list;
-          this.totalNum1 = res.data.data.data.total;
-          this.listLoading1 = false;
+        postHireRentalQuery(param, data).then(res => {
+          const values = res.data.data.data.list;
+          this.handleDownload(values);
         });
-      },
-      //更换每页数量
-      sizeChangeEvent(val) {
-        this.listLoading = true;
-        this.size = val;
-        this.multiplyQuery();
-      },
-      //页码切换时
-      currentChangeEvent(val) {
-        this.listLoading = true;
-        this.page = val;
-        this.multiplyQuery();
       }
+    },
+    // 导出
+    handleDownload(...values) {
+      let filename = "租金表统计";
+      this.downloadLoading = true;
+      import("@/vendor/Export2Excel").then(excel => {
+        const tHeader = ["职工号", "姓名", "工作部门", "住房地址", "租金"];
+        const filterVal = [
+          "staffNo",
+          "staffName",
+          "staffDeptName",
+          "address",
+          "rentInitMoney"
+        ];
+        let list = [];
+        if (arguments.length == 0) list = this.rentalData;
+        else list = arguments[0];
+        const data = this.formatJson(filterVal, list); // 用于自行洗数据
+        let date = new Date();
+        filename = filename + `(${parseTime(date, "{y}-{m}-{d}")})`;
+        excel.export_json_to_excel(tHeader, data, filename);
+        this.downloadLoading = false;
+      });
+    },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v =>
+        filterVal.map(j => {
+          if (j === "timestamp") {
+            return parseTime(v[j]);
+          } else {
+            return v[j];
+          }
+        })
+      );
+    },
+    // 显示多条件查询时候
+    showDialog() {
+      this.dialogVisible = true;
+      this.initalGet().then((this.dialogLoading = false));
+    },
+    // 直接查询的方法
+    directQueryMthod() {
+      this.listLoading = true;
+      let params = {
+        conditionValue: this.directQuery,
+        page: this.page,
+        size: this.size
+      };
+      getHireRenter(params).then(res => {
+        utils.statusinfo(this, res.data);
+        this.hireStaffData = res.data.data.data.list;
+        this.totalNum = res.data.data.data.total;
+        this.listLoading = false;
+      });
+    },
+    // 多条件查询操作
+    multiplyQuery() {
+      this.dialogVisible = false;
+      if (this.joinTime.length != 0) {
+        this.queryForm.joinTime = {
+          startTime: this.time[0],
+          endTime: this.time[1]
+        };
+      }
+      if (this.goUniversityTimeRange.length != 0) {
+        this.queryForm.goUniversityTimeRange = {
+          startTime: this.time[0],
+          endTime: this.time[1]
+        };
+      }
+      for (let v in this.queryForm) {
+        if (this.queryForm[v] == "") delete this.queryForm[v];
+      }
+      this.listLoading = true;
+      let param = {
+        page: this.page,
+        size: this.size
+      };
+      const data = Object.assign({}, this.queryForm);
+      postHireRenterMultiply(param, data).then(res => {
+        utils.statusinfo(this, res.data);
+        this.hireStaffData = res.data.data.data.list;
+        this.totalNum = res.data.data.data.total;
+        this.listLoading = false;
+      });
+    },
+    // 监听多选生成租金
+    setSelectionChange(selection) {
+      this.setList = [];
+      selection.forEach(v => {
+        this.setList.push(v.houseNo);
+      });
+    },
+    // 生成租金
+    generateSelectRental() {
+      //console.log(this.setList)
+      this.listLoading = true;
+      const data = this.setList;
+      let params = {};
+      postHireGenerateRental(params, data).then(res => {
+        utils.statusinfo(this, res.data);
+        this.listLoading = false;
+      });
+    },
+    // 时间段已经生成租金查询
+    rentalQuery() {
+      let data = {};
+      if (this.timeRange.length != 0) {
+        data = {
+          startTime: this.timeRange[0],
+          endTime: this.timeRange[1]
+        };
+      } else {
+        return true;
+      }
+      this.listLoading1 = true;
+      let params = {
+        size: this.size1,
+        page: this.page1
+      };
+      postHireRentalQuery(params, data).then(res => {
+        utils.statusinfo(this, res.data);
+        this.rentalData = res.data.data.data.list;
+        this.totalNum1 = res.data.data.data.total;
+        this.listLoading1 = false;
+      });
+    },
+    //更换每页数量
+    sizeChangeEvent(val) {
+      this.listLoading = true;
+      this.size = val;
+      this.multiplyQuery();
+    },
+    //页码切换时
+    currentChangeEvent(val) {
+      this.listLoading = true;
+      this.page = val;
+      this.multiplyQuery();
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  @import "../../styles/variables.scss";
+@import "../../styles/variables.scss";
 
-  .second-container {
-    background-color: $background-grey;
-    .toolbar {
-      padding: 15px;
+.second-container {
+  background-color: $background-grey;
+  .toolbar {
+    padding: 15px;
+  }
+  .table-tabs {
+    height: 57vh;
+    padding-bottom: 40px;
+    position: relative;
+    & > .bottom-tool {
+      position: absolute;
+      bottom: 5px;
+      left: 15px;
     }
-    .table-tabs {
-      height: 57vh;
-      padding-bottom: 40px;
-      position: relative;
-      &>.bottom-tool {
-        position: absolute;
-        bottom: 5px;
-        left: 15px;
-      }
-    } // .staff-table {
-    //   height: 28vh;
-    //   padding-bottom: 40px;
-    //   position: relative;
-    //   &>.bottom-tool {
-    //     position: absolute;
-    //     bottom: 5px;
-    //     left: 15px;
-    //   }
-    // }
-    // .rental-table {
-    //   height: 28vh;
-    //   padding-bottom: 35px;
-    // }
-    .multiply-diolog {
-      .el-form-item {
-        margin-bottom: 5px;
-      }
+  } // .staff-table {
+  //   height: 28vh;
+  //   padding-bottom: 40px;
+  //   position: relative;
+  //   &>.bottom-tool {
+  //     position: absolute;
+  //     bottom: 5px;
+  //     left: 15px;
+  //   }
+  // }
+  // .rental-table {
+  //   height: 28vh;
+  //   padding-bottom: 35px;
+  // }
+  .multiply-diolog {
+    .el-form-item {
+      margin-bottom: 5px;
     }
   }
-
+}
 </style>

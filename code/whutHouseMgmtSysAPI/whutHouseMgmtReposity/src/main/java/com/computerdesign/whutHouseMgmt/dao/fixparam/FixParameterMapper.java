@@ -1,9 +1,10 @@
 package com.computerdesign.whutHouseMgmt.dao.fixparam;
 
-import com.computerdesign.whutHouseMgmt.bean.fixparam.FixParameter;
-import com.computerdesign.whutHouseMgmt.bean.fixparam.FixParameterExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import com.computerdesign.whutHouseMgmt.bean.fixparam.FixParameter;
+import com.computerdesign.whutHouseMgmt.bean.fixparam.FixParameterExample;
 
 public interface FixParameterMapper {
     long countByExample(FixParameterExample example);

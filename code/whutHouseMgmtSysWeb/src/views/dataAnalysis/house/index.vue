@@ -16,7 +16,7 @@
         <div class="warp-body">
           <!-- 工具栏 -->
           <div class="toolbar">
-            <house-filter></house-filter>
+            <house-filter @query-house="queryHandle"></house-filter>
           </div>
           <!-- 表格区 -->
           <div class="main-data">
@@ -26,9 +26,10 @@
                   <num-list></num-list>                  
                 </el-row>
                 <el-row>
-                   <struct-pie></struct-pie>
+                   <struct-pie :filters-data="filtersData"></struct-pie>
                 </el-row>
                 <el-row>
+                  <status-pie></status-pie>
                 </el-row>
               </el-col>
               <el-col :span="14">
@@ -36,7 +37,7 @@
                   <region-bar :height="'718px'"></region-bar>
                 </el-row>
                 <el-row>
-                    <status-pie></status-pie>                  
+                   <house-bar></house-bar>               
                 </el-row>
               </el-col>
             </el-row>
@@ -55,25 +56,34 @@
 <script type="text/ecmascript-6">
   import houseFilter from "@/views/tools/houseFilter";
   import wuhanmMap from './components/map'
-  import statusPie from './components/statusPie'
+  import houseBar from './components/houseBar'
   import regionBar from './components/regionBar.vue'
   import structPie from './components/structPie.vue'
   import occupancyRate from './components/occupancyRate.vue'
   import numList from './components/numList.vue'
+  import statusPie from './components/statusPie.vue'
   export default {
     data() {
-      return {};
+      return {
+        filtersData:{}
+      };
     },
     components: {
       houseFilter,
       wuhanmMap,
-      statusPie,
+      houseBar,
       regionBar,
       structPie,
       occupancyRate,
-      numList,
+      numList,statusPie,
+    },
+    methods: {
+            // 多重查找查询
+      queryHandle(data) {
+this.filtersData=data
+      },
     }
-  };
+  }
 
 </script>
 

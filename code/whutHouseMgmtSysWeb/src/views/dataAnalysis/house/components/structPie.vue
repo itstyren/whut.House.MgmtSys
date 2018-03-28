@@ -25,6 +25,10 @@ export default {
     autoResize: {
       type: Boolean,
       default: true
+    },
+    filtersData: {
+      type: Object,
+      default: {}
     }
   },
   data() {
@@ -44,14 +48,21 @@ export default {
       window.addEventListener("resize", this.__resizeHanlder);
     }
   },
+  watch: {
+    filtersData(newVal) {
+      this.getData(newVal);
+    }
+  },
   methods: {
     getData() {
       let params = {
         paramTypeId: 1
       };
+     if(arguments[0]!==undefined)
+      var data = arguments[0];
+      else var data={}
       this.chart.showLoading();
-      getHouseParamCount(params).then(res => {
-        console.log(res.data.data);
+      getHouseParamCount(params, data).then(res => {
         this.chart.setOption({
           series: {
             data: res.data.data.content

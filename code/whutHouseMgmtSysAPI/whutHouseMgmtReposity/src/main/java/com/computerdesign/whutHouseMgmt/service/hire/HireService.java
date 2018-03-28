@@ -38,9 +38,6 @@ public class HireService {
 		return hireMapper.selectByPrimaryKey(id);
 	}
 
-
-
-
 	/**
 	 * 根据staffId获取hire信息
 	 * 
@@ -124,9 +121,10 @@ public class HireService {
 		residentMapper.insertSelective(resident);
 
 	}
-	
+
 	/**
 	 * 获取全部待处理的租赁信息的数目
+	 * 
 	 * @return
 	 */
 	public Long getCountToHandle() {
@@ -135,9 +133,126 @@ public class HireService {
 		criteria.andApproveStateIsNull();
 		return hireMapper.countByExample(example);
 	}
+
+	/**
+	 * 给定日期内受理拒绝的数量
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public Long getCountHasAcceptRefused(Date startTime, Date endTime) {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAcceptStateEqualTo("拒绝");
+		criteria.andAcceptTimeBetween(startTime, endTime);
+		criteria.andIsOverEqualTo(false);
+		return hireMapper.countByExample(example);
+	}
+
+	/**
+	 * 给定日期内受理拒绝的数量
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public Long getCountHasAcceptRefused(Date time) {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAcceptStateEqualTo("拒绝");
+		criteria.andAcceptTimeEqualTo(time);
+		criteria.andIsOverEqualTo(false);
+		return hireMapper.countByExample(example);
+	}
+
+	/**
+	 * 给定日期内审核拒绝的数量
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public Long getCountHasAgreeRefused(Date startTime, Date endTime) {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAgreeStateEqualTo("拒绝");
+		criteria.andAgreeTimeBetween(startTime, endTime);
+		criteria.andIsOverEqualTo(false);
+		return hireMapper.countByExample(example);
+	}
+
+	/**
+	 * 给定日期内审核拒绝的数量
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public Long getCountHasAgreeRefused(Date time) {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAgreeStateEqualTo("拒绝");
+		criteria.andAgreeTimeEqualTo(time);
+		criteria.andIsOverEqualTo(false);
+		return hireMapper.countByExample(example);
+	}
+
+	/**
+	 * 给定日期内审批拒绝的数量
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public Long getCountHasApproveRefused(Date startTime, Date endTime) {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andApproveStateEqualTo("拒绝");
+		criteria.andApproveTimeBetween(startTime, endTime);
+		criteria.andIsOverEqualTo(false);
+		return hireMapper.countByExample(example);
+	}
+
+	/**
+	 * 给定日期内审批拒绝的数量
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public Long getCountHasApproveRefused(Date time) {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andApproveStateEqualTo("拒绝");
+		criteria.andApproveTimeEqualTo(time);
+		criteria.andIsOverEqualTo(false);
+		return hireMapper.countByExample(example);
+	}
+
+	/**
+	 * 给定日期审批成功的数量
+	 * 
+	 * @param time
+	 * @return
+	 */
+	public Long getCountHasBeenApprove(Date time) {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andApproveTimeEqualTo(time);
+		criteria.andHireStateEqualTo("已审批");
+		return hireMapper.countByExample(example);
+	}
+
+	/**
+	 * 给定日期申请的数量
+	 * @param time
+	 * @return
+	 */
+	public Long getCountApply(Date time) {
+		HireExample example = new HireExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andApplyTimeEqualTo(time);
+		return hireMapper.countByExample(example);
+	}
 	
 	/**
 	 * 获取全部待签订合同的租赁信息的数目
+	 * 
 	 * @return
 	 */
 	public Long getCountToSign() {
@@ -147,9 +262,10 @@ public class HireService {
 		criteria.andHireStateEqualTo("已审批");
 		return hireMapper.countByExample(example);
 	}
-	
+
 	/**
 	 * 查看租赁信息中该houseId的有几套房子
+	 * 
 	 * @param houseId
 	 * @return
 	 */

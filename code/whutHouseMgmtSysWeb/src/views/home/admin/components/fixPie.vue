@@ -59,7 +59,6 @@ export default {
       };
       this.chart.showLoading();
         getFixContentByDay(params).then(res => {
-          console.log(res.data.data)
           //const content = res.data.data.data;
           this.chart.setOption({
             legend: {
