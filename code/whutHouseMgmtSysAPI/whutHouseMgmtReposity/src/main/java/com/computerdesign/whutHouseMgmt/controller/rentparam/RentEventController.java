@@ -251,6 +251,13 @@ public class RentEventController {
 		// List<RentEventModel> rentEventModels = dateFormat(rentEvents);
 //		 isBegin(rentEvents);
 //		List<RentEventModel> rentEventModels = isBegin(rentEvents);
+		for(RentEvent rentEvent : rentEvents){
+			if(rentEvent.getDaySelectTimeRange() != null){
+				String begin = rentEvent.getDaySelectTimeRange().split("-")[0];
+				String end = rentEvent.getDaySelectTimeRange().split("-")[1];
+				rentEvent.setDaySelectTimeRange(begin + ":00 ~ " + end + ":00");
+			}
+		}
 		
 		PageInfo pageInfo = new PageInfo(rentEvents);
 		// 将封装好的数据设置到pageInfo返回
