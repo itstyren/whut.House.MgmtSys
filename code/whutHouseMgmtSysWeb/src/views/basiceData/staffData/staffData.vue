@@ -43,7 +43,7 @@
           <el-table-column prop="postName" label="职称" sortable align="center"></el-table-column>
           <el-table-column prop="titleName" label="职务" sortable align="center"></el-table-column>
           <el-table-column prop="statusName" label="工作状态" sortable align="center"></el-table-column>
-          <el-table-column label="操作" width="300" align="center">
+          <el-table-column label="操作" width="350" align="center">
             <template slot-scope="scope">
               <el-button size="small" @click="showDetailDialog(scope.$index,scope.row)">详情</el-button>
               <el-button type="success" size="small" @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
