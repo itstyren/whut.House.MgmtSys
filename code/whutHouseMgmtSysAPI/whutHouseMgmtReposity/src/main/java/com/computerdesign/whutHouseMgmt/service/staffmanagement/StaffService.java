@@ -24,6 +24,24 @@ public class StaffService implements BaseService<Staff> {
 	private StaffValueMapper staffValueMapper;
 	
 	/**
+	 * 根据职工编号和职工姓名获取职工ID，用于Resident数据导入
+	 * @param staffNo
+	 * @param staffName
+	 * @return
+	 */
+	public Integer getStaffIdByStaffNoAndStaffName(String staffNo, String staffName){
+		StaffExample example = new StaffExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andNoEqualTo(staffNo);
+		criteria.andNameEqualTo(staffName);
+		if(staffMapper.selectByExample(example).get(0) != null){
+			return staffMapper.selectByExample(example).get(0).getId();
+		}else{
+			return null;
+		}
+	}
+	
+	/**
 	 * 根据staffNo获取单个StaffValue记录
 	 * @param staffNo
 	 * @return
