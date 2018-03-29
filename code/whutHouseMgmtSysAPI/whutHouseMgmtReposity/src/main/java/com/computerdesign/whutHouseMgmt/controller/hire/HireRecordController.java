@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
-import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 
 import io.swagger.annotations.Api;
@@ -28,8 +27,6 @@ import io.swagger.annotations.Api;
 @Api(value = "hireRecord",description="租赁统计接口")
 public class HireRecordController {
 
-	@Autowired
-	private ViewHireService viewHireService;
 
 	@Autowired
 	private HireService hireService;
