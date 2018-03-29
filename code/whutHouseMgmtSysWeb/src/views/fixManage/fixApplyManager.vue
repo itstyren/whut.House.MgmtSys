@@ -183,7 +183,9 @@ export default {
           });
         });
     },
-    delectFixForm(index, row) {},
+    delectFixForm(index, row) {
+      
+    },
     //更换每页数量
     SizeChangeEvent(val) {
       this.listLoading = true;

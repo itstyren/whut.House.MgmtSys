@@ -1,6 +1,7 @@
 <template>
   <div class="second-container">
     <aside :class="{hideSidebar:isCollapse}">
+      <scroll-bar>
       <!-- 展开关闭按钮 -->
       <div class="asid-button" @click.prevent="collapse">
         <my-icon icon-class="next" v-show="isCollapse" />
@@ -98,6 +99,7 @@
           </el-menu-item>
         </el-submenu>
       </el-menu>
+      </scroll-bar>
     </aside>
     <section class="main-container">
       <!-- 需要长时间存活的 -->
@@ -115,11 +117,15 @@
 </template>
 
 <script type="text/ecmascript-6">
+import ScrollBar from "@/components/ScrollBar";
   export default {
     data() {
       return {
         isCollapse: false
       };
+    },
+    components: {
+      ScrollBar
     },
     methods: {
       //折叠

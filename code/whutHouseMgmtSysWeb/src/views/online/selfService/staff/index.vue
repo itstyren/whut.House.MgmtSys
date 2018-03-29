@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-row class="select-info">
+    <el-row class="select-info" v-if="isSelecting">
       <el-col :span="3" :offset="1">
         <span>当前选房： 【{{selectInfo.isSelectingStaffName}}】</span>
       </el-col>
@@ -18,6 +18,11 @@
       </el-col>
       <el-col :span="3">
         <span>期间有【30】分钟可选房</span>
+      </el-col>
+    </el-row>
+    <el-row v-else>
+      <el-col class="select-info" :span="10" :offset="1">
+        <span>{{selectInfo}}</span>
       </el-col>
     </el-row>
     <el-row>
@@ -65,6 +70,7 @@ export default {
   data() {
     return {
       staffID: this.$store.getters.userID,
+      isSelecting:false,
       ableHouseData: [],
       listLoading: false,
       totalNum: 1,
@@ -97,10 +103,15 @@ export default {
     },
     getSelectInfo() {
       getSelectInfoByName(this.staffID).then(res => {
-        this.selectInfo = res.data.data.data;
+        if(res.data.data.data!=undefined)
+        {this.selectInfo = res.data.data.data;
+        this.isSelecting=true}
+        else{
+          this.selectInfo=res.data.message
+          this.isSelecting=false
+        }
         //var endTime=new Date(this.selectInfo.isSelectingStaffEndTime)
         //this.selectInfo.isSelectingStaffEndTime=endTime.getTime()
-        console.log(this.selectInfo);
       });
     },
     apply(index, row) {

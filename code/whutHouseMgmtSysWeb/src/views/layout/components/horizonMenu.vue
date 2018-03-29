@@ -1,9 +1,7 @@
 <template>
-  <el-menu class="horizon-menu" default-active="/index" menu-trigger="click" unique-opened mode="horizontal" background-color="#373d41"
+  <el-menu class="horizon-menu" default-active="/index" unique-opened mode="horizontal" background-color="#373d41"
     text-color="#fff" router>
     <template v-for="item in permission_routers" v-if="!item.hidden&&item.children">
-
-
       <el-menu-item v-if="item.children.length===1 && !item.children[0].children&&!item.alwaysShow" :key="item.children[0].name"
         :index="item.path+item.children[0].path">
         <span v-if="item.children[0].meta&&item.children[0].meta.title">{{generateTitle(item.children[0].meta.title)}}</span>

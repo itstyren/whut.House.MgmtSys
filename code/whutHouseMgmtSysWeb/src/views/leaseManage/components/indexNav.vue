@@ -1,5 +1,6 @@
 <template>
     <aside>
+      <scroll-bar>
       <!-- 展开关闭按钮 -->
       <div class="filter-button">
         <el-input v-model="filterText" placeholder="输入关键词搜索" class="filter"></el-input>
@@ -7,11 +8,13 @@
       <!-- 主菜单 -->
       <el-tree v-loading="listLoading" ref="hireTree" :data="hireData" :render-content="renderContent" :filter-node-method="filterNode"
         @node-click="nodeClick"></el-tree>
+      </scroll-bar>
     </aside>
 </template>
 
 <script type="text/ecmascript-6">
 import { getHireAccept, getHireAgree, getHireApprove,getHireContract } from "@/api/leaseManage";
+import ScrollBar from "@/components/ScrollBar";
 export default {
   data() {
     return {
@@ -20,6 +23,9 @@ export default {
       filterText: "",
       hireData: []
     };
+  },
+  components: {
+    ScrollBar
   },
   // 获取父组件传递的数据
   props: {
