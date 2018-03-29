@@ -25,7 +25,7 @@
                 </div>
                 <el-menu :default-active="menuIndex" @select="menuSelect" background-color="#fff" text-color="#000" active-text-color="#ffd04b">
                   <el-menu-item index="personal">
-                    <my-icon icon-class="set"></my-icon>
+                    <my-icon icon-class="paramSet"></my-icon>
                     <span slot="title">常规设置</span>
                   </el-menu-item>
                   <el-menu-item index="house">
@@ -394,7 +394,7 @@
               </el-col>
               </el-row>
               <el-row style="margin-top:20px;">
-                <el-col :span="20" :offset="2">
+                <el-col :span="21" :offset="2">
               <el-rate v-model="fixCommentForm.comment" show-text></el-rate>                                  
                 </el-col>
               </el-row>
@@ -525,7 +525,6 @@ export default {
       this.listLoading = true;
       let params = {};
       getStaff(params, this.staffID).then(res => {
-        console.log(res.data.data.data);
         this.staffInfo = res.data.data.data;
         this.listLoading = false;
       });

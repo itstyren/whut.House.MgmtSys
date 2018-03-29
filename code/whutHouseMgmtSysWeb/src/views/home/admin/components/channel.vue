@@ -4,59 +4,54 @@
       <strong>快速通道</strong>
     </div>
     <div class="content">
-      <div class="box">
-        <router-link to="/basic/houseResident" >
-        <div  :class="className">
-          <my-icon icon-class="studio" class-name="card-panel-icon" />
-        </div>
-        <div class="script">住房登记</div>
+      <div class="box" v-for="v in channelData" :key="v.key">
+        <router-link :to="v.path">
+          <div class="card-panel-icon-wrapper icon-style">
+            <my-icon :icon-class="v.key" class-name="card-panel-icon" />
+          </div>
+          <div class="script">{{v.label}}</div>
         </router-link>
       </div>
-      <div class="box">
-        <div class="card-panel-icon-wrapper icon-people">
-          <my-icon icon-class="studio" class-name="card-panel-icon" />
-        </div>
-        <div class="script">住房登记</div>
-      </div>
-      <div class="box">
-        <div class="card-panel-icon-wrapper icon-people">
-          <my-icon icon-class="studio" class-name="card-panel-icon" />
-        </div>
-        <div class="script">住房登记</div>
-      </div>
-      <div class="box">
-        <div class="card-panel-icon-wrapper icon-people">
-          <my-icon icon-class="studio" class-name="card-panel-icon" />
-        </div>
-        <div class="script">住房登记</div>
-      </div>
-      <div class="box">
-        <div class="card-panel-icon-wrapper icon-people">
-          <my-icon icon-class="studio" class-name="card-panel-icon" />
-        </div>
-        <div class="script">住房登记</div>
-      </div>
-      <div class="box">
-        <div class="card-panel-icon-wrapper icon-people">
-          <my-icon icon-class="studio" class-name="card-panel-icon" />
-        </div>
-        <div class="script">住房登记</div>
-      </div>
-            <div class="box">
+                  <div class="box" @click="FormVisible=true">
         <div class="card-panel-icon-wrapper icon-xinzeng">
           <my-icon icon-class="xinzeng" class-name="card-panel-icon" />
         </div>
       </div>
     </div>
+    <el-dialog title="编辑快速通道" class="paramDialog-large" :visible.sync="FormVisible" v-loading="submitLoading">
+      <el-row type="flex" justify="center">
+        <el-col :span="22">
+          <el-transfer    :titles="['未选择', '已选择']" v-model="setData" :data="channelOption"></el-transfer>
+        </el-col>
+      </el-row>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click.native=" cancel">取消</el-button>
+        <el-button type="primary" @click.native="modifySubmit">提交</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { mapGetters } from "vuex";
+import { generateTitleInMethod } from "@/utils/i18n";
+
 export default {
   data() {
     return {
-      className: " card-panel-icon-wrapper icon-people"
+      FormVisible: false,
+      submitLoading: false,
+      channelOption: [],
+      channelData: [],
+      setData: ["paramSet"]
     };
+  },
+  computed: {
+    ...mapGetters(["permission_routers"])
+  },
+  created() {
+    this.generateArray();
+    this.generateChannel();
   },
   props: {
     height: {
@@ -68,8 +63,51 @@ export default {
       default: "100%"
     }
   },
-  components: {},
-  methods: {}
+  methods: {
+    generateTitleInMethod,
+    cancel() {
+      this.FormVisible = false;
+    },
+    modifySubmit() {
+      this.generateChannel();
+      this.FormVisible = false;
+    },
+    // 生成目前的用户快速通道
+    generateChannel() {
+      this.channelData = [];
+      console.log(this.setData)
+      this.setData.forEach(v => {
+        this.channelOption.forEach(i => {
+          if (v == i.key) this.channelData.push(i);
+        });
+      });
+      //console.log(this.channelData);
+    },
+    // 通过路由列表生成穿梭框用的列表
+    generateArray() {
+      let array = this.permission_routers;
+      array.forEach(item => {
+        // 过滤隐藏的和没有子元素的
+        if (!item.hidden && item.children) {
+          if (
+            item.children.length === 1 &&
+            !item.children[0].children &&
+            !item.alwaysShow
+          ) {
+          } else {
+            item.children.forEach(child => {
+              this.channelOption.push({
+                path: item.path + "/" + child.path,
+                key: child.name,
+                label: generateTitleInMethod(this, child.meta.title)
+              });
+            });
+          }
+        } else {
+        }
+      });
+    }
+  }
 };
 </script>
 
@@ -102,9 +140,47 @@ export default {
     flex-direction: column;
     margin-right: 50px;
     cursor: pointer;
-    .icon-people {
-      color: #fff;
-      background: #40c9c6;
+    &:nth-child(1) {
+      .icon-style {
+        color: #fff;
+        background: #66cccc;
+      }
+    }
+    &:nth-child(2) {
+      .icon-style {
+        color: #fff;
+        background: #ff9999;
+      }
+    }
+    &:nth-child(3) {
+      .icon-style {
+        color: #fff;
+        background: #ffcc00;
+      }
+    }
+    &:nth-child(4) {
+      .icon-style {
+        color: #fff;
+        background: #ff99cc;
+      }
+    }
+    &:nth-child(5) {
+      .icon-style {
+        color: #fff;
+        background: #cc3399;
+      }
+    }
+    &:nth-child(6) {
+      .icon-style {
+        color: #fff;
+        background: #ff6600;
+      }
+    }
+    &:nth-child(7) {
+      .icon-style {
+        color: #fff;
+        background: #ffcc99;
+      }
     }
     .icon-xinzeng {
       color: rgba(0, 0, 0, 0.6);
@@ -129,6 +205,7 @@ export default {
     .script {
       text-align: center;
       font-weight: 600;
+      font-size: 13px;
     }
   }
 }

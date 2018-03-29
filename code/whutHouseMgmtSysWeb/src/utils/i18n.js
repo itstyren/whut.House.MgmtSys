@@ -8,3 +8,13 @@ export function generateTitle(title) {
   }
   return title
 }
+
+export function generateTitleInMethod(vue,title) {
+  const hasKey = vue.$te('route.' + title) //Check whether key exists. In Vue instance, If not specified component locale messages, check with global locale messages. If you specified locale, check the locale messages of locale.
+  const translatedTitle = vue.$t('route.' + title) // $t :this method from vue-i18n, inject in @/lang/index.js
+
+  if (hasKey) {
+    return translatedTitle
+  }
+  return title
+}

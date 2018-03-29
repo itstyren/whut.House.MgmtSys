@@ -1,14 +1,14 @@
 <template>
   <div class="components" v-loading="listLoading">
-    <el-form :model="residentForm" label-width="100px" :rules="rules" ref="residentForm">
+    <el-form :model="residentForm" label-width="120px" :rules="rules" ref="residentForm">
       <el-row  type="flex" justify="center" align="middle" >
-        <el-col :span="5" >
-          <el-form-item label="职工" prop="staffId">
+        <el-col :span="6" >
+          <el-form-item label="职工姓名" prop="staffId">
             <el-input v-model="residentForm.staffId"  size="small" :readonly="true"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="11">
-          <el-form-item label="住房" prop="houseId">
+          <el-form-item label="住房地址" prop="houseId">
             <el-input v-model="residentForm.houseId"  size="small" placeholder="请选择" :readonly="true">
               <el-button slot="append" icon="el-icon-search" @click="dialogVisible"></el-button>
             </el-input>
@@ -16,19 +16,19 @@
         </el-col>
       </el-row>
       <el-row type="flex" justify="center" align="middle" >
-        <el-col :span="5" >
-          <el-form-item label="关系" class="from-label"  prop="houseRel">
+        <el-col :span="6" >
+          <el-form-item label="房屋关系" class="from-label"  prop="houseRel">
             <el-select v-model="residentForm.houseRel"  size="small" placeholder="请选择">
               <el-option v-for="status in statusData" :key="status.houseParamId" :value="status.houseParamId" :label="status.houseParamName"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-form-item label="时间" class="from-label" prop="bookTime">
+        <el-col :span="6">
+          <el-form-item label="登记时间" class="from-label" prop="bookTime">
             <el-date-picker v-model="residentForm.bookTime" size="small" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col :span="2" :offset="3">
+        <el-col :span="2" :offset="2">
             <el-button style="margin-bottom:10px"  size="small" @click="resetForm">重置</el-button>
         </el-col>            
             <el-col :span="1" >
@@ -104,7 +104,12 @@ export default {
       getHouseParam(param, 3)
         .then(res => {
           this.statusData = res.data.data.data.list;
-          //console.log(this.statusData);
+          let array=[]
+          for (const status of this.statusData) {
+            array.push(status.houseParamName)
+          }
+          let flag=utils.arrayindexOf(array,'空闲')
+          this.statusData.splice(flag,1)
           this.listLoading = false;
         })
         .catch(err => {
