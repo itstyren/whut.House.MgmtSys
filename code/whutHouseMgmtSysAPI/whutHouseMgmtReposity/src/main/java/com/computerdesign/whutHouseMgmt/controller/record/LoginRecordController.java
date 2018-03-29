@@ -155,7 +155,9 @@ public class LoginRecordController extends BaseController{
 	}
 	
 	@PostMapping(value = "quickPassage")
-	public Msg addOrUpdateQuickPassage(HttpServletRequest request,@RequestParam("paramSet")List<String> list){
+	public Msg addOrUpdateQuickPassage(HttpServletRequest request,@RequestBody HashMap<String, List<String>> map){
+		List<String> list = map.get("data");
+		System.out.println(list);
 		String userId = getUserId(request);
 		Integer staffId = Integer.parseInt(userId);
 		StringBuilder stringBuilder = new StringBuilder();
