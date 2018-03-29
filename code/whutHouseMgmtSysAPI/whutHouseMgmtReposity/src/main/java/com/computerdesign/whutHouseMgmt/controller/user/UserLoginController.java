@@ -107,6 +107,7 @@ public class UserLoginController extends BaseController{
 		Integer staffId = Integer.parseInt(userId);
 		viewStaffService.getByStaffId(staffId);
 		LoginRecord loginRecord = loginRecordService.getStaffLoginRecord(staffId);
+		//要返回登陆数据
 		addLoginRecord(request, userId);
 		return Msg.success().add("data", viewStaffService.getByStaffId(staffId)).add("logindata", loginRecord);
 

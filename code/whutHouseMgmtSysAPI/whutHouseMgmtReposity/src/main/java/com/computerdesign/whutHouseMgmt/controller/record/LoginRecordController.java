@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RequestMapping(value = "/record/")
 @RestController
-@Api(value = "登陆统计接口",description="登陆统计接口")
+@Api(value = "登陆统计接口", description = "登陆统计接口")
 public class LoginRecordController {
 
 	@Autowired
@@ -64,62 +64,69 @@ public class LoginRecordController {
 	 * @return
 	 */
 	@GetMapping(value = "jobList")
+	@ApiOperation(value = "joblist",notes = "业务受理数据是瞎写的")
 	public Msg getJoeList(){
 		Map<String, Long> map = new HashMap<>();
+		Date date = new Date();
 		map.put("fixToHandle", fixService.getCountToHandle());
 		map.put("fixToCheck", fixService.getCountToCheck());
 		map.put("hireToHandle", hireService.getCountToHandle());
 		map.put("hireToSign", hireService.getCountToSign());
+		map.put("todayVisit", loginRecordService.getLoginRecord(date));
+		map.put("todayFixApply", fixService.getCountTodayApply(date));
+		map.put("todayHireApply", hireService.getCountApply(date));
+		map.put("todayHandle", (long) 1313);
 		return Msg.success().add("data", map);
 	}
-	
+
 	/**
 	 * 登录信息
+	 * 
 	 * @param day
 	 * @return
 	 */
 	@GetMapping(value = "visitCapacity")
-	@ApiOperation(value="按周获取访问量",notes="获取5个周的访问量")
-	public Msg getLoginRecord(@RequestParam(value = "week",defaultValue="0")Integer week) {
-		
-		if (week>1) {
+	@ApiOperation(value = "按周获取访问量", notes = "获取5个周的访问量")
+	public Msg getLoginRecord(@RequestParam(value = "week", defaultValue = "0") Integer week) {
+
+		if (week > 1) {
 			Date startDate = DateUtil.getFirstDayOfWeek();
 			Date endDate = new Date();
-			
+
 			List<Long> list = new ArrayList<>();
-			for (int i = 0; i < week; i ++) {
+			for (int i = 0; i < week; i++) {
 				list.add(loginRecordService.getLoginRecord(startDate, endDate));
-				endDate = DateUtil.getDelayAppointDate(startDate,1);
-				startDate = DateUtil.getDelayAppointDate(startDate,7);
-				System.out.println(startDate+" "+endDate);
+				endDate = DateUtil.getDelayAppointDate(startDate, 1);
+				startDate = DateUtil.getDelayAppointDate(startDate, 7);
+				System.out.println(startDate + " " + endDate);
 			}
 			return Msg.success().add("data", list);
 		}
-		if (week==1) {
-			Date date = DateUtil.getDelayAppointDate(new Date(),8);
+		if (week == 1) {
+			Date date = DateUtil.getDelayAppointDate(new Date(), 8);
 			List<String> listString = new ArrayList<>();
 			List<Long> listCount = new ArrayList<>();
-			
+
 			for (int i = 0; i < 7; i++) {
-				date = DateUtil.getAppointDate(date,1);
+				date = DateUtil.getAppointDate(date, 1);
 				listString.add(DateUtil.getCurrentSimpleRecordDate(date));
 				listCount.add(loginRecordService.getLoginRecord(date));
 			}
 			return Msg.success().add("name", listString).add("count", listCount);
-			//按周进行的获取
-//			Date startDate = DateUtil.getFirstDayOfWeek();
-//			Date endDate = new Date();
-//			double dis = DateUtil.getDistanceOfTwoDate(startDate, endDate);
-//			System.out.println(dis);
-//			List<Long> list = new ArrayList<>();
-//			for (int i = 0; i <= dis; i ++) {
-//				System.out.println(startDate);
-//				list.add(loginRecordService.getLoginRecord(startDate));
-//				startDate = DateUtil.getAppointDate(startDate,1);
-//			}
-//			return Msg.success().add("data", list);
+			// 按周进行的获取
+			// Date startDate = DateUtil.getFirstDayOfWeek();
+			// Date endDate = new Date();
+			// double dis = DateUtil.getDistanceOfTwoDate(startDate, endDate);
+			// System.out.println(dis);
+			// List<Long> list = new ArrayList<>();
+			// for (int i = 0; i <= dis; i ++) {
+			// System.out.println(startDate);
+			// list.add(loginRecordService.getLoginRecord(startDate));
+			// startDate = DateUtil.getAppointDate(startDate,1);
+			// }
+			// return Msg.success().add("data", list);
 		}
 		return Msg.error();
-		
+
 	}
 }
