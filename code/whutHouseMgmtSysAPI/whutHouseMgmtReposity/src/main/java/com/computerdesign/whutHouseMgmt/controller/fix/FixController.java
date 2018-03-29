@@ -1,7 +1,6 @@
 package com.computerdesign.whutHouseMgmt.controller.fix;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,20 +25,14 @@ import com.computerdesign.whutHouseMgmt.bean.fix.PersonalFixRecord;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.bean.fix.directapply.FixAddDirectApply;
-import com.computerdesign.whutHouseMgmt.bean.fix.directapply.FixGetDirectApply;
-import com.computerdesign.whutHouseMgmt.bean.fix.directapply.HouseGetDirectApply;
 import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
-import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastFixRecord;
-import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
-import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastFixRecordService;
-import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
@@ -161,7 +155,7 @@ public class FixController {
 			return Msg.error("该员工正在进行申请维修，不能重复提交");
 		}
 		fix.setApplyTime(new Date());
-		
+
 		fix.setFixState("待受理");
 		fix.setIsCheck(false);
 		fix.setIsOver(false);
@@ -223,8 +217,8 @@ public class FixController {
 						mapHouse.put("houseId", viewHouse.getId());
 						mapHouse.put("layoutName", viewHouse.getLayoutName());
 						mapHouse.put("usedArea", viewHouse.getUsedArea());
-						mapHouse.put("typeName",viewHouse.getTypeName());
-						
+						mapHouse.put("typeName", viewHouse.getTypeName());
+
 						listHouse.add(mapHouse);
 					}
 				}
@@ -274,7 +268,7 @@ public class FixController {
 					mapHouse.put("houseId", viewHouse.getId());
 					mapHouse.put("layoutName", viewHouse.getLayoutName());
 					mapHouse.put("usedArea", viewHouse.getUsedArea());
-					mapHouse.put("typeName",viewHouse.getTypeName());
+					mapHouse.put("typeName", viewHouse.getTypeName());
 
 					listHouse.add(mapHouse);
 				}
@@ -327,7 +321,7 @@ public class FixController {
 		PageHelper.startPage(page, size);
 		List<ViewFix> listViewFix = viewFixService.getManagement();
 
-		String[] fileds = { "id", "fixContentId", "fixContentName","fixState", "description", "applyTime", "staffName",
+		String[] fileds = { "id", "fixContentId", "fixContentName", "fixState", "description", "applyTime", "staffName",
 				"titleName", "postName", "deptName", "phone", "staffAddress", "acceptMan", "acceptNote", "acceptTime",
 				"acceptState", "agreeMan", "agreeNote", "agreeTime", "agreeState" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);
@@ -421,5 +415,20 @@ public class FixController {
 		// 维修状态改变
 		fixService.update(fix);
 		return Msg.success().add("data", fix);
+	}
+
+	/**
+	 * 删除维修请求
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@DeleteMapping(value = "deleteFix/{id}")
+	public Msg deleteFix(@PathVariable("id") Integer id) {
+		if (fixService.get(id) == null) {
+			return Msg.error("不存在");
+		}
+		fixService.delete(id);
+		return Msg.success("成功删除");
 	}
 }

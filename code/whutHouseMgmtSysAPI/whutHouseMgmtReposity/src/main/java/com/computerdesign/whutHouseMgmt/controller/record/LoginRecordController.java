@@ -11,21 +11,30 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.login.LoginRecord;
+import com.computerdesign.whutHouseMgmt.bean.login.QuickPassage;
+import com.computerdesign.whutHouseMgmt.controller.BaseController;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.login.LoginRecordService;
+import com.computerdesign.whutHouseMgmt.service.login.QuickPassageService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wf.etp.authz.SubjectUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,7 +42,7 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping(value = "/record/")
 @RestController
 @Api(value = "登陆统计接口", description = "登陆统计接口")
-public class LoginRecordController {
+public class LoginRecordController extends BaseController{
 
 	@Autowired
 	private LoginRecordService loginRecordService;
@@ -41,6 +50,8 @@ public class LoginRecordController {
 	private FixService fixService;
 	@Autowired
 	private HireService hireService;
+	@Autowired
+	private QuickPassageService quickPassageService;
 
 	/**
 	 * 获取全部的登陆信息
@@ -50,6 +61,7 @@ public class LoginRecordController {
 	 * @return
 	 */
 	@GetMapping(value = "loginAll")
+	@ApiOperation(value = "获取全部的登陆信息",notes="获取全部的登陆信息")
 	public Msg getAllLoginRecord(@RequestParam(value = "page") Integer page,
 			@RequestParam(value = "size") Integer size) {
 		PageHelper.startPage(page, size);
@@ -64,7 +76,7 @@ public class LoginRecordController {
 	 * @return
 	 */
 	@GetMapping(value = "jobList")
-	@ApiOperation(value = "joblist",notes = "业务受理数据是瞎写的")
+	@ApiOperation(value = "首页的工作清单和今日数据",notes = "业务受理数据是瞎写的")
 	public Msg getJoeList(){
 		Map<String, Long> map = new HashMap<>();
 		Date date = new Date();
@@ -75,7 +87,8 @@ public class LoginRecordController {
 		map.put("todayVisit", loginRecordService.getLoginRecord(date));
 		map.put("todayFixApply", fixService.getCountTodayApply(date));
 		map.put("todayHireApply", hireService.getCountApply(date));
-		map.put("todayHandle", (long) 1313);
+		map.put("todayHandle",hireService.getTotalCountRefuse(date)+hireService.getCountHasBeenApprove(date)
+							+fixService.getTotalCountRefused(date)+fixService.getCountAgreeted(date));
 		return Msg.success().add("data", map);
 	}
 
@@ -128,5 +141,39 @@ public class LoginRecordController {
 		}
 		return Msg.error();
 
+	}
+	
+	@GetMapping(value = "quickPassage")
+	public Msg getQuickPassage(@RequestParam("staffId")Integer staffId){
+		QuickPassage quickPassage = null ;
+		String[] list ;
+		if (!quickPassageService.getQuickPassage(staffId).isEmpty()) {
+			quickPassage = quickPassageService.getQuickPassage(staffId).get(0);
+		}
+		list = quickPassage.getQuickPassageName().split("_");
+		return Msg.success().add("data",list);
+	}
+	
+	@PostMapping(value = "quickPassage")
+	public Msg addOrUpdateQuickPassage(HttpServletRequest request,@RequestBody HashMap<String, List<String>> map){
+		//TODO 前端不一定传名为data
+		List<String> list = map.get("data");
+		String userId = getUserId(request);
+		Integer staffId = Integer.parseInt(userId);
+		StringBuilder stringBuilder = new StringBuilder();
+		for (String string : list) {
+			stringBuilder.append(string+"_");
+		}
+		if (quickPassageService.getQuickPassage(staffId).isEmpty()) {
+			QuickPassage quickPassage = new QuickPassage();
+			quickPassage.setStaffId(staffId);
+			quickPassage.setQuickPassageName(stringBuilder.toString());
+			quickPassageService.addQuickPassage(quickPassage);
+		}else{
+			QuickPassage quickPassage = quickPassageService.getQuickPassage(staffId).get(0);
+			quickPassage.setQuickPassageName(stringBuilder.toString());
+			quickPassageService.updateQuickPassage(quickPassage);
+		}
+		return Msg.success();
 	}
 }

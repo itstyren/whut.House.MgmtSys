@@ -3,6 +3,8 @@ package com.computerdesign.whutHouseMgmt.service.fix;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.crypto.Data;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +52,18 @@ public class FixService {
 		fixMapper.updateByPrimaryKey(fix);
 	}
 	
+	public int delete(Integer id) {
+		try {
+			return fixMapper.deleteByPrimaryKey(id);			
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
+	}
+	/**
+	 * 指定日期的申请量
+	 * @param date
+	 * @return
+	 */
 	public Long getCountTodayApply(Date date) {
 		FixExample example = new FixExample();
 		Criteria criteria = example.createCriteria();
@@ -57,6 +71,39 @@ public class FixService {
 		return fixMapper.countByExample(example);
 	}
 	
+	/**
+	 * 获取指定日期全部拒绝的维修请求
+	 * @param data
+	 * @return
+	 */
+	public Long getTotalCountRefused(Date date) {
+		FixExample acceptExample = new FixExample();
+		Criteria acceptCriteria = acceptExample.createCriteria();
+		acceptCriteria.andFixStateLike("拒绝");
+		acceptCriteria.andIsOverEqualTo(true);
+		acceptCriteria.andAcceptTimeEqualTo(date);
+		
+		FixExample agreeExample = new FixExample();
+		Criteria agreeCriteria = agreeExample.createCriteria();
+		agreeCriteria.andFixStateLike("拒绝");
+		agreeCriteria.andIsOverEqualTo(true);
+		agreeCriteria.andAgreeTimeEqualTo(date);
+		return fixMapper.countByExample(agreeExample)+fixMapper.countByExample(acceptExample);
+	}
+	
+	/**
+	 * 获取全部通过的维修信息
+	 * @param date
+	 * @return
+	 */
+	public Long getCountAgreeted(Date date) {
+		FixExample example = new FixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAgreeTimeEqualTo(date);
+		criteria.andIsOverEqualTo(true);
+		criteria.andAgreeStateEqualTo("通过");
+		return fixMapper.countByExample(example);
+	}
 	/**
 	 * 通过员工id查询指定员工维修信息
 	 * @param staffId
