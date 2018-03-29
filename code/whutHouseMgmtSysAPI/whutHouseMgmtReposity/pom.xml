@@ -18,6 +18,12 @@
 	<!-- 引入项目依赖的jar包 -->
 	<dependencies>
 
+		<!-- 七牛云 -->
+		<dependency>
+			<groupId>com.qiniu</groupId>
+			<artifactId>qiniu-java-sdk</artifactId>
+			<version>7.2.11</version>
+		</dependency>
 		<!-- UserAgentUtils -->
 		<dependency>
 			<groupId>eu.bitwalker</groupId>

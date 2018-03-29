@@ -1,6 +1,7 @@
 <template>
   <div class="second-container">
     <aside>
+      <scroll-bar>
       <!-- 展开关闭按钮 -->
       <div class="filter-button">
         <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
@@ -8,6 +9,7 @@
       <!-- 主菜单 -->
       <el-tree class="aside-tree" v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode"
         @node-click="nodeClick"></el-tree>
+      </scroll-bar>
     </aside>
     <section  :class="{'special-container':staffShow,'main-container':!staffShow}">
       <transition mode="out-in">
@@ -19,6 +21,7 @@
 
 <script type="text/ecmascript-6">
 import { getDept } from "@/api/basiceData";
+import ScrollBar from '@/components/ScrollBar'
 export default {
   data() {
     return {
@@ -28,6 +31,9 @@ export default {
       depData: [],
       filterText: "",
     };
+  },
+  components: {
+    ScrollBar
   },
   created() {
     this.getList();

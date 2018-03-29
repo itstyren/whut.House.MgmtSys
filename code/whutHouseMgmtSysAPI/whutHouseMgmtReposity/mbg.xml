@@ -12,7 +12,7 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql:///whlglease" userId="root" password="XH05250619.">
+			connectionURL="jdbc:mysql:///whlglease" userId="root" password="">
 		</jdbcConnection>
 
 		<javaTypeResolver>
@@ -21,7 +21,7 @@
  
 		<!-- 指定javabean的生成位置 -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.rentparam"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.authority"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -29,13 +29,13 @@
 
 		<!-- 指定sql映射文件的生成位置 -->
 
-		<sqlMapGenerator targetPackage="mapper.rentparam" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper.authority" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" /> 
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.rentparam" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.authority" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -69,7 +69,7 @@
 		<!-- <table tableName="view_hs_staffvalue" domainObjectName="StaffValue">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="pm_rentevent" domainObjectName="RentEvent">
+		<table tableName="Au_Qiniu" domainObjectName="Qiniu">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		<!-- <table tableName="view_hs_selfhelpselecthouse" domainObjectName="SelfHelpSelectHouse">

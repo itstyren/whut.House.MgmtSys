@@ -1,6 +1,7 @@
 <template>
   <div class="second-container">
-    <aside :class="{hideSidebar:isCollapse}">
+    <aside :class="{hideSidebar:isCollapse}"> 
+      <scroll-bar>   
       <!-- 展开关闭按钮 -->
       <div class="asid-button" @click.prevent="collapse">
         <my-icon icon-class="next" v-show="isCollapse" />
@@ -16,7 +17,8 @@
           </template>
           <el-menu-item v-for="building in region.buildingList" :key="building.id" :index="'/basic/house/byBuilding/'+building.id">{{building.name}}</el-menu-item>
         </el-submenu>
-      </el-menu>
+      </el-menu>     
+      </scroll-bar>
     </aside>
     <section class="main-container">
       <!-- 需要长时间存活的 -->
@@ -35,6 +37,7 @@
 
 <script type="text/ecmascript-6">
 import { getRegionWithBuildings } from "@/api/basiceData";
+import ScrollBar from '@/components/ScrollBar'
 export default {
   data() {
     return {
@@ -43,6 +46,9 @@ export default {
       // 区域信息
       regionDataWithBuilding: []
     };
+  },
+  components: {
+    ScrollBar
   },
   created() {
     this.getRegionWithBuilding();

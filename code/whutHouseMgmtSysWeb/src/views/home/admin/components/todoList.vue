@@ -100,7 +100,7 @@
         this.listLoading = true;
         getJobList().then(res => {
           this.todoList = res.data.data.data;
-          console.log(this.todoList);
+          // console.log(this.todoList);
           this.listLoading = false
         });
       }

@@ -22,7 +22,7 @@
 
 .detail-modify .el-dialog {
   margin-top: 12vh ! important;
-  width: 80%;
+  width: 60%;
 }
 
 // 住房登记组件
@@ -76,7 +76,7 @@
     width: 30%;
   }
   .el-rate__icon {
-    font-size: 33px;
+    font-size: 30px;
   }
 }
 
@@ -137,4 +137,8 @@
   .el-dialog {
     width: 40%;
   }
+}
+
+.el-transfer-panel{
+width: 38%
 }
