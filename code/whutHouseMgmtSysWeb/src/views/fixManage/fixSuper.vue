@@ -1,7 +1,7 @@
 <template>
   <div class="second-container">
     <staffIndex @emit-staff="getStaff"></staffIndex>
-    <section class="main-container">
+    <section class="special-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
         <div class="warp-breadcrum">
@@ -44,7 +44,7 @@
               <el-form :model="superForm" label-width="100px" ref="superForm" v-loading="listLoading">
                 <el-row>
                   <el-col :span="8" :offset="2">
-                    <el-form-item label="职工">
+                    <el-form-item label="职工名称">
                       <el-input v-model="staffName" readonly  placeholder="请选择职工"></el-input>
                     </el-form-item>
                   </el-col>
@@ -58,14 +58,14 @@
                 </el-row>
                 <el-row>
                   <el-col :span="17" :offset="2">
-                    <el-form-item label="地址">
+                    <el-form-item label="住房地址">
                       <el-input v-model="houseName" readonly placeholder="请选择住房"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="10" :offset="2">
-                    <el-form-item label="说明" prop="acceptNote">
+                    <el-form-item label="附加说明" prop="acceptNote">
                       <el-input v-model="superForm.fixDirectApplyNote" type="textarea" :rows="2" placeholder="请输入备注说明（可选）"></el-input>
                     </el-form-item>
                   </el-col>
@@ -185,7 +185,7 @@ export default {
     }
     .main-data {
       & > .personal-info {
-        height: 40%;
+        height: 40vh;
         & > .col {
           height: 100%;
           overflow: auto;
@@ -194,7 +194,7 @@ export default {
       & > .super-form {
         margin: 30px auto 20px;
         padding-top: 20px;
-        height: 40%;
+        height: 30vh
       }
     }
   }

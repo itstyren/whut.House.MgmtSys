@@ -1,6 +1,7 @@
 <template>
   <div class="second-container">
     <aside :class="{hideSidebar:isCollapse}">
+<scroll-bar>
       <!-- 展开关闭按钮 -->
       <div class="asid-button" @click.prevent="collapse">
         <my-icon icon-class="next" v-show="isCollapse" />
@@ -21,6 +22,7 @@
           <el-menu-item v-for="region in regionData" :key="region.id" :index="'/basic/buildingArea/building/'+region.id">{{region.name}}</el-menu-item>
         </el-submenu>
       </el-menu>
+</scroll-bar>
     </aside>
     <section class="main-container">
       <transition mode="out-in">
@@ -32,12 +34,16 @@
 
 <script type="text/ecmascript-6">
 import { getRegionData, getRegionWithBuildings } from "@/api/basiceData";
+import ScrollBar from "@/components/ScrollBar";
 export default {
   data() {
     return {
       isCollapse: false,
       regionData: []
     };
+  },
+  components: {
+    ScrollBar
   },
   // 计算属性
   computed: {

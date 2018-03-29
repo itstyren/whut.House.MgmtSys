@@ -216,7 +216,7 @@
             <el-row>
               <el-col :span="10">
                 <el-form-item label="工作时间">
-                  <el-date-picker v-model="joinTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期"
+                  <el-date-picker v-model="joinTime" type="daterange" align="right" unlink-panels range-separator="-" start-placeholder="开始日期"
                     end-placeholder="结束日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd">
                   </el-date-picker>
                 </el-form-item>
@@ -225,14 +225,14 @@
             <el-row>
               <el-col :span="10">
                 <el-form-item label="上大学时间">
-                  <el-date-picker v-model="goUniversityTimeRange" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期"
+                  <el-date-picker v-model="goUniversityTimeRange" type="daterange" align="right" unlink-panels range-separator="-" start-placeholder="开始日期"
                     end-placeholder="结束日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd">
                   </el-date-picker>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
-              <el-col :span="12">
+              <el-col :span="10">
                 <el-form-item label="所属区域">
                   <el-select v-model="queryForm.regionName" :clearable="true" placeholder="全部">
                     <el-option v-for="v in regionData" :key="v.id" :value="v.name" :label="v.name"></el-option>
