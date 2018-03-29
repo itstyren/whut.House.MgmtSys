@@ -26,14 +26,13 @@
 
 <script type="text/ecmascript-6">
 import { generateTitle } from "@/utils/i18n";
-
 import { mapGetters } from "vuex";
 export default {
   data() {
     return {};
   },
   computed: {
-    ...mapGetters(["permission_routers", "sidebar"])
+    ...mapGetters(["permission_routers"])
   },
   methods: {
     generateTitle
