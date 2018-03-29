@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.service.fix;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,13 @@ public class FixService {
 	
 	public void updateStrict(Fix fix){
 		fixMapper.updateByPrimaryKey(fix);
+	}
+	
+	public Long getCountTodayApply(Date date) {
+		FixExample example = new FixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andApplyTimeEqualTo(date);
+		return fixMapper.countByExample(example);
 	}
 	
 	/**
