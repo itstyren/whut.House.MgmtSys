@@ -225,6 +225,38 @@ public class HireService {
 	}
 
 	/**
+	 * 返回指定日期内所有类型拒绝的租信息
+	 * @param time
+	 * @return
+	 */
+	public Long getTotalCountRefuse(Date time) {
+		HireExample acceptExample = new HireExample();
+		Criteria acceptCriteria = acceptExample.createCriteria();
+		acceptCriteria.andApproveStateEqualTo("拒绝");
+		acceptCriteria.andApproveTimeEqualTo(time);
+		acceptCriteria.andIsOverEqualTo(false);
+		hireMapper.countByExample(acceptExample);
+		
+		HireExample agreeExample = new HireExample();
+		Criteria agreeCriteria = agreeExample.createCriteria();
+		agreeCriteria.andApproveStateEqualTo("拒绝");
+		agreeCriteria.andApproveTimeEqualTo(time);
+		agreeCriteria.andIsOverEqualTo(false);
+		hireMapper.countByExample(agreeExample);
+		
+		HireExample approveExample = new HireExample();
+		Criteria approveCriteria = approveExample.createCriteria();
+		approveCriteria.andApproveStateEqualTo("拒绝");
+		approveCriteria.andApproveTimeEqualTo(time);
+		approveCriteria.andIsOverEqualTo(false);
+		hireMapper.countByExample(approveExample);
+		
+		return hireMapper.countByExample(acceptExample)+hireMapper.countByExample(agreeExample)+hireMapper.countByExample(approveExample);
+		
+		
+	}
+	
+	/**
 	 * 给定日期审批成功的数量
 	 * 
 	 * @param time
