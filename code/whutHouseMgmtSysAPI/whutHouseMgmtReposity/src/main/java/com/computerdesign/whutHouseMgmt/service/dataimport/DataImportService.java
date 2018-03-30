@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.computerdesign.whutHouseMgmt.bean.building.Building;
 import com.computerdesign.whutHouseMgmt.bean.building.BuildingExample;
 import com.computerdesign.whutHouseMgmt.bean.house.House;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameterExample;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
@@ -16,6 +17,7 @@ import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.building.BuildingMapper;
 import com.computerdesign.whutHouseMgmt.dao.house.HouseMapper;
+import com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentMapper;
 import com.computerdesign.whutHouseMgmt.dao.param.houseparam.HouseParameterMapper;
 import com.computerdesign.whutHouseMgmt.dao.staffmanagement.StaffMapper;
 import com.computerdesign.whutHouseMgmt.dao.staffparam.StaffParameterMapper;
@@ -37,6 +39,9 @@ public class DataImportService {
 	
 	@Autowired
 	private HouseMapper houseMapper;
+	
+	@Autowired
+	private ResidentMapper residentMapper;
 	
 	/**
 	 * 保存住房数据
@@ -94,6 +99,10 @@ public class DataImportService {
 	
 	public void insertStaff(Staff staff){
 		staffMapper.insertSelective(staff);
+	}
+	
+	public void insertResident(Resident resident){
+		residentMapper.insertSelective(resident);
 	}
 	
 }

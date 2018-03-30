@@ -53,6 +53,7 @@
 			<mvc:exclude-mapping path="/testUpload.jsp" />
 			<mvc:exclude-mapping path="/dataImport/staffDataImport" />
 			<mvc:exclude-mapping path="/dataImport/houseDataImport" />
+			<mvc:exclude-mapping path="/dataImport/residentDataImport" />
 			<mvc:exclude-mapping path="/dataImport/staffDownLoad" />
 			<mvc:exclude-mapping path="/dataImport/houseDownLoad" />	
 			<mvc:exclude-mapping path="/exportToWord/hire/**" />	

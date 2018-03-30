@@ -889,6 +889,13 @@
 					type="submit" value="Submit">
 			</form>
 			<br>
+			<h4>居民数据导入</h4>
+			<form action="dataImport/residentDataImport" method="post"
+				enctype="multipart/form-data">
+				HouseFile:<input type="file" name="residentFile"> <input
+					type="submit" value="Submit">
+			</form>
+			<br>
 			<h4>下载</h4>
 			<a href="dataImport/staffDownLoad">职工模板下载</a> <br> <br> <a
 				href="dataImport/houseDownLoad">住房模板下载</a>

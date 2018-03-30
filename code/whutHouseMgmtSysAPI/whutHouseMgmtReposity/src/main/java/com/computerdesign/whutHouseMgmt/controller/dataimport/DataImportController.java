@@ -37,9 +37,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.house.House;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.service.dataimport.DataImportService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
+import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.utils.DateConversionUtils;
 import com.computerdesign.whutHouseMgmt.utils.DownloadUtils;
 import com.computerdesign.whutHouseMgmt.utils.ExcelUtils;
@@ -53,6 +55,9 @@ public class DataImportController {
 	
 	@Autowired
 	private HouseService houseService;
+	
+	@Autowired
+	private StaffService staffService;
 
 	// 用于存储导入的职工数据
 	// private List<Staff> staffList;
@@ -474,6 +479,155 @@ public class DataImportController {
 		// 保存数据
 		// setHouseList(houses);
 		return Msg.success("导入数据成功").add("data", houses);
+	}
+	
+	/**
+	 * 导入住户数据，并保存
+	 * 
+	 * @param multipartFile
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "residentDataImport", method = RequestMethod.POST)
+	public Msg residentDataImport(@RequestParam("residentFile") MultipartFile multipartFile) {
+
+		System.out.println("AA");
+		// 用于存放导入的对象集
+		List<Resident> residents = new ArrayList<Resident>();
+
+		try {
+			Workbook workBook = null;
+			// System.out.println(multipartFile.getOriginalFilename());
+
+			if (!ExcelUtils.validateExcel(multipartFile.getOriginalFilename())) {
+				return Msg.error("请上传Excel格式的文件");
+			}
+
+			if (ExcelUtils.isExcel2003(multipartFile.getOriginalFilename())) {
+				// 获取上传的Excel表
+				workBook = new HSSFWorkbook(multipartFile.getInputStream());
+			}
+
+			if (ExcelUtils.isExcel2007(multipartFile.getOriginalFilename())) {
+				// 获取上传的Excel表
+				workBook = new XSSFWorkbook(multipartFile.getInputStream());
+			}
+
+			// 获取该Excel表的第一个工作表
+			Sheet sheet = workBook.getSheetAt(0);
+			// 获取Excel表中的所有行数
+			int rows = sheet.getPhysicalNumberOfRows();
+			for (int row = 1; row < rows; row++) {
+				// 定位到行
+				Row rowData = sheet.getRow(row);
+				// 用于将每行数据以“A,B,C...”的形式封装起来
+				String result = "";
+				if (rowData != null) {
+					// 获取列
+					int cells = rowData.getPhysicalNumberOfCells();
+					for (int cell = 0; cell < cells; cell++) {
+						// 定位到单元格
+						Cell formData = rowData.getCell(cell);
+						if (formData != null) {
+							// 判断单元格中的数据类型
+							switch (formData.getCellType()) {
+							// 数字
+							case HSSFCell.CELL_TYPE_NUMERIC:
+								result += formData.getNumericCellValue() + ",";
+								break;
+							// 字符串
+							case HSSFCell.CELL_TYPE_STRING:
+								result += formData.getStringCellValue() + ",";
+							default:
+								break;
+							}
+						}
+					}
+
+					System.out.println("BB");
+					// 将数据封装为Resident
+					String val[] = result.split(",");
+					Resident resident = new Resident();
+					// 若Excel单元格为数字型，则末尾会多出“.0”，需要去除
+					String staffNo = val[0];
+					String staffName = val[1];
+					System.out.println(staffNo + staffName);
+					// System.out.println(no.indexOf('.'));
+					// 判断是否包含“.0”，若不包含则会返回-1，此时不需要截取字符串
+					if (staffNo.indexOf('.') != -1) {
+						staffNo = staffNo.substring(0, staffNo.indexOf('.'));
+					}
+					Integer staffId = staffService.getStaffIdByStaffNoAndStaffName(staffNo, staffName);
+					if(staffId != null){
+						resident.setStaffId(staffId);
+					}else{
+						return Msg.error("职工编号或职工姓名有误");
+					}
+					
+					System.out.println("CC");
+					//住房编号
+					String houseNo = val[2];
+					String address = val[3];
+
+					if (houseNo.indexOf('.') != -1) {
+						houseNo = houseNo.substring(0, houseNo.indexOf('.'));
+					}
+					Integer houseId = houseService.getHouseIdByHouseNoAndAddress(houseNo, address);
+					if(houseId != null){
+						resident.setHouseId(houseId);
+					}else{
+						return Msg.error("住房编号或地址有误");
+					}
+					
+					System.out.println("DD");
+					//住房关系
+					Integer houseRel = dataImportService.getHouseParamId(val[4]);
+					if(houseRel != null){
+						resident.setHouseRel(houseRel);
+					}else{
+						return Msg.error("住房关系有误");
+					}
+					
+					// 登记时间
+					String bookTimeStr = val[5];
+//					System.out.println(finishTimeStr);
+					Date bookTime = DateConversionUtils.stringToDate(bookTimeStr, "yyyy/MM/dd");
+					if (bookTime == null) {
+						System.out.println("登记时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
+					} else {
+						resident.setBookTime(bookTime);;
+					}
+					
+//					System.out.println(val[6].equals(""));
+//					System.out.println(val[6]);
+//					System.out.println(val[6].equals(""));
+//					houseService.add(house);
+					resident.setRentType(val[6]);
+					
+					String familyCode = val[7];
+
+					if (familyCode.indexOf('.') != -1) {
+						familyCode = familyCode.substring(0, familyCode.indexOf('.'));
+					}
+					
+					
+					resident.setIsDelete(false);
+					System.out.println(familyCode);
+					
+					residents.add(resident);
+					System.out.println("add");
+					dataImportService.insertResident(resident);
+					System.out.println("end");
+					
+				}
+			}
+		} catch (Exception e) {
+			return Msg.error("导入失败,可能有数据在数据库中不存在或删除");
+		}
+
+		// 保存数据
+		// setHouseList(houses);
+		return Msg.success("导入数据成功").add("data", residents);
 	}
 
 	/**

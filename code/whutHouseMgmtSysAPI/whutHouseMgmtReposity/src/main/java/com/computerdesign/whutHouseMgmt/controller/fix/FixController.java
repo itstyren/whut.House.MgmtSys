@@ -151,9 +151,9 @@ public class FixController {
 		if (fix.getFixContentId() == null) {
 			return Msg.error("维修类型不能为空");
 		}
-		if (!fixService.getByStaffId(fix.getStaffId()).isEmpty()) {
-			return Msg.error("该员工正在进行申请维修，不能重复提交");
-		}
+//		if (!fixService.getByStaffId(fix.getStaffId()).isEmpty()) {
+//			return Msg.error("该员工正在进行申请维修，不能重复提交");
+//		}
 		fix.setApplyTime(new Date());
 
 		fix.setFixState("待受理");
