@@ -52,7 +52,7 @@ public class ViewStaffService {
 	public List<ViewStaff> getViewStaffsByName(String staffName) {
 		ViewStaffExample example = new ViewStaffExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andNameEqualTo(staffName);
+		criteria.andNameLike(staffName);
 		return viewStaffMapper.selectByExample(example);
 	}
 	
