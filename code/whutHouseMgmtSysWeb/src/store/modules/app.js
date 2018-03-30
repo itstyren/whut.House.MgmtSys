@@ -5,6 +5,7 @@ const app = {
     language: Cookies.get('language') || 'en',
     seachVisible: false,
     staffShow:false,
+    todayData:{}
   },
   mutations: {
     SET_LANGUAGE: (state, language) => {
@@ -16,6 +17,9 @@ const app = {
     },
     SET_STAFF_SHOW:(state,bool)=>{
       state.staffShow=bool
+    },
+    SET_TODAY_DATA:(state,object)=>{
+      state.todayData=object
     }
   },
   actions: {

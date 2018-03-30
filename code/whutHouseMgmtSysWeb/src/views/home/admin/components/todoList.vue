@@ -81,12 +81,8 @@
     data() {
       return {
         listLoading: false,
-        todoList: {
-          hireToSign: 0,
-          fixToHandle: 0,
-          hireToHandle: 0,
-          fixToCheck: 0
-        }
+        todoList: {},
+        todayData:{}
       };
     },
     created() {
@@ -99,8 +95,11 @@
       getList() {
         this.listLoading = true;
         getJobList().then(res => {
-          this.todoList = res.data.data.data;
-          // console.log(this.todoList);
+          var {hireToSign,fixToHandle,hireToHandle,fixToCheck}=res.data.data.data
+          this.todoList = {hireToSign,fixToHandle,hireToHandle,fixToCheck}
+          var {todayHandle,todayVisit,todayFixApply,todayHireApply}=res.data.data.data
+           var todayData={todayHandle,todayVisit,todayFixApply,todayHireApply}
+           this.$store.commit('SET_TODAY_DATA',todayData)
           this.listLoading = false
         });
       }

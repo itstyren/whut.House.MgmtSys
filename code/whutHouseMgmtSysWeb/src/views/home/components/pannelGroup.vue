@@ -7,7 +7,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">今日访问量</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="102400" :duration="2600"></count-to>
+          <count-to class="card-panel-num" :startVal="0" :endVal="todayData.todayVisit" :duration="2600"></count-to>
         </div>
       </div>
       </el-col>
@@ -18,7 +18,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">今日维修申请</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="81212" :duration="3000"></count-to>
+          <count-to class="card-panel-num" :startVal="0" :endVal="todayData.todayFixApply" :duration="3000"></count-to>
         </div>
       </div>
     </el-col>
@@ -29,7 +29,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">今日租赁申请</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="9280" :duration="3200"></count-to>
+          <count-to class="card-panel-num" :startVal="0" :endVal="todayData.todayHireApply" :duration="3200"></count-to>
         </div>
       </div>
     </el-col>
@@ -40,7 +40,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">今日业务受理</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="200" :duration="3600"></count-to>
+          <count-to class="card-panel-num" :startVal="0" :endVal="todayData.todayHandle" :duration="3600"></count-to>
         </div>
       </div>
     </el-col>
@@ -48,88 +48,87 @@
 </template>
 
 <script type="text/ecmascript-6">
-import countTo from 'vue-count-to'
- export default {
-   data() {
-     return {
-
-     }
-
-   },
-   components: {
-countTo
-   },
-   methods: {
-     handleSetLineChartData(){
-
-     }
-   }
- }
+import countTo from "vue-count-to";
+export default {
+  data() {
+    return {};
+  },
+  components: {
+    countTo
+  },
+  created() {
+    console.log(this.todayData);
+  },
+  computed: {
+    todayData() {
+      return this.$store.state.app.todayData;
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  .card {
-    cursor: pointer;
-    font-size: 12px;
-    position: relative;
-    overflow: hidden;
-    color: #666;
-    background: #fff;
-    &:hover {
-      .card-panel-icon-wrapper {
-        color: #fff;
-      }
-      .icon-people {
-         background: #40c9c6;
-      }
-      .icon-message {
-        background: #36a3f7;
-      }
-      .icon-money {
-        background: #f4516c;
-      }
-      .icon-shoppingCard {
-        background: #34bfa3
-      }
+.card {
+  cursor: pointer;
+  font-size: 12px;
+  position: relative;
+  overflow: hidden;
+  color: #666;
+  background: #fff;
+  &:hover {
+    .card-panel-icon-wrapper {
+      color: #fff;
     }
     .icon-people {
-      color: #40c9c6;
+      background: #40c9c6;
     }
     .icon-message {
-      color: #36a3f7;
+      background: #36a3f7;
     }
     .icon-money {
-      color: #f4516c;
+      background: #f4516c;
     }
     .icon-shoppingCard {
-      color: #34bfa3
-    }
-    .card-panel-icon-wrapper {
-      float: left;
-      margin: 10px 0 10px 14px;
-      padding: 16px;
-      transition: all 0.38s ease-out;
-      border-radius: 6px;
-    }
-    .card-panel-icon {
-      float: left;
-      font-size: 48px;
-    }
-    .card-panel-description {
-      float: right;
-      font-weight: bold;
-      margin: 26px;
-      margin-left: 0px;
-      .card-panel-text {
-        line-height: 18px;
-        color: rgba(0, 0, 0, 0.45);
-        font-size: 16px;
-        margin-bottom: 12px;
-      }
-      .card-panel-num {
-        font-size: 20px;
-      }
+      background: #34bfa3;
     }
   }
- 
+  .icon-people {
+    color: #40c9c6;
+  }
+  .icon-message {
+    color: #36a3f7;
+  }
+  .icon-money {
+    color: #f4516c;
+  }
+  .icon-shoppingCard {
+    color: #34bfa3;
+  }
+  .card-panel-icon-wrapper {
+    float: left;
+    margin: 10px 0 10px 14px;
+    padding: 16px;
+    transition: all 0.38s ease-out;
+    border-radius: 6px;
+  }
+  .card-panel-icon {
+    float: left;
+    font-size: 48px;
+  }
+  .card-panel-description {
+    float: right;
+    font-weight: bold;
+    margin: 26px;
+    margin-left: 0px;
+    .card-panel-text {
+      line-height: 18px;
+      color: rgba(0, 0, 0, 0.45);
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .card-panel-num {
+      font-size: 20px;
+    }
+  }
+}
 </style>
