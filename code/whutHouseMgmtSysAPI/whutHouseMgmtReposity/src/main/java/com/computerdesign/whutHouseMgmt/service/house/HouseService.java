@@ -20,6 +20,24 @@ public class HouseService implements BaseService<House> {
 	private HouseMapper houseMapper;
 
 	/**
+	 * 根据住房编号和地址获取住房ID
+	 * @param houseNo
+	 * @param address
+	 * @return
+	 */
+	public Integer getHouseIdByHouseNoAndAddress(String houseNo, String address){
+		HouseExample example = new HouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andNoEqualTo(houseNo);
+		criteria.andAddressEqualTo(address);
+		if(houseMapper.selectByExample(example).get(0) != null){
+			return houseMapper.selectByExample(example).get(0).getId();
+		}else{
+			return null;
+		}
+	}
+	
+	/**
 	 * 根据id选择house
 	 * 
 	 * @param id
