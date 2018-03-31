@@ -137,3 +137,11 @@ export function getFixByStaffID(staffID) {
         method: 'get',
     })
 }
+
+// 删除维修申请记录
+export function deleteFixForm(formID) {
+    return request({
+        url: `/fix/deleteFix/${formID}`,
+        method: 'delete',
+    })
+}

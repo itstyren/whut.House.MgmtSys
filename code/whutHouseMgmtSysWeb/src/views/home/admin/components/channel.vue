@@ -1,5 +1,5 @@
 <template>
-  <div class="channel card" :style="{height:height,width:width}">
+  <div class="channel card" :style="{height:height,width:width}" v-loading="listLoading">
     <div class="title">
       <strong>快速通道</strong>
     </div>
@@ -12,13 +12,13 @@
           <div class="script">{{v.label}}</div>
         </router-link>
       </div>
-                  <div class="box" @click="FormVisible=true">
+                  <div class="box" @click="formVisible=true">
         <div class="card-panel-icon-wrapper icon-xinzeng">
           <my-icon icon-class="xinzeng" class-name="card-panel-icon" />
         </div>
       </div>
     </div>
-    <el-dialog title="编辑快速通道" class="paramDialog-large" :visible.sync="FormVisible" v-loading="submitLoading">
+    <el-dialog title="编辑快速通道" class="paramDialog-large" :visible.sync="formVisible" v-loading="formLoading">
       <el-row type="flex" justify="center">
         <el-col :span="22">
           <el-transfer    :titles="['未选择', '已选择']" v-model="setData" :data="channelOption"></el-transfer>
@@ -35,19 +35,24 @@
 <script type="text/ecmascript-6">
 import { mapGetters } from "vuex";
 import { generateTitleInMethod } from "@/utils/i18n";
+import { postQuickPass, getQuickPass } from "@/api/user";
 
 export default {
   data() {
     return {
-      FormVisible: false,
-      submitLoading: false,
+      listLoading: false,
+      formVisible: false,
+      formLoading: false,
       channelOption: [],
       channelData: [],
       setData: ["paramSet"]
     };
   },
   computed: {
-    ...mapGetters(["permission_routers"])
+    ...mapGetters(["permission_routers"]),
+    staffID() {
+      return this.$store.getters.userID;
+    }
   },
   created() {
     this.generateArray();
@@ -66,22 +71,39 @@ export default {
   methods: {
     generateTitleInMethod,
     cancel() {
-      this.FormVisible = false;
+      this.formVisible = false;
     },
     modifySubmit() {
-      this.generateChannel();
-      this.FormVisible = false;
+      this.formLoading = true;
+      let data = {
+        data: this.setData
+      };
+      postQuickPass(data)
+        .then(res => {
+          this.formLoading = false;
+          this.generateChannel();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      this.formVisible = false;
     },
     // 生成目前的用户快速通道
     generateChannel() {
       this.channelData = [];
-      console.log(this.setData)
-      this.setData.forEach(v => {
-        this.channelOption.forEach(i => {
-          if (v == i.key) this.channelData.push(i);
+      this.listLoading = true;
+      let params = {
+        staffId: this.staffID
+      };
+      getQuickPass(params).then(res => {
+        this.listLoading = false;
+        this.setData = res.data.data.data;
+        this.setData.forEach(v => {
+          this.channelOption.forEach(i => {
+            if (v == i.key) this.channelData.push(i);
+          });
         });
       });
-      //console.log(this.channelData);
     },
     // 通过路由列表生成穿梭框用的列表
     generateArray() {

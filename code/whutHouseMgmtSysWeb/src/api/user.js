@@ -39,6 +39,7 @@ export function putFixComment(data) {
     data:data
   })
 }
+
 // 获取职工房屋数据
 export function getUserHouse(staffID) {
   return request({
@@ -46,10 +47,29 @@ export function getUserHouse(staffID) {
     method: 'get',
   })
 }
+
 // 工作清单
 export function getJobList(staffID) {
   return request({
     url: `/record/jobList`,
     method: 'get',
+  })
+}
+
+// 快速通道添加
+export function postQuickPass(data) {
+  return request({
+    url: '/record/quickPassage',
+    method: 'post',
+    data: data
+  })
+}
+
+// 快速通道获取
+export function getQuickPass(staffID) {
+  return request({
+    url: `/record/quickPassage`,
+    method: 'get',
+    params: staffID
   })
 }

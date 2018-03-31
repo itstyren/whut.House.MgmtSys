@@ -8,6 +8,13 @@ export function getFixContentByDay(params) {
         params: params
     })
 }
+// 获取一周维修处理情况分析
+export function getFixContentCount() {
+    return request({
+        url: `/fixRecord/contentCount`,
+        method: 'get',
+    })
+}
 // 获取周访问量
 export function getVisitRecord(params) {
     return request({
