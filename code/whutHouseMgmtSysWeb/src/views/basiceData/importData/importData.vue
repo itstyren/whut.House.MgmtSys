@@ -19,10 +19,12 @@
             <div class="download-button">
               <el-button type="primary" size="small" @click="staffDownload">职工模板下载</el-button>
               <el-button type="primary" size="small" @click="houseDownload">房屋模板下载</el-button>
+              <el-button type="primary" size="small" @click="houseRelDownload">住户模板下载</el-button>
             </div>
             <div class="save-buttomn">
               <el-radio v-model="uploadType" label="1">职工</el-radio>
               <el-radio v-model="uploadType" style="margin-right:30px" label="2">住房</el-radio>
+              <el-radio v-model="uploadType" style="margin-right:30px" label="3">住户</el-radio>
               <el-button type="success" size="small" :disabled="isFull" @click="unpload">确认并导入</el-button>
             </div>
             <upload-excel-component @on-selected-file='selected'></upload-excel-component>
@@ -46,10 +48,11 @@
   import UploadExcelComponent from "@/components/UploadExcel/index.vue";
   import {
     postStaffImport,
-    postHouseImport
+    postHouseImport,
+    postHouseRelImport
   } from "@/api/basiceData";
   import utils from "@/utils/index.js";
-
+var basiceUrl='http://localhost:8787/whutHouseMgmtReposity/dataImport/'
   export default {
     name: "uploadExcel",
     components: {
@@ -75,11 +78,15 @@
       },
       staffDownload() {
         window.location.href =
-          "http://localhost:8787/whutHouseMgmtReposity/dataImport/staffDownLoad";
+          `${basiceUrl}staffDownLoad`;
       },
       houseDownload() {
         window.location.href =
-          "http://localhost:8787/whutHouseMgmtReposity/dataImport/houseDownLoad";
+          `${basiceUrl}houseDownLoad`;
+      },
+      houseRelDownload(){
+window.location.href =
+          `${basiceUrl}residentDownLoad`;
       },
       unpload() {
         this.uploadLoading = true;
@@ -91,9 +98,16 @@
             this.uploadLoading = false;
             //console.log(res)
           });
-        } else {
+        } else if(this.uploadType == "2"){
           formData.append("houseFile", this.itemFile, "houseImport.xls");
           postHouseImport(formData).then(res => {
+            utils.statusinfo(this, res.data);
+            this.uploadLoading = false;
+            //console.log(res)
+          });
+        }else{
+                    formData.append("residentFile", this.itemFile, "住户模板.xlsx");
+          postHouseRelImport(formData).then(res => {
             utils.statusinfo(this, res.data);
             this.uploadLoading = false;
             //console.log(res)

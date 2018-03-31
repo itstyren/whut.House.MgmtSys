@@ -32,11 +32,20 @@ export function getVisitCapacity(params) {
     })
 }
 // 住房参数统计分析接口
-export function getHouseParamCount(params,data) {
+export function postHouseParamCount(params,data) {
     return request({
         url: `/houseRecord/Content`,
         method: 'post',
         params: params,
         data:data
+    })
+}
+// 多套住房查询接口
+export function postStaffMultiplyHouse(params, data) {
+    return request({
+        url: `/moreHouseQuery/staffMoreHouseQuery`,
+        method: 'post',
+        params: params,
+        data: data
     })
 }
