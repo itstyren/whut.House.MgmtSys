@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyMjM0ODU4LCJleHAiOjE1MjIyMzg0NTh9.Bhg7wZ5IxjaHE2Zc2h6EscYxP_M5yuKUVX4TVuEkqwQ");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNDgwMDA1LCJleHAiOjE1MjI0ODM2MDV9.GB9SCdyJcdeDrjrGWEAYqcepNtVNlIKjq8jLSvfSMUw");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyMjM0ODU4LCJleHAiOjE1MjIyMzg0NTh9.Bhg7wZ5IxjaHE2Zc2h6EscYxP_M5yuKUVX4TVuEkqwQ");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNDgwMDA1LCJleHAiOjE1MjI0ODM2MDV9.GB9SCdyJcdeDrjrGWEAYqcepNtVNlIKjq8jLSvfSMUw");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -734,6 +734,22 @@
 									
 	})
 	
+	//查询统计
+	$(function() {
+
+		$("#staffMoreHouseQuery")
+				.click(
+						function() {
+							var data ={
+									'houseTypeId':6,
+									'staffTypeId':145
+								};
+								ajaxRequestPostType("moreHouseQuery/staffMoreHouseQuery?page=1&size=15","POST",data);
+						})
+						
+	})
+	
+	
 </script>
 
 </head>
@@ -760,6 +776,7 @@
 		<li><a href="#internetSelectHouse" data-toggle="tab">网上选房</a></li>
 		<li><a href="#rentGenerate" data-toggle="tab">租金生成</a></li>
 		<li><a href="#personalInfo" data-toggle="tab">个人信息</a></li>
+		<li><a href="#querySta" data-toggle="tab">查询统计</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="rentEvent">
@@ -892,13 +909,14 @@
 			<h4>居民数据导入</h4>
 			<form action="dataImport/residentDataImport" method="post"
 				enctype="multipart/form-data">
-				HouseFile:<input type="file" name="residentFile"> <input
+				ResidentFile:<input type="file" name="residentFile"> <input
 					type="submit" value="Submit">
 			</form>
 			<br>
 			<h4>下载</h4>
 			<a href="dataImport/staffDownLoad">职工模板下载</a> <br> <br> <a
-				href="dataImport/houseDownLoad">住房模板下载</a>
+				href="dataImport/houseDownLoad">住房模板下载</a><br> <br> <a
+				href="dataImport/residentDownLoad">住户模板下载</a>
 				
 			<a href="exportToWord/hire/18">word</a>
 			<!-- <input type="file" id="upfile" name="upfile" placeholder="" />
@@ -1010,6 +1028,12 @@
 			<br>
 			
 				
+		</div>
+		<div class="tab-pane fade" id="querySta">
+			<h4>多住房查询统计</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="StaffMoreHouseQuery" id="staffMoreHouseQuery" />
+			<br>					
 		</div>
 
 	</div>

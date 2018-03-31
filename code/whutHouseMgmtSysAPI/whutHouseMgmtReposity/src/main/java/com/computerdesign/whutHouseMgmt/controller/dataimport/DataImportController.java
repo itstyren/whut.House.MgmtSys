@@ -659,5 +659,20 @@ public class DataImportController {
 		}
 
 	}
+	
+	/**
+	 * 住户模板下载
+	 * 
+	 * @param response
+	 */
+	@RequestMapping("residentDownLoad")
+	public void residentDownLoad(HttpServletResponse response) {
+		try {
+			DownloadUtils.downloadSolve("D:\\residentImport.xlsx", "住户模板.xlsx", response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 }

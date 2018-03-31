@@ -825,6 +825,76 @@ public class ResidentVwExample {
             return (Criteria) this;
         }
 
+        public Criteria andStaffSpouseNameIsNull() {
+            addCriterion("StaffSpouseName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameIsNotNull() {
+            addCriterion("StaffSpouseName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameEqualTo(String value) {
+            addCriterion("StaffSpouseName =", value, "staffSpouseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameNotEqualTo(String value) {
+            addCriterion("StaffSpouseName <>", value, "staffSpouseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameGreaterThan(String value) {
+            addCriterion("StaffSpouseName >", value, "staffSpouseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameGreaterThanOrEqualTo(String value) {
+            addCriterion("StaffSpouseName >=", value, "staffSpouseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameLessThan(String value) {
+            addCriterion("StaffSpouseName <", value, "staffSpouseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameLessThanOrEqualTo(String value) {
+            addCriterion("StaffSpouseName <=", value, "staffSpouseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameLike(String value) {
+            addCriterion("StaffSpouseName like", value, "staffSpouseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameNotLike(String value) {
+            addCriterion("StaffSpouseName not like", value, "staffSpouseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameIn(List<String> values) {
+            addCriterion("StaffSpouseName in", values, "staffSpouseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameNotIn(List<String> values) {
+            addCriterion("StaffSpouseName not in", values, "staffSpouseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameBetween(String value1, String value2) {
+            addCriterion("StaffSpouseName between", value1, value2, "staffSpouseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNameNotBetween(String value1, String value2) {
+            addCriterion("StaffSpouseName not between", value1, value2, "staffSpouseName");
+            return (Criteria) this;
+        }
+
         public Criteria andHouseNoIsNull() {
             addCriterion("HouseNo is null");
             return (Criteria) this;
@@ -952,6 +1022,206 @@ public class ResidentVwExample {
 
         public Criteria andHouseTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("HouseType not between", value1, value2, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameIsNull() {
+            addCriterion("HouseTypeName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameIsNotNull() {
+            addCriterion("HouseTypeName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameEqualTo(String value) {
+            addCriterion("HouseTypeName =", value, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameNotEqualTo(String value) {
+            addCriterion("HouseTypeName <>", value, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameGreaterThan(String value) {
+            addCriterion("HouseTypeName >", value, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameGreaterThanOrEqualTo(String value) {
+            addCriterion("HouseTypeName >=", value, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameLessThan(String value) {
+            addCriterion("HouseTypeName <", value, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameLessThanOrEqualTo(String value) {
+            addCriterion("HouseTypeName <=", value, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameLike(String value) {
+            addCriterion("HouseTypeName like", value, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameNotLike(String value) {
+            addCriterion("HouseTypeName not like", value, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameIn(List<String> values) {
+            addCriterion("HouseTypeName in", values, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameNotIn(List<String> values) {
+            addCriterion("HouseTypeName not in", values, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameBetween(String value1, String value2) {
+            addCriterion("HouseTypeName between", value1, value2, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNameNotBetween(String value1, String value2) {
+            addCriterion("HouseTypeName not between", value1, value2, "houseTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeIsNull() {
+            addCriterion("StaffType is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeIsNotNull() {
+            addCriterion("StaffType is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeEqualTo(Integer value) {
+            addCriterion("StaffType =", value, "staffType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNotEqualTo(Integer value) {
+            addCriterion("StaffType <>", value, "staffType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeGreaterThan(Integer value) {
+            addCriterion("StaffType >", value, "staffType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("StaffType >=", value, "staffType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeLessThan(Integer value) {
+            addCriterion("StaffType <", value, "staffType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("StaffType <=", value, "staffType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeIn(List<Integer> values) {
+            addCriterion("StaffType in", values, "staffType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNotIn(List<Integer> values) {
+            addCriterion("StaffType not in", values, "staffType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeBetween(Integer value1, Integer value2) {
+            addCriterion("StaffType between", value1, value2, "staffType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("StaffType not between", value1, value2, "staffType");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameIsNull() {
+            addCriterion("StaffTypeName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameIsNotNull() {
+            addCriterion("StaffTypeName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameEqualTo(String value) {
+            addCriterion("StaffTypeName =", value, "staffTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameNotEqualTo(String value) {
+            addCriterion("StaffTypeName <>", value, "staffTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameGreaterThan(String value) {
+            addCriterion("StaffTypeName >", value, "staffTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameGreaterThanOrEqualTo(String value) {
+            addCriterion("StaffTypeName >=", value, "staffTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameLessThan(String value) {
+            addCriterion("StaffTypeName <", value, "staffTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameLessThanOrEqualTo(String value) {
+            addCriterion("StaffTypeName <=", value, "staffTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameLike(String value) {
+            addCriterion("StaffTypeName like", value, "staffTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameNotLike(String value) {
+            addCriterion("StaffTypeName not like", value, "staffTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameIn(List<String> values) {
+            addCriterion("StaffTypeName in", values, "staffTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameNotIn(List<String> values) {
+            addCriterion("StaffTypeName not in", values, "staffTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameBetween(String value1, String value2) {
+            addCriterion("StaffTypeName between", value1, value2, "staffTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffTypeNameNotBetween(String value1, String value2) {
+            addCriterion("StaffTypeName not between", value1, value2, "staffTypeName");
             return (Criteria) this;
         }
 
