@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,7 +33,6 @@ import com.computerdesign.whutHouseMgmt.service.login.QuickPassageService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.wf.etp.authz.SubjectUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -149,8 +147,10 @@ public class LoginRecordController extends BaseController{
 		String[] list ;
 		if (!quickPassageService.getQuickPassage(staffId).isEmpty()) {
 			quickPassage = quickPassageService.getQuickPassage(staffId).get(0);
+			list = quickPassage.getQuickPassageName().split("_");
+		}else{
+			list =null;
 		}
-		list = quickPassage.getQuickPassageName().split("_");
 		return Msg.success().add("data",list);
 	}
 	

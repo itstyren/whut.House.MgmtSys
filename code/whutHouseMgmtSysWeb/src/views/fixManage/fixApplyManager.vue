@@ -52,7 +52,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getFixForm, getFixReAccept, getFixReAgree } from "@/api/fixManage";
+import { getFixForm, getFixReAccept, getFixReAgree,deleteFixForm } from "@/api/fixManage";
 import utils from "@/utils/index.js";
 
 export default {
@@ -184,7 +184,30 @@ export default {
         });
     },
     delectFixForm(index, row) {
-      
+      this.$confirm("此操作将对删除该申请单", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            let formID = row.id;
+            this.listLoading = true;
+            deleteFixForm(formID)
+              .then(res => {
+                // 公共提示方法
+                utils.statusinfo(this, res.data);
+                this.getList();
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除"
+            });
+          });
     },
     //更换每页数量
     SizeChangeEvent(val) {

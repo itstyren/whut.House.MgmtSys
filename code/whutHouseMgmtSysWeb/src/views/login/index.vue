@@ -32,7 +32,6 @@
 
 <script type="text/ecmascript-6">
 import * as types from "@/store/mutation-types";
-import { posLogin } from "@/api/api";
 import utils from "@/utils/index.js";
 export default {
   data() {
