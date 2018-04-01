@@ -15,20 +15,13 @@ public interface ResidentVwMapper {
     int insertSelective(ResidentVw record);
 
     List<ResidentVw> selectByExample(ResidentVwExample example);
-    
-    /**
-     * 多住房统计：查询具有多个住房的住户信息
-     * @param example
-     * @return
-     */
-//    List<ResidentVw> selectMoreHouseInfo(ResidentVwExample example);
-    
+
     /**
      * 获取拥有多套住房的职工staffId的List
      * @return
      */
     List<Integer> selectMoreHouseStaffId();
-
+    
     int updateByExampleSelective(@Param("record") ResidentVw record, @Param("example") ResidentVwExample example);
 
     int updateByExample(@Param("record") ResidentVw record, @Param("example") ResidentVwExample example);

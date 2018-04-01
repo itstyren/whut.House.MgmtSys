@@ -41,6 +41,10 @@ public class ResidentVw {
 
     private Double usedArea;
 
+    private Date houseFinishTime;
+
+    private String buildingName;
+
     private Integer familyCode;
 
     private Date expireTime;
@@ -201,6 +205,22 @@ public class ResidentVw {
 
     public void setUsedArea(Double usedArea) {
         this.usedArea = usedArea;
+    }
+
+    public Date getHouseFinishTime() {
+        return houseFinishTime;
+    }
+
+    public void setHouseFinishTime(Date houseFinishTime) {
+        this.houseFinishTime = houseFinishTime;
+    }
+
+    public String getBuildingName() {
+        return buildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName == null ? null : buildingName.trim();
     }
 
     public Integer getFamilyCode() {

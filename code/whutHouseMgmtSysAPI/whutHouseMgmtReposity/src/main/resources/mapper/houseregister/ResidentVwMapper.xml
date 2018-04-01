@@ -21,15 +21,14 @@
     <result column="StaffTypeName" jdbcType="VARCHAR" property="staffTypeName" />
     <result column="BuildArea" jdbcType="DOUBLE" property="buildArea" />
     <result column="UsedArea" jdbcType="DOUBLE" property="usedArea" />
+    <result column="HouseFinishTime" jdbcType="DATE" property="houseFinishTime" />
+    <result column="BuildingName" jdbcType="VARCHAR" property="buildingName" />
     <result column="FamilyCode" jdbcType="INTEGER" property="familyCode" />
     <result column="ExpireTime" jdbcType="TIMESTAMP" property="expireTime" />
     <result column="LastRentTime" jdbcType="TIMESTAMP" property="lastRentTime" />
     <result column="RentType" jdbcType="VARCHAR" property="rentType" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
-<!--   <resultMap id="SelfDefinedResultMap" type="java.lang.Integer" >
-    <result column="StaffId" jdbcType="INTEGER" property="staffId" />
-  </resultMap> -->
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -91,8 +90,8 @@
   <sql id="Base_Column_List">
     ResidentId, StaffId, HouseId, StaffName, Address, HouseRel, BookTime, StaffNo, StaffSex, 
     StaffDeptId, StaffDeptName, StaffSpouseName, HouseNo, HouseType, HouseTypeName, StaffType, 
-    StaffTypeName, BuildArea, UsedArea, FamilyCode, ExpireTime, LastRentTime, RentType, 
-    IsDelete
+    StaffTypeName, BuildArea, UsedArea, HouseFinishTime, BuildingName, FamilyCode, ExpireTime, 
+    LastRentTime, RentType, IsDelete
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample" resultMap="BaseResultMap">
     select
@@ -108,14 +107,7 @@
       order by ${orderByClause}
     </if>
   </select>
-<!--   <select id="selectMoreHouseInfo" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample">
-  		select * from view_hs_resident
-  		 where StaffId in (select StaffId from view_hs_resident group by StaffId having count(StaffId) > 1)
-  		<if test="_parameter != null">
-      		<include refid="Example_Where_Clause" />
-    	</if>
-  </select> -->
-  <select id="selectMoreHouseStaffId" resultType="java.lang.Integer">
+   <select id="selectMoreHouseStaffId" resultType="java.lang.Integer">
   	SELECT DISTINCT StaffId  FROM view_hs_resident
 	WHERE StaffId IN(SELECT StaffId FROM view_hs_resident WHERE IsDelete = FALSE GROUP BY StaffId HAVING COUNT(StaffId) > 1)
   </select>
@@ -132,18 +124,18 @@
       StaffDeptId, StaffDeptName, StaffSpouseName, 
       HouseNo, HouseType, HouseTypeName, 
       StaffType, StaffTypeName, BuildArea, 
-      UsedArea, FamilyCode, ExpireTime, 
-      LastRentTime, RentType, IsDelete
-      )
+      UsedArea, HouseFinishTime, BuildingName, 
+      FamilyCode, ExpireTime, LastRentTime, 
+      RentType, IsDelete)
     values (#{residentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
       #{staffName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{houseRel,jdbcType=VARCHAR}, 
       #{bookTime,jdbcType=TIMESTAMP}, #{staffNo,jdbcType=VARCHAR}, #{staffSex,jdbcType=VARCHAR}, 
       #{staffDeptId,jdbcType=INTEGER}, #{staffDeptName,jdbcType=VARCHAR}, #{staffSpouseName,jdbcType=VARCHAR}, 
       #{houseNo,jdbcType=VARCHAR}, #{houseType,jdbcType=INTEGER}, #{houseTypeName,jdbcType=VARCHAR}, 
       #{staffType,jdbcType=INTEGER}, #{staffTypeName,jdbcType=VARCHAR}, #{buildArea,jdbcType=DOUBLE}, 
-      #{usedArea,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, #{expireTime,jdbcType=TIMESTAMP}, 
-      #{lastRentTime,jdbcType=TIMESTAMP}, #{rentType,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
-      )
+      #{usedArea,jdbcType=DOUBLE}, #{houseFinishTime,jdbcType=DATE}, #{buildingName,jdbcType=VARCHAR}, 
+      #{familyCode,jdbcType=INTEGER}, #{expireTime,jdbcType=TIMESTAMP}, #{lastRentTime,jdbcType=TIMESTAMP}, 
+      #{rentType,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw">
     insert into view_hs_resident
@@ -204,6 +196,12 @@
       </if>
       <if test="usedArea != null">
         UsedArea,
+      </if>
+      <if test="houseFinishTime != null">
+        HouseFinishTime,
+      </if>
+      <if test="buildingName != null">
+        BuildingName,
       </if>
       <if test="familyCode != null">
         FamilyCode,
@@ -278,6 +276,12 @@
       </if>
       <if test="usedArea != null">
         #{usedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="houseFinishTime != null">
+        #{houseFinishTime,jdbcType=DATE},
+      </if>
+      <if test="buildingName != null">
+        #{buildingName,jdbcType=VARCHAR},
       </if>
       <if test="familyCode != null">
         #{familyCode,jdbcType=INTEGER},
@@ -362,6 +366,12 @@
       <if test="record.usedArea != null">
         UsedArea = #{record.usedArea,jdbcType=DOUBLE},
       </if>
+      <if test="record.houseFinishTime != null">
+        HouseFinishTime = #{record.houseFinishTime,jdbcType=DATE},
+      </if>
+      <if test="record.buildingName != null">
+        BuildingName = #{record.buildingName,jdbcType=VARCHAR},
+      </if>
       <if test="record.familyCode != null">
         FamilyCode = #{record.familyCode,jdbcType=INTEGER},
       </if>
@@ -403,6 +413,8 @@
       StaffTypeName = #{record.staffTypeName,jdbcType=VARCHAR},
       BuildArea = #{record.buildArea,jdbcType=DOUBLE},
       UsedArea = #{record.usedArea,jdbcType=DOUBLE},
+      HouseFinishTime = #{record.houseFinishTime,jdbcType=DATE},
+      BuildingName = #{record.buildingName,jdbcType=VARCHAR},
       FamilyCode = #{record.familyCode,jdbcType=INTEGER},
       ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
       LastRentTime = #{record.lastRentTime,jdbcType=TIMESTAMP},

@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNDgwMDA1LCJleHAiOjE1MjI0ODM2MDV9.GB9SCdyJcdeDrjrGWEAYqcepNtVNlIKjq8jLSvfSMUw");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNTU5NTA5LCJleHAiOjE1MjI1NjMxMDl9.obX9YfvTa8Tizyum7Noo11WhAaknbC6u8RTkZshEFjQ");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNDgwMDA1LCJleHAiOjE1MjI0ODM2MDV9.GB9SCdyJcdeDrjrGWEAYqcepNtVNlIKjq8jLSvfSMUw");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNTU5NTA5LCJleHAiOjE1MjI1NjMxMDl9.obX9YfvTa8Tizyum7Noo11WhAaknbC6u8RTkZshEFjQ");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -747,6 +747,25 @@
 								ajaxRequestPostType("moreHouseQuery/staffMoreHouseQuery?page=1&size=15","POST",data);
 						})
 						
+		$("#staffMoreHouseSta")
+				.click(
+						function() {
+							var data ={
+									/* 'houseTypeId':6,
+									'staffTypeId':145 */
+								};
+								ajaxRequestPostType("moreHouseQuery/staffMoreHouseSta","POST",data);
+						})
+		$("#staffMoreHouseStaByStaffId")
+				.click(
+						function() {
+							var data ={
+									/* 'houseTypeId':6,
+									'staffTypeId':145 */
+								};
+								ajaxRequestPostType("moreHouseQuery/staffMoreHouseStaByStaffId/3","POST",data);
+						})
+						
 	})
 	
 	
@@ -1033,7 +1052,15 @@
 			<h4>多住房查询统计</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="StaffMoreHouseQuery" id="staffMoreHouseQuery" />
-			<br>					
+			<br>	
+			<h4>多住房统计，根据staffId查询个人的多住房</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="StaffMoreHouseStaByStaffId" id="staffMoreHouseStaByStaffId" />
+			<br>
+			<h4>多住房统计</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="StaffMoreHouseSta" id="staffMoreHouseSta" />
+			<br>				
 		</div>
 
 	</div>

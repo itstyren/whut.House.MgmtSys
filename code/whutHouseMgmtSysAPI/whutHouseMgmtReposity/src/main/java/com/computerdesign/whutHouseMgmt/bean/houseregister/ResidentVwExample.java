@@ -2,6 +2,7 @@ package com.computerdesign.whutHouseMgmt.bean.houseregister;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class ResidentVwExample {
@@ -103,6 +104,32 @@ public class ResidentVwExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andResidentIdIsNull() {
@@ -1342,6 +1369,136 @@ public class ResidentVwExample {
 
         public Criteria andUsedAreaNotBetween(Double value1, Double value2) {
             addCriterion("UsedArea not between", value1, value2, "usedArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeIsNull() {
+            addCriterion("HouseFinishTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeIsNotNull() {
+            addCriterion("HouseFinishTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeEqualTo(Date value) {
+            addCriterionForJDBCDate("HouseFinishTime =", value, "houseFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeNotEqualTo(Date value) {
+            addCriterionForJDBCDate("HouseFinishTime <>", value, "houseFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeGreaterThan(Date value) {
+            addCriterionForJDBCDate("HouseFinishTime >", value, "houseFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("HouseFinishTime >=", value, "houseFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeLessThan(Date value) {
+            addCriterionForJDBCDate("HouseFinishTime <", value, "houseFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("HouseFinishTime <=", value, "houseFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeIn(List<Date> values) {
+            addCriterionForJDBCDate("HouseFinishTime in", values, "houseFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeNotIn(List<Date> values) {
+            addCriterionForJDBCDate("HouseFinishTime not in", values, "houseFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("HouseFinishTime between", value1, value2, "houseFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseFinishTimeNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("HouseFinishTime not between", value1, value2, "houseFinishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameIsNull() {
+            addCriterion("BuildingName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameIsNotNull() {
+            addCriterion("BuildingName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameEqualTo(String value) {
+            addCriterion("BuildingName =", value, "buildingName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameNotEqualTo(String value) {
+            addCriterion("BuildingName <>", value, "buildingName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameGreaterThan(String value) {
+            addCriterion("BuildingName >", value, "buildingName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameGreaterThanOrEqualTo(String value) {
+            addCriterion("BuildingName >=", value, "buildingName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameLessThan(String value) {
+            addCriterion("BuildingName <", value, "buildingName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameLessThanOrEqualTo(String value) {
+            addCriterion("BuildingName <=", value, "buildingName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameLike(String value) {
+            addCriterion("BuildingName like", value, "buildingName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameNotLike(String value) {
+            addCriterion("BuildingName not like", value, "buildingName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameIn(List<String> values) {
+            addCriterion("BuildingName in", values, "buildingName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameNotIn(List<String> values) {
+            addCriterion("BuildingName not in", values, "buildingName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameBetween(String value1, String value2) {
+            addCriterion("BuildingName between", value1, value2, "buildingName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuildingNameNotBetween(String value1, String value2) {
+            addCriterion("BuildingName not between", value1, value2, "buildingName");
             return (Criteria) this;
         }
 
