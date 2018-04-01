@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNTU5NTA5LCJleHAiOjE1MjI1NjMxMDl9.obX9YfvTa8Tizyum7Noo11WhAaknbC6u8RTkZshEFjQ");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNTk3NTg3LCJleHAiOjE1MjI2MDExODd9.ZT2mzi6fQ6q6R_Zdd2XSD2UIK-a1BUcGwnjzlwrcQG0");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNTU5NTA5LCJleHAiOjE1MjI1NjMxMDl9.obX9YfvTa8Tizyum7Noo11WhAaknbC6u8RTkZshEFjQ");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNTk3NTg3LCJleHAiOjE1MjI2MDExODd9.ZT2mzi6fQ6q6R_Zdd2XSD2UIK-a1BUcGwnjzlwrcQG0");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -139,11 +139,11 @@
 
 		$("#rentEventModify").click(function() {
 			var data = {
-				"rentEventId" : 25,
-				"rentTimeBegin" : "2018-03-27 9:00:00",
-				"rentTimeRanges" : 30,
-				"dayRentTimeBegin":8,
-				"dayRentTimeEnd":10,
+				"rentEventId" : 26,
+				"rentTimeBegin" : "2018-4-2 00:10:00",
+				"rentTimeRanges" : 2,
+				"dayRentTimeBegin":0,
+				"dayRentTimeEnd":23,
 				"rentSelValReq" : 5,
 				"rentSelRules" : "无规则"
 			}
@@ -157,7 +157,7 @@
 
 		$("#rentEventAdd").click(function() {
 			var data = {
-				"rentTimeBegin" : "2018-3-28 16:00:00",
+				"rentTimeBegin" : "2018-4-2 8:00:00",
 				//"rentTimeRanges" : "2017-11-4",
 				"dayRentTimeBegin":6,
 				"dayRentTimeEnd": 18,
@@ -443,7 +443,7 @@
 	$(function() {
 
 		$("#isSelectingHouse").click(function() {
-			ajaxRequestGet("selfHelpSelectHouse/isSelectingHouse/7");
+			ajaxRequestGet("selfHelpSelectHouse/isSelectingHouse/8");
 		})
 
 		$("#getAllSelectedStaff")

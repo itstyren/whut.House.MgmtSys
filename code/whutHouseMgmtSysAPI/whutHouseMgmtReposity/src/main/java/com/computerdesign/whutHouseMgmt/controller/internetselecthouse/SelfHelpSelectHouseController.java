@@ -93,47 +93,12 @@ public class SelfHelpSelectHouseController {
 			// System.out.println(selfHelpSelectHouse.getHouseSelectEnd());
 			// }
 
-			// 用于保存正在选房人的信息
-			SelfHelpSelectHouse isSelecting = new SelfHelpSelectHouse();
-			// 用于保存下一个正在选房人的信息
-			SelfHelpSelectHouse nextSelecting = new SelfHelpSelectHouse();
-			int flag = 0;
-			// 遍历排好序后的数据
-			for (SelfHelpSelectHouse selfHelpSelectHouse : selfHelpSelectHouses) {
-				flag++;
-				long begin = selfHelpSelectHouse.getHouseSelectStart().getTime();
-				long end = selfHelpSelectHouse.getHouseSelectEnd().getTime();
-				if (begin <= new Date().getTime() && end >= new Date().getTime()) {
-					isSelecting = selfHelpSelectHouse;
-					break;
-				}
-			}
-			
-			
-			// 如果当前选房人有数据，且不是最后一个选房者，则获取下一个选房者,否则返回“选房活动未开始”
-			if (isSelecting.getStaffName() != null && flag != selfHelpSelectHouses.size()) {
-				nextSelecting = selfHelpSelectHouses.get(flag);
-			}else{
-				//当前选房人无数据，由于选房时间有限，未选房员工都在第二天选房
-//				System.out.println(staffSelectHouseNow.getSelectStart());
-				return Msg.success("选房活动未开始，您的选房开始时间是" + DateConversionUtils.dateToString(staffSelectHouseNow.getSelectStart(), "yyyy年MM月dd日 HH时mm分ss秒"));
-			}
-
-			if(staffSelectHouseNow.getStaffId().equals(isSelecting.getStaffId())){
-				//如果轮到本人选房，返回哪些数据
-				IsSelectingHouseInfo isSelectingHouseInfo = new IsSelectingHouseInfo();
-				isSelectingHouseInfo.setIsSelectingStaffName(isSelecting.getStaffName());
-				isSelectingHouseInfo.setIsSelectingStaffEndTime(isSelecting.getHouseSelectEnd());
-				isSelectingHouseInfo.setNextSelectingStaffName(nextSelecting.getStaffName());
-				isSelectingHouseInfo.setSystemNowTime(new Date());
-				return Msg.success().add("data", isSelectingHouseInfo);
-			}
-			
+		
 			
 			// 获取选房结束时间
-			SelfHelpSelectHouse selfHelpSelectHouse = selfHelpSelectHouses.get(selfHelpSelectHouses.size() - 1);
-			long endTime = selfHelpSelectHouse.getHouseSelectEnd().getTime();
-			System.out.println(selfHelpSelectHouse.getHouseSelectEnd());
+			SelfHelpSelectHouse selfHelpSelectHouseEnd = selfHelpSelectHouses.get(selfHelpSelectHouses.size() - 1);
+			long endTime = selfHelpSelectHouseEnd.getHouseSelectEnd().getTime();
+			System.out.println(selfHelpSelectHouseEnd.getHouseSelectEnd());
 			// 获取选房开始时间,默认先使用id为1的选房参数
 
 			
@@ -143,6 +108,58 @@ public class SelfHelpSelectHouseController {
 				long beginTime = selfHelpSelectHouses.get(0).getHouseSelectStart().getTime();
 				// 判断当前是否还有选房活动，开始时间是第一个选房职工的开始时间，结束时间是最后一个选房职工的结束时间
 				if (beginTime <= new Date().getTime() && endTime >= new Date().getTime()) {
+					
+					// 用于保存正在选房人的信息
+					SelfHelpSelectHouse isSelecting = new SelfHelpSelectHouse();
+					// 用于保存下一个正在选房人的信息
+					SelfHelpSelectHouse nextSelecting = new SelfHelpSelectHouse();
+					int flag = 0;
+					// 遍历排好序后的数据
+					for (SelfHelpSelectHouse selfHelpSelectHouse : selfHelpSelectHouses) {
+						flag++;
+						long begin = selfHelpSelectHouse.getHouseSelectStart().getTime();
+						long end = selfHelpSelectHouse.getHouseSelectEnd().getTime();
+						if (begin <= new Date().getTime() && end >= new Date().getTime()) {
+							isSelecting = selfHelpSelectHouse;
+							break;
+						}
+					}
+					
+					
+					//当前选房人无数据，由于选房时间有限，未选房员工都在第二天选房
+					if (isSelecting.getStaffName() == null){
+						//若当前时间不在当天选房时间范围内，但是本人已选房
+						if(staffSelectHouseNow.getSelectEnd().getTime() < new Date().getTime()){
+							return Msg.success("您的选房时间已过，当前不在当日选房时间内");
+						}
+						return Msg.success("选房活动未开始，您的选房开始时间是" + DateConversionUtils.dateToString(staffSelectHouseNow.getSelectStart(), "yyyy年MM月dd日 HH时mm分ss秒"));
+					}else if(flag != selfHelpSelectHouses.size()){
+						// 如果当前选房人有数据，且不是最后一个选房者，则获取下一个选房者。
+						nextSelecting = selfHelpSelectHouses.get(flag);
+					}
+					
+//					// 如果当前选房人有数据，且不是最后一个选房者，则获取下一个选房者,否则返回“选房活动未开始”
+//					if (isSelecting.getStaffName() != null && flag != selfHelpSelectHouses.size()) {
+//						nextSelecting = selfHelpSelectHouses.get(flag);
+//					}else{
+//						//当前选房人无数据，由于选房时间有限，未选房员工都在第二天选房
+////						System.out.println(staffSelectHouseNow.getSelectStart());
+//						return Msg.success("选房活动未开始，您的选房开始时间是" + DateConversionUtils.dateToString(staffSelectHouseNow.getSelectStart(), "yyyy年MM月dd日 HH时mm分ss秒"));
+//					}
+
+					if(staffSelectHouseNow.getStaffId().equals(isSelecting.getStaffId())){
+						//如果轮到本人选房，返回哪些数据
+						IsSelectingHouseInfo isSelectingHouseInfo = new IsSelectingHouseInfo();
+						isSelectingHouseInfo.setIsSelectingStaffName(isSelecting.getStaffName());
+						isSelectingHouseInfo.setIsSelectingStaffEndTime(isSelecting.getHouseSelectEnd());
+						if(nextSelecting.getStaffName() != null){
+							isSelectingHouseInfo.setNextSelectingStaffName(nextSelecting.getStaffName());
+						}
+						isSelectingHouseInfo.setSystemNowTime(new Date());
+						return Msg.success().add("data", isSelectingHouseInfo);
+					}
+					
+					
 					Date staffStartTimeNow = staffSelectHouseNow.getSelectStart();
 					Date staffEndTimeNow = staffSelectHouseNow.getSelectEnd();
 					
@@ -157,7 +174,20 @@ public class SelfHelpSelectHouseController {
 						isSelectingHouseInfo.setNextSelectingStaffName(nextSelecting.getStaffName());
 					}
 					isSelectingHouseInfo.setSystemNowTime(new Date());
-					return Msg.success().add("data", isSelectingHouseInfo);
+					
+//					if(nextSelecting.getStaffId() != null){
+//						if(staffSelectHouseNow.getStaffId().equals(nextSelecting.getStaffId())){
+//							
+//						}
+//					}
+					
+					//当前登陆系统的人已选房，并且正有选房活动
+					if(staffSelectHouseNow.getSelectEnd().getTime() < new Date().getTime()){
+						return Msg.success("您的选房时间已过").add("data", isSelectingHouseInfo);
+					}else{						
+						//当前登陆系统的人未选房，并且正有选房活动
+						return Msg.success().add("data", isSelectingHouseInfo);
+					}
 				} else if(beginTime >= new Date().getTime()){
 					return Msg.success("选房活动未开始");
 				}else{
