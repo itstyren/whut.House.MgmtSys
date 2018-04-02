@@ -3,11 +3,17 @@ package com.computerdesign.whutHouseMgmt.bean.houseManagement.building;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ViewBuilding {
     private Integer id;
 
     private String name;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date finishTime;
 
     private Float floorArea;
