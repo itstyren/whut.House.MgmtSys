@@ -76,7 +76,7 @@ public class CampusController extends BaseController {
 
 	@DeleteMapping(value = "{id}")
 	public Msg deleteById(@PathVariable("id") Integer id) {
-		if (!viewRegionService.getByCampusId(id).isEmpty()) {
+		if (viewRegionService.getByCampusId(id).isEmpty()) {
 			return Msg.error("存在区域属于该校区，无法删除");
 		}
 		campusService.delete(id);
