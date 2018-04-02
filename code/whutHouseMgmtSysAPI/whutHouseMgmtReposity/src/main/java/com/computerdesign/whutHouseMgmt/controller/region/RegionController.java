@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.building.Building;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.Region;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.RegionWithBuilding;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.ViewRegion;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
-import com.computerdesign.whutHouseMgmt.bean.region.Region;
-import com.computerdesign.whutHouseMgmt.bean.region.RegionWithBuilding;
 import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
 import com.computerdesign.whutHouseMgmt.service.region.RegionService;
+import com.computerdesign.whutHouseMgmt.service.region.ViewRegionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -30,16 +32,18 @@ public class RegionController {
 	@Autowired
 	private RegionService regionService;
 	@Autowired
+	private ViewRegionService viewRegionService;
+	@Autowired
 	private BuildingService buildingService;
 
 	@RequestMapping(value = "get/{id}", method = RequestMethod.GET)
 	public Msg getRegions(@PathVariable("id") Integer id) {
 
-		Region region = regionService.get(id);
-		if (region == null) {
+		ViewRegion viewRegion = viewRegionService.get(id);
+		if (viewRegion == null) {
 			return Msg.error("查找不到数据");
 		} else {
-			return Msg.success().add("data", region);
+			return Msg.success().add("data", viewRegion);
 		}
 	}
 
@@ -55,10 +59,10 @@ public class RegionController {
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
 		// 分页，下一条语句为查询语句
 		PageHelper.startPage(page, size);
-		List<Region> regions = regionService.getAll();
+		List<ViewRegion> viewRegions = viewRegionService.getAll();
 
-		PageInfo pageInfo = new PageInfo(regions);
-		if (regions == null) {
+		PageInfo<ViewRegion> pageInfo = new PageInfo<ViewRegion>(viewRegions);
+		if (viewRegions == null) {
 			return Msg.error("查找不到数据");
 		} else {
 			return Msg.success().add("data", pageInfo);
@@ -74,12 +78,12 @@ public class RegionController {
 	@RequestMapping(value = "getRegionWithBuildings/{id}", method = RequestMethod.GET)
 	public Msg getRegionWithBuildings(@PathVariable("id") Integer id) {
 
-		Region region = regionService.get(id);
+		ViewRegion viewRegion = viewRegionService.get(id);
 		List<Building> buildingList = buildingService.getAllByRegionId(id);
 
-		RegionWithBuilding regionWithBuilding = new RegionWithBuilding(region, buildingList);
+		RegionWithBuilding regionWithBuilding = new RegionWithBuilding(viewRegion, buildingList);
 
-		if (region == null) {
+		if (viewRegion == null) {
 			return Msg.error("查找不到数据");
 		} else {
 			return Msg.success().add("data", regionWithBuilding);
@@ -96,19 +100,19 @@ public class RegionController {
 	@RequestMapping(value = "getRegionWithBuildings", method = RequestMethod.GET)
 	public Msg getgetRegionWithBuildings(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
-		List<Region> regions = regionService.getAll();
+		List<ViewRegion> viewRegions = viewRegionService.getAll();
 
 		List<Building> buildings = buildingService.getAll();
 		List<RegionWithBuilding> regionWithBuildings = new ArrayList<RegionWithBuilding>();
 
-		for (Region region : regions) {
+		for (ViewRegion viewRegion : viewRegions) {
 			List<Building> buildingList = new ArrayList<Building>();
 			for (Building building : buildings) {
-				if (building.getRegionId() == region.getId()) {
+				if (building.getRegionId() == viewRegion.getId()) {
 					buildingList.add(building);
 				}
 			}
-			regionWithBuildings.add(new RegionWithBuilding(region, buildingList));
+			regionWithBuildings.add(new RegionWithBuilding(viewRegion, buildingList));
 		}
 		// 分页，下一条语句为查询语句
 		// PageInfo pageInfo = new PageInfo(regionWithBuildings);
@@ -127,10 +131,13 @@ public class RegionController {
 		// 区域名不能为空
 		if (region.getName() == null) {
 			return Msg.error("区域名不能为空");
-		} else {
-			regionService.add(region);
-			return Msg.success().add("data", region);
 		}
+		if (region.getCampusId() == null) {
+			return Msg.error("校区id不能为空");
+		}
+		regionService.add(region);
+		return Msg.success().add("data", region);
+
 	}
 
 	/**
@@ -149,11 +156,10 @@ public class RegionController {
 		}
 		List<Region> regions = regionService.getAll();
 		// 遍历这些信息
-		Iterator iterator = regions.iterator();
+		Iterator<Region> iterator = regions.iterator();
 		while (iterator.hasNext()) {
 			Region regionAlready = (Region) iterator.next();
-			if (regionAlready.getId() != region.getId()
-					&& region.getName().equals(regionAlready.getName())) {
+			if (regionAlready.getId() != region.getId() && region.getName().equals(regionAlready.getName())) {
 				return Msg.error("该名称已存在，无法修改");
 			}
 		}

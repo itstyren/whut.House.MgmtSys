@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.fixparam.FixParameter;
-import com.computerdesign.whutHouseMgmt.bean.region.Region;
-import com.computerdesign.whutHouseMgmt.bean.region.RegionExample;
-import com.computerdesign.whutHouseMgmt.bean.region.RegionExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.Region;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.RegionExample;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.RegionExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.region.RegionMapper;
 import com.computerdesign.whutHouseMgmt.service.base.BaseService;
 

@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
-import com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample;
-import com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouseExample;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouseExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.house.ViewHouseMapper;
 
 @Service

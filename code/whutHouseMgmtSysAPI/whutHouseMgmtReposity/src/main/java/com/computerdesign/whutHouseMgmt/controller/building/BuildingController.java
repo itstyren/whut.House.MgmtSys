@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.building.Building;
-import com.computerdesign.whutHouseMgmt.bean.building.ViewBuilding;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.ViewBuilding;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.Region;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
-import com.computerdesign.whutHouseMgmt.bean.region.Region;
 import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
 import com.computerdesign.whutHouseMgmt.service.building.ViewBuildingService;
 import com.github.pagehelper.PageHelper;

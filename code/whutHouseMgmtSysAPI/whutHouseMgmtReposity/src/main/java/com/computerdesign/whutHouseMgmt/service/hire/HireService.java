@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample.Criteria;
-import com.computerdesign.whutHouseMgmt.bean.house.House;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.dao.hire.HireMapper;
 import com.computerdesign.whutHouseMgmt.dao.house.HouseMapper;

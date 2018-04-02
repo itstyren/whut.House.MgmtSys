@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.bean.house;
+package com.computerdesign.whutHouseMgmt.bean.houseManagement.house;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -1349,6 +1349,136 @@ public class ViewHouseExample {
 
         public Criteria andRegionNameNotBetween(String value1, String value2) {
             addCriterion("RegionName not between", value1, value2, "regionName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdIsNull() {
+            addCriterion("CampusId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdIsNotNull() {
+            addCriterion("CampusId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdEqualTo(Integer value) {
+            addCriterion("CampusId =", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdNotEqualTo(Integer value) {
+            addCriterion("CampusId <>", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdGreaterThan(Integer value) {
+            addCriterion("CampusId >", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("CampusId >=", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdLessThan(Integer value) {
+            addCriterion("CampusId <", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdLessThanOrEqualTo(Integer value) {
+            addCriterion("CampusId <=", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdIn(List<Integer> values) {
+            addCriterion("CampusId in", values, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdNotIn(List<Integer> values) {
+            addCriterion("CampusId not in", values, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdBetween(Integer value1, Integer value2) {
+            addCriterion("CampusId between", value1, value2, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("CampusId not between", value1, value2, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameIsNull() {
+            addCriterion("CampusName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameIsNotNull() {
+            addCriterion("CampusName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameEqualTo(String value) {
+            addCriterion("CampusName =", value, "campusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameNotEqualTo(String value) {
+            addCriterion("CampusName <>", value, "campusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameGreaterThan(String value) {
+            addCriterion("CampusName >", value, "campusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameGreaterThanOrEqualTo(String value) {
+            addCriterion("CampusName >=", value, "campusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameLessThan(String value) {
+            addCriterion("CampusName <", value, "campusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameLessThanOrEqualTo(String value) {
+            addCriterion("CampusName <=", value, "campusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameLike(String value) {
+            addCriterion("CampusName like", value, "campusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameNotLike(String value) {
+            addCriterion("CampusName not like", value, "campusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameIn(List<String> values) {
+            addCriterion("CampusName in", values, "campusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameNotIn(List<String> values) {
+            addCriterion("CampusName not in", values, "campusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameBetween(String value1, String value2) {
+            addCriterion("CampusName between", value1, value2, "campusName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusNameNotBetween(String value1, String value2) {
+            addCriterion("CampusName not between", value1, value2, "campusName");
             return (Criteria) this;
         }
 

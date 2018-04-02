@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.house.ViewHouseMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.house.ViewHouse">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse">
     <result column="Id" jdbcType="INTEGER" property="id" />
     <result column="No" jdbcType="VARCHAR" property="no" />
     <result column="IsOutSchool" jdbcType="BIT" property="isOutSchool" />
@@ -21,6 +21,8 @@
     <result column="BuildingName" jdbcType="VARCHAR" property="buildingName" />
     <result column="RegionId" jdbcType="INTEGER" property="regionId" />
     <result column="RegionName" jdbcType="VARCHAR" property="regionName" />
+    <result column="CampusId" jdbcType="INTEGER" property="campusId" />
+    <result column="CampusName" jdbcType="VARCHAR" property="campusName" />
     <result column="ProId" jdbcType="VARCHAR" property="proId" />
     <result column="Remark" jdbcType="VARCHAR" property="remark" />
     <result column="Image" jdbcType="VARCHAR" property="image" />
@@ -89,9 +91,10 @@
   <sql id="Base_Column_List">
     Id, No, IsOutSchool, Type, TypeName, Layout, LayoutName, Struct, StructName, Status, 
     StatusName, BuildArea, UsedArea, BasementArea, Address, BuildingId, BuildingName, 
-    RegionId, RegionName, ProId, Remark, Image, Rental, FinishTime, RecordStatus
+    RegionId, RegionName, CampusId, CampusName, ProId, Remark, Image, Rental, FinishTime, 
+    RecordStatus
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouseExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -105,33 +108,35 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample">
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouseExample">
     delete from view_hs_house
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouse">
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse">
     insert into view_hs_house (Id, No, IsOutSchool, 
       Type, TypeName, Layout, 
       LayoutName, Struct, StructName, 
       Status, StatusName, BuildArea, 
       UsedArea, BasementArea, Address, 
       BuildingId, BuildingName, RegionId, 
-      RegionName, ProId, Remark, 
-      Image, Rental, FinishTime, 
-      RecordStatus)
+      RegionName, CampusId, CampusName, 
+      ProId, Remark, Image, 
+      Rental, FinishTime, RecordStatus
+      )
     values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{isOutSchool,jdbcType=BIT}, 
       #{type,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{layout,jdbcType=INTEGER}, 
       #{layoutName,jdbcType=VARCHAR}, #{struct,jdbcType=INTEGER}, #{structName,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{statusName,jdbcType=VARCHAR}, #{buildArea,jdbcType=DOUBLE}, 
       #{usedArea,jdbcType=DOUBLE}, #{basementArea,jdbcType=DOUBLE}, #{address,jdbcType=VARCHAR}, 
       #{buildingId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, #{regionId,jdbcType=INTEGER}, 
-      #{regionName,jdbcType=VARCHAR}, #{proId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{image,jdbcType=VARCHAR}, #{rental,jdbcType=DOUBLE}, #{finishTime,jdbcType=DATE}, 
-      #{recordStatus,jdbcType=INTEGER})
+      #{regionName,jdbcType=VARCHAR}, #{campusId,jdbcType=INTEGER}, #{campusName,jdbcType=VARCHAR}, 
+      #{proId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{rental,jdbcType=DOUBLE}, #{finishTime,jdbcType=DATE}, #{recordStatus,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouse">
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse">
     insert into view_hs_house
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -190,6 +195,12 @@
       </if>
       <if test="regionName != null">
         RegionName,
+      </if>
+      <if test="campusId != null">
+        CampusId,
+      </if>
+      <if test="campusName != null">
+        CampusName,
       </if>
       <if test="proId != null">
         ProId,
@@ -268,6 +279,12 @@
       <if test="regionName != null">
         #{regionName,jdbcType=VARCHAR},
       </if>
+      <if test="campusId != null">
+        #{campusId,jdbcType=INTEGER},
+      </if>
+      <if test="campusName != null">
+        #{campusName,jdbcType=VARCHAR},
+      </if>
       <if test="proId != null">
         #{proId,jdbcType=VARCHAR},
       </if>
@@ -288,7 +305,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouseExample" resultType="java.lang.Long">
     select count(*) from view_hs_house
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -354,6 +371,12 @@
       <if test="record.regionName != null">
         RegionName = #{record.regionName,jdbcType=VARCHAR},
       </if>
+      <if test="record.campusId != null">
+        CampusId = #{record.campusId,jdbcType=INTEGER},
+      </if>
+      <if test="record.campusName != null">
+        CampusName = #{record.campusName,jdbcType=VARCHAR},
+      </if>
       <if test="record.proId != null">
         ProId = #{record.proId,jdbcType=VARCHAR},
       </if>
@@ -398,6 +421,8 @@
       BuildingName = #{record.buildingName,jdbcType=VARCHAR},
       RegionId = #{record.regionId,jdbcType=INTEGER},
       RegionName = #{record.regionName,jdbcType=VARCHAR},
+      CampusId = #{record.campusId,jdbcType=INTEGER},
+      CampusName = #{record.campusName,jdbcType=VARCHAR},
       ProId = #{record.proId,jdbcType=VARCHAR},
       Remark = #{record.remark,jdbcType=VARCHAR},
       Image = #{record.image,jdbcType=VARCHAR},

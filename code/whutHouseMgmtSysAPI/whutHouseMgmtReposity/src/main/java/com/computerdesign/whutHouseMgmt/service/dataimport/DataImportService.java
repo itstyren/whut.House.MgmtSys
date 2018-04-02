@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.computerdesign.whutHouseMgmt.bean.building.Building;
-import com.computerdesign.whutHouseMgmt.bean.building.BuildingExample;
-import com.computerdesign.whutHouseMgmt.bean.house.House;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.BuildingExample;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameterExample;
@@ -58,7 +58,7 @@ public class DataImportService {
 	 */
 	public Integer getBuildingParamId(String buildingParamName){
 		BuildingExample example = new BuildingExample();
-		com.computerdesign.whutHouseMgmt.bean.building.BuildingExample.Criteria criteria= example.createCriteria();
+		com.computerdesign.whutHouseMgmt.bean.houseManagement.building.BuildingExample.Criteria criteria= example.createCriteria();
 		criteria.andNameEqualTo(buildingParamName);
 		Building building = buildingMapper.selectByExample(example).get(0);
 		return building.getId();

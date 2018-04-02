@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.building.BuildingMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.building.Building">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building">
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="FinishTime" jdbcType="DATE" property="finishTime" />
@@ -76,7 +76,7 @@
     Id, Name, FinishTime, FloorArea, UsedArea, FloorCount, RegionId, Description, SupportFund, 
     Manager, UnitCount
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.BuildingExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -100,13 +100,13 @@
     delete from Hs_Building
     where Id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample">
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.BuildingExample">
     delete from Hs_Building
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building">
     insert into Hs_Building (Id, Name, FinishTime, 
       FloorArea, UsedArea, FloorCount, 
       RegionId, Description, SupportFund, 
@@ -116,7 +116,7 @@
       #{regionId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{supportFund,jdbcType=DECIMAL}, 
       #{manager,jdbcType=VARCHAR}, #{unitCount,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building">
     insert into Hs_Building
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -189,7 +189,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.BuildingExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.BuildingExample" resultType="java.lang.Long">
     select count(*) from Hs_Building
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -253,7 +253,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building">
     update Hs_Building
     <set>
       <if test="name != null">
@@ -289,7 +289,7 @@
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.building.Building">
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building">
     update Hs_Building
     set Name = #{name,jdbcType=VARCHAR},
       FinishTime = #{finishTime,jdbcType=DATE},

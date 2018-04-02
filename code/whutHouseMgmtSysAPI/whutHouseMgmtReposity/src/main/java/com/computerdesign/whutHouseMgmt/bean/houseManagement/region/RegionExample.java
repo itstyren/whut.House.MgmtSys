@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.bean.region;
+package com.computerdesign.whutHouseMgmt.bean.houseManagement.region;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -301,6 +301,66 @@ public class RegionExample {
 
         public Criteria andDescriptionNotBetween(String value1, String value2) {
             addCriterion("Description not between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdIsNull() {
+            addCriterion("CampusId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdIsNotNull() {
+            addCriterion("CampusId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdEqualTo(Integer value) {
+            addCriterion("CampusId =", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdNotEqualTo(Integer value) {
+            addCriterion("CampusId <>", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdGreaterThan(Integer value) {
+            addCriterion("CampusId >", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("CampusId >=", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdLessThan(Integer value) {
+            addCriterion("CampusId <", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdLessThanOrEqualTo(Integer value) {
+            addCriterion("CampusId <=", value, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdIn(List<Integer> values) {
+            addCriterion("CampusId in", values, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdNotIn(List<Integer> values) {
+            addCriterion("CampusId not in", values, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdBetween(Integer value1, Integer value2) {
+            addCriterion("CampusId between", value1, value2, "campusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCampusIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("CampusId not between", value1, value2, "campusId");
             return (Criteria) this;
         }
     }

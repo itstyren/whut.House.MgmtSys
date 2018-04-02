@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.building.ViewBuildingMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.building.ViewBuilding">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.ViewBuilding">
     <result column="Id" jdbcType="INTEGER" property="id" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="FinishTime" jdbcType="DATE" property="finishTime" />
@@ -10,6 +10,8 @@
     <result column="FloorCount" jdbcType="INTEGER" property="floorCount" />
     <result column="RegionId" jdbcType="INTEGER" property="regionId" />
     <result column="RegionName" jdbcType="VARCHAR" property="regionName" />
+    <result column="CampusId" jdbcType="INTEGER" property="campusId" />
+    <result column="CampusName" jdbcType="VARCHAR" property="campusName" />
     <result column="Description" jdbcType="VARCHAR" property="description" />
     <result column="SupportFund" jdbcType="DECIMAL" property="supportFund" />
     <result column="Manager" jdbcType="VARCHAR" property="manager" />
@@ -74,10 +76,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, Name, FinishTime, FloorArea, UsedArea, FloorCount, RegionId, RegionName, Description, 
-    SupportFund, Manager, UnitCount
+    Id, Name, FinishTime, FloorArea, UsedArea, FloorCount, RegionId, RegionName, CampusId, 
+    CampusName, Description, SupportFund, Manager, UnitCount
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.ViewBuildingExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.ViewBuildingExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -91,25 +93,25 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.ViewBuildingExample">
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.ViewBuildingExample">
     delete from view_hs_building
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.building.ViewBuilding">
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.ViewBuilding">
     insert into view_hs_building (Id, Name, FinishTime, 
       FloorArea, UsedArea, FloorCount, 
-      RegionId, RegionName, Description, 
-      SupportFund, Manager, UnitCount
-      )
+      RegionId, RegionName, CampusId, 
+      CampusName, Description, SupportFund, 
+      Manager, UnitCount)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{finishTime,jdbcType=DATE}, 
       #{floorArea,jdbcType=REAL}, #{usedArea,jdbcType=REAL}, #{floorCount,jdbcType=INTEGER}, 
-      #{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{supportFund,jdbcType=DECIMAL}, #{manager,jdbcType=VARCHAR}, #{unitCount,jdbcType=INTEGER}
-      )
+      #{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, #{campusId,jdbcType=INTEGER}, 
+      #{campusName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{supportFund,jdbcType=DECIMAL}, 
+      #{manager,jdbcType=VARCHAR}, #{unitCount,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.building.ViewBuilding">
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.ViewBuilding">
     insert into view_hs_building
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -135,6 +137,12 @@
       </if>
       <if test="regionName != null">
         RegionName,
+      </if>
+      <if test="campusId != null">
+        CampusId,
+      </if>
+      <if test="campusName != null">
+        CampusName,
       </if>
       <if test="description != null">
         Description,
@@ -174,6 +182,12 @@
       <if test="regionName != null">
         #{regionName,jdbcType=VARCHAR},
       </if>
+      <if test="campusId != null">
+        #{campusId,jdbcType=INTEGER},
+      </if>
+      <if test="campusName != null">
+        #{campusName,jdbcType=VARCHAR},
+      </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
@@ -188,7 +202,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.building.ViewBuildingExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.building.ViewBuildingExample" resultType="java.lang.Long">
     select count(*) from view_hs_building
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -221,6 +235,12 @@
       <if test="record.regionName != null">
         RegionName = #{record.regionName,jdbcType=VARCHAR},
       </if>
+      <if test="record.campusId != null">
+        CampusId = #{record.campusId,jdbcType=INTEGER},
+      </if>
+      <if test="record.campusName != null">
+        CampusName = #{record.campusName,jdbcType=VARCHAR},
+      </if>
       <if test="record.description != null">
         Description = #{record.description,jdbcType=VARCHAR},
       </if>
@@ -248,6 +268,8 @@
       FloorCount = #{record.floorCount,jdbcType=INTEGER},
       RegionId = #{record.regionId,jdbcType=INTEGER},
       RegionName = #{record.regionName,jdbcType=VARCHAR},
+      CampusId = #{record.campusId,jdbcType=INTEGER},
+      CampusName = #{record.campusName,jdbcType=VARCHAR},
       Description = #{record.description,jdbcType=VARCHAR},
       SupportFund = #{record.supportFund,jdbcType=DECIMAL},
       Manager = #{record.manager,jdbcType=VARCHAR},

@@ -1,48 +1,35 @@
-package com.computerdesign.whutHouseMgmt.bean.building;
+package com.computerdesign.whutHouseMgmt.bean.houseManagement.building;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import io.swagger.annotations.ApiModelProperty;
-
-public class Building {
-	
+public class ViewBuilding {
     private Integer id;
 
-	@ApiModelProperty(example="东湖")
     private String name;
 
-	@ApiModelProperty(example="2017-11-4")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date finishTime;
 
-	@ApiModelProperty(example="96.3")
     private Float floorArea;
 
-	@ApiModelProperty(example="84.2")
     private Float usedArea;
 
-	@ApiModelProperty(example="18")
     private Integer floorCount;
 
-	@ApiModelProperty(example="1")
     private Integer regionId;
 
-	@ApiModelProperty(example="测试楼栋")
+    private String regionName;
+
+    private Integer campusId;
+
+    private String campusName;
+
     private String description;
 
-	@ApiModelProperty(example="24.2")
     private BigDecimal supportFund;
 
-	@ApiModelProperty(example="任天宇")
     private String manager;
 
-	@ApiModelProperty(example="4")
     private Integer unitCount;
 
     public Integer getId() {
@@ -99,6 +86,30 @@ public class Building {
 
     public void setRegionId(Integer regionId) {
         this.regionId = regionId;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName == null ? null : regionName.trim();
+    }
+
+    public Integer getCampusId() {
+        return campusId;
+    }
+
+    public void setCampusId(Integer campusId) {
+        this.campusId = campusId;
+    }
+
+    public String getCampusName() {
+        return campusName;
+    }
+
+    public void setCampusName(String campusName) {
+        this.campusName = campusName == null ? null : campusName.trim();
     }
 
     public String getDescription() {

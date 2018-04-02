@@ -1,9 +1,10 @@
 package com.computerdesign.whutHouseMgmt.dao.login;
 
-import com.computerdesign.whutHouseMgmt.bean.login.LoginRecord;
-import com.computerdesign.whutHouseMgmt.bean.login.LoginRecordExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import com.computerdesign.whutHouseMgmt.bean.login.LoginRecord;
+import com.computerdesign.whutHouseMgmt.bean.login.LoginRecordExample;
 
 public interface LoginRecordMapper {
     long countByExample(LoginRecordExample example);

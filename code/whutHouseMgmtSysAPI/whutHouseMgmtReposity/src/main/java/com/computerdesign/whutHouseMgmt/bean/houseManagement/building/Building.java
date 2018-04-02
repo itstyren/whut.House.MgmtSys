@@ -1,18 +1,13 @@
-package com.computerdesign.whutHouseMgmt.bean.building;
+package com.computerdesign.whutHouseMgmt.bean.houseManagement.building;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-public class ViewBuilding {
+public class Building {
     private Integer id;
 
     private String name;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date finishTime;
 
     private Float floorArea;
@@ -23,11 +18,9 @@ public class ViewBuilding {
 
     private Integer regionId;
 
-    private String regionName;
-
     private String description;
 
-    private Long supportFund;
+    private BigDecimal supportFund;
 
     private String manager;
 
@@ -89,14 +82,6 @@ public class ViewBuilding {
         this.regionId = regionId;
     }
 
-    public String getRegionName() {
-        return regionName;
-    }
-
-    public void setRegionName(String regionName) {
-        this.regionName = regionName == null ? null : regionName.trim();
-    }
-
     public String getDescription() {
         return description;
     }
@@ -105,11 +90,11 @@ public class ViewBuilding {
         this.description = description == null ? null : description.trim();
     }
 
-    public Long getSupportFund() {
+    public BigDecimal getSupportFund() {
         return supportFund;
     }
 
-    public void setSupportFund(Long supportFund) {
+    public void setSupportFund(BigDecimal supportFund) {
         this.supportFund = supportFund;
     }
 

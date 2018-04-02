@@ -1,11 +1,15 @@
-package com.computerdesign.whutHouseMgmt.bean.region;
+package com.computerdesign.whutHouseMgmt.bean.houseManagement.region;
 
-public class Region {
+public class ViewRegion {
     private Integer id;
 
     private String name;
 
     private String description;
+
+    private Integer campusId;
+
+    private String campusName;
 
     public Integer getId() {
         return id;
@@ -29,5 +33,21 @@ public class Region {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public Integer getCampusId() {
+        return campusId;
+    }
+
+    public void setCampusId(Integer campusId) {
+        this.campusId = campusId;
+    }
+
+    public String getCampusName() {
+        return campusName;
+    }
+
+    public void setCampusName(String campusName) {
+        this.campusName = campusName == null ? null : campusName.trim();
     }
 }

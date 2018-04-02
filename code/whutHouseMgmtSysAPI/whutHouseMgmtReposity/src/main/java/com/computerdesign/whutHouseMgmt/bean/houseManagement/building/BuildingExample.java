@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.bean.building;
+package com.computerdesign.whutHouseMgmt.bean.houseManagement.building;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
