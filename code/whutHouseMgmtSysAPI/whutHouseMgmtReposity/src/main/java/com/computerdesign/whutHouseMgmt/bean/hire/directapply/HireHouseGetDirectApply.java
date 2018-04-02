@@ -6,7 +6,7 @@ import javax.xml.crypto.Data;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class HireHouseGetDirectApply {

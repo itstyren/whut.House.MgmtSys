@@ -1,9 +1,10 @@
 package com.computerdesign.whutHouseMgmt.dao.login;
 
-import com.computerdesign.whutHouseMgmt.bean.login.QuickPassage;
-import com.computerdesign.whutHouseMgmt.bean.login.QuickPassageExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import com.computerdesign.whutHouseMgmt.bean.login.QuickPassage;
+import com.computerdesign.whutHouseMgmt.bean.login.QuickPassageExample;
 
 public interface QuickPassageMapper {
     long countByExample(QuickPassageExample example);

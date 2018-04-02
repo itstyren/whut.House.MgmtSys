@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.computerdesign.whutHouseMgmt.dao.region.RegionMapper">
-  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.Region">
-    <id column="Id" jdbcType="INTEGER" property="id" />
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.region.ViewRegionMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.ViewRegion">
+    <result column="Id" jdbcType="INTEGER" property="id" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="Description" jdbcType="VARCHAR" property="description" />
     <result column="CampusId" jdbcType="INTEGER" property="campusId" />
+    <result column="CampusName" jdbcType="VARCHAR" property="campusName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, Name, Description, CampusId
+    Id, Name, Description, CampusId, CampusName
   </sql>
-  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.RegionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.ViewRegionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Hs_Region
+    from view_hs_region
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,30 +83,20 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from Hs_Region
-    where Id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Hs_Region
-    where Id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.RegionExample">
-    delete from Hs_Region
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.ViewRegionExample">
+    delete from view_hs_region
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.Region">
-    insert into Hs_Region (Id, Name, Description, 
-      CampusId)
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.ViewRegion">
+    insert into view_hs_region (Id, Name, Description, 
+      CampusId, CampusName)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{campusId,jdbcType=INTEGER})
+      #{campusId,jdbcType=INTEGER}, #{campusName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.Region">
-    insert into Hs_Region
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.ViewRegion">
+    insert into view_hs_region
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
@@ -118,6 +109,9 @@
       </if>
       <if test="campusId != null">
         CampusId,
+      </if>
+      <if test="campusName != null">
+        CampusName,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -133,16 +127,19 @@
       <if test="campusId != null">
         #{campusId,jdbcType=INTEGER},
       </if>
+      <if test="campusName != null">
+        #{campusName,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.RegionExample" resultType="java.lang.Long">
-    select count(*) from Hs_Region
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.ViewRegionExample" resultType="java.lang.Long">
+    select count(*) from view_hs_region
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Hs_Region
+    update view_hs_region
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
@@ -156,41 +153,23 @@
       <if test="record.campusId != null">
         CampusId = #{record.campusId,jdbcType=INTEGER},
       </if>
+      <if test="record.campusName != null">
+        CampusName = #{record.campusName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Hs_Region
+    update view_hs_region
     set Id = #{record.id,jdbcType=INTEGER},
       Name = #{record.name,jdbcType=VARCHAR},
       Description = #{record.description,jdbcType=VARCHAR},
-      CampusId = #{record.campusId,jdbcType=INTEGER}
+      CampusId = #{record.campusId,jdbcType=INTEGER},
+      CampusName = #{record.campusName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.Region">
-    update Hs_Region
-    <set>
-      <if test="name != null">
-        Name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null">
-        Description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="campusId != null">
-        CampusId = #{campusId,jdbcType=INTEGER},
-      </if>
-    </set>
-    where Id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.region.Region">
-    update Hs_Region
-    set Name = #{name,jdbcType=VARCHAR},
-      Description = #{description,jdbcType=VARCHAR},
-      CampusId = #{campusId,jdbcType=INTEGER}
-    where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

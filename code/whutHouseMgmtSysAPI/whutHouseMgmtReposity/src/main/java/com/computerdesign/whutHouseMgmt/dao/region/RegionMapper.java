@@ -1,7 +1,7 @@
 package com.computerdesign.whutHouseMgmt.dao.region;
 
-import com.computerdesign.whutHouseMgmt.bean.region.Region;
-import com.computerdesign.whutHouseMgmt.bean.region.RegionExample;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.Region;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.RegionExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

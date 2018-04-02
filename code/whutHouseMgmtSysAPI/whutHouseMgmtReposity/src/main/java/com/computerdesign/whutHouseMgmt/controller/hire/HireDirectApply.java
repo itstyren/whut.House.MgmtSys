@@ -16,7 +16,7 @@ import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.directapply.HireAddDirectApply;
 import com.computerdesign.whutHouseMgmt.bean.hire.directapply.HireGetDirectApply;
 import com.computerdesign.whutHouseMgmt.bean.hire.directapply.HireHouseGetDirectApply;
-import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;

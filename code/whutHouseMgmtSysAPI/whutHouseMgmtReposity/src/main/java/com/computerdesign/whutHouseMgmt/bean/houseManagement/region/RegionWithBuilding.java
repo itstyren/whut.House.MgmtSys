@@ -1,8 +1,8 @@
-package com.computerdesign.whutHouseMgmt.bean.region;
+package com.computerdesign.whutHouseMgmt.bean.houseManagement.region;
 
 import java.util.List;
 
-import com.computerdesign.whutHouseMgmt.bean.building.Building;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building;
 
 public class RegionWithBuilding {
     private Integer id;
@@ -11,6 +11,10 @@ public class RegionWithBuilding {
 
     private String description;
 
+    private Integer campusId;
+
+    private String campusName;
+    
     private List<Building> buildingList;
     
     public List<Building> getBuildingList() {
@@ -21,11 +25,13 @@ public class RegionWithBuilding {
 		this.buildingList = buildingList;
 	}
 
-	public RegionWithBuilding(Region region, List<Building> buildingList) {
+	public RegionWithBuilding(ViewRegion viewRegion, List<Building> buildingList) {
 		super();
-		this.id = region.getId();
-		this.name = region.getName();
-		this.description = region.getDescription();
+		this.id = viewRegion.getId();
+		this.name = viewRegion.getName();
+		this.description = viewRegion.getDescription();
+		this.campusId = viewRegion.getCampusId();
+		this.campusName = viewRegion.getCampusName();
 		this.buildingList = buildingList;
 	}
 
@@ -52,4 +58,22 @@ public class RegionWithBuilding {
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
     }
+
+	public Integer getCampusId() {
+		return campusId;
+	}
+
+	public void setCampusId(Integer campusId) {
+		this.campusId = campusId;
+	}
+
+	public String getCampusName() {
+		return campusName;
+	}
+
+	public void setCampusName(String campusName) {
+		this.campusName = campusName;
+	}
+    
+    
 }

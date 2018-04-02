@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.computerdesign.whutHouseMgmt.bean.building.Building;
-import com.computerdesign.whutHouseMgmt.bean.building.BuildingExample;
-import com.computerdesign.whutHouseMgmt.bean.building.BuildingExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.BuildingExample;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.BuildingExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.building.BuildingMapper;
 import com.computerdesign.whutHouseMgmt.service.base.BaseService;
 

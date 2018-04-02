@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
-import com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample;
-import com.computerdesign.whutHouseMgmt.bean.house.ViewHouseExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouseExample;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouseExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.house.ViewHouseMapper;
 
 @Service
@@ -52,6 +52,19 @@ public class ViewHouseService {
 		criteria.andIsOutSchoolEqualTo(false);
 		return viewHouseMapper.selectByExample(example);
 		
+	}
+	
+	/**
+	 * 根据校区id返回一个地区的house
+	 * @param campusId
+	 * @return
+	 */
+	public List<ViewHouse> getViewHouseByCampusId(Integer campusId) {
+		ViewHouseExample example =new ViewHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andCampusIdEqualTo(campusId);
+		criteria.andIsOutSchoolEqualTo(false);
+		return viewHouseMapper.selectByExample(example);
 	}
 	
 	/**

@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.computerdesign.whutHouseMgmt.bean.building.ViewBuilding;
-import com.computerdesign.whutHouseMgmt.bean.building.ViewBuildingExample;
-import com.computerdesign.whutHouseMgmt.bean.building.ViewBuildingExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.ViewBuilding;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.ViewBuildingExample;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.ViewBuildingExample.Criteria;
 import com.computerdesign.whutHouseMgmt.dao.building.ViewBuildingMapper;
 
 @Transactional
@@ -48,4 +48,10 @@ public class ViewBuildingService {
 	}
 	
 
+	public List<ViewBuilding> getViewBuildingByCampusId(Integer campusId) {
+		ViewBuildingExample example=new ViewBuildingExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andCampusIdEqualTo(campusId);
+		return viewBuildingMapper.selectByExample(example);
+	}
 }

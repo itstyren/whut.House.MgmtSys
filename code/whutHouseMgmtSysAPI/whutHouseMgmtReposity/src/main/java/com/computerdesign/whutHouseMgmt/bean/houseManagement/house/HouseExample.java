@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.bean.house;
+package com.computerdesign.whutHouseMgmt.bean.houseManagement.house;
 
 import java.util.ArrayList;
 import java.util.Date;

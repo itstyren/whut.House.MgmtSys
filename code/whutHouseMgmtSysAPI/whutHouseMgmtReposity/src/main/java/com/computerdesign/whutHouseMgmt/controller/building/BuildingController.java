@@ -4,20 +4,17 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.building.Building;
-import com.computerdesign.whutHouseMgmt.bean.building.ViewBuilding;
-import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
-import com.computerdesign.whutHouseMgmt.bean.region.Region;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.ViewBuilding;
 import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
 import com.computerdesign.whutHouseMgmt.service.building.ViewBuildingService;
 import com.github.pagehelper.PageHelper;
@@ -47,7 +44,6 @@ public class BuildingController {
 			return Msg.error("差找不到");
 		}
 		return Msg.success().add("data", viewBuilding);
-
 	}
 
 	/**
@@ -98,6 +94,22 @@ public class BuildingController {
 		}
 	}
 
+	
+	@GetMapping(value = "getAllByCampusId/{campusId}")
+	public Msg getBuildingsBtCampusId(@PathVariable(value="campusId")Integer campusId,
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size){
+		PageHelper.startPage(page, size);
+		List<ViewBuilding> viewBuildings = viewBuildingService.getViewBuildingByCampusId(campusId);
+
+		PageInfo pageInfo = new PageInfo(viewBuildings);
+
+		if (viewBuildings != null) {
+			return Msg.success().add("data", pageInfo);
+		} else {
+			return Msg.error("无法获取数据");
+		}
+	}
 	/**
 	 * 增加一个楼栋
 	 * 

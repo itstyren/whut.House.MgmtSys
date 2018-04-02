@@ -1,6 +1,6 @@
 package com.computerdesign.whutHouseMgmt.bean.fix.apply;
 
-import com.computerdesign.whutHouseMgmt.bean.house.ViewHouse;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
 
 public class HouseGetApply {
 

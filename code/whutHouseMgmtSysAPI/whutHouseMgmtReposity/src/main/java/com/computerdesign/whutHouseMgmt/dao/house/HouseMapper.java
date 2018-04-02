@@ -1,7 +1,7 @@
 package com.computerdesign.whutHouseMgmt.dao.house;
 
-import com.computerdesign.whutHouseMgmt.bean.house.House;
-import com.computerdesign.whutHouseMgmt.bean.house.HouseExample;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.HouseExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

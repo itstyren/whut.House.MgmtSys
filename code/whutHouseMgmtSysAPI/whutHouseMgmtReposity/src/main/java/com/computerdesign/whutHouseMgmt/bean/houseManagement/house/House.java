@@ -1,12 +1,8 @@
-package com.computerdesign.whutHouseMgmt.bean.house;
+package com.computerdesign.whutHouseMgmt.bean.houseManagement.house;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-public class ViewHouse {
+public class House {
     private Integer id;
 
     private String no;
@@ -15,19 +11,11 @@ public class ViewHouse {
 
     private Integer type;
 
-    private String typeName;
-
     private Integer layout;
-
-    private String layoutName;
 
     private Integer struct;
 
-    private String structName;
-
     private Integer status;
-
-    private String statusName;
 
     private Double buildArea;
 
@@ -39,12 +27,6 @@ public class ViewHouse {
 
     private Integer buildingId;
 
-    private String buildingName;
-
-    private Integer regionId;
-
-    private String regionName;
-
     private String proId;
 
     private String remark;
@@ -53,8 +35,6 @@ public class ViewHouse {
 
     private Double rental;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date finishTime;
 
     private Integer recordStatus;
@@ -91,28 +71,12 @@ public class ViewHouse {
         this.type = type;
     }
 
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName == null ? null : typeName.trim();
-    }
-
     public Integer getLayout() {
         return layout;
     }
 
     public void setLayout(Integer layout) {
         this.layout = layout;
-    }
-
-    public String getLayoutName() {
-        return layoutName;
-    }
-
-    public void setLayoutName(String layoutName) {
-        this.layoutName = layoutName == null ? null : layoutName.trim();
     }
 
     public Integer getStruct() {
@@ -123,28 +87,12 @@ public class ViewHouse {
         this.struct = struct;
     }
 
-    public String getStructName() {
-        return structName;
-    }
-
-    public void setStructName(String structName) {
-        this.structName = structName == null ? null : structName.trim();
-    }
-
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getStatusName() {
-        return statusName;
-    }
-
-    public void setStatusName(String statusName) {
-        this.statusName = statusName == null ? null : statusName.trim();
     }
 
     public Double getBuildArea() {
@@ -185,30 +133,6 @@ public class ViewHouse {
 
     public void setBuildingId(Integer buildingId) {
         this.buildingId = buildingId;
-    }
-
-    public String getBuildingName() {
-        return buildingName;
-    }
-
-    public void setBuildingName(String buildingName) {
-        this.buildingName = buildingName == null ? null : buildingName.trim();
-    }
-
-    public Integer getRegionId() {
-        return regionId;
-    }
-
-    public void setRegionId(Integer regionId) {
-        this.regionId = regionId;
-    }
-
-    public String getRegionName() {
-        return regionName;
-    }
-
-    public void setRegionName(String regionName) {
-        this.regionName = regionName == null ? null : regionName.trim();
     }
 
     public String getProId() {
