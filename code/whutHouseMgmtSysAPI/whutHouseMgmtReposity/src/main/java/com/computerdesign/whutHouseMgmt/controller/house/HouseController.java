@@ -3,6 +3,7 @@ package com.computerdesign.whutHouseMgmt.controller.house;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -106,7 +107,7 @@ public class HouseController {
 			// 每平方米的价格
 			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
 			// 每平方米的价格*面积
-			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea())); 
 		}
 		PageInfo pageInfo = new PageInfo(viewHouseList);
 
@@ -141,6 +142,25 @@ public class HouseController {
 		return Msg.success().add("data", pageInfo);
 	}
 
+	@GetMapping(value = "viewHouseByCampusId/{campusId}")
+	public Msg getViewHouseByCampusId(@PathVariable("campusId")Integer campusId,
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size) {
+
+		PageHelper.startPage(page, size);
+		List<ViewHouse> viewHouseList = viewHouseService.getViewHouseByCampusId(campusId);
+
+		for (ViewHouse viewHouse : viewHouseList) {
+			// 每平方米的价格
+			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
+			// 每平方米的价格*面积
+			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+		}
+		PageInfo pageInfo = new PageInfo(viewHouseList);
+
+		return Msg.success().add("data", pageInfo);
+	}
+	
 	/**
 	 * 添加一个house
 	 * 

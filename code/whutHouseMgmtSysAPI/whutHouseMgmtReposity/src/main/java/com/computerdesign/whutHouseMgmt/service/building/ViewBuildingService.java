@@ -48,4 +48,10 @@ public class ViewBuildingService {
 	}
 	
 
+	public List<ViewBuilding> getViewBuildingByCampusId(Integer campusId) {
+		ViewBuildingExample example=new ViewBuildingExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andCampusIdEqualTo(campusId);
+		return viewBuildingMapper.selectByExample(example);
+	}
 }

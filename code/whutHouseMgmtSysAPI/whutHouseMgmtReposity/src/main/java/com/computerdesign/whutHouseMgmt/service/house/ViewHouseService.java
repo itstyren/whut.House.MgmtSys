@@ -55,6 +55,19 @@ public class ViewHouseService {
 	}
 	
 	/**
+	 * 根据校区id返回一个地区的house
+	 * @param campusId
+	 * @return
+	 */
+	public List<ViewHouse> getViewHouseByCampusId(Integer campusId) {
+		ViewHouseExample example =new ViewHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andCampusIdEqualTo(campusId);
+		criteria.andIsOutSchoolEqualTo(false);
+		return viewHouseMapper.selectByExample(example);
+	}
+	
+	/**
 	 * 获取全部的viewhouse
 	 * @return
 	 */

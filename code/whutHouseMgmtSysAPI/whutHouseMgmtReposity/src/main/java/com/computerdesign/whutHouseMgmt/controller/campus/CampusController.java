@@ -19,6 +19,8 @@ import com.computerdesign.whutHouseMgmt.controller.BaseController;
 import com.computerdesign.whutHouseMgmt.service.campus.CampusService;
 import com.computerdesign.whutHouseMgmt.service.region.ViewRegionService;
 
+import io.swagger.annotations.ApiOperation;
+
 /**
  *
  * @author wanhaoran
@@ -77,8 +79,8 @@ public class CampusController extends BaseController {
 		Iterator<Campus> iterator = campusList.iterator();
 		while (iterator.hasNext()) {
 			Campus campusAlready = iterator.next();
-			if (campusAlready.getName() == campus.getName() && campusAlready.getId()!=campus.getId()) {
-				return Msg.error("该房屋名称以及存在");
+			if (campusAlready.getName() .equals(campus.getName()) && campusAlready.getId()!=campus.getId()) {
+				return Msg.error("该房屋名称已经存在");
 			}
 		}
 		campusService.update(campus);
@@ -91,6 +93,7 @@ public class CampusController extends BaseController {
 	 * @return
 	 */
 	@PostMapping("add")
+	@ApiOperation(notes="不要传id",value="添加campus")
 	public Msg addCampus(@RequestBody Campus campus){
 		if (campusService.countByName(campus.getName())>0) {
 			return Msg.error("该名称已经存在");
