@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
@@ -18,6 +19,8 @@ import com.computerdesign.whutHouseMgmt.bean.houseManagement.campus.Campus;
 import com.computerdesign.whutHouseMgmt.controller.BaseController;
 import com.computerdesign.whutHouseMgmt.service.campus.CampusService;
 import com.computerdesign.whutHouseMgmt.service.region.ViewRegionService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -36,6 +39,7 @@ public class CampusController extends BaseController {
 
 	@Autowired
 	private ViewRegionService viewRegionService;
+
 	/**
 	 * 获取该校区
 	 * 
@@ -51,12 +55,23 @@ public class CampusController extends BaseController {
 		return Msg.success().add("data", campus);
 	}
 
+	/**
+	 * 分页获取全部的校区
+	 * @param page
+	 * @param size
+	 * @return
+	 */
 	@GetMapping(value = "all")
-	public Msg get() {
+	public Msg get(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size) {
+		PageHelper.startPage(page, size);
 		List<Campus> campuses = campusService.getAll();
-		return Msg.success().add("data", campuses);
+		
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		PageInfo pageInfo = new PageInfo(campuses);
+		return Msg.success().add("data", pageInfo);
 	}
-	
+
 	@DeleteMapping(value = "{id}")
 	public Msg deleteById(@PathVariable("id") Integer id) {
 		if (!viewRegionService.getByCampusId(id).isEmpty()) {
@@ -66,7 +81,7 @@ public class CampusController extends BaseController {
 		return Msg.success("删除成功");
 	}
 
-	@PutMapping(value="update")
+	@PutMapping(value = "update")
 	public Msg update(@RequestBody Campus campus) {
 		if (campusService.getById(campus.getId()) == null) {
 			return Msg.error("找不到该项");
@@ -75,27 +90,28 @@ public class CampusController extends BaseController {
 			return Msg.error("校区名不能为空");
 		}
 		List<Campus> campusList = campusService.getAll();
-		
+
 		Iterator<Campus> iterator = campusList.iterator();
 		while (iterator.hasNext()) {
 			Campus campusAlready = iterator.next();
-			if (campusAlready.getName() .equals(campus.getName()) && campusAlready.getId()!=campus.getId()) {
+			if (campusAlready.getName().equals(campus.getName()) && campusAlready.getId() != campus.getId()) {
 				return Msg.error("该房屋名称已经存在");
 			}
 		}
 		campusService.update(campus);
 		return Msg.success("修改成功");
 	}
-	
+
 	/**
 	 * 增加一个Campus
+	 * 
 	 * @param campus
 	 * @return
 	 */
 	@PostMapping("add")
-	@ApiOperation(notes="不要传id",value="添加campus")
-	public Msg addCampus(@RequestBody Campus campus){
-		if (campusService.countByName(campus.getName())>0) {
+	@ApiOperation(notes = "不要传id", value = "添加campus")
+	public Msg addCampus(@RequestBody Campus campus) {
+		if (campusService.countByName(campus.getName()) > 0) {
 			return Msg.error("该名称已经存在");
 		}
 		campusService.add(campus);
