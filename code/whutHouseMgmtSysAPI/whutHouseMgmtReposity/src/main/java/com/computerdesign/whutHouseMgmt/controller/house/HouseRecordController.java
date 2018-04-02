@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
+import com.computerdesign.whutHouseMgmt.service.campus.CampusService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.HouseRegisterSelectService;
 
@@ -41,6 +41,10 @@ public class HouseRecordController {
 	@Autowired
 	private HouseRegisterSelectService houseRegisterSelectService;
 	
+	@Autowired
+	private CampusService campusService;
+	
+		
 	/**
 	 * 按照查询条件获取房屋类型统计
 	 * @param paramTypeId
@@ -107,5 +111,38 @@ public class HouseRecordController {
 			listMap.add(mapAl);
 		}
 		return Msg.success("获取房屋统计").add("name", listString).add("content", listMap);
+	}
+	
+	/**
+	 * 获取各校区已入住和空闲的房屋数量
+	 * @param houseAllSelectModel
+	 * @return
+	 */
+	@PostMapping(value = "houseCampus")
+	public Msg getHouseCampus(@RequestBody HouseAllSelectModel houseAllSelectModel){
+		List<ViewHouse> listViewHouse = houseRegisterSelectService.getByAllMultiConditionQuery(houseAllSelectModel);
+		List<String> listString = new ArrayList<>();
+		Map<String, Object> map = new HashMap<>();
+		for (ViewHouse viewHouse:listViewHouse) {
+			if (!listString.contains(viewHouse.getCampusName())) {
+				listString.add(viewHouse.getCampusName());
+			}
+			if (!map.containsKey(viewHouse.getCampusName())) {
+				Map<String, Integer> mapForOne = new HashMap<>();
+				mapForOne.put("已入住", 0);
+				mapForOne.put("未入住", 0);
+				map.put(viewHouse.getCampusName(),mapForOne);
+			}
+			if (viewHouse.getStatus() == 24) {
+				@SuppressWarnings("unchecked")
+				Map<String, Integer> mapForOne = (Map<String, Integer>) map.get(viewHouse.getCampusName());
+				mapForOne.put("未入住", mapForOne.get("未入住")+1);
+			}else{
+				@SuppressWarnings("unchecked")
+				Map<String, Integer> mapForOne = (Map<String, Integer>) map.get(viewHouse.getCampusName());
+				mapForOne.put("已入住", mapForOne.get("已入住")+1);
+			}
+		}
+		return Msg.success().add("name", listString).add("data", map);
 	}
 }

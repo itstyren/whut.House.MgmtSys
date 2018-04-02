@@ -157,6 +157,7 @@ public class RegionController {
 		List<Region> regions = regionService.getAll();
 		// 遍历这些信息
 		Iterator<Region> iterator = regions.iterator();
+		
 		while (iterator.hasNext()) {
 			Region regionAlready = (Region) iterator.next();
 			if (regionAlready.getId() != region.getId() && region.getName().equals(regionAlready.getName())) {
