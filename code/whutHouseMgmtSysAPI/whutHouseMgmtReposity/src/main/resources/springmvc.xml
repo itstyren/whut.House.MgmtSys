@@ -55,7 +55,8 @@
 			<mvc:exclude-mapping path="/dataImport/houseDataImport" />
 			<mvc:exclude-mapping path="/dataImport/residentDataImport" />
 			<mvc:exclude-mapping path="/dataImport/staffDownLoad" />
-			<mvc:exclude-mapping path="/dataImport/houseDownLoad" />	
+			<mvc:exclude-mapping path="/dataImport/houseDownLoad" />
+			<mvc:exclude-mapping path="/dataImport/residentDownLoad" />	
 			<mvc:exclude-mapping path="/exportToWord/hire/**" />	
 					 
 			<bean class="com.wf.etp.authz.ApiInterceptor">

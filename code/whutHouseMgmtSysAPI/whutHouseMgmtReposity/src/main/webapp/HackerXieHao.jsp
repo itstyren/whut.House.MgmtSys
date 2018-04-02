@@ -37,7 +37,7 @@
 			url : uri,
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyMjM0ODU4LCJleHAiOjE1MjIyMzg0NTh9.Bhg7wZ5IxjaHE2Zc2h6EscYxP_M5yuKUVX4TVuEkqwQ");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNTk3NTg3LCJleHAiOjE1MjI2MDExODd9.ZT2mzi6fQ6q6R_Zdd2XSD2UIK-a1BUcGwnjzlwrcQG0");
 			},
 			type : "get",
 			contentType : 'application/json',
@@ -60,7 +60,7 @@
 			dataType : 'json',
 			beforeSend : function(request) {
 				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyMjM0ODU4LCJleHAiOjE1MjIyMzg0NTh9.Bhg7wZ5IxjaHE2Zc2h6EscYxP_M5yuKUVX4TVuEkqwQ");
+						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNTk3NTg3LCJleHAiOjE1MjI2MDExODd9.ZT2mzi6fQ6q6R_Zdd2XSD2UIK-a1BUcGwnjzlwrcQG0");
 			},
 			data : JSON.stringify(data),
 			url : uri,
@@ -139,11 +139,11 @@
 
 		$("#rentEventModify").click(function() {
 			var data = {
-				"rentEventId" : 25,
-				"rentTimeBegin" : "2018-03-27 9:00:00",
-				"rentTimeRanges" : 30,
-				"dayRentTimeBegin":8,
-				"dayRentTimeEnd":10,
+				"rentEventId" : 26,
+				"rentTimeBegin" : "2018-4-2 00:10:00",
+				"rentTimeRanges" : 2,
+				"dayRentTimeBegin":0,
+				"dayRentTimeEnd":23,
 				"rentSelValReq" : 5,
 				"rentSelRules" : "无规则"
 			}
@@ -157,7 +157,7 @@
 
 		$("#rentEventAdd").click(function() {
 			var data = {
-				"rentTimeBegin" : "2018-3-28 16:00:00",
+				"rentTimeBegin" : "2018-4-2 8:00:00",
 				//"rentTimeRanges" : "2017-11-4",
 				"dayRentTimeBegin":6,
 				"dayRentTimeEnd": 18,
@@ -443,7 +443,7 @@
 	$(function() {
 
 		$("#isSelectingHouse").click(function() {
-			ajaxRequestGet("selfHelpSelectHouse/isSelectingHouse/7");
+			ajaxRequestGet("selfHelpSelectHouse/isSelectingHouse/8");
 		})
 
 		$("#getAllSelectedStaff")
@@ -734,6 +734,41 @@
 									
 	})
 	
+	//查询统计
+	$(function() {
+
+		$("#staffMoreHouseQuery")
+				.click(
+						function() {
+							var data ={
+									'houseTypeId':6,
+									'staffTypeId':145
+								};
+								ajaxRequestPostType("moreHouseQuery/staffMoreHouseQuery?page=1&size=15","POST",data);
+						})
+						
+		$("#staffMoreHouseSta")
+				.click(
+						function() {
+							var data ={
+									/* 'houseTypeId':6,
+									'staffTypeId':145 */
+								};
+								ajaxRequestPostType("moreHouseQuery/staffMoreHouseSta","POST",data);
+						})
+		$("#staffMoreHouseStaByStaffId")
+				.click(
+						function() {
+							var data ={
+									/* 'houseTypeId':6,
+									'staffTypeId':145 */
+								};
+								ajaxRequestPostType("moreHouseQuery/staffMoreHouseStaByStaffId/3","POST",data);
+						})
+						
+	})
+	
+	
 </script>
 
 </head>
@@ -760,6 +795,7 @@
 		<li><a href="#internetSelectHouse" data-toggle="tab">网上选房</a></li>
 		<li><a href="#rentGenerate" data-toggle="tab">租金生成</a></li>
 		<li><a href="#personalInfo" data-toggle="tab">个人信息</a></li>
+		<li><a href="#querySta" data-toggle="tab">查询统计</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="rentEvent">
@@ -892,13 +928,14 @@
 			<h4>居民数据导入</h4>
 			<form action="dataImport/residentDataImport" method="post"
 				enctype="multipart/form-data">
-				HouseFile:<input type="file" name="residentFile"> <input
+				ResidentFile:<input type="file" name="residentFile"> <input
 					type="submit" value="Submit">
 			</form>
 			<br>
 			<h4>下载</h4>
 			<a href="dataImport/staffDownLoad">职工模板下载</a> <br> <br> <a
-				href="dataImport/houseDownLoad">住房模板下载</a>
+				href="dataImport/houseDownLoad">住房模板下载</a><br> <br> <a
+				href="dataImport/residentDownLoad">住户模板下载</a>
 				
 			<a href="exportToWord/hire/18">word</a>
 			<!-- <input type="file" id="upfile" name="upfile" placeholder="" />
@@ -1010,6 +1047,20 @@
 			<br>
 			
 				
+		</div>
+		<div class="tab-pane fade" id="querySta">
+			<h4>多住房查询统计</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="StaffMoreHouseQuery" id="staffMoreHouseQuery" />
+			<br>	
+			<h4>多住房统计，根据staffId查询个人的多住房</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="StaffMoreHouseStaByStaffId" id="staffMoreHouseStaByStaffId" />
+			<br>
+			<h4>多住房统计</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="StaffMoreHouseSta" id="staffMoreHouseSta" />
+			<br>				
 		</div>
 
 	</div>

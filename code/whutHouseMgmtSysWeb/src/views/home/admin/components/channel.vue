@@ -45,7 +45,7 @@ export default {
       formLoading: false,
       channelOption: [],
       channelData: [],
-      setData: ["paramSet"]
+      setData: []
     };
   },
   computed: {
@@ -98,11 +98,13 @@ export default {
       getQuickPass(params).then(res => {
         this.listLoading = false;
         this.setData = res.data.data.data;
-        this.setData.forEach(v => {
-          this.channelOption.forEach(i => {
-            if (v == i.key) this.channelData.push(i);
+        if (this.setData != null) {
+          this.setData.forEach(v => {
+            this.channelOption.forEach(i => {
+              if (v == i.key) this.channelData.push(i);
+            });
           });
-        });
+        }else this.setData=[]
       });
     },
     // 通过路由列表生成穿梭框用的列表

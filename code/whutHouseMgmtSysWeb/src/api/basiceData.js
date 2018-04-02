@@ -244,5 +244,11 @@ export function postHouseImport(data) {
     data: data
   })
 }
-
+export function postHouseRelImport(data) {
+  return request({
+    url: `/dataImport/residentDataImport`,
+    method: 'post',
+    data: data
+  })
+}
 

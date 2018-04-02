@@ -20,20 +20,20 @@
               <el-row>
                 <el-col :span="4">
                   <el-form-item label="住房类型">
-                    <el-select v-model="queryForm.houseType" :clearable="true" placeholder="所有类型">
-                      <el-option v-for="v in typeData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
+                    <el-select v-model="queryForm.houseTypeId" :clearable="true" placeholder="所有类型">
+                      <el-option v-for="v in typeData" :key="v.houseParamId" :value="v.houseParamId" :label="v.houseParamName"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="4">
                   <el-form-item label="职工类别">
-                    <el-select v-model="queryForm.class" :clearable="true" placeholder="所有类别">
-                      <el-option v-for="v in classData" :key="v.staffParamId" :value="v.staffParamName" :label="v.staffParamName"></el-option>
+                    <el-select v-model="queryForm.staffTypeId" :clearable="true" placeholder="所有类别">
+                      <el-option v-for="v in classData" :key="v.staffParamId" :value="v.staffParamId" :label="v.staffParamName"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="2" :offset="1">
-                  <el-button type="primary">查询</el-button>
+                  <el-button type="primary" @click="multiplyQuery">查询</el-button>
                 </el-col>
               </el-row>
             </el-form>
@@ -122,108 +122,120 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    getHouseParam,
-    getStaffParam
-  } from "@/api/sysManage";
-  import utils from "@/utils/index.js";
-  export default {
-    data() {
-      return {
-        queryForm: {},
-        listLoading: false,
-        typeData: [],
-        classData: [],
-        activeName: "query",
-        queryData: [],
-        countData: [],
-        listLoading: false,
-        listLoading1: false,
-        totalNum: 1,
-        page: 1,
-        size: 10,
-        totalNum1: 1,
-        page1: 1,
-        size1: 10
+import { getHouseParam, getStaffParam } from "@/api/sysManage";
+import { postStaffMultiplyHouse } from "@/api/dataAnalysis";
+import utils from "@/utils/index.js";
+export default {
+  data() {
+    return {
+      queryForm: {},
+      listLoading: false,
+      typeData: [],
+      classData: [],
+      activeName: "query",
+      queryData: [],
+      countData: [],
+      listLoading: false,
+      listLoading1: false,
+      totalNum: 1,
+      page: 1,
+      size: 10,
+      totalNum1: 1,
+      page1: 1,
+      size1: 10
+    };
+  },
+  components: {},
+  created() {
+    this.initGet();
+  },
+  methods: {
+    initGet() {
+      this.listLoading = true;
+      let param = {
+        size: 999
       };
-    },
-    components: {},
-    created() {
-      this.initGet();
-    },
-    methods: {
-      initGet() {
-        this.listLoading = true;
-        let param = {
-          size: 999
-        };
-        // 类型为1
-        getHouseParam(param, 1)
-          .then(res => {
-            this.typeData = res.data.data.data.list;
+      // 类型为1
+      getHouseParam(param, 1)
+        .then(res => {
+          this.typeData = res.data.data.data.list;
 
-            // 类别为8
-            getStaffParam(param, 8)
-              .then(res => {
-                this.classData = res.data.data.data.list;
-                this.listLoading = false;
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      },
-      // 更换每页数量
-      sizeChangeEvent(val) {
-        this.listLoading = true;
-        this.size = val;
-        this.getList();
-      },
-      //页码切换时
-      currentChangeEvent(val) {
-        this.listLoading = true;
-        this.page = val;
-        this.getList();
-      },
-      //更换每页数量1
-      sizeChangeEvent1(val) {
-        this.listLoading1 = true;
-        this.size1 = val;
-        this.getList1();
-      },
-      //页码切换时1
-      currentChangeEvent1(val) {
-        this.listLoading1 = true;
-        this.page1 = val;
-        this.getList1();
-      }
+          // 类别为8
+          getStaffParam(param, 8)
+            .then(res => {
+              this.classData = res.data.data.data.list;
+              this.listLoading = false;
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    multiplyQuery() {
+      this.listLoading = true;
+      let params = {
+        page: this.page,
+        size: this.size
+      };
+      let data = Object.assign({}, this.queryForm);
+      postStaffMultiplyHouse(params, data)
+        .then(res => {
+          this.listLoading = false;
+          console.log(res.data.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 更换每页数量
+    sizeChangeEvent(val) {
+      this.listLoading = true;
+      this.size = val;
+      this.getList();
+    },
+    //页码切换时
+    currentChangeEvent(val) {
+      this.listLoading = true;
+      this.page = val;
+      this.getList();
+    },
+    //更换每页数量1
+    sizeChangeEvent1(val) {
+      this.listLoading1 = true;
+      this.size1 = val;
+      this.getList1();
+    },
+    //页码切换时1
+    currentChangeEvent1(val) {
+      this.listLoading1 = true;
+      this.page1 = val;
+      this.getList1();
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  @import "../../styles/variables.scss";
+@import "../../styles/variables.scss";
 
-  .second-container {
-    // background-color: $background-grey;
-    .toolbar {
-      margin-top: 15px;
-      .el-form-item {
-        margin-bottom: 5px;
-      }
-    }
-    .card {
-      padding: 10px;
-    }
-    .table-tabs {
-      height: 65vh;
-      padding-bottom: 40px;
-      position: relative;
+.second-container {
+  // background-color: $background-grey;
+  .toolbar {
+    margin-top: 15px;
+    .el-form-item {
+      margin-bottom: 5px;
     }
   }
-
+  .card {
+    padding: 10px;
+  }
+  .table-tabs {
+    height: 65vh;
+    padding-bottom: 40px;
+    position: relative;
+  }
+}
 </style>

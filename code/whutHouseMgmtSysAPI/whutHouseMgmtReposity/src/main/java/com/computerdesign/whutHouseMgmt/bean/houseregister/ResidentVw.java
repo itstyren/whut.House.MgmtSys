@@ -25,13 +25,25 @@ public class ResidentVw {
 
     private String staffDeptName;
 
+    private String staffSpouseName;
+
     private String houseNo;
 
     private Integer houseType;
 
+    private String houseTypeName;
+
+    private Integer staffType;
+
+    private String staffTypeName;
+
     private Double buildArea;
 
     private Double usedArea;
+
+    private Date houseFinishTime;
+
+    private String buildingName;
 
     private Integer familyCode;
 
@@ -131,6 +143,14 @@ public class ResidentVw {
         this.staffDeptName = staffDeptName == null ? null : staffDeptName.trim();
     }
 
+    public String getStaffSpouseName() {
+        return staffSpouseName;
+    }
+
+    public void setStaffSpouseName(String staffSpouseName) {
+        this.staffSpouseName = staffSpouseName == null ? null : staffSpouseName.trim();
+    }
+
     public String getHouseNo() {
         return houseNo;
     }
@@ -147,6 +167,30 @@ public class ResidentVw {
         this.houseType = houseType;
     }
 
+    public String getHouseTypeName() {
+        return houseTypeName;
+    }
+
+    public void setHouseTypeName(String houseTypeName) {
+        this.houseTypeName = houseTypeName == null ? null : houseTypeName.trim();
+    }
+
+    public Integer getStaffType() {
+        return staffType;
+    }
+
+    public void setStaffType(Integer staffType) {
+        this.staffType = staffType;
+    }
+
+    public String getStaffTypeName() {
+        return staffTypeName;
+    }
+
+    public void setStaffTypeName(String staffTypeName) {
+        this.staffTypeName = staffTypeName == null ? null : staffTypeName.trim();
+    }
+
     public Double getBuildArea() {
         return buildArea;
     }
@@ -161,6 +205,22 @@ public class ResidentVw {
 
     public void setUsedArea(Double usedArea) {
         this.usedArea = usedArea;
+    }
+
+    public Date getHouseFinishTime() {
+        return houseFinishTime;
+    }
+
+    public void setHouseFinishTime(Date houseFinishTime) {
+        this.houseFinishTime = houseFinishTime;
+    }
+
+    public String getBuildingName() {
+        return buildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName == null ? null : buildingName.trim();
     }
 
     public Integer getFamilyCode() {
