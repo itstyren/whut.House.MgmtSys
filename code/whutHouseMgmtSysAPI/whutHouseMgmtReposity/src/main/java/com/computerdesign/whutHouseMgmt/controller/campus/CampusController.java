@@ -22,6 +22,7 @@ import com.computerdesign.whutHouseMgmt.service.region.ViewRegionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
@@ -32,6 +33,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @RestController
 @RequestMapping(value = "/campus/")
+@Api(value = "校区接口",description="校区接口")
 public class CampusController extends BaseController {
 
 	@Autowired
@@ -74,7 +76,7 @@ public class CampusController extends BaseController {
 
 	@DeleteMapping(value = "{id}")
 	public Msg deleteById(@PathVariable("id") Integer id) {
-		if (!viewRegionService.getByCampusId(id).isEmpty()) {
+		if (viewRegionService.getByCampusId(id).isEmpty()) {
 			return Msg.error("存在区域属于该校区，无法删除");
 		}
 		campusService.delete(id);
