@@ -33,6 +33,7 @@
 <script type="text/ecmascript-6">
 import * as types from "@/store/mutation-types";
 import utils from "@/utils/index.js";
+import {getQiniuToken} from '@/api/login'
 export default {
   data() {
     return {

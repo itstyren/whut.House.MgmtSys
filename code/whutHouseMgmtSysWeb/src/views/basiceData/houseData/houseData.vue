@@ -389,7 +389,7 @@
         ismodify: false,
         // 七牛云令牌
         postData: {
-          token: this.$store.state.uploadToken
+          token: this.$store.getters.qiniuToken
         },
         // 表格数据
         houseData: [],
@@ -729,8 +729,8 @@
       successUpload(res, file, fileLis) {
         //console.log(res)
         if (this.addFormVisible == false) {
-          this.detailData.image = this.$store.state.uploadUrl + res.key;
-        } else this.addFormBody.image = this.$store.state.uploadUrl + res.key;
+          this.detailData.image = this.$store.getters.qiniuURL + res.key;
+        } else this.addFormBody.image = this.$store.state.qiniuURL + res.key;
         //console.log(this.addFormBody.image);
       },
       // 删除功能

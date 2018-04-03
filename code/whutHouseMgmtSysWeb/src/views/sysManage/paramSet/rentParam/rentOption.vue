@@ -129,7 +129,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-                <el-row>
+        <el-row>
           <el-col :span="21">
             <el-form-item label="可选时间段" prop="dayRentTimeBegin">
               <el-row>
@@ -164,195 +164,201 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    getRentParamAboutEvent,
-    putRentParamAboutEvent,
-    deleteRentParamAboutEvent,
-    postRentParamAboutEvent
-  } from "@/api/sysManage";
-  import utils from "@/utils/index.js";
-  export default {
-    data() {
-      // 正则验证
-      const validateNum = (rule, value, callback) => {
-        const RULES = /^\d+$/;
-        if (value == null) {
-          callback(new Error("所需积分不能为空"));
-        } else if (!RULES.test(value)) {
-          callback(new Error("输入值必须为非负整数"));
-        } else {
-          callback();
-        }
-      };
-      return {
-        popoverVisible: false,
-        // 表格数据
-        rentOptionData: [],
-        listLoading: false,
-        totalNum: 1,
-        page: 1,
-        size: 10,
+import {
+  getRentParamAboutEvent,
+  putRentParamAboutEvent,
+  deleteRentParamAboutEvent,
+  postRentParamAboutEvent
+} from "@/api/sysManage";
+import utils from "@/utils/index.js";
+export default {
+  data() {
+    // 正则验证
+    const validateNum = (rule, value, callback) => {
+      const RULES = /^\d+$/;
+      if (value == null) {
+        callback(new Error("所需积分不能为空"));
+      } else if (!RULES.test(value)) {
+        callback(new Error("输入值必须为非负整数"));
+      } else {
+        callback();
+      }
+    };
+    return {
+      popoverVisible: false,
+      // 表格数据
+      rentOptionData: [],
+      listLoading: false,
+      totalNum: 1,
+      page: 1,
+      size: 10,
 
-        // 表单规则验证
-        rules: {
-          rentSelValReq: [{
-              required: true,
-              message: "所需积分不能为空",
-              trigger: "blur"
-            },
-            {
-              validator: validateNum,
-              trigger: "blur"
-            }
-          ]
-        },
-
-        //编辑表单相关数据
-        modifyFormVisible: false,
-        modifyLoading: false,
-        modifyFromBody: {
-          rentSelValReq: "",
-          rentTimeBegin: "",
-          rentTimeRanges: "",
-          rentSelRules: ""
-        },
-
-        // 新增表单相关数据
-        submitLoading: false,
-        addFormVisible: false,
-        addFormBody: {
-          rentSelValReq: "",
-          rentTimeBegin: "",
-          rentTimeRanges: "",
-          rentSelRules: ""
-        }
-      };
-    },
-    // 生命周期调用
-    mounted() {
-      this.getList();
-    },
-    methods: {
-      // 获取职工职务
-      getList() {
-        this.listLoading = true;
-        let params = {
-          page: this.page,
-          size: this.size
-        };
-        // http请求
-        getRentParamAboutEvent(params)
-          .then(res => {
-            this.rentOptionData = res.data.data.data.list;
-            this.totalNum = res.data.data.data.total;
-            this.listLoading = false;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      },
-      // 转换开启状态
-      transfOpenStatus(row) {
-        return utils.transfOpenStatus(row);
-      },
-      //显示编辑
-      showModifyDialog(index, row) {
-        if (row.rentIsOpenSel == true) {
-          this.modifyFormVisible = true;
-          this.modifyFromBody = Object.assign({}, row);
-          this.selectRowIndex = index;
-        } else {
-          this.$message({
-            message: "已过选房阶段，不可编辑",
-            type: "warning"
-          });
-        }
-
-        //console.log(this.selectRowIndex)
-      },
-      //编辑提交
-      modifySubmit() {
-        this.$refs["modifyFrom"].validate(valid => {
-          if (valid) {
-            this.modifyLoading = true;
-            const form = this.modifyFromBody;
-            let param = {
-              rentEventId: form.rentEventId,
-              rentSelRules: form.rentSelRules,
-              rentSelValReq: parseInt(form.rentSelValReq),
-              rentTimeBegin: form.rentTimeBegin,
-              rentTimeRanges: form.rentTimeRanges
-            };
-            putRentParamAboutEvent(param).then(res => {
-              utils.statusinfo(this, res.data);
-              this.modifyLoading = false;
-              this.modifyFormVisible = false;
-              this.getList();
-            });
+      // 表单规则验证
+      rules: {
+        rentSelValReq: [
+          {
+            required: true,
+            message: "所需积分不能为空",
+            trigger: "blur"
+          },
+          {
+            validator: validateNum,
+            trigger: "blur"
           }
-        });
+        ]
       },
-      // 新增提交
-      addSubmit() {
-        console.log(this.addFormBody)
-        this.$refs["addForm"].validate(valid => {
-          if (valid) {
-            this.submitLoadinga = true;
-            let param = Object.assign({}, this.addFormBody);
-            postRentParamAboutEvent(param).then(res => {
+
+      //编辑表单相关数据
+      modifyFormVisible: false,
+      modifyLoading: false,
+      modifyFromBody: {
+        rentSelValReq: "",
+        rentTimeBegin: "",
+        rentTimeRanges: "",
+        rentSelRules: "",
+        dayRentTimeBegin: "",
+        dayRentTimeEnd: ""
+      },
+
+      // 新增表单相关数据
+      submitLoading: false,
+      addFormVisible: false,
+      addFormBody: {
+        rentSelValReq: "",
+        rentTimeBegin: "",
+        rentTimeRanges: "",
+        rentSelRules: ""
+      }
+    };
+  },
+  // 生命周期调用
+  mounted() {
+    this.getList();
+  },
+  methods: {
+    // 获取职工职务
+    getList() {
+      this.listLoading = true;
+      let params = {
+        page: this.page,
+        size: this.size
+      };
+      // http请求
+      getRentParamAboutEvent(params)
+        .then(res => {
+          this.rentOptionData = res.data.data.data.list;
+          this.totalNum = res.data.data.data.total;
+          this.listLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 转换开启状态
+    transfOpenStatus(row) {
+      return utils.transfOpenStatus(row);
+    },
+    //显示编辑
+    showModifyDialog(index, row) {
+      if (row.rentIsOpenSel == true) {
+        this.modifyFormVisible = true;
+        const selectTime=row.daySelectTimeRange.split("~")
+        this.modifyFromBody = Object.assign({}, row);
+        this.modifyFromBody.dayRentTimeBegin=selectTime[0]
+        this.modifyFromBody.dayRentTimeEnd=selectTime[1]
+        this.selectRowIndex = index;
+      } else {
+        this.$message({
+          message: "已过选房阶段，不可编辑",
+          type: "warning"
+        });
+      }
+
+      //console.log(this.selectRowIndex)
+    },
+    //编辑提交
+    modifySubmit() {
+      this.$refs["modifyFrom"].validate(valid => {
+        if (valid) {
+          this.modifyLoading = true;
+          const form = this.modifyFromBody;
+          let param = {
+            rentEventId: form.rentEventId,
+            rentSelRules: form.rentSelRules,
+            rentSelValReq: parseInt(form.rentSelValReq),
+            rentTimeBegin: form.rentTimeBegin,
+            rentTimeRanges: form.rentTimeRanges,
+            dayRentTimeBegin: form.dayRentTimeBegin,
+            dayRentTimeEnd: form.dayRentTimeEnd
+          };
+          putRentParamAboutEvent(param).then(res => {
+            utils.statusinfo(this, res.data);
+            this.modifyLoading = false;
+            this.modifyFormVisible = false;
+            this.getList();
+          });
+        }
+      });
+    },
+    // 新增提交
+    addSubmit() {
+      console.log(this.addFormBody);
+      this.$refs["addForm"].validate(valid => {
+        if (valid) {
+          this.submitLoadinga = true;
+          let param = Object.assign({}, this.addFormBody);
+          postRentParamAboutEvent(param).then(res => {
+            // 公共提示方法
+            utils.statusinfo(this, res.data);
+            this.$refs["addForm"].resetFields();
+            this.submitLoading = false;
+            this.addFormVisible = false;
+            this.getList();
+          });
+        }
+      });
+    },
+    // 删除功能
+    delectRentEvent(index, row) {
+      this.$confirm("此操作将删除该历史记录", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let param = row.rentEventId;
+          this.listLoading = true;
+          deleteRentParamAboutEvent(param)
+            .then(res => {
               // 公共提示方法
               utils.statusinfo(this, res.data);
-              this.$refs["addForm"].resetFields();
-              this.submitLoading = false;
-              this.addFormVisible = false;
               this.getList();
+            })
+            .catch(err => {
+              console.log(err);
             });
-          }
-        });
-      },
-      // 删除功能
-      delectRentEvent(index, row) {
-        this.$confirm("此操作将删除该历史记录", "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(() => {
-            let param = row.rentEventId;
-            this.listLoading = true;
-            deleteRentParamAboutEvent(param)
-              .then(res => {
-                // 公共提示方法
-                utils.statusinfo(this, res.data);
-                this.getList();
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          })
-          .catch(() => {
-            this.$message({
-              type: "info",
-              message: "已取消删除"
-            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
           });
-      },
-      //更换每页数量
-      SizeChangeEvent(val) {
-        this.size = val;
-        this.getList();
-      },
-      //页码切换时
-      CurrentChangeEvent(val) {
-        this.page = val;
-        this.getList();
-      }
+        });
+    },
+    //更换每页数量
+    SizeChangeEvent(val) {
+      this.size = val;
+      this.getList();
+    },
+    //页码切换时
+    CurrentChangeEvent(val) {
+      this.page = val;
+      this.getList();
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-
 
 </style>
