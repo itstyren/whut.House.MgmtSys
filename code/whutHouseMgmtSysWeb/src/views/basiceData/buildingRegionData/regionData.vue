@@ -15,7 +15,7 @@
       <!-- 工具栏 -->
       <div class="toolbar">
         <el-form :inline="true" style="margin-bottom:15px">
-          <el-button type="primary" @click="addFormVisible = true">新增区域</el-button>
+          <el-button type="primary" @click="addForm">新增区域</el-button>
         </el-form>
       </div>
       <!-- 表格区 -->
@@ -25,6 +25,7 @@
           <el-table-column type="index" label="序号" width="70" align="center"></el-table-column>
           <el-table-column prop="name" label="区域" sortable align="center"></el-table-column>
           <el-table-column prop="description" label="描述" sortable align="center"></el-table-column>
+          <el-table-column prop="campusName" label="所属校区" sortable align="center"></el-table-column>
           <el-table-column label="操作" width="300" align="center">
             <template slot-scope="scope">
               <el-button size="small" @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
@@ -44,6 +45,15 @@
           <el-col :span="20">
             <el-form-item label="区域名" prop="name">
               <el-input v-model="addFormBody.name" placeholder="请输入区域"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="校区" prop="name">
+              <el-select v-model="addFormBody.campusId" placeholder="请选择校区">
+                <el-option v-for="v of compusData" :key="v.id" :label="v.name" :value="v.id"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -73,6 +83,15 @@
         </el-row>
         <el-row>
           <el-col :span="20">
+            <el-form-item label="校区" prop="name">
+              <el-select v-model="modifyFromBody.campusId" placeholder="请选择校区">
+                <el-option v-for="v of compusData" :key="v.id" :label="v.name" :value="v.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
             <el-form-item label="描述" prop="description">
               <el-input type="textarea" :autosize="{minRows:2,maxRows:4}" v-model="modifyFromBody.description" placeholder="请输入描述"></el-input>
             </el-form-item>
@@ -90,6 +109,7 @@
 <script type="text/ecmascript-6">
   import {
     getRegionData,
+    getCompusData,
     postRegionData,
     putRegionData,
     deleteRegionData
@@ -136,6 +156,7 @@
         // 新增表单相关数据
         submitLoading: false,
         addFormVisible: false,
+        compusData: [],
         addFormBody: {
           description: "",
           name: ""
@@ -147,6 +168,25 @@
       this.getList();
     },
     methods: {
+      // 获取校区
+      getCompus() {
+        return new Promise((resolve, reject) => {
+          this.listLoading = true;
+          let params = {
+            page: 1,
+            size: 9999
+          };
+          getCompusData(params)
+            .then(res => {
+              this.compusData = res.data.data.data.list;
+              this.listLoading = false;
+              resolve(res.data);
+            })
+            .then(err => {
+              reject(err);
+            });
+        });
+      },
       // 获取区域
       getList() {
         this.listLoading = true;
@@ -168,8 +208,15 @@
       },
       //显示编辑
       showModifyDialog(index, row) {
-        this.modifyFormVisible = true;
-        this.modifyFromBody = Object.assign({}, row);
+        if (this.compusData.length == 0) {
+          this.getCompus().then(res => {
+            this.modifyFormVisible = true;
+            this.modifyFromBody = Object.assign({}, row);
+          });
+        } else {
+          this.modifyFormVisible = true;
+          this.modifyFromBody = Object.assign({}, row);
+        }
       },
       //编辑提交
       modifySubmit() {
@@ -178,7 +225,7 @@
             this.modifyLoading = true;
             let param = Object.assign({}, this.modifyFromBody);
             putRegionData(param).then(res => {
-              common.statusinfo(this, res.data);
+              utils.statusinfo(this, res.data);
               this.modifyLoading = false;
               this.modifyFormVisible = false;
               this.getList();
@@ -186,6 +233,16 @@
             });
           }
         });
+      },
+      // 显示新增
+      addForm() {
+        if (this.compusData.length == 0) {
+          this.getCompus().then(res => {
+            this.addFormVisible = true;
+          });
+        } else {
+          this.addFormVisible = true;
+        }
       },
       // 新增提交
       addSubmit() {
@@ -195,7 +252,7 @@
             let param = Object.assign({}, this.addFormBody);
             postRegionData(param).then(res => {
               // 公共提示方法
-              common.statusinfo(this, res.data);
+              utils.statusinfo(this, res.data);
               this.$refs["addForm"].resetFields();
               this.submitLoading = false;
               this.addFormVisible = false;
@@ -218,7 +275,7 @@
             deleteRegionData(param)
               .then(res => {
                 // 公共提示方法
-                common.statusinfo(this, res.data);
+                utils.statusinfo(this, res.data);
                 this.getList();
                 this.$store.commit(types.REGION_CHANGE);
               })

@@ -1,5 +1,36 @@
 import request from '@/utils/request'
-
+// 基础数据--校区管理
+// 获取方法
+export function getCompusData(params) {
+  return request({
+    url: `/campus/all`,
+    method: 'get',
+    params: params
+  })
+}
+// 删除方法
+export function deleteCompusData(compusData) {
+  return request({
+    url: `/campus/${compusData}`,
+    method: 'delete',
+  })
+}
+// 新增方法
+export function postCompusData(data) {
+  return request({
+    url: `/campus/add`,
+    method: 'post',
+    data: data
+  })
+}
+// 编辑方法
+export function putCompusData(data) {
+  return request({
+    url: `/campus/update`,
+    method: 'put',
+    data: data
+  })
+}
 // 基础数据--区域管理
 // 获取方法with楼栋
 export function getRegionWithBuildings(params) {

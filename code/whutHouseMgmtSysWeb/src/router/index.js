@@ -80,6 +80,7 @@ export const asyncRouterMap = [
             redirect: '/basic/buildingArea/region',
             meta: { title: 'region'},          
             children: [
+                { path: 'campus', component: _import('basiceData/buildingRegionData/campus'), name: 'campus', meta: { title: 'campus' } },                
                 { path: 'region', component: _import('basiceData/buildingRegionData/regionData'), name: 'region', meta: { title: 'region' } },
                 { path: 'building/:id', component: _import('basiceData/buildingRegionData/buildingData'), name: 'building', meta: { title: 'building' } },
             ]
