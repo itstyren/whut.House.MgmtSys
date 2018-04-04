@@ -19,6 +19,7 @@ import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
 import com.computerdesign.whutHouseMgmt.service.campus.CampusService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.HouseRegisterSelectService;
+import com.computerdesign.whutHouseMgmt.utils.Arith;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,6 +43,40 @@ public class HouseRecordController {
 
 	@Autowired
 	private CampusService campusService;
+
+	/**
+	 * 房屋总数据
+	 * @param houseAllSelectModel
+	 * @return
+	 */
+	@PostMapping(value = "houseTotal")
+	public Msg getHouseTotal(@RequestBody HouseAllSelectModel houseAllSelectModel) {
+		List<ViewHouse> listViewHouse = houseRegisterSelectService.getByAllMultiConditionQuery(houseAllSelectModel);
+		List<Map<String, Object>> listMap = new ArrayList<>();
+		double totalBuildArea = 0, totalUsedArea = 0, unoccupiedArea = 0, occupiedArea = 0;
+		int unoccupiedNumber = 0, occupiedNumber = 0;
+		for (ViewHouse viewhouse : listViewHouse) {
+			totalBuildArea += viewhouse.getBuildArea();
+			totalUsedArea += viewhouse.getUsedArea();
+
+			if (viewhouse.getStatusName().equals("空闲")) {
+				unoccupiedNumber++;
+				unoccupiedArea += viewhouse.getBuildArea();
+			} else {
+				occupiedNumber++;
+				occupiedArea += viewhouse.getBuildArea();
+			}
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("totalBuildArea", Arith.round(totalBuildArea,2));
+		map.put("totalUsedArea", Arith.round(totalUsedArea,2));
+		map.put("unoccupiedNumber", unoccupiedNumber);
+		map.put("unoccupiedArea", Arith.round(unoccupiedArea,2));
+		map.put("occupiedNumber", occupiedNumber);
+		map.put("occupiedArea", Arith.round(occupiedArea,2));
+		
+		return Msg.success().add("data", map);
+	}
 
 	/**
 	 * 按照查询条件获取房屋类型统计
@@ -123,7 +158,6 @@ public class HouseRecordController {
 		List<ViewHouse> listViewHouse = houseRegisterSelectService.getByAllMultiConditionQuery(houseAllSelectModel);
 		List<String> listString = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		// 遍历每一个房屋
 		for (ViewHouse viewHouse : listViewHouse) {
 			if (!listString.contains(viewHouse.getCampusName())) {
@@ -149,22 +183,55 @@ public class HouseRecordController {
 		for (Entry<String, Object> entry : map.entrySet()) {
 			HashMap<String, Integer> mmm = (HashMap<String, Integer>) entry.getValue();
 			List<Map<String, Object>> list2 = new ArrayList<>();
-			
+
 			Map<String, Object> mapAl1 = new HashMap<String, Object>();
-			mapAl1.put("name","已入住");
+			mapAl1.put("name", "已入住");
 			mapAl1.put("value", mmm.get("已入住"));
-			
+
 			Map<String, Object> mapAl2 = new HashMap<String, Object>();
-			mapAl2.put("name","未入住");
+			mapAl2.put("name", "未入住");
 			mapAl2.put("value", mmm.get("未入住"));
 			list2.add(mapAl1);
 			list2.add(mapAl2);
 			Map<String, Object> mapFinal = new HashMap<>();
 			mapFinal.put("name", entry.getKey());
 			mapFinal.put("data", list2);
-			
+
 			listMap.add(mapFinal);
 		}
 		return Msg.success().add("name", listString).add("data", listMap);
+	}
+
+	/**
+	 * 获取房屋户型相关统计
+	 * 
+	 * @param houseAllSelectModel
+	 * @return
+	 */
+	@PostMapping(value = "houseLayout")
+	public Msg getHouseLayout(@RequestBody HouseAllSelectModel houseAllSelectModel) {
+		List<ViewHouse> listViewHouse = houseRegisterSelectService.getByAllMultiConditionQuery(houseAllSelectModel);
+		List<String> listString = new ArrayList<>();
+		List<Integer> listInteger = new ArrayList<>();
+		HashMap<String, Integer> map = new HashMap<>();
+		for (ViewHouse viewHouse : listViewHouse) {
+			if (!listString.contains(viewHouse.getLayoutName())) {
+				listString.add(viewHouse.getLayoutName());
+			}
+			if (!map.containsKey(viewHouse.getLayoutName())) {
+				map.put(viewHouse.getLayoutName(), 0);
+			}
+			map.put(viewHouse.getLayoutName(), map.get(viewHouse.getLayoutName()) + 1);
+		}
+		int sum = 0;
+		for (Entry<String, Integer> entry : map.entrySet()) {
+			listInteger.add(entry.getValue());
+			sum += entry.getValue();
+		}
+		List<Double> floatList = new ArrayList<>();
+		for (Integer number : listInteger) {
+			floatList.add(Arith.div(number, sum, 2));
+		}
+		return Msg.success().add("name", listString).add("number", listInteger).add("proportion", floatList);
 	}
 }
