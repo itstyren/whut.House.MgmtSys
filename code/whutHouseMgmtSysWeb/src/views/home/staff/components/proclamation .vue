@@ -4,9 +4,7 @@
       <strong>系统说明</strong>
     </div>
     <div class="content">
-      <p>新华社北京3月17日电 3月17日上午，十三届全国人大一次会议选举习近平为中华人民共和国主席消息宣布后，一些国家领导人第一时间纷纷致电或致函习近平主席，表示热烈祝贺。</p>
-      <p>朝鲜国务委员会委员长金正恩表示，我对您当选为中华人民共和国主席、中华人民共和国中央军事委员会主席表示衷心祝贺，祝愿中国人民在以您为核心的中国共产党领导下，在新时代中国特色社会主义建设中取得更大成就。我确信朝中两国关系将沿着符合两国人民共同利益的方向发展。</p>
-      <p>越南国家主席陈大光表示，欣闻您在第十三届全国人大一次会议上当选中华人民共和国主席和中央军委主席，我谨向您致以最热烈的祝贺。我相信，作为中共中央的领导核心、国家主席、中央军委主席，您将带领中国人民胜利实现把中国建成富强民主文明和谐美丽的社会主义现代化强国目标，为地区乃至世界和平、稳定和繁荣作出重要贡献。越南党、国家和人民高度重视发展同中国的睦邻友好与全面合作关系，视之为越南对外政策的战略选择和头等优先。相信您将继续关心指导各级、各部门落实两党两国领导人共识，不断扩大和提升两国各领域合作，推动越中全面战略合作伙伴关系持续稳定健康深入发展。</p>
+<h1 class="ql-align-center"><span style="color: rgb(255, 255, 255); background-color: rgb(240, 102, 102);" class="ql-font-serif"> I am Example 1! </span></h1><p><br></p><p><span class="ql-font-serif">W Can a man still be brave if he's afraid? That is the only time a man can be brave. </span></p><p><br></p><p><strong class="ql-size-large ql-font-serif">Courage and folly is </strong><strong class="ql-size-large ql-font-serif" style="color: rgb(230, 0, 0);">always</strong><strong class="ql-size-large ql-font-serif"> just a fine line.</strong></p><p><br></p><p><u class="ql-font-serif">There is only one God, and his name is Death. And there is only one thing we say to Death: "Not today."</u></p><p><br></p><p><em class="ql-font-serif">Fear cuts deeper than swords.</em></p><p><br></p><pre class="ql-syntax" spellcheck="false">const a = 10; const editorOption = { highlight: text =&gt; hljs.highlightAuto(text).value }; </pre><p><br></p><p><span class="ql-font-serif">Every flight begins with a fall.</span></p><p><br></p><p><a href="https://surmon.me/" target="_blank" style="color: rgb(230, 0, 0);" class="ql-size-small ql-font-serif"><u>A ruler who hides behind paid executioners soon forgets what death is. </u></a></p><p><br></p><iframe class="ql-video ql-align-center" allowfullscreen="true" src="https://www.youtube.com/embed/QHH3iSeDBLo?showinfo=0" frameborder="0" width="560" height="238"></iframe><p><br></p><p><span class="ql-font-serif">Hear my words, and bear witness to my vow. Night gathers, and now my watch begins. It shall not end until my death. I shall take no wife, hold no lands, father no children. I shall wear no crowns and win no glory. I shall live and die at my post. I am the sword in the darkness. I am the watcher on the walls. I am the fire that burns against the cold, the light that brings the dawn, the horn that wakes the sleepers, the shield that guards the realms of men. I pledge my life and honor to the Night’s Watch, for this night and all the nights to come.</span></p><p><br></p><p><span class="ql-font-serif">We are born to suffer, to suffer can make us strong.</span></p><p><br></p><p><span class="ql-font-serif">The things we love destroy us every time.</span></p>      
     </div>
   </div>
 </template>
@@ -23,7 +21,7 @@
 
 <style scoped lang="scss">
   .proclamation {
-    height: 660px;
+    height: 84vh;
     padding: 20px;
     .title {
       font-size: 26px;
@@ -42,8 +40,8 @@
     }
     .content {
       margin-top: 30px;
-      font-size: 21px;
-      line-height: 25px;
+      height: 90%;
+      overflow-y: auto;
     }
   }
 

@@ -62,7 +62,12 @@ export const asyncRouterMap = [
                 { path: 'rentalOption', component: _import('sysManage/paramSet/rentalParam/rentalOption'), name: 'rentalOption', meta: { title: 'rentalOption' } },
                 { path: 'residentRel', component: _import('sysManage/paramSet/rentalParam/residentRel'), name: 'residentRel', meta: { title: 'residentRel' } },
             ]
-        }]
+        },
+            {
+                path: 'announcement',
+                component: _import('sysManage/announcement'),
+                name: 'announcement',
+                meta: { title: 'announcement' },}]
     },
     /* 基础数据 */
     {

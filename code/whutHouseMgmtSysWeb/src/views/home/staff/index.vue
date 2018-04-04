@@ -37,7 +37,5 @@ export default {
 .Notification {
   height: 100%;
 }
-.proclamation {
-  height: 81vh;
-}
+
 </style>
