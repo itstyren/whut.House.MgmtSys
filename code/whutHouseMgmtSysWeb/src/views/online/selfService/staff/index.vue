@@ -77,7 +77,7 @@ export default {
       ableHouseData: [],
       listLoading: false,
       isOwn:false,
-      totalNum: 1,
+      totalNum: 0,
       page: 1,
       size: 10,
       selectInfo: {}

@@ -87,7 +87,7 @@
         // 表格数据
         layoutData: [],
         listLoading: false,
-        totalNum: 1,
+        totalNum: 0,
         page: 1,
         size: 10,
 
@@ -144,7 +144,6 @@
           type: 'warning'
         }).then(() => {
           let param = row.fixParamId
-          console.log(param)
           this.listLoading = true
           deleteFixParam(param).then((res) => {
             // 公共提示方法

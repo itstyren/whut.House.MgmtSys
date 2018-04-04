@@ -40,7 +40,7 @@ export function postHouseParamCount(params,data) {
         data:data
     })
 }
-// 多套住房查询接口
+// 多套住房查询接口--详细查询
 export function postStaffMultiplyHouse(params, data) {
     return request({
         url: `/moreHouseQuery/staffMoreHouseQuery`,
@@ -48,4 +48,13 @@ export function postStaffMultiplyHouse(params, data) {
         params: params,
         data: data
     })
+}
+// 多套住房查询-查询职工多几套
+export function postStaffMultiplyHouseNum(params, data) {
+  return request({
+    url: `/moreHouseQuery/staffMoreHouseSta`,
+    method: 'post',
+    params: params,
+    data: data
+  })
 }

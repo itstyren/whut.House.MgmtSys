@@ -47,29 +47,20 @@
                 <keep-alive>
                   <!-- 多套查询 -->
                   <div v-if="activeName=='query'" class="table-tabs">
-                    <el-table :data="queryData" class="table" height="string" v-loading="listLoading">
-                      <el-table-column type="selection" width="55"></el-table-column>
+                    <el-table :data="houseRelData" class="table" height="string" v-loading="listLoading">
                       <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
-                      <el-table-column label="姓名" sortable align="center">
-                        <template slot-scope="scope">
-                          <el-popover trigger="hover" placement="top">
-                            <p>姓名: {{ scope.row.staffName }}</p>
-                            <p>来校工作时间: {{ scope.row.joinTime }}</p>
-                            <p>预计退休时间: {{ scope.row.retireTime }}</p>
-                            <div slot="reference" class="name-wrapper">
-                              <el-tag size="medium" type="info">{{ scope.row.staffName }}</el-tag>
-                            </div>
-                          </el-popover>
-                        </template>
+                      <el-table-column prop="staffName"  label="姓名" align="center"> </el-table-column>
+                      <el-table-column prop="staffDeptName" label="工作部门" align="center"></el-table-column>
+                      <el-table-column prop="staffSpouseName" label="配偶姓名"  align="center"></el-table-column>
+                      <el-table-column prop="bookTime" label="登记时间"  align="center"></el-table-column>
+                      <el-table-column prop="houseRel" label="住房关系" align="center">
+                                        <template slot-scope="scope">
+                  <el-tag :type="scope.row.houseRel | statusFilter">{{scope.row.houseRel}}</el-tag>
+                </template>
                       </el-table-column>
-                      <el-table-column prop="totalVal" label="总分" sortable align="center"></el-table-column>
-                      <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
-                      <el-table-column prop="marriageState" label="婚姻状况" align="center"></el-table-column>
-                      <el-table-column prop="postName" label="职称" align="center"></el-table-column>
-                      <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
-                      <el-table-column prop="typeName" label="职工类别" align="center"></el-table-column>
-                      <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
-                      <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
+                      <el-table-column prop="address" label="住房地址" align="center"></el-table-column>
+                      <el-table-column prop="staffTypeName" label="职工类别" align="center"></el-table-column>
+                      <el-table-column prop="houseTypeName" label="住房类型" align="center"></el-table-column>
                     </el-table>
                     <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
                       :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
@@ -84,28 +75,11 @@
                   <!-- 多套统计 -->
                   <div v-if="activeName=='count'" class="table-tabs">
                     <el-table :data="countData" class="table" height="string" v-loading="listLoading1">
-                      <el-table-column type="selection" width="55"></el-table-column>
                       <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
-                      <el-table-column label="姓名" sortable align="center">
-                        <template slot-scope="scope">
-                          <el-popover trigger="hover" placement="top">
-                            <p>姓名: {{ scope.row.staffName }}</p>
-                            <p>来校工作时间: {{ scope.row.joinTime }}</p>
-                            <p>离退休时间: {{ scope.row.retireTime }}</p>
-                            <div slot="reference" class="name-wrapper">
-                              <el-tag size="medium" type="info">{{ scope.row.staffName }}</el-tag>
-                            </div>
-                          </el-popover>
-                        </template>
-                      </el-table-column>
-                      <el-table-column prop="totalVal" label="总分" sortable align="center"></el-table-column>
-                      <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
-                      <el-table-column prop="marriageState" label="婚姻状况" align="center"></el-table-column>
-                      <el-table-column prop="postName" label="职称" align="center"></el-table-column>
-                      <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
-                      <el-table-column prop="typeName" label="职工类别" align="center"></el-table-column>
-                      <el-table-column prop="statusName" label="工作状态" align="center"></el-table-column>
-                      <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
+                      <el-table-column prop="staffName"  label="姓名" align="center"> </el-table-column>
+                      <el-table-column prop="staffTypeName" label="职工类别" align="center"></el-table-column>
+                      <el-table-column prop="staffSpouseName" label="配偶姓名"  align="center"></el-table-column>                                           
+                      <el-table-column prop="houseNum" label="住房套数" align="center"></el-table-column>
                     </el-table>
                     <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent1" @current-change="currentChangeEvent1"
                       :page-size="size1" :page-sizes="[10,15,20,25,30]" :total="totalNum1">
@@ -123,7 +97,7 @@
 
 <script type="text/ecmascript-6">
 import { getHouseParam, getStaffParam } from "@/api/sysManage";
-import { postStaffMultiplyHouse } from "@/api/dataAnalysis";
+import { postStaffMultiplyHouse,postStaffMultiplyHouseNum } from "@/api/dataAnalysis";
 import utils from "@/utils/index.js";
 export default {
   data() {
@@ -133,18 +107,29 @@ export default {
       typeData: [],
       classData: [],
       activeName: "query",
-      queryData: [],
+      houseRelData: [],
       countData: [],
       listLoading: false,
       listLoading1: false,
-      totalNum: 1,
+      totalNum: 0,
       page: 1,
       size: 10,
-      totalNum1: 1,
+      totalNum1: 0,
       page1: 1,
       size1: 10
     };
   },
+      // 过滤器的哈希表
+    filters: {
+      statusFilter(status) {
+        const statusMap = {
+          租赁: "info",
+          私有: 'warning',
+          购买: "success"
+        };
+        return statusMap[status];
+      }
+    },
   components: {},
   created() {
     this.initGet();
@@ -183,8 +168,17 @@ export default {
       let data = Object.assign({}, this.queryForm);
       postStaffMultiplyHouse(params, data)
         .then(res => {
-          this.listLoading = false;
-          console.log(res.data.data);
+          // console.log(res.data.data.data.list);
+          this.houseRelData=res.data.data.data.list
+          this.totalNum = res.data.data.data.total          
+            this.listLoading=false   
+            this.listLoading1=true       
+          postStaffMultiplyHouseNum(params,data).then(res=>{
+            // console.log(res.data.data.data)
+            this.countData=res.data.data.data
+          this.totalNum1 = res.data.data.data.total            
+            this.listLoading1=false
+          })
         })
         .catch(err => {
           console.log(err);

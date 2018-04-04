@@ -44,7 +44,7 @@
               <el-form :model="hireSuperForm" label-width="100px" ref="hireSuperForm" v-loading="listLoading">
                 <el-row>
                   <el-col :span="8" :offset="2">
-                    <el-form-item label="职工">
+                    <el-form-item label="职工姓名">
                       <el-input v-model="hireSuperForm.staffName" readonly  placeholder="请选择职工"></el-input>
                     </el-form-item>
                   </el-col>
@@ -53,14 +53,14 @@
                   <el-col :span="17" :offset="2">
                     <el-form-item label="住房分配">
                         <el-input v-model="hireSuperForm.houseName" size="small" readonly placeholder="请选择住房">
-                          <el-button slot="append" icon="el-icon-search" @click="dialogVisible=!dialogVisible"></el-button>
+                          <el-button slot="append" icon="el-icon-search" @click="dialogVisible"></el-button>
                         </el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="10" :offset="2">
-                    <el-form-item label="说明" prop="directApplyNote">
+                    <el-form-item label="登记说明" prop="directApplyNote">
                       <el-input v-model="hireSuperForm.directApplyNote" type="textarea" :rows="2" placeholder="请输入备注说明（可选）"></el-input>
                     </el-form-item>
                   </el-col>
@@ -72,7 +72,7 @@
             </div>
           </div>
         </div>
-        <seach-house :select-form-visible="dialogVisible" @select-house="selectHouse"></seach-house>        
+        <seach-house  @select-house="selectHouse"></seach-house>        
       </div>
     </section>
   </div>
@@ -98,7 +98,6 @@ export default {
       // 直批表单
       listLoading: false,
       hireSuperForm: {},
-      dialogVisible: false,
       selectHouseId: ""
     };
   },
@@ -155,6 +154,9 @@ export default {
           this.$set(this.hireSuperForm, "staffName", name);
         }
       });
+    },
+    dialogVisible() {
+      this.$store.dispatch("setSeachHouse", true);
     }
   }
 };

@@ -315,20 +315,20 @@ export default {
   width: 80%;
   background-color: $white;
   padding: 50px;
-  height: 80%;
+  height: 95%;
   margin: auto;
   position: relative;
   .personal-info {
-    padding-top: 3%;
-    margin-bottom: 5vh;
+    padding-top: 8vh;
+    margin-bottom: 8vh;
   }
   .house-info {
-    padding-top: 3%;
-    margin-bottom: 5vh;
+    padding-top: 8vh;
+    margin-bottom: 8vh;
   }
   .fix-reason {
-    padding-top: 3%;
-    margin-bottom: 5vh;
+    padding-top: 8vh;
+    margin-bottom: 8vh;
   }
   & .fix-result {
     margin: 150px auto 100px;

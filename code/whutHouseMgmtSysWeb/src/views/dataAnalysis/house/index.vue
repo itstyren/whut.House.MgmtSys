@@ -29,7 +29,7 @@
                    <struct-pie :filters-data="filtersData"></struct-pie>
                 </el-row>
                 <el-row>
-                  <status-pie></status-pie>
+                  <status-pie :filters-data="filtersData"></status-pie>
                 </el-row>
               </el-col>
               <el-col :span="14">

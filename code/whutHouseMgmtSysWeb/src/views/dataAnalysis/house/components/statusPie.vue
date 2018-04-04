@@ -9,7 +9,7 @@
 
 <script>
 import echarts from "echarts";
-import {  getFixContentByDay } from "@/api/dataAnalysis.js";
+import { postHouseParamCount } from "@/api/dataAnalysis.js";
 require("echarts/theme/macarons"); // echarts theme
 let _ = require("underscore");
 export default {
@@ -25,6 +25,10 @@ export default {
     autoResize: {
       type: Boolean,
       default: true
+    },
+    filtersData: {
+      type: Object,
+      default: {}
     }
   },
   data() {
@@ -45,31 +49,30 @@ export default {
     this.getData();
   },
   watch: {
-    chartData: {
-      deep: true,
-      handler(val) {
-        this.setOptions(val);
-      }
+    filtersData(newVal) {
+      this.getData(newVal);
     }
   },
   methods: {
     getData() {
       let params = {
-        day: 7
+        paramTypeId: 3
       };
+      if (arguments[0] !== undefined) var data = arguments[0];
+      else var data = {};
       this.chart.showLoading();
-        getFixContentByDay(params).then(res => {
-          //const content = res.data.data.data;
-          this.chart.setOption({
-            legend: {
-              data: res.data.data.name
-            },
-            series:{
-            data: res.data.data.count
-            }
-          });
-          this.chart.hideLoading();
+      postHouseParamCount(params, data).then(res => {
+        // console.log(res.data.data)
+        this.chart.setOption({
+          legend: {
+            data: res.data.data.name
+          },
+          series: {
+            data: res.data.data.content
+          }
         });
+        this.chart.hideLoading();
+      });
     },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
@@ -86,7 +89,7 @@ export default {
         },
         series: [
           {
-            name: "维修类型",
+            name: "住房状态",
             type: "pie",
             radius: ["30%", "65%"],
             center: ["55%", "50%"],
