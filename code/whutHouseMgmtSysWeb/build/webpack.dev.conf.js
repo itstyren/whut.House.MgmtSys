@@ -32,8 +32,5 @@ module.exports = merge(baseWebpackConfig, {
       inject: true
     }),
     new FriendlyErrorsPlugin(),
-    new webpack.ProvidePlugin({
-      'window.Quill': 'quill'
-    })
   ]
 })
