@@ -333,6 +333,7 @@ public class HouseRegisterController {
 			houseAllShowModel.setBasementArea(viewHouse.getBasementArea());
 			houseAllShowModel.setAddress(viewHouse.getAddress());
 			houseAllShowModel.setFinishTime(viewHouse.getFinishTime());
+			houseAllShowModel.setCampusName(viewHouse.getCampusName());
 			houseAllShowModel.setBuildingName(viewHouse.getBuildingName());
 			houseAllShowModels.add(houseAllShowModel);
 		}
@@ -382,6 +383,9 @@ public class HouseRegisterController {
 			}
 			if(viewHouse.getAddress() != null){
 				houseShowModel.setAddress(viewHouse.getAddress());
+			}
+			if(viewHouse.getCampusName() != null){
+				houseShowModel.setCampusName(viewHouse.getCampusName());
 			}
 			if(viewHouse.getRegionName() != null){
 				houseShowModel.setZoneName(viewHouse.getRegionName());

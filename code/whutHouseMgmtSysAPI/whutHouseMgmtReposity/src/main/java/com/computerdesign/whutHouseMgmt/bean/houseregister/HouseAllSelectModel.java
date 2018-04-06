@@ -12,22 +12,34 @@ import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.RentalScope;
  */
 public class HouseAllSelectModel {
 	// 住房类型
-	private String houseType;
+//	private String houseType;
+	private Integer houseTypeId;
 
 	// 使用状态
-	private String useStatus;
-
-	// 住房区域
-	private String houseZone;
+//	private String useStatus;
+	private Integer useStatusId;
 
 	// 住房结构
-	private String structName;
+//	private String structName;
+	private Integer structId;
 
 	// 户型
-	private String layoutName;
+//	private String layoutName;
+	private Integer layoutId;
+
+	// 租金
+	private RentalScope rentalScope;
+	
+	//校区
+	private Integer campusId;
+	
+	// 住房区域
+//	private String houseZone;
+	private Integer regionId;
 
 	// 楼栋
-	private String building;
+//	private String building;
+	private Integer buildingId;
 
 	// 面积
 	private AreaParameter areaParameter;
@@ -35,30 +47,43 @@ public class HouseAllSelectModel {
 	// 建设时间
 	private FinishTime finishTime;
 
-	// 租金
-	private RentalScope rentalScope;
-	
 //	//页码
 //	private Integer page;
 //	
 //	//每页数量
 //	private Integer size;
+	
+	public Integer getHouseTypeId() {
+		return houseTypeId;
+	}
 
-//	public Integer getPage() {
-//		return page;
-//	}
-//
-//	public void setPage(Integer page) {
-//		this.page = page;
-//	}
-//
-//	public Integer getSize() {
-//		return size;
-//	}
-//
-//	public void setSize(Integer size) {
-//		this.size = size;
-//	}
+	public void setHouseTypeId(Integer houseTypeId) {
+		this.houseTypeId = houseTypeId;
+	}
+
+	public Integer getUseStatusId() {
+		return useStatusId;
+	}
+
+	public void setUseStatusId(Integer useStatusId) {
+		this.useStatusId = useStatusId;
+	}
+
+	public Integer getStructId() {
+		return structId;
+	}
+
+	public void setStructId(Integer structId) {
+		this.structId = structId;
+	}
+
+	public Integer getLayoutId() {
+		return layoutId;
+	}
+
+	public void setLayoutId(Integer layoutId) {
+		this.layoutId = layoutId;
+	}
 
 	public RentalScope getRentalScope() {
 		return rentalScope;
@@ -68,52 +93,28 @@ public class HouseAllSelectModel {
 		this.rentalScope = rentalScope;
 	}
 
-	public String getHouseType() {
-		return houseType;
+	public Integer getCampusId() {
+		return campusId;
 	}
 
-	public void setHouseType(String houseType) {
-		this.houseType = houseType;
+	public void setCampusId(Integer campusId) {
+		this.campusId = campusId;
 	}
 
-	public String getUseStatus() {
-		return useStatus;
+	public Integer getRegionId() {
+		return regionId;
 	}
 
-	public void setUseStatus(String useStatus) {
-		this.useStatus = useStatus;
+	public void setRegionId(Integer regionId) {
+		this.regionId = regionId;
 	}
 
-	public String getHouseZone() {
-		return houseZone;
+	public Integer getBuildingId() {
+		return buildingId;
 	}
 
-	public void setHouseZone(String houseZone) {
-		this.houseZone = houseZone;
-	}
-
-	public String getStructName() {
-		return structName;
-	}
-
-	public void setStructName(String structName) {
-		this.structName = structName;
-	}
-
-	public String getLayoutName() {
-		return layoutName;
-	}
-
-	public void setLayoutName(String layoutName) {
-		this.layoutName = layoutName;
-	}
-
-	public String getBuilding() {
-		return building;
-	}
-
-	public void setBuilding(String building) {
-		this.building = building;
+	public void setBuildingId(Integer buildingId) {
+		this.buildingId = buildingId;
 	}
 
 	public AreaParameter getAreaParameter() {
@@ -131,5 +132,9 @@ public class HouseAllSelectModel {
 	public void setFinishTime(FinishTime finishTime) {
 		this.finishTime = finishTime;
 	}
+	
+
+
+
 
 }

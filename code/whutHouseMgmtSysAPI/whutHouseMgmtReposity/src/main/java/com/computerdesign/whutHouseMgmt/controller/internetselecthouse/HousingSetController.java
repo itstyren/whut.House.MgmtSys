@@ -91,6 +91,7 @@ public class HousingSetController {
 			housingInfo.setNo(viewHouse.getNo());
 			housingInfo.setLayout(viewHouse.getLayoutName());
 			housingInfo.setUsedArea(viewHouse.getUsedArea());
+			housingInfo.setCampusName(viewHouse.getCampusName());
 			housingInfo.setRegionName(viewHouse.getRegionName());
 			housingInfo.setBuildingName(viewHouse.getBuildingName());
 			housingInfo.setAddress(viewHouse.getAddress());
@@ -121,6 +122,7 @@ public class HousingSetController {
 			housingInfo.setNo(viewHouse.getNo());
 			housingInfo.setLayout(viewHouse.getLayoutName());
 			housingInfo.setUsedArea(viewHouse.getUsedArea());
+			housingInfo.setCampusName(viewHouse.getCampusName());
 			housingInfo.setRegionName(viewHouse.getRegionName());
 			housingInfo.setBuildingName(viewHouse.getBuildingName());
 			housingInfo.setAddress(viewHouse.getAddress());

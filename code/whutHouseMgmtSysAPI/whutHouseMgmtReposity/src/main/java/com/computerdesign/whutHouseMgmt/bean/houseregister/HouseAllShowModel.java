@@ -49,6 +49,9 @@ public class HouseAllShowModel {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date finishTime;
 
+	//所属校区
+	private String campusName;
+	
 	// 所属楼栋
 	private String buildingName;
 
@@ -139,6 +142,14 @@ public class HouseAllShowModel {
 
 	public void setFinishTime(Date finishTime) {
 		this.finishTime = finishTime;
+	}
+
+	public String getCampusName() {
+		return campusName;
+	}
+
+	public void setCampusName(String campusName) {
+		this.campusName = campusName;
 	}
 
 	public String getBuildingName() {

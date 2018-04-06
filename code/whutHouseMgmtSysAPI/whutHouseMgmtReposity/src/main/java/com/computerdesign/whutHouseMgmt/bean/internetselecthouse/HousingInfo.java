@@ -14,6 +14,9 @@ public class HousingInfo {
 	// 使用面积
 	private Double usedArea;
 
+	//住房校区
+	private String campusName;
+	
 	// 所属区域
 	private String regionName;
 
@@ -56,6 +59,14 @@ public class HousingInfo {
 
 	public void setUsedArea(Double usedArea) {
 		this.usedArea = usedArea;
+	}
+
+	public String getCampusName() {
+		return campusName;
+	}
+
+	public void setCampusName(String campusName) {
+		this.campusName = campusName;
 	}
 
 	public String getRegionName() {

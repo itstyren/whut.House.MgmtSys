@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 /**
  * 使用ViewHouse视图
+ * 
  * @author Administrator
  *
  */
@@ -25,87 +26,99 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 public class HouseRegisterSelectService {
 	@Autowired
 	private ViewHouseMapper viewHouseMapper;
-	
+
 	/**
 	 * 多条件查询
+	 * 
 	 * @param houseSelectModel
 	 * @return
 	 */
-	public List<ViewHouse> getByMultiConditionQuery(HouseSelectModel houseSelectModel){
+	public List<ViewHouse> getByMultiConditionQuery(HouseSelectModel houseSelectModel) {
 		ViewHouseExample example = new ViewHouseExample();
 		Criteria criteria = example.createCriteria();
-		if(houseSelectModel != null){
-			if(houseSelectModel.getHouseType() != null){			
-				criteria.andTypeNameEqualTo(houseSelectModel.getHouseType());
+		if (houseSelectModel != null) {
+			if (houseSelectModel.getHouseTypeId() != null) {
+				criteria.andTypeEqualTo(houseSelectModel.getHouseTypeId());
 			}
-			if(houseSelectModel.getUseStatus() != null){			
-				criteria.andStatusNameEqualTo(houseSelectModel.getUseStatus());
+			if (houseSelectModel.getUseStatusId() != null) {
+				criteria.andStatusEqualTo(houseSelectModel.getUseStatusId());
 			}
-			if(houseSelectModel.getHouseZone() != null){			
-				criteria.andRegionNameEqualTo(houseSelectModel.getHouseZone());
-				if(houseSelectModel.getBuilding() !=null){				
-					criteria.andBuildingNameEqualTo(houseSelectModel.getBuilding());
+			if(houseSelectModel.getCampusId() != null){
+				if (houseSelectModel.getRegionId() != null) {
+					criteria.andRegionIdEqualTo(houseSelectModel.getRegionId());
+					if (houseSelectModel.getBuildingId() != null) {
+						criteria.andBuildingIdEqualTo(houseSelectModel.getBuildingId());
+					}
 				}
 			}
+			
 		}
 		return viewHouseMapper.selectByExample(example);
 	}
-	
+
 	/**
 	 * 全面多条件查询
+	 * 
 	 * @param houseAllSelectModel
 	 * @return
 	 */
-	public List<ViewHouse> getByAllMultiConditionQuery(HouseAllSelectModel houseAllSelectModel){
+	public List<ViewHouse> getByAllMultiConditionQuery(HouseAllSelectModel houseAllSelectModel) {
 		ViewHouseExample example = new ViewHouseExample();
 		Criteria criteria = example.createCriteria();
-		if(houseAllSelectModel.getHouseType() != null){			
-			criteria.andTypeNameEqualTo(houseAllSelectModel.getHouseType());
+		// 住房类型
+		if (houseAllSelectModel.getHouseTypeId() != null) {
+			criteria.andTypeEqualTo(houseAllSelectModel.getHouseTypeId());
 		}
-		if(houseAllSelectModel.getUseStatus() != null){			
-			criteria.andStatusNameEqualTo(houseAllSelectModel.getUseStatus());
+		// 住房状态
+		if (houseAllSelectModel.getUseStatusId() != null) {
+			criteria.andStatusEqualTo(houseAllSelectModel.getUseStatusId());
 		}
-		if(houseAllSelectModel.getHouseZone() != null){			
-			criteria.andRegionNameEqualTo(houseAllSelectModel.getHouseZone());
-			if(houseAllSelectModel.getBuilding() !=null){				
-				criteria.andBuildingNameEqualTo(houseAllSelectModel.getBuilding());
-			}
+		// 住房结构
+		if (houseAllSelectModel.getStructId() != null) {
+			criteria.andStructEqualTo(houseAllSelectModel.getStructId());
 		}
-		if(houseAllSelectModel.getStructName() != null){			
-			criteria.andStructNameEqualTo(houseAllSelectModel.getStructName());
+		// 户型
+		if (houseAllSelectModel.getLayoutId() != null) {
+			criteria.andLayoutEqualTo(houseAllSelectModel.getLayoutId());
 		}
-		if(houseAllSelectModel.getLayoutName() != null){			
-			criteria.andLayoutNameEqualTo(houseAllSelectModel.getLayoutName());
-		}
-		//面积
-		if(houseAllSelectModel.getAreaParameter() != null){
+		// 面积
+		if (houseAllSelectModel.getAreaParameter() != null) {
 			String areaParamName = houseAllSelectModel.getAreaParameter().getAreaParamName();
-			if(areaParamName != null){
+			if (areaParamName != null) {
 				double minArea = houseAllSelectModel.getAreaParameter().getMinArea();
 				double maxArea = houseAllSelectModel.getAreaParameter().getMaxArea();
-				if(areaParamName.equals("建筑面积")){
+				if (areaParamName.equals("建筑面积")) {
 					criteria.andBuildAreaBetween(minArea, maxArea);
-				}else if(areaParamName.equals("使用面积")){
+				} else if (areaParamName.equals("使用面积")) {
 					criteria.andUsedAreaBetween(minArea, maxArea);
-				}else if(areaParamName.equals("地下室面积")){
+				} else if (areaParamName.equals("地下室面积")) {
 					criteria.andBasementAreaBetween(minArea, maxArea);
 				}
 			}
 		}
-		
-		
-		//建设时间
+
+		// 建设时间
 		FinishTime finishTime = houseAllSelectModel.getFinishTime();
-		if(finishTime != null){
-			//System.out.println(finishTime.getStartTime().getTime());
-			//System.out.println(finishTime.getEndTime());
-		//	long startTime = finishTime.getStartTime().getTime();
-		//	long endTime = finishTime.getEndTime().getTime();
-		//	System.out.println(startTime);
+		if (finishTime != null) {
+			// System.out.println(finishTime.getStartTime().getTime());
+			// System.out.println(finishTime.getEndTime());
+			// long startTime = finishTime.getStartTime().getTime();
+			// long endTime = finishTime.getEndTime().getTime();
+			// System.out.println(startTime);
 			criteria.andFinishTimeBetween(finishTime.getStartTime(), finishTime.getEndTime());
 		}
-		
+		// 住房校区、区域、楼栋
+		if (houseAllSelectModel.getCampusId() != null) {
+			criteria.andCampusIdEqualTo(houseAllSelectModel.getCampusId());
+			if (houseAllSelectModel.getRegionId() != null) {
+				criteria.andRegionIdEqualTo(houseAllSelectModel.getRegionId());
+				if (houseAllSelectModel.getBuildingId() != null) {
+					criteria.andBuildingIdEqualTo(houseAllSelectModel.getBuildingId());
+				}
+			}
+		}
+
 		return viewHouseMapper.selectByExample(example);
 	}
-	
+
 }

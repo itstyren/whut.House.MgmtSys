@@ -2,56 +2,69 @@ package com.computerdesign.whutHouseMgmt.bean.houseregister;
 
 /**
  * 用于封装模糊查询需要的信息，基于视图查询
+ * 
  * @author Administrator
  *
  */
 public class HouseSelectModel {
 
-	//住房类型
-	private String houseType;
-	
-	//使用状态
-	private String useStatus;
-	
-	//住房区域
-	private String houseZone;
-	
-	//楼栋
-	private String building;
+	// 住房类型
+	// private String houseType;
+	private Integer houseTypeId;
 
-	public String getHouseType() {
-		return houseType;
+	// 使用状态
+	// private String useStatus;
+	private Integer useStatusId;
+
+	// 住房校区
+	private Integer campusId;
+
+	// 住房区域
+	// private String houseZone;
+	private Integer regionId;
+
+	// 楼栋
+	// private String building;
+	private Integer buildingId;
+
+	public Integer getHouseTypeId() {
+		return houseTypeId;
 	}
 
-	public void setHouseType(String houseType) {
-		this.houseType = houseType;
+	public void setHouseTypeId(Integer houseTypeId) {
+		this.houseTypeId = houseTypeId;
 	}
 
-	public String getUseStatus() {
-		return useStatus;
+	public Integer getUseStatusId() {
+		return useStatusId;
 	}
 
-	public void setUseStatus(String useStatus) {
-		this.useStatus = useStatus;
+	public void setUseStatusId(Integer useStatusId) {
+		this.useStatusId = useStatusId;
 	}
 
-	public String getHouseZone() {
-		return houseZone;
+	public Integer getCampusId() {
+		return campusId;
 	}
 
-	public void setHouseZone(String houseZone) {
-		this.houseZone = houseZone;
+	public void setCampusId(Integer campusId) {
+		this.campusId = campusId;
 	}
 
-	public String getBuilding() {
-		return building;
+	public Integer getRegionId() {
+		return regionId;
 	}
 
-	public void setBuilding(String building) {
-		this.building = building;
+	public void setRegionId(Integer regionId) {
+		this.regionId = regionId;
 	}
-	
-	
-	
+
+	public Integer getBuildingId() {
+		return buildingId;
+	}
+
+	public void setBuildingId(Integer buildingId) {
+		this.buildingId = buildingId;
+	}
+
 }
-
