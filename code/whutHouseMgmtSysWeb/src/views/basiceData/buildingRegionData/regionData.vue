@@ -138,11 +138,11 @@
               message: "请输入区域描述",
               trigger: "blur"
             },
-            {
-              pattern: /^[\u4e00-\u9fa5]{0,100}$/,
-              message: "最多100个字符",
-              trigger: "blur"
-            }
+            // {
+            //   pattern: /^[\u4e00-\u9fa5]{0,200}$/,
+            //   message: "最多100个字符",
+            //   trigger: "blur"
+            // }
           ]
         },
         //编辑表单相关数据
