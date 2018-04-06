@@ -6,8 +6,9 @@ import {
 import {
   loginByUsername,
   getUserInfo,
-  logout
+  logout,
 } from '@/api/login'
+import { getQiniuToken} from '@/api/user'
 import * as types from '../mutation-types.js'
 
 const user = {
@@ -17,8 +18,9 @@ const user = {
     roles: [],
     no: -1,
     id: -1,
-    ip:-1,
-    loginTime:-1,
+    ip: -1,
+    loginTime: -1,
+    qiniuToken:''
   },
   mutations: {
     // 设置token
@@ -47,6 +49,9 @@ const user = {
     [types.SET_USERLASTLOGIN]: (state, loginTime) => {
       state.loginTime = loginTime
     },
+    SET_QINIU_TOKEN:(state,token)=>{
+      state.qiniuToken=token
+    }
   },
 
   actions: {
@@ -81,14 +86,21 @@ const user = {
             reject('error')
           }
           const data = res.data.data.data[0]
-          const logindata =res.data.data.logindata
+          const logindata = res.data.data.logindata
           commit(types.SET_ROLEID, data.roleId)
           commit(types.SET_NAME, data.name)
           commit(types.SET_USERNO, data.no)
           commit(types.SET_USERID, data.id)
           commit(types.SET_USERIP, logindata.ip)
           commit(types.SET_USERLASTLOGIN, logindata.loginTime)
-          resolve(res)
+          resolve(res)          
+          getQiniuToken().then(res => {
+            commit('SET_QINIU_TOKEN',res.data.message)
+            resolve(res)
+          }).catch(error => {
+            reject(error)
+            console.log(error)
+          })
         }).catch(error => {
           reject(error)
         })

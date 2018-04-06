@@ -80,7 +80,7 @@ export default {
         containLabel: true
     },
     legend: {
-        data: ['入住率','销量']
+        data: ['入住率','入住量']
     },
     xAxis: [{
         type: 'category',
@@ -100,7 +100,7 @@ export default {
         }
     }, {
         type: 'value',
-        name: '销量',
+        name: '入住量',
         min: 0,
         max: 3000,
         position: 'left'
@@ -125,7 +125,7 @@ export default {
             },
         data: [1,13,37,35,15,13,25,21,6,45,32,2,4,13,6,4,11]
     }, {
-        name: '销量',
+        name: '入住量',
         type: 'bar',
         yAxisIndex: 1,
         stack: '总量',

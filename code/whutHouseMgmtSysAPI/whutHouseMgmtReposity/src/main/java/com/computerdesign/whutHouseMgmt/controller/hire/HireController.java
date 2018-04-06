@@ -222,7 +222,6 @@ public class HireController {
 	 * @return
 	 */
 	@Transactional
-
 	@GetMapping(value = "addSignContract/{id}")
 	@ApiOperation(value = "签订合同",notes="签订合同",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
 	public Msg hireAddSignContract(@PathVariable("id")Integer id) {

@@ -24,6 +24,14 @@ import './assets/icons/iconfont'
 // 引入国际化
 import i18n from './lang' // Internationalization
 
+import VueQuillEditor from 'vue-quill-editor'
+
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
@@ -34,6 +42,7 @@ Vue.use(Element, {
   i18n: (key, value) => i18n.t(key, value)
 })
 Vue.use(VCharts)
+Vue.use(VueQuillEditor, /* { default global options } */)
 Vue.config.productionTip = false
 
 Vue.component('my-icon', myIcon)

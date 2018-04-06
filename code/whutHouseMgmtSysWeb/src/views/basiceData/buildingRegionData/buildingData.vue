@@ -49,7 +49,7 @@
     <el-dialog title="新增楼栋" class="paramDialog-large" :visible.sync="addFormVisible" v-loading="submitLoading">
       <el-form :model="addFormBody" label-width="100px" ref="addForm" :rules="rules" auto>
         <el-row>
-          <el-col :span="10">
+          <el-col :span="11">
             <el-form-item label="楼栋名称" prop="name">
               <el-input v-model="addFormBody.name" placeholder="请输入楼栋名称"></el-input>
             </el-form-item>
@@ -61,7 +61,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10" >
+          <el-col :span="11" >
             <el-form-item label="占地面积" prop="floorArea">
               <el-input v-model="addFormBody.floorArea" placeholder="请输入占地面积"></el-input>
             </el-form-item>
@@ -73,7 +73,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10" >
+          <el-col :span="11" >
             <el-form-item label="楼层数" prop="floorCount">
               <el-input v-model="addFormBody.floorCount" placeholder="请输入楼层数"></el-input>
             </el-form-item>
@@ -85,7 +85,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10" >
+          <el-col :span="11" >
             <el-form-item label="负责人" prop="manager">
               <el-input v-model="addFormBody.manager" placeholder="请输入负责人"></el-input>
             </el-form-item>
@@ -114,7 +114,7 @@
     <el-dialog title="编辑住房类型" class="paramDialog-large" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="100px" ref="modifyFrom" :rules="rules">
         <el-row>
-          <el-col :span="10" >
+          <el-col :span="11" >
             <el-form-item label="楼栋名称" prop="name">
               <el-input v-model="modifyFromBody.name" placeholder="请输入楼栋名称"></el-input>
             </el-form-item>
@@ -126,7 +126,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10">
+          <el-col :span="11">
             <el-form-item label="占地面积" prop="floorArea">
               <el-input v-model="modifyFromBody.floorArea" placeholder="请输入占地面积"></el-input>
             </el-form-item>
@@ -138,7 +138,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10">
+          <el-col :span="11">
             <el-form-item label="楼层数" prop="floorCount">
               <el-input v-model="modifyFromBody.floorCount" placeholder="请输入楼层数"></el-input>
             </el-form-item>
@@ -150,7 +150,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="10">
+          <el-col :span="11">
             <el-form-item label="负责人" prop="manager">
               <el-input v-model="modifyFromBody.manager" placeholder="请输入负责人"></el-input>
             </el-form-item>

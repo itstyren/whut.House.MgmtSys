@@ -387,6 +387,10 @@ public class FixController {
 	public Msg addFixPrice(@RequestBody FixAddPrice fixAddPrice) {
 
 		Fix fix = fixService.get(fixAddPrice.getId());
+		if (fix.getIsCheck() == true) {
+			return Msg.error("已经结算，无法定价");
+		}
+
 		fix.setPriceMan(fixAddPrice.getPriceMan());
 		fix.setFixMoney(fixAddPrice.getPrice());
 		fix.setPriceTime(new Date());

@@ -103,10 +103,10 @@
         setList: [],
         setHouseData: [],
         cancelList: [],
-        totalNum: 1,
+        totalNum: 0,
         page: 1,
         size: 10,
-        totalNum1: 1,
+        totalNum1: 0,
         page1: 1,
         size1: 10
       };

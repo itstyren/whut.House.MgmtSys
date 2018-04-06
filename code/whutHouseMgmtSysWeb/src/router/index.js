@@ -62,7 +62,12 @@ export const asyncRouterMap = [
                 { path: 'rentalOption', component: _import('sysManage/paramSet/rentalParam/rentalOption'), name: 'rentalOption', meta: { title: 'rentalOption' } },
                 { path: 'residentRel', component: _import('sysManage/paramSet/rentalParam/residentRel'), name: 'residentRel', meta: { title: 'residentRel' } },
             ]
-        }]
+        },
+            {
+                path: 'announcement',
+                component: _import('sysManage/announcement'),
+                name: 'announcement',
+                meta: { title: 'announcement' },}]
     },
     /* 基础数据 */
     {
@@ -80,6 +85,7 @@ export const asyncRouterMap = [
             redirect: '/basic/buildingArea/region',
             meta: { title: 'region'},          
             children: [
+                { path: 'campus', component: _import('basiceData/buildingRegionData/campus'), name: 'campus', meta: { title: 'campus' } },                
                 { path: 'region', component: _import('basiceData/buildingRegionData/regionData'), name: 'region', meta: { title: 'region' } },
                 { path: 'building/:id', component: _import('basiceData/buildingRegionData/buildingData'), name: 'building', meta: { title: 'building' } },
             ]

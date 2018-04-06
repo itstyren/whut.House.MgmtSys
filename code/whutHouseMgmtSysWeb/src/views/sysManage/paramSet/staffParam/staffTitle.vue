@@ -92,7 +92,7 @@ export default {
       // 表格数据
       tittleData: [],
       listLoading: false,
-      totalNum: 1,
+      totalNum: 0,
       page: 1,
       size: 10,
 

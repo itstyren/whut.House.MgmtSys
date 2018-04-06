@@ -73,3 +73,11 @@ export function getQuickPass(staffID) {
     params: staffID
   })
 }
+
+// 生成七牛云令牌
+export function getQiniuToken() {
+  return request({
+    url: `/Qiniu/fileUpload`,
+    method: 'get',
+  })
+}

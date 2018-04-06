@@ -91,7 +91,7 @@ export default {
         }
       ],
       listLoading: false,
-      totalNum: 1,
+      totalNum: 0,
       page: 1,
       size: 10,
 

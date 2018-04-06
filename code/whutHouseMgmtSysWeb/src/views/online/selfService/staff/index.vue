@@ -1,23 +1,26 @@
 <template>
   <div class="container">
     <el-row class="select-info" v-if="isSelecting">
-      <el-col :span="3" :offset="1">
+      <el-col :span="3" :offset="1" v-if="!isOwn">
         <span>当前选房： 【{{selectInfo.isSelectingStaffName}}】</span>
+      </el-col>
+            <el-col :span="3" :offset="1" v-else>
+        <span>您正在选房</span>
       </el-col>
       <el-col :span="4">
         <div>
-          <count-down :startTime="1481450140" :endTime="1521794320" :tipText="'距离开始文字1'" :tipTextEnd="'该员工剩余'" :endText="'已结束'" :dayTxt="'天'"
+          <count-down :startTime="selectInfo.systemNowTime" :endTime="selectInfo.isSelectingStaffEndTime" :tipText="'距离开始文字1'" :tipTextEnd="'本轮剩余'" :endText="'已结束'" :dayTxt="'天'"
             :hourTxt="'小时'" :minutesTxt="'分钟'" :secondsTxt="'秒'"></count-down>
         </div>
       </el-col>
       <el-col :span="3">
         <span>下一选房员工 【{{selectInfo.nextSelectingStaffName}}】</span>
       </el-col>
-      <el-col :span="5">
-        <span>您的选房开始于 2018-03-23 17:38:40</span>
+      <el-col :span="6" :offset="1" v-if="!isOwn">
+        <span>您的选房开始于【{{selectInfo.staffStartTimeNow}}】</span>
       </el-col>
-      <el-col :span="3">
-        <span>期间有【30】分钟可选房</span>
+      <el-col :span="3" v-if="!isOwn">
+        <span>期间有【{{selectInfo.selectTime}}】分钟可选房</span>
       </el-col>
     </el-row>
     <el-row v-else>
@@ -73,7 +76,8 @@ export default {
       isSelecting:false,
       ableHouseData: [],
       listLoading: false,
-      totalNum: 1,
+      isOwn:false,
+      totalNum: 0,
       page: 1,
       size: 10,
       selectInfo: {}
@@ -104,8 +108,12 @@ export default {
     getSelectInfo() {
       getSelectInfoByName(this.staffID).then(res => {
         if(res.data.data.data!=undefined)
-        {this.selectInfo = res.data.data.data;
-        this.isSelecting=true}
+        {
+          this.selectInfo = res.data.data.data;
+        this.isSelecting=true
+        if(this.selectInfo.staffStartTimeNow==null){
+          this.isOwn=true
+        }}
         else{
           this.selectInfo=res.data.message
           this.isSelecting=false

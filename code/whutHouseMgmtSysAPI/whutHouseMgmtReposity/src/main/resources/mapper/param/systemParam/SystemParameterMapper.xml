@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.param.systemParam.SystemParameterMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.param.systemParam.SystemParameter">
+    <id column="SysParamId" jdbcType="INTEGER" property="sysParamId" />
+    <result column="SysParamName" jdbcType="VARCHAR" property="sysParamName" />
+    <result column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
+    <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.computerdesign.whutHouseMgmt.bean.param.systemParam.SystemParameter">
+    <result column="SysParamContent" jdbcType="LONGVARCHAR" property="sysParamContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SysParamId, SysParamName, ParamTypeId, ParamTypeName
+  </sql>
+  <sql id="Blob_Column_List">
+    SysParamContent
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.computerdesign.whutHouseMgmt.bean.param.systemParam.SystemParameterExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from PM_SysType
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.param.systemParam.SystemParameterExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PM_SysType
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from PM_SysType
+    where SysParamId = #{sysParamId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from PM_SysType
+    where SysParamId = #{sysParamId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.param.systemParam.SystemParameterExample">
+    delete from PM_SysType
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.param.systemParam.SystemParameter">
+    insert into PM_SysType (SysParamId, SysParamName, ParamTypeId, 
+      ParamTypeName, SysParamContent)
+    values (#{sysParamId,jdbcType=INTEGER}, #{sysParamName,jdbcType=VARCHAR}, #{paramTypeId,jdbcType=INTEGER}, 
+      #{paramTypeName,jdbcType=VARCHAR}, #{sysParamContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.param.systemParam.SystemParameter">
+    insert into PM_SysType
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sysParamId != null">
+        SysParamId,
+      </if>
+      <if test="sysParamName != null">
+        SysParamName,
+      </if>
+      <if test="paramTypeId != null">
+        ParamTypeId,
+      </if>
+      <if test="paramTypeName != null">
+        ParamTypeName,
+      </if>
+      <if test="sysParamContent != null">
+        SysParamContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sysParamId != null">
+        #{sysParamId,jdbcType=INTEGER},
+      </if>
+      <if test="sysParamName != null">
+        #{sysParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramTypeId != null">
+        #{paramTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="paramTypeName != null">
+        #{paramTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysParamContent != null">
+        #{sysParamContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.param.systemParam.SystemParameterExample" resultType="java.lang.Long">
+    select count(*) from PM_SysType
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update PM_SysType
+    <set>
+      <if test="record.sysParamId != null">
+        SysParamId = #{record.sysParamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sysParamName != null">
+        SysParamName = #{record.sysParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramTypeId != null">
+        ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paramTypeName != null">
+        ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysParamContent != null">
+        SysParamContent = #{record.sysParamContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update PM_SysType
+    set SysParamId = #{record.sysParamId,jdbcType=INTEGER},
+      SysParamName = #{record.sysParamName,jdbcType=VARCHAR},
+      ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
+      ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
+      SysParamContent = #{record.sysParamContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update PM_SysType
+    set SysParamId = #{record.sysParamId,jdbcType=INTEGER},
+      SysParamName = #{record.sysParamName,jdbcType=VARCHAR},
+      ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
+      ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.param.systemParam.SystemParameter">
+    update PM_SysType
+    <set>
+      <if test="sysParamName != null">
+        SysParamName = #{sysParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramTypeId != null">
+        ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="paramTypeName != null">
+        ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysParamContent != null">
+        SysParamContent = #{sysParamContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where SysParamId = #{sysParamId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.computerdesign.whutHouseMgmt.bean.param.systemParam.SystemParameter">
+    update PM_SysType
+    set SysParamName = #{sysParamName,jdbcType=VARCHAR},
+      ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
+      ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
+      SysParamContent = #{sysParamContent,jdbcType=LONGVARCHAR}
+    where SysParamId = #{sysParamId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.param.systemParam.SystemParameter">
+    update PM_SysType
+    set SysParamName = #{sysParamName,jdbcType=VARCHAR},
+      ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
+      ParamTypeName = #{paramTypeName,jdbcType=VARCHAR}
+    where SysParamId = #{sysParamId,jdbcType=INTEGER}
+  </update>
+</mapper>

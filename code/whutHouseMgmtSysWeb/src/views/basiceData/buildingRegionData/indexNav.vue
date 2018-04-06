@@ -10,6 +10,10 @@
       <!-- 主菜单 -->
       <el-menu class="aside-menu" :collapse="isCollapse" :default-active="$route.path" background-color="#373d41" text-color="#fff" active-text-color="#4682B4" router>
         <!-- 楼栋区域 -->
+                <el-menu-item index="/basic/buildingArea/campus">
+          <my-icon icon-class="dituleijubuquyutu" />
+          <span slot="title">校区管理</span>
+        </el-menu-item>
         <el-menu-item index="/basic/buildingArea/region">
           <my-icon icon-class="link" />
           <span slot="title">区域管理</span>

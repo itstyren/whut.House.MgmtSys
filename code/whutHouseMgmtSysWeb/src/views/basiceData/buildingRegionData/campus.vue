@@ -7,7 +7,7 @@
           <b>首页</b>
         </el-breadcrumb-item>
         <el-breadcrumb-item>基础数据</el-breadcrumb-item>
-        <el-breadcrumb-item>区域管理</el-breadcrumb-item>
+        <el-breadcrumb-item>校区管理</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <!-- 下方主内容 -->
@@ -15,21 +15,20 @@
       <!-- 工具栏 -->
       <div class="toolbar">
         <el-form :inline="true" style="margin-bottom:15px">
-          <el-button type="primary" @click="addForm">新增区域</el-button>
+          <el-button type="primary" @click="addFormVisible = true">新增校区</el-button>
         </el-form>
       </div>
       <!-- 表格区 -->
       <div class="main-data">
-        <el-table :data="regionData" class="table" height="string" v-loading="listLoading">
+        <el-table :data="campusData" class="table" height="string" v-loading="listLoading">
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column type="index" label="序号" width="70" align="center"></el-table-column>
-          <el-table-column prop="name" label="区域" sortable align="center"></el-table-column>
+          <el-table-column prop="name" label="校区" sortable align="center"></el-table-column>
           <el-table-column prop="description" label="描述" sortable align="center"></el-table-column>
-          <el-table-column prop="campusName" label="所属校区" sortable align="center"></el-table-column>
           <el-table-column label="操作" width="300" align="center">
             <template slot-scope="scope">
               <el-button size="small" @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
-              <el-button type="danger" size="small" @click="delectRegion(scope.$index,scope.row)">删除</el-button>
+              <el-button type="danger" size="small" @click="delectCompus(scope.$index,scope.row)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -39,21 +38,12 @@
       </el-pagination>
     </div>
     <!-- 新增表单 -->
-    <el-dialog title="新增区域" class="paramDialog" :visible.sync="addFormVisible" v-loading="submitLoading">
+    <el-dialog title="新增校区" class="paramDialog" :visible.sync="addFormVisible" v-loading="submitLoading">
       <el-form :model="addFormBody" label-width="100px" ref="addForm" :rules="rules" auto>
         <el-row>
           <el-col :span="20">
-            <el-form-item label="区域名" prop="name">
-              <el-input v-model="addFormBody.name" placeholder="请输入区域"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="20">
-            <el-form-item label="校区" prop="name">
-              <el-select v-model="addFormBody.campusId" placeholder="请选择校区">
-                <el-option v-for="v of compusData" :key="v.id" :label="v.name" :value="v.id"></el-option>
-              </el-select>
+            <el-form-item label="校区名" prop="name">
+              <el-input v-model="addFormBody.name" placeholder="请输入校区"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -72,21 +62,12 @@
     </el-dialog>
 
     <!-- 编辑表单 -->
-    <el-dialog title="编辑楼栋区域" class="paramDialog" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
+    <el-dialog title="编辑校区" class="paramDialog" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="100px" ref="modifyFrom" :rules="rules">
         <el-row>
           <el-col :span="20">
-            <el-form-item label="区域名" prop="name">
-              <el-input v-model="modifyFromBody.name" placeholder="请输入区域"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="20">
-            <el-form-item label="校区" prop="name">
-              <el-select v-model="modifyFromBody.campusId" placeholder="请选择校区">
-                <el-option v-for="v of compusData" :key="v.id" :label="v.name" :value="v.id"></el-option>
-              </el-select>
+            <el-form-item label="校区名" prop="name">
+              <el-input v-model="modifyFromBody.name" placeholder="请输入校区"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -108,11 +89,10 @@
 
 <script type="text/ecmascript-6">
   import {
-    getRegionData,
     getCompusData,
-    postRegionData,
-    putRegionData,
-    deleteRegionData
+    postCompusData,
+    putCompusData,
+    deleteCompusData
   } from "@/api/basiceData";
   import utils from "@/utils/index.js";
   import * as types from "../../../store/mutation-types";
@@ -120,7 +100,7 @@
     data() {
       return {
         // 表格数据
-        regionData: [],
+        campusData: [],
         listLoading: false,
         totalNum: 0,
         page: 1,
@@ -156,7 +136,6 @@
         // 新增表单相关数据
         submitLoading: false,
         addFormVisible: false,
-        compusData: [],
         addFormBody: {
           description: "",
           name: ""
@@ -168,25 +147,6 @@
       this.getList();
     },
     methods: {
-      // 获取校区
-      getCompus() {
-        return new Promise((resolve, reject) => {
-          this.listLoading = true;
-          let params = {
-            page: 1,
-            size: 9999
-          };
-          getCompusData(params)
-            .then(res => {
-              this.compusData = res.data.data.data.list;
-              this.listLoading = false;
-              resolve(res.data);
-            })
-            .then(err => {
-              reject(err);
-            });
-        });
-      },
       // 获取区域
       getList() {
         this.listLoading = true;
@@ -194,10 +154,10 @@
           page: this.page,
           size: this.size
         };
-        getRegionData(param)
+        getCompusData(param)
           .then(res => {
             // console.log(res.data.data)
-            this.regionData = res.data.data.data.list;
+            this.campusData = res.data.data.data.list;
             this.totalNum = res.data.data.data.total;
             // console.log(res.data.data.list)
             this.listLoading = false;
@@ -208,15 +168,8 @@
       },
       //显示编辑
       showModifyDialog(index, row) {
-        if (this.compusData.length == 0) {
-          this.getCompus().then(res => {
-            this.modifyFormVisible = true;
-            this.modifyFromBody = Object.assign({}, row);
-          });
-        } else {
-          this.modifyFormVisible = true;
-          this.modifyFromBody = Object.assign({}, row);
-        }
+        this.modifyFormVisible = true;
+        this.modifyFromBody = Object.assign({}, row);
       },
       //编辑提交
       modifySubmit() {
@@ -224,7 +177,7 @@
           if (valid) {
             this.modifyLoading = true;
             let param = Object.assign({}, this.modifyFromBody);
-            putRegionData(param).then(res => {
+            putCompusData(param).then(res => {
               utils.statusinfo(this, res.data);
               this.modifyLoading = false;
               this.modifyFormVisible = false;
@@ -234,23 +187,13 @@
           }
         });
       },
-      // 显示新增
-      addForm() {
-        if (this.compusData.length == 0) {
-          this.getCompus().then(res => {
-            this.addFormVisible = true;
-          });
-        } else {
-          this.addFormVisible = true;
-        }
-      },
       // 新增提交
       addSubmit() {
         this.$refs["addForm"].validate(valid => {
           if (valid) {
             this.submitLoading = true;
             let param = Object.assign({}, this.addFormBody);
-            postRegionData(param).then(res => {
+            postCompusData(param).then(res => {
               // 公共提示方法
               utils.statusinfo(this, res.data);
               this.$refs["addForm"].resetFields();
@@ -263,7 +206,7 @@
         });
       },
       // 删除功能
-      delectRegion(index, row) {
+      delectCompus(index, row) {
         this.$confirm("此操作将删除该户型选项", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
@@ -272,7 +215,7 @@
           .then(() => {
             let param = row.id;
             this.listLoading = true;
-            deleteRegionData(param)
+            deleteCompusData(param)
               .then(res => {
                 // 公共提示方法
                 utils.statusinfo(this, res.data);

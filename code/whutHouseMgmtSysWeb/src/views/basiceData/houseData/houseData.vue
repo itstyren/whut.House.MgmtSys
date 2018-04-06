@@ -79,6 +79,11 @@
                 <el-input v-model="detailData.no" placeholder="请输入房屋标号" :readonly="!ismodify"></el-input>
               </el-form-item>
             </el-col>
+            <el-col :span="8" v-if="!ismodify" >
+              <el-form-item label="校区" prop="name">
+                <el-input v-model="detailData.campusName" :readonly="!ismodify"></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
         </div>
         <!-- 中间部分 -->
@@ -379,7 +384,7 @@ export default {
       ismodify: false,
       // 七牛云令牌
       postData: {
-        token: this.$store.state.uploadToken
+        token: this.$store.getters.qiniuToken
       },
       // 表格数据
       houseData: [],
@@ -402,7 +407,6 @@ export default {
       detailData: {},
       title: "详情",
       modified: false,
-
       // 新增表单相关数据
       submitLoading: false,
       addFormVisible: false,
@@ -560,7 +564,6 @@ export default {
         this.getList();
       }
     },
-
     // 获取房屋列表
     getList() {
       //console.log(this.queryStatus);
@@ -661,7 +664,8 @@ export default {
         for (let paramClass = 1; paramClass <= paramNum; paramClass++) {
           getHouseParam(param, paramClass)
             .then(res => {
-              this.addFormParam[paramClass] = res.data.data.data.list;
+              this.$set(this.addFormParam, paramClass, res.data.data.data.list);
+              //this.addFormParam[paramClass] = res.data.data.data.list;
               if (this.addFormParam[4] != null) this.submitLoading = false;
             })
             .catch(err => {
@@ -728,8 +732,8 @@ export default {
     successUpload(res, file, fileLis) {
       //console.log(res)
       if (this.addFormVisible == false) {
-        this.detailData.image = this.$store.state.uploadUrl + res.key;
-      } else this.addFormBody.image = this.$store.state.uploadUrl + res.key;
+        this.detailData.image = this.$store.getters.qiniuURL + res.key;
+      } else this.addFormBody.image = this.$store.state.qiniuURL + res.key;
       //console.log(this.addFormBody.image);
     },
     // 删除功能

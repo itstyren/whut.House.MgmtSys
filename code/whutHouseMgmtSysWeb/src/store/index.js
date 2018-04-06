@@ -14,7 +14,6 @@ export default new Vuex.Store({
   state: {
     regionStatus: false,
     // 七牛云令牌和地址
-    uploadToken: 'GfDe7p6rupDyEHYhvHfO-NhXvJ0KtxVOBSKxiKtU:chJ5XrNmoPmwD2Ux2y-kkAgqysI=:eyJzY29wZSI6IndodXRob3VzZW1nbXRzeXMiLCJkZWFkbGluZSI6MTUyMjUwODU2MX0=',
     uploadUrl: 'http://p1z72063k.bkt.clouddn.com/',
     // 单一职工信息
     staffData: {},

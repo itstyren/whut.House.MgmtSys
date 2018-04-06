@@ -7,6 +7,8 @@ const getters = {
   userID:state=>state.user.id,
   addRouters: state => state.permission.addRouters,
   permission_routers: state => state.permission.routers,
-  seachVisible: state => state.app.seachVisible
+  seachVisible: state => state.app.seachVisible,
+  qiniuURL: state => state.uploadUrl,
+  qiniuToken: state => state.user.qiniuToken
 }
 export default getters

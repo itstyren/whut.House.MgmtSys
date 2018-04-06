@@ -141,7 +141,7 @@ export default {
       // 表格需要的
       houseData: [],
       tableLoading: false,
-      totalNum: 1,
+      totalNum: 0,
       page: 1,
       size: 10
     };

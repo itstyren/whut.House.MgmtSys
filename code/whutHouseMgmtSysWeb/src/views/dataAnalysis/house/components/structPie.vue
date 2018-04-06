@@ -11,7 +11,7 @@
 import echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
 let _ = require("underscore");
-import { getHouseParamCount } from "@/api/dataAnalysis";
+import { postHouseParamCount } from "@/api/dataAnalysis";
 export default {
   props: {
     width: {
@@ -62,7 +62,7 @@ export default {
       var data = arguments[0];
       else var data={}
       this.chart.showLoading();
-      getHouseParamCount(params, data).then(res => {
+      postHouseParamCount(params, data).then(res => {
         this.chart.setOption({
           series: {
             data: res.data.data.content

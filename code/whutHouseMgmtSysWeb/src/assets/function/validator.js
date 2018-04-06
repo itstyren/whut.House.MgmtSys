@@ -1,5 +1,5 @@
 export const checkNum = (rule, value, callback) => {
-  const RULES = /^\d{0,20}$/
+  const RULES = /^\d{0,3000}$/
   if (!value) {
     callback();
   } else if (!RULES.test(value)) {

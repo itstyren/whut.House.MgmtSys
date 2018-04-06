@@ -70,7 +70,6 @@ export default {
               {
                 value: 69,
                 name: "申请注销数",
-
                 label: {
                   normal: {
                     formatter: "{d} %",
@@ -79,11 +78,6 @@ export default {
                     }
                   }
                 },
-                tooltip: {
-                  trigger: "item",
-                  formatter:
-                    "{a} <br/>计算公式:占比率=({b}/注销总数)*100%<br/> 申请注销数 : {c}"
-                }
               },
               {
                 value: 133,
