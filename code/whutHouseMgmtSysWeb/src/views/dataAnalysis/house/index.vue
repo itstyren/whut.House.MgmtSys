@@ -23,7 +23,7 @@
             <el-row style="margin:0 10px 0 -10px;" :gutter="20" >
               <el-col :span="10">
                 <el-row>
-                  <num-list></num-list>                  
+                  <num-list :filters-data="filtersData"></num-list>                  
                 </el-row>
                 <el-row>
                    <struct-pie :filters-data="filtersData"></struct-pie>
@@ -37,13 +37,13 @@
                   <region-bar :height="'718px'"></region-bar>
                 </el-row>
                 <el-row>
-                   <house-bar></house-bar>               
+                   <layout-bar :filters-data="filtersData"></layout-bar>               
                 </el-row>
               </el-col>
             </el-row>
             <el-row style="margin:0 10px 0 -10px;" :gutter="20" >
               <el-col :span="24">
-                <occupancy-rate></occupancy-rate>
+                <occupancy-rate :filters-data="filtersData"></occupancy-rate>
               </el-col>
             </el-row>
           </div>
@@ -56,7 +56,7 @@
 <script type="text/ecmascript-6">
   import houseFilter from "@/views/tools/houseFilter";
   import wuhanmMap from './components/map'
-  import houseBar from './components/houseBar'
+  import layoutBar from './components/layoutBar'
   import regionBar from './components/regionBar.vue'
   import structPie from './components/structPie.vue'
   import occupancyRate from './components/occupancyRate.vue'
@@ -71,7 +71,7 @@
     components: {
       houseFilter,
       wuhanmMap,
-      houseBar,
+      layoutBar,
       regionBar,
       structPie,
       occupancyRate,

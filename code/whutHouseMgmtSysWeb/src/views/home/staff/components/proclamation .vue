@@ -1,20 +1,38 @@
 <template>
-  <div class="proclamation card">
+  <div class="proclamation card" v-loading="listLoading">
     <div class="title">
       <strong>系统说明</strong>
     </div>
-    <div class="content">
-      {{content}}
+    <div class="content" v-html="content">
+     
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import {getSysParam} from '@/api/sysManage'
   export default {
     data() {
-      return {};
+      return {
+        content:'',
+        listLoading:false
+      };
     },
-    components: {}
+    created () {
+      this.getProclamation()
+    },
+    methods: {
+      getProclamation(){
+        this.listLoading=true
+        let params={
+          sysParamId:1
+        }
+        getSysParam(params).then(res=>{
+          this.content=res.data.data.data.sysParamContent
+          this.listLoading=false
+        })
+      }
+    }
   };
 
 </script>

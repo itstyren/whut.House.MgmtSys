@@ -10,6 +10,7 @@
 <script>
 import echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
+import { postHouseRecordCampus } from "@/api/dataAnalysis.js";
 let _ = require("underscore");
 export default {
   props: {
@@ -20,10 +21,9 @@ export default {
     height: {
       type: String,
       default: "350px"
-    },
-    autoResize: {
-      type: Boolean,
-      default: true
+    },    filtersData: {
+      type: Object,
+      default: {}
     }
   },
   data() {
@@ -33,6 +33,7 @@ export default {
   },
   mounted() {
     this.initChart();
+    this.getData()
     if (this.autoResize) {
       this.__resizeHanlder = _.debounce(() => {
         if (this.chart) {
@@ -51,6 +52,21 @@ export default {
     }
   },
   methods: {
+    getData(){
+if(arguments[0]!==undefined)
+      var data = arguments[0];
+      else var data={}
+      this.chart.showLoading();
+      postHouseRecordCampus(data).then(res => {
+        console.log(res.data.data)
+          this.chart.setOption({
+            series:[{
+              name:res.data.data.data.name
+            }]
+          })
+        this.chart.hideLoading();
+      });
+    },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {},
@@ -103,7 +119,7 @@ export default {
             ]
           },
           {
-            name: "东院校区",
+            name: "东院区",
             type: "pie",
             radius: ["40%", "70%"],
             center: ["10%", "50%"],
@@ -136,7 +152,7 @@ export default {
                 name: "其他类型数",
                 label: {
                   normal: {
-                    formatter: "\n东院校区",
+                    formatter: "\n东院2校区",
                     textStyle: {
                       color: "#555",
                       fontSize: 13
@@ -188,7 +204,7 @@ export default {
                 name: "其他类型数",
                 label: {
                   normal: {
-                    formatter: "\n余家头校区",
+                    formatter: "\n余家头2校区",
                     textStyle: {
                       color: "#555",
                       fontSize: 13

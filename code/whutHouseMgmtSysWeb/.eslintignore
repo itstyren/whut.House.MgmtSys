@@ -2,7 +2,8 @@ build/*.js
 config/*.js
 src/views/*.vue
 src/views/login/*.vue
-src/assets/icons/*js
+src/assets/icons/*.js
+src/assets/echart-theme/*.js
 src/store/*.js
 src/store/modules/*.js
 src/router/*js
