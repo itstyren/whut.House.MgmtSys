@@ -49,7 +49,7 @@
       <el-row>
         <el-col :span="5">
           <el-form-item label="所属校区">
-            <el-select v-model="campusId" size="small" :clearable="true" @clear="clearCampus" placeholder="全部区域">
+            <el-select v-model="campusId" size="small" :clearable="true" @clear="clearCampus" placeholder="全部校区">
               <el-option v-for="campus in campusData" :key="campus.id" :value="campus.id" :label="campus.name"></el-option>
             </el-select>
           </el-form-item>
