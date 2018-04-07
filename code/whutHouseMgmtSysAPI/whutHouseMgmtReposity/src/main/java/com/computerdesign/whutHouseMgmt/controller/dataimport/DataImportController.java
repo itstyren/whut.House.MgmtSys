@@ -304,8 +304,10 @@ public class DataImportController {
 					}
 					staff.setFixFund((long) Integer.parseInt(fixFund));
 
-					// 数据库字段Relation不能为空
+					// 设置一些默认值，数据库字段Relation不能为空
 					staff.setRelation("active");
+					staff.setStaffPassword("123");
+					staff.setRoleId(3);
 
 					staffs.add(staff);
 
@@ -469,6 +471,9 @@ public class DataImportController {
 					} else {
 						house.setFinishTime(finishTime);
 					}
+					
+					//设置一些默认值
+					house.setRecordStatus(0);
 					
 					houseService.add(house);
 					

@@ -40,7 +40,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyOTk5NDY5LCJleHAiOjE1MjMwMDMwNjl9.YzDS5amLJp3NNowSkQU5XXITI39BJMMGNHq-Y76fBW8");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMTEzMTkxLCJleHAiOjE1MjMxMTY3OTF9.XIQrUx0JyNmFqksvq_jwifuTYGhfAAHvMzOhBpyCLto");
 					},
 					type : "get",
 					contentType : 'application/json',
@@ -66,7 +66,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyOTk5NDY5LCJleHAiOjE1MjMwMDMwNjl9.YzDS5amLJp3NNowSkQU5XXITI39BJMMGNHq-Y76fBW8");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMTEzMTkxLCJleHAiOjE1MjMxMTY3OTF9.XIQrUx0JyNmFqksvq_jwifuTYGhfAAHvMzOhBpyCLto");
 					},
 					data : JSON.stringify(data),
 					url : uri,
@@ -91,7 +91,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTUzNzU4LCJleHAiOjE1MjE5NTczNTh9.VDMxBC1_KXGNIQYLU72_zubaZGf-rwtxbEYVGwjL3Oo");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMTEyMzE5LCJleHAiOjE1MjMxMTU5MTl9.R7GUW_KTTuyPXzXbtjOaUPXa8PcueAjDkYLqkUHfLAw");
 					},
 					data : JSON.stringify(data),
 					url : uri,
@@ -204,6 +204,33 @@
 
 	//职工参数
 	$(function() {
+		$("#addHouseSub").click(function() {
+			var data = {
+				'year' : '2018',
+				'subsidiesCoe' : 2.1,
+				'remark' : '测试住房补贴参数'
+			};
+			ajaxRequestPostType("staffParam/addHouseSub", "POST", data);
+		})
+		
+		$("#getAllHouseSub").click(function() {
+			ajaxRequestGet("staffParam/getAllHouseSub?page=1&size=2");
+		})
+		
+		$("#deleteHouseSub").click(function() {
+			ajaxRequestPostType("staffParam/deleteHouseSub/1", "DELETE", null);
+		})
+		
+		$("#updateHouseSub").click(function() {
+			var data = {
+				'id' : 1,
+				'year' : '2018',
+				'subsidiesCoe' : 2.8,
+				'remark' : '测试住房补贴参数'
+			};
+			ajaxRequestPostType("staffParam/updateHouseSub", "PUT", data);
+		})
+		
 		$("#staffWorkDeptParamGet").click(function() {
 			ajaxRequestGet("staffParam/get/5?page=1&size=25");
 		})
@@ -833,6 +860,18 @@
 			<br>
 		</div>
 		<div class="tab-pane fade" id="staffParam">
+			<h4>添加一条住房补贴参数记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="AddHouseSub" id="addHouseSub" /><br>
+			<h4>删除一条住房补贴参数记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="DeleteHouseSub" id="deleteHouseSub" /><br>
+			<h4>获取所有住房补贴参数记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetAllHouseSub" id="getAllHouseSub" /><br>
+			<h4>更新一条住房补贴参数记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="UpdateHouseSub" id="updateHouseSub" /><br>
 			<h4>获取职工参数</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="staffWorkDeptParamGet" id="staffWorkDeptParamGet" /> <br>
