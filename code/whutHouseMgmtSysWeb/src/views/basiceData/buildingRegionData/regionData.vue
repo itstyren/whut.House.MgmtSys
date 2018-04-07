@@ -109,7 +109,7 @@
 <script type="text/ecmascript-6">
   import {
     getRegionData,
-    getCompusData,
+    getCampusData,
     postRegionData,
     putRegionData,
     deleteRegionData
@@ -176,7 +176,7 @@
             page: 1,
             size: 9999
           };
-          getCompusData(params)
+          getCampusData(params)
             .then(res => {
               this.compusData = res.data.data.data.list;
               this.listLoading = false;

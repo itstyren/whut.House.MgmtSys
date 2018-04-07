@@ -120,7 +120,7 @@ import utils from "@/utils/index.js";
 import {
   getRegionWithBuildings,
   postHouseByComplexMultiCondition,
-  getCompusData
+  getCampusData
 } from "@/api/basiceData";
 import { getHouseParam } from "@/api/sysManage";
 export default {
@@ -242,7 +242,7 @@ export default {
           page: 1,
           size: 99999
         };
-        getCompusData(param)
+        getCampusData(param)
           .then(res => {
             this.hosueParam.campusData = res.data.data.data.list;
             this.listLoading = false;
