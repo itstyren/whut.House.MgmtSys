@@ -8,8 +8,10 @@
 </template>
 
 <script>
+const color=['#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8']
 import echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
+import { postHouseRecordCampus } from "@/api/dataAnalysis.js";
 let _ = require("underscore");
 export default {
   props: {
@@ -21,9 +23,9 @@ export default {
       type: String,
       default: "350px"
     },
-    autoResize: {
-      type: Boolean,
-      default: true
+    filtersData: {
+      type: Object,
+      default: {}
     }
   },
   data() {
@@ -33,6 +35,7 @@ export default {
   },
   mounted() {
     this.initChart();
+    this.getData();
     if (this.autoResize) {
       this.__resizeHanlder = _.debounce(() => {
         if (this.chart) {
@@ -51,221 +54,122 @@ export default {
     }
   },
   methods: {
+    getData() {
+      if (arguments[0] !== undefined) var data = arguments[0];
+      else var data = {};
+      this.chart.showLoading();
+      postHouseRecordCampus(data).then(res => {
+        let _series = [];
+        res.data.data.data.forEach((data, index) => {
+          console.log(data)
+          _series.push({
+            name: data.name,
+            data: [
+              {
+                value: data.data[0].value,
+                name: data.data[0].name,
+                label: {
+                  normal: {
+                    formatter: "{d} %",
+                    textStyle: {
+                      fontSize: 18
+                    }
+                  }
+                }
+              },
+              {
+                value: data.data[1].value,
+                name: data.data[1].name,
+                label: {
+                  normal: {
+                    formatter: `\n${data.name}`,
+                    textStyle: {
+                      color: "#555",
+                      fontSize: 13
+                    }
+                  }
+                },
+                itemStyle: {
+                  normal: {
+                    color: "#aaa"
+                  },
+                  emphasis: {
+                    color: "#aaa"
+                  }
+                }
+              }
+            ]
+          });
+        });
+        this.chart.setOption({
+          series: _series
+        });
+        this.chart.hideLoading();
+      });
+    },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {},
         series: [
           {
-            name: "南湖校区",
-            type: "pie",
-            radius: ["40%", "70%"],
-            center: ["50%", "50%"],
-            color: "#00EE76",
-            label: {
-              normal: {
-                position: "center"
-              }
-            },
-            data: [
-              {
-                value: 69,
-                name: "申请注销数",
-                label: {
-                  normal: {
-                    formatter: "{d} %",
-                    textStyle: {
-                      fontSize: 18
-                    }
-                  }
-                },
-              },
-              {
-                value: 133,
-                name: "其他类型数",
-                label: {
-                  normal: {
-                    formatter: "\n南湖校区",
-                    textStyle: {
-                      color: "#555",
-                      fontSize: 13
-                    }
-                  }
-                },
-                itemStyle: {
-                  normal: {
-                    color: "#aaa"
-                  },
-                  emphasis: {
-                    color: "#aaa"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            name: "东院校区",
             type: "pie",
             radius: ["40%", "70%"],
             center: ["10%", "50%"],
-            color: "#FF4500",
             label: {
               normal: {
                 position: "center"
               }
-            },
-            data: [
-              {
-                value: 38,
-                name: "吊销注销数",
-                label: {
-                  normal: {
-                    formatter: "{d} %",
-                    textStyle: {
-                      fontSize: 18
-                    }
-                  }
-                },
-                tooltip: {
-                  trigger: "item",
-                  formatter:
-                    "{a} <br/>计算公式:占比率=({b}/注销总数)*100%<br/> 吊销注销数 : {c}"
-                }
-              },
-              {
-                value: 164,
-                name: "其他类型数",
-                label: {
-                  normal: {
-                    formatter: "\n东院校区",
-                    textStyle: {
-                      color: "#555",
-                      fontSize: 13
-                    }
-                  }
-                },
-                itemStyle: {
-                  normal: {
-                    color: "#aaa"
-                  },
-                  emphasis: {
-                    color: "#aaa"
-                  }
-                }
-              }
-            ]
+            }
           },
           {
-            name: "到期注销",
             type: "pie",
             radius: ["40%", "70%"],
             center: ["30%", "50%"],
-            color: "#473C8B",
+            color:"#ddd",
             label: {
               normal: {
                 position: "center"
               }
-            },
-            data: [
-              {
-                value: 95,
-                name: "到期注销数",
-                label: {
-                  normal: {
-                    formatter: "{d} %",
-                    textStyle: {
-                      fontSize: 18
-                    }
-                  }
-                },
-                tooltip: {
-                  trigger: "item",
-                  formatter:
-                    "{a} <br/>计算公式:占比率=({b}/注销总数)*100%<br/> 到期注销数 : {c}"
-                }
-              },
-              {
-                value: 107,
-                name: "其他类型数",
-                label: {
-                  normal: {
-                    formatter: "\n余家头校区",
-                    textStyle: {
-                      color: "#555",
-                      fontSize: 13
-                    }
-                  }
-                },
-                itemStyle: {
-                  normal: {
-                    color: "#aaa"
-                  },
-                  emphasis: {
-                    color: "#aaa"
-                  }
-                }
-              }
-            ]
+            }
           },
-                    {
-            name: "南湖校区",
+
+          {
+            type: "pie",
+            radius: ["40%", "70%"],
+            center: ["50%", "50%"],
+            label: {
+              normal: {
+                position: "center"
+              }
+            }
+          },
+          {
             type: "pie",
             radius: ["40%", "70%"],
             center: ["70%", "50%"],
-            color: "#00EE76",
             label: {
               normal: {
                 position: "center"
               }
-            },
-            data: [
-              {
-                value: 69,
-                name: "申请注销数",
-
-                label: {
-                  normal: {
-                    formatter: "{d} %",
-                    textStyle: {
-                      fontSize: 18
-                    }
-                  }
-                },
-                tooltip: {
-                  trigger: "item",
-                  formatter:
-                    "{a} <br/>计算公式:占比率=({b}/注销总数)*100%<br/> 申请注销数 : {c}"
-                }
-              },
-              {
-                value: 133,
-                name: "其他类型数",
-                label: {
-                  normal: {
-                    formatter: "\n南湖校区",
-                    textStyle: {
-                      color: "#555",
-                      fontSize: 13
-                    }
-                  }
-                },
-                itemStyle: {
-                  normal: {
-                    color: "#aaa"
-                  },
-                  emphasis: {
-                    color: "#aaa"
-                  }
-                }
-              }
-            ]
+            }
           },
+          {
+            type: "pie",
+            radius: ["40%", "70%"],
+            center: ["90%", "50%"],
+            label: {
+              normal: {
+                position: "center"
+              }
+            }
+          }
         ],
         animationDuration: 2800,
         animationEasing: "cubicInOut"
       });
     },
     initChart() {
-      this.chart = echarts.init(this.$refs.structPie, "macarons");
+      this.chart = echarts.init(this.$refs.structPie);
       this.setOptions(this.chartData);
     }
   }

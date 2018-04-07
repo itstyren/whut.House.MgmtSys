@@ -91,7 +91,7 @@ export default {
           {
             name: "住房状态",
             type: "pie",
-            radius: ["30%", "65%"],
+            radius: ["30%", "60%"],
             center: ["55%", "50%"],
             labelLine: {
               normal: {

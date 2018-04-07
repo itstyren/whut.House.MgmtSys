@@ -33,66 +33,75 @@
 	//模拟Get请求
 	function ajaxRequestGet(uri) {
 		//alert("${API_Path }/" + uri);
-		$.ajax({
-			url : uri,
-			beforeSend : function(request) {
-				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNjM5NTgwLCJleHAiOjE1MjI2NDMxODB9.aaZB2_ZX1y_PmtrT00yVBmcpycMD5siG7d98qqnuL2M");
-			},
-			type : "get",
-			contentType : 'application/json',
-			dataType : 'json',
-			success : function(response) {
-				console.log(response);
-			},
-			error : function() {
-				console.log('Ajax请求失败！');
-			}
-		});
+		$
+				.ajax({
+					url : uri,
+					beforeSend : function(request) {
+						request
+								.setRequestHeader(
+										"X-token",
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyOTk5NDY5LCJleHAiOjE1MjMwMDMwNjl9.YzDS5amLJp3NNowSkQU5XXITI39BJMMGNHq-Y76fBW8");
+					},
+					type : "get",
+					contentType : 'application/json',
+					dataType : 'json',
+					success : function(response) {
+						console.log(response);
+					},
+					error : function() {
+						console.log('Ajax请求失败！');
+					}
+				});
 	}
 
 	//模拟Post类请求
 	function ajaxRequestPostType(uri, method, data) {
 		//alert("${API_Path }/" + uri);
-		$.ajax({
-			type : method,
-			contentType : 'application/json;charset=UTF-8',
-			dataType : 'json',
-			beforeSend : function(request) {
-				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyNjM5NTgwLCJleHAiOjE1MjI2NDMxODB9.aaZB2_ZX1y_PmtrT00yVBmcpycMD5siG7d98qqnuL2M");
-			},
-			data : JSON.stringify(data),
-			url : uri,
-			success : function(response) {
-				console.log(response);
-			},
-			error : function() {
-				console.log('Ajax请求失败！');
-			}
-		});
+		$
+				.ajax({
+					type : method,
+					contentType : 'application/json;charset=UTF-8',
+					dataType : 'json',
+					beforeSend : function(request) {
+						request
+								.setRequestHeader(
+										"X-token",
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIyOTk5NDY5LCJleHAiOjE1MjMwMDMwNjl9.YzDS5amLJp3NNowSkQU5XXITI39BJMMGNHq-Y76fBW8");
+					},
+					data : JSON.stringify(data),
+					url : uri,
+					success : function(response) {
+						console.log(response);
+					},
+					error : function() {
+						console.log('Ajax请求失败！');
+					}
+				});
 	}
 
 	//数据导入的Post类请求
 	function ajaxRequestPostTypeForDataImport(uri, method, data) {
 		//alert("${API_Path }/" + uri);
-		$.ajax({
-			type : method,
-			contentType : 'multipart/form-data;charset=UTF-8',
-			dataType : 'json',
-			beforeSend : function(request) {
-				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTUzNzU4LCJleHAiOjE1MjE5NTczNTh9.VDMxBC1_KXGNIQYLU72_zubaZGf-rwtxbEYVGwjL3Oo");
-			},
-			data : JSON.stringify(data),
-			url : uri,
-			success : function(response) {
-				console.log(response);
-			},
-			error : function() {
-				console.log('Ajax请求失败！');
-			}
-		});
+		$
+				.ajax({
+					type : method,
+					contentType : 'multipart/form-data;charset=UTF-8',
+					dataType : 'json',
+					beforeSend : function(request) {
+						request
+								.setRequestHeader(
+										"X-token",
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTUzNzU4LCJleHAiOjE1MjE5NTczNTh9.VDMxBC1_KXGNIQYLU72_zubaZGf-rwtxbEYVGwjL3Oo");
+					},
+					data : JSON.stringify(data),
+					url : uri,
+					success : function(response) {
+						console.log(response);
+					},
+					error : function() {
+						console.log('Ajax请求失败！');
+					}
+				});
 
 	}
 
@@ -102,26 +111,29 @@
 		var name = $("#upfile").val();
 		formData.append("file", $("#upfile")[0].files[0]);
 		formData.append("name", name);
-		$.ajax({
-			url : "dataImport/staffDataImport",
-			type : 'POST',
-			async : false,
-			data : formData,
-			// 告诉jQuery不要去处理发送的数据
-			processData : false,
-			// 告诉jQuery不要去设置Content-Type请求头
-			contentType : false,
-			beforeSend : function(request) {
-				request.setRequestHeader("X-token",
-						"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTUzNzU4LCJleHAiOjE1MjE5NTczNTh9.VDMxBC1_KXGNIQYLU72_zubaZGf-rwtxbEYVGwjL3Oo");
-			},
-			success : function(response) {
-				console.log(response);
-			},
-			error : function() {
-				console.log('Ajax请求失败！');
-			}
-		});
+		$
+				.ajax({
+					url : "dataImport/staffDataImport",
+					type : 'POST',
+					async : false,
+					data : formData,
+					// 告诉jQuery不要去处理发送的数据
+					processData : false,
+					// 告诉jQuery不要去设置Content-Type请求头
+					contentType : false,
+					beforeSend : function(request) {
+						request
+								.setRequestHeader(
+										"X-token",
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIxOTUzNzU4LCJleHAiOjE1MjE5NTczNTh9.VDMxBC1_KXGNIQYLU72_zubaZGf-rwtxbEYVGwjL3Oo");
+					},
+					success : function(response) {
+						console.log(response);
+					},
+					error : function() {
+						console.log('Ajax请求失败！');
+					}
+				});
 	}
 
 	//数据导入
@@ -142,8 +154,8 @@
 				"rentEventId" : 26,
 				"rentTimeBegin" : "2018-4-3 16:40:00",
 				"rentTimeRanges" : 30,
-				"dayRentTimeBegin":"08:15",
-				"dayRentTimeEnd":"17:30",
+				"dayRentTimeBegin" : "08:15",
+				"dayRentTimeEnd" : "17:30",
 				"rentSelValReq" : 5,
 				"rentSelRules" : "无规则"
 			}
@@ -159,8 +171,8 @@
 			var data = {
 				"rentTimeBegin" : "2018-4-5 17:40:00",
 				//"rentTimeRanges" : "2017-11-4",
-				"dayRentTimeBegin":"09:15",
-				"dayRentTimeEnd":"17:30",
+				"dayRentTimeBegin" : "09:15",
+				"dayRentTimeEnd" : "17:30",
 				"rentTimeRanges" : 30,
 				"rentSelValReq" : 5,
 				"rentSelRules" : "无规则"
@@ -243,10 +255,13 @@
 
 	//职工管理
 	$(function() {
-		
-		$("#calculateStaffValueByStaffNo").click(function() {
-			ajaxRequestPostType("staff/calculateStaffValueByStaffNo/2788", "POST", null);
-		})
+
+		$("#calculateStaffValueByStaffNo").click(
+				function() {
+					ajaxRequestPostType(
+							"staff/calculateStaffValueByStaffNo/2788", "POST",
+							null);
+				})
 		$("#calculateAllStaffValue").click(function() {
 			ajaxRequestPostType("staff/calculateAllStaffValue", "POST", null);
 		})
@@ -340,37 +355,46 @@
 						//'useStatus' : '空闲',
 						//'houseZone' : '武汉市洪山区工大路20号',
 						//'building' : '1栋（原鉴湖401栋）'
+						'houseTypeId' : 6,
+						'useStatusId' : 24,
+						'campusId' : 1,
+						'regionId' : 1,
+						'buildingId' : 1
 					};
 					ajaxRequestPostType("houseRegister/getByMultiCondition",
 							"POST", data);
 				})
 
-		$("#getByAllMultiCondition").click(
-				function() {
-					var data = {
-						//键的名字与Model属性名一致
-						'houseType' : '周转房342萨达',
-						'useStatus' : '空闲',
-						'houseZone' : '武汉市洪山区工大路20号',
-						'building' : '1栋（原鉴湖401栋）',
-						'structName' : '砖木',
-						'layoutName' : '两室',
-						'areaParameter' : {
-							'areaParamName' : '建筑面积',
-							'minArea' : 35,
-							'maxArea' : 38
-						},
-						//'finishTime':['2017-01-31','2017-02-02'],
-						'finishTime' : {
-							'startTime' : '2017-01-31',
-							'endTime' : '2017-02-02'
-						}
-						//'page' : 1,
-						//'size' : 2 
-					};
-					ajaxRequestPostType("houseRegister/getByAllMultiCondition?page=1&&size=25",
-							"POST", data);
-				})
+		$("#getByAllMultiCondition")
+				.click(
+						function() {
+							var data = {
+								//键的名字与Model属性名一致
+								'houseTypeId' : 6,
+								'useStatusId' : 24,
+								'structId' : 29,
+								'layoutId' : 19,
+								'areaParameter' : {
+									'areaParamName' : '建筑面积',
+									'minArea' : 35,
+									'maxArea' : 52
+								},
+								'finishTime' : {
+									'startTime' : '1999-01-31',
+									'endTime' : '2012-02-02'
+								},
+								'campusId' : 1,
+								'regionId' : 1,
+								'buildingId' : 1
+							//'finishTime':['2017-01-31','2017-02-02'],
+
+							//'page' : 1,
+							//'size' : 2 
+							};
+							ajaxRequestPostType(
+									"houseRegister/getByAllMultiCondition?page=1&&size=25",
+									"POST", data);
+						})
 
 		$("#getStaffHouseRel").click(function() {
 			ajaxRequestGet("houseRegister/getStaffHouseRel/2");
@@ -478,57 +502,54 @@
 
 		})
 
-		$("#activeHouseShowByMultiCondition").click(
-				function() {
-					var data = {
-						'houseType' : '周转房342萨达',
-						'useStatus' : '空闲',
-						'houseZone' : '武汉市洪山区工大路20号',
-						'structName' : '砖木',
-						'layoutName' : '两室',
-						'building' : '1栋（原鉴湖401栋）',
-						'rentalScope' : {
-							'minRental' : 500,
-							'maxRental' : 1500
-						},
-						'areaParameter' : {
-							'areaParamName' : '使用面积',
-							'minArea' : 20,
-							'maxArea' : 40
-						},
-						//'page' : 1,
-						//'size' : 2
-					};
-					ajaxRequestPostType(
-							"housingSet/activeHouseShowByMultiCondition?page=1&&size=2",
-							"POST", data);
-				})
+		$("#activeHouseShowByMultiCondition")
+				.click(
+						function() {
+							var data = {
+								'houseTypeId' : 6,
+								'useStatusId' : 26,
+								'structId' : 29,
+								'layoutId' : 19,
+								'rentalScope' : {
+									'minRental' : 500,
+									'maxRental' : 1500
+								},
+								'campusId' : 1,
+								'regionId' : 1,
+								'buildingId' : 1,
+							/* 'areaParameter' : {
+								'areaParamName' : '使用面积',
+								'minArea' : 20,
+								'maxArea' : 40
+							}, */
+							//'page' : 1,
+							//'size' : 2
+							};
+							ajaxRequestPostType(
+									"housingSet/activeHouseShowByMultiCondition?page=1&&size=2",
+									"POST", data);
+						})
 
-		$("#canselectHouseShowByMultiCondition").click(
-				function() {
-					var data = {
-						/* 'houseType' : '周转房342萨达',
-						'useStatus' : '空闲',
-						'houseZone' : '武汉市洪山区工大路20号',
-						'structName' : '砖木',
-						'layoutName' : '两室',
-						'building' : '2栋（原鉴湖402栋）',
-						'rentalScope' : {
-							'minRental' : 500,
-							'maxRental' : 1500
-						},
-						'areaParameter' : {
-							'areaParamName' : '使用面积',
-							'minArea' : 20,
-							'maxArea' : 40
-						}, */
-						//'page' : 1,
-						//'size' : 2
-					};
-					ajaxRequestPostType(
-							"housingSet/canselectHouseShowByMultiCondition?page=1&&size=2",
-							"POST", data);
-				})
+		$("#canselectHouseShowByMultiCondition")
+				.click(
+						function() {
+							var data = {
+								'houseTypeId' : 6,
+								'useStatusId' : 26,
+								'structId' : 29,
+								'layoutId' : 19,
+								'rentalScope' : {
+									'minRental' : 500,
+									'maxRental' : 1500
+								},
+								'campusId' : 1,
+								'regionId' : 1,
+								'buildingId' : 1,
+							};
+							ajaxRequestPostType(
+									"housingSet/canselectHouseShowByMultiCondition?page=1&&size=2",
+									"POST", data);
+						})
 
 		$("#canselectHouseShow").click(function() {
 			ajaxRequestGet("housingSet/canselectHouseShow?page=2&size=2");
@@ -600,7 +621,7 @@
 
 		$("#setCanselect").click(function() {
 			//传递的是职工编号staffNo数组
-			var data = [ 6,8 ];
+			var data = [ 6, 8 ];
 			ajaxRequestPostType("selHouseQuaAuth/setCanselect", "POST", data);
 
 		})
@@ -690,85 +711,74 @@
 									"POST", data);
 						})
 	})
-	
+
 	//个人信息
 	$(function() {
 
-		$("#getFixInfoByStaffId")
-				.click(
-						function() {
-							ajaxRequestGet("fix/getByStaffId/3");
-						})
-						
-		$("#getHireInfoByStaffId")
-				.click(
-						function() {
-							ajaxRequestGet("hire/getAllByStaffId/3");
-						})
-		$("#getFixProcessStateChangeInfo")
-				.click(
-						function() {
-							ajaxRequestGet("staffHomePage/getFixProcessStateChangeInfo/6");
-						})
-		
-		$("#getHireProcessStateChangeInfo")
-				.click(
-						function() {
-							ajaxRequestGet("staffHomePage/getHireProcessStateChangeInfo/18");
-						})
-		$("#fixEvaluation")
-				.click(
-						function() {
-							var data ={
-								'fixId':63,
-								'ratings':3,
-								'description':'还行'
-							};
-							ajaxRequestPostType("fixRatings/fixEvaluation","PUT",data);
-						})
-		$("#getResidentHouseByStaffId")
-				.click(
-						function() {
-							ajaxRequestGet("houseInfo/getResidentHouseByStaffId/2");
-						})
-									
+		$("#getFixInfoByStaffId").click(function() {
+			ajaxRequestGet("fix/getByStaffId/3");
+		})
+
+		$("#getHireInfoByStaffId").click(function() {
+			ajaxRequestGet("hire/getAllByStaffId/3");
+		})
+		$("#getFixProcessStateChangeInfo").click(function() {
+			ajaxRequestGet("staffHomePage/getFixProcessStateChangeInfo/6");
+		})
+
+		$("#getHireProcessStateChangeInfo").click(function() {
+			ajaxRequestGet("staffHomePage/getHireProcessStateChangeInfo/18");
+		})
+		$("#fixEvaluation").click(function() {
+			var data = {
+				'fixId' : 63,
+				'ratings' : 3,
+				'description' : '还行'
+			};
+			ajaxRequestPostType("fixRatings/fixEvaluation", "PUT", data);
+		})
+		$("#getResidentHouseByStaffId").click(function() {
+			ajaxRequestGet("houseInfo/getResidentHouseByStaffId/2");
+		})
+
 	})
-	
+
 	//查询统计
 	$(function() {
 
 		$("#staffMoreHouseQuery")
 				.click(
 						function() {
-							var data ={
-									'houseTypeId':6,
-									'staffTypeId':145
-								};
-								ajaxRequestPostType("moreHouseQuery/staffMoreHouseQuery?page=1&size=15","POST",data);
+							var data = {
+								'houseTypeId' : 6,
+								'staffTypeId' : 145
+							};
+							ajaxRequestPostType(
+									"moreHouseQuery/staffMoreHouseQuery?page=1&size=15",
+									"POST", data);
 						})
-						
-		$("#staffMoreHouseSta")
-				.click(
-						function() {
-							var data ={
-									/* 'houseTypeId':6,
-									'staffTypeId':145 */
-								};
-								ajaxRequestPostType("moreHouseQuery/staffMoreHouseSta","POST",data);
-						})
-		$("#staffMoreHouseStaByStaffId")
-				.click(
-						function() {
-							var data ={
-									/* 'houseTypeId':6,
-									'staffTypeId':145 */
-								};
-								ajaxRequestPostType("moreHouseQuery/staffMoreHouseStaByStaffId/3","POST",data);
-						})
-						
+
+		$("#staffMoreHouseSta").click(
+				function() {
+					var data = {
+					/* 'houseTypeId':6,
+					'staffTypeId':145 */
+					};
+					ajaxRequestPostType("moreHouseQuery/staffMoreHouseSta",
+							"POST", data);
+				})
+		$("#staffMoreHouseStaByStaffId").click(
+				function() {
+					var data = {
+					/* 'houseTypeId':6,
+					'staffTypeId':145 */
+					};
+					ajaxRequestPostType(
+							"moreHouseQuery/staffMoreHouseStaByStaffId/3",
+							"POST", data);
+				})
+
 	})
-	
-	
 </script>
 
 </head>
@@ -850,10 +860,12 @@
 		<div class="tab-pane fade" id="staffManagement">
 			<h4>计算单个职工总分</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="calculateStaffValueByStaffNo" id="calculateStaffValueByStaffNo" /> <br> <br>
+				value="calculateStaffValueByStaffNo"
+				id="calculateStaffValueByStaffNo" /> <br> <br>
 			<h4>计算所有职工总分</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="CalculateAllStaffValue" id="calculateAllStaffValue" /> <br> <br>
+				value="CalculateAllStaffValue" id="calculateAllStaffValue" /> <br>
+			<br>
 			<h4>根据ID重置该员工密码</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="resetPassword" id="resetPassword" /> <br> <br>
@@ -935,9 +947,8 @@
 			<h4>下载</h4>
 			<a href="dataImport/staffDownLoad">职工模板下载</a> <br> <br> <a
 				href="dataImport/houseDownLoad">住房模板下载</a><br> <br> <a
-				href="dataImport/residentDownLoad">住户模板下载</a>
-				
-			<a href="exportToWord/hire/18">word</a>
+				href="dataImport/residentDownLoad">住户模板下载</a> <a
+				href="exportToWord/hire/18">word</a>
 			<!-- <input type="file" id="upfile" name="upfile" placeholder="" />
 			<button onclick="importExp();">导入</button> -->
 			<!-- <input class="btn btn-info btn-lg" type="file"
@@ -1019,48 +1030,43 @@
 			<input class="btn btn-info btn-lg" type="button" value="RentGen"
 				id="rentGen" /> <br>
 		</div>
-		
+
 		<div class="tab-pane fade" id="personalInfo">
 			<h4>根据职工id获取维修信息</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="GetFixInfoByStaffId" id="getFixInfoByStaffId" />
-			<br>
+				value="GetFixInfoByStaffId" id="getFixInfoByStaffId" /> <br>
 			<h4>根据职工id获取租赁信息</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="GetHireInfoByStaffId" id="getHireInfoByStaffId" />
-			<br>
+				value="GetHireInfoByStaffId" id="getHireInfoByStaffId" /> <br>
 			<h4>首页维修信息更新通知</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="GetFixProcessStateChangeInfo" id="getFixProcessStateChangeInfo" />
-			<br>
+				value="GetFixProcessStateChangeInfo"
+				id="getFixProcessStateChangeInfo" /> <br>
 			<h4>首页住房申请信息更新通知</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="GetHireProcessStateChangeInfo" id="getHireProcessStateChangeInfo" />
-			<br>
+				value="GetHireProcessStateChangeInfo"
+				id="getHireProcessStateChangeInfo" /> <br>
 			<h4>维修评价</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="FixEvaluation" id="fixEvaluation" />
-			<br>
+				value="FixEvaluation" id="fixEvaluation" /> <br>
 			<h4>获取职工房屋信息</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetResidentHouseByStaffId" id="getResidentHouseByStaffId" />
 			<br>
-			
-				
+
+
 		</div>
 		<div class="tab-pane fade" id="querySta">
 			<h4>多住房查询统计</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="StaffMoreHouseQuery" id="staffMoreHouseQuery" />
-			<br>	
+				value="StaffMoreHouseQuery" id="staffMoreHouseQuery" /> <br>
 			<h4>多住房统计，根据staffId查询个人的多住房</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="StaffMoreHouseStaByStaffId" id="staffMoreHouseStaByStaffId" />
 			<br>
 			<h4>多住房统计</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="StaffMoreHouseSta" id="staffMoreHouseSta" />
-			<br>				
+				value="StaffMoreHouseSta" id="staffMoreHouseSta" /> <br>
 		</div>
 
 	</div>

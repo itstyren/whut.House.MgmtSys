@@ -137,7 +137,7 @@ public class DataImportController {
 				// 获取上传的Excel表
 				workBook = new XSSFWorkbook(multipartFile.getInputStream());
 			}
-
+			System.out.println("AA");
 			// 获取该Excel表的第一个工作表
 			Sheet sheet = workBook.getSheetAt(0);
 			// 获取Excel表中的所有行数
@@ -183,11 +183,13 @@ public class DataImportController {
 					staff.setName(val[1]);
 					staff.setSex(val[2]);
 					staff.setMarriageState(val[3]);
+					System.out.println("BB");
 					Integer title = dataImportService.getStaffParamId(val[4]);
 					Integer post = dataImportService.getStaffParamId(val[5]);
 					Integer type = dataImportService.getStaffParamId(val[6]);
 					Integer status = dataImportService.getStaffParamId(val[7]);
 					Integer dept = dataImportService.getStaffParamId(val[8]);
+					System.out.println("CC");
 					if (title == null) {
 						System.out.println("该员工职称参数不存在或已删除");
 					} else if (post == null) {
@@ -208,12 +210,13 @@ public class DataImportController {
 
 					String code = val[9];
 					// 正则验证code的合法性
-					String codeReg = "(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)";
-					if (code.matches(codeReg)) {
-						staff.setCode(code);
-					} else {
-						System.out.println("身份证号格式非法,请检查Excel表中是否改为文本模式或知否输入正确");
-					}
+//					String codeReg = "(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)";
+//					if (code.matches(codeReg)) {
+//						staff.setCode(code);
+//					} else {
+//						System.out.println("身份证号格式非法,请检查Excel表中是否改为文本模式或知否输入正确");
+//					}
+					staff.setCode(code);
 
 					String eduQualification = val[10];
 					staff.setEduQualifications(eduQualification);
@@ -240,24 +243,26 @@ public class DataImportController {
 					// 联系电话
 					String tel = val[13];
 					System.out.println(tel);
-					String telReg = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
-					if (tel.matches(telReg)) {
-						staff.setTel(tel);
-					} else {
-						System.out.println("电话号码格式非法,请检查EXCEL表是否为文本格式或是否输入正确");
-					}
-
+//					String telReg = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+//					if (tel.matches(telReg)) {
+//						staff.setTel(tel);
+//					} else {
+//						System.out.println("电话号码格式非法,请检查EXCEL表是否为文本格式或是否输入正确");
+//					}
+					staff.setTel(tel);
+					
 					// 备注
 					staff.setRemark(val[14]);
 					// 配偶姓名
 					staff.setSpouseName(val[15]);
 					// 配偶身份证号
 					String spouseCode = val[16];
-					if (spouseCode.matches(codeReg)) {
-						staff.setSpouseCode(spouseCode);
-					} else {
-						System.out.println("配偶身份证号格式非法,请检查Excel表中是否改为文本模式或知否输入正确");
-					}
+//					if (spouseCode.matches(codeReg)) {
+//						staff.setSpouseCode(spouseCode);
+//					} else {
+//						System.out.println("配偶身份证号格式非法,请检查Excel表中是否改为文本模式或知否输入正确");
+//					}
+					staff.setSpouseCode(spouseCode);
 					// 配偶职称
 					Integer spouseTitle = dataImportService.getStaffParamId(val[17]);
 					// 配偶职务
@@ -609,7 +614,7 @@ public class DataImportController {
 					if (familyCode.indexOf('.') != -1) {
 						familyCode = familyCode.substring(0, familyCode.indexOf('.'));
 					}
-					
+					resident.setFamilyCode(familyCode);
 					
 					resident.setIsDelete(false);
 					System.out.println(familyCode);

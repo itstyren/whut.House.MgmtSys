@@ -4,29 +4,29 @@
       <el-row>
         <el-col :span="4">
           <el-form-item label="住房类型">
-            <el-select v-model="queryForm.houseType" size="small" :clearable="true" placeholder="所有类型">
-              <el-option v-for="v in typeData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
+            <el-select v-model="queryForm.houseTypeId" size="small" :clearable="true" placeholder="所有类型">
+              <el-option v-for="v in typeData" :key="v.houseParamId" :value="v.houseParamId" :label="v.houseParamName"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="4">
           <el-form-item label="使用状态">
-            <el-select v-model="queryForm.useStatus" size="small" :clearable="true" placeholder="所有状态">
-              <el-option v-for="v in statusData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
+            <el-select v-model="queryForm.useStatusId" size="small" :clearable="true" placeholder="所有状态">
+              <el-option v-for="v in statusData" :key="v.houseParamId" :value="v.houseParamId" :label="v.houseParamName"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="4">
           <el-form-item label="住房结构">
-            <el-select v-model="queryForm.structName" size="small" :clearable="true" placeholder="所有结构">
-              <el-option v-for="v in structData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
+            <el-select v-model="queryForm.structId" size="small" :clearable="true" placeholder="所有结构">
+              <el-option v-for="v in structData" :key="v.houseParamId" :value="v.houseParamId" :label="v.houseParamName"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="4">
           <el-form-item label="住房户型">
-            <el-select v-model="queryForm.layoutName" size="small" :clearable="true" placeholder="所有户型">
-              <el-option v-for="v in layoutData" :key="v.houseParamId" :value="v.houseParamName" :label="v.houseParamName"></el-option>
+            <el-select v-model="queryForm.layoutId" size="small" :clearable="true" placeholder="所有户型">
+              <el-option v-for="v in layoutData" :key="v.houseParamId" :value="v.houseParamId" :label="v.houseParamName"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -49,14 +49,14 @@
       <el-row>
         <el-col :span="6">
           <el-form-item label="住房区域">
-            <el-select v-model="houseZone" size="small" :clearable="true" @clear="clearRegion" placeholder="全部区域">
+            <el-select v-model="regionId" size="small" :clearable="true" @clear="clearRegion" placeholder="全部区域">
               <el-option v-for="region in regionBuildingData" :key="region.id" :value="region.id" :label="region.name"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="住房楼栋">
-            <el-select v-model="building" size="small" :clearable="true" placeholder="全部房屋">
+            <el-select v-model="buildingId" size="small" :clearable="true" placeholder="全部房屋">
               <el-option v-for="building in buildingData" :key="building.id" :value="building.id" :label="building.name"></el-option>
             </el-select>
           </el-form-item>
@@ -79,8 +79,8 @@ export default {
       queryForm: {},
       minRental: "",
       maxRental: "",
-      houseZone: "",
-      building: "",
+      regionId: "",
+      buildingId: "",
       time: [],
       typeData: [],
       layoutData: [],
@@ -92,7 +92,7 @@ export default {
   },
   computed: {
     selectRegion() {
-      return this.houseZone;
+      return this.regionId;
     }
   },
   watch: {
@@ -173,11 +173,11 @@ export default {
           maxRental: this.maxRental
         };
       }
-      if (this.houseZone != "") {
-        this.queryForm.houseZone = this.houseZone;
+      if (this.regionId != "") {
+        this.queryForm.regionId = this.regionId;
       }
-      if (this.building != "") {
-        this.queryForm.building = this.building;
+      if (this.buildingId != "") {
+        this.queryForm.buildingId = this.buildingId;
       }
       for (let v in this.queryForm) {
         if (this.queryForm[v] == "") {
@@ -192,8 +192,8 @@ export default {
     // 重置查询表单
     resseting() {
       this.time = [];
-      this.houseZone = "";
-      this.building = "";
+      this.regionId = "";
+      this.buildingId = "";
       this.minRental = "";
       this.maxRental = "";
       this.queryForm = {};

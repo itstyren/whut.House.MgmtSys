@@ -187,3 +187,21 @@ export function postResident(data) {
     data: data
   })
 }
+// 参数设置--系统参数
+// 获取方法
+export function getSysParam(params) {
+  return request({
+    url: `/systemParam/get`,
+    method: 'get',
+    params: params
+
+  })
+}
+// 更新方法
+export function putSysParam(data) {
+  return request({
+    url: `/systemParam/update`,
+    method: 'put',
+    data: data
+  })
+}

@@ -2,36 +2,40 @@ package com.computerdesign.whutHouseMgmt.bean.houseregister;
 
 /**
  * 用于封装模糊查询查找出来显示的信息,基于视图查询
+ * 
  * @author Administrator
  *
  */
 public class HouseShowModel {
-	
-	//住房id
+
+	// 住房id
 	private Integer houseId;
 
-	//住房号
+	// 住房号
 	private String houseNo;
-	
-	//住房类型
+
+	// 住房类型
 	private String houseSort;
-	
-	//户型
+
+	// 户型
 	private String houseType;
-	
-	//使用状态
+
+	// 使用状态
 	private String useStatus;
-	
-	//使用面积
+
+	// 使用面积
 	private double usedArea;
-	
-	//地址
+
+	// 地址
 	private String address;
-	
-	//所属区域
+
+	// 校区
+	private String campusName;
+
+	// 所属区域
 	private String zoneName;
-	
-	//所属楼栋
+
+	// 所属楼栋
 	private String buildingName;
 
 	public Integer getHouseId() {
@@ -41,7 +45,7 @@ public class HouseShowModel {
 	public void setHouseId(Integer houseId) {
 		this.houseId = houseId;
 	}
-	
+
 	public String getHouseNo() {
 		return houseNo;
 	}
@@ -90,6 +94,14 @@ public class HouseShowModel {
 		this.address = address;
 	}
 
+	public String getCampusName() {
+		return campusName;
+	}
+
+	public void setCampusName(String campusName) {
+		this.campusName = campusName;
+	}
+
 	public String getZoneName() {
 		return zoneName;
 	}
@@ -112,7 +124,5 @@ public class HouseShowModel {
 				+ ", useStatus=" + useStatus + ", usedArea=" + usedArea + ", address=" + address + ", zoneName="
 				+ zoneName + ", buildingName=" + buildingName + "]";
 	}
-	
-	
-	
+
 }
