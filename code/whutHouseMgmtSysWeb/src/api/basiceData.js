@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 // 基础数据--校区管理
 // 获取方法
-export function getCompusData(params) {
+export function getCampusData(params) {
   return request({
     url: `/campus/all`,
     method: 'get',

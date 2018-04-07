@@ -32,7 +32,8 @@ export default {
         analysis:'Analysis',
         houseAnalysis:'HouseAnalysis',
         scanning:'Scanning',
-        announcement:'Announcement'
+        announcement:'Announcement',
+        fixFormAnalysis:'FixFormAnalysis'
     },
     header:{
         title:'Wuhan University of Technology',

@@ -81,8 +81,8 @@ export default {
           {
             name: "结构占比",
             type: "pie",
-            radius: [30, "85%"],
-            center: ["50%", "45%"],
+            radius: [30, "75%"],
+            center: ["50%", "50%"],
             roseType: "radius",
             //color: ['#f2c955', '#00a69d', '#46d185', '#ec5845'],
             label: {

@@ -177,6 +177,7 @@ export const asyncRouterMap = [
             { path: 'hireApply', component: _import('online/hireApply'), name: 'hireApply', meta: { title: 'hireApply' } },
         ]
     },
+    /* 数据分析 */
     {
         path: '/analysis',
         component: layout,
@@ -184,6 +185,7 @@ export const asyncRouterMap = [
         meta: { roles: [ADMIN, STAFF], title: 'analysis' }, // you can set roles in root nav                                              
         children: [
             { path: 'house', component: _import('dataAnalysis/house/index'), name: 'houseAnalysis', meta: { title: 'houseAnalysis' } },
+            { path: 'fix', component: _import('dataAnalysis/fix/index'), name: 'fixFormAnalysis', meta: { title: 'fixFormAnalysis' } },
             { path: 'scanning', component: _import('dataAnalysis/scanning'), name: 'scanning', meta: { title: 'scanning' } },
         ]
     },

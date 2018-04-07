@@ -5,6 +5,7 @@ import Vue from 'vue'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VCharts from 'v-charts'
+import VueAMap from 'vue-amap';
 // 全局组件引入
 import myIcon from '@/components/SvgIcon'
 // 引入vue全家桶
@@ -43,8 +44,14 @@ Vue.use(Element, {
 })
 Vue.use(VCharts)
 Vue.use(VueQuillEditor, /* { default global options } */)
+Vue.use(VueAMap);
 Vue.config.productionTip = false
-
+VueAMap.initAMapApiLoader({
+  key: '25eb288ee358a8196bd9704f22dd4ec7',
+  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+  // 默认高德 sdk 版本为 1.4.4
+  v: '1.4.4'
+});
 Vue.component('my-icon', myIcon)
 
 /* eslint-disable no-new */

@@ -75,9 +75,9 @@
                   <span v-else>{{ scope.row.fixMoney }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="isOver" label="是否结算" align="center">
+              <el-table-column prop="isCheck" label="是否结算" align="center">
                 <template slot-scope="scope">
-                  <my-icon v-if="scope.row.isOver" icon-class="icon-" />
+                  <my-icon v-if="scope.row.isCheck" icon-class="icon-" />
                 </template>
               </el-table-column>
               <el-table-column label="状态" align="center">
@@ -202,7 +202,7 @@
       },
       // 行内编辑定价
       priceEdit(index, row) {
-        if (row.isOver == true) {
+        if (row.isCheck == true) {
           this.$notify.error({
             title: "错误",
             message: "不能对已结算项重操作"
@@ -282,7 +282,7 @@
             message: "不能对未定价的维修进行结算"
           });
           return;
-        } else if (row.isOver == true) {
+        } else if (row.isCheck == true) {
           this.$notify.error({
             title: "错误",
             message: "请勿重复结算"
@@ -353,7 +353,7 @@
             "fixContentName",
             "staffName",
             "fixMoney",
-            "isOver",
+            "isCheck",
             "fixState",
             "houseNo",
             "staffNo",

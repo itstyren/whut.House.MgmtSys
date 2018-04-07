@@ -4,43 +4,44 @@
       <div class="query-tool">
         <el-form :model="queryForm" label-width="100px" ref="queryForm">
           <el-row type="flex" justify="start">
-            <el-col :span="7">
+            <el-col :span="5">
               <el-form-item label="住房类型">
-                <el-select v-model="queryForm.houseType" size="small" :clearable="true" placeholder="全部类型">
-                  <el-option v-for="struct in hosueParam.typeData" :key="struct.houseParamId" :value="struct.houseParamName" :label="struct.houseParamName"></el-option>
+                <el-select v-model="queryForm.houseTypeId" size="small" :clearable="true" placeholder="全部类型">
+                  <el-option v-for="struct in hosueParam.typeData" :key="struct.houseParamId" :value="struct.houseParamId" :label="struct.houseParamName"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="7">
+            <el-col :span="5">
               <el-form-item label="住房状态">
-                <el-select v-model="queryForm.useStatus" size="small" :clearable="true" placeholder="全部状态">
-                  <el-option v-for="struct in hosueParam.statusData" :key="struct.houseParamId" :value="struct.houseParamName" :label="struct.houseParamName"></el-option>
+                <el-select v-model="queryForm.useStatusId" size="small" :clearable="true" placeholder="全部状态">
+                  <el-option v-for="struct in hosueParam.statusData" :key="struct.houseParamId" :value="struct.houseParamId" :label="struct.houseParamName"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="7">
+            <el-col :span="5">
               <el-form-item label="住房结构">
-                <el-select v-model="queryForm.structName" size="small" :clearable="true" placeholder="全部结构">
-                  <el-option v-for="struct in hosueParam.structData" :key="struct.houseParamId" :value="struct.houseParamName" :label="struct.houseParamName"></el-option>
+                <el-select v-model="queryForm.structId" size="small" :clearable="true" placeholder="全部结构">
+                  <el-option v-for="struct in hosueParam.structData" :key="struct.houseParamId" :value="struct.houseParamId" :label="struct.houseParamName"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+                       <el-col :span="5">
+              <el-form-item label="住房户型">
+                <el-select v-model="queryForm.layoutId" size="small" :clearable="true" placeholder="全部户型">
+                  <el-option v-for="struct in hosueParam.layoutData" :key="struct.houseParamId" :value="struct.houseParamId" :label="struct.houseParamName"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row type="flex" justify="start">
-            <el-col :span="7">
-              <el-form-item label="住房户型">
-                <el-select v-model="queryForm.layoutName" size="small" :clearable="true" placeholder="全部户型">
-                  <el-option v-for="struct in hosueParam.layoutData" :key="struct.houseParamId" :value="struct.houseParamName" :label="struct.houseParamName"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="7">
+ 
+            <el-col :span="5">
               <el-form-item label="住房面积">
                 <el-row>
                   <el-col :span="10">
                     <el-input v-model="tempData.minArea" size="small"  placeholder="不限"></el-input>
                   </el-col>
-                  <el-col style=" text-align: center;" :span="2">
+                  <el-col style=" text-align: center;" :span="4">
                     <span>至</span>
                   </el-col>
                   <el-col :span="10">
@@ -52,35 +53,42 @@
             <el-col :span="10">
               <el-form-item label="建设时间">
                 <el-row>
-                  <el-col :span="5">
-                    <el-date-picker v-model="tempData.startTime" type="year" size="small" align="center"   placeholder="起始" value-format="yyyy-MM-dd" style="width:100px;"></el-date-picker>
+                  <el-col :span="10">
+                    <el-date-picker v-model="tempData.startTime" type="year" size="small" align="center"   placeholder="起始" value-format="yyyy-MM-dd"></el-date-picker>
                   </el-col>
-                  <el-col style=" text-align: center;" :span="2">
+                  <el-col style=" text-align: center;" :span="4">
                     <span>至</span>
                   </el-col>
-                  <el-col :span="11">
-                    <el-date-picker v-model="tempData.endTime" type="year" size="small" align="center"  placeholder="终止" value-format="yyyy-MM-dd" style="width:100px;"></el-date-picker>
+                  <el-col :span="10">
+                    <el-date-picker v-model="tempData.endTime" type="year" size="small" align="center"  placeholder="终止" value-format="yyyy-MM-dd"></el-date-picker>
                   </el-col>
                 </el-row>
+              </el-form-item>
+            </el-col>
+                                   <el-col :span="5">
+              <el-form-item label="住房校区">
+                <el-select v-model="queryForm.campusId" size="small" :clearable="true" placeholder="全部校区">
+                  <el-option v-for="campuse in hosueParam.campusData" :key="campuse.id" :value="campuse.id" :label="campuse.name"></el-option>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row type="flex" justify="start">
             <el-col :span="7">
               <el-form-item label="住房区域">
-                <el-select v-model="queryForm.houseZone" size="small" :clearable="true" @clear="clearRegion" placeholder="全部区域" @change="selectRegionChange">
-                  <el-option v-for="region in hosueParam.regionDataWithBuilding" :key="region.id" :value="region.name" :label="region.name"></el-option>
+                <el-select v-model="queryForm.regionId" size="small" :clearable="true" @clear="clearRegion" placeholder="全部区域" @change="selectRegionChange">
+                  <el-option v-for="region in hosueParam.regionDataWithBuilding" :key="region.id" :value="region.id" :label="region.name"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="7">
               <el-form-item label="房屋楼栋">
-                <el-select v-model="queryForm.building" size="small" :clearable="true" placeholder="全部房屋">
-                  <el-option v-for="building in hosueParam.buildingData" :key="building.id" :value="building.name" :label="building.name"></el-option>
+                <el-select v-model="queryForm.buildingId" size="small" :clearable="true" placeholder="全部房屋">
+                  <el-option v-for="building in hosueParam.buildingData" :key="building.id" :value="building.id" :label="building.name"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="7">
+            <el-col :span="7" :offset="2">
               <el-form-item>
                 <el-button type="danger" size="small" @click="resseting">重置</el-button>
                 <el-button type="primary" size="small" @click="mutiConditionQuery">查询</el-button>
@@ -111,7 +119,8 @@
 import utils from "@/utils/index.js";
 import {
   getRegionWithBuildings,
-  postHouseByComplexMultiCondition
+  postHouseByComplexMultiCondition,
+  getCampusData
 } from "@/api/basiceData";
 import { getHouseParam } from "@/api/sysManage";
 export default {
@@ -121,8 +130,8 @@ export default {
       selectLoading: false,
       // 查询表单
       queryForm: {
-        houseZone: "",
-        building: ""
+        regionId: "",
+        buildingId: ""
       },
       hosueParam: {
         structData: {},
@@ -130,7 +139,8 @@ export default {
         layoutData: {},
         typeData: {},
         regionDataWithBuilding: [],
-        buildingData: []
+        buildingData: [],
+        campusData: []
       },
       tempData: {
         minArea: "",
@@ -150,7 +160,7 @@ export default {
   // 计算属性
   computed: {
     selectRegion() {
-      return this.queryForm.houseZone;
+      return this.queryForm.regionId;
     },
     formVisible: {
       get: function() {
@@ -170,8 +180,11 @@ export default {
     }
   },
   created() {
-    this.getHouseParam();
-    this.getRegionWithBuilding();
+    this.getCompus().then(res => {
+      console.log(this.hosueParam)
+      this.getHouseParam();
+      this.getRegionWithBuilding();
+    });
   },
   methods: {
     dialogClose() {
@@ -221,6 +234,25 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    getCompus() {
+      return new Promise((resolve, reject) => {
+        this.listLoading = true;
+        let param = {
+          page: 1,
+          size: 99999
+        };
+        getCampusData(param)
+          .then(res => {
+            this.hosueParam.campusData = res.data.data.data.list;
+            this.listLoading = false;
+            resolve();
+          })
+          .catch(err => {
+            console.log(err);
+            reject(err);
+          });
+      });
     },
     // 获取区域信息包括楼栋
     getRegionWithBuilding() {
@@ -308,7 +340,7 @@ export default {
     },
     // 清空搜索的区域时
     clearRegion() {
-      this.queryForm.building = "";
+      this.queryForm.buildingId = "";
     },
     //选择的区域变化时
     selectRegionChange(region) {

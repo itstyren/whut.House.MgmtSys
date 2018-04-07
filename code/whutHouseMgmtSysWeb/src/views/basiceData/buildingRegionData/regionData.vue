@@ -109,7 +109,7 @@
 <script type="text/ecmascript-6">
   import {
     getRegionData,
-    getCompusData,
+    getCampusData,
     postRegionData,
     putRegionData,
     deleteRegionData
@@ -138,11 +138,11 @@
               message: "请输入区域描述",
               trigger: "blur"
             },
-            {
-              pattern: /^[\u4e00-\u9fa5]{0,100}$/,
-              message: "最多100个字符",
-              trigger: "blur"
-            }
+            // {
+            //   pattern: /^[\u4e00-\u9fa5]{0,200}$/,
+            //   message: "最多100个字符",
+            //   trigger: "blur"
+            // }
           ]
         },
         //编辑表单相关数据
@@ -176,7 +176,7 @@
             page: 1,
             size: 9999
           };
-          getCompusData(params)
+          getCampusData(params)
             .then(res => {
               this.compusData = res.data.data.data.list;
               this.listLoading = false;

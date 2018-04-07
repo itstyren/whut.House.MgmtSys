@@ -53,6 +53,7 @@
   } from "@/api/basiceData";
   import utils from "@/utils/index.js";
 var basiceUrl='http://localhost:8787/whutHouseMgmtReposity/dataImport/'
+// var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
   export default {
     name: "uploadExcel",
     components: {

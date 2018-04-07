@@ -230,7 +230,7 @@ public class HouseRecordController {
 		}
 		List<Double> floatList = new ArrayList<>();
 		for (Integer number : listInteger) {
-			floatList.add(Arith.div(number, sum, 2));
+			floatList.add(Arith.div(number, sum, 2)*100);
 		}
 		return Msg.success().add("name", listString).add("number", listInteger).add("proportion", floatList);
 	}
