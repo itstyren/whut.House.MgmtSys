@@ -79,7 +79,8 @@ export default {
           //text: '2000-2016年中国汽车销量及增长率'
         },
         tooltip: {
-          trigger: "axis"
+          trigger: "axis",
+          formatter: '入住率: {c0}%<br />{b1}: {c1}间'
         },
         toolbox: {
           feature: {
@@ -138,7 +139,7 @@ export default {
             stack: "总量",
             label: {
               normal: {
-                show: true,
+                //show: true,
                 position: "top"
               }
             },

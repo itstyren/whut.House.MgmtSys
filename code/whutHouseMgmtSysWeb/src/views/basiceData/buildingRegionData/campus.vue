@@ -89,7 +89,7 @@
 
 <script type="text/ecmascript-6">
   import {
-    getCompusData,
+    getCampusData,
     postCompusData,
     putCompusData,
     deleteCompusData
@@ -154,7 +154,7 @@
           page: this.page,
           size: this.size
         };
-        getCompusData(param)
+        getCampusData(param)
           .then(res => {
             // console.log(res.data.data)
             this.campusData = res.data.data.data.list;

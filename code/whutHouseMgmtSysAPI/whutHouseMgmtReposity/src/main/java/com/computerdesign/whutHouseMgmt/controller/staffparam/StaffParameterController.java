@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass;
+import com.computerdesign.whutHouseMgmt.bean.staffparam.HouseSub;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.service.paramclass.ParamClassService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
@@ -32,6 +33,65 @@ public class StaffParameterController {
 	@Autowired
 	private ParamClassService paramClassService;
 
+	/**
+	 * 获取所有住房补贴参数
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getAllHouseSub", method = RequestMethod.GET)
+	public Msg getAllHouseSub(@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		PageHelper.startPage(page,size);
+		List<HouseSub> houseSubs = staffParameterService.getAllHouseSub();
+		PageInfo pageInfo = new PageInfo(houseSubs);
+		return Msg.success().add("data", pageInfo);
+	}
+	
+	/**
+	 * 添加一条住房补贴参数
+	 * @param houseSub
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "addHouseSub", method = RequestMethod.POST)
+	public Msg addHouseSub(@RequestBody HouseSub houseSub) {
+//		System.out.println(houseSub);
+		if(houseSub != null){
+			staffParameterService.addHouseSub(houseSub);
+		}
+		return Msg.success().add("data", houseSub);
+	}
+	
+	/**
+	 * 删除一条住房补贴参数
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "deleteHouseSub/{id}", method = RequestMethod.DELETE)
+	public Msg deleteHouseSub(@PathVariable("id") Integer id) {
+		if(id != null){
+			staffParameterService.deleteHouseSub(id);
+		}
+		return Msg.success();
+	}
+
+	/**
+	 * 更新一条住房补贴参数
+	 * @param houseSub
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateHouseSub", method = RequestMethod.PUT)
+	public Msg updateHouseSub(@RequestBody HouseSub houseSub) {
+		if(houseSub != null){
+			staffParameterService.updateHouseSub(houseSub);
+		}
+		return Msg.success().add("data", houseSub);
+	}
+	
 	// /**
 	// *
 	// * @param paramTypeId
@@ -101,7 +161,7 @@ public class StaffParameterController {
 			return Msg.error("数据库中无此条记录");
 		} else {
 			try {
-//				staffParameterService.delete(staffParamId);
+				// staffParameterService.delete(staffParamId);
 				staffParameter.setIsDelete(true);
 				staffParameterService.update(staffParameter);
 				return Msg.success().add("data", staffParameter);
@@ -119,7 +179,7 @@ public class StaffParameterController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "get/{paramTypeId}",method=RequestMethod.GET)
+	@RequestMapping(value = "get/{paramTypeId}", method = RequestMethod.GET)
 	public Msg getStaffParameter(@PathVariable("paramTypeId") Integer paramTypeId,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
@@ -137,7 +197,7 @@ public class StaffParameterController {
 
 		PageHelper.startPage(page, size);
 
-		//根据paramTypeId获取对应的没有被删除的职工参数
+		// 根据paramTypeId获取对应的没有被删除的职工参数
 		List<StaffParameter> staffParams = staffParameterService.getAllByParamTypeId(paramTypeId);
 
 		PageInfo pageInfo = new PageInfo(staffParams);

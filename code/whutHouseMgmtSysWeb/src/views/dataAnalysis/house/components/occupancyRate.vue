@@ -61,7 +61,7 @@ export default {
       postHouseRecordCampus(data).then(res => {
         let _series = [];
         res.data.data.data.forEach((data, index) => {
-          console.log(data)
+          // console.log(data)
           _series.push({
             name: data.name,
             data: [
