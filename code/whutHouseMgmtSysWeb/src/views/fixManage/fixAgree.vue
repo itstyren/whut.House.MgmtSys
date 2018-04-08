@@ -153,7 +153,7 @@
 
 <script type="text/ecmascript-6">
 import indexNav from "./components/indexNav";
-import { putFixAgree } from "@/api/fixManage";
+import { putFixAgree, postFixEmail } from "@/api/fixManage";
 import { checkNULL, checkTel } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
 export default {
@@ -184,8 +184,7 @@ export default {
     },
     // 维修审核提交
     reviewSubmit() {
-      if (this.agreeForm.agreeState == null)
-        this.agreeForm.agreeState = "通过";
+      if (this.agreeForm.agreeState == null) this.agreeForm.agreeState = "通过";
       this.$confirm(`确认${this.agreeForm.agreeState}审核`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -203,7 +202,10 @@ export default {
                 id: agreeForm.id
               };
               putFixAgree(param).then(res => {
-                this.agreeForm={}
+                postFixEmail(params).catch(err => {
+                  console.log(err);
+                });
+                this.agreeForm = {};
                 utils.statusinfo(this, res.data);
                 this.isSubmit = !this.isSubmit;
                 this.listLoading = false;
@@ -229,34 +231,34 @@ export default {
 
 .second-container {
   background-color: $background-grey;
-.line {
-  margin: 10px;
-  border: 1px solid #e6ebf5;
-  background-color: #fff;
-  margin-bottom: 20px;
-}
-.main-data {
-  padding-top: 20px;
-}
+  .line {
+    margin: 10px;
+    border: 1px solid #e6ebf5;
+    background-color: #fff;
+    margin-bottom: 20px;
+  }
+  .main-data {
+    padding-top: 20px;
+  }
 
-.accept-form {
-  width: 80%;
-  background-color: #fff;
-  padding: 10px;
-  padding-bottom: 30px;
-      margin:20px auto;
-  position: relative;
-  .need-accept {
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    & .is-agree {
-      position: relative;
-      border-bottom: 1px solid #e6ebf5;
-      margin-bottom: 20px;
+  .accept-form {
+    width: 80%;
+    background-color: #fff;
+    padding: 10px;
+    padding-bottom: 30px;
+    margin: 20px auto;
+    position: relative;
+    .need-accept {
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      & .is-agree {
+        position: relative;
+        border-bottom: 1px solid #e6ebf5;
+        margin-bottom: 20px;
+      }
     }
   }
-}
 }
 </style>

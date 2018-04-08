@@ -20,7 +20,7 @@
       </div>
       <!-- 表格区 -->
       <div class="main-data">
-        <el-table class="table" :data="layoutData" v-loading="listLoading" height="string">
+        <el-table class="table" :data="fixType" v-loading="listLoading" height="string">
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column>
           <el-table-column prop="fixParamName" label="维修内容" sortable align="center"></el-table-column>
@@ -85,7 +85,7 @@
       return {
         paramClass: 16,
         // 表格数据
-        layoutData: [],
+        fixType: [],
         listLoading: false,
         totalNum: 0,
         page: 1,
@@ -129,7 +129,7 @@
         }
         // http请求
         getFixParam(param, this.paramClass).then((res) => {
-          this.layoutData = res.data.data.data.list
+          this.fixType = res.data.data.data.list
           this.totalNum = res.data.data.data.total
           this.listLoading = false
         }).catch((err) => {

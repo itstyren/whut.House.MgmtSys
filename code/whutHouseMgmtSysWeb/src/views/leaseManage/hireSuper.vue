@@ -83,7 +83,7 @@ import staffIndex from "@/views/fixManage/components/staffIndex";
 import personalInfoTable from "@/views/fixManage/components/personalInfoTable";
 import seachHouse from "@/views/tools/seachHouse";
 import houseRel from "@/views/fixManage/components/houseRel";
-import { putHireSuper } from "@/api/leaseManage";
+import { putHireSuper, postHireEmail } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
 export default {
   data() {
@@ -147,6 +147,9 @@ export default {
         id: this.hireSuperForm.staffId
       };
       putHireSuper(postData).then(res => {
+        postHireEmail(params).catch(err => {
+          console.log(err);
+        });
         utils.statusinfo(this, res.data);
         this.listLoading = false;
         if (res.data.status == "success") {

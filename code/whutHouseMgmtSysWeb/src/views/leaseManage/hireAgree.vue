@@ -200,7 +200,7 @@
 <script type="text/ecmascript-6">
 import indexNav from "./components/indexNav";
 import seachHouse from "@/views/tools/seachHouse";
-import { putHireAgree } from "@/api/leaseManage";
+import { putHireAgree, postHireEmail } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
 export default {
   data() {
@@ -264,6 +264,14 @@ export default {
                 houseId: this.selectHouseId
               };
               putHireAgree(param).then(res => {
+                if ((param.acceptState = "拒绝")) {
+                  let params = {
+                    hireId: acceptForm.id
+                  };
+                  postHireEmail(params).catch(err => {
+                    console.log(err);
+                  });
+                }
                 this.agreeForm = {};
                 utils.statusinfo(this, res.data);
                 this.isSubmit = !this.isSubmit;

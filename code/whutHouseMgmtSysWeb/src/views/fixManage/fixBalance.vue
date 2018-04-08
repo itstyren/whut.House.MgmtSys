@@ -33,7 +33,7 @@
                 </el-col>
                 <el-col :span="7">
                   <el-form-item label="申请时间">
-                    <el-date-picker v-model="setTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期"
+                    <el-date-picker v-model="setTime" type="daterange" align="right" unlink-panels range-separator="-" start-placeholder="开始日期"
                       end-placeholder="结束日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd">
                     </el-date-picker>
                   </el-form-item>
@@ -116,6 +116,7 @@
 
 <script type="text/ecmascript-6">
   import * as OPTION from "@/assets/data/formOption";
+import * as staticData from "@/utils/static";  
   import {
     postFixmulticondition,
     putFixPrice,
@@ -144,34 +145,7 @@
         page: 1,
         size: 10,
         pickerOptions: {
-          shortcuts: [{
-              text: "最近一周",
-              onClick(picker) {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                picker.$emit("pick", [start, end]);
-              }
-            },
-            {
-              text: "最近一个月",
-              onClick(picker) {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                picker.$emit("pick", [start, end]);
-              }
-            },
-            {
-              text: "最近三个月",
-              onClick(picker) {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                picker.$emit("pick", [start, end]);
-              }
-            }
-          ]
+          shortcuts: staticData.shortSpanPickerOptions
         }
       };
     },
@@ -302,6 +276,7 @@
               };
               putFixcheck(param).then(res => {
                 utils.statusinfo(this, res.data);
+              this.multicondition();
                 this.listLoading = false;
               });
             })
