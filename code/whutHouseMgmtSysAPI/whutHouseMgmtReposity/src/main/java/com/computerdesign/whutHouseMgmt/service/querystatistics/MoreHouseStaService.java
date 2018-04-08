@@ -71,7 +71,9 @@ public class MoreHouseStaService {
 		ResidentVwExample example = new ResidentVwExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(false);
-		criteria.andStaffIdIn(staffIds);
+		if(staffIds != null){
+			criteria.andStaffIdIn(staffIds);
+		}
 		// 住房类型
 		if (moreHouseQueryModel.getHouseTypeId() != null) {
 			criteria.andHouseTypeEqualTo(moreHouseQueryModel.getHouseTypeId());
