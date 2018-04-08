@@ -88,11 +88,10 @@ export function getFixForm(params) {
     })
 }
 // 重新受理
-export function getFixReAccept(params,fixFormId) {
+export function getFixReAccept(fixFormId) {
     return request({
         url: `/fix/reAccept/${fixFormId}`,
         method: 'get',
-        params: params
     })
 }
 // 重新审核
@@ -143,5 +142,13 @@ export function deleteFixForm(formID) {
     return request({
         url: `/fix/deleteFix/${formID}`,
         method: 'delete',
+    })
+}
+// 维修发送邮件接口
+export function postFixEmail(params) {
+    return request({
+        url: `mail/fix`,
+        method: 'post',
+        params:params
     })
 }

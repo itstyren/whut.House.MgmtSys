@@ -194,7 +194,7 @@
 
 <script type="text/ecmascript-6">
 import indexNav from "./components/indexNav";
-import { putHireApprove } from "@/api/leaseManage";
+import { putHireApprove, postHireEmail } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
 export default {
   data() {
@@ -247,6 +247,9 @@ export default {
                 id: approveForm.id
               };
               putHireApprove(param).then(res => {
+                postHireEmail(params).catch(err => {
+                  console.log(err);
+                });
                 this.approveForm = {};
                 utils.statusinfo(this, res.data);
                 this.isSubmit = !this.isSubmit;

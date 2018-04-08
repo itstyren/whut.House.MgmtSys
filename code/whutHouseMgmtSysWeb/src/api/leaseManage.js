@@ -154,3 +154,11 @@ export function getHireByStaffID(staffID) {
     method: 'get',
   })
 }
+// 租赁状态邮箱接口
+export function postHireEmail(params) {
+  return request({
+    url: `mail/hire`,
+    method: 'post',
+    params: params
+  })
+}
