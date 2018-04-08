@@ -21,6 +21,10 @@ public class PersonalFixRecord {
 	//处理说明
 	private String processReason;
 	
+    private Boolean isOver;
+
+    private Boolean isCheck;
+	
 	//申请时间
 	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	private Date applyTime;
@@ -63,6 +67,24 @@ public class PersonalFixRecord {
 
 	public void setProcessReason(String processReason) {
 		this.processReason = processReason;
+	}
+
+	
+	
+	public Boolean getIsOver() {
+		return isOver;
+	}
+
+	public void setIsOver(Boolean isOver) {
+		this.isOver = isOver;
+	}
+
+	public Boolean getIsCheck() {
+		return isCheck;
+	}
+
+	public void setIsCheck(Boolean isCheck) {
+		this.isCheck = isCheck;
 	}
 
 	public Date getApplyTime() {
