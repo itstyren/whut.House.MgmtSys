@@ -85,11 +85,10 @@ export default {
       type: String,
       default: "350px"
     },
-    selectHouse:{
-      type:String
+    selectHouse: {
+      type: String
     },
-    selectHouseId:{
-type:Number
+    selectHouseId: {
     }
   },
   // 监听

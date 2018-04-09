@@ -25,7 +25,7 @@
                 </el-select>
               </el-form-item>
             </el-col>
-                       <el-col :span="5">
+            <el-col :span="5">
               <el-form-item label="住房户型">
                 <el-select v-model="queryForm.layoutId" size="small" :clearable="true" placeholder="全部户型">
                   <el-option v-for="struct in hosueParam.layoutData" :key="struct.houseParamId" :value="struct.houseParamId" :label="struct.houseParamName"></el-option>
@@ -34,18 +34,17 @@
             </el-col>
           </el-row>
           <el-row type="flex" justify="start">
- 
             <el-col :span="5">
               <el-form-item label="住房面积">
                 <el-row>
                   <el-col :span="10">
-                    <el-input v-model="tempData.minArea" size="small"  placeholder="不限"></el-input>
+                    <el-input v-model="tempData.minArea" size="small" placeholder="不限"></el-input>
                   </el-col>
                   <el-col style=" text-align: center;" :span="4">
                     <span>至</span>
                   </el-col>
                   <el-col :span="10">
-                    <el-input v-model="tempData.maxArea" size="small"  placeholder="不限"></el-input>
+                    <el-input v-model="tempData.maxArea" size="small" placeholder="不限"></el-input>
                   </el-col>
                 </el-row>
               </el-form-item>
@@ -54,20 +53,20 @@
               <el-form-item label="建设时间">
                 <el-row>
                   <el-col :span="10">
-                    <el-date-picker v-model="tempData.startTime" type="year" size="small" align="center"   placeholder="起始" value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-date-picker v-model="tempData.startTime" type="year" size="small" align="center" placeholder="起始" value-format="yyyy-MM-dd"></el-date-picker>
                   </el-col>
                   <el-col style=" text-align: center;" :span="4">
                     <span>至</span>
                   </el-col>
                   <el-col :span="10">
-                    <el-date-picker v-model="tempData.endTime" type="year" size="small" align="center"  placeholder="终止" value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-date-picker v-model="tempData.endTime" type="year" size="small" align="center" placeholder="终止" value-format="yyyy-MM-dd"></el-date-picker>
                   </el-col>
                 </el-row>
               </el-form-item>
             </el-col>
-                                   <el-col :span="5">
+            <el-col :span="5">
               <el-form-item label="住房校区">
-                <el-select v-model="queryForm.campusId" size="small" :clearable="true" placeholder="全部校区">
+                <el-select v-model="queryForm.campusId" size="small" :clearable="true" @clear="clearCampus" placeholder="全部校区">
                   <el-option v-for="campuse in hosueParam.campusData" :key="campuse.id" :value="campuse.id" :label="campuse.name"></el-option>
                 </el-select>
               </el-form-item>
@@ -77,7 +76,7 @@
             <el-col :span="7">
               <el-form-item label="住房区域">
                 <el-select v-model="queryForm.regionId" size="small" :clearable="true" @clear="clearRegion" placeholder="全部区域" @change="selectRegionChange">
-                  <el-option v-for="region in hosueParam.regionDataWithBuilding" :key="region.id" :value="region.id" :label="region.name"></el-option>
+                  <el-option v-for="region in hosueParam.regionData" :key="region.id" :value="region.id" :label="region.name"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -138,6 +137,7 @@ export default {
         statusData: {},
         layoutData: {},
         typeData: {},
+        regionData: [],
         regionDataWithBuilding: [],
         buildingData: [],
         campusData: []
@@ -162,6 +162,9 @@ export default {
     selectRegion() {
       return this.queryForm.regionId;
     },
+    selectCampus() {
+      return this.queryForm.campusId;
+    },
     formVisible: {
       get: function() {
         return this.$store.getters.seachVisible;
@@ -172,16 +175,20 @@ export default {
   watch: {
     // 监听选项的变动
     selectRegion(newval) {
-      // console.log("1");
-      for (var region of this.hosueParam.regionDataWithBuilding) {
-        if (region.name == newval)
+      for (var region of this.hosueParam.regionData) {
+        if (region.id == newval)
           this.hosueParam.buildingData = region.buildingList;
+      }
+    },
+    selectCampus(newVal) {
+      this.hosueParam.regionData = [];
+      for (var region of this.hosueParam.regionDataWithBuilding) {
+        if (region.campusId == newVal) this.hosueParam.regionData.push(region);
       }
     }
   },
   created() {
     this.getCompus().then(res => {
-      console.log(this.hosueParam)
       this.getHouseParam();
       this.getRegionWithBuilding();
     });
@@ -340,6 +347,10 @@ export default {
     },
     // 清空搜索的区域时
     clearRegion() {
+      this.queryForm.buildingId = "";
+    },
+    clearCampus() {
+      this.queryForm.regionId = "";
       this.queryForm.buildingId = "";
     },
     //选择的区域变化时
