@@ -83,10 +83,11 @@ public class DataImportService {
 	 * @param staffParamName
 	 * @return
 	 */
-	public Integer getStaffParamId(String staffParamName){
+	public Integer getStaffParamId(String staffParamName,Integer paramTypeId){
 		StaffParameterExample example = new StaffParameterExample();
 		Criteria criteria= example.createCriteria();
 		criteria.andStaffParamNameEqualTo(staffParamName);
+		criteria.andParamTypeIdEqualTo(paramTypeId);
 		criteria.andIsDeleteEqualTo(false);
 		StaffParameter staffParameter = staffParameterMapper.selectByExample(example).get(0);
 		return staffParameter.getStaffParamId();
