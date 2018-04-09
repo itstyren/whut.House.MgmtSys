@@ -15,9 +15,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.param.emailParam.EmailParameter;
 import com.computerdesign.whutHouseMgmt.service.param.emailparam.EmailParameterService;
 
@@ -28,7 +25,6 @@ import com.computerdesign.whutHouseMgmt.service.param.emailparam.EmailParameterS
  * 
  */
 public class MailUtil {
-	private static EmailParameterService emailParameterService;
 	
 	public static boolean sendTextMail(String subject, String content, String toAddress,EmailParameter emailParameter) {
 		MailInfo mailInfo = new MailInfo();
@@ -110,6 +106,14 @@ public class MailUtil {
 		try {
 			// 根据session创建一个邮件消息
 			Message mailMessage = new MimeMessage(sendMailSession);
+			
+			mailMessage.addHeader("X-Priority", "3");
+			mailMessage.addHeader("X-MSMail-Priority", "Normal");
+			mailMessage.addHeader("X-Mailer", "Microsoft Outlook Express 6.00.2900.2869");//本文以outlook名义发送邮件，不会被当作垃圾邮件           
+			mailMessage.addHeader("X-MimeOLE", "Produced By Microsoft MimeOLE V6.00.2900.2869");
+			mailMessage.addHeader("ReturnReceipt", "1");
+			 
+			 
 			// 创建邮件发送者地址
 			Address from = new InternetAddress(mailInfo.getFromAddress());
 			// 设置邮件消息的发送者
