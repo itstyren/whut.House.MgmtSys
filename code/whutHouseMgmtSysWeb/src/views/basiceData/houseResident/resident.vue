@@ -18,61 +18,61 @@
       <!-- 信息区 -->
       <div class="main-data">
         <!-- 个人信息区 -->
-        <el-row class="before-info" >
-          <el-col :span="11" class="personal-info card">
+        <el-row style="margin:0 10px 0 -10px;" class="before-info">
+          <el-col :span="12" class="personal-info">
             <personal-info-table></personal-info-table>
           </el-col>
-          <el-col :span="12" class="house-rel card">
+          <el-col :span="12" class="house-rel ">
             <staff-house-rel></staff-house-rel>
           </el-col>
         </el-row>
         <!-- 住房登记区 -->
-        <el-row class="house-resident card"  type="flex" justify="center" align="middle" >
+        <el-row class="house-resident card" type="flex" justify="center" align="middle">
           <el-col :span="24">
-            <house-resident :select-house="selectHouseName" :select-house-id="selectHouseId" ></house-resident>
+            <house-resident :select-house="selectHouseName" :select-house-id="selectHouseId"></house-resident>
           </el-col>
         </el-row>
         <!-- 房屋查询区 -->
-        <el-row  class="conditionalQuery card">
-          <el-col :span="24" style="height:75%" >
-                <el-row>
+        <el-row class="conditionalQuery card">
+          <el-col :span="24" style="height:75%">
+            <el-row>
               <el-form :model="simpleQueryForm" :inline="true">
-                  <el-col :span="4" :offset="1">
-                    <el-form-item label="住房类型">
-                      <el-select v-model="simpleQueryForm.houseType" size="small" style="width:120px" :clearable="true" placeholder="全部结构">
-                        <el-option v-for="struct in houseStruct" :key="struct.houseParamId" :value="struct.houseParamName" :label="struct.houseParamName"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="4">
-                    <el-form-item label="使用状况">
-                      <el-select v-model="simpleQueryForm.useStatus" size="small" style="width:120px" :clearable="true" placeholder="全部状态">
-                        <el-option v-for="status in statusData" :key="status.houseParamId" :value="status.houseParamName" :label="status.houseParamName"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="6">
-                    <el-form-item label="住房区域">
-                      <el-select v-model="simpleQueryForm.houseZone" size="small" style="width:220px" :clearable="true" placeholder="全部区域">
-                        <el-option v-for="region in regionDataWithBuilding" :key="region.id" :value="region.name" :label="region.name"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="5">
-                    <el-form-item label="楼栋">
-                      <el-select v-model="simpleQueryForm.building" size="small" style="width:170px" :clearable="true" placeholder="全部房屋">
-                        <el-option v-for="building in buildingData" :key="building.id" :value="building.name" :label="building.name"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="4">
-                    <el-button type="primary" @click="simpleQuery " size="small">筛选</el-button>
-                    <el-button type="primary" @click="simpleQuery " size="small">详细查找</el-button>
-                  </el-col>   
+                <el-col :span="4" :offset="1">
+                  <el-form-item label="住房类型">
+                    <el-select v-model="simpleQueryForm.houseType" size="small" style="width:120px" :clearable="true" placeholder="全部结构">
+                      <el-option v-for="struct in houseStruct" :key="struct.houseParamId" :value="struct.houseParamName" :label="struct.houseParamName"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="4">
+                  <el-form-item label="使用状况">
+                    <el-select v-model="simpleQueryForm.useStatus" size="small" style="width:120px" :clearable="true" placeholder="全部状态">
+                      <el-option v-for="status in statusData" :key="status.houseParamId" :value="status.houseParamName" :label="status.houseParamName"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item label="住房区域">
+                    <el-select v-model="simpleQueryForm.houseZone" size="small" style="width:220px" :clearable="true" placeholder="全部区域">
+                      <el-option v-for="region in regionDataWithBuilding" :key="region.id" :value="region.name" :label="region.name"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="5">
+                  <el-form-item label="楼栋">
+                    <el-select v-model="simpleQueryForm.building" size="small" style="width:170px" :clearable="true" placeholder="全部房屋">
+                      <el-option v-for="building in buildingData" :key="building.id" :value="building.name" :label="building.name"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="4">
+                  <el-button type="primary" @click="simpleQuery " size="small">筛选</el-button>
+                  <el-button type="primary" @click="simpleQuery " size="small">详细查找</el-button>
+                </el-col>
               </el-form>
-               </el-row>
+            </el-row>
             <!-- 查询相应区 -->
-              <div class="query-table">
+            <div class="query-table">
               <el-table :data="houseData" class="table" height="string" v-loading="listLoading" @cell-click="cellClick">
                 <el-table-column prop="houseNo" label="住房号" sortable width="90" align="center"></el-table-column>
                 <el-table-column prop="houseSort" label="住房类型" sortable width="140" align="center"></el-table-column>
@@ -82,13 +82,13 @@
                 <el-table-column prop="zoneName" label="所属区域" align="center"></el-table-column>
                 <el-table-column prop="buildingName" label="所属楼栋" align="center"></el-table-column>
               </el-table>
-              </div>
+            </div>
           </el-col>
         </el-row>
       </div>
     </div>
     <!-- 详细查找表单 -->
-    <seach-house  @select-house="selectHouse"></seach-house>
+    <seach-house @select-house="selectHouse"></seach-house>
   </div>
 </template>
 
@@ -238,10 +238,10 @@
   .main-data {
     .before-info {
       height: 30vh;
-      .personal-info{
+      .personal-info {
         height: 100%;
       }
-      .house-rel{
+      .house-rel {
         height: 100%;
       }
     }
@@ -255,7 +255,7 @@
       padding: 20px 0;
       height: 40vh;
       margin-bottom: 50px;
-      .el-form-item{
+      .el-form-item {
         margin-bottom: 5px;
       }
       .query-table {

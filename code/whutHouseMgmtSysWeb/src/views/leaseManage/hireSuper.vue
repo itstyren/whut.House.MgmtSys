@@ -147,6 +147,9 @@ export default {
         id: this.hireSuperForm.staffId
       };
       putHireSuper(postData).then(res => {
+        let params = {
+          hireId: hireSuperForm.id
+        };
         postHireEmail(params).catch(err => {
           console.log(err);
         });

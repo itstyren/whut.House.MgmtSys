@@ -30,7 +30,6 @@
                 </el-row>
               </el-col>
               <el-col :span="14">
-
                 <el-row>
                   <layout-bar :filters-data="filtersData"></layout-bar>
                 </el-row>
