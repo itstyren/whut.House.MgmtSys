@@ -18,18 +18,18 @@
       <!-- 信息区 -->
       <div class="main-data">
         <!-- 个人信息区 -->
-        <el-row style="margin:0 10px 0 -10px;" class="before-info">
-          <el-col :span="12" class="personal-info">
-            <personal-info-table></personal-info-table>
+        <el-row style="margin:0 10px 0 -10px;" :gutter="20">
+          <el-col :span="12">
+            <personal-info-table  :height="'30vh'"></personal-info-table>
           </el-col>
-          <el-col :span="12" class="house-rel ">
-            <staff-house-rel></staff-house-rel>
+          <el-col :span="12">
+            <staff-house-rel :height="'30vh'"></staff-house-rel>
           </el-col>
         </el-row>
         <!-- 住房登记区 -->
-        <el-row class="house-resident card" type="flex" justify="center" align="middle">
+        <el-row style="margin:0 10px 0 -10px;" :gutter="20">
           <el-col :span="24">
-            <house-resident :select-house="selectHouseName" :select-house-id="selectHouseId"></house-resident>
+            <house-resident :height="'120px'" :select-house="selectHouseName" :select-house-id="selectHouseId"></house-resident>
           </el-col>
         </el-row>
         <!-- 房屋查询区 -->
@@ -45,7 +45,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="4">
-                  <el-form-item label="使用状况">
+                  <el-form-item label="使用状态">
                     <el-select v-model="simpleQueryForm.useStatus" size="small" style="width:120px" :clearable="true" placeholder="全部状态">
                       <el-option v-for="status in statusData" :key="status.houseParamId" :value="status.houseParamName" :label="status.houseParamName"></el-option>
                     </el-select>
@@ -236,24 +236,10 @@
 
 <style scoped lang="scss">
   .main-data {
-    .before-info {
-      height: 30vh;
-      .personal-info {
-        height: 100%;
-      }
-      .house-rel {
-        height: 100%;
-      }
-    }
-    .house-resident {
-      margin-top: 20px;
-      position: relative;
-      height: 20vh;
-    }
     .conditionalQuery {
       position: relative;
       padding: 20px 0;
-      height: 40vh;
+      height: 50vh;
       margin-bottom: 50px;
       .el-form-item {
         margin-bottom: 5px;

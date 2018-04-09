@@ -1,5 +1,5 @@
 <template>
-  <div class="components" v-loading="listLoading">
+  <div class="components card" v-loading="listLoading" :style="{height:height,width:width}">
     <el-form :model="residentForm" label-width="120px" :rules="rules" ref="residentForm">
       <el-row  type="flex" justify="center" align="middle" >
         <el-col :span="6" >
@@ -76,8 +76,22 @@ export default {
       }
     };
   },
-  // 获取父组件传递的数据
-  props: ["selectHouse", "selectHouseId"],
+  props: {
+    width: {
+      type: String,
+      default: "100%"
+    },
+    height: {
+      type: String,
+      default: "350px"
+    },
+    selectHouse:{
+      type:String
+    },
+    selectHouseId:{
+type:Number
+    }
+  },
   // 监听
   watch: {
     $route() {
@@ -85,7 +99,7 @@ export default {
     },
     selectHouse(newVal) {
       this.residentForm.houseId = newVal;
-    },
+    }
   },
   created() {
     this.getStaffName();
@@ -104,12 +118,12 @@ export default {
       getHouseParam(param, 3)
         .then(res => {
           this.statusData = res.data.data.data.list;
-          let array=[]
+          let array = [];
           for (const status of this.statusData) {
-            array.push(status.houseParamName)
+            array.push(status.houseParamName);
           }
-          let flag=utils.arrayindexOf(array,'空闲')
-          this.statusData.splice(flag,1)
+          let flag = utils.arrayindexOf(array, "空闲");
+          this.statusData.splice(flag, 1);
           this.listLoading = false;
         })
         .catch(err => {
@@ -117,8 +131,8 @@ export default {
         });
     },
     // 重置
-    resetForm(){
-      this.residentForm={}
+    resetForm() {
+      this.residentForm = {};
       this.residentForm.staffId = this.$store.state.residentStaffData.label;
     },
     // 住房登记提交
@@ -132,11 +146,11 @@ export default {
             type: "warning"
           })
             .then(() => {
-              let param ={
-                bookTime:this.residentForm.bookTime,
-                house:this.selectHouseId,
-                houseRel:this.residentForm.houseRel,
-                staffId:this.$store.state.residentStaffData.id
+              let param = {
+                bookTime: this.residentForm.bookTime,
+                house: this.selectHouseId,
+                houseRel: this.residentForm.houseRel,
+                staffId: this.$store.state.residentStaffData.id
               };
               this.listLoading = true;
               putHouseRegister(param)
@@ -160,8 +174,8 @@ export default {
         }
       });
     },
-    dialogVisible(){
-      this.$store.dispatch('setSeachHouse',true)      
+    dialogVisible() {
+      this.$store.dispatch("setSeachHouse", true);
     }
   }
 };
@@ -169,7 +183,7 @@ export default {
 
 <style scoped lang="scss">
 .components {
-  padding: 10px;
+  padding-top: 10px;
   .el-form-item {
     margin-bottom: 10px;
   }

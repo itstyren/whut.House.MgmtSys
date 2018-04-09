@@ -104,7 +104,7 @@ export default {
               if (v == i.key) this.channelData.push(i);
             });
           });
-        }else this.setData=[]
+        } else this.setData = [];
       });
     },
     // 通过路由列表生成穿梭框用的列表
@@ -203,7 +203,31 @@ export default {
     &:nth-child(7) {
       .icon-style {
         color: #fff;
+        background: #25c6fc;
+      }
+    }
+    &:nth-child(8) {
+      .icon-style {
+        color: #fff;
         background: #ffcc99;
+      }
+    }
+    &:nth-child(9) {
+      .icon-style {
+        color: #fff;
+        background: #82a6f5;
+      }
+    }
+        &:nth-child(10) {
+      .icon-style {
+        color: #fff;
+        background: #f6d6ff;
+      }
+    }
+        &:nth-child(11) {
+      .icon-style {
+        color: #fff;
+        background: #ffb86c;
       }
     }
     .icon-xinzeng {
