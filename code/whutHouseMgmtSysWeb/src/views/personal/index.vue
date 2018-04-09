@@ -249,7 +249,7 @@
                       <el-table-column label="操作" align="center">
                         <template slot-scope="scope">
                           <el-button @click="expand(scope.row)" type="infor" size="small">查看</el-button>
-                          <el-button type="success" @click="fixComment(scope.row)" v-if="scope.row.fixState=='已审核'" size="small">评价</el-button>
+                          <el-button type="success" @click="fixComment(scope.row)" v-if="scope.row.isCheck==true" size="small">评价</el-button>
                         </template>
                       </el-table-column>
                     </el-table>

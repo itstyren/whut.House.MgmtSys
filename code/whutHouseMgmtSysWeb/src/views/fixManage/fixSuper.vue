@@ -86,7 +86,7 @@
 import staffIndex from "./components/staffIndex";
 import personalInfoTable from "./components/personalInfoTable";
 import houseRel from "./components/houseRel";
-import { postFixSuper } from "@/api/fixManage";
+import { postFixSuper, postFixEmail } from "@/api/fixManage";
 import { getFixParam } from "@/api/sysManage";
 import utils from "@/utils/index.js";
 export default {
@@ -163,10 +163,11 @@ export default {
       let param = Object.assign({}, this.superForm);
       param.directApplyMan = this.$store.getters.userName;
       postFixSuper(param).then(res => {
+        postFixEmail(params).catch(err => {
+          console.log(err);
+        });
         utils.statusinfo(this, res.data);
         this.listLoading = false;
-        // if (res.data.status == "success")
-        //   this.$refs["fixApplyForm"].resetFields();
       });
     }
   }
@@ -194,7 +195,7 @@ export default {
       & > .super-form {
         margin: 30px auto 20px;
         padding-top: 20px;
-        height: 30vh
+        height: 30vh;
       }
     }
   }

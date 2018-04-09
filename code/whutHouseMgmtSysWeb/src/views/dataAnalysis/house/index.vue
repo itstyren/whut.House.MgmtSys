@@ -20,26 +20,26 @@
           </div>
           <!-- 表格区 -->
           <div class="main-data">
-            <el-row style="margin:0 10px 0 -10px;" :gutter="20" >
+            <el-row style="margin:0 10px 0 -10px;" :gutter="20">
               <el-col :span="10">
                 <el-row>
-                  <num-list :filters-data="filtersData"></num-list>                  
+                  <num-list :filters-data="filtersData"></num-list>
                 </el-row>
                 <el-row>
-                   <struct-pie :filters-data="filtersData"></struct-pie>
+                  <struct-pie :filters-data="filtersData"></struct-pie>
                 </el-row>
               </el-col>
               <el-col :span="14">
-  
+
                 <el-row>
-                   <layout-bar :filters-data="filtersData"></layout-bar>               
+                  <layout-bar :filters-data="filtersData"></layout-bar>
                 </el-row>
-                          <el-row>
+                <el-row>
                   <status-pie :filters-data="filtersData"></status-pie>
                 </el-row>
               </el-col>
             </el-row>
-            <el-row style="margin:0 10px 0 -10px;" :gutter="20" >
+            <el-row style="margin:0 10px 0 -10px;" :gutter="20">
               <el-col :span="24">
                 <occupancy-rate :filters-data="filtersData"></occupancy-rate>
               </el-col>
@@ -52,42 +52,44 @@
 </template>
 
 <script type="text/ecmascript-6">
-import houseFilter from "@/views/tools/houseFilter";
-import wuhanmMap from "./components/map";
-import layoutBar from "./components/layoutBar";
-import structPie from "./components/structPie.vue";
-import occupancyRate from "./components/occupancyRate.vue";
-import numList from "./components/numList.vue";
-import statusPie from "./components/statusPie.vue";
-export default {
-  data() {
-    return {
-      filtersData: {}
-    };
-  },
-  components: {
-    houseFilter,
-    wuhanmMap,
-    layoutBar,
+  import houseFilter from "@/views/tools/houseFilter";
+  import wuhanmMap from "./components/map";
+  import layoutBar from "./components/layoutBar";
+  import structPie from "./components/structPie.vue";
+  import occupancyRate from "./components/occupancyRate.vue";
+  import numList from "./components/numList.vue";
+  import statusPie from "./components/statusPie.vue";
+  export default {
+    data() {
+      return {
+        filtersData: {}
+      };
+    },
+    components: {
+      houseFilter,
+      wuhanmMap,
+      layoutBar,
 
-    structPie,
-    occupancyRate,
-    numList,
-    statusPie
-  },
-  methods: {
-    // 多重查找查询
-    queryHandle(data) {
-      this.filtersData = data;
+      structPie,
+      occupancyRate,
+      numList,
+      statusPie
+    },
+    methods: {
+      // 多重查找查询
+      queryHandle(data) {
+        this.filtersData = data;
+      }
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-@import "../../../styles/variables.scss";
+  @import "../../../styles/variables.scss";
 
-.second-container {
-  background-color: $background-grey;
-}
+  .second-container {
+    background-color: $background-grey;
+  }
+
 </style>

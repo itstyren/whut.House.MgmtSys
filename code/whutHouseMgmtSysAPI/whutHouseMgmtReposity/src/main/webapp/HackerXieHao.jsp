@@ -40,7 +40,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMTEzMTkxLCJleHAiOjE1MjMxMTY3OTF9.XIQrUx0JyNmFqksvq_jwifuTYGhfAAHvMzOhBpyCLto");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMTc2MDU2LCJleHAiOjE1MjMxNzk2NTV9.N82vaWRtYNMwe5kiuTb1DpLPOIllDZuKvJJG44VvAWU");
 					},
 					type : "get",
 					contentType : 'application/json',
@@ -66,7 +66,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMTEzMTkxLCJleHAiOjE1MjMxMTY3OTF9.XIQrUx0JyNmFqksvq_jwifuTYGhfAAHvMzOhBpyCLto");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMTc2MDU2LCJleHAiOjE1MjMxNzk2NTV9.N82vaWRtYNMwe5kiuTb1DpLPOIllDZuKvJJG44VvAWU");
 					},
 					data : JSON.stringify(data),
 					url : uri,
@@ -777,8 +777,8 @@
 				.click(
 						function() {
 							var data = {
-								'houseTypeId' : 6,
-								'staffTypeId' : 145
+								/* 'houseTypeId' : 7,
+								'staffTypeId' : 141 */
 							};
 							ajaxRequestPostType(
 									"moreHouseQuery/staffMoreHouseQuery?page=1&size=15",

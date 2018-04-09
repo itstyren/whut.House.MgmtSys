@@ -191,11 +191,13 @@ public class SelfHelpSelectHouseController {
 				} else if(beginTime >= new Date().getTime()){
 					return Msg.success("选房活动未开始");
 				}else{
+					System.out.println("AAA");
 					rentEvent.setRentIsOpenSel(false);
 					rentEventService.update(rentEvent);
 					return Msg.success("选房活动已结束");
 				}
 			}else{
+				System.out.println("AA");
 				return Msg.success("当前无选房活动");
 			}
 		}else{

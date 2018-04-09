@@ -1,15 +1,22 @@
 <template>
   <div class="fixForm-filter card" v-loading="listLoading">
-    <el-form :model="queryForm" label-width="100px">
+    <el-form :model="queryForm" label-width="80px">
       <el-row>
-        <el-col :span="4">
-          <el-form-item label="维修类型">            
-                        <el-select v-model="queryForm.fixType" size="small" :clearable="true" placeholder="维修类型">
+        <el-col :span="3">
+          <el-form-item label="维修类型">
+            <el-select v-model="queryForm.fixType" size="small" :clearable="true" placeholder="维修类型">
               <el-option v-for="v in fixType" :key="v.fixParamId" :value="v.fixParamId" :label="v.fixParamName"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-                <el-col :span="5">
+        <el-col :span="5">
+          <el-form-item label="申请时间">
+            <el-date-picker v-model="setTime" type="daterange" size="small" align="right" unlink-panels range-separator="-" start-placeholder="开始日期"
+              end-placeholder="结束日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
           <el-form-item label="所属校区">
             <el-select v-model="campusId" size="small" :clearable="true" @clear="clearCampus" placeholder="全部校区">
               <el-option v-for="campus in campusData" :key="campus.id" :value="campus.id" :label="campus.name"></el-option>
@@ -23,14 +30,14 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="4">
           <el-form-item label="住房楼栋">
             <el-select v-model="buildingId" size="small" :clearable="true" placeholder="全部房屋">
               <el-option v-for="building in buildingData" :key="building.id" :value="building.id" :label="building.name"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-                <el-col :span="4" :offset="1">
+        <el-col :span="3" :offset="1">
           <el-button type="danger" size="small" @click="resseting">重置</el-button>
           <el-button type="primary" size="small" @click="queryHandle">查询</el-button>
         </el-col>
@@ -41,10 +48,8 @@
 
 <script type="text/ecmascript-6">
 import { getFixParam } from "@/api/sysManage";
-  import {
-    getRegionWithBuildings,
-    getCampusData
-  } from "@/api/basiceData";
+import { getRegionWithBuildings, getCampusData } from "@/api/basiceData";
+import * as staticData from "@/utils/static";
 export default {
   data() {
     return {
@@ -52,12 +57,16 @@ export default {
       listLoading: false,
       fixType: [],
       regionData: [],
+      setTime: [],
       regionBuildingData: [],
       buildingData: [],
       campusData: [],
       regionId: "",
       buildingId: "",
-      campusId: ""
+      campusId: "",
+      pickerOptions: {
+        shortcuts: staticData.shortSpanPickerOptions
+      }
     };
   },
   computed: {
@@ -131,6 +140,13 @@ export default {
       });
     },
     queryHandle() {
+      if (this.setTime != null && this.setTime.length != 0) {
+        this.queryForm.startTime = this.setTime[0];
+        this.queryForm.endTime = this.setTime[1];
+      } else {
+        this.queryForm.startTime = "";
+        this.queryForm.endTime = "";
+      }
       if (this.regionId != "") {
         this.queryForm.regionId = this.regionId;
       }
@@ -145,9 +161,8 @@ export default {
           delete this.queryForm[v];
         }
       }
-      this.listLoading = true;
       const data = Object.assign({}, this.queryForm);
-      this.$emit("query-house", data);
+      this.$emit("query-fix", data);
     },
     // 重置查询表单
     resseting() {
@@ -172,6 +187,7 @@ export default {
 .card {
   padding: 10px;
 }
+
 .fixForm-filter {
   .el-form-item {
     margin-bottom: 5px;

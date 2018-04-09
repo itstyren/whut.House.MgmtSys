@@ -137,83 +137,86 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    putFixAccept
-  } from "@/api/fixManage";
-  import indexNav from "./components/indexNav";
-  import {
-    checkNULL,
-    checkTel
-  } from "@/assets/function/validator";
-  import utils from "@/utils/index.js";
-  export default {
-    data() {
-      return {
-        listLoading: false,
-        acceptForm: {},
-        acceptStatus: false,
-        fixstatus: "hangding",
-        isSubmit: false,
-        // 表单验证规则
-        rules: {
-          acceptNote: {
-            required: true,
-            message: "请输入受理意见",
-            trigger: "blur"
-          }
+import { putFixAccept, postFixEmail } from "@/api/fixManage";
+import indexNav from "./components/indexNav";
+import { checkNULL, checkTel } from "@/assets/function/validator";
+import utils from "@/utils/index.js";
+export default {
+  data() {
+    return {
+      listLoading: false,
+      acceptForm: {},
+      acceptStatus: false,
+      fixstatus: "hangding",
+      isSubmit: false,
+      // 表单验证规则
+      rules: {
+        acceptNote: {
+          required: true,
+          message: "请输入受理意见",
+          trigger: "blur"
         }
-      };
-    },
-    components: {
-      indexNav
-    },
-    methods: {
-      // 从子组件获取
-      getList(object) {
-        this.acceptForm = object.content;
-        this.acceptStatus = object.status;
-      },
-      // 维修受理提交
-      acceptSubmit() {
-        if (this.acceptForm.acceptState == null)
-          this.acceptForm.acceptState = "通过";
-        this.$confirm(`确认${this.acceptForm.acceptState}受理`, "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(() => {
-            this.$refs["acceptForm"].validate(valid => {
-              if (valid) {
-                this.listLoading = true;
-                let acceptForm = this.acceptForm;
-                let param = {
-                  acceptMan: this.$store.getters.userName,
-                  acceptNote: acceptForm.acceptNote,
-                  acceptState: acceptForm.acceptState,
-                  id: acceptForm.id
-                };
-                putFixAccept(param).then(res => {
-                  this.acceptForm={}
-                  utils.statusinfo(this, res.data);
-                  this.isSubmit = !this.isSubmit;
-                  this.listLoading = false;
-                  if (res.data.status == "success")
-                    this.$refs["acceptForm"].resetFields();
-                });
-              }
-            });
-          })
-          .catch(() => {
-            this.$message({
-              type: "info",
-              message: "已取消审核"
-            });
-          });
       }
+    };
+  },
+  components: {
+    indexNav
+  },
+  methods: {
+    // 从子组件获取
+    getList(object) {
+      this.acceptForm = object.content;
+      this.acceptStatus = object.status;
+    },
+    // 维修受理提交
+    acceptSubmit() {
+      if (this.acceptForm.acceptState == null)
+        this.acceptForm.acceptState = "通过";
+      this.$confirm(`确认${this.acceptForm.acceptState}受理`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$refs["acceptForm"].validate(valid => {
+            if (valid) {
+              this.listLoading = true;
+              let acceptForm = this.acceptForm;
+              let param = {
+                acceptMan: this.$store.getters.userName,
+                acceptNote: acceptForm.acceptNote,
+                acceptState: acceptForm.acceptState,
+                id: acceptForm.id
+              };
+              console.log(param);
+              putFixAccept(param).then(res => {
+                if ((param.acceptState = "拒绝")) {
+                  let params = {
+                    fixId: acceptForm.id
+                  };
+                  postFixEmail(params).catch(err => {
+                    console.log(err);
+                  });
+                }
+                this.acceptForm = {};
+                utils.statusinfo(this, res.data);
+                this.isSubmit = !this.isSubmit;
+                this.listLoading = false;
+                if (res.data.status == "success")
+                  this.$refs["acceptForm"].resetFields();
+              });
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消审核"
+          });
+        });
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
@@ -230,7 +233,7 @@
     background-color: #fff;
     padding: 10px;
     padding-bottom: 30px;
-      margin:20px auto;
+    margin: 20px auto;
     position: relative;
     .need-accept {
       h1 {
