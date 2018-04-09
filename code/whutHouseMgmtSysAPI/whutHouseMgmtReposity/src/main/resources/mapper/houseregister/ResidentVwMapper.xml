@@ -107,7 +107,7 @@
       order by ${orderByClause}
     </if>
   </select>
-   <select id="selectMoreHouseStaffId" resultType="java.lang.Integer">
+  <select id="selectMoreHouseStaffId" resultType="java.lang.Integer">
   	SELECT DISTINCT StaffId  FROM view_hs_resident
 	WHERE StaffId IN(SELECT StaffId FROM view_hs_resident WHERE IsDelete = FALSE GROUP BY StaffId HAVING COUNT(StaffId) > 1)
   </select>
