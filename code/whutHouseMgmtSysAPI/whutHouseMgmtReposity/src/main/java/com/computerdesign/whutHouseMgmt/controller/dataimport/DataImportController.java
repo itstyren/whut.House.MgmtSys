@@ -184,11 +184,11 @@ public class DataImportController {
 					staff.setSex(val[2]);
 					staff.setMarriageState(val[3]);
 					System.out.println("BB");
-					Integer title = dataImportService.getStaffParamId(val[4]);
-					Integer post = dataImportService.getStaffParamId(val[5]);
-					Integer type = dataImportService.getStaffParamId(val[6]);
-					Integer status = dataImportService.getStaffParamId(val[7]);
-					Integer dept = dataImportService.getStaffParamId(val[8]);
+					Integer title = dataImportService.getStaffParamId(val[4],7);
+					Integer post = dataImportService.getStaffParamId(val[5],6);
+					Integer type = dataImportService.getStaffParamId(val[6],8);
+					Integer status = dataImportService.getStaffParamId(val[7],9);
+					Integer dept = dataImportService.getStaffParamId(val[8],5);
 					System.out.println("CC");
 					if (title == null) {
 						System.out.println("该员工职称参数不存在或已删除");
@@ -264,9 +264,11 @@ public class DataImportController {
 //					}
 					staff.setSpouseCode(spouseCode);
 					// 配偶职称
-					Integer spouseTitle = dataImportService.getStaffParamId(val[17]);
+					Integer spouseTitle = dataImportService.getStaffParamId(val[17],7);
+					System.out.println(spouseTitle);
 					// 配偶职务
-					Integer spousePost = dataImportService.getStaffParamId(val[18]);
+					Integer spousePost = dataImportService.getStaffParamId(val[18],6);
+					System.out.println(spousePost);
 					if (spouseTitle == null) {
 						System.out.println("该员工配偶职称参数不存在或已删除");
 					} else if (spousePost == null) {
@@ -278,10 +280,13 @@ public class DataImportController {
 
 					// 配偶工作单位
 					staff.setSpouseDept(val[19]);
+					System.out.println(val[19]);
 
 					// 配偶单位性质
-					// System.out.println(val[20]);
-					Integer spouseKind = dataImportService.getStaffParamId(val[20]);
+					 System.out.println(val[20]);
+					Integer spouseKind = dataImportService.getStaffParamId(val[20],10);
+					System.out.println(val[20]);
+					System.out.println("DD");
 					System.out.println(spouseKind);
 					if (spouseKind == null) {
 						System.out.println("该员工配偶单位性质参数不存在或已删除");

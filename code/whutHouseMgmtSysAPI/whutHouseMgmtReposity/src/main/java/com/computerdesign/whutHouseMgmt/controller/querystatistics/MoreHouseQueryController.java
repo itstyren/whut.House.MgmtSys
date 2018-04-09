@@ -100,7 +100,7 @@ public class MoreHouseQueryController {
 
 		// 获取拥有多套住房的职工id的list
 		List<Integer> staffIds = moreHouseStaService.getMoreHouseStaffId();
-		// System.out.println(staffIds);
+		 System.out.println(staffIds);
 
 		PageHelper.startPage(page, size);
 		List<ResidentVw> residentVws = moreHouseStaService.staffMoreHouseQuery(staffIds, moreHouseQueryModel);

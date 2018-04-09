@@ -8,10 +8,10 @@ public class UserLogin {
 	@ApiModelProperty(example = "3")
 	private String no;
 
-	@ApiModelProperty(example = "999")
+	@ApiModelProperty(example = "123")
 	private String password;
 
-	@ApiModelProperty(example = "3")
+	@ApiModelProperty(example = "0")
 	private Integer roleId;
 
 	public String getNo() {

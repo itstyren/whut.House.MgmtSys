@@ -2,10 +2,6 @@ package com.computerdesign.whutHouseMgmt.bean.fix.common;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class ViewFix {
     private Integer id;
 
@@ -15,8 +11,6 @@ public class ViewFix {
 
     private String description;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date applyTime;
 
     private String fixState;
@@ -25,8 +19,6 @@ public class ViewFix {
 
     private String acceptNote;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date acceptTime;
 
     private String acceptMan;
@@ -35,8 +27,6 @@ public class ViewFix {
 
     private String agreeNote;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date agreeTime;
 
     private String agreeMan;
@@ -55,28 +45,34 @@ public class ViewFix {
 
     private Integer houseId;
 
-    private String staffAddress;
-
     private String houseNo;
+
+    private Integer buildingId;
+
+    private String buildingName;
+
+    private Integer regionId;
+
+    private String regionName;
+
+    private Integer campusId;
+
+    private String campusName;
+
+    private String address;
 
     private String phone;
 
     private String message;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date priceTime;
 
     private String priceMan;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date checkTime;
 
     private String checkMan;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date fixTime;
 
     private String fixMoney;
@@ -88,6 +84,12 @@ public class ViewFix {
     private String feedBack;
 
     private String email;
+
+    private String ratings;
+
+    private String ratingDescription;
+
+    private Date submitTime;
 
     public Integer getId() {
         return id;
@@ -257,20 +259,68 @@ public class ViewFix {
         this.houseId = houseId;
     }
 
-    public String getStaffAddress() {
-        return staffAddress;
-    }
-
-    public void setStaffAddress(String staffAddress) {
-        this.staffAddress = staffAddress == null ? null : staffAddress.trim();
-    }
-
     public String getHouseNo() {
         return houseNo;
     }
 
     public void setHouseNo(String houseNo) {
         this.houseNo = houseNo == null ? null : houseNo.trim();
+    }
+
+    public Integer getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(Integer buildingId) {
+        this.buildingId = buildingId;
+    }
+
+    public String getBuildingName() {
+        return buildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName == null ? null : buildingName.trim();
+    }
+
+    public Integer getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Integer regionId) {
+        this.regionId = regionId;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName == null ? null : regionName.trim();
+    }
+
+    public Integer getCampusId() {
+        return campusId;
+    }
+
+    public void setCampusId(Integer campusId) {
+        this.campusId = campusId;
+    }
+
+    public String getCampusName() {
+        return campusName;
+    }
+
+    public void setCampusName(String campusName) {
+        this.campusName = campusName == null ? null : campusName.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 
     public String getPhone() {
@@ -367,5 +417,29 @@ public class ViewFix {
 
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
+    }
+
+    public String getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(String ratings) {
+        this.ratings = ratings == null ? null : ratings.trim();
+    }
+
+    public String getRatingDescription() {
+        return ratingDescription;
+    }
+
+    public void setRatingDescription(String ratingDescription) {
+        this.ratingDescription = ratingDescription == null ? null : ratingDescription.trim();
+    }
+
+    public Date getSubmitTime() {
+        return submitTime;
+    }
+
+    public void setSubmitTime(Date submitTime) {
+        this.submitTime = submitTime;
     }
 }
