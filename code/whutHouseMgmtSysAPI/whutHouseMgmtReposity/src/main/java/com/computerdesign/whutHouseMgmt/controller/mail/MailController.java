@@ -36,10 +36,12 @@ public class MailController {
 	public Msg sendFixEmail(@RequestParam("fixId")Integer fixId){
 		
 		ViewFix viewFix = viewFixService.getById(fixId).get(0);
+		String name = viewFix.getStaffName();
 		if (viewFix.getEmail() == null) {
 			return Msg.error("该用户在填写维修申请信息时未填写邮箱");
 		}
-		if (MailUtil.sendHtmlMail("武汉理工大学房改办", "您的维修申请已经被处理，请进入系统查看", viewFix.getEmail(),emailParameterService.get())) {
+		String content = name + ",你好！<br>    您的维修id为"+fixId+"的申请已经被处理，请进入武汉理工大学房改办系统查看";
+		if (MailUtil.sendHtmlMail("武汉理工大学房改办", content, viewFix.getEmail(),emailParameterService.get())) {
 			return Msg.success();			
 		}else {
 			return Msg.error("发送邮件错误，请检查该用户信息");
@@ -50,10 +52,12 @@ public class MailController {
 	@PostMapping(value = "hire")
 	public Msg sendHireEmail(@RequestParam("hireId")Integer hireId){
 		ViewHire viewHire = viewHireService.getById(hireId).get(0);
+		String name = viewHire.getName();
 		if (viewHire.getEmail() == null) {
 			return Msg.error("该用户在填写住房申请信息时未填写邮箱");
 		}
-		if (MailUtil.sendHtmlMail("武汉理工大学房改办", "您的住房申请已经被处理，请进入系统查看", viewHire.getEmail(),emailParameterService.get())) {
+		String content = name + ",你好！<br>    您的房屋申请id为"+hireId+"的申请已经被处理，请进入武汉理工大学房改办系统查看";
+		if (MailUtil.sendHtmlMail("武汉理工大学房改办", content, viewHire.getEmail(),emailParameterService.get())) {
 			return Msg.success();			
 		}else {
 			return Msg.error("发送邮件错误，请检查该用户信息");

@@ -108,7 +108,7 @@ public class FixController {
 		ViewStaff viewStaff = viewStaffService.getByStaffId(staffId).get(0);
 
 		// 封装需要的员工信息
-		String[] fixFileds = { "id", "no", "name", "sex", "code", "postName", "deptName", "tel" };
+		String[] fixFileds = { "id", "no", "name", "sex", "code", "postName", "deptName", "tel","email" };
 		Map<String, Object> fixGetApplyResponse = ResponseUtil.getResultMap(viewStaff, fixFileds);
 
 		// 根据staffId获取该员工全部的resident信息

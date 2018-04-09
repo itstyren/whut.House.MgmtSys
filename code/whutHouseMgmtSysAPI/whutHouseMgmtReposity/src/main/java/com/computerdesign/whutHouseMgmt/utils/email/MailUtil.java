@@ -17,6 +17,7 @@ import javax.mail.internet.MimeMultipart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.param.emailParam.EmailParameter;
 import com.computerdesign.whutHouseMgmt.service.param.emailparam.EmailParameterService;
 
@@ -117,6 +118,9 @@ public class MailUtil {
 			Address to = new InternetAddress(mailInfo.getToAddress());
 			// Message.RecipientType.TO属性表示接收者的类型为TO
 			mailMessage.setRecipient(Message.RecipientType.TO, to);
+			//给自己抄送一遍
+			Address self = new InternetAddress(mailInfo.getFromAddress());
+			mailMessage.addRecipient(Message.RecipientType.CC, self);
 			// 设置邮件消息的主题
 			mailMessage.setSubject(mailInfo.getSubject());
 			// 设置邮件消息发送的时间
@@ -132,6 +136,10 @@ public class MailUtil {
 			mailMessage.setContent(mainPart);
 			// 发送邮件
 			Transport.send(mailMessage);
+//			Transport transport = sendMailSession.getTransport("smtp");
+//			transport.connect(pro.getProperty("mail.stmp.host"),pro.getProperty("username"),pro.getProperty("password"));
+//			transport.sendMessage(mailMessage,mailMessage.getAllRecipients());
+//			transport.close();
 			return true;
 		} catch (MessagingException ex) {
 			ex.printStackTrace();

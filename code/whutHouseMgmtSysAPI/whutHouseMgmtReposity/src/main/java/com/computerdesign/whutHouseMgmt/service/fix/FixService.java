@@ -72,20 +72,20 @@ public class FixService {
 	}
 	
 	/**
-	 * 获取指定日期全部拒绝的维修请求
+	 * 获取指定日期全部拒绝的维修请求数量
 	 * @param data
 	 * @return
 	 */
 	public Long getTotalCountRefused(Date date) {
 		FixExample acceptExample = new FixExample();
 		Criteria acceptCriteria = acceptExample.createCriteria();
-		acceptCriteria.andFixStateLike("拒绝");
+		acceptCriteria.andFixStateEqualTo("受理拒绝");
 		acceptCriteria.andIsOverEqualTo(true);
 		acceptCriteria.andAcceptTimeEqualTo(date);
 		
 		FixExample agreeExample = new FixExample();
 		Criteria agreeCriteria = agreeExample.createCriteria();
-		agreeCriteria.andFixStateLike("拒绝");
+		agreeCriteria.andFixStateEqualTo("审核拒绝");
 		agreeCriteria.andIsOverEqualTo(true);
 		agreeCriteria.andAgreeTimeEqualTo(date);
 		return fixMapper.countByExample(agreeExample)+fixMapper.countByExample(acceptExample);
