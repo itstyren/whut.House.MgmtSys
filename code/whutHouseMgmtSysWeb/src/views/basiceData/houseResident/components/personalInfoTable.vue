@@ -1,8 +1,10 @@
-<template>
+<template >
+<div class="card" :style="{height:height,width:width}">
   <el-table :data="personalInfo"   stripe   class="table" height="string" v-loading="listLoading">
     <el-table-column prop="index"   align="center" label="信息项"></el-table-column>
     <el-table-column prop="value"   align="center" label="信息值"></el-table-column>
   </el-table>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -14,6 +16,16 @@ export default {
       listLoading: false
     };
   },
+  props: {
+    width: {
+      type: String,
+      default: "100%"
+    },
+    height: {
+      type: String,
+      default: "350px"
+    }
+  },
   // 监听
   watch: {
     $route() {
@@ -22,8 +34,7 @@ export default {
     }
   },
   created() {
-    if(this.$route.params.id!=undefined)
-    this.getList();
+    if (this.$route.params.id != undefined) this.getList();
   },
   methods: {
     // 获取单一员工

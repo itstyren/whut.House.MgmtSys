@@ -195,13 +195,16 @@ export default {
             if (valid) {
               this.listLoading = true;
               let agreeForm = this.agreeForm;
-              let param = {
+              let params = {
                 agreeMan: this.$store.getters.userName,
                 agreeNote: agreeForm.agreeNote,
                 agreeState: agreeForm.agreeState,
                 id: agreeForm.id
               };
-              putFixAgree(param).then(res => {
+              putFixAgree(params).then(res => {
+                let params = {
+                  fixId: agreeForm.id
+                };
                 postFixEmail(params).catch(err => {
                   console.log(err);
                 });

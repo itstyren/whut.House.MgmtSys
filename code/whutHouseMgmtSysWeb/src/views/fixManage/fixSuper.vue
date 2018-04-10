@@ -160,9 +160,12 @@ export default {
     // 维修直批提交
     superSubmit() {
       this.listLoading = true;
-      let param = Object.assign({}, this.superForm);
-      param.directApplyMan = this.$store.getters.userName;
-      postFixSuper(param).then(res => {
+      let params = Object.assign({}, this.superForm);
+      params.directApplyMan = this.$store.getters.userName;
+      postFixSuper(params).then(res => {
+        let params = {
+          fixId: acceptForm.id
+        };
         postFixEmail(params).catch(err => {
           console.log(err);
         });

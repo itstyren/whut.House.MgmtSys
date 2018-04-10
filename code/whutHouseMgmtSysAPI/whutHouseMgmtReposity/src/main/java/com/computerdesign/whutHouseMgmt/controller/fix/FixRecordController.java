@@ -9,16 +9,19 @@ import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
+import com.computerdesign.whutHouseMgmt.bean.fix.record.FixAllSelectModel;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
+import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -60,9 +63,10 @@ public class FixRecordController {
 	// }
 	// return Msg.success("返回最近"+day+"天全部的维修类型").add("data", listString);
 	// }
-	
+
 	/**
 	 * 返回一周内每天的维修申请量，拒绝量，通过量
+	 * 
 	 * @return
 	 */
 	@GetMapping(value = "contentCount")
@@ -143,4 +147,23 @@ public class FixRecordController {
 		}
 		return Msg.success("返回最近" + day + "天全部的维修类型名称与数量").add("name", listString).add("count", listMap);
 	}
+
+	/**
+	 * 多条件筛选返回表单
+	 * @param fixAllSelectModel
+	 * @return
+	 */
+	@PostMapping(value = "multilQueryContent")
+	public Msg fixMultiConditionQuery(@RequestBody FixAllSelectModel fixAllSelectModel) {
+		List<ViewFix> listViewFix = viewFixService.multiConditionQuery(fixAllSelectModel,true);
+		String[] fileds = { "id", "applyTime", "fixContentId", "fixContentName", "staffNo", "staffName", "address",
+				"buildingName", "regionName", "campusName", "ratings", "ratingDescription", "fixMoney" };
+		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);
+		return Msg.success().add("data", response);
+	}
+
+//	@PostMapping(value = "fixTotal")
+//	public Msg getFixTotal(@RequestBody FixAllSelectModel fixAllSelectModel){
+//		
+//	}
 }

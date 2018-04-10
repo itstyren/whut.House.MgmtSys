@@ -284,7 +284,7 @@ export default {
             if (valid) {
               this.listLoading = true;
               let acceptForm = this.acceptForm;
-              let param = {
+              let params = {
                 acceptMan: this.$store.getters.userName,
                 acceptNote: acceptForm.acceptNote,
                 acceptState: acceptForm.acceptState,
@@ -294,8 +294,8 @@ export default {
                 timeVal: acceptForm.timeVal,
                 totalVal: this.totalVal
               };
-              putHireAccept(param).then(res => {
-                if ((param.acceptState = "拒绝")) {
+              putHireAccept(params).then(res => {
+                if ((params.acceptState = "拒绝")) {
                   let params = {
                     hireId: acceptForm.id
                   };

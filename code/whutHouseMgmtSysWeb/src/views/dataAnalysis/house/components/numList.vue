@@ -9,7 +9,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span>总建筑面积</span>
+          <span>总建筑面积<br></span>
           <span>
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalBuildArea" :duration="3200"></count-to>
           </span>
@@ -19,7 +19,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="10">
-          <span>总使用面积</span>
+          <span>总使用面积<br></span>
           <span>
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalUsedArea" :duration="3200"></count-to>
           </span>
@@ -32,7 +32,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span> 空闲套数</span>
+          <span>空闲套数<br></span>
           <span>
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.unoccupiedNumber" :duration="3200"></count-to>
           </span>
@@ -42,7 +42,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="10">
-          <span> 入住套数</span>
+          <span>入住套数<br></span>
           <span>
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.occupiedNumber" :duration="3200"></count-to>
           </span>
@@ -55,7 +55,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span> 空闲面积</span>
+          <span>空闲面积<br></span>
           <span>
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.unoccupiedArea" :duration="3200"></count-to>
           </span>
@@ -65,7 +65,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="10">
-          <span> 入住面积</span>
+          <span>入住面积<br></span>
           <span>
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.occupiedArea" :duration="3200"></count-to>
           </span>

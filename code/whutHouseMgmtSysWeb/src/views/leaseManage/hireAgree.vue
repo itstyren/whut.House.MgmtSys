@@ -256,17 +256,17 @@ export default {
             if (valid) {
               this.listLoading = true;
               let agreeForm = this.agreeForm;
-              let param = {
+              let params = {
                 agreeMan: this.$store.getters.userName,
                 agreeNote: agreeForm.agreeNote,
                 agreeState: agreeForm.agreeState,
                 id: agreeForm.id,
                 houseId: this.selectHouseId
               };
-              putHireAgree(param).then(res => {
-                if ((param.acceptState = "拒绝")) {
+              putHireAgree(params).then(res => {
+                if ((params.agreeState = "拒绝")) {
                   let params = {
-                    hireId: acceptForm.id
+                    hireId: agreeForm.id
                   };
                   postHireEmail(params).catch(err => {
                     console.log(err);
