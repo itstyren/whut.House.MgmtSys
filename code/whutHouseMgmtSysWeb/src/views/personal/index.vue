@@ -363,7 +363,7 @@
                 <div class="avatar">
                   <img :src="img_avatar" width="100%" height="100%" alt="avatar">
                 </div>
-                <image-upload></image-upload>
+                <image-upload @upload-url="uploadURL"></image-upload>
               </el-col>
             </el-row>
           </div>
@@ -614,6 +614,9 @@
       downloadApply() {
         let staffID = this.$store.getters.userID;
         window.location.href = `http://localhost:8787/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
+      },
+      uploadURL(url){
+        console.log(url)
       }
     }
   };
