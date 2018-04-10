@@ -19,36 +19,38 @@
           <!-- 表格区 -->
           <div class="main-data">
             <el-row class="user-info">
-              <el-col :span="4" class="card nav">
-                <div class="title">
-                  <span>个人信息</span>
-                </div>
-                <el-menu :default-active="menuIndex" @select="menuSelect" background-color="#fff" text-color="#000" active-text-color="#ffd04b">
-                  <el-menu-item index="personal">
-                    <my-icon icon-class="paramSet"></my-icon>
-                    <span slot="title">常规设置</span>
-                  </el-menu-item>
-                  <el-menu-item index="house">
-                    <my-icon icon-class="building"></my-icon>
-                    <span slot="title">房屋信息</span>
-                  </el-menu-item>
-                  <el-menu-item index="fix">
-                    <my-icon icon-class="baoxiu"></my-icon>
-                    <span slot="title">我的维修</span>
-                  </el-menu-item>
-                  <el-menu-item index="hire">
-                    <my-icon icon-class="detail"></my-icon>
-                    <span slot="title">我的申请</span>
-                  </el-menu-item>
-                  <el-menu-item index="password">
-                    <my-icon icon-class="xiugaimima"></my-icon>
-                    <span slot="title">修改密码</span>
-                  </el-menu-item>
-                </el-menu>
+              <el-col :span="4">
+                <el-row class="card nav">
+                  <div class="title">
+                    <span>个人信息</span>
+                  </div>
+                  <el-menu :default-active="menuIndex" @select="menuSelect" background-color="#fff" text-color="#000" active-text-color="#ffd04b">
+                    <el-menu-item index="personal">
+                      <my-icon icon-class="paramSet"></my-icon>
+                      <span slot="title">常规设置</span>
+                    </el-menu-item>
+                    <el-menu-item index="house">
+                      <my-icon icon-class="building"></my-icon>
+                      <span slot="title">房屋信息</span>
+                    </el-menu-item>
+                    <el-menu-item index="fix">
+                      <my-icon icon-class="baoxiu"></my-icon>
+                      <span slot="title">我的维修</span>
+                    </el-menu-item>
+                    <el-menu-item index="hire">
+                      <my-icon icon-class="detail"></my-icon>
+                      <span slot="title">我的申请</span>
+                    </el-menu-item>
+                    <el-menu-item index="password">
+                      <my-icon icon-class="xiugaimima"></my-icon>
+                      <span slot="title">修改密码</span>
+                    </el-menu-item>
+                  </el-menu>
+                </el-row>
               </el-col>
               <!-- 常规设置 -->
               <keep-alive>
-                <el-col :span="14" v-loading="listLoading" :offset="1" class="info-form" v-if="menuIndex=='personal'">
+                <el-col :span="12" v-loading="listLoading" :offset="1" class="info-form" v-if="menuIndex=='personal'">
                   <div class="title">
                     <h1>常规设置</h1>
                   </div>
@@ -140,7 +142,7 @@
               </keep-alive>
               <!-- 房屋信息 -->
               <keep-alive>
-                <el-col :span="14" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='house'">
+                <el-col :span="12" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='house'">
                   <div class="title">
                     <h1>房屋信息</h1>
                   </div>
@@ -199,7 +201,7 @@
               </keep-alive>
               <!-- 维修信息 -->
               <keep-alive>
-                <el-col :span="14" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='fix'">
+                <el-col :span="12" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='fix'">
                   <div class="title">
                     <h1>维修信息</h1>
                   </div>
@@ -258,7 +260,7 @@
               </keep-alive>
               <!-- 租赁信息 -->
               <keep-alive>
-                <el-col :span="14" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='hire'">
+                <el-col :span="12" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='hire'">
                   <div class="title">
                     <h1>租赁信息</h1>
                   </div>
@@ -322,7 +324,7 @@
               </keep-alive>
               <!-- 修改密碼 -->
               <keep-alive>
-                <el-col :span="14" v-loading="listLoading" :offset="1" class="info-form" v-if="menuIndex=='password'">
+                <el-col :span="12" v-loading="listLoading" :offset="1" class="info-form" v-if="menuIndex=='password'">
                   <div class="title">
                     <h1>修改密码</h1>
                   </div>
@@ -357,6 +359,12 @@
                   </div>
                 </el-col>
               </keep-alive>
+                        <el-col :span="4" :offset="1">
+                                          <div class="avatar">
+                <img :src="img_avatar" width="100%" height="100%" alt="avatar">                
+              </div>
+              <image-upload></image-upload>
+          </el-col>
             </el-row>
           </div>
         </div>
@@ -385,24 +393,25 @@
             </el-form-item>
           </el-col>
         </el-row>
-                <el-row>
+        <el-row>
           <el-col :span="18" :offset="1">
             <el-form-item label="评价">
               <el-row>
                 <el-col :span="24">
-              <el-input v-model="fixCommentForm.description" placeholder="请输入...." type="textarea" :autosize="{ minRows: 2, maxRows: 4}" ></el-input>                
-              </el-col>
+                  <el-input v-model="fixCommentForm.description" placeholder="请输入...." type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+                </el-col>
               </el-row>
               <el-row style="margin-top:20px;">
                 <el-col :span="21" :offset="2">
-              <el-rate v-model="fixCommentForm.comment" show-text></el-rate>                                  
+                  <el-rate v-model="fixCommentForm.comment" show-text></el-rate>
                 </el-col>
               </el-row>
             </el-form-item>
           </el-col>
+
         </el-row>
       </el-form>
-            <div slot="footer" class="dialog-footer">
+      <div slot="footer" class="dialog-footer">
         <el-button @click.native=" fixCommentVisible = false">取消</el-button>
         <el-button type="primary" @click.native="submitComment">提交</el-button>
       </div>
@@ -411,280 +420,298 @@
 </template>
 
 <script type="text/ecmascript-6">
-import countdownButton from "@/components/countdown/button";
-import { getStaff, getStaffHouseRel } from "@/api/basiceData";
-import { putChangePassword, putFixComment, getUserHouse } from "@/api/user";
-import { getFixByStaffID } from "@/api/fixManage";
-import { getHireByStaffID } from "@/api/leaseManage";
-import utils from "@/utils/index.js";
-export default {
-  data() {
-    var checkPassword = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.passwordForm.newPassword) {
-        callback(new Error("两次输入密码不一致!"));
-      } else {
-        callback();
-      }
-    };
-    return {
-      listLoading: false,
-      staffID: this.$store.getters.userID,
-      staffInfo: {
-        name: "",
-        deptName: "",
-        titleName: "",
-        postName: "",
-        tel: "",
-        email: ""
-      },
-      phoneChange: false,
-      identifyCode: "",
-      menuIndex: "personal",
-      houseList: [],
-      selectHouse: "",
-      fixFormList: [],
-      fixCommentForm: {},
-      fixCommentVisible: false,
-      commentLoading:false,
-      hireFormList: [],
-      passwordForm: {},
-      passwordRules: {
-        oldPassword: [
-          {
+  import img_avatar from "@/assets/avatar.jpg";
+  import countdownButton from "@/components/countdown/button";
+  import imageUpload from "@/components/imageCropper/index";
+  import {
+    getStaff,
+    getStaffHouseRel
+  } from "@/api/basiceData";
+  import {
+    putChangePassword,
+    putFixComment,
+    getUserHouse
+  } from "@/api/user";
+  import {
+    getFixByStaffID
+  } from "@/api/fixManage";
+  import {
+    getHireByStaffID
+  } from "@/api/leaseManage";
+  import utils from "@/utils/index.js";
+  export default {
+    data() {
+      var checkPassword = (rule, value, callback) => {
+        if (value === "") {
+          callback(new Error("请再次输入密码"));
+        } else if (value !== this.passwordForm.newPassword) {
+          callback(new Error("两次输入密码不一致!"));
+        } else {
+          callback();
+        }
+      };
+      return {
+        img_avatar,
+        listLoading: false,
+        staffID: this.$store.getters.userID,
+        staffInfo: {
+          name: "",
+          deptName: "",
+          titleName: "",
+          postName: "",
+          tel: "",
+          email: ""
+        },
+        phoneChange: false,
+        identifyCode: "",
+        menuIndex: "personal",
+        houseList: [],
+        selectHouse: "",
+        fixFormList: [],
+        fixCommentForm: {},
+        fixCommentVisible: false,
+        commentLoading: false,
+        hireFormList: [],
+        passwordForm: {},
+        passwordRules: {
+          oldPassword: [{
             required: true,
             message: "请输入旧密码",
             trigger: "blur"
-          }
-        ],
-        newPassword: [
-          {
+          }],
+          newPassword: [{
             required: true,
             message: "请输入新密码",
             trigger: "blur"
-          }
-        ],
-        checkNewPassword: [
-          {
-            required: true,
-            message: "请重复新密码",
-            trigger: "blur"
-          },
-          {
-            validator: checkPassword,
-            trigger: "blur"
-          }
-        ]
-      }
-    };
-  },
-  filters: {
-    fixStatusFilter(status) {
-      const statusMap = {
-        待审核: "warning",
-        待受理: "warning",
-        审核拒绝: "danger",
-        受理拒绝: "danger",
-        已审核: "success"
-      };
-      return statusMap[status];
-    },
-    hireStatusFilter(status) {
-      const statusMap = {
-        待审核: "warning",
-        待受理: "warning",
-        待审批: "warning",
-        审核拒绝: "danger",
-        受理拒绝: "danger",
-        审批拒绝: "danger",
-        已审批: "success"
-      };
-      return statusMap[status];
-    }
-  },
-  components: {
-    countdownButton
-  },
-  created() {
-    (this.menuIndex = this.$route.params.menuIndex || "personal"),
-      this.getStaff(),
-      this.getStaffHouseRel(),
-      this.getFix(),
-      this.getHire();
-  },
-  methods: {
-    modifyPhone() {
-      this.phoneChange = true;
-    },
-    menuSelect(index, indexPath) {
-      this.menuIndex = index;
-    },
-    // 获取职工个人信息
-    getStaff() {
-      this.listLoading = true;
-      let params = {};
-      getStaff(params, this.staffID).then(res => {
-        this.staffInfo = res.data.data.data;
-        this.listLoading = false;
-      });
-    },
-    getStaffHouseRel() {
-      this.listLoading = true;
-      getUserHouse(this.staffID).then(res => {
-        this.houseList = res.data.data.data;
-        this.listLoading = false;
-      });
-    },
-    // 获取维修信息
-    getFix() {
-      this.listLoading = true;
-      getFixByStaffID(this.staffID).then(res => {
-        this.fixFormList = res.data.data.data;
-        this.listLoading = false;
-      });
-    },
-    fixComment(row) {
-      this.fixCommentForm = Object.assign({}, row);
-      console.log(this.fixCommentForm);
-      this.fixCommentVisible = true;
-    },
-    getHire() {
-      this.listLoading = true;
-      getHireByStaffID(this.staffID).then(res => {
-        this.hireFormList = res.data.data.data;
-      });
-    },
-    expand(row) {
-      this.$refs.fixTable.toggleRowExpansion(row);
-    },
-    // 修改密码
-    changePass() {
-      this.$refs["changePassForm"].validate(valid => {
-        if (valid) {
-          this.listLoading = true;
-          let param = {
-            newPsw: this.passwordForm.newPassword,
-            oldPsw: this.passwordForm.oldPassword
-          };
-          putChangePassword(param).then(res => {
-            utils.statusinfo(this, res.data);
-            this.listLoading = false;
-            this.$refs.changePassForm.resetFields();
-          });
+          }],
+          checkNewPassword: [{
+              required: true,
+              message: "请重复新密码",
+              trigger: "blur"
+            },
+            {
+              validator: checkPassword,
+              trigger: "blur"
+            }
+          ]
         }
-      });
-    },
-    // 提交评价
-    submitComment() {
-      this.commentLoading = true;
-      let data = {
-        description: this.fixCommentForm.description,
-        fixId: this.fixCommentForm.fixId,
-        description: this.fixCommentForm.description,
-        ratings: this.fixCommentForm.comment
       };
-      putFixComment(data).then(res => {
-        utils.statusinfo(this, res.data);
-        this.commentLoading = false;
-        this.fixCommentVisible = false;
-        //this.getList();
-      });
     },
-    // 导出申请单
-    downloadApply() {
-      let staffID = this.$store.getters.userID;
-      window.location.href = `http://localhost:8787/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
+    filters: {
+      fixStatusFilter(status) {
+        const statusMap = {
+          待审核: "warning",
+          待受理: "warning",
+          审核拒绝: "danger",
+          受理拒绝: "danger",
+          已审核: "success"
+        };
+        return statusMap[status];
+      },
+      hireStatusFilter(status) {
+        const statusMap = {
+          待审核: "warning",
+          待受理: "warning",
+          待审批: "warning",
+          审核拒绝: "danger",
+          受理拒绝: "danger",
+          审批拒绝: "danger",
+          已审批: "success"
+        };
+        return statusMap[status];
+      }
+    },
+    components: {
+      countdownButton,
+      imageUpload
+    },
+    created() {
+      (this.menuIndex = this.$route.params.menuIndex || "personal"),
+      this.getStaff(),
+        this.getStaffHouseRel(),
+        this.getFix(),
+        this.getHire();
+    },
+    methods: {
+      modifyPhone() {
+        this.phoneChange = true;
+      },
+      menuSelect(index, indexPath) {
+        this.menuIndex = index;
+      },
+      // 获取职工个人信息
+      getStaff() {
+        this.listLoading = true;
+        let params = {};
+        getStaff(params, this.staffID).then(res => {
+          this.staffInfo = res.data.data.data;
+          this.listLoading = false;
+        });
+      },
+      getStaffHouseRel() {
+        this.listLoading = true;
+        getUserHouse(this.staffID).then(res => {
+          this.houseList = res.data.data.data;
+          this.listLoading = false;
+        });
+      },
+      // 获取维修信息
+      getFix() {
+        this.listLoading = true;
+        getFixByStaffID(this.staffID).then(res => {
+          this.fixFormList = res.data.data.data;
+          this.listLoading = false;
+        });
+      },
+      fixComment(row) {
+        this.fixCommentForm = Object.assign({}, row);
+        console.log(this.fixCommentForm);
+        this.fixCommentVisible = true;
+      },
+      getHire() {
+        this.listLoading = true;
+        getHireByStaffID(this.staffID).then(res => {
+          this.hireFormList = res.data.data.data;
+        });
+      },
+      expand(row) {
+        this.$refs.fixTable.toggleRowExpansion(row);
+      },
+      // 修改密码
+      changePass() {
+        this.$refs["changePassForm"].validate(valid => {
+          if (valid) {
+            this.listLoading = true;
+            let param = {
+              newPsw: this.passwordForm.newPassword,
+              oldPsw: this.passwordForm.oldPassword
+            };
+            putChangePassword(param).then(res => {
+              utils.statusinfo(this, res.data);
+              this.listLoading = false;
+              this.$refs.changePassForm.resetFields();
+            });
+          }
+        });
+      },
+      // 提交评价
+      submitComment() {
+        this.commentLoading = true;
+        let data = {
+          description: this.fixCommentForm.description,
+          fixId: this.fixCommentForm.fixId,
+          description: this.fixCommentForm.description,
+          ratings: this.fixCommentForm.comment
+        };
+        putFixComment(data).then(res => {
+          utils.statusinfo(this, res.data);
+          this.commentLoading = false;
+          this.fixCommentVisible = false;
+          //this.getList();
+        });
+      },
+      // 导出申请单
+      downloadApply() {
+        let staffID = this.$store.getters.userID;
+        window.location.href = `http://localhost:8787/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
+      }
     }
-  }
-};
+  };
+
 </script>
 
 <style scoped lang="scss">
-@import "../../styles/variables.scss";
+  @import "../../styles/variables.scss";
 
-.second-container {
-  .user-info {
-    margin: 5px auto;
-    width: 80%;
-    .nav {
-      margin-top: 70px;
-      .title {
-        width: 100%;
-        text-align: center;
-        line-height: 42px;
-        font-weight: bold;
-        padding-top: 3px;
-        background-color: #f3f5f8;
+  .second-container {
+    .user-info {
+      margin: 5px auto;
+      width: 90%;
+      .avatar {
+          margin: 0px auto 20px;
+        width: 15vh;
+        height: 15vh;
+        border-radius: 50%;
+        overflow: hidden;
       }
-      .el-menu {
-        border-right: none;
-        padding-left: 0;
+      .nav {
+        margin-top: 100px;
+        .title {
+          width: 100%;
+          text-align: center;
+          line-height: 42px;
+          font-weight: bold;
+          padding-top: 3px;
+          background-color: #f3f5f8;
+        }
+        .el-menu {
+          border-right: none;
+          padding-left: 0;
+        }
       }
-    }
-    .info-form {
-      & > .title {
-        width: 100%;
-        border-bottom: 2px solid #ccc;
-        margin-bottom: 50px;
-      }
-      .info-row {
-        border-bottom: 1px solid #eee;
-        padding: 10px;
-        height: 45px;
-      }
-      .is-change {
-        background-color: #f5f5f5;
-        border-bottom: 1px solid #eee;
-        padding: 10px;
-        .old-vertify {
-          margin-bottom: 5px;
-          &::after {
-            content: " *";
-            color: #ed1c24;
+      .info-form {
+        &>.title {
+          width: 100%;
+          border-bottom: 2px solid #ccc;
+          margin-bottom: 50px;
+        }
+        .info-row {
+          border-bottom: 1px solid #eee;
+          padding: 10px;
+          height: 45px;
+        }
+        .is-change {
+          background-color: #f5f5f5;
+          border-bottom: 1px solid #eee;
+          padding: 10px;
+          .old-vertify {
+            margin-bottom: 5px;
+            &::after {
+              content: " *";
+              color: #ed1c24;
+            }
+          }
+        }
+        .no-result {
+          height: 50vh;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          text-align: center;
+        }
+        .fix-result,
+        .hire-result {
+          height: 60vh;
+        }
+        .change-password {
+          height: 400px;
+          padding: 20px;
+          position: relative;
+          .tool {
+            position: absolute;
+            right: 30px;
+            text-align: right;
+            bottom: 30px;
           }
         }
       }
-      .no-result {
-        height: 50vh;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        text-align: center;
-      }
-      .fix-result,
-      .hire-result {
-        height: 60vh;
-      }
-      .change-password {
-        height: 400px;
-        padding: 20px;
+    }
+    .fix-comment {
+      .border {
         position: relative;
-        .tool {
+        margin-bottom: 15px;
+        &::after {
+          content: "";
+          width: 105%;
+          height: 2px;
+          background-color: #dcdcdc;
           position: absolute;
-          right: 30px;
-          text-align: right;
-          bottom: 30px;
+          bottom: -2px;
+          z-index: 1;
+          left: 4%; //right: 2%;
         }
       }
     }
   }
-  .fix-comment {
-    .border {
-      position: relative;
-      margin-bottom: 15px;
-      &::after {
-        content: "";
-        width: 105%;
-        height: 2px;
-        background-color: #dcdcdc;
-        position: absolute;
-        bottom: -2px;
-        z-index: 1;
-        left: 4%;
-        //right: 2%;
-      }
-    }
-  }
-}
+
 </style>

@@ -23,8 +23,8 @@
             </div>
             <div class="save-buttomn">
               <el-radio v-model="uploadType" label="1">职工</el-radio>
-              <el-radio v-model="uploadType" style="margin-right:30px" label="2">住房</el-radio>
-              <el-radio v-model="uploadType" style="margin-right:30px" label="3">住户</el-radio>
+              <el-radio v-model="uploadType" style="margin-right:10px" label="2">住房</el-radio>
+              <el-radio v-model="uploadType" style="margin-right:10px" label="3">住户关系</el-radio>
               <el-button type="success" size="small" :disabled="isFull" @click="unpload">确认并导入</el-button>
             </div>
             <upload-excel-component @on-selected-file='selected'></upload-excel-component>

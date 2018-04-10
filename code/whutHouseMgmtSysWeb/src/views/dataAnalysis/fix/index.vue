@@ -24,15 +24,26 @@
               <el-col :span="14">
                 <fix-type-line :filters-data="filtersData" :height="'370px'"></fix-type-line>
               </el-col>
-              <el-col :span="10">
-                <num-list :filters-data="filtersData" :height="'370px'"></num-list>
+              <el-col :span="10" >
+                <fix-type-bar :filters-data="filtersData" :height="'370px'"></fix-type-bar>
               </el-col>
             </el-row>
             <el-row style="margin:0 10px 0 -10px;" :gutter="20">
-              <el-col :span="10">
+              <el-col :span="8">
                 <word-cloud :filters-data="filtersData"></word-cloud>
               </el-col>
-            </el-row>            
+              <el-col :span="8">
+                <comment-radar :filters-data="filtersData"></comment-radar>
+              </el-col>
+                  <el-col :span="8">
+                <num-list :filters-data="filtersData"></num-list>
+              </el-col>
+            </el-row>    
+            <el-row style="margin:0 10px 0 -10px;" :gutter="20">
+              <el-col :span="24">
+                <fix-comment-table :filters-data="filtersData"></fix-comment-table>
+              </el-col>
+            </el-row>                    
           </div>
         </div>
       </div>
@@ -43,8 +54,11 @@
 <script type="text/ecmascript-6">
 import fixFormFilter from "@/views/tools/fixFormFilter";
 import fixTypeLine from './components/fixTypeLine'
+import fixTypeBar from './components/fixTypeBar'
 import numList from './components/numList'
 import wordCloud from './components/wordcloud'
+import commentRadar from './components/commentRadar'
+import fixCommentTable from './components/fixCommentTable'
 export default {
   data() {
     return {
@@ -52,7 +66,7 @@ export default {
     };
   },
   components: {
-    fixFormFilter,fixTypeLine,numList,wordCloud
+    fixFormFilter,fixTypeLine,numList,wordCloud,commentRadar,fixTypeBar,fixCommentTable
   },
   methods: {
     // 多重查找查询

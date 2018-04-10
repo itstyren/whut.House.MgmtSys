@@ -240,13 +240,16 @@ export default {
             if (valid) {
               this.listLoading = true;
               let approveForm = this.approveForm;
-              let param = {
+              let params = {
                 approveMan: this.$store.getters.userName,
                 approveNote: approveForm.approveNote,
                 approveState: approveForm.approveState,
                 id: approveForm.id
               };
-              putHireApprove(param).then(res => {
+              putHireApprove(params).then(res => {
+                let params = {
+                  hireId: approveForm.id
+                };
                 postHireEmail(params).catch(err => {
                   console.log(err);
                 });
