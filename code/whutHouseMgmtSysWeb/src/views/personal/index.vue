@@ -359,12 +359,12 @@
                   </div>
                 </el-col>
               </keep-alive>
-                        <el-col :span="4" :offset="1">
-                                          <div class="avatar">
-                <img :src="img_avatar" width="100%" height="100%" alt="avatar">                
-              </div>
-              <image-upload></image-upload>
-          </el-col>
+              <el-col :span="4" :offset="1">
+                <div class="avatar">
+                  <img :src="img_avatar" width="100%" height="100%" alt="avatar">
+                </div>
+                <image-upload></image-upload>
+              </el-col>
             </el-row>
           </div>
         </div>
@@ -628,7 +628,7 @@
       margin: 5px auto;
       width: 90%;
       .avatar {
-          margin: 0px auto 20px;
+        margin: 0px auto 20px;
         width: 15vh;
         height: 15vh;
         border-radius: 50%;
