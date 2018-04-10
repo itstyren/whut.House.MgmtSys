@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.bean.fix.record.FixAllSelectModel;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
@@ -149,6 +148,11 @@ public class FixRecordController {
 		return Msg.success("返回最近" + day + "天全部的维修类型名称与数量").add("name", listString).add("count", listMap);
 	}
 
+	/**
+	 * 多条件筛选返回表单
+	 * @param fixAllSelectModel
+	 * @return
+	 */
 	@PostMapping(value = "multilQueryContent")
 	public Msg fixMultiConditionQuery(@RequestBody FixAllSelectModel fixAllSelectModel) {
 		List<ViewFix> listViewFix = viewFixService.multiConditionQuery(fixAllSelectModel,true);
@@ -158,4 +162,8 @@ public class FixRecordController {
 		return Msg.success().add("data", response);
 	}
 
+//	@PostMapping(value = "fixTotal")
+//	public Msg getFixTotal(@RequestBody FixAllSelectModel fixAllSelectModel){
+//		
+//	}
 }

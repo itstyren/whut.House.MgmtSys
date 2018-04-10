@@ -52,7 +52,7 @@ public class HouseRecordController {
 	@PostMapping(value = "houseTotal")
 	public Msg getHouseTotal(@RequestBody HouseAllSelectModel houseAllSelectModel) {
 		List<ViewHouse> listViewHouse = houseRegisterSelectService.getByAllMultiConditionQuery(houseAllSelectModel);
-		List<Map<String, Object>> listMap = new ArrayList<>();
+//		List<Map<String, Object>> listMap = new ArrayList<>();
 		double totalBuildArea = 0, totalUsedArea = 0, unoccupiedArea = 0, occupiedArea = 0;
 		int unoccupiedNumber = 0, occupiedNumber = 0;
 		for (ViewHouse viewhouse : listViewHouse) {
@@ -160,9 +160,7 @@ public class HouseRecordController {
 		Map<String, Object> map = new HashMap<>();
 		// 遍历每一个房屋
 		for (ViewHouse viewHouse : listViewHouse) {
-			if (!listString.contains(viewHouse.getCampusName())) {
-				listString.add(viewHouse.getCampusName());
-			}
+
 			if (!map.containsKey(viewHouse.getCampusName())) {
 				Map<String, Integer> mapForOne = new HashMap<>();
 				mapForOne.put("已入住", 0);
@@ -196,7 +194,7 @@ public class HouseRecordController {
 			Map<String, Object> mapFinal = new HashMap<>();
 			mapFinal.put("name", entry.getKey());
 			mapFinal.put("data", list2);
-
+			listString.add(entry.getKey());
 			listMap.add(mapFinal);
 		}
 		return Msg.success().add("name", listString).add("data", listMap);
