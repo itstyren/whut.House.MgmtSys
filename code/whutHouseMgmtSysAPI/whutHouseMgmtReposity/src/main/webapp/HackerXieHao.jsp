@@ -40,7 +40,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMTc2MDU2LCJleHAiOjE1MjMxNzk2NTV9.N82vaWRtYNMwe5kiuTb1DpLPOIllDZuKvJJG44VvAWU");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMzczNTkwLCJleHAiOjE1MjMzNzcxOTB9.td6ggQOANHOUm2VoVD--WUYsnOIcL4xQi_YHkm71zyU");
 					},
 					type : "get",
 					contentType : 'application/json',
@@ -66,7 +66,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMTc2MDU2LCJleHAiOjE1MjMxNzk2NTV9.N82vaWRtYNMwe5kiuTb1DpLPOIllDZuKvJJG44VvAWU");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMzczNTkwLCJleHAiOjE1MjMzNzcxOTB9.td6ggQOANHOUm2VoVD--WUYsnOIcL4xQi_YHkm71zyU");
 					},
 					data : JSON.stringify(data),
 					url : uri,
@@ -204,6 +204,35 @@
 
 	//职工参数
 	$(function() {
+		
+		$("#add").click(function() {
+			var data = {
+				'isUsed' : true,
+				'subParam' : 20,
+				'remark' : '测试住房补贴参数'
+			};
+			ajaxRequestPostType("monetarySubParam/add", "POST", data);
+		})
+		
+		$("#getAll").click(function() {
+			ajaxRequestGet("monetarySubParam/getAll?page=1&size=2");
+		})
+		
+		$("#delete").click(function() {
+			ajaxRequestPostType("monetarySubParam/delete/1", "DELETE", null);
+		})
+		
+		$("#update").click(function() {
+			var data = {
+				'id' : 2,
+				'isUsed' : true,
+				'subParam' : 30,
+				'remark' : '测试住房补贴参数'
+			};
+			ajaxRequestPostType("monetarySubParam/update", "PUT", data);
+		})
+		
+		
 		$("#addHouseSub").click(function() {
 			var data = {
 				'year' : '2018',
@@ -770,6 +799,7 @@
 
 	})
 
+	
 	//查询统计
 	$(function() {
 
@@ -806,6 +836,37 @@
 				})
 
 	})
+	
+	//货币化补贴
+	$(function() {
+		
+		$("#getMonetarySubByStaffNo")
+				.click(
+						function() {
+							ajaxRequestGet("staffMonetarySub/getMonetarySubByStaffNo/2");
+						})
+
+		$("#deleteMonetarySub").click(
+				function() {
+					ajaxRequestPostType("staffMonetarySub/deleteMonetarySub/1",
+							"DELETE", null);
+				})
+		$("#addMonetarySub").click(
+				function() {
+					var data = {
+							'staffNo':'2',
+							'year':'2018',
+							'annualSal':'180000',
+							'remark':'2018年货币化补贴'
+							
+					};
+					ajaxRequestPostType(
+							"staffMonetarySub/addMonetarySub",
+							"POST", data);
+				})
+
+	})
+	
 </script>
 
 </head>
@@ -833,6 +894,7 @@
 		<li><a href="#rentGenerate" data-toggle="tab">租金生成</a></li>
 		<li><a href="#personalInfo" data-toggle="tab">个人信息</a></li>
 		<li><a href="#querySta" data-toggle="tab">查询统计</a></li>
+		<li><a href="#houseSub" data-toggle="tab">货币化补贴</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="rentEvent">
@@ -860,7 +922,21 @@
 			<br>
 		</div>
 		<div class="tab-pane fade" id="staffParam">
-			<h4>添加一条住房补贴参数记录</h4>
+		
+			<h4>添加一条补贴比例参数记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="Add" id="add" /><br>
+			<h4>删除一条补贴比例参数记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="Delete" id="delete" /><br>
+			<h4>获取所有补贴比例参数记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetAll" id="getAll" /><br>
+			<h4>更新一条补贴比例参数记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="Update" id="update" /><br>
+		
+			<!-- <h4>添加一条住房补贴参数记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="AddHouseSub" id="addHouseSub" /><br>
 			<h4>删除一条住房补贴参数记录</h4>
@@ -871,7 +947,7 @@
 				value="GetAllHouseSub" id="getAllHouseSub" /><br>
 			<h4>更新一条住房补贴参数记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="UpdateHouseSub" id="updateHouseSub" /><br>
+				value="UpdateHouseSub" id="updateHouseSub" /><br> -->
 			<h4>获取职工参数</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="staffWorkDeptParamGet" id="staffWorkDeptParamGet" /> <br>
@@ -1106,6 +1182,18 @@
 			<h4>多住房统计</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="StaffMoreHouseSta" id="staffMoreHouseSta" /> <br>
+		</div>
+		<div class="tab-pane fade" id="houseSub">
+			<h4>根据职工编号获取其所有补贴记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetMonetarySubByStaffNo" id="getMonetarySubByStaffNo" /> <br>
+			<h4>根据id删除一条补贴记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="DeleteMonetarySub" id="deleteMonetarySub" />
+			<br>
+			<h4>添加一条住房补贴记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="AddMonetarySub" id="addMonetarySub" /> <br>
 		</div>
 
 	</div>
