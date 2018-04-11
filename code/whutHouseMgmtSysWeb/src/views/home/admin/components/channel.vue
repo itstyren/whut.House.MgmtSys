@@ -221,13 +221,37 @@ export default {
         &:nth-child(10) {
       .icon-style {
         color: #fff;
-        background: #f6d6ff;
+        background: #35081d;
       }
     }
         &:nth-child(11) {
       .icon-style {
         color: #fff;
         background: #ffb86c;
+      }
+    }
+            &:nth-child(12) {
+      .icon-style {
+        color: #fff;
+        background: #ff5983;
+      }
+    }
+            &:nth-child(13) {
+      .icon-style {
+        color: #fff;
+        background: #77c34f;
+      }
+    }
+            &:nth-child(14) {
+      .icon-style {
+        color: #fff;
+        background: #81c2d6;
+      }
+    }
+            &:nth-child(15) {
+      .icon-style {
+        color: #fff;
+        background: #214579;
       }
     }
     .icon-xinzeng {

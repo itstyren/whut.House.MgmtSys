@@ -80,7 +80,7 @@ export default {
             }
         },
         data: [{
-            name: 'Sam S Club',
+            name: '反馈很快',
             value: 10000,
             textStyle: {
                 normal: {
@@ -91,52 +91,52 @@ export default {
                 }
             }
         }, {
-            name: 'Macys',
+            name: '态度很好',
             value: 6181
         }, {
-            name: 'Amy Schumer',
+            name: '提前预约',
             value: 4386
         }, {
-            name: 'Jurassic World',
+            name: '及时沟通',
             value: 4055
         }, {
-            name: 'Charter Communications',
+            name: '技术不好',
             value: 2467
         }, {
-            name: 'Chick Fil A',
+            name: '效果不佳',
             value: 2244
         }, {
-            name: 'Planet Fitness',
+            name: '和预期相同',
             value: 1898
         }, {
-            name: 'Pitch Perfect',
+            name: '返工',
             value: 1484
         }, {
-            name: 'Express',
+            name: '很满意',
             value: 1112
         }, {
-            name: 'Home',
+            name: '来的很及时',
             value: 965
         }, {
-            name: 'Johnny Depp',
+            name: '操作规范',
             value: 847
         }, {
-            name: 'Lena Dunham',
+            name: '安排及时',
             value: 582
         }, {
-            name: 'Lewis Hamilton',
+            name: '投诉无用',
             value: 555
         }, {
-            name: 'KXAN',
+            name: '业务水平高',
             value: 550
         }, {
-            name: 'Mary Ellen Mark',
+            name: '完成的不错',
             value: 462
         }, {
-            name: 'Farrah Abraham',
+            name: '我觉得还行',
             value: 366
         }, {
-            name: 'Rita Ora',
+            name: '还行',
             value: 360
         }, {
             name: 'Serena Williams',

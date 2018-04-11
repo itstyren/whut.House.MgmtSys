@@ -48,7 +48,9 @@ export default {
     }
   },
   methods: {
-    getList() {},
+    getList() {
+      
+    },
     // 更换每页数量
     sizeChangeEvent(val) {
       this.listLoading = true;

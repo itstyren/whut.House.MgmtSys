@@ -1,9 +1,8 @@
 package com.computerdesign.whutHouseMgmt.service.fix;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.xml.crypto.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -152,6 +151,53 @@ public class ViewFixService {
 		return viewFixMapper.selectByExample(viewFixExample);
 	}
 
+	
+	/**
+	 * 给定一个ViewFix集合，求拒绝量
+	 * @param list
+	 * @return
+	 */
+	public Long getTotalCountRefused(List<ViewFix> list) {
+		long count = 0;
+		for (ViewFix viewFix : list) {
+			if (viewFix.getIsOver() == true ) {
+				if ("受理拒绝".equals(viewFix.getFixState())||"审核拒绝".equals(viewFix.getFixState())) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+	/**
+	 * 给定一个ViewFix集合，求处理量
+	 * @param list
+	 * @return
+	 */
+	public Long getTotalCountHandle(List<ViewFix> list) {
+		long count = 0;
+		for (ViewFix viewFix : list) {
+			if (viewFix.getIsOver() == true ) {				
+					count++;
+			}
+		}
+		return count;
+	}
+	
+	/**
+	 * 根据维修类型来获取全部的数据
+	 * @param list
+	 * @param fixContentName
+	 * @return
+	 */
+	public List<ViewFix> getFixDateByType(List<ViewFix> list,String fixContentName) {
+		List<ViewFix> listViewFix = new ArrayList<>();
+		for (ViewFix viewFix : list) {
+			if (fixContentName.equals(viewFix.getFixContentName())) {
+				listViewFix.add(viewFix);
+			}
+		}
+		return listViewFix;
+	}
 	/**
 	 * 获取全部待受理的维修信息 获取条件为IsOver为0，FixState为"待受理"
 	 * 

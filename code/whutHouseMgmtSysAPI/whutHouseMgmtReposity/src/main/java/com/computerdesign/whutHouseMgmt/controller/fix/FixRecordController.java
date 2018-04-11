@@ -20,8 +20,11 @@ import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.bean.fix.record.FixAllSelectModel;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
+import com.computerdesign.whutHouseMgmt.utils.Arith;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -114,6 +117,53 @@ public class FixRecordController {
 		return Msg.success().add("data", listReturn);
 	}
 
+	
+	@PostMapping(value = "contentCount")
+	public Msg getFixType(@RequestBody FixAllSelectModel fixAllSelectModel) {
+		Date endDate = fixAllSelectModel.getEndTime();
+		if (endDate == null) {
+			endDate = new Date();
+		}
+		Date comTime = DateUtil.getDelayAppointDate(endDate,10);
+		//设置起始时间是endDate的10天前
+		fixAllSelectModel.setStartTime(comTime);
+		//全部的数据
+		List<ViewFix> viewFixs= viewFixService.multiConditionQuery(fixAllSelectModel, false);
+		//用于存放日期
+		List<String> listDate = new ArrayList<>();
+		//用于存放维修类型
+		List<String> listContentName = new ArrayList<>();
+
+		List<HashMap<String, Object>> listMap = new ArrayList<>();
+		//获取全部的维修类型
+		for (ViewFix viewFix : viewFixs) {
+			if (!listContentName.contains(viewFix.getFixContentName())) {
+				listContentName.add(viewFix.getFixContentName());
+			}
+		}
+		for(int i =0;i<10;i++){
+			listDate.add(DateUtil.getCurrentSimpleRecordDate(DateUtil.getAppointDate(comTime, i)));
+		}
+		System.out.println(listContentName);
+		for (String fixContentName : listContentName) {
+			HashMap<String, Object> finalMap = new HashMap<>();
+
+			//根据维修类型获取全部viewFix
+			List<ViewFix> viewFixsForContent = viewFixService.getFixDateByType(viewFixs, fixContentName);
+			int[] dateCount = new int[10];
+			for (ViewFix viewFix : viewFixsForContent) {
+				if (DateUtil.compareToDate(viewFix.getApplyTime(), comTime) >0) {
+					int i =DateUtil.getIntDistanceOfTwoDate(viewFix.getApplyTime(), endDate);
+					dateCount[10-i]++;					
+				}
+			}
+			finalMap.put("name", fixContentName);
+			finalMap.put("data", dateCount);
+//			mapForContent.put(fixContentName, dateCount);
+			listMap.add(finalMap);
+		}
+		return Msg.success().add("data", listMap).add("dataString",listDate).add("ContentName", listContentName);
+	}
 	/**
 	 * 获取这一周的维修类型的名称与对应数量
 	 * 
@@ -150,20 +200,60 @@ public class FixRecordController {
 
 	/**
 	 * 多条件筛选返回表单
+	 * 
 	 * @param fixAllSelectModel
 	 * @return
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@PostMapping(value = "multilQueryContent")
-	public Msg fixMultiConditionQuery(@RequestBody FixAllSelectModel fixAllSelectModel) {
-		List<ViewFix> listViewFix = viewFixService.multiConditionQuery(fixAllSelectModel,true);
+	public Msg fixMultiConditionQuery(@RequestBody FixAllSelectModel fixAllSelectModel,
+			@RequestParam(value="page",defaultValue = "0")Integer page,
+			@RequestParam(value="size",defaultValue = "0")Integer size) {
+		PageHelper.startPage(page, size);
+		List<ViewFix> listViewFix = viewFixService.multiConditionQuery(fixAllSelectModel, true);
 		String[] fileds = { "id", "applyTime", "fixContentId", "fixContentName", "staffNo", "staffName", "address",
 				"buildingName", "regionName", "campusName", "ratings", "ratingDescription", "fixMoney" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);
-		return Msg.success().add("data", response);
+		PageInfo pageInfo = new PageInfo(listViewFix);
+		pageInfo.setList(response);
+		return Msg.success().add("data", pageInfo);
 	}
 
-//	@PostMapping(value = "fixTotal")
-//	public Msg getFixTotal(@RequestBody FixAllSelectModel fixAllSelectModel){
-//		
-//	}
+	/**
+	 * total总体数据
+	 * @param fixAllSelectModel
+	 * @return
+	 */
+	@PostMapping(value = "total")
+	public Msg getFixTotal(@RequestBody FixAllSelectModel fixAllSelectModel) {
+
+		List<ViewFix> list = viewFixService.multiConditionQuery(fixAllSelectModel, false);
+		long totalFixApply=0, totalFixHandle=0, totalFixRefuse=0;
+		double handleRate, totalFixMoney=0, aveFixRatings=0;
+		
+		int ratingsCount =0;
+		int ratingsSum =0;
+		totalFixRefuse = viewFixService.getTotalCountRefused(list);
+		totalFixApply = list.size();
+		totalFixHandle = viewFixService.getTotalCountHandle(list);
+		handleRate = Arith.div(totalFixHandle*100, totalFixApply,0);
+		for (ViewFix viewFix : list) {
+			if (viewFix.getFixMoney()!=null) {
+				totalFixMoney+=Double.valueOf(viewFix.getFixMoney());				
+			}
+			if (viewFix.getRatings()!=null) {
+				ratingsSum+=Integer.valueOf(viewFix.getRatings());
+				ratingsCount++;
+			}
+		}
+		if (ratingsCount == 0) {
+			aveFixRatings = 0;
+		}else{
+			aveFixRatings = Arith.div(ratingsSum, ratingsCount, 2);			
+		}
+		
+		return Msg.success().add("totalFixApply", totalFixApply).add("totalFixHandle", totalFixHandle)
+				.add("totalFixRefuse", totalFixRefuse).add("handleRate", handleRate)
+				.add("totalFixMoney", totalFixMoney).add("aveFixRatings", aveFixRatings);
+	}
 }
