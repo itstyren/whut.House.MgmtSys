@@ -1,9 +1,8 @@
 package com.computerdesign.whutHouseMgmt.service.fix;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.xml.crypto.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -184,6 +183,21 @@ public class ViewFixService {
 		return count;
 	}
 	
+	/**
+	 * 根据维修类型来获取全部的数据
+	 * @param list
+	 * @param fixContentName
+	 * @return
+	 */
+	public List<ViewFix> getFixDateByType(List<ViewFix> list,String fixContentName) {
+		List<ViewFix> listViewFix = new ArrayList<>();
+		for (ViewFix viewFix : list) {
+			if (fixContentName.equals(viewFix.getFixContentName())) {
+				listViewFix.add(viewFix);
+			}
+		}
+		return listViewFix;
+	}
 	/**
 	 * 获取全部待受理的维修信息 获取条件为IsOver为0，FixState为"待受理"
 	 * 

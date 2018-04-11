@@ -115,6 +115,57 @@ public class FixRecordController {
 		return Msg.success().add("data", listReturn);
 	}
 
+	
+	@PostMapping(value = "contentCount")
+	public Msg getFixType(@RequestBody FixAllSelectModel fixAllSelectModel) {
+		Date startDate = fixAllSelectModel.getStartTime();
+		Date endDate = fixAllSelectModel.getEndTime();
+		if (endDate == null) {
+			endDate = new Date();
+		}
+		Date comTime = DateUtil.getDelayAppointDate(endDate,10);
+		//设置起始时间是endDate的10天前
+		fixAllSelectModel.setStartTime(comTime);
+		//全部的数据
+		List<ViewFix> viewFixs= viewFixService.multiConditionQuery(fixAllSelectModel, false);
+		//用于存放日期
+		List<String> listDate = new ArrayList<>();
+		//用于存放维修类型
+		List<String> listContentName = new ArrayList<>();
+//		//存放数组
+//		List<HashMap<String, Object>> listHashMap = new ArrayList<>();
+//		HashMap<String, HashMap<Date, Integer>> map = new HashMap<>();
+		HashMap<String, int[]> mapForContent = new HashMap<>();
+		List<HashMap<String, Object>> listMap = new ArrayList<>();
+		//获取全部的维修类型
+		for (ViewFix viewFix : viewFixs) {
+			if (!listContentName.contains(viewFix.getFixContentName())) {
+				listContentName.add(viewFix.getFixContentName());
+			}
+		}
+		for(int i =0;i<10;i++){
+			listDate.add(DateUtil.getCurrentSimpleRecordDate(DateUtil.getAppointDate(comTime, i)));
+		}
+		System.out.println(listContentName);
+		for (String fixContentName : listContentName) {
+			HashMap<String, Object> finalMap = new HashMap<>();
+
+			//根据维修类型获取全部viewFix
+			List<ViewFix> viewFixsForContent = viewFixService.getFixDateByType(viewFixs, fixContentName);
+			int[] dateCount = new int[10];
+			for (ViewFix viewFix : viewFixsForContent) {
+				if (DateUtil.compareToDate(viewFix.getApplyTime(), comTime) >0) {
+					int i =DateUtil.getIntDistanceOfTwoDate(viewFix.getApplyTime(), endDate);
+					dateCount[10-i]++;					
+				}
+			}
+			finalMap.put("name", fixContentName);
+			finalMap.put("data", dateCount);
+//			mapForContent.put(fixContentName, dateCount);
+			listMap.add(finalMap);
+		}
+		return Msg.success().add("data", listMap).add("dataString",listDate).add("ContentName", listContentName);
+	}
 	/**
 	 * 获取这一周的维修类型的名称与对应数量
 	 * 
@@ -164,6 +215,11 @@ public class FixRecordController {
 		return Msg.success().add("data", response);
 	}
 
+	/**
+	 * total总体数据
+	 * @param fixAllSelectModel
+	 * @return
+	 */
 	@PostMapping(value = "total")
 	public Msg getFixTotal(@RequestBody FixAllSelectModel fixAllSelectModel) {
 

@@ -253,6 +253,20 @@ public class DateUtil {
 	}
 	
 	/**
+	 * 获取两个日期之间的天数
+	 * @param before
+	 * @param after
+	 * @return
+	 */
+	public static int getIntDistanceOfTwoDate(Date before, Date after) {
+		long beforeTime = before.getTime();
+		long afterTime = after.getTime();
+		System.out.println(before+" "+after);
+		System.out.println((afterTime - beforeTime) / (1000 * 60 * 60 * 24));
+		return (int)((afterTime - beforeTime) / (1000 * 60 * 60 * 24));
+	}
+	
+	/**
 	 * 获取过去的天数
 	 * @param date
 	 * @return
