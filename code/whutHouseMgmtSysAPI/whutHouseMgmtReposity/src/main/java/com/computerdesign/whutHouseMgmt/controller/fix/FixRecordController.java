@@ -20,6 +20,7 @@ import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.bean.fix.record.FixAllSelectModel;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
+import com.computerdesign.whutHouseMgmt.utils.Arith;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 
@@ -150,20 +151,49 @@ public class FixRecordController {
 
 	/**
 	 * 多条件筛选返回表单
+	 * 
 	 * @param fixAllSelectModel
 	 * @return
 	 */
 	@PostMapping(value = "multilQueryContent")
 	public Msg fixMultiConditionQuery(@RequestBody FixAllSelectModel fixAllSelectModel) {
-		List<ViewFix> listViewFix = viewFixService.multiConditionQuery(fixAllSelectModel,true);
+		List<ViewFix> listViewFix = viewFixService.multiConditionQuery(fixAllSelectModel, true);
 		String[] fileds = { "id", "applyTime", "fixContentId", "fixContentName", "staffNo", "staffName", "address",
 				"buildingName", "regionName", "campusName", "ratings", "ratingDescription", "fixMoney" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);
 		return Msg.success().add("data", response);
 	}
 
-//	@PostMapping(value = "fixTotal")
-//	public Msg getFixTotal(@RequestBody FixAllSelectModel fixAllSelectModel){
-//		
-//	}
+	@PostMapping(value = "total")
+	public Msg getFixTotal(@RequestBody FixAllSelectModel fixAllSelectModel) {
+
+		List<ViewFix> list = viewFixService.multiConditionQuery(fixAllSelectModel, false);
+		long totalFixApply=0, totalFixHandle=0, totalFixRefuse=0;
+		double handleRate, totalFixMoney=0, aveFixRatings=0;
+		
+		int ratingsCount =0;
+		int ratingsSum =0;
+		totalFixRefuse = viewFixService.getTotalCountRefused(list);
+		totalFixApply = list.size();
+		totalFixHandle = viewFixService.getTotalCountHandle(list);
+		handleRate = Arith.div(totalFixHandle*100, totalFixApply,0);
+		for (ViewFix viewFix : list) {
+			if (viewFix.getFixMoney()!=null) {
+				totalFixMoney+=Double.valueOf(viewFix.getFixMoney());				
+			}
+			if (viewFix.getRatings()!=null) {
+				ratingsSum+=Integer.valueOf(viewFix.getRatings());
+				ratingsCount++;
+			}
+		}
+		if (ratingsCount == 0) {
+			aveFixRatings = 0;
+		}else{
+			aveFixRatings = Arith.div(ratingsSum, ratingsCount, 2);			
+		}
+		
+		return Msg.success().add("totalFixApply", totalFixApply).add("totalFixHandle", totalFixHandle)
+				.add("totalFixRefuse", totalFixRefuse).add("handleRate", handleRate)
+				.add("totalFixMoney", totalFixMoney).add("aveFixRatings", aveFixRatings);
+	}
 }

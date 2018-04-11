@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample;
 import com.computerdesign.whutHouseMgmt.dao.fix.FixMapper;
@@ -22,45 +23,49 @@ public class FixService {
 	@Autowired
 	private FixMapper fixMapper;
 
-	
-
 	/**
 	 * 根据id获取一个fix
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public Fix get(Integer id) {
 		return fixMapper.selectByPrimaryKey(id);
 	}
+
 	/**
 	 * 增加一个fix
+	 * 
 	 * @param fix
 	 */
 	public void add(Fix fix) {
 		fixMapper.insertSelective(fix);
 	}
-	
+
 	/**
 	 * 通过PrimaryKey修改
+	 * 
 	 * @param fix
 	 */
-	public void update(Fix fix){
+	public void update(Fix fix) {
 		fixMapper.updateByPrimaryKeySelective(fix);
 	}
-	
-	public void updateStrict(Fix fix){
+
+	public void updateStrict(Fix fix) {
 		fixMapper.updateByPrimaryKey(fix);
 	}
-	
+
 	public int delete(Integer id) {
 		try {
-			return fixMapper.deleteByPrimaryKey(id);			
+			return fixMapper.deleteByPrimaryKey(id);
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}
 	}
+
 	/**
 	 * 指定日期的申请量
+	 * 
 	 * @param date
 	 * @return
 	 */
@@ -70,9 +75,24 @@ public class FixService {
 		criteria.andApplyTimeEqualTo(date);
 		return fixMapper.countByExample(example);
 	}
-	
+
+	/**
+	 * 指定日期间的申请量
+	 * 
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public Long getCountTodayApply(Date startDate, Date endDate) {
+		FixExample example = new FixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andApplyTimeBetween(startDate, endDate);
+		return fixMapper.countByExample(example);
+	}
+
 	/**
 	 * 获取指定日期全部拒绝的维修请求数量
+	 * 
 	 * @param data
 	 * @return
 	 */
@@ -82,17 +102,42 @@ public class FixService {
 		acceptCriteria.andFixStateEqualTo("受理拒绝");
 		acceptCriteria.andIsOverEqualTo(true);
 		acceptCriteria.andAcceptTimeEqualTo(date);
-		
+
 		FixExample agreeExample = new FixExample();
 		Criteria agreeCriteria = agreeExample.createCriteria();
 		agreeCriteria.andFixStateEqualTo("审核拒绝");
 		agreeCriteria.andIsOverEqualTo(true);
 		agreeCriteria.andAgreeTimeEqualTo(date);
-		return fixMapper.countByExample(agreeExample)+fixMapper.countByExample(acceptExample);
+		return fixMapper.countByExample(agreeExample) + fixMapper.countByExample(acceptExample);
 	}
-	
+
+	/**
+	 * 获取指定日期全部拒绝的维修请求数量
+	 * 
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public Long getTotalCountRefused(Date startDate, Date endDate) {
+		FixExample acceptExample = new FixExample();
+		Criteria acceptCriteria = acceptExample.createCriteria();
+		acceptCriteria.andFixStateEqualTo("受理拒绝");
+		acceptCriteria.andIsOverEqualTo(true);
+		acceptCriteria.andAcceptTimeBetween(startDate, endDate);
+
+		FixExample agreeExample = new FixExample();
+		Criteria agreeCriteria = agreeExample.createCriteria();
+		agreeCriteria.andFixStateEqualTo("审核拒绝");
+		agreeCriteria.andIsOverEqualTo(true);
+		agreeCriteria.andAgreeTimeBetween(startDate, endDate);
+		return fixMapper.countByExample(agreeExample) + fixMapper.countByExample(acceptExample);
+	}
+
+
+
 	/**
 	 * 获取全部通过的维修信息
+	 * 
 	 * @param date
 	 * @return
 	 */
@@ -104,32 +149,52 @@ public class FixService {
 		criteria.andAgreeStateEqualTo("通过");
 		return fixMapper.countByExample(example);
 	}
+
+	/**
+	 * 获取全部通过的维修信息
+	 * 
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public Long getCountAgreeted(Date startDate, Date endDate) {
+		FixExample example = new FixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAgreeTimeBetween(startDate, endDate);
+		criteria.andIsOverEqualTo(true);
+		criteria.andAgreeStateEqualTo("通过");
+		return fixMapper.countByExample(example);
+	}
+
 	/**
 	 * 通过员工id查询指定员工维修信息
+	 * 
 	 * @param staffId
 	 * @return
 	 */
-	public List<Fix> getByStaffId(Integer staffId){
+	public List<Fix> getByStaffId(Integer staffId) {
 		FixExample example = new FixExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStaffIdEqualTo(staffId);
 		return fixMapper.selectByExample(example);
 	}
-	
+
 	/**
 	 * 获取全部待结算的请求
+	 * 
 	 * @return
 	 */
-	public Long getCountToCheck(){
+	public Long getCountToCheck() {
 		FixExample example = new FixExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andAgreeStateIsNotNull();
 		criteria.andIsCheckEqualTo(false);
 		return fixMapper.countByExample(example);
 	}
-	
+
 	/**
 	 * 获取全部待处理的维修请求
+	 * 
 	 * @return
 	 */
 	public Long getCountToHandle() {
@@ -142,6 +207,7 @@ public class FixService {
 
 	/**
 	 * 根据维修类型参数获取数目
+	 * 
 	 * @param fixParamId
 	 * @return
 	 */

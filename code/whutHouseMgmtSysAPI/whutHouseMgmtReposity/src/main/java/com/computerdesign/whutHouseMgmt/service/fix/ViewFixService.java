@@ -152,6 +152,38 @@ public class ViewFixService {
 		return viewFixMapper.selectByExample(viewFixExample);
 	}
 
+	
+	/**
+	 * 给定一个ViewFix集合，求拒绝量
+	 * @param list
+	 * @return
+	 */
+	public Long getTotalCountRefused(List<ViewFix> list) {
+		long count = 0;
+		for (ViewFix viewFix : list) {
+			if (viewFix.getIsOver() == true ) {
+				if ("受理拒绝".equals(viewFix.getFixState())||"审核拒绝".equals(viewFix.getFixState())) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+	/**
+	 * 给定一个ViewFix集合，求处理量
+	 * @param list
+	 * @return
+	 */
+	public Long getTotalCountHandle(List<ViewFix> list) {
+		long count = 0;
+		for (ViewFix viewFix : list) {
+			if (viewFix.getIsOver() == true ) {				
+					count++;
+			}
+		}
+		return count;
+	}
+	
 	/**
 	 * 获取全部待受理的维修信息 获取条件为IsOver为0，FixState为"待受理"
 	 * 
