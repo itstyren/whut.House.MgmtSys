@@ -3,19 +3,13 @@ package com.computerdesign.whutHouseMgmt.service.fix;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.crypto.Data;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample.Criteria;
-import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample;
 import com.computerdesign.whutHouseMgmt.dao.fix.FixMapper;
-import com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentMapper;
 
 @Service
 public class FixService {

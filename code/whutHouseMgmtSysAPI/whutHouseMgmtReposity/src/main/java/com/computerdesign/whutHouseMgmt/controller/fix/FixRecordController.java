@@ -23,6 +23,8 @@ import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.utils.Arith;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -118,7 +120,6 @@ public class FixRecordController {
 	
 	@PostMapping(value = "contentCount")
 	public Msg getFixType(@RequestBody FixAllSelectModel fixAllSelectModel) {
-		Date startDate = fixAllSelectModel.getStartTime();
 		Date endDate = fixAllSelectModel.getEndTime();
 		if (endDate == null) {
 			endDate = new Date();
@@ -132,10 +133,7 @@ public class FixRecordController {
 		List<String> listDate = new ArrayList<>();
 		//用于存放维修类型
 		List<String> listContentName = new ArrayList<>();
-//		//存放数组
-//		List<HashMap<String, Object>> listHashMap = new ArrayList<>();
-//		HashMap<String, HashMap<Date, Integer>> map = new HashMap<>();
-		HashMap<String, int[]> mapForContent = new HashMap<>();
+
 		List<HashMap<String, Object>> listMap = new ArrayList<>();
 		//获取全部的维修类型
 		for (ViewFix viewFix : viewFixs) {
@@ -206,13 +204,19 @@ public class FixRecordController {
 	 * @param fixAllSelectModel
 	 * @return
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@PostMapping(value = "multilQueryContent")
-	public Msg fixMultiConditionQuery(@RequestBody FixAllSelectModel fixAllSelectModel) {
+	public Msg fixMultiConditionQuery(@RequestBody FixAllSelectModel fixAllSelectModel,
+			@RequestParam(value="page",defaultValue = "0")Integer page,
+			@RequestParam(value="size",defaultValue = "0")Integer size) {
+		PageHelper.startPage(page, size);
 		List<ViewFix> listViewFix = viewFixService.multiConditionQuery(fixAllSelectModel, true);
 		String[] fileds = { "id", "applyTime", "fixContentId", "fixContentName", "staffNo", "staffName", "address",
 				"buildingName", "regionName", "campusName", "ratings", "ratingDescription", "fixMoney" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);
-		return Msg.success().add("data", response);
+		PageInfo pageInfo = new PageInfo(listViewFix);
+		pageInfo.setList(response);
+		return Msg.success().add("data", pageInfo);
 	}
 
 	/**

@@ -261,8 +261,6 @@ public class DateUtil {
 	public static int getIntDistanceOfTwoDate(Date before, Date after) {
 		long beforeTime = before.getTime();
 		long afterTime = after.getTime();
-		System.out.println(before+" "+after);
-		System.out.println((afterTime - beforeTime) / (1000 * 60 * 60 * 24));
 		return (int)((afterTime - beforeTime) / (1000 * 60 * 60 * 24));
 	}
 	
