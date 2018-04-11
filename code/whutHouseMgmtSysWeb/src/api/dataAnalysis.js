@@ -84,3 +84,20 @@ export function postStaffMultiplyHouseNum(params, data) {
   })
 }
 
+// 维修情况数据统计
+export function postFixFormRecord(data) {
+  return request({
+    url: `/fixRecord/total`,
+    method: 'post',
+    data: data
+  })
+}
+
+// 返回进行维修类型趋势变动
+export function postFixTypeRecord(data) {
+  return request({
+    url: `/fixRecord/contentCount`,
+    method: 'post',
+    data: data
+  })
+}

@@ -72,7 +72,7 @@ export default {
     // 多重查找查询
     queryHandle(data) {
       this.filtersData = data;
-      console.log(this.filtersData)
+      //console.log(this.filtersData)
     }
   }
 };
