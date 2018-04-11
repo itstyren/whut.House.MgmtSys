@@ -38,14 +38,14 @@
                     <status-pie :filters-data="filtersData"></status-pie>
                   </el-col>
                   <el-col :span="12">
-                <occupancy-rate :filters-data="filtersData"></occupancy-rate>                    
+                    <occupancy-rate :filters-data="filtersData"></occupancy-rate>
                   </el-col>
                 </el-row>
               </el-col>
             </el-row>
             <el-row style="margin:0 10px 0 -10px;" :gutter="20">
               <el-col :span="24">
-<house-record-table :filters-data="filtersData"></house-record-table>
+                <house-record-table :filters-data="filtersData"></house-record-table>
               </el-col>
             </el-row>
           </div>

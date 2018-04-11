@@ -9,9 +9,9 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span>总维修申请量</span>
+          <span>总维修申请</span>
           <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalBuildArea" :duration="3200"></count-to>
+            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalFixApply" :duration="3200"></count-to>
           </span>
           <span>单</span>
         </el-col>
@@ -19,9 +19,9 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="10">
-          <span>已处理申请量</span>
+          <span>已处理申请</span>
           <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalUsedArea" :duration="3200"></count-to>
+            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalFixHandle" :duration="3200"></count-to>
           </span>
           <span>单</span>
         </el-col>
@@ -31,9 +31,9 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span>已拒绝申请量</span>
+          <span>已拒绝申请</span>
           <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalBuildArea" :duration="3200"></count-to>
+            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalFixRefuse" :duration="3200"></count-to>
           </span>
           <span>单</span>
         </el-col>
@@ -41,9 +41,10 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span>维修审核受理率</span>
-          <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalBuildArea" :duration="3200"></count-to>
+          <span>维修受理率</span>
+          <span style="color:red;">
+            <count-to class="card-panel-num" :startVal="0" :endVal="numList.handleRate" :duration="3200"></count-to>
+            %
           </span>
         </el-col>
       </el-row>
@@ -53,21 +54,21 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span>维修资金花费</span>
+          <span>资金花费</span>
           <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalBuildArea" :duration="3200"></count-to>
+            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalFixMoney" :duration="3200"></count-to>
           </span>
           <span>元</span>
         </el-col>
-                <el-col :span="1" :offset="2">
+        <el-col :span="1" :offset="2">
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
           <span>平均住户反馈</span>
           <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalBuildArea" :duration="3200"></count-to>
+            <count-to class="card-panel-num" :startVal="0" :endVal="numList.aveFixRatings" :duration="3200"></count-to>
           </span>
-           <span>星</span>
+          <span>星</span>
         </el-col>
       </el-row>
     </div>
@@ -77,7 +78,7 @@
 <script type="text/ecmascript-6">
   import countTo from "vue-count-to";
   import {
-    postHouseRecordTotal
+    postFixFormRecord
   } from "@/api/dataAnalysis.js";
 
   export default {
@@ -120,8 +121,8 @@
         };
         if (arguments[0] !== undefined) var data = arguments[0];
         else var data = {};
-        postHouseRecordTotal(data).then(res => {
-          this.numList = res.data.data.data
+        postFixFormRecord(data).then(res => {
+          this.numList = res.data.data
         });
       }
     }

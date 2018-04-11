@@ -9,8 +9,8 @@
         </el-col>
         <el-col :span="11">
           <el-form-item label="住房地址" prop="houseId">
-            <el-input v-model="residentForm.houseId"  size="small" placeholder="请选择" :readonly="true">
-              <el-button slot="append" icon="el-icon-search" @click="dialogVisible"></el-button>
+            <el-input v-model="residentForm.houseId"  size="small" placeholder="请选择" :readonly="!isPersonal">
+              <el-button v-if="!isPersonal" slot="append" icon="el-icon-search" @click="dialogVisible"></el-button>
             </el-input>
           </el-form-item>
         </el-col>
@@ -52,6 +52,7 @@ export default {
         houseId: "",
         staffId: ""
       },
+      isPersonal: false,
       // 表格数据
       statusData: [],
       listLoading: false,
@@ -88,7 +89,11 @@ export default {
     selectHouse: {
       type: String
     },
-    selectHouseId: {
+    selectHouseId: {}
+  },
+  computed: {
+    selectedRel() {
+      return this.residentForm.houseRel;
     }
   },
   // 监听
@@ -98,6 +103,14 @@ export default {
     },
     selectHouse(newVal) {
       this.residentForm.houseId = newVal;
+    },
+    selectedRel(newVal) {
+      for (const item of this.statusData) {
+        if (item.houseParamId == newVal && item.houseParamName == "私有") {
+          this.isPersonal = true;
+          return;
+        } else this.isPersonal = false;
+      }
     }
   },
   created() {
@@ -145,14 +158,25 @@ export default {
             type: "warning"
           })
             .then(() => {
-              let param = {
-                bookTime: this.residentForm.bookTime,
-                house: this.selectHouseId,
-                houseRel: this.residentForm.houseRel,
-                staffId: this.$store.state.residentStaffData.id
-              };
+              console.log(this.isPersonal == false)
+              let params={}
+              if (this.isPersonal == false) {
+                 params = {
+                  bookTime: this.residentForm.bookTime,
+                  house: this.selectHouseId,
+                  houseRel: this.residentForm.houseRel,
+                  staffId: this.$store.state.residentStaffData.id
+                };
+              } else {
+                 params = {
+                  bookTime: this.residentForm.bookTime,
+                  house: this.residentForm.houseId,
+                  houseRel: this.residentForm.houseRel,
+                  staffId: this.$store.state.residentStaffData.id
+                };
+              }
               this.listLoading = true;
-              putHouseRegister(param)
+              putHouseRegister(params)
                 .then(res => {
                   // 公共提示方法
                   utils.statusinfo(this, res.data);

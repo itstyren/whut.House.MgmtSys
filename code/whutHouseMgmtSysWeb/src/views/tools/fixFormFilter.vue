@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="3">
           <el-form-item label="维修类型">
-            <el-select v-model="queryForm.fixType" size="small" :clearable="true" placeholder="维修类型">
+            <el-select v-model="queryForm.fixContentId" size="small" :clearable="true" placeholder="维修类型">
               <el-option v-for="v in fixType" :key="v.fixParamId" :value="v.fixParamId" :label="v.fixParamName"></el-option>
             </el-select>
           </el-form-item>
@@ -105,7 +105,6 @@ export default {
       };
       getFixParam(params, 16).then(res => {
         this.fixType = res.data.data.data.list;
-        console.log(this.fixType);
         this.listLoading = false;
       });
     },
