@@ -2942,6 +2942,76 @@ public class StaffExample {
             addCriterion("IsOwnPriHouse not between", value1, value2, "isOwnPriHouse");
             return (Criteria) this;
         }
+
+        public Criteria andIconIsNull() {
+            addCriterion("Icon is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconIsNotNull() {
+            addCriterion("Icon is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconEqualTo(String value) {
+            addCriterion("Icon =", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotEqualTo(String value) {
+            addCriterion("Icon <>", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconGreaterThan(String value) {
+            addCriterion("Icon >", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconGreaterThanOrEqualTo(String value) {
+            addCriterion("Icon >=", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconLessThan(String value) {
+            addCriterion("Icon <", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconLessThanOrEqualTo(String value) {
+            addCriterion("Icon <=", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconLike(String value) {
+            addCriterion("Icon like", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotLike(String value) {
+            addCriterion("Icon not like", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconIn(List<String> values) {
+            addCriterion("Icon in", values, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotIn(List<String> values) {
+            addCriterion("Icon not in", values, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconBetween(String value1, String value2) {
+            addCriterion("Icon between", value1, value2, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotBetween(String value1, String value2) {
+            addCriterion("Icon not between", value1, value2, "icon");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

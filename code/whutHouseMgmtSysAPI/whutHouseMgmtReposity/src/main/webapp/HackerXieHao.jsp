@@ -40,7 +40,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMzczNTkwLCJleHAiOjE1MjMzNzcxOTB9.td6ggQOANHOUm2VoVD--WUYsnOIcL4xQi_YHkm71zyU");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzNTQ2NTUyLCJleHAiOjE1MjM1NTAxNTJ9.d1_2Y_xbAx7G3hY_DjEoGny3-qqrEVjkDZf4Z7HYI0Y");
 					},
 					type : "get",
 					contentType : 'application/json',
@@ -66,7 +66,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzMzczNTkwLCJleHAiOjE1MjMzNzcxOTB9.td6ggQOANHOUm2VoVD--WUYsnOIcL4xQi_YHkm71zyU");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzNTQ2NTUyLCJleHAiOjE1MjM1NTAxNTJ9.d1_2Y_xbAx7G3hY_DjEoGny3-qqrEVjkDZf4Z7HYI0Y");
 					},
 					data : JSON.stringify(data),
 					url : uri,
@@ -312,6 +312,21 @@
 	//职工管理
 	$(function() {
 
+		$("#getIcon").click(function() {
+			ajaxRequestGet("staff/getIcon/1");
+		})
+		
+		$("#saveIcon").click(
+				function() {
+					var data={
+						'id':1,
+						'icon':'C:\\Users\\Administrator\\Desktop\\icon测试.jpg'
+					};
+					ajaxRequestPostType(
+							"staff/saveIcon", "POST",
+							data);
+				})
+		
 		$("#calculateStaffValueByStaffNo").click(
 				function() {
 					ajaxRequestPostType(
@@ -973,6 +988,14 @@
 				value="staffParamModify" id="staffParamModify" /><br>
 		</div>
 		<div class="tab-pane fade" id="staffManagement">
+			<h4>获取头像</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetIcon"
+				id="getIcon" /> <br> <br>
+			<h4>上传头像</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="SaveIcon"
+				id="saveIcon" /> <br> <br>
 			<h4>计算单个职工总分</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="calculateStaffValueByStaffNo"

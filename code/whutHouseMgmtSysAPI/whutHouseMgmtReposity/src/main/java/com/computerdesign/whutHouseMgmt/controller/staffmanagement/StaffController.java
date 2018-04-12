@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffIcon;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffModel;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValue;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
@@ -47,6 +48,39 @@ public class StaffController extends BaseController {
 	@Autowired
 	private StaffService staffService;
 
+	/**
+	 * 获取头像
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getIcon/{id}", method = RequestMethod.GET)
+	public Msg getIcon(@PathVariable("id") Integer id){
+		Staff staff = staffService.get(id);
+		if(staff.getIcon() != null){
+			return Msg.success().add("data", staff.getIcon());
+		}else{
+			return Msg.error("无头像信息");
+		}
+	}
+	
+	/**
+	 * 上传，保存头像
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "saveIcon", method = RequestMethod.POST)
+	public Msg saveIcon(@RequestBody StaffIcon staffIcon){
+		if(staffIcon != null){
+			Staff staff = staffService.get(staffIcon.getId());
+			staff.setIcon(staffIcon.getIcon());
+			staffService.update(staff);
+			return Msg.success().add("data", staff);
+		}else{
+			return Msg.error();
+		}
+	}
+	
 	/**
 	 * 计算单个职工的总分，主要用于新增员工时计算
 	 * @param staffNo
