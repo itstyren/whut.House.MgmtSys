@@ -60,11 +60,9 @@ export default {
       else var data = {};
       this.chart.showLoading();
       postFixTypeRecord(data).then(res => {
-        console.log(res.data.data)
         const data=res.data.data
         let _series=[]
         data.data.forEach(v => {
-          console.log(v)
           _series.push(
             {
             name: v.name,

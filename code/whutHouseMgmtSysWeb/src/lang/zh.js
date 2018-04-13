@@ -33,7 +33,8 @@ export default {
         houseAnalysis:'住房分析',
         scanning:'多套住房核对',
         announcement:'发布公告',
-        fixFormAnalysis:'维修分析'
+        fixFormAnalysis:'维修分析',
+        personal:'个人设置'
     },
     header: {
         title: '高校房屋管理与货币化补贴系统',

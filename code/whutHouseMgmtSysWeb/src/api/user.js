@@ -81,3 +81,18 @@ export function getQiniuToken() {
     method: 'get',
   })
 }
+// 获取个人头像
+export function getUserAvatar(staffID) {
+  return request({
+    url: `/staff/getIcon/${staffID}`,
+    method: 'get',
+  })
+}
+// 保存个人头像
+export function postUserAvatar(data) {
+  return request({
+    url: '/staff/saveIcon',
+    method: 'post',
+    data: data
+  })
+}

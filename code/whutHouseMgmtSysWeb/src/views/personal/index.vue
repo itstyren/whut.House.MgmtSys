@@ -34,7 +34,7 @@
                       <span slot="title">房屋信息</span>
                     </el-menu-item>
                     <el-menu-item index="fix">
-                      <my-icon icon-class="baoxiu"></my-icon>
+                      <my-icon icon-class="fixApplyManager"></my-icon>
                       <span slot="title">我的维修</span>
                     </el-menu-item>
                     <el-menu-item index="hire">
@@ -248,7 +248,7 @@
                           <el-tag :type="scope.row.fixState | fixStatusFilter">{{scope.row.fixState}}</el-tag>
                         </template>
                       </el-table-column>
-                      <el-table-column label="操作" align="center">
+                      <el-table-column label="操作" align="center" width="200">
                         <template slot-scope="scope">
                           <el-button @click="expand(scope.row)" type="infor" size="small">查看</el-button>
                           <el-button type="success" @click="fixComment(scope.row)" v-if="scope.row.isCheck==true" size="small">评价</el-button>
@@ -361,7 +361,7 @@
               </keep-alive>
               <el-col :span="4" :offset="1">
                 <div class="avatar">
-                  <img :src="img_avatar" width="100%" height="100%" alt="avatar">
+                  <img :src="avatarURL" width="100%" height="100%" alt="avatar">
                 </div>
                 <image-upload @upload-url="uploadURL"></image-upload>
               </el-col>
@@ -430,7 +430,9 @@
   import {
     putChangePassword,
     putFixComment,
-    getUserHouse
+    getUserHouse,
+    getUserAvatar,
+    postUserAvatar
   } from "@/api/user";
   import {
     getFixByStaffID
@@ -451,7 +453,7 @@
         }
       };
       return {
-        img_avatar,
+        avatarURL:'',
         listLoading: false,
         staffID: this.$store.getters.userID,
         staffInfo: {
@@ -545,6 +547,15 @@
         let params = {};
         getStaff(params, this.staffID).then(res => {
           this.staffInfo = res.data.data.data;
+          getUserAvatar(this.staffID).then(res=>{
+            if(res.data.status=='error')
+            {
+              this.avatarURL=img_avatar
+            }
+            else{
+              this.avatarURL=res.data.data.data
+            }
+          })
           this.listLoading = false;
         });
       },
@@ -565,7 +576,6 @@
       },
       fixComment(row) {
         this.fixCommentForm = Object.assign({}, row);
-        console.log(this.fixCommentForm);
         this.fixCommentVisible = true;
       },
       getHire() {
@@ -616,7 +626,16 @@
         window.location.href = `http://localhost:8787/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
       },
       uploadURL(url){
+        this.listLoading=true
         console.log(url)
+        let data={
+          id:this.staffID,
+          icon:url
+        }
+        postUserAvatar(data).then(res=>{
+          utils.statusinfo(this, res.data);     
+          this.listLoading=false     
+        })
       }
     }
   };

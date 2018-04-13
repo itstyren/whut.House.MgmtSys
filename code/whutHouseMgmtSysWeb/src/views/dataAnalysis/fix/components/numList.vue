@@ -78,7 +78,7 @@
 <script type="text/ecmascript-6">
   import countTo from "vue-count-to";
   import {
-    postFixFormRecord
+    postFixFormTotalRecord
   } from "@/api/dataAnalysis.js";
 
   export default {
@@ -121,7 +121,7 @@
         };
         if (arguments[0] !== undefined) var data = arguments[0];
         else var data = {};
-        postFixFormRecord(data).then(res => {
+        postFixFormTotalRecord(data).then(res => {
           this.numList = res.data.data
         });
       }
