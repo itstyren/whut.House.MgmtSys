@@ -40,6 +40,24 @@ public class StaffHouseService {
 		criteria.andStaffIdEqualTo(staffId);
 		return staffHouseMapper.selectByExample(example);
 	}
+	/**
+	 * 根据houseId获取StaffHouse的list
+	 * @param houseId
+	 * @return
+	 */
+	public List<StaffHouse> getStaffHouseByHouseId(Integer houseId) {
+		StaffHouseExample example = new StaffHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(false);
+		criteria.andHouseIdEqualTo(houseId);
+		return staffHouseMapper.selectByExample(example);
+	}
 	
-	
+	/**
+	 * 获取全部的staffHouse
+	 * @return
+	 */
+	public List<StaffHouse> getAll() {
+		return staffHouseMapper.selectByExample(null);		
+	}
 }
