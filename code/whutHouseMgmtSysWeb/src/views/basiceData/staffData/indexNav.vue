@@ -21,7 +21,8 @@
 
 <script type="text/ecmascript-6">
 import { getDept } from "@/api/basiceData";
-import ScrollBar from '@/components/ScrollBar'
+import ScrollBar from "@/components/ScrollBar";
+import * as types from "../../../store/mutation-types";
 export default {
   data() {
     return {
@@ -29,7 +30,7 @@ export default {
       listLoading: false,
       // 部门信息加职工
       depData: [],
-      filterText: "",
+      filterText: ""
     };
   },
   components: {
@@ -39,8 +40,8 @@ export default {
     this.getList();
   },
   computed: {
-    staffShow(){
-       return this.$store.state.app.staffShow
+    staffShow() {
+      return this.$store.state.app.staffShow;
     }
   },
   watch: {
@@ -120,12 +121,13 @@ export default {
     nodeClick(object, node, component) {
       //console.log(node);
       if (node.level == 1) {
-      this.$store.commit('SET_STAFF_SHOW',false)  
+        this.$store.commit("SET_STAFF_SHOW", false);
         this.$router.push({
           path: "/basic/staff/byDept/" + object.id
         });
       } else if (node.level == 2) {
-      this.$store.commit('SET_STAFF_SHOW',true)  
+        this.$store.commit("SET_STAFF_SHOW", true);
+        this.$store.commit(types.STAFF_MODIFY, false);
         this.$router.push({
           path: "/basic/staff/byId/" + object.id
         });
