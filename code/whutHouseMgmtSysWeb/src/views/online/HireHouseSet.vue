@@ -174,7 +174,7 @@
       setSelectionChange(selection) {
         this.setList = [];
         selection.forEach(v => {
-          this.setList.push(v.no);
+          this.setList.push(v.id);
         });
       },
       // 设为房源
@@ -191,7 +191,7 @@
       cancelSelectionChange(selection) {
         this.cancelList = [];
         selection.forEach(v => {
-          this.cancelList.push(v.no);
+          this.cancelList.push(v.id);
         });
       },
       // 取消可选房

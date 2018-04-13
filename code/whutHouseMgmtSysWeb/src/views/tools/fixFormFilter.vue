@@ -139,7 +139,6 @@ export default {
       });
     },
     queryHandle() {
-      this.queryForm={}
       if (this.setTime != null && this.setTime.length != 0) {
         this.queryForm.startTime = this.setTime[0];
         this.queryForm.endTime = this.setTime[1];
@@ -153,9 +152,7 @@ export default {
       if (this.buildingId != "") {
         this.queryForm.buildingId = this.buildingId;
       }
-      if (this.campusId != "") {
         this.queryForm.campusId = this.campusId;
-      }
       for (let v in this.queryForm) {
         if (this.queryForm[v] == "") {
           delete this.queryForm[v];

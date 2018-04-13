@@ -95,11 +95,10 @@ export function getFixReAccept(fixFormId) {
     })
 }
 // 重新审核
-export function getFixReAgree(params) {
+export function getFixReAgree(fixFormId) {
     return request({
         url: `/fix/reAgree/${fixFormId}`,
         method: 'get',
-        params: params
     })
 }
 
