@@ -14,7 +14,7 @@
         <el-col :span="6" class="card-panel-col">
       <div class="card" @click="handleSetLineChartData('messages')">
         <div class="card-panel-icon-wrapper icon-message">
-          <my-icon icon-class="baoxiu" class-name="card-panel-icon" />
+          <my-icon icon-class="fixApplyManager" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">今日维修申请</div>
@@ -57,7 +57,6 @@ export default {
     countTo
   },
   created() {
-    console.log(this.todayData);
   },
   computed: {
     todayData() {

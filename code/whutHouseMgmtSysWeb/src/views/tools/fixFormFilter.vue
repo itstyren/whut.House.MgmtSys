@@ -139,6 +139,7 @@ export default {
       });
     },
     queryHandle() {
+      this.queryForm={}
       if (this.setTime != null && this.setTime.length != 0) {
         this.queryForm.startTime = this.setTime[0];
         this.queryForm.endTime = this.setTime[1];
@@ -173,8 +174,10 @@ export default {
     // 清空搜索的区域时
     clearRegion() {
       this.regionId = "";
+      this.buildingId = "";      
     },
     clearCampus() {
+      this.campusId="",
       this.regionId = "";
       this.buildingId = "";
     }

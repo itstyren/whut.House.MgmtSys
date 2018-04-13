@@ -297,7 +297,7 @@ public class HouseRegisterController {
 				oshrw.setAddress(outSchoolHouseVw.getAddress());
 				outSchoolHouseRelShows.add(oshrw);
 			}
-			return Msg.success().add("data", staffHouseRels).add("校外房", outSchoolHouseRelShows);
+			return Msg.success().add("data", staffHouseRels).add("outSchoolHouse", outSchoolHouseRelShows);
 		}
 		return Msg.error();
 	}

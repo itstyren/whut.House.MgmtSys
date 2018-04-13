@@ -85,7 +85,7 @@ export function postStaffMultiplyHouseNum(params, data) {
 }
 
 // 维修情况数据统计
-export function postFixFormRecord(data) {
+export function postFixFormTotalRecord(data) {
   return request({
     url: `/fixRecord/total`,
     method: 'post',
@@ -98,6 +98,15 @@ export function postFixTypeRecord(data) {
   return request({
     url: `/fixRecord/contentCount`,
     method: 'post',
+    data: data
+  })
+}
+// 维修反馈情况表格统计
+export function postFixFormRecord(params,data) {
+  return request({
+    url: `/fixRecord/multilQueryContent`,
+    method: 'post',
+    params: params,
     data: data
   })
 }

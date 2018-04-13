@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="10" :offset="2">
           <div class="avatar">
-            <img :src="img_avatar" width="100%" height="100%" alt="avatar">
+            <img :src="avatarURL" width="100%" height="100%" alt="avatar">
           </div>
         </el-col>
         <el-col :span="12">
@@ -48,26 +48,39 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import img_avatar from "@/assets/avatar.jpg";
-  export default {
-    data() {
-      return {
-        img_avatar,
-        staffName: this.$store.getters.userName,
-        roleName:'',
-        ip:this.$store.state.user.ip,
-        loginTime:this.$store.state.user.loginTime
-      };
-    },
-    mounted () {
-      if(this.$store.getters.roles==0){
-        this.roleName='超级管理员'
-      }else{
-        this.roleName='职工'
-      }
-    },
-  };
-
+import img_avatar from "@/assets/avatar.jpg";
+import { getUserAvatar } from "@/api/user";
+export default {
+  data() {
+    return {
+      staffID: this.$store.getters.userID,
+      avatarURL: "",
+      staffName: this.$store.getters.userName,
+      roleName: "",
+      ip: this.$store.state.user.ip,
+      loginTime: this.$store.state.user.loginTime
+    };
+  },
+  mounted() {
+    if (this.$store.getters.roles == 0) {
+      this.roleName = "超级管理员";
+    } else {
+      this.roleName = "职工";
+    }
+    this.getData()
+  },
+  methods: {
+    getData() {
+      getUserAvatar(this.staffID).then(res => {
+        if (res.data.status == "error") {
+          this.avatarURL = img_avatar;
+        } else {
+          this.avatarURL = res.data.data.data;
+        }
+      });
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">
@@ -83,14 +96,15 @@
       height: 2px;
       background-color: #dcdcdc;
       position: absolute;
-      bottom: -2px;
+      bottom: -0px;
       z-index: 1;
       left: 5%;
       right: 5%;
     }
     .avatar {
-      width: 15vh;
-      height: 15vh;
+      margin-top: 10px;
+      width: 14vh;
+      height: 14vh;
       border-radius: 50%;
       overflow: hidden;
     }
