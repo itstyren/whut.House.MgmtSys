@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
+import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HouseStaff;
 import com.computerdesign.whutHouseMgmt.service.campus.CampusService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.HouseRegisterSelectService;
+import com.computerdesign.whutHouseMgmt.service.internetselecthouse.HouseStaffService;
 import com.computerdesign.whutHouseMgmt.utils.Arith;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,15 +49,20 @@ public class HouseRecordController {
 	@Autowired
 	private CampusService campusService;
 
+
+	@Autowired
+	private HouseStaffService houseStaffService;
+
 	/**
 	 * 房屋总数据
+	 * 
 	 * @param houseAllSelectModel
 	 * @return
 	 */
 	@PostMapping(value = "houseTotal")
 	public Msg getHouseTotal(@RequestBody HouseAllSelectModel houseAllSelectModel) {
 		List<ViewHouse> listViewHouse = houseRegisterSelectService.getByAllMultiConditionQuery(houseAllSelectModel);
-//		List<Map<String, Object>> listMap = new ArrayList<>();
+		// List<Map<String, Object>> listMap = new ArrayList<>();
 		double totalBuildArea = 0, totalUsedArea = 0, unoccupiedArea = 0, occupiedArea = 0;
 		int unoccupiedNumber = 0, occupiedNumber = 0;
 		for (ViewHouse viewhouse : listViewHouse) {
@@ -68,13 +78,13 @@ public class HouseRecordController {
 			}
 		}
 		Map<String, Object> map = new HashMap<>();
-		map.put("totalBuildArea", Arith.round(totalBuildArea,2));
-		map.put("totalUsedArea", Arith.round(totalUsedArea,2));
+		map.put("totalBuildArea", Arith.round(totalBuildArea, 2));
+		map.put("totalUsedArea", Arith.round(totalUsedArea, 2));
 		map.put("unoccupiedNumber", unoccupiedNumber);
-		map.put("unoccupiedArea", Arith.round(unoccupiedArea,2));
+		map.put("unoccupiedArea", Arith.round(unoccupiedArea, 2));
 		map.put("occupiedNumber", occupiedNumber);
-		map.put("occupiedArea", Arith.round(occupiedArea,2));
-		
+		map.put("occupiedArea", Arith.round(occupiedArea, 2));
+
 		return Msg.success().add("data", map);
 	}
 
@@ -228,8 +238,29 @@ public class HouseRecordController {
 		}
 		List<Double> floatList = new ArrayList<>();
 		for (Integer number : listInteger) {
-			floatList.add(Arith.div(number*100, sum, 2));
+			floatList.add(Arith.div(number * 100, sum, 2));
 		}
 		return Msg.success().add("name", listString).add("number", listInteger).add("proportion", floatList);
+	}
+
+	/**
+	 * 获取全部的staffHouse
+	 * 
+	 * @param houseId
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@PostMapping(value = "relationByHouse")
+	public Msg getRelationByHouse(@RequestBody HouseAllSelectModel houseAllSelectModel,
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size) {
+
+		List<ViewHouse> listViewHouse = houseRegisterSelectService.getByAllMultiConditionQuery(houseAllSelectModel);
+
+		PageHelper.startPage(page, size);
+		List<HouseStaff> viewHouseStaffs = houseStaffService.getAll(listViewHouse);
+		PageInfo pageInfo = new PageInfo(viewHouseStaffs);
+		return Msg.success().add("data", pageInfo);
 	}
 }
