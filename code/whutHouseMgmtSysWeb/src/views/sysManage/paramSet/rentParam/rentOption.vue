@@ -131,7 +131,7 @@
         </el-row>
         <el-row>
           <el-col :span="21">
-            <el-form-item label="可选时间段" prop="dayRentTimeBegin">
+            <el-form-item label="可选时间段" >
               <el-row>
                 <el-col :span="11">
                   <el-time-select placeholder="起始时间" v-model="modifyFromBody.dayRentTimeBegin" :picker-options="{  start: '08:30', step: '00:15',  end: '23:30' }">
@@ -302,7 +302,6 @@ export default {
     },
     // 新增提交
     addSubmit() {
-      console.log(this.addFormBody);
       this.$refs["addForm"].validate(valid => {
         if (valid) {
           this.submitLoadinga = true;

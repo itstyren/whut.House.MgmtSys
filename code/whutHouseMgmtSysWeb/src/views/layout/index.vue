@@ -29,7 +29,7 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
-              <router-link to="/user/setting">
+              <router-link to="/user">
                 <span style=" color: #000; font-size: 14px;">个人设置</span>
               </router-link>
             </el-dropdown-item>

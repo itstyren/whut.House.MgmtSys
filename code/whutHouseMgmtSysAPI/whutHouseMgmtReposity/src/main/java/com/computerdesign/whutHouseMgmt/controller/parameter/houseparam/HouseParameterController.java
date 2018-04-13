@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
+import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
+import com.computerdesign.whutHouseMgmt.service.paramclass.ParamClassService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -32,6 +34,8 @@ public class HouseParameterController {
 	private HouseParamService houseParamService;
 	@Autowired
 	private HouseService houseService;
+	@Autowired
+	private ParamClassService paramClassService;
 
 	/**
 	 * 获取全部的houseParamId
@@ -115,6 +119,7 @@ public class HouseParameterController {
 				return Msg.error("该名称已存在，无法添加");
 			}
 		}
+		houseParameter.setParamTypeName(paramClassService.get(houseParameter.getParamTypeId()).getParamTypeName());;
 		houseParamService.add(houseParameter);
 		return Msg.success().add("data", houseParameter);
 	}

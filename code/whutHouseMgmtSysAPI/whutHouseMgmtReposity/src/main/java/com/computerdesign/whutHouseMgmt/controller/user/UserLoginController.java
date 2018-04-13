@@ -63,7 +63,7 @@ public class UserLoginController extends BaseController{
 		if (viewStaff.getAccountStatus()) {
 			return Msg.error("该账号已冻结，请联系管理员解冻");
 		}
-		if (!viewStaff.getStaffPassword().equals(password) || viewStaff.getRoleId() != roleId) {
+		if (!password.equals(viewStaff.getStaffPassword()) || viewStaff.getRoleId() != roleId) {
 			return Msg.error("信息有误");
 		}
 

@@ -67,8 +67,6 @@ export default {
       this.chart.showLoading();
       postHouseRecordCampus(data).then(res => {
         let _series = [];
-        console.log(res.data.data);
-
         res.data.data.data.forEach((data, index) => {
           // console.log(data)
           _series.push({

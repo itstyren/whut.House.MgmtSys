@@ -152,9 +152,7 @@ export default {
       if (this.buildingId != "") {
         this.queryForm.buildingId = this.buildingId;
       }
-      if (this.campusId != "") {
         this.queryForm.campusId = this.campusId;
-      }
       for (let v in this.queryForm) {
         if (this.queryForm[v] == "") {
           delete this.queryForm[v];
@@ -173,8 +171,10 @@ export default {
     // 清空搜索的区域时
     clearRegion() {
       this.regionId = "";
+      this.buildingId = "";      
     },
     clearCampus() {
+      this.campusId="",
       this.regionId = "";
       this.buildingId = "";
     }

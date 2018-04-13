@@ -290,7 +290,6 @@ import * as staticData from "@/utils/static";
       },
       // 处理导出情况
       exportHandle(exportType) {
-        //console.log(33)
         if (exportType == 1) this.handleDownload();
         else {
           let param = {
