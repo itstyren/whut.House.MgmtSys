@@ -199,7 +199,6 @@
         };
         getCampusData().then(res => {
           this.campusData = res.data.data.data.list;
-          console.log(res.data.data.data.list);
           this.listLoading = false;
         });
       },

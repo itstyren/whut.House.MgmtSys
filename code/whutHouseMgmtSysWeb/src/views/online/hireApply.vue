@@ -201,8 +201,6 @@ export default {
               array[0] = this.accoutInfo.hireApplyAlready;
             }
             this.accoutInfo.array = array;
-            console.log(this.accoutInfo);
-            // console.log(res.data.data.list)
             this.listLoading = false;
           }
         })

@@ -40,8 +40,8 @@
           <el-table-column prop="name" label="姓名" sortable align="center"></el-table-column>
           <el-table-column prop="sex" label="性别" sortable align="center"></el-table-column>
           <el-table-column prop="marriageState" label="婚姻状况" sortable align="center"></el-table-column>
-          <el-table-column prop="postName" label="职称" sortable align="center"></el-table-column>
-          <el-table-column prop="titleName" label="职务" sortable align="center"></el-table-column>
+          <el-table-column prop="titleName" label="职称" sortable align="center"></el-table-column>
+          <el-table-column prop="postName" label="职务" sortable align="center"></el-table-column>
           <el-table-column prop="statusName" label="工作状态" sortable align="center"></el-table-column>
           <el-table-column label="操作" width="350" align="center">
             <template slot-scope="scope">

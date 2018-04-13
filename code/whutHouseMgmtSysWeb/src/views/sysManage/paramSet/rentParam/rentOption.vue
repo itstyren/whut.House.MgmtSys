@@ -302,7 +302,6 @@ export default {
     },
     // 新增提交
     addSubmit() {
-      console.log(this.addFormBody);
       this.$refs["addForm"].validate(valid => {
         if (valid) {
           this.submitLoadinga = true;

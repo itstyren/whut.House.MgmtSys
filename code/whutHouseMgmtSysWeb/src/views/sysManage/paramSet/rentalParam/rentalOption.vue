@@ -148,7 +148,6 @@
         this.modifyFromBody.rentalOldDct = Number(
           this.modifyFromBody.rentalOldDct
         );
-        console.log(this.modifyFromBody);
       },
       //编辑提交
       modifySubmit() {

@@ -188,7 +188,6 @@ export default {
                 acceptState: acceptForm.acceptState,
                 id: acceptForm.id
               };
-              console.log(param);
               putFixAccept(param).then(res => {
                 if ((param.acceptState = "拒绝")) {
                   let params = {

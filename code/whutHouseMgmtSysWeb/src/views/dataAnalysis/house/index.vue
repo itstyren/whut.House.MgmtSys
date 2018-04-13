@@ -45,7 +45,7 @@
             </el-row>
             <el-row style="margin:0 10px 0 -10px;" :gutter="20">
               <el-col :span="24">
-                <house-record-table :filters-data="filtersData"></house-record-table>
+                <house-record-table :filters-data="filtersData" :height="'500px'"></house-record-table>
               </el-col>
             </el-row>
           </div>

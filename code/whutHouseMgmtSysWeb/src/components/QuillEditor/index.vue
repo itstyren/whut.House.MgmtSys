@@ -29,7 +29,6 @@ export default {
             name: "file",
             action: "http://upload.qiniu.com/",
             response: res => {
-              console.log(this.$store.getters.qiniuURL + res.key);
               return this.$store.getters.qiniuURL + res.key;
             },
             change: (xhr, formData) => {

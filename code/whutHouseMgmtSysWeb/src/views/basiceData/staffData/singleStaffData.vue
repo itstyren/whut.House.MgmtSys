@@ -311,7 +311,6 @@ export default {
       deep: true
     },
     store_ismodify(newVal) {
-      console.log(newVal);
       if (newVal == false) {
         this.ismodify = false;
       } else {
@@ -367,7 +366,6 @@ export default {
         getStaffParam(param, paramClass)
           .then(res => {
             this.$set(this.staffParam, paramClass, res.data.data.data.list);
-            console.log(this.staffForm);
             if (this.staffParam[10] != null) this.submitLoading = false;
           })
           .catch(err => {
