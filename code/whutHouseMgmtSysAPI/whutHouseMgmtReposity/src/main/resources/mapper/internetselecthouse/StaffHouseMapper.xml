@@ -15,13 +15,17 @@
     <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
     <result column="StaffSex" jdbcType="VARCHAR" property="staffSex" />
     <result column="StaffMarriageState" jdbcType="VARCHAR" property="staffMarriageState" />
+    <result column="StaffTitleId" jdbcType="INTEGER" property="staffTitleId" />
     <result column="StaffTitleName" jdbcType="VARCHAR" property="staffTitleName" />
     <result column="StaffTitleVal" jdbcType="INTEGER" property="staffTitleVal" />
     <result column="StaffSpouseTitleVal" jdbcType="INTEGER" property="staffSpouseTitleVal" />
+    <result column="StaffPostId" jdbcType="INTEGER" property="staffPostId" />
     <result column="StaffPostName" jdbcType="VARCHAR" property="staffPostName" />
     <result column="StaffPostVal" jdbcType="INTEGER" property="staffPostVal" />
     <result column="StaffSpousePostVal" jdbcType="INTEGER" property="staffSpousePostVal" />
+    <result column="StaffTypeId" jdbcType="INTEGER" property="staffTypeId" />
     <result column="StaffTypeName" jdbcType="VARCHAR" property="staffTypeName" />
+    <result column="StaffStatusId" jdbcType="INTEGER" property="staffStatusId" />
     <result column="StaffStatusName" jdbcType="VARCHAR" property="staffStatusName" />
     <result column="StaffDeptId" jdbcType="INTEGER" property="staffDeptId" />
     <result column="StaffDeptName" jdbcType="VARCHAR" property="staffDeptName" />
@@ -138,18 +142,18 @@
   </sql>
   <sql id="Base_Column_List">
     ResidentId, HouseRel, HouseRelName, BookTime, IsDelete, ExpireTime, RentType, FamilyCode, 
-    StaffId, StaffNo, StaffName, StaffSex, StaffMarriageState, StaffTitleName, StaffTitleVal, 
-    StaffSpouseTitleVal, StaffPostName, StaffPostVal, StaffSpousePostVal, StaffTypeName, 
-    StaffStatusName, StaffDeptId, StaffDeptName, StaffCode, StaffJoinTime, StaffRetireTime, 
-    StaffTel, StaffRemark, StaffSpouseName, StaffSpouseCode, StaffSpouseTitleName, StaffSpousePostName, 
-    StaffSpouseDept, StaffSpouseKind, StaffSpouseKindName, StaffIsDeptManage, StaffPassword, 
-    StaffBuyAccount, StaffFixFund, StaffSecondJoinTime, StaffSecondRetireTime, StaffDual, 
-    StaffRelation, StaffDiscountRate, StaffFamilyCode, StaffFirstJobTime, StaffUserName, 
-    OtherVal, TimeVal, TotalVal, HouseId, HouseNo, HouseType, HouseTypeName, HouseLayout, 
-    HouseLayoutName, HouseStruct, HouseStructName, HouseStatus, HouseStatusName, HouseBuildArea, 
-    HouseUsedArea, HouseBasementArea, HouseAddress, BuildingId, BuildingName, RegionId, 
-    RegionName, ProId, HouseRemark, HouseImage, HouseRental, HouseFinishTime, HouseRecordStatus, 
-    LastRentTime
+    StaffId, StaffNo, StaffName, StaffSex, StaffMarriageState, StaffTitleId, StaffTitleName, 
+    StaffTitleVal, StaffSpouseTitleVal, StaffPostId, StaffPostName, StaffPostVal, StaffSpousePostVal, 
+    StaffTypeId, StaffTypeName, StaffStatusId, StaffStatusName, StaffDeptId, StaffDeptName, 
+    StaffCode, StaffJoinTime, StaffRetireTime, StaffTel, StaffRemark, StaffSpouseName, 
+    StaffSpouseCode, StaffSpouseTitleName, StaffSpousePostName, StaffSpouseDept, StaffSpouseKind, 
+    StaffSpouseKindName, StaffIsDeptManage, StaffPassword, StaffBuyAccount, StaffFixFund, 
+    StaffSecondJoinTime, StaffSecondRetireTime, StaffDual, StaffRelation, StaffDiscountRate, 
+    StaffFamilyCode, StaffFirstJobTime, StaffUserName, OtherVal, TimeVal, TotalVal, HouseId, 
+    HouseNo, HouseType, HouseTypeName, HouseLayout, HouseLayoutName, HouseStruct, HouseStructName, 
+    HouseStatus, HouseStatusName, HouseBuildArea, HouseUsedArea, HouseBasementArea, HouseAddress, 
+    BuildingId, BuildingName, RegionId, RegionName, ProId, HouseRemark, HouseImage, HouseRental, 
+    HouseFinishTime, HouseRecordStatus, LastRentTime
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouseExample" resultMap="BaseResultMap">
     select
@@ -176,54 +180,56 @@
       BookTime, IsDelete, ExpireTime, 
       RentType, FamilyCode, StaffId, 
       StaffNo, StaffName, StaffSex, 
-      StaffMarriageState, StaffTitleName, StaffTitleVal, 
-      StaffSpouseTitleVal, StaffPostName, StaffPostVal, 
-      StaffSpousePostVal, StaffTypeName, StaffStatusName, 
-      StaffDeptId, StaffDeptName, StaffCode, 
-      StaffJoinTime, StaffRetireTime, StaffTel, 
-      StaffRemark, StaffSpouseName, StaffSpouseCode, 
-      StaffSpouseTitleName, StaffSpousePostName, 
-      StaffSpouseDept, StaffSpouseKind, StaffSpouseKindName, 
-      StaffIsDeptManage, StaffPassword, StaffBuyAccount, 
-      StaffFixFund, StaffSecondJoinTime, StaffSecondRetireTime, 
-      StaffDual, StaffRelation, StaffDiscountRate, 
-      StaffFamilyCode, StaffFirstJobTime, StaffUserName, 
-      OtherVal, TimeVal, TotalVal, 
-      HouseId, HouseNo, HouseType, 
-      HouseTypeName, HouseLayout, HouseLayoutName, 
-      HouseStruct, HouseStructName, HouseStatus, 
-      HouseStatusName, HouseBuildArea, HouseUsedArea, 
-      HouseBasementArea, HouseAddress, BuildingId, 
-      BuildingName, RegionId, RegionName, 
-      ProId, HouseRemark, HouseImage, 
-      HouseRental, HouseFinishTime, HouseRecordStatus, 
-      LastRentTime)
+      StaffMarriageState, StaffTitleId, StaffTitleName, 
+      StaffTitleVal, StaffSpouseTitleVal, StaffPostId, 
+      StaffPostName, StaffPostVal, StaffSpousePostVal, 
+      StaffTypeId, StaffTypeName, StaffStatusId, 
+      StaffStatusName, StaffDeptId, StaffDeptName, 
+      StaffCode, StaffJoinTime, StaffRetireTime, 
+      StaffTel, StaffRemark, StaffSpouseName, 
+      StaffSpouseCode, StaffSpouseTitleName, 
+      StaffSpousePostName, StaffSpouseDept, StaffSpouseKind, 
+      StaffSpouseKindName, StaffIsDeptManage, StaffPassword, 
+      StaffBuyAccount, StaffFixFund, StaffSecondJoinTime, 
+      StaffSecondRetireTime, StaffDual, StaffRelation, 
+      StaffDiscountRate, StaffFamilyCode, StaffFirstJobTime, 
+      StaffUserName, OtherVal, TimeVal, 
+      TotalVal, HouseId, HouseNo, 
+      HouseType, HouseTypeName, HouseLayout, 
+      HouseLayoutName, HouseStruct, HouseStructName, 
+      HouseStatus, HouseStatusName, HouseBuildArea, 
+      HouseUsedArea, HouseBasementArea, HouseAddress, 
+      BuildingId, BuildingName, RegionId, 
+      RegionName, ProId, HouseRemark, 
+      HouseImage, HouseRental, HouseFinishTime, 
+      HouseRecordStatus, LastRentTime)
     values (#{residentId,jdbcType=INTEGER}, #{houseRel,jdbcType=INTEGER}, #{houseRelName,jdbcType=VARCHAR}, 
       #{bookTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=BIT}, #{expireTime,jdbcType=TIMESTAMP}, 
       #{rentType,jdbcType=VARCHAR}, #{familyCode,jdbcType=VARCHAR}, #{staffId,jdbcType=INTEGER}, 
       #{staffNo,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, #{staffSex,jdbcType=VARCHAR}, 
-      #{staffMarriageState,jdbcType=VARCHAR}, #{staffTitleName,jdbcType=VARCHAR}, #{staffTitleVal,jdbcType=INTEGER}, 
-      #{staffSpouseTitleVal,jdbcType=INTEGER}, #{staffPostName,jdbcType=VARCHAR}, #{staffPostVal,jdbcType=INTEGER}, 
-      #{staffSpousePostVal,jdbcType=INTEGER}, #{staffTypeName,jdbcType=VARCHAR}, #{staffStatusName,jdbcType=VARCHAR}, 
-      #{staffDeptId,jdbcType=INTEGER}, #{staffDeptName,jdbcType=VARCHAR}, #{staffCode,jdbcType=VARCHAR}, 
-      #{staffJoinTime,jdbcType=DATE}, #{staffRetireTime,jdbcType=DATE}, #{staffTel,jdbcType=VARCHAR}, 
-      #{staffRemark,jdbcType=VARCHAR}, #{staffSpouseName,jdbcType=VARCHAR}, #{staffSpouseCode,jdbcType=VARCHAR}, 
-      #{staffSpouseTitleName,jdbcType=VARCHAR}, #{staffSpousePostName,jdbcType=VARCHAR}, 
-      #{staffSpouseDept,jdbcType=VARCHAR}, #{staffSpouseKind,jdbcType=INTEGER}, #{staffSpouseKindName,jdbcType=VARCHAR}, 
-      #{staffIsDeptManage,jdbcType=BIT}, #{staffPassword,jdbcType=VARCHAR}, #{staffBuyAccount,jdbcType=DECIMAL}, 
-      #{staffFixFund,jdbcType=DECIMAL}, #{staffSecondJoinTime,jdbcType=DATE}, #{staffSecondRetireTime,jdbcType=DATE}, 
-      #{staffDual,jdbcType=VARCHAR}, #{staffRelation,jdbcType=VARCHAR}, #{staffDiscountRate,jdbcType=DOUBLE}, 
-      #{staffFamilyCode,jdbcType=INTEGER}, #{staffFirstJobTime,jdbcType=DATE}, #{staffUserName,jdbcType=VARCHAR}, 
-      #{otherVal,jdbcType=DOUBLE}, #{timeVal,jdbcType=DOUBLE}, #{totalVal,jdbcType=DOUBLE}, 
-      #{houseId,jdbcType=INTEGER}, #{houseNo,jdbcType=VARCHAR}, #{houseType,jdbcType=INTEGER}, 
-      #{houseTypeName,jdbcType=VARCHAR}, #{houseLayout,jdbcType=INTEGER}, #{houseLayoutName,jdbcType=VARCHAR}, 
-      #{houseStruct,jdbcType=INTEGER}, #{houseStructName,jdbcType=VARCHAR}, #{houseStatus,jdbcType=INTEGER}, 
-      #{houseStatusName,jdbcType=VARCHAR}, #{houseBuildArea,jdbcType=DOUBLE}, #{houseUsedArea,jdbcType=DOUBLE}, 
-      #{houseBasementArea,jdbcType=DOUBLE}, #{houseAddress,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, 
-      #{buildingName,jdbcType=VARCHAR}, #{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, 
-      #{proId,jdbcType=VARCHAR}, #{houseRemark,jdbcType=VARCHAR}, #{houseImage,jdbcType=VARCHAR}, 
-      #{houseRental,jdbcType=DOUBLE}, #{houseFinishTime,jdbcType=DATE}, #{houseRecordStatus,jdbcType=INTEGER}, 
-      #{lastRentTime,jdbcType=TIMESTAMP})
+      #{staffMarriageState,jdbcType=VARCHAR}, #{staffTitleId,jdbcType=INTEGER}, #{staffTitleName,jdbcType=VARCHAR}, 
+      #{staffTitleVal,jdbcType=INTEGER}, #{staffSpouseTitleVal,jdbcType=INTEGER}, #{staffPostId,jdbcType=INTEGER}, 
+      #{staffPostName,jdbcType=VARCHAR}, #{staffPostVal,jdbcType=INTEGER}, #{staffSpousePostVal,jdbcType=INTEGER}, 
+      #{staffTypeId,jdbcType=INTEGER}, #{staffTypeName,jdbcType=VARCHAR}, #{staffStatusId,jdbcType=INTEGER}, 
+      #{staffStatusName,jdbcType=VARCHAR}, #{staffDeptId,jdbcType=INTEGER}, #{staffDeptName,jdbcType=VARCHAR}, 
+      #{staffCode,jdbcType=VARCHAR}, #{staffJoinTime,jdbcType=DATE}, #{staffRetireTime,jdbcType=DATE}, 
+      #{staffTel,jdbcType=VARCHAR}, #{staffRemark,jdbcType=VARCHAR}, #{staffSpouseName,jdbcType=VARCHAR}, 
+      #{staffSpouseCode,jdbcType=VARCHAR}, #{staffSpouseTitleName,jdbcType=VARCHAR}, 
+      #{staffSpousePostName,jdbcType=VARCHAR}, #{staffSpouseDept,jdbcType=VARCHAR}, #{staffSpouseKind,jdbcType=INTEGER}, 
+      #{staffSpouseKindName,jdbcType=VARCHAR}, #{staffIsDeptManage,jdbcType=BIT}, #{staffPassword,jdbcType=VARCHAR}, 
+      #{staffBuyAccount,jdbcType=DECIMAL}, #{staffFixFund,jdbcType=DECIMAL}, #{staffSecondJoinTime,jdbcType=DATE}, 
+      #{staffSecondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, #{staffRelation,jdbcType=VARCHAR}, 
+      #{staffDiscountRate,jdbcType=DOUBLE}, #{staffFamilyCode,jdbcType=INTEGER}, #{staffFirstJobTime,jdbcType=DATE}, 
+      #{staffUserName,jdbcType=VARCHAR}, #{otherVal,jdbcType=DOUBLE}, #{timeVal,jdbcType=DOUBLE}, 
+      #{totalVal,jdbcType=DOUBLE}, #{houseId,jdbcType=INTEGER}, #{houseNo,jdbcType=VARCHAR}, 
+      #{houseType,jdbcType=INTEGER}, #{houseTypeName,jdbcType=VARCHAR}, #{houseLayout,jdbcType=INTEGER}, 
+      #{houseLayoutName,jdbcType=VARCHAR}, #{houseStruct,jdbcType=INTEGER}, #{houseStructName,jdbcType=VARCHAR}, 
+      #{houseStatus,jdbcType=INTEGER}, #{houseStatusName,jdbcType=VARCHAR}, #{houseBuildArea,jdbcType=DOUBLE}, 
+      #{houseUsedArea,jdbcType=DOUBLE}, #{houseBasementArea,jdbcType=DOUBLE}, #{houseAddress,jdbcType=VARCHAR}, 
+      #{buildingId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, #{regionId,jdbcType=INTEGER}, 
+      #{regionName,jdbcType=VARCHAR}, #{proId,jdbcType=VARCHAR}, #{houseRemark,jdbcType=VARCHAR}, 
+      #{houseImage,jdbcType=VARCHAR}, #{houseRental,jdbcType=DOUBLE}, #{houseFinishTime,jdbcType=DATE}, 
+      #{houseRecordStatus,jdbcType=INTEGER}, #{lastRentTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse">
     insert into view_hs_staffhouse
@@ -267,6 +273,9 @@
       <if test="staffMarriageState != null">
         StaffMarriageState,
       </if>
+      <if test="staffTitleId != null">
+        StaffTitleId,
+      </if>
       <if test="staffTitleName != null">
         StaffTitleName,
       </if>
@@ -275,6 +284,9 @@
       </if>
       <if test="staffSpouseTitleVal != null">
         StaffSpouseTitleVal,
+      </if>
+      <if test="staffPostId != null">
+        StaffPostId,
       </if>
       <if test="staffPostName != null">
         StaffPostName,
@@ -285,8 +297,14 @@
       <if test="staffSpousePostVal != null">
         StaffSpousePostVal,
       </if>
+      <if test="staffTypeId != null">
+        StaffTypeId,
+      </if>
       <if test="staffTypeName != null">
         StaffTypeName,
+      </if>
+      <if test="staffStatusId != null">
+        StaffStatusId,
       </if>
       <if test="staffStatusName != null">
         StaffStatusName,
@@ -494,6 +512,9 @@
       <if test="staffMarriageState != null">
         #{staffMarriageState,jdbcType=VARCHAR},
       </if>
+      <if test="staffTitleId != null">
+        #{staffTitleId,jdbcType=INTEGER},
+      </if>
       <if test="staffTitleName != null">
         #{staffTitleName,jdbcType=VARCHAR},
       </if>
@@ -502,6 +523,9 @@
       </if>
       <if test="staffSpouseTitleVal != null">
         #{staffSpouseTitleVal,jdbcType=INTEGER},
+      </if>
+      <if test="staffPostId != null">
+        #{staffPostId,jdbcType=INTEGER},
       </if>
       <if test="staffPostName != null">
         #{staffPostName,jdbcType=VARCHAR},
@@ -512,8 +536,14 @@
       <if test="staffSpousePostVal != null">
         #{staffSpousePostVal,jdbcType=INTEGER},
       </if>
+      <if test="staffTypeId != null">
+        #{staffTypeId,jdbcType=INTEGER},
+      </if>
       <if test="staffTypeName != null">
         #{staffTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffStatusId != null">
+        #{staffStatusId,jdbcType=INTEGER},
       </if>
       <if test="staffStatusName != null">
         #{staffStatusName,jdbcType=VARCHAR},
@@ -730,6 +760,9 @@
       <if test="record.staffMarriageState != null">
         StaffMarriageState = #{record.staffMarriageState,jdbcType=VARCHAR},
       </if>
+      <if test="record.staffTitleId != null">
+        StaffTitleId = #{record.staffTitleId,jdbcType=INTEGER},
+      </if>
       <if test="record.staffTitleName != null">
         StaffTitleName = #{record.staffTitleName,jdbcType=VARCHAR},
       </if>
@@ -738,6 +771,9 @@
       </if>
       <if test="record.staffSpouseTitleVal != null">
         StaffSpouseTitleVal = #{record.staffSpouseTitleVal,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffPostId != null">
+        StaffPostId = #{record.staffPostId,jdbcType=INTEGER},
       </if>
       <if test="record.staffPostName != null">
         StaffPostName = #{record.staffPostName,jdbcType=VARCHAR},
@@ -748,8 +784,14 @@
       <if test="record.staffSpousePostVal != null">
         StaffSpousePostVal = #{record.staffSpousePostVal,jdbcType=INTEGER},
       </if>
+      <if test="record.staffTypeId != null">
+        StaffTypeId = #{record.staffTypeId,jdbcType=INTEGER},
+      </if>
       <if test="record.staffTypeName != null">
         StaffTypeName = #{record.staffTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffStatusId != null">
+        StaffStatusId = #{record.staffStatusId,jdbcType=INTEGER},
       </if>
       <if test="record.staffStatusName != null">
         StaffStatusName = #{record.staffStatusName,jdbcType=VARCHAR},
@@ -936,13 +978,17 @@
       StaffName = #{record.staffName,jdbcType=VARCHAR},
       StaffSex = #{record.staffSex,jdbcType=VARCHAR},
       StaffMarriageState = #{record.staffMarriageState,jdbcType=VARCHAR},
+      StaffTitleId = #{record.staffTitleId,jdbcType=INTEGER},
       StaffTitleName = #{record.staffTitleName,jdbcType=VARCHAR},
       StaffTitleVal = #{record.staffTitleVal,jdbcType=INTEGER},
       StaffSpouseTitleVal = #{record.staffSpouseTitleVal,jdbcType=INTEGER},
+      StaffPostId = #{record.staffPostId,jdbcType=INTEGER},
       StaffPostName = #{record.staffPostName,jdbcType=VARCHAR},
       StaffPostVal = #{record.staffPostVal,jdbcType=INTEGER},
       StaffSpousePostVal = #{record.staffSpousePostVal,jdbcType=INTEGER},
+      StaffTypeId = #{record.staffTypeId,jdbcType=INTEGER},
       StaffTypeName = #{record.staffTypeName,jdbcType=VARCHAR},
+      StaffStatusId = #{record.staffStatusId,jdbcType=INTEGER},
       StaffStatusName = #{record.staffStatusName,jdbcType=VARCHAR},
       StaffDeptId = #{record.staffDeptId,jdbcType=INTEGER},
       StaffDeptName = #{record.staffDeptName,jdbcType=VARCHAR},
