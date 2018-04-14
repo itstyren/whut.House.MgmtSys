@@ -329,7 +329,6 @@ export default {
           startTime: tempData.startTime
         };
       }
-      // console.log(tempData);
       this.getList();
     },
     // 某一行被双击时触发

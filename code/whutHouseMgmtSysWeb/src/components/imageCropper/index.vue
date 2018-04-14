@@ -26,12 +26,10 @@ export default {
     		cropSuccess(imgDataUrl, field){
 			},
     successUpload(jsonData, field) {
-      console.log(jsonData);
       this.imageURL = this.$store.getters.qiniuURL + jsonData.key;
       this.$emit('upload-url',this.imageURL)
     },
     failUpload(status, field) {
-      console.log(status);
     }
   }
 };

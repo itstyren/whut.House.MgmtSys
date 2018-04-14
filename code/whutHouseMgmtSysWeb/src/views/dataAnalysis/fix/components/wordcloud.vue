@@ -181,7 +181,7 @@ export default {
 }
 
 .chart {
-  margin-top: 30px;
+  margin-top: 15px;
   height: calc(100% - 55px);
 }
 </style>

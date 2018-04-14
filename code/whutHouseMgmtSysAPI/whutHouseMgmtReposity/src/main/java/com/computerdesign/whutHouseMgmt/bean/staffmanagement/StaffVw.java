@@ -18,11 +18,19 @@ public class StaffVw {
 
     private String marriageState;
 
+    private Integer titleId;
+
     private String titleName;
+
+    private Integer postId;
 
     private String postName;
 
+    private Integer typeId;
+
     private String typeName;
+
+    private Integer statusId;
 
     private String statusName;
 
@@ -134,12 +142,28 @@ public class StaffVw {
         this.marriageState = marriageState == null ? null : marriageState.trim();
     }
 
+    public Integer getTitleId() {
+        return titleId;
+    }
+
+    public void setTitleId(Integer titleId) {
+        this.titleId = titleId;
+    }
+
     public String getTitleName() {
         return titleName;
     }
 
     public void setTitleName(String titleName) {
         this.titleName = titleName == null ? null : titleName.trim();
+    }
+
+    public Integer getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 
     public String getPostName() {
@@ -150,12 +174,28 @@ public class StaffVw {
         this.postName = postName == null ? null : postName.trim();
     }
 
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
     public String getTypeName() {
         return typeName;
     }
 
     public void setTypeName(String typeName) {
         this.typeName = typeName == null ? null : typeName.trim();
+    }
+
+    public Integer getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
     }
 
     public String getStatusName() {

@@ -303,7 +303,15 @@ export default {
   },
   // 监听
   watch: {
-    $route: "getList",
+    $route(){
+      this.getList()
+       if (this.store_ismodify == false) {
+      this.ismodify = false;
+    } else {
+      this.ismodify = true;
+      this.getParam();
+    }    
+    },
     oldStaffForm: {
       handler: function(newVal) {
         //console.log(newVal);
@@ -311,7 +319,6 @@ export default {
       deep: true
     },
     store_ismodify(newVal) {
-      console.log(newVal);
       if (newVal == false) {
         this.ismodify = false;
       } else {
@@ -326,14 +333,14 @@ export default {
     } else {
       this.ismodify = true;
       this.getParam();
-    }
+    }    
     this.getList();
   },
   // 方法集合
   methods: {
     // 获取列表
     getList() {
-      let param = "";
+      let param = "";      
       this.listLoading = true;
       let staffID = this.$route.params.id;
       if (this.$store.state.staffData.id == staffID) {
@@ -367,7 +374,6 @@ export default {
         getStaffParam(param, paramClass)
           .then(res => {
             this.$set(this.staffParam, paramClass, res.data.data.data.list);
-            console.log(this.staffForm);
             if (this.staffParam[10] != null) this.submitLoading = false;
           })
           .catch(err => {

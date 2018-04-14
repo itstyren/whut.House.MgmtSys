@@ -473,6 +473,66 @@ public class StaffVwExample {
             return (Criteria) this;
         }
 
+        public Criteria andTitleIdIsNull() {
+            addCriterion("TitleId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIdIsNotNull() {
+            addCriterion("TitleId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIdEqualTo(Integer value) {
+            addCriterion("TitleId =", value, "titleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIdNotEqualTo(Integer value) {
+            addCriterion("TitleId <>", value, "titleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIdGreaterThan(Integer value) {
+            addCriterion("TitleId >", value, "titleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("TitleId >=", value, "titleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIdLessThan(Integer value) {
+            addCriterion("TitleId <", value, "titleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIdLessThanOrEqualTo(Integer value) {
+            addCriterion("TitleId <=", value, "titleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIdIn(List<Integer> values) {
+            addCriterion("TitleId in", values, "titleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIdNotIn(List<Integer> values) {
+            addCriterion("TitleId not in", values, "titleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIdBetween(Integer value1, Integer value2) {
+            addCriterion("TitleId between", value1, value2, "titleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("TitleId not between", value1, value2, "titleId");
+            return (Criteria) this;
+        }
+
         public Criteria andTitleNameIsNull() {
             addCriterion("TitleName is null");
             return (Criteria) this;
@@ -540,6 +600,66 @@ public class StaffVwExample {
 
         public Criteria andTitleNameNotBetween(String value1, String value2) {
             addCriterion("TitleName not between", value1, value2, "titleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdIsNull() {
+            addCriterion("PostId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdIsNotNull() {
+            addCriterion("PostId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdEqualTo(Integer value) {
+            addCriterion("PostId =", value, "postId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdNotEqualTo(Integer value) {
+            addCriterion("PostId <>", value, "postId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdGreaterThan(Integer value) {
+            addCriterion("PostId >", value, "postId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("PostId >=", value, "postId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdLessThan(Integer value) {
+            addCriterion("PostId <", value, "postId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdLessThanOrEqualTo(Integer value) {
+            addCriterion("PostId <=", value, "postId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdIn(List<Integer> values) {
+            addCriterion("PostId in", values, "postId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdNotIn(List<Integer> values) {
+            addCriterion("PostId not in", values, "postId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdBetween(Integer value1, Integer value2) {
+            addCriterion("PostId between", value1, value2, "postId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("PostId not between", value1, value2, "postId");
             return (Criteria) this;
         }
 
@@ -613,6 +733,66 @@ public class StaffVwExample {
             return (Criteria) this;
         }
 
+        public Criteria andTypeIdIsNull() {
+            addCriterion("TypeId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdIsNotNull() {
+            addCriterion("TypeId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdEqualTo(Integer value) {
+            addCriterion("TypeId =", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdNotEqualTo(Integer value) {
+            addCriterion("TypeId <>", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdGreaterThan(Integer value) {
+            addCriterion("TypeId >", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("TypeId >=", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdLessThan(Integer value) {
+            addCriterion("TypeId <", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdLessThanOrEqualTo(Integer value) {
+            addCriterion("TypeId <=", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdIn(List<Integer> values) {
+            addCriterion("TypeId in", values, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdNotIn(List<Integer> values) {
+            addCriterion("TypeId not in", values, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdBetween(Integer value1, Integer value2) {
+            addCriterion("TypeId between", value1, value2, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("TypeId not between", value1, value2, "typeId");
+            return (Criteria) this;
+        }
+
         public Criteria andTypeNameIsNull() {
             addCriterion("TypeName is null");
             return (Criteria) this;
@@ -680,6 +860,66 @@ public class StaffVwExample {
 
         public Criteria andTypeNameNotBetween(String value1, String value2) {
             addCriterion("TypeName not between", value1, value2, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdIsNull() {
+            addCriterion("StatusId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdIsNotNull() {
+            addCriterion("StatusId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdEqualTo(Integer value) {
+            addCriterion("StatusId =", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdNotEqualTo(Integer value) {
+            addCriterion("StatusId <>", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdGreaterThan(Integer value) {
+            addCriterion("StatusId >", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("StatusId >=", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdLessThan(Integer value) {
+            addCriterion("StatusId <", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdLessThanOrEqualTo(Integer value) {
+            addCriterion("StatusId <=", value, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdIn(List<Integer> values) {
+            addCriterion("StatusId in", values, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdNotIn(List<Integer> values) {
+            addCriterion("StatusId not in", values, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdBetween(Integer value1, Integer value2) {
+            addCriterion("StatusId between", value1, value2, "statusId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("StatusId not between", value1, value2, "statusId");
             return (Criteria) this;
         }
 

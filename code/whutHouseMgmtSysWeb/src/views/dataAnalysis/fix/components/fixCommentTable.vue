@@ -72,7 +72,6 @@ export default {
         size: this.size
       };
       postFixFormRecord(params,this.filtersData).then(res=>{
-        console.log(res.data.data.data.list)
          this.commentData = res.data.data.data.list;
           this.totalNum = res.data.data.data.total;
           this.listLoading = false;

@@ -627,7 +627,6 @@
       },
       uploadURL(url){
         this.listLoading=true
-        console.log(url)
         let data={
           id:this.staffID,
           icon:url

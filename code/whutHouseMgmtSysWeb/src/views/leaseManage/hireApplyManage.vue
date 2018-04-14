@@ -147,7 +147,6 @@
       },
       // 筛选处理
       filterHandle(value, row) {
-        console.log(value);
         return row.hireState === value;
       },
       isOverFormat(row, column, cellValue) {

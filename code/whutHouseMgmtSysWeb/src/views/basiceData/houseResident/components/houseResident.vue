@@ -158,7 +158,6 @@ export default {
             type: "warning"
           })
             .then(() => {
-              console.log(this.isPersonal == false)
               let params={}
               if (this.isPersonal == false) {
                  params = {

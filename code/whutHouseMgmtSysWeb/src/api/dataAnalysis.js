@@ -110,3 +110,13 @@ export function postFixFormRecord(params,data) {
     data: data
   })
 }
+
+// 住房住户表格统计
+export function postHouseStaffRecord(params, data) {
+  return request({
+    url: `/houseRecord/relationByHouse`,
+    method: 'post',
+    params: params,
+    data: data
+  })
+}

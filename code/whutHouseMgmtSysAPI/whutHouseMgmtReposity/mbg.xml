@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration
   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
@@ -45,7 +45,13 @@
 		<!-- <table tableName="pm_monetarysub" domainObjectName="MonetarySubParam">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="View_Hs_HouseStaff" domainObjectName="HouseStaff">
+		<!-- <table tableName="hs_monetarysub" domainObjectName="StaffMonetarySub">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<!-- <table tableName="view_hs_staff" domainObjectName="StaffVw">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<table tableName="view_hs_staffhouse" domainObjectName="StaffHouse">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 

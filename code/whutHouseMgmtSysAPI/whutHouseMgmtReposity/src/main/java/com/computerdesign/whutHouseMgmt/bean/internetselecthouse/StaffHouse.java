@@ -37,11 +37,15 @@ public class StaffHouse {
 
     private String staffMarriageState;
 
+    private Integer staffTitleId;
+
     private String staffTitleName;
 
     private Integer staffTitleVal;
 
     private Integer staffSpouseTitleVal;
+
+    private Integer staffPostId;
 
     private String staffPostName;
 
@@ -49,7 +53,11 @@ public class StaffHouse {
 
     private Integer staffSpousePostVal;
 
+    private Integer staffTypeId;
+
     private String staffTypeName;
+
+    private Integer staffStatusId;
 
     private String staffStatusName;
 
@@ -279,6 +287,14 @@ public class StaffHouse {
         this.staffMarriageState = staffMarriageState == null ? null : staffMarriageState.trim();
     }
 
+    public Integer getStaffTitleId() {
+        return staffTitleId;
+    }
+
+    public void setStaffTitleId(Integer staffTitleId) {
+        this.staffTitleId = staffTitleId;
+    }
+
     public String getStaffTitleName() {
         return staffTitleName;
     }
@@ -301,6 +317,14 @@ public class StaffHouse {
 
     public void setStaffSpouseTitleVal(Integer staffSpouseTitleVal) {
         this.staffSpouseTitleVal = staffSpouseTitleVal;
+    }
+
+    public Integer getStaffPostId() {
+        return staffPostId;
+    }
+
+    public void setStaffPostId(Integer staffPostId) {
+        this.staffPostId = staffPostId;
     }
 
     public String getStaffPostName() {
@@ -327,12 +351,28 @@ public class StaffHouse {
         this.staffSpousePostVal = staffSpousePostVal;
     }
 
+    public Integer getStaffTypeId() {
+        return staffTypeId;
+    }
+
+    public void setStaffTypeId(Integer staffTypeId) {
+        this.staffTypeId = staffTypeId;
+    }
+
     public String getStaffTypeName() {
         return staffTypeName;
     }
 
     public void setStaffTypeName(String staffTypeName) {
         this.staffTypeName = staffTypeName == null ? null : staffTypeName.trim();
+    }
+
+    public Integer getStaffStatusId() {
+        return staffStatusId;
+    }
+
+    public void setStaffStatusId(Integer staffStatusId) {
+        this.staffStatusId = staffStatusId;
     }
 
     public String getStaffStatusName() {

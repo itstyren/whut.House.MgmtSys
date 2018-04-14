@@ -43,6 +43,7 @@ public class HousingSetController {
 	public Msg cancelSetHousing(@RequestBody int[] houseIds) {
 		if (houseIds != null) {
 			for (int houseId : houseIds) {
+				System.out.println(houseId);
 				House house = houseService.get(houseId);
 				house.setRecordStatus(2);
 				housingSetService.setHousing(house);
