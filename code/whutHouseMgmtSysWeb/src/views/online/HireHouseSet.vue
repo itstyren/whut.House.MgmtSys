@@ -83,173 +83,177 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import houseFilter from '@/views/tools/houseFilter'
-  import {
-    getActiveHouse,
-    getSetHouse,
-    postActiveHousemulticondition,
-    postSetHouse,
-    postcancelHouse
-  } from "@/api/online";
-  import utils from "@/utils/index.js";
-  export default {
-    data() {
-      return {
-        activeName: 'canSelect',
-        // 表格区域
-        listLoading: false,
-        listLoading1: false,
-        activeHouseData: [],
-        setList: [],
-        setHouseData: [],
-        cancelList: [],
-        totalNum: 0,
-        page: 1,
-        size: 10,
-        totalNum1: 0,
-        page1: 1,
-        size1: 10
+import houseFilter from "@/views/tools/houseFilter";
+import {
+  getActiveHouse,
+  getSetHouse,
+  postActiveHousemulticondition,
+  postSetHousemulticondition,
+  postSetHouse,
+  postcancelHouse
+} from "@/api/online";
+import utils from "@/utils/index.js";
+export default {
+  data() {
+    return {
+      activeName: "canSelect",
+      // 表格区域
+      listLoading: false,
+      listLoading1: false,
+      activeHouseData: [],
+      setList: [],
+      setHouseData: [],
+      cancelList: [],
+      totalNum: 0,
+      page: 1,
+      size: 10,
+      totalNum1: 0,
+      page1: 1,
+      size1: 10
+    };
+  },
+  components: {
+    houseFilter
+  },
+  created() {
+    this.getList();
+    this.getList1();
+  },
+  methods: {
+    // 初始获取数据
+    getList() {
+      this.listLoading = true;
+      let param = {
+        page: this.page,
+        size: this.size
       };
-    },
-    components: {
-      houseFilter
-    },
-    created() {
-      this.getList();
-      this.getList1();
-    },
-    methods: {
-      // 初始获取数据
-      getList() {
-        this.listLoading = true;
-        let param = {
-          page: this.page,
-          size: this.size
-        };
-        getActiveHouse(param)
-          .then(res => {
-            this.activeHouseData = res.data.data.data.list;
-            this.totalNum = res.data.data.data.total;
-            this.listLoading = false;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      },
-      // 初始获取已设置可选房数据
-      getList1() {
-        this.listLoading1 = true;
-        let param = {
-          page: this.page1,
-          size: this.size1
-        };
-        getSetHouse(param)
-          .then(res => {
-            // console.log(res.data.data)
-            this.setHouseData = res.data.data.data.list;
-            this.totalNum1 = res.data.data.data.total;
-            // console.log(res.data.data.list)
-            this.listLoading1 = false;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      },
-      // 多重查找查询
-      queryHandle(data) {
-        this.activeHouseData = [];
-        this.listLoading = true;
-        let param = {
-          page: this.page,
-          size: this.size
-        };
-        postActiveHousemulticondition(param, data).then(res => {
-          utils.statusinfo(this, res.data);
+      getActiveHouse(param)
+        .then(res => {
           this.activeHouseData = res.data.data.data.list;
           this.totalNum = res.data.data.data.total;
           this.listLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
         });
-      },
-      // 监听带设置房源多选
-      setSelectionChange(selection) {
-        this.setList = [];
-        selection.forEach(v => {
-          this.setList.push(v.id);
+    },
+    // 初始获取已设置可选房数据
+    getList1() {
+      this.listLoading1 = true;
+      let param = {
+        page: this.page1,
+        size: this.size1
+      };
+      getSetHouse(param)
+        .then(res => {
+          // console.log(res.data.data)
+          this.setHouseData = res.data.data.data.list;
+          this.totalNum1 = res.data.data.data.total;
+          // console.log(res.data.data.list)
+          this.listLoading1 = false;
+        })
+        .catch(err => {
+          console.log(err);
         });
-      },
-      // 设为房源
-      setSelect() {
-        this.listLoading = true;
-        const data = this.setList;
-        postSetHouse(data).then(res => {
-          utils.statusinfo(this, res.data);
-          this.getList();
-          this.getList1();
+    },
+    // 多重查找查询
+    queryHandle(data) {
+      this.activeHouseData = [];
+      this.setHouseData = [];
+      this.listLoading = true;
+      let param = {
+        page: this.page,
+        size: this.size
+      };
+      postActiveHousemulticondition(param, data).then(res => {
+        utils.statusinfo(this, res.data);
+        this.activeHouseData = res.data.data.data.list;
+        this.totalNum = res.data.data.data.total;
+        postSetHousemulticondition(param, data).then(res => {
+          this.setHouseData = res.data.data.data.list;
+          this.totalNum1 = res.data.data.data.total;
+          this.listLoading = false;
         });
-      },
-      // 监听已经是房源多选
-      cancelSelectionChange(selection) {
-        this.cancelList = [];
-        selection.forEach(v => {
-          this.cancelList.push(v.id);
-        });
-      },
-      // 取消可选房
-      cancelSelect() {
-        //console.log(this.cancelList);
-        this.listLoading = true;
-        const data = this.cancelList;
-        postcancelHouse(data).then(res => {
-          utils.statusinfo(this, res.data);
-          this.getList();
-          this.getList1();
-        });
-      },
-      // 更换每页数量
-      sizeChangeEvent(val) {
-        this.listLoading = true;
-        this.size = val;
+      });
+    },
+    // 监听带设置房源多选
+    setSelectionChange(selection) {
+      this.setList = [];
+      selection.forEach(v => {
+        this.setList.push(v.id);
+      });
+    },
+    // 设为房源
+    setSelect() {
+      this.listLoading = true;
+      const data = this.setList;
+      postSetHouse(data).then(res => {
+        utils.statusinfo(this, res.data);
         this.getList();
-      },
-      //页码切换时
-      currentChangeEvent(val) {
-        this.listLoading = true;
-        this.page = val;
+        this.getList1();
+      });
+    },
+    // 监听已经是房源多选
+    cancelSelectionChange(selection) {
+      this.cancelList = [];
+      selection.forEach(v => {
+        this.cancelList.push(v.id);
+      });
+    },
+    // 取消可选房
+    cancelSelect() {
+      //console.log(this.cancelList);
+      this.listLoading = true;
+      const data = this.cancelList;
+      postcancelHouse(data).then(res => {
+        utils.statusinfo(this, res.data);
         this.getList();
-      },
-      //更换每页数量1
-      sizeChangeEvent1(val) {
-        this.listLoading1 = true;
-        this.size1 = val;
         this.getList1();
-      },
-      //页码切换时1
-      currentChangeEvent1(val) {
-        this.listLoading1 = true;
-        this.page1 = val;
-        this.getList1();
-      }
+      });
+    },
+    // 更换每页数量
+    sizeChangeEvent(val) {
+      this.listLoading = true;
+      this.size = val;
+      this.getList();
+    },
+    //页码切换时
+    currentChangeEvent(val) {
+      this.listLoading = true;
+      this.page = val;
+      this.getList();
+    },
+    //更换每页数量1
+    sizeChangeEvent1(val) {
+      this.listLoading1 = true;
+      this.size1 = val;
+      this.getList1();
+    },
+    //页码切换时1
+    currentChangeEvent1(val) {
+      this.listLoading1 = true;
+      this.page1 = val;
+      this.getList1();
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  @import "../../styles/variables.scss";
+@import "../../styles/variables.scss";
 
-  .second-container {
-    background-color: $background-grey;
+.second-container {
+  background-color: $background-grey;
 
-    .table-tabs {
-      height: 52vh;
-      padding-bottom: 40px;
-      position: relative;
-      &>.bottom-tool {
-        position: absolute;
-        bottom: 5px;
-        left: 15px;
-      }
+  .table-tabs {
+    height: 52vh;
+    padding-bottom: 40px;
+    position: relative;
+    & > .bottom-tool {
+      position: absolute;
+      bottom: 5px;
+      left: 15px;
     }
   }
-
+}
 </style>

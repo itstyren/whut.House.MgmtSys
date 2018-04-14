@@ -20,7 +20,7 @@ export function getHaveSelectStaff(params) {
 // 多条件查询后可选房员工
 export function postCanSelectmulticondition(params, data) {
   return request({
-      url: `/selHouseQuaAuth/selectActiveStaffMultiCondition?page=${params.page}&size=${params.size}`,
+    url: `/selHouseQuaAuth/selectActiveStaffMultiCondition?page=${params.page}&size=${params.size}`,
     method: 'post',
     data: data
   })
@@ -60,9 +60,10 @@ export function getSetHouse(params) {
   })
 }
 // 多条件查询未设置房源
-export function postActiveHousemulticondition(params,data) {
+
+export function postActiveHousemulticondition(params, data) {
   return request({
-      url: `/housingSet/canselectHouseShowByMultiCondition?page=${params.page}&size=${params.size}`,
+    url: `/housingSet/activeHouseShowByMultiCondition?page=${params.page}&size=${params.size}`,
     method: 'post',
     data: data
   })
@@ -70,7 +71,7 @@ export function postActiveHousemulticondition(params,data) {
 // 多条件查询已设置房源
 export function postSetHousemulticondition(params, data) {
   return request({
-      url: `/housingSet/activeHouseShowByMultiCondition?page=${params.page}&size=${params.size}`,
+    url: `/housingSet/canselectHouseShowByMultiCondition?page=${params.page}&size=${params.size}`,
     method: 'post',
     data: data
   })
@@ -102,36 +103,35 @@ export function getSelectInfoByName(staffID) {
 }
 // 获取未选房职工
 export function getAllCanselectHouseStaff(params) {
-    return request({
-        url: `/selfHelpSelectHouse/getAllCanselectHouse`,
-        method: 'get',
-        params: params
-    })
+  return request({
+    url: `/selfHelpSelectHouse/getAllCanselectHouse`,
+    method: 'get',
+    params: params
+  })
 }
 // 提交选房申请
 export function getSubmitSelectHouseApply(params) {
-    return request({
-        url: `/selfHelpSelectHouse/submitSelectHouseApplication`,
-        method: 'get',
-        params: params
-    })
+  return request({
+    url: `/selfHelpSelectHouse/submitSelectHouseApplication`,
+    method: 'get',
+    params: params
+  })
 }
 
 // 网上选房-住房申请
 // 获取相关信息
-export function getStaffHireInfo(params,staffID) {
-    return request({
-        url: `/hire/getApply/${staffID}`,
-        method: 'get',
-        params: params
-    })
+export function getStaffHireInfo(params, staffID) {
+  return request({
+    url: `/hire/getApply/${staffID}`,
+    method: 'get',
+    params: params
+  })
 }
 // 提交申请
 export function postHireApply(data) {
-    return request({
-        url: `/hire/addApply`,
-        method: 'post',
-        data: data
-    })
+  return request({
+    url: `/hire/addApply`,
+    method: 'post',
+    data: data
+  })
 }
-
