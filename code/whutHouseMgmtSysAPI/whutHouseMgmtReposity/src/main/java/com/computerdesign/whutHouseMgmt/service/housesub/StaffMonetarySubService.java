@@ -1,15 +1,22 @@
 package com.computerdesign.whutHouseMgmt.service.housesub;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySubExample;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySubExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample;
+import com.computerdesign.whutHouseMgmt.dao.houseregister.ResidentMapper;
+import com.computerdesign.whutHouseMgmt.dao.housesub.MonetarySubVwMapper;
 import com.computerdesign.whutHouseMgmt.dao.housesub.StaffMonetarySubMapper;
+import com.computerdesign.whutHouseMgmt.dao.staffmanagement.StaffMapper;
 
 /**
  * 货币化补贴Service
@@ -21,6 +28,57 @@ public class StaffMonetarySubService {
 	
 	@Autowired
 	private StaffMonetarySubMapper staffMonetarySubMapper;
+	
+	@Autowired
+	private ResidentMapper residentMapper;
+	
+	@Autowired
+	private StaffMapper staffMapper;
+	
+//	public boolean isOldStaff(Integer staffId){
+//		StaffExample example = new StaffExample();
+//		com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample.Criteria criteria = example.createCriteria();
+//		criteria.andIdEqualTo(staffId);
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.set(1999, 0, 1, 0, 0, 0);
+//		criteria.andJoinTimeLessThan(calendar.getTime());
+//		System.out.println(calendar.getTime());
+//		return false;
+//	}
+	
+	/**
+	 * 判断是否是无房职工
+	 * @param staffId
+	 * @return
+	 */
+	public boolean isOwnHouse(Integer staffId){
+		ResidentExample example = new ResidentExample();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		List<Integer> params = new ArrayList<Integer>();
+		//购买
+		params.add(26);
+		//租赁
+		params.add(78);
+		//房屋是购买的或租赁的
+		criteria.andHouseRelIn(params);
+		criteria.andIsDeleteEqualTo(false);
+		if(residentMapper.selectByExample(example).size() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * 获取所有补贴记录
+	 * @return
+	 */
+	public List<StaffMonetarySub> getAllMonetarySub(){
+		StaffMonetarySubExample example = new StaffMonetarySubExample();
+		Criteria criteria = example.createCriteria();
+		return staffMonetarySubMapper.selectByExample(example);
+	}
 	
 	/**
 	 * 根据职工编号获取其所有补贴记录
