@@ -68,7 +68,7 @@
                     </el-col>
                     <el-col :span="10">
                       <el-form-item label="住房地址">
-                        <el-input v-model="acceptForm.staffAddress" readonly></el-input>
+                        <el-input v-model="acceptForm.address" readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>

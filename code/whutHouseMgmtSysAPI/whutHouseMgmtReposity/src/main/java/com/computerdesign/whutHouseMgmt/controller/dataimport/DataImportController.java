@@ -653,7 +653,7 @@ public class DataImportController {
 	@RequestMapping("staffDownLoad")
 	public void staffDownLoad(HttpServletResponse response) {
 		try {
-			DownloadUtils.downloadSolve("D:\\staffImport.xls", "职工模板.xls", response);
+			DownloadUtils.downloadSolve("D:\\staffImport.xls", "职工模板.xlsx", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -668,7 +668,7 @@ public class DataImportController {
 	@RequestMapping("houseDownLoad")
 	public void houseDownLoad(HttpServletResponse response) {
 		try {
-			DownloadUtils.downloadSolve("D:\\houseImport.xls", "住房模板.xls", response);
+			DownloadUtils.downloadSolve("D:\\houseImport.xls", "住房模板.xlsx", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

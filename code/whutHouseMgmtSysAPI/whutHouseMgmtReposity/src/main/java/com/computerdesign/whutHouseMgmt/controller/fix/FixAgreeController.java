@@ -52,7 +52,7 @@ public class FixAgreeController {
 			List<ViewFix> list = viewFixService.getAgreeUntil();
 			
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
-					"titleName", "postName", "deptName", "phone", "staffAddress", "acceptMan", "acceptNote",
+					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
 					"acceptTime", "acceptState" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的待审核信息").add("data", response);
@@ -60,7 +60,7 @@ public class FixAgreeController {
 			List<ViewFix> list = viewFixService.getAgreeHasBeen();
 			
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
-					"titleName", "postName", "deptName", "phone", "staffAddress", "acceptMan", "acceptNote",
+					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
 					"acceptTime", "acceptState" ,"agreeMan", "agreeNote","agreeTime", "agreeState"};
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的已经过审核操作的信息").add("data", response);
