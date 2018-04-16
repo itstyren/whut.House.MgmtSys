@@ -68,7 +68,7 @@ public class UserLoginController extends BaseController{
 		}
 
 		String userId = viewStaff.getId().toString();
-		String token = SubjectUtil.getInstance().createToken(userId, DateUtil.getAppointHour(new Date(), 1));
+		String token = SubjectUtil.getInstance().createToken(userId, DateUtil.getAppointHour(new Date(), 10));
 		return Msg.success().add("token", token);
 
 	}

@@ -1,7 +1,7 @@
 <template>
   <div class="card" :style="{height:height,width:width}">
     <div class="title">
-      <strong>房屋结构占比</strong>
+      <strong>房屋类型占比</strong>
     </div>
     <div class="chart" ref="structPie"></div>
   </div>
@@ -79,7 +79,7 @@ export default {
         },
         series: [
           {
-            name: "结构占比",
+            name: "类型占比",
             type: "pie",
             radius: [30, "75%"],
             center: ["50%", "50%"],

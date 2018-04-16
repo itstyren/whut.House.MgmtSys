@@ -52,14 +52,14 @@ public class FixAcceptController {
 		} else if (0 == acceptState) {
 			List<ViewFix> list = viewFixService.getAcceptUntil();
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
-					"titleName", "postName", "deptName", "phone", "staffAddress"};
+					"titleName", "postName", "deptName", "phone", "address"};
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的待受理信息").add("data", response);
 
 		} else if (1 == acceptState) {
 			List<ViewFix> list = viewFixService.getAcceptHasBeen();
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
-					"titleName", "postName", "deptName", "phone", "staffAddress", "acceptMan", "acceptNote",
+					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
 					"acceptTime", "acceptState" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的已进行受理操作的信息").add("data", response);
