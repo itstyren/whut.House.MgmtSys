@@ -135,8 +135,9 @@ public class FixRecordController {
 			List<ViewFix> viewFixsForContent = viewFixService.getFixDateByType(viewFixs, fixContentName);
 			int[] dateCount = new int[10];
 			for (ViewFix viewFix : viewFixsForContent) {
-				if (DateUtil.compareToDate(viewFix.getApplyTime(), comTime) > 0) {
+				if (DateUtil.compareToDate(viewFix.getApplyTime(), comTime) > 0&&DateUtil.compareToDate(viewFix.getApplyTime(), endDate)<=0) {
 					int i = DateUtil.getIntDistanceOfTwoDate(viewFix.getApplyTime(), endDate);
+					if(i==0) continue;
 					dateCount[10 - i]++;
 				}
 			}
@@ -298,7 +299,7 @@ public class FixRecordController {
 			}
 		}
 		for (int i = 0; i < listInt.length; i++) {
-			sum+=(i+1)*listInt[i];
+			sum+=listInt[i];
 		}
 		max = listInt[maxCount-1]+sum/5;
 		return Msg.success().add("data", listInt).add("max", max);
