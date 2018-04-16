@@ -289,7 +289,7 @@ public class FixRecordController {
 				listInt[Integer.valueOf(viewFix.getRatings()) - 1]++;
 			}
 		}
-		double max =0;
+		int max =0;
 		int maxCount =1;
 		int sum =0;
 		for (int i = 1; i < listInt.length; i++) {
@@ -300,7 +300,7 @@ public class FixRecordController {
 		for (int i = 0; i < listInt.length; i++) {
 			sum+=(i+1)*listInt[i];
 		}
-		max = listInt[maxCount-1]+(double)sum/5;
+		max = listInt[maxCount-1]+sum/5;
 		return Msg.success().add("data", listInt).add("max", max);
 	}
 }
