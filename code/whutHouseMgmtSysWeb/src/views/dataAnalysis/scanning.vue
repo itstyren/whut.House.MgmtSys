@@ -188,25 +188,25 @@ export default {
     sizeChangeEvent(val) {
       this.listLoading = true;
       this.size = val;
-      this.getList();
+      this.multiplyQuery();
     },
     //页码切换时
     currentChangeEvent(val) {
       this.listLoading = true;
       this.page = val;
-      this.getList();
+      this.multiplyQuery();
     },
     //更换每页数量1
     sizeChangeEvent1(val) {
       this.listLoading1 = true;
       this.size1 = val;
-      this.getList1();
+      this.multiplyQuery();
     },
     //页码切换时1
     currentChangeEvent1(val) {
       this.listLoading1 = true;
       this.page1 = val;
-      this.getList1();
+      this.multiplyQuery();
     }
   }
 };
