@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fixratings.FixRatings;
+import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fixratings.FixRatingsService;
 
 @RequestMapping("/fixRatings/")
@@ -20,6 +22,8 @@ public class FixRatingsController {
 	
 	@Autowired
 	private FixRatingsService fixRatingsService;
+	@Autowired
+	private FixService fixService;
 	
 	@ResponseBody
 	@RequestMapping(value="fixEvaluation",method=RequestMethod.PUT)
@@ -39,6 +43,9 @@ public class FixRatingsController {
 			
 			if(ratings >= 0 && ratings <= 5){
 				fixRatings.setSubmitTime(new Date());
+				Fix fix = fixService.get(fixRatings.getFixId());
+				fix.setFixState("已评价");
+				fixService.update(fix);
 				fixRatingsService.insert(fixRatings);
 				return Msg.success("评价成功").add("data", fixRatings);
 			}else{

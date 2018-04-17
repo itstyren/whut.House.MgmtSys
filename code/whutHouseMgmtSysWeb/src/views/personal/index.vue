@@ -674,6 +674,7 @@ export default {
         utils.statusinfo(this, res.data);
         this.commentLoading = false;
         this.fixCommentVisible = false;
+        this.getFix()
         //this.getList();
       });
     },
