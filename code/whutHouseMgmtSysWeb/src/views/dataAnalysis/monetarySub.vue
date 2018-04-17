@@ -125,7 +125,7 @@ export default {
       };
       postAllStaffMonetarySub(params).then(res => {
         // console.log(res.data.data);
-        this.monetarySubData = res.data.data.data;
+        this.monetarySubData = res.data.data.data.list;
         // console.log(this.houseData)
         this.totalNum = res.data.data.data.total;
         this.listLoading = false;
@@ -137,9 +137,10 @@ export default {
         page: this.page1,
         size: this.size1
       };
-      postAllStaffLumpMonetarySub().then(res => {
-          console.log(res.data.data.data)
-          this.lumpMonetarySubData=res.data.data.data
+      postAllStaffLumpMonetarySub(params).then(res => {
+        console.log(res.data.data.data);
+        this.totalNum1 = res.data.data.data.total;
+        this.lumpMonetarySubData = res.data.data.data.list;
       });
     },
     queryStaff(data) {
@@ -161,13 +162,13 @@ export default {
     sizeChangeEvent1(val) {
       this.listLoading1 = true;
       this.size1 = val;
-      this.getMonetarySub();
+      this.getLumpMonetarySub();
     },
     //页码切换时1
     currentChangeEvent1(val) {
       this.listLoading1 = true;
       this.page1 = val;
-      this.getMonetarySub();
+      this.getLumpMonetarySub();
     }
   }
 };
