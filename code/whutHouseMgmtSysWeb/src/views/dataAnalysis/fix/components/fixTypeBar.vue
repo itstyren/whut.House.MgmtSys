@@ -12,6 +12,7 @@ import echarts from "echarts";
 // import { postHouseParamCount } from "@/api/dataAnalysis.js";
 require("echarts/theme/macarons"); // echarts theme
 let _ = require("underscore");
+import { postFixTypeBar } from "@/api/dataAnalysis.js";
 export default {
   props: {
     width: {
@@ -38,6 +39,7 @@ export default {
   },
   mounted() {
     this.initChart();
+    this.getData();
     if (this.autoResize) {
       this.__resizeHanlder = _.debounce(() => {
         if (this.chart) {
@@ -53,7 +55,24 @@ export default {
     }
   },
   methods: {
-    getData() {},
+    getData() {
+            if (arguments[0] !== undefined) var data = arguments[0];
+      else var data = {};
+      this.chart.showLoading();
+      postFixTypeBar(data).then(res => {
+        const data=res.data.data
+        console.log(data)
+        this.chart.setOption({
+         legend:{
+           data:data.name
+         },
+         series:{
+           data:data.data
+         }
+        });
+        this.chart.hideLoading();
+      });
+    },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {
@@ -64,66 +83,13 @@ export default {
           orient: "vertical",
           left: "6%",
           top: "3%",
-          data: [
-            "墙面",
-            "门窗损坏",
-            "漏水",
-            "水龙头",
-            
-          ]
         },
         series: [
           {
-            name: "类目",
+            name: "维修类型",
             type: "pie",
             radius: "70%",
-            center: ["50%", "50%"],
-            data: [
-              {
-                value: 412,
-                name: "墙面",
-              },
-              {
-                value: 480,
-                name: "门窗损坏",
-              },
-              {
-                value: 622,
-                name: "漏水",
-              },
-              {
-                value: 168,
-                name: "水龙头",
-              },
-              // {
-              //   value: 207,
-              //   name: "美妆洗护",
-              // },
-              // {
-              //   value: 9,
-              //   name: "母婴用品",
-              // },
-              // {
-              //   value: 43,
-              //   name: "其他",
-              // },
-              // {
-              //   value: 1403,
-              //   name: "手机数码",
-              // },
-              // {
-              //   value: 6272,
-              //   name: "书籍",
-              // },
-              // {
-              //   value: 12,
-              //   name: "运动户外",
-              // },
-              // {
-              //   value: 371,
-              //   name: "珠宝饰品",
-              // }
-            ],
+            center: ["55%", "45%"],
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,

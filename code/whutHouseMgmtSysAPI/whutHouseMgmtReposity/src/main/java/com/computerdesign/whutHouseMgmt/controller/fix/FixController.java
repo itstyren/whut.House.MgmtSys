@@ -324,7 +324,7 @@ public class FixController {
 		List<ViewFix> listViewFix = viewFixService.getManagement();
 
 		String[] fileds = { "id", "fixContentId", "fixContentName", "fixState", "description", "applyTime", "staffName",
-				"titleName", "postName", "deptName", "phone", "staffAddress", "acceptMan", "acceptNote", "acceptTime",
+				"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote", "acceptTime",
 				"acceptState", "agreeMan", "agreeNote", "agreeTime", "agreeState" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);
 		// 让listViewFix设置好pageInfo中的各项属性，再替换pageInfo中的list
