@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.controller.dataimport;
+﻿package com.computerdesign.whutHouseMgmt.controller.dataimport;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -131,10 +131,13 @@ public class DataImportController {
 			}
 			if (ExcelUtils.isExcel2003(multipartFile.getOriginalFilename())) {
 				// 获取上传的Excel表
+				System.out.println("2003");
 				workBook = new HSSFWorkbook(multipartFile.getInputStream());
+				System.out.println("2003获取成功");
 			}
 			if (ExcelUtils.isExcel2007(multipartFile.getOriginalFilename())) {
 				// 获取上传的Excel表
+				System.out.println("2007");
 				workBook = new XSSFWorkbook(multipartFile.getInputStream());
 			}
 			System.out.println("AA");
@@ -169,6 +172,7 @@ public class DataImportController {
 						}
 					}
 
+					System.out.println("测试1");
 					// 将数据封装为Staff
 					String val[] = result.split(",");
 					Staff staff = new Staff();
@@ -599,6 +603,8 @@ public class DataImportController {
 					Integer houseRel = dataImportService.getHouseParamId(val[4]);
 					if(houseRel != null){
 						resident.setHouseRel(houseRel);
+						//导入住房关系时同时修改house的状态
+						houseService.updateHouseStatus(houseId, houseRel);
 					}else{
 						return Msg.error("住房关系有误");
 					}
@@ -653,7 +659,7 @@ public class DataImportController {
 	@RequestMapping("staffDownLoad")
 	public void staffDownLoad(HttpServletResponse response) {
 		try {
-			DownloadUtils.downloadSolve("D:\\staffImport.xls", "职工模板.xlsx", response);
+			DownloadUtils.downloadSolve("D:\\staffImport.xlsx", "职工模板.xlsx", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -668,7 +674,7 @@ public class DataImportController {
 	@RequestMapping("houseDownLoad")
 	public void houseDownLoad(HttpServletResponse response) {
 		try {
-			DownloadUtils.downloadSolve("D:\\houseImport.xls", "住房模板.xlsx", response);
+			DownloadUtils.downloadSolve("D:\\houseImport.xlsx", "住房模板.xlsx", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

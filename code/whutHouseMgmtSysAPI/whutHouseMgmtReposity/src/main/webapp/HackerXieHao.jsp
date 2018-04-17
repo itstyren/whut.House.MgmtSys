@@ -40,7 +40,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzNjMwMzc2LCJleHAiOjE1MjM2MzM5NzZ9.It4fOljwdWec-PzvMKUafsxuVoDCaIEsyIJ513bvxaY");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzODkwMTQxLCJleHAiOjE1MjM4OTM3NDF9.FA5u278g5tBWw1Zb-fYOqogLIOZju_ZRP93_N6vhsAA");
 					},
 					type : "get",
 					contentType : 'application/json',
@@ -66,7 +66,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzNjMwMzc2LCJleHAiOjE1MjM2MzM5NzZ9.It4fOljwdWec-PzvMKUafsxuVoDCaIEsyIJ513bvxaY");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTIzODkwMTQxLCJleHAiOjE1MjM4OTM3NDF9.FA5u278g5tBWw1Zb-fYOqogLIOZju_ZRP93_N6vhsAA");
 					},
 					data : JSON.stringify(data),
 					url : uri,
@@ -855,6 +855,42 @@
 	//货币化补贴
 	$(function() {
 		
+		$("#getAllOneTimeMonetarySub")
+		.click(
+				function() {
+					ajaxRequestGet("oneTimeMonetarySub/getAllOneTimeMonetarySub");
+				})
+		
+		$("#getOneTimeMonetarySubByStaffNo")
+				.click(
+						function() {
+							ajaxRequestGet("oneTimeMonetarySub/getOneTimeMonetarySubByStaffNo/3");
+						})
+
+		$("#deleteOneTimeMonetarySub").click(
+				function() {
+					ajaxRequestPostType("oneTimeMonetarySub/deleteOneTimeMonetarySub/1",
+							"DELETE", null);
+				})
+		$("#addOneTimeMonetarySub").click(
+				function() {
+					var data = {
+							'staffNo':'2',
+							'oneTimeSubYear':'1999',
+							'remark':'一次性补偿'
+							
+					};
+					ajaxRequestPostType(
+							"oneTimeMonetarySub/addOneTimeMonetarySub",
+							"POST", data);
+				})
+		
+		$("#getAllMonetarySub")
+		.click(
+				function() {
+					ajaxRequestGet("staffMonetarySub/getAllMonetarySub");
+				})
+		
 		$("#getMonetarySubByStaffNo")
 				.click(
 						function() {
@@ -869,7 +905,7 @@
 		$("#addMonetarySub").click(
 				function() {
 					var data = {
-							'staffNo':'2',
+							'staffNo':'3',
 							'year':'2018',
 							'annualSal':'180000',
 							'remark':'2018年货币化补贴'
@@ -1207,6 +1243,24 @@
 				value="StaffMoreHouseSta" id="staffMoreHouseSta" /> <br>
 		</div>
 		<div class="tab-pane fade" id="houseSub">
+			<h4>获取所有一次性补贴记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetAllOneTimeMonetarySub" id="getAllOneTimeMonetarySub" /> <br>
+			<h4>根据职工编号获取其所有一次性补贴记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetOneTimeMonetarySubByStaffNo" id="getOneTimeMonetarySubByStaffNo" /> <br>
+			<h4>根据id删除一条一次性补贴记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="DeleteOneTimeMonetarySub" id="deleteOneTimeMonetarySub" />
+			<br>
+			<h4>添加一条一次性住房补贴记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="AddOneTimeMonetarySub" id="addOneTimeMonetarySub" /> <br>
+		
+		
+			<h4>获取所有补贴记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetAllMonetarySub" id="getAllMonetarySub" /> <br>
 			<h4>根据职工编号获取其所有补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetMonetarySubByStaffNo" id="getMonetarySubByStaffNo" /> <br>

@@ -120,3 +120,21 @@ export function postHouseStaffRecord(params, data) {
     data: data
   })
 }
+
+// 维修评价雷达图统计
+export function postFixCommentRadar(data) {
+  return request({
+    url: `/fixRecord/getFixRatingsRecord`,
+    method: 'post',
+    data: data
+  })
+}
+
+// 维修类型饼图
+export function postFixTypeBar(data) {
+  return request({
+    url: `/fixRecord/getFixType`,
+    method: 'post',
+    data: data
+  })
+}

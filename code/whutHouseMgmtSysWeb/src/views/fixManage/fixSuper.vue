@@ -164,7 +164,7 @@ export default {
       params.directApplyMan = this.$store.getters.userName;
       postFixSuper(params).then(res => {
         let params = {
-          fixId: acceptForm.id
+          fixId: this.superForm.id
         };
         postFixEmail(params).catch(err => {
           console.log(err);
