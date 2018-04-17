@@ -34,7 +34,8 @@ export default {
         scanning:'Scanning',
         announcement:'Announcement',
         fixFormAnalysis:'FixFormAnalysis',
-        personal:'Personal'
+        personal:'Personal',
+        monetarySub:'MonetarySubsidy'
     },
     header:{
         title:'Wuhan University of Technology',

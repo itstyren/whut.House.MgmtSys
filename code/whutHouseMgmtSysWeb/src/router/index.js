@@ -202,6 +202,7 @@ export const asyncRouterMap = [
             { path: 'house', component: _import('dataAnalysis/house/index'), name: 'houseAnalysis', meta: { title: 'houseAnalysis' } },
             { path: 'fix', component: _import('dataAnalysis/fix/index'), name: 'fixFormAnalysis', meta: { title: 'fixFormAnalysis' } },
             { path: 'scanning', component: _import('dataAnalysis/scanning'), name: 'scanning', meta: { title: 'scanning' } },
+            { path: 'monetarySub', component: _import('dataAnalysis/monetarySub'), name: 'monetarySub', meta: { title: 'monetarySub' } },
         ]
     },
     /* 个人设置 */

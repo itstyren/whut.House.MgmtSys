@@ -86,7 +86,7 @@
         };
         postHouseStaffRecord(params, this.filtersData).then(res => {
           this.houseData = res.data.data.data.list;
-          console.log(this.houseData)
+          // console.log(this.houseData)
           this.totalNum = res.data.data.data.total;
           this.listLoading = false;
         });

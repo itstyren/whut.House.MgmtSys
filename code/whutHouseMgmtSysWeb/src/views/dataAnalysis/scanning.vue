@@ -48,19 +48,19 @@
                   <!-- 多套查询 -->
                   <div v-if="activeName=='query'" class="table-tabs">
                     <el-table :data="houseRelData" class="table" height="string" v-loading="listLoading">
-                      <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
-                      <el-table-column prop="staffName"  label="姓名" align="center"> </el-table-column>
-                      <el-table-column prop="staffDeptName" label="工作部门" align="center"></el-table-column>
-                      <el-table-column prop="staffSpouseName" label="配偶姓名"  align="center"></el-table-column>
-                      <el-table-column prop="bookTime" label="登记时间"  align="center"></el-table-column>
-                      <el-table-column prop="houseRel" label="住房关系" align="center">
+                      <el-table-column prop="staffNo" label="职工号" sortable align="center" width="90"></el-table-column>
+                      <el-table-column prop="staffName"  label="姓名" align="center" width="90"> </el-table-column>
+                      <el-table-column prop="staffDeptName" label="工作部门" align="center" width="120"></el-table-column>
+                      <el-table-column prop="staffSpouseName" label="配偶姓名"  align="center" width="90"></el-table-column>
+                      <el-table-column prop="bookTime" label="登记时间"  align="center" width="120"></el-table-column>
+                      <el-table-column prop="houseRel" label="住房关系" align="center" width="90">
                                         <template slot-scope="scope">
                   <el-tag :type="scope.row.houseRel | statusFilter">{{scope.row.houseRel}}</el-tag>
                 </template>
                       </el-table-column>
                       <el-table-column prop="address" label="住房地址" align="center"></el-table-column>
-                      <el-table-column prop="staffTypeName" label="职工类别" align="center"></el-table-column>
-                      <el-table-column prop="houseTypeName" label="住房类型" align="center"></el-table-column>
+                      <el-table-column prop="staffTypeName" label="职工类别" align="center" width="120"></el-table-column>
+                      <el-table-column prop="houseTypeName" label="住房类型" align="center" width="120"></el-table-column>
                     </el-table>
                     <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
                       :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
@@ -133,6 +133,7 @@ export default {
   components: {},
   created() {
     this.initGet();
+    this.multiplyQuery()
   },
   methods: {
     initGet() {

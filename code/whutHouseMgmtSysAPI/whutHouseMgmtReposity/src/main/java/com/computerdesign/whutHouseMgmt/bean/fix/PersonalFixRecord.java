@@ -24,6 +24,8 @@ public class PersonalFixRecord {
     private Boolean isOver;
 
     private Boolean isCheck;
+    
+    private String ratings;
 	
 	//申请时间
 	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
@@ -93,6 +95,14 @@ public class PersonalFixRecord {
 
 	public void setApplyTime(Date applyTime) {
 		this.applyTime = applyTime;
+	}
+
+	public String getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(String ratings) {
+		this.ratings = ratings;
 	}
 	
 	

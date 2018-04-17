@@ -27,23 +27,27 @@
                   <el-menu :default-active="menuIndex" @select="menuSelect" background-color="#fff" text-color="#000" active-text-color="#ffd04b">
                     <el-menu-item index="personal">
                       <my-icon icon-class="paramSet"></my-icon>
-                      <span slot="title">常规设置</span>
+                      <span slot="title"> 常规设置</span>
                     </el-menu-item>
                     <el-menu-item index="house">
                       <my-icon icon-class="building"></my-icon>
-                      <span slot="title">房屋信息</span>
+                      <span slot="title"> 房屋信息</span>
+                    </el-menu-item>
+                    <el-menu-item index="monetarySub">
+                      <my-icon icon-class="monetarySub"></my-icon>
+                      <span slot="title"> 我的补贴</span>
                     </el-menu-item>
                     <el-menu-item index="fix">
                       <my-icon icon-class="fixApplyManager"></my-icon>
-                      <span slot="title">我的维修</span>
+                      <span slot="title"> 我的维修</span>
                     </el-menu-item>
                     <el-menu-item index="hire">
                       <my-icon icon-class="detail"></my-icon>
-                      <span slot="title">我的申请</span>
+                      <span slot="title"> 我的申请</span>
                     </el-menu-item>
                     <el-menu-item index="password">
                       <my-icon icon-class="xiugaimima"></my-icon>
-                      <span slot="title">修改密码</span>
+                      <span slot="title"> 修改密码</span>
                     </el-menu-item>
                   </el-menu>
                 </el-row>
@@ -199,6 +203,22 @@
                   </div>
                 </el-col>
               </keep-alive>
+              <!-- 补贴信息 -->
+              <keep-alive>
+                <el-col :span="12" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='monetarySub'">
+                  <div class="title">
+                    <h1>补贴信息</h1>
+                  </div>
+                  <div class="card fix-result">
+                    <el-table ref=monetaryTable :data="monetaryList" class="table" height="string" v-loading="listLoading">
+                      <el-table-column label="年度" prop="year" align="center"></el-table-column>
+                      <el-table-column label="年度工资" prop="annualSal" align="center"></el-table-column>
+                      <el-table-column label="年度补贴金" prop="subsidies" align="center"></el-table-column>
+                      <el-table-column label="备注说明" prop="remark" align="center"></el-table-column>
+                    </el-table>
+                  </div>
+                </el-col>
+              </keep-alive>
               <!-- 维修信息 -->
               <keep-alive>
                 <el-col :span="12" :offset="1" v-loading="listLoading" class="info-form" v-if="menuIndex=='fix'">
@@ -211,13 +231,13 @@
                         <template slot-scope="scope">
                           <el-row style="margin-bottom:20px; font-size:16px">
                             <el-col :span="4">
-                              <strong>维修类型</strong>
+                              <strong>维修类型：</strong>
                             </el-col>
                             <el-col :span="8">
                               <span>{{ scope.row.fixType }}</span>
                             </el-col>
                             <el-col :span="4">
-                              <strong>申请时间</strong>
+                              <strong>申请时间：</strong>
                             </el-col>
                             <el-col :span="8">
                               <span>{{ scope.row.applyTime }}</span>
@@ -225,7 +245,7 @@
                           </el-row>
                           <el-row style="margin-bottom:20px; font-size:16px">
                             <el-col :span="4">
-                              <strong>处理状态</strong>
+                              <strong>处理状态：</strong>
                             </el-col>
                             <el-col :span="8">
                               <span>{{ scope.row.fixState }}</span>
@@ -233,10 +253,18 @@
                           </el-row>
                           <el-row style="margin-bottom:20px; font-size:16px">
                             <el-col :span="4">
-                              <strong>处理说明</strong>
+                              <strong>处理说明：</strong>
                             </el-col>
                             <el-col :span="8">
                               <span>{{ scope.row.processReason }}</span>
+                            </el-col>
+                          </el-row>
+                          <el-row style="margin-bottom:20px; font-size:16px" v-if="scope.row.ratings!=null">
+                            <el-col :span="4">
+                              <strong>维修评分：</strong>
+                            </el-col>
+                            <el-col :span="8">
+                              <span>{{ scope.row.ratings }} 星</span>
                             </el-col>
                           </el-row>
                         </template>
@@ -251,7 +279,7 @@
                       <el-table-column label="操作" align="center" width="200">
                         <template slot-scope="scope">
                           <el-button @click="expand(scope.row)" type="infor" size="small">查看</el-button>
-                          <el-button type="success" @click="fixComment(scope.row)" v-if="scope.row.isCheck==true" size="small">评价</el-button>
+                          <el-button type="success" @click="fixComment(scope.row)" v-if="scope.row.isCheck==true&&scope.row.ratings==null" size="small">评价</el-button>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -420,319 +448,346 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import img_avatar from "@/assets/avatar.jpg";
-  import countdownButton from "@/components/countdown/button";
-  import imageUpload from "@/components/imageCropper/index";
-  import {
-    getStaff,
-    getStaffHouseRel
-  } from "@/api/basiceData";
-  import {
-    putChangePassword,
-    putFixComment,
-    getUserHouse,
-    getUserAvatar,
-    postUserAvatar
-  } from "@/api/user";
-  import {
-    getFixByStaffID
-  } from "@/api/fixManage";
-  import {
-    getHireByStaffID
-  } from "@/api/leaseManage";
-  import utils from "@/utils/index.js";
-  export default {
-    data() {
-      var checkPassword = (rule, value, callback) => {
-        if (value === "") {
-          callback(new Error("请再次输入密码"));
-        } else if (value !== this.passwordForm.newPassword) {
-          callback(new Error("两次输入密码不一致!"));
-        } else {
-          callback();
-        }
-      };
-      return {
-        avatarURL:'',
-        listLoading: false,
-        staffID: this.$store.getters.userID,
-        staffInfo: {
-          name: "",
-          deptName: "",
-          titleName: "",
-          postName: "",
-          tel: "",
-          email: ""
-        },
-        phoneChange: false,
-        identifyCode: "",
-        menuIndex: "personal",
-        houseList: [],
-        selectHouse: "",
-        fixFormList: [],
-        fixCommentForm: {},
-        fixCommentVisible: false,
-        commentLoading: false,
-        hireFormList: [],
-        passwordForm: {},
-        passwordRules: {
-          oldPassword: [{
+import img_avatar from "@/assets/avatar.jpg";
+import countdownButton from "@/components/countdown/button";
+import imageUpload from "@/components/imageCropper/index";
+import { getStaff, getStaffHouseRel } from "@/api/basiceData";
+import {
+  putChangePassword,
+  putFixComment,
+  getUserHouse,
+  getUserAvatar,
+  postUserAvatar
+} from "@/api/user";
+import { getFixByStaffID } from "@/api/fixManage";
+import { getHireByStaffID } from "@/api/leaseManage";
+import {
+  getStaffLumpMonetaryByNO,
+  getStaffMonetaryByNO
+} from "@/api/monetarySub";
+import utils from "@/utils/index.js";
+export default {
+  data() {
+    var checkPassword = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.passwordForm.newPassword) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
+    return {
+      avatarURL: "",
+      listLoading: false,
+      staffID: this.$store.getters.userID,
+      staffNO: parseInt(this.$store.getters.userNO),
+      staffInfo: {
+        name: "",
+        deptName: "",
+        titleName: "",
+        postName: "",
+        tel: "",
+        email: ""
+      },
+      phoneChange: false,
+      identifyCode: "",
+      menuIndex: "personal",
+      houseList: [],
+      monetaryList: [],
+      selectHouse: "",
+      fixFormList: [],
+      fixCommentForm: {},
+      fixCommentVisible: false,
+      commentLoading: false,
+      hireFormList: [],
+      passwordForm: {},
+      passwordRules: {
+        oldPassword: [
+          {
             required: true,
             message: "请输入旧密码",
             trigger: "blur"
-          }],
-          newPassword: [{
+          }
+        ],
+        newPassword: [
+          {
             required: true,
             message: "请输入新密码",
             trigger: "blur"
-          }],
-          checkNewPassword: [{
-              required: true,
-              message: "请重复新密码",
-              trigger: "blur"
-            },
-            {
-              validator: checkPassword,
-              trigger: "blur"
-            }
-          ]
-        }
-      };
-    },
-    filters: {
-      fixStatusFilter(status) {
-        const statusMap = {
-          待审核: "warning",
-          待受理: "warning",
-          审核拒绝: "danger",
-          受理拒绝: "danger",
-          已审核: "success"
-        };
-        return statusMap[status];
-      },
-      hireStatusFilter(status) {
-        const statusMap = {
-          待审核: "warning",
-          待受理: "warning",
-          待审批: "warning",
-          审核拒绝: "danger",
-          受理拒绝: "danger",
-          审批拒绝: "danger",
-          已审批: "success"
-        };
-        return statusMap[status];
+          }
+        ],
+        checkNewPassword: [
+          {
+            required: true,
+            message: "请重复新密码",
+            trigger: "blur"
+          },
+          {
+            validator: checkPassword,
+            trigger: "blur"
+          }
+        ]
       }
+    };
+  },
+  filters: {
+    fixStatusFilter(status) {
+      const statusMap = {
+        待审核: "warning",
+        待受理: "warning",
+        审核拒绝: "danger",
+        受理拒绝: "danger",
+        已审核: "success"
+      };
+      return statusMap[status];
     },
-    components: {
-      countdownButton,
-      imageUpload
+    hireStatusFilter(status) {
+      const statusMap = {
+        待审核: "warning",
+        待受理: "warning",
+        待审批: "warning",
+        审核拒绝: "danger",
+        受理拒绝: "danger",
+        审批拒绝: "danger",
+        已审批: "success"
+      };
+      return statusMap[status];
+    }
+  },
+  components: {
+    countdownButton,
+    imageUpload
+  },
+  created() {
+    this.menuIndex = this.$route.params.menuIndex || "personal";
+    this.getStaff();
+    this.getStaffHouseRel();
+    this.getFix();
+    this.getHire();
+    this.getStaffMonetarySub();
+  },
+  methods: {
+    modifyPhone() {
+      this.phoneChange = true;
     },
-    created() {
-      (this.menuIndex = this.$route.params.menuIndex || "personal"),
-      this.getStaff(),
-        this.getStaffHouseRel(),
-        this.getFix(),
-        this.getHire();
+    menuSelect(index, indexPath) {
+      this.menuIndex = index;
     },
-    methods: {
-      modifyPhone() {
-        this.phoneChange = true;
-      },
-      menuSelect(index, indexPath) {
-        this.menuIndex = index;
-      },
-      // 获取职工个人信息
-      getStaff() {
-        this.listLoading = true;
-        let params = {};
-        getStaff(params, this.staffID).then(res => {
-          this.staffInfo = res.data.data.data;
-          getUserAvatar(this.staffID).then(res=>{
-            if(res.data.status=='error')
-            {
-              this.avatarURL=img_avatar
-            }
-            else{
-              this.avatarURL=res.data.data.data
-            }
-          })
-          this.listLoading = false;
-        });
-      },
-      getStaffHouseRel() {
-        this.listLoading = true;
-        getUserHouse(this.staffID).then(res => {
-          this.houseList = res.data.data.data;
-          this.listLoading = false;
-        });
-      },
-      // 获取维修信息
-      getFix() {
-        this.listLoading = true;
-        getFixByStaffID(this.staffID).then(res => {
-          this.fixFormList = res.data.data.data;
-          this.listLoading = false;
-        });
-      },
-      fixComment(row) {
-        this.fixCommentForm = Object.assign({}, row);
-        this.fixCommentVisible = true;
-      },
-      getHire() {
-        this.listLoading = true;
-        getHireByStaffID(this.staffID).then(res => {
-          this.hireFormList = res.data.data.data;
-        });
-      },
-      expand(row) {
-        this.$refs.fixTable.toggleRowExpansion(row);
-      },
-      // 修改密码
-      changePass() {
-        this.$refs["changePassForm"].validate(valid => {
-          if (valid) {
-            this.listLoading = true;
-            let param = {
-              newPsw: this.passwordForm.newPassword,
-              oldPsw: this.passwordForm.oldPassword
-            };
-            putChangePassword(param).then(res => {
-              utils.statusinfo(this, res.data);
-              this.listLoading = false;
-              this.$refs.changePassForm.resetFields();
-            });
+    // 获取职工个人信息
+    getStaff() {
+      this.listLoading = true;
+      let params = {};
+      getStaff(params, this.staffID).then(res => {
+        this.staffInfo = res.data.data.data;
+        getUserAvatar(this.staffID).then(res => {
+          if (res.data.status == "error") {
+            this.avatarURL = img_avatar;
+          } else {
+            this.avatarURL = res.data.data.data;
           }
         });
-      },
-      // 提交评价
-      submitComment() {
-        this.commentLoading = true;
-        let data = {
-          description: this.fixCommentForm.description,
-          fixId: this.fixCommentForm.fixId,
-          description: this.fixCommentForm.description,
-          ratings: this.fixCommentForm.comment
-        };
-        putFixComment(data).then(res => {
-          utils.statusinfo(this, res.data);
-          this.commentLoading = false;
-          this.fixCommentVisible = false;
-          //this.getList();
+        this.listLoading = false;
+      });
+    },
+    getStaffHouseRel() {
+      this.listLoading = true;
+      getUserHouse(this.staffID).then(res => {
+        this.houseList = res.data.data.data;
+        this.listLoading = false;
+      });
+    },
+    getStaffMonetarySub() {
+      this.listLoading = true;
+      let params = {
+        page: 1,
+        size: 10
+      };
+      getStaffMonetaryByNO(params, this.staffNO).then(res => {
+        // console.log(res.data.data);
+        this.monetaryList = res.data.data.data.list;
+        this.listLoading = false;
+        getStaffLumpMonetaryByNO(this.staffNO).then(res => {
+          const array = res.data.data.data[0];
+          // console.log(array);
+          if (array.length != 0) {
+            let data = {
+              year: array.oneTimeSubYear,
+              annualSal: "/",
+              subsidies: array.oneTimeSubsidy,
+              remark: array.remark
+            };
+            // console.log(data);
+            this.monetaryList.unshift(data)
+          }
         });
-      },
-      // 导出申请单
-      downloadApply() {
-        let staffID = this.$store.getters.userID;
-        window.location.href = `http://localhost:8787/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
-      },
-      uploadURL(url){
-        this.listLoading=true
-        let data={
-          id:this.staffID,
-          icon:url
+      });
+    },
+    // 获取维修信息
+    getFix() {
+      this.listLoading = true;
+      getFixByStaffID(this.staffID).then(res => {
+        this.fixFormList = res.data.data.data;
+        this.listLoading = false;
+      });
+    },
+    fixComment(row) {
+      this.fixCommentForm = Object.assign({}, row);
+      this.fixCommentVisible = true;
+    },
+    getHire() {
+      this.listLoading = true;
+      getHireByStaffID(this.staffID).then(res => {
+        this.hireFormList = res.data.data.data;
+      });
+    },
+    expand(row) {
+      this.$refs.fixTable.toggleRowExpansion(row);
+    },
+    // 修改密码
+    changePass() {
+      this.$refs["changePassForm"].validate(valid => {
+        if (valid) {
+          this.listLoading = true;
+          let param = {
+            newPsw: this.passwordForm.newPassword,
+            oldPsw: this.passwordForm.oldPassword
+          };
+          putChangePassword(param).then(res => {
+            utils.statusinfo(this, res.data);
+            this.listLoading = false;
+            this.$refs.changePassForm.resetFields();
+          });
         }
-        postUserAvatar(data).then(res=>{
-          utils.statusinfo(this, res.data);     
-          this.listLoading=false     
-        })
-      }
+      });
+    },
+    // 提交评价
+    submitComment() {
+      this.commentLoading = true;
+      let data = {
+        description: this.fixCommentForm.description,
+        fixId: this.fixCommentForm.fixId,
+        description: this.fixCommentForm.description,
+        ratings: this.fixCommentForm.comment
+      };
+      putFixComment(data).then(res => {
+        utils.statusinfo(this, res.data);
+        this.commentLoading = false;
+        this.fixCommentVisible = false;
+        //this.getList();
+      });
+    },
+    // 导出申请单
+    downloadApply() {
+      let staffID = this.$store.getters.userID;
+      window.location.href = `http://localhost:8787/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
+    },
+    uploadURL(url) {
+      this.listLoading = true;
+      let data = {
+        id: this.staffID,
+        icon: url
+      };
+      postUserAvatar(data).then(res => {
+        utils.statusinfo(this, res.data);
+        this.listLoading = false;
+      });
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  @import "../../styles/variables.scss";
+@import "../../styles/variables.scss";
 
-  .second-container {
-    .user-info {
-      margin: 5px auto;
-      width: 90%;
-      .avatar {
-        margin: 0px auto 20px;
-        width: 15vh;
-        height: 15vh;
-        border-radius: 50%;
-        overflow: hidden;
+.second-container {
+  .user-info {
+    margin: 5px auto;
+    width: 90%;
+    .avatar {
+      margin: 0px auto 20px;
+      width: 15vh;
+      height: 15vh;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .nav {
+      margin-top: 100px;
+      .title {
+        width: 100%;
+        text-align: center;
+        line-height: 42px;
+        font-weight: bold;
+        padding-top: 3px;
+        background-color: #f3f5f8;
       }
-      .nav {
-        margin-top: 100px;
-        .title {
-          width: 100%;
-          text-align: center;
-          line-height: 42px;
-          font-weight: bold;
-          padding-top: 3px;
-          background-color: #f3f5f8;
-        }
-        .el-menu {
-          border-right: none;
-          padding-left: 0;
-        }
-      }
-      .info-form {
-        &>.title {
-          width: 100%;
-          border-bottom: 2px solid #ccc;
-          margin-bottom: 50px;
-        }
-        .info-row {
-          border-bottom: 1px solid #eee;
-          padding: 10px;
-          height: 45px;
-        }
-        .is-change {
-          background-color: #f5f5f5;
-          border-bottom: 1px solid #eee;
-          padding: 10px;
-          .old-vertify {
-            margin-bottom: 5px;
-            &::after {
-              content: " *";
-              color: #ed1c24;
-            }
-          }
-        }
-        .no-result {
-          height: 50vh;
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          text-align: center;
-        }
-        .fix-result,
-        .hire-result {
-          height: 60vh;
-        }
-        .change-password {
-          height: 400px;
-          padding: 20px;
-          position: relative;
-          .tool {
-            position: absolute;
-            right: 30px;
-            text-align: right;
-            bottom: 30px;
-          }
-        }
+      .el-menu {
+        border-right: none;
+        padding-left: 0;
       }
     }
-    .fix-comment {
-      .border {
+    .info-form {
+      & > .title {
+        width: 100%;
+        border-bottom: 2px solid #ccc;
+        margin-bottom: 50px;
+      }
+      .info-row {
+        border-bottom: 1px solid #eee;
+        padding: 10px;
+        height: 45px;
+      }
+      .is-change {
+        background-color: #f5f5f5;
+        border-bottom: 1px solid #eee;
+        padding: 10px;
+        .old-vertify {
+          margin-bottom: 5px;
+          &::after {
+            content: " *";
+            color: #ed1c24;
+          }
+        }
+      }
+      .no-result {
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+      }
+      .fix-result,
+      .hire-result {
+        height: 60vh;
+      }
+      .change-password {
+        height: 400px;
+        padding: 20px;
         position: relative;
-        margin-bottom: 15px;
-        &::after {
-          content: "";
-          width: 105%;
-          height: 2px;
-          background-color: #dcdcdc;
+        .tool {
           position: absolute;
-          bottom: -2px;
-          z-index: 1;
-          left: 4%; //right: 2%;
+          right: 30px;
+          text-align: right;
+          bottom: 30px;
         }
       }
     }
   }
-
+  .fix-comment {
+    .border {
+      position: relative;
+      margin-bottom: 15px;
+      &::after {
+        content: "";
+        width: 105%;
+        height: 2px;
+        background-color: #dcdcdc;
+        position: absolute;
+        bottom: -2px;
+        z-index: 1;
+        left: 4%; //right: 2%;
+      }
+    }
+  }
+}
 </style>

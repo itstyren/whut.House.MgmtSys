@@ -76,6 +76,7 @@ public class FixController {
 			personalFixRecord.setFixState(fix.getFixState());
 			personalFixRecord.setIsCheck(fix.getIsCheck());
 			personalFixRecord.setIsOver(fix.getIsOver());
+			personalFixRecord.setRatings(fix.getRatings());
 			String processReason = null;
 			// 判断审核流程进行到了哪一步
 			if (fix.getAgreeNote() != null) {
