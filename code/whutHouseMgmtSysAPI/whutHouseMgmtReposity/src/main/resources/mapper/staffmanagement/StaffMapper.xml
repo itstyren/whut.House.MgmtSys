@@ -47,6 +47,7 @@
     <result column="AccountStatus" jdbcType="BIT" property="accountStatus" />
     <result column="IsOwnPriHouse" jdbcType="BIT" property="isOwnPriHouse" />
     <result column="Icon" jdbcType="VARCHAR" property="icon" />
+    <result column="PromoteFlag" jdbcType="BIT" property="promoteFlag" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -112,7 +113,7 @@
     SpousePost, SpouseDept, SpouseKind, IsDeptManage, StaffPassword, BuyAccount, Compensate, 
     FixFund, SecondJoinTime, SecondRetireTime, StaffDual, Relation, OtherVal, TimeVal, 
     TotalVal, DiscountRate, FamilyCode, FirstJobTime, UserName, IsSuper, RoleId, AccountStatus, 
-    IsOwnPriHouse, Icon
+    IsOwnPriHouse, Icon, PromoteFlag
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample" resultMap="BaseResultMap">
     select
@@ -159,8 +160,8 @@
       OtherVal, TimeVal, TotalVal, 
       DiscountRate, FamilyCode, FirstJobTime, 
       UserName, IsSuper, RoleId, 
-      AccountStatus, IsOwnPriHouse, Icon
-      )
+      AccountStatus, IsOwnPriHouse, Icon, 
+      PromoteFlag)
     values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{marriageState,jdbcType=VARCHAR}, #{title,jdbcType=INTEGER}, 
       #{post,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
@@ -175,8 +176,8 @@
       #{otherVal,jdbcType=DOUBLE}, #{timeVal,jdbcType=DOUBLE}, #{totalVal,jdbcType=DOUBLE}, 
       #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, #{firstJobTime,jdbcType=DATE}, 
       #{userName,jdbcType=VARCHAR}, #{isSuper,jdbcType=TINYINT}, #{roleId,jdbcType=INTEGER}, 
-      #{accountStatus,jdbcType=BIT}, #{isOwnPriHouse,jdbcType=BIT}, #{icon,jdbcType=VARCHAR}
-      )
+      #{accountStatus,jdbcType=BIT}, #{isOwnPriHouse,jdbcType=BIT}, #{icon,jdbcType=VARCHAR}, 
+      #{promoteFlag,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff">
     insert into hs_staff
@@ -316,6 +317,9 @@
       <if test="icon != null">
         Icon,
       </if>
+      <if test="promoteFlag != null">
+        PromoteFlag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -452,6 +456,9 @@
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="promoteFlag != null">
+        #{promoteFlag,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -599,6 +606,9 @@
       <if test="record.icon != null">
         Icon = #{record.icon,jdbcType=VARCHAR},
       </if>
+      <if test="record.promoteFlag != null">
+        PromoteFlag = #{record.promoteFlag,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -650,7 +660,8 @@
       RoleId = #{record.roleId,jdbcType=INTEGER},
       AccountStatus = #{record.accountStatus,jdbcType=BIT},
       IsOwnPriHouse = #{record.isOwnPriHouse,jdbcType=BIT},
-      Icon = #{record.icon,jdbcType=VARCHAR}
+      Icon = #{record.icon,jdbcType=VARCHAR},
+      PromoteFlag = #{record.promoteFlag,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -790,6 +801,9 @@
       <if test="icon != null">
         Icon = #{icon,jdbcType=VARCHAR},
       </if>
+      <if test="promoteFlag != null">
+        PromoteFlag = #{promoteFlag,jdbcType=BIT},
+      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
@@ -838,7 +852,8 @@
       RoleId = #{roleId,jdbcType=INTEGER},
       AccountStatus = #{accountStatus,jdbcType=BIT},
       IsOwnPriHouse = #{isOwnPriHouse,jdbcType=BIT},
-      Icon = #{icon,jdbcType=VARCHAR}
+      Icon = #{icon,jdbcType=VARCHAR},
+      PromoteFlag = #{promoteFlag,jdbcType=BIT}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

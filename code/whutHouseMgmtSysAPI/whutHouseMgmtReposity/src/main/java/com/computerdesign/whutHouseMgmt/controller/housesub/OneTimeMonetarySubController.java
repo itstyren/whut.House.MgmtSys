@@ -2,6 +2,7 @@ package com.computerdesign.whutHouseMgmt.controller.housesub;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,25 @@ public class OneTimeMonetarySubController {
 	@Autowired
 	private MonetarySubVwService monetarySubVwService;
 
+	@ResponseBody
+	@RequestMapping(value = "addPromoteSub/{staffId}", method = RequestMethod.POST)
+	public Msg addPromoteSub(@PathVariable("staffId") Integer staffId){
+		Staff staff = staffService.get(staffId);
+		//如果晋升且是老职工
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(1998, 11, 31, 0, 0, 0);
+		
+		if(staff.getPromoteFlag() && staff.getJoinTime().getTime() < calendar.getTime().getTime()){
+			OneTimeMonetarySub oneTimeMonetarySub = new OneTimeMonetarySub();
+			oneTimeMonetarySub.setStaffNo(staff.getNo());
+			Calendar calendar2 = Calendar.getInstance();
+			calendar2.setTime(new Date());
+			oneTimeMonetarySub.setOneTimeSubYear(calendar2.get(Calendar.YEAR) + "");
+			oneTimeMonetarySub.setRemark(calendar2.get(Calendar.YEAR) + "年晋升补贴");
+		}
+		return null;
+	}
+	
 	/**
 	 * 获取所有一次性 补贴记录
 	 * 

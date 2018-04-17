@@ -50,115 +50,120 @@ public class StaffController extends BaseController {
 
 	/**
 	 * 获取头像
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getIcon/{id}", method = RequestMethod.GET)
-	public Msg getIcon(@PathVariable("id") Integer id){
+	public Msg getIcon(@PathVariable("id") Integer id) {
 		Staff staff = staffService.get(id);
-		if(staff.getIcon() != null){
+		if (staff.getIcon() != null) {
 			return Msg.success().add("data", staff.getIcon());
-		}else{
+		} else {
 			return Msg.error("无头像信息");
 		}
 	}
-	
+
 	/**
 	 * 上传，保存头像
+	 * 
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "saveIcon", method = RequestMethod.POST)
-	public Msg saveIcon(@RequestBody StaffIcon staffIcon){
-		if(staffIcon != null){
+	public Msg saveIcon(@RequestBody StaffIcon staffIcon) {
+		if (staffIcon != null) {
 			Staff staff = staffService.get(staffIcon.getId());
 			staff.setIcon(staffIcon.getIcon());
 			staffService.update(staff);
 			return Msg.success().add("data", staff);
-		}else{
+		} else {
 			return Msg.error();
 		}
 	}
-	
+
 	/**
 	 * 计算单个职工的总分，主要用于新增员工时计算
+	 * 
 	 * @param staffNo
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "calculateStaffValueByStaffNo/{staffNo}", method = RequestMethod.POST)
-	public Msg calculateStaffValueByStaffNo(@PathVariable("staffNo") String staffNo){
+	public Msg calculateStaffValueByStaffNo(@PathVariable("staffNo") String staffNo) {
 		System.out.println(staffNo);
 		StaffValue staffValue = staffService.getStaffValueByStaffNo(staffNo);
-		if(staffValue != null){
+		if (staffValue != null) {
 			int titleValue = 0;
-			if(staffValue.getStaffTitleValue() != null){
+			if (staffValue.getStaffTitleValue() != null) {
 				titleValue = staffValue.getStaffTitleValue();
 			}
 			int postValue = 0;
-			if (staffValue.getStaffPostValue() != null){
+			if (staffValue.getStaffPostValue() != null) {
 				postValue = staffValue.getStaffPostValue();
 			}
 			int spouseTitleValue = 0;
-			if(staffValue.getSpouseTitleValue() != null){
+			if (staffValue.getSpouseTitleValue() != null) {
 				spouseTitleValue = staffValue.getSpouseTitleValue();
 			}
 			int spousePostValue = 0;
-			if(staffValue.getSpousePostValue() != null){
+			if (staffValue.getSpousePostValue() != null) {
 				spousePostValue = staffValue.getSpousePostValue();
 			}
 			double otherValue = staffValue.getOtherValue();
 			double timeValue = staffValue.getTimeValue();
 			double totalValue = titleValue + postValue + spouseTitleValue + spousePostValue + otherValue + timeValue;
-			
-			//更新计算的总分
+
+			// 更新计算的总分
 			Staff staff = staffService.get(staffValue.getId());
 			staff.setTotalVal(totalValue);
 			staffService.update(staff);
 			return Msg.success();
-		}else{
+		} else {
 			return Msg.error("无该编号的职工");
 		}
 	}
-	
+
 	/**
 	 * 计算所有职工总分
+	 * 
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "calculateAllStaffValue", method = RequestMethod.POST)
 	public Msg calculateAllStaffValue() {
 		List<StaffValue> staffValues = staffService.getAllStaffValues();
-		if(staffValues != null){
+		if (staffValues != null) {
 			for (StaffValue staffValue : staffValues) {
 				int titleValue = 0;
-				if(staffValue.getStaffTitleValue() != null){
+				if (staffValue.getStaffTitleValue() != null) {
 					titleValue = staffValue.getStaffTitleValue();
 				}
 				int postValue = 0;
-				if (staffValue.getStaffPostValue() != null){
+				if (staffValue.getStaffPostValue() != null) {
 					postValue = staffValue.getStaffPostValue();
 				}
 				int spouseTitleValue = 0;
-				if(staffValue.getSpouseTitleValue() != null){
+				if (staffValue.getSpouseTitleValue() != null) {
 					spouseTitleValue = staffValue.getSpouseTitleValue();
 				}
 				int spousePostValue = 0;
-				if(staffValue.getSpousePostValue() != null){
+				if (staffValue.getSpousePostValue() != null) {
 					spousePostValue = staffValue.getSpousePostValue();
 				}
 				double otherValue = staffValue.getOtherValue();
 				double timeValue = staffValue.getTimeValue();
-				double totalValue = titleValue + postValue + spouseTitleValue + spousePostValue + otherValue + timeValue;
-				
-				//更新计算的总分
+				double totalValue = titleValue + postValue + spouseTitleValue + spousePostValue + otherValue
+						+ timeValue;
+
+				// 更新计算的总分
 				Staff staff = staffService.get(staffValue.getId());
 				staff.setTotalVal(totalValue);
 				staffService.update(staff);
 			}
 			return Msg.success();
-		}else {
+		} else {
 			return Msg.error("无数据可处理");
 		}
 	}
@@ -238,6 +243,7 @@ public class StaffController extends BaseController {
 	@RequestMapping(value = "modify", method = RequestMethod.PUT)
 	public Msg modifyStaff(@RequestBody @Valid Staff staff, BindingResult result) {
 		System.out.println(staff.getCode() == null);
+
 		// System.out.println(staff.getCode().equals(""));
 		if (staff.getNo() != null) {
 			if (staff.getNo().trim().equals("")) {
@@ -268,6 +274,21 @@ public class StaffController extends BaseController {
 			String message = result.getFieldError().getDefaultMessage();
 			return Msg.error(message);
 		}
+
+		Staff staffBeforeUpdate = null;
+
+		// 通过ID获取该职工
+		if (staff.getId() != null) {
+			staffBeforeUpdate = staffService.get(staff.getId());
+		}
+
+		//当职称或职务改变时，记之为晋升
+		if(staffBeforeUpdate != null){
+			if(staffBeforeUpdate.getTitle() != staff.getTitle() || staffBeforeUpdate.getPost() != staff.getPost()){
+				staff.setPromoteFlag(true);
+			}
+		}
+		
 		// staff = staffService.get(staff.getId());
 		// System.out.println(staff.getPost());
 		// if (staff.getNo() == null) {

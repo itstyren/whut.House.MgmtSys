@@ -3012,6 +3012,66 @@ public class StaffExample {
             addCriterion("Icon not between", value1, value2, "icon");
             return (Criteria) this;
         }
+
+        public Criteria andPromoteFlagIsNull() {
+            addCriterion("PromoteFlag is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoteFlagIsNotNull() {
+            addCriterion("PromoteFlag is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoteFlagEqualTo(Boolean value) {
+            addCriterion("PromoteFlag =", value, "promoteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoteFlagNotEqualTo(Boolean value) {
+            addCriterion("PromoteFlag <>", value, "promoteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoteFlagGreaterThan(Boolean value) {
+            addCriterion("PromoteFlag >", value, "promoteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoteFlagGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("PromoteFlag >=", value, "promoteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoteFlagLessThan(Boolean value) {
+            addCriterion("PromoteFlag <", value, "promoteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoteFlagLessThanOrEqualTo(Boolean value) {
+            addCriterion("PromoteFlag <=", value, "promoteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoteFlagIn(List<Boolean> values) {
+            addCriterion("PromoteFlag in", values, "promoteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoteFlagNotIn(List<Boolean> values) {
+            addCriterion("PromoteFlag not in", values, "promoteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoteFlagBetween(Boolean value1, Boolean value2) {
+            addCriterion("PromoteFlag between", value1, value2, "promoteFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoteFlagNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("PromoteFlag not between", value1, value2, "promoteFlag");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

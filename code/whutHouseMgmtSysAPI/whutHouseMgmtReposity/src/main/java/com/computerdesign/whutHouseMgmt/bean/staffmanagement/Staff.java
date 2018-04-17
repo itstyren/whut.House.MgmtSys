@@ -113,6 +113,8 @@ public class Staff {
 	private Boolean isOwnPriHouse;
 
 	private String icon;
+	
+	private Boolean promoteFlag;
 
 	public Integer getId() {
 		return id;
@@ -473,4 +475,13 @@ public class Staff {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
+
+	public Boolean getPromoteFlag() {
+		return promoteFlag;
+	}
+
+	public void setPromoteFlag(Boolean promoteFlag) {
+		this.promoteFlag = promoteFlag;
+	}
+	
 }
