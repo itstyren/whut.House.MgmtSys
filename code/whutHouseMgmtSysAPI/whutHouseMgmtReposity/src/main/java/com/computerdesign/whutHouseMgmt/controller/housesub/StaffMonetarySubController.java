@@ -53,7 +53,8 @@ public class StaffMonetarySubController {
 		
 		PageHelper.startPage(page, size);
 		List<StaffMonetarySub> staffMonetarySubs = staffMonetarySubService.getAllMonetarySub();
-		return Msg.success().add("data", staffMonetarySubs);
+		PageInfo pageInfo = new PageInfo(staffMonetarySubs);
+		return Msg.success().add("data", pageInfo);
 	}
 
 	/**

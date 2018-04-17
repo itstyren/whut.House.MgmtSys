@@ -49,9 +49,12 @@ public class OneTimeMonetarySubController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getAllOneTimeMonetarySub", method = RequestMethod.GET)
-	public Msg getAllOneTimeMonetarySub() {
+	public Msg getAllOneTimeMonetarySub(@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		PageHelper.startPage(page, size);
 		List<OneTimeMonetarySub> oneTimeMonetarySubs = oneTimeMonetarySubService.getAllOneTimeMonetarySub();
-		return Msg.success().add("data", oneTimeMonetarySubs);
+		PageInfo pageInfo = new PageInfo(oneTimeMonetarySubs);
+		return Msg.success().add("data", pageInfo);
 	}
 
 	/**
