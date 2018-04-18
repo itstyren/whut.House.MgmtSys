@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw;
 import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySub;
+import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubVw;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.service.housesub.MonetarySubVwService;
@@ -62,9 +63,9 @@ public class OneTimeMonetarySubController {
 	}
 	
 	/**
-	 * 获取所有一次性 补贴记录
-	 * 
-	 * @param staffNo
+	 * 获取所有一次性补贴记录
+	 * @param page
+	 * @param size
 	 * @return
 	 */
 	@ResponseBody
@@ -72,8 +73,9 @@ public class OneTimeMonetarySubController {
 	public Msg getAllOneTimeMonetarySub(@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
 		PageHelper.startPage(page, size);
-		List<OneTimeMonetarySub> oneTimeMonetarySubs = oneTimeMonetarySubService.getAllOneTimeMonetarySub();
-		PageInfo pageInfo = new PageInfo(oneTimeMonetarySubs);
+		List<OneTimeMonetarySubVw> oneTimeMonetarySubVws = oneTimeMonetarySubService.getAllOneTimeMonetarySub();
+		System.out.println(oneTimeMonetarySubVws);
+		PageInfo pageInfo = new PageInfo(oneTimeMonetarySubVws);
 		return Msg.success().add("data", pageInfo);
 	}
 
@@ -81,17 +83,15 @@ public class OneTimeMonetarySubController {
 	 * 根据职工编号获取其所有补贴记录
 	 * 
 	 * @param staffNo
-	 * @param page
-	 * @param size
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getOneTimeMonetarySubByStaffNo/{staffNo}", method = RequestMethod.GET)
 	public Msg getOneTimeMonetarySubByStaffNo(@PathVariable("staffNo") String staffNo) {
 		if (staffNo != null) {
-			List<OneTimeMonetarySub> oneTimeMonetarySubs = oneTimeMonetarySubService
+			List<OneTimeMonetarySubVw> oneTimeMonetarySubVws = oneTimeMonetarySubService
 					.getOneTimeMonetarySubByStaffNo(staffNo);
-			return Msg.success().add("data", oneTimeMonetarySubs);
+			return Msg.success().add("data", oneTimeMonetarySubVws);
 		} else {
 			return Msg.error();
 		}

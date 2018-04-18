@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubExample;
 import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubVw;
+import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubVwExample;
 import com.computerdesign.whutHouseMgmt.dao.housesub.OneTimeMonetarySubMapper;
+import com.computerdesign.whutHouseMgmt.dao.housesub.OneTimeMonetarySubVwMapper;
 
 @Service
 public class OneTimeMonetarySubService {
@@ -16,15 +19,21 @@ public class OneTimeMonetarySubService {
 	@Autowired
 	private OneTimeMonetarySubMapper oneTimeMonetarySubMapper;
 	
+	@Autowired
+	private OneTimeMonetarySubVwMapper oneTimeMonetarySubVwMapper;
+	
 	/**
 	 * 获取所有一次性补贴记录
 	 * @param staffNo
 	 * @return
 	 */
-	public List<OneTimeMonetarySub> getAllOneTimeMonetarySub(){
-		OneTimeMonetarySubExample example = new OneTimeMonetarySubExample();
-		Criteria criteria = example.createCriteria();
-		return oneTimeMonetarySubMapper.selectByExample(example);
+	public List<OneTimeMonetarySubVw> getAllOneTimeMonetarySub(){
+//		OneTimeMonetarySubExample example = new OneTimeMonetarySubExample();
+//		Criteria criteria = example.createCriteria();
+//		return oneTimeMonetarySubMapper.selectByExample(example);
+		OneTimeMonetarySubVwExample example = new OneTimeMonetarySubVwExample();
+		com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubVwExample.Criteria criteria = example.createCriteria();
+		return oneTimeMonetarySubVwMapper.selectByExample(example);
 	}
 	
 	/**
@@ -32,11 +41,15 @@ public class OneTimeMonetarySubService {
 	 * @param staffNo
 	 * @return
 	 */
-	public List<OneTimeMonetarySub> getOneTimeMonetarySubByStaffNo(String staffNo){
-		OneTimeMonetarySubExample example = new OneTimeMonetarySubExample();
-		Criteria criteria = example.createCriteria();
+	public List<OneTimeMonetarySubVw> getOneTimeMonetarySubByStaffNo(String staffNo){
+//		OneTimeMonetarySubExample example = new OneTimeMonetarySubExample();
+//		Criteria criteria = example.createCriteria();
+//		criteria.andStaffNoEqualTo(staffNo);
+//		return oneTimeMonetarySubMapper.selectByExample(example);
+		OneTimeMonetarySubVwExample example = new OneTimeMonetarySubVwExample();
+		com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubVwExample.Criteria criteria = example.createCriteria();
 		criteria.andStaffNoEqualTo(staffNo);
-		return oneTimeMonetarySubMapper.selectByExample(example);
+		return oneTimeMonetarySubVwMapper.selectByExample(example);
 	}
 	
 	/**

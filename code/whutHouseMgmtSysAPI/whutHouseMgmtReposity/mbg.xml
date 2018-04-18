@@ -57,7 +57,10 @@
 		<!-- <table tableName="hs_staff" domainObjectName="Staff">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="view_hs_monetarysub" domainObjectName="MonetarySubVw">
+		<!-- <table tableName="view_hs_monetarysub" domainObjectName="MonetarySubVw">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<table tableName="view_hs_onetimemonetarysub" domainObjectName="OneTimeMonetarySubVw">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 
