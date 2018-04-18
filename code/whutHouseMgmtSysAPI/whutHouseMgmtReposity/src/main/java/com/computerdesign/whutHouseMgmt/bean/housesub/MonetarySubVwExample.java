@@ -322,6 +322,76 @@ public class MonetarySubVwExample {
             return (Criteria) this;
         }
 
+        public Criteria andStaffNameIsNull() {
+            addCriterion("StaffName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameIsNotNull() {
+            addCriterion("StaffName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameEqualTo(String value) {
+            addCriterion("StaffName =", value, "staffName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameNotEqualTo(String value) {
+            addCriterion("StaffName <>", value, "staffName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameGreaterThan(String value) {
+            addCriterion("StaffName >", value, "staffName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameGreaterThanOrEqualTo(String value) {
+            addCriterion("StaffName >=", value, "staffName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameLessThan(String value) {
+            addCriterion("StaffName <", value, "staffName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameLessThanOrEqualTo(String value) {
+            addCriterion("StaffName <=", value, "staffName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameLike(String value) {
+            addCriterion("StaffName like", value, "staffName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameNotLike(String value) {
+            addCriterion("StaffName not like", value, "staffName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameIn(List<String> values) {
+            addCriterion("StaffName in", values, "staffName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameNotIn(List<String> values) {
+            addCriterion("StaffName not in", values, "staffName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameBetween(String value1, String value2) {
+            addCriterion("StaffName between", value1, value2, "staffName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffNameNotBetween(String value1, String value2) {
+            addCriterion("StaffName not between", value1, value2, "staffName");
+            return (Criteria) this;
+        }
+
         public Criteria andYearIsNull() {
             addCriterion("Year is null");
             return (Criteria) this;
@@ -639,6 +709,136 @@ public class MonetarySubVwExample {
 
         public Criteria andJoinTimeNotBetween(Date value1, Date value2) {
             addCriterionForJDBCDate("JoinTime not between", value1, value2, "joinTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdIsNull() {
+            addCriterion("DeptId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdIsNotNull() {
+            addCriterion("DeptId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdEqualTo(Integer value) {
+            addCriterion("DeptId =", value, "deptId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdNotEqualTo(Integer value) {
+            addCriterion("DeptId <>", value, "deptId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdGreaterThan(Integer value) {
+            addCriterion("DeptId >", value, "deptId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("DeptId >=", value, "deptId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdLessThan(Integer value) {
+            addCriterion("DeptId <", value, "deptId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdLessThanOrEqualTo(Integer value) {
+            addCriterion("DeptId <=", value, "deptId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdIn(List<Integer> values) {
+            addCriterion("DeptId in", values, "deptId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdNotIn(List<Integer> values) {
+            addCriterion("DeptId not in", values, "deptId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdBetween(Integer value1, Integer value2) {
+            addCriterion("DeptId between", value1, value2, "deptId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("DeptId not between", value1, value2, "deptId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameIsNull() {
+            addCriterion("DeptName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameIsNotNull() {
+            addCriterion("DeptName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameEqualTo(String value) {
+            addCriterion("DeptName =", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotEqualTo(String value) {
+            addCriterion("DeptName <>", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameGreaterThan(String value) {
+            addCriterion("DeptName >", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameGreaterThanOrEqualTo(String value) {
+            addCriterion("DeptName >=", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameLessThan(String value) {
+            addCriterion("DeptName <", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameLessThanOrEqualTo(String value) {
+            addCriterion("DeptName <=", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameLike(String value) {
+            addCriterion("DeptName like", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotLike(String value) {
+            addCriterion("DeptName not like", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameIn(List<String> values) {
+            addCriterion("DeptName in", values, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotIn(List<String> values) {
+            addCriterion("DeptName not in", values, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameBetween(String value1, String value2) {
+            addCriterion("DeptName between", value1, value2, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotBetween(String value1, String value2) {
+            addCriterion("DeptName not between", value1, value2, "deptName");
             return (Criteria) this;
         }
 
@@ -1019,6 +1219,66 @@ public class MonetarySubVwExample {
 
         public Criteria andPostHouseAreaNotBetween(Float value1, Float value2) {
             addCriterion("PostHouseArea not between", value1, value2, "postHouseArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaIsNull() {
+            addCriterion("MaxEnjoyArea is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaIsNotNull() {
+            addCriterion("MaxEnjoyArea is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaEqualTo(Double value) {
+            addCriterion("MaxEnjoyArea =", value, "maxEnjoyArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaNotEqualTo(Double value) {
+            addCriterion("MaxEnjoyArea <>", value, "maxEnjoyArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaGreaterThan(Double value) {
+            addCriterion("MaxEnjoyArea >", value, "maxEnjoyArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaGreaterThanOrEqualTo(Double value) {
+            addCriterion("MaxEnjoyArea >=", value, "maxEnjoyArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaLessThan(Double value) {
+            addCriterion("MaxEnjoyArea <", value, "maxEnjoyArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaLessThanOrEqualTo(Double value) {
+            addCriterion("MaxEnjoyArea <=", value, "maxEnjoyArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaIn(List<Double> values) {
+            addCriterion("MaxEnjoyArea in", values, "maxEnjoyArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaNotIn(List<Double> values) {
+            addCriterion("MaxEnjoyArea not in", values, "maxEnjoyArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaBetween(Double value1, Double value2) {
+            addCriterion("MaxEnjoyArea between", value1, value2, "maxEnjoyArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEnjoyAreaNotBetween(Double value1, Double value2) {
+            addCriterion("MaxEnjoyArea not between", value1, value2, "maxEnjoyArea");
             return (Criteria) this;
         }
 

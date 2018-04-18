@@ -9,6 +9,8 @@ public class MonetarySubVw {
 
     private String staffNo;
 
+    private String staffName;
+
     private String year;
 
     private Long annualSal;
@@ -18,6 +20,10 @@ public class MonetarySubVw {
     private String remark;
 
     private Date joinTime;
+
+    private Integer deptId;
+
+    private String deptName;
 
     private Integer titleId;
 
@@ -30,6 +36,8 @@ public class MonetarySubVw {
     private String postName;
 
     private Float postHouseArea;
+
+    private Double maxEnjoyArea;
 
     private Integer houseId;
 
@@ -61,6 +69,14 @@ public class MonetarySubVw {
 
     public void setStaffNo(String staffNo) {
         this.staffNo = staffNo == null ? null : staffNo.trim();
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName == null ? null : staffName.trim();
     }
 
     public String getYear() {
@@ -101,6 +117,22 @@ public class MonetarySubVw {
 
     public void setJoinTime(Date joinTime) {
         this.joinTime = joinTime;
+    }
+
+    public Integer getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName == null ? null : deptName.trim();
     }
 
     public Integer getTitleId() {
@@ -149,6 +181,14 @@ public class MonetarySubVw {
 
     public void setPostHouseArea(Float postHouseArea) {
         this.postHouseArea = postHouseArea;
+    }
+
+    public Double getMaxEnjoyArea() {
+        return maxEnjoyArea;
+    }
+
+    public void setMaxEnjoyArea(Double maxEnjoyArea) {
+        this.maxEnjoyArea = maxEnjoyArea;
     }
 
     public Integer getHouseId() {

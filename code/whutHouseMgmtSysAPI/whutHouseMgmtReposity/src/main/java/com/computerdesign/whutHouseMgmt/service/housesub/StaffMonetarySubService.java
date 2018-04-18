@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample;
+import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw;
+import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVwExample;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySubExample;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySubExample.Criteria;
@@ -34,6 +36,9 @@ public class StaffMonetarySubService {
 	
 	@Autowired
 	private StaffMapper staffMapper;
+	
+	@Autowired
+	private MonetarySubVwMapper monetarySubVwMapper;
 	
 //	public boolean isOldStaff(Integer staffId){
 //		StaffExample example = new StaffExample();
@@ -74,10 +79,13 @@ public class StaffMonetarySubService {
 	 * 获取所有补贴记录
 	 * @return
 	 */
-	public List<StaffMonetarySub> getAllMonetarySub(){
-		StaffMonetarySubExample example = new StaffMonetarySubExample();
-		Criteria criteria = example.createCriteria();
-		return staffMonetarySubMapper.selectByExample(example);
+	public List<MonetarySubVw> getAllMonetarySub(){
+//		StaffMonetarySubExample example = new StaffMonetarySubExample();
+//		Criteria criteria = example.createCriteria();
+//		return staffMonetarySubMapper.selectByExample(example);
+		MonetarySubVwExample example = new MonetarySubVwExample();
+		com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVwExample.Criteria criteria = example.createCriteria();
+		return monetarySubVwMapper.selectByExample(example);
 	}
 	
 	/**
@@ -85,11 +93,15 @@ public class StaffMonetarySubService {
 	 * @param staffNo
 	 * @return
 	 */
-	public List<StaffMonetarySub> getMonetarySubByStaffNo(String staffNo){
-		StaffMonetarySubExample example = new StaffMonetarySubExample();
-		Criteria criteria = example.createCriteria();
+	public List<MonetarySubVw> getMonetarySubByStaffNo(String staffNo){
+//		StaffMonetarySubExample example = new StaffMonetarySubExample();
+//		Criteria criteria = example.createCriteria();
+//		criteria.andStaffNoEqualTo(staffNo);
+//		return staffMonetarySubMapper.selectByExample(example);
+		MonetarySubVwExample example = new MonetarySubVwExample();
+		com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVwExample.Criteria criteria = example.createCriteria();
 		criteria.andStaffNoEqualTo(staffNo);
-		return staffMonetarySubMapper.selectByExample(example);
+		return monetarySubVwMapper.selectByExample(example);
 	}
 	
 	/**

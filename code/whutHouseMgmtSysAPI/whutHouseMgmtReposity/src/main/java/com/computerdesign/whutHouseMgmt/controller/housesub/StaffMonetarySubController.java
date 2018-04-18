@@ -2,6 +2,7 @@ package com.computerdesign.whutHouseMgmt.controller.housesub;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import com.computerdesign.whutHouseMgmt.service.housesub.MonetarySubVwService;
 import com.computerdesign.whutHouseMgmt.service.housesub.StaffMonetarySubService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.MonetarySubParamService;
+import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -52,8 +54,11 @@ public class StaffMonetarySubController {
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
 		
 		PageHelper.startPage(page, size);
-		List<StaffMonetarySub> staffMonetarySubs = staffMonetarySubService.getAllMonetarySub();
-		PageInfo pageInfo = new PageInfo(staffMonetarySubs);
+		List<MonetarySubVw> staffMonetarySubs = staffMonetarySubService.getAllMonetarySub();
+		String[] fileds = { "id", "staffId", "staffNo", "staffName","year", "deptName", "titleName", "postName", "postName",
+				"annualSal", "subsidies", "remark"};
+		List<Map<String, Object>> response = ResponseUtil.getResultMap(staffMonetarySubs, fileds);
+		PageInfo pageInfo = new PageInfo(response);
 		return Msg.success().add("data", pageInfo);
 	}
 
@@ -73,8 +78,11 @@ public class StaffMonetarySubController {
 
 		PageHelper.startPage(page, size);
 		if (staffNo != null) {
-			List<StaffMonetarySub> staffMonetarySubs = staffMonetarySubService.getMonetarySubByStaffNo(staffNo);
-			PageInfo pageInfo = new PageInfo(staffMonetarySubs);
+			List<MonetarySubVw> staffMonetarySubs = staffMonetarySubService.getMonetarySubByStaffNo(staffNo);
+			String[] fileds = { "id", "staffId", "staffNo", "staffName","year", "deptName", "titleName", "postName", "postName",
+					"annualSal", "subsidies", "remark"};
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(staffMonetarySubs, fileds);
+			PageInfo pageInfo = new PageInfo(response);
 			return Msg.success().add("data", pageInfo);
 		} else {
 			return Msg.error();

@@ -5,17 +5,21 @@
     <result column="Id" jdbcType="INTEGER" property="id" />
     <result column="StaffId" jdbcType="INTEGER" property="staffId" />
     <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
+    <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
     <result column="Year" jdbcType="VARCHAR" property="year" />
     <result column="AnnualSal" jdbcType="BIGINT" property="annualSal" />
     <result column="Subsidies" jdbcType="DECIMAL" property="subsidies" />
     <result column="Remark" jdbcType="VARCHAR" property="remark" />
     <result column="JoinTime" jdbcType="DATE" property="joinTime" />
+    <result column="DeptId" jdbcType="INTEGER" property="deptId" />
+    <result column="DeptName" jdbcType="VARCHAR" property="deptName" />
     <result column="TitleId" jdbcType="INTEGER" property="titleId" />
     <result column="TitleName" jdbcType="VARCHAR" property="titleName" />
     <result column="TitleHouseArea" jdbcType="REAL" property="titleHouseArea" />
     <result column="PostId" jdbcType="INTEGER" property="postId" />
     <result column="PostName" jdbcType="VARCHAR" property="postName" />
     <result column="PostHouseArea" jdbcType="REAL" property="postHouseArea" />
+    <result column="MaxEnjoyArea" jdbcType="DOUBLE" property="maxEnjoyArea" />
     <result column="HouseId" jdbcType="INTEGER" property="houseId" />
     <result column="HouseNo" jdbcType="VARCHAR" property="houseNo" />
     <result column="HouseBuildArea" jdbcType="DOUBLE" property="houseBuildArea" />
@@ -80,9 +84,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, StaffId, StaffNo, Year, AnnualSal, Subsidies, Remark, JoinTime, TitleId, TitleName, 
-    TitleHouseArea, PostId, PostName, PostHouseArea, HouseId, HouseNo, HouseBuildArea, 
-    HouseUsedArea
+    Id, StaffId, StaffNo, StaffName, Year, AnnualSal, Subsidies, Remark, JoinTime, DeptId, 
+    DeptName, TitleId, TitleName, TitleHouseArea, PostId, PostName, PostHouseArea, MaxEnjoyArea, 
+    HouseId, HouseNo, HouseBuildArea, HouseUsedArea
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVwExample" resultMap="BaseResultMap">
     select
@@ -106,19 +110,21 @@
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw">
     insert into view_hs_monetarysub (Id, StaffId, StaffNo, 
-      Year, AnnualSal, Subsidies, 
-      Remark, JoinTime, TitleId, 
+      StaffName, Year, AnnualSal, 
+      Subsidies, Remark, JoinTime, 
+      DeptId, DeptName, TitleId, 
       TitleName, TitleHouseArea, PostId, 
-      PostName, PostHouseArea, HouseId, 
-      HouseNo, HouseBuildArea, HouseUsedArea
-      )
+      PostName, PostHouseArea, MaxEnjoyArea, 
+      HouseId, HouseNo, HouseBuildArea, 
+      HouseUsedArea)
     values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, 
-      #{year,jdbcType=VARCHAR}, #{annualSal,jdbcType=BIGINT}, #{subsidies,jdbcType=DECIMAL}, 
-      #{remark,jdbcType=VARCHAR}, #{joinTime,jdbcType=DATE}, #{titleId,jdbcType=INTEGER}, 
+      #{staffName,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{annualSal,jdbcType=BIGINT}, 
+      #{subsidies,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{joinTime,jdbcType=DATE}, 
+      #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{titleId,jdbcType=INTEGER}, 
       #{titleName,jdbcType=VARCHAR}, #{titleHouseArea,jdbcType=REAL}, #{postId,jdbcType=INTEGER}, 
-      #{postName,jdbcType=VARCHAR}, #{postHouseArea,jdbcType=REAL}, #{houseId,jdbcType=INTEGER}, 
-      #{houseNo,jdbcType=VARCHAR}, #{houseBuildArea,jdbcType=DOUBLE}, #{houseUsedArea,jdbcType=DOUBLE}
-      )
+      #{postName,jdbcType=VARCHAR}, #{postHouseArea,jdbcType=REAL}, #{maxEnjoyArea,jdbcType=DOUBLE}, 
+      #{houseId,jdbcType=INTEGER}, #{houseNo,jdbcType=VARCHAR}, #{houseBuildArea,jdbcType=DOUBLE}, 
+      #{houseUsedArea,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw">
     insert into view_hs_monetarysub
@@ -131,6 +137,9 @@
       </if>
       <if test="staffNo != null">
         StaffNo,
+      </if>
+      <if test="staffName != null">
+        StaffName,
       </if>
       <if test="year != null">
         Year,
@@ -146,6 +155,12 @@
       </if>
       <if test="joinTime != null">
         JoinTime,
+      </if>
+      <if test="deptId != null">
+        DeptId,
+      </if>
+      <if test="deptName != null">
+        DeptName,
       </if>
       <if test="titleId != null">
         TitleId,
@@ -164,6 +179,9 @@
       </if>
       <if test="postHouseArea != null">
         PostHouseArea,
+      </if>
+      <if test="maxEnjoyArea != null">
+        MaxEnjoyArea,
       </if>
       <if test="houseId != null">
         HouseId,
@@ -188,6 +206,9 @@
       <if test="staffNo != null">
         #{staffNo,jdbcType=VARCHAR},
       </if>
+      <if test="staffName != null">
+        #{staffName,jdbcType=VARCHAR},
+      </if>
       <if test="year != null">
         #{year,jdbcType=VARCHAR},
       </if>
@@ -202,6 +223,12 @@
       </if>
       <if test="joinTime != null">
         #{joinTime,jdbcType=DATE},
+      </if>
+      <if test="deptId != null">
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
       </if>
       <if test="titleId != null">
         #{titleId,jdbcType=INTEGER},
@@ -220,6 +247,9 @@
       </if>
       <if test="postHouseArea != null">
         #{postHouseArea,jdbcType=REAL},
+      </if>
+      <if test="maxEnjoyArea != null">
+        #{maxEnjoyArea,jdbcType=DOUBLE},
       </if>
       <if test="houseId != null">
         #{houseId,jdbcType=INTEGER},
@@ -253,6 +283,9 @@
       <if test="record.staffNo != null">
         StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       </if>
+      <if test="record.staffName != null">
+        StaffName = #{record.staffName,jdbcType=VARCHAR},
+      </if>
       <if test="record.year != null">
         Year = #{record.year,jdbcType=VARCHAR},
       </if>
@@ -267,6 +300,12 @@
       </if>
       <if test="record.joinTime != null">
         JoinTime = #{record.joinTime,jdbcType=DATE},
+      </if>
+      <if test="record.deptId != null">
+        DeptId = #{record.deptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deptName != null">
+        DeptName = #{record.deptName,jdbcType=VARCHAR},
       </if>
       <if test="record.titleId != null">
         TitleId = #{record.titleId,jdbcType=INTEGER},
@@ -285,6 +324,9 @@
       </if>
       <if test="record.postHouseArea != null">
         PostHouseArea = #{record.postHouseArea,jdbcType=REAL},
+      </if>
+      <if test="record.maxEnjoyArea != null">
+        MaxEnjoyArea = #{record.maxEnjoyArea,jdbcType=DOUBLE},
       </if>
       <if test="record.houseId != null">
         HouseId = #{record.houseId,jdbcType=INTEGER},
@@ -308,17 +350,21 @@
     set Id = #{record.id,jdbcType=INTEGER},
       StaffId = #{record.staffId,jdbcType=INTEGER},
       StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+      StaffName = #{record.staffName,jdbcType=VARCHAR},
       Year = #{record.year,jdbcType=VARCHAR},
       AnnualSal = #{record.annualSal,jdbcType=BIGINT},
       Subsidies = #{record.subsidies,jdbcType=DECIMAL},
       Remark = #{record.remark,jdbcType=VARCHAR},
       JoinTime = #{record.joinTime,jdbcType=DATE},
+      DeptId = #{record.deptId,jdbcType=INTEGER},
+      DeptName = #{record.deptName,jdbcType=VARCHAR},
       TitleId = #{record.titleId,jdbcType=INTEGER},
       TitleName = #{record.titleName,jdbcType=VARCHAR},
       TitleHouseArea = #{record.titleHouseArea,jdbcType=REAL},
       PostId = #{record.postId,jdbcType=INTEGER},
       PostName = #{record.postName,jdbcType=VARCHAR},
       PostHouseArea = #{record.postHouseArea,jdbcType=REAL},
+      MaxEnjoyArea = #{record.maxEnjoyArea,jdbcType=DOUBLE},
       HouseId = #{record.houseId,jdbcType=INTEGER},
       HouseNo = #{record.houseNo,jdbcType=VARCHAR},
       HouseBuildArea = #{record.houseBuildArea,jdbcType=DOUBLE},
