@@ -84,7 +84,7 @@
   export default {
     data() {
       return {
-        paramClass: '8',
+        paramClass: 8,
         // 表格数据
         classData: [],
         listLoading: false,
