@@ -618,7 +618,7 @@ export default {
               remark: array.remark
             };
             // console.log(data);
-            this.monetaryList.unshift(data)
+            this.monetaryList.unshift(data);
           }
         });
       });
@@ -674,7 +674,7 @@ export default {
         utils.statusinfo(this, res.data);
         this.commentLoading = false;
         this.fixCommentVisible = false;
-        this.getFix()
+        this.getFix();
         //this.getList();
       });
     },
@@ -692,6 +692,13 @@ export default {
       postUserAvatar(data).then(res => {
         utils.statusinfo(this, res.data);
         this.listLoading = false;
+        getUserAvatar(this.staffID).then(res => {
+          if (res.data.status == "error") {
+            this.avatarURL = img_avatar;
+          } else {
+            this.avatarURL = res.data.data.data;
+          }
+        });
       });
     }
   }

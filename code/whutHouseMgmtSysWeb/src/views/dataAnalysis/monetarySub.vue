@@ -31,9 +31,9 @@
                       <el-table-column prop="year" label="年度" sortable align="center" ></el-table-column>
                       <el-table-column prop="staffNo" label="职工号" sortable align="center" ></el-table-column>
                       <el-table-column prop="staffName"  label="姓名" align="center" > </el-table-column>
-                      <el-table-column prop="staffName"  label="职工部门" align="center" > </el-table-column>
-                      <el-table-column prop="staffName"  label="职称" align="center" > </el-table-column>
-                      <el-table-column prop="staffName"  label="职务" align="center" > </el-table-column>
+                      <el-table-column prop="deptName"  label="职工部门" align="center" > </el-table-column>
+                      <el-table-column prop="titleName"  label="职称" align="center" > </el-table-column>
+                      <el-table-column prop="postName"  label="职务" align="center" > </el-table-column>
                       <el-table-column prop="annualSal"  label="年度工资" align="center" > </el-table-column>
                       <el-table-column prop="subsidies"  label="补贴金额" align="center" > </el-table-column>
                       <el-table-column prop="remark"  label="备注" align="center" > </el-table-column>
@@ -41,6 +41,9 @@
                     <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
                       :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
                     </el-pagination>
+                                        <div class="bottom-tool">
+                  <export-popover :download-loading="downloadLoading" @export="exportHandle"></export-popover>
+                    </div>
                   </div>
                 </keep-alive>
               </el-tab-pane>
@@ -53,6 +56,7 @@
                     <el-table :data="lumpMonetarySubData" class="table" height="string" v-loading="listLoading1">
                       <el-table-column prop="staffNo" label="职工号" sortable align="center"></el-table-column>
                       <el-table-column prop="staffName"  label="姓名" align="center"> </el-table-column>
+                      <el-table-column prop="deptName"  label="职工部门" align="center" > </el-table-column>
                       <el-table-column prop="oneTimeSubsidy" label="补偿金额" align="center"></el-table-column>
                       <el-table-column prop="oneTimeSubYear" label="发放时间"  align="center"></el-table-column>                                           
                       <el-table-column prop="remark" label="备注" align="center"></el-table-column>
@@ -82,9 +86,11 @@ import {
 } from "@/api/monetarySub";
 import utils from "@/utils/index.js";
 import staffFilter from "@/views/tools/staffFilter";
+import exportPopover from "@/components/exportPopover";
 export default {
   data() {
     return {
+      downloadLoading:false,
       queryForm: {},
       listLoading: false,
       activeName: "query",
@@ -97,7 +103,8 @@ export default {
       size: 10,
       totalNum1: 0,
       page1: 1,
-      size1: 10
+      size1: 10,
+      filterData:{}
     };
   },
   // 过滤器的哈希表
@@ -111,7 +118,7 @@ export default {
       return statusMap[status];
     }
   },
-  components: { staffFilter },
+  components: { staffFilter, exportPopover },
   created() {
     this.getMonetarySub();
     this.getLumpMonetarySub();
@@ -138,14 +145,84 @@ export default {
         size: this.size1
       };
       postAllStaffLumpMonetarySub(params).then(res => {
-        console.log(res.data.data.data);
+        // console.log(res.data.data.data);
         this.totalNum1 = res.data.data.data.total;
         this.lumpMonetarySubData = res.data.data.data.list;
       });
     },
     queryStaff(data) {
       console.log(data);
+      this.filterData=data
     },
+    // 处理导出情况
+    exportHandle(exportType) {
+      if (exportType == 1) this.handleDownload();
+      else {
+        let param = {
+          page: 1,
+          size: 9999
+        };
+        let data = Object.assign({}, this.filterData);
+        postAllStaffMonetarySub(param).then(res => {
+          const values = res.data.data.data.list;
+          this.handleDownload(values);
+        });
+      }
+    },
+     // 导出
+      handleDownload(...values) {
+        let filename = "维修结算表统计";
+        this.downloadLoading = true;
+        import ("@/vendor/Export2Excel").then(excel => {
+          const tHeader = [
+            "单据号",
+            "维修类型",
+            "姓名",
+            "维修金额",
+            "是否定价",
+            "状态",
+            "住房号",
+            "职工号",
+            "职称",
+            "职务",
+            "申请时间",
+            "备注"
+          ];
+          const filterVal = [
+            "id",
+            "fixContentName",
+            "staffName",
+            "fixMoney",
+            "isCheck",
+            "fixState",
+            "houseNo",
+            "staffNo",
+            "postName",
+            "titleName",
+            "applyTime",
+            "message"
+          ];
+          let list = [];
+          if (arguments.length == 0) list = this.fixFormData;
+          else list = arguments[0];
+          const data = this.formatJson(filterVal, list); // 用于自行洗数据
+          let date = new Date();
+          filename = filename + `(${parseTime(date, "{y}-{m}-{d}")})`;
+          excel.export_json_to_excel(tHeader, data, filename);
+          this.downloadLoading = false;
+        });
+      },
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v =>
+          filterVal.map(j => {
+            if (j === "timestamp") {
+              return parseTime(v[j]);
+            } else {
+              return v[j];
+            }
+          })
+        );
+      },
     // 更换每页数量
     sizeChangeEvent(val) {
       this.listLoading = true;
@@ -191,6 +268,11 @@ export default {
     height: 62vh;
     padding-bottom: 40px;
     position: relative;
+        & > .bottom-tool {
+      position: absolute;
+      bottom: -4px;
+      left: 15px;
+    }
   }
 }
 </style>
