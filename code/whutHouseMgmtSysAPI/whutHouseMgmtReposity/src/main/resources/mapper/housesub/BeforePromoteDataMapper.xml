@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.housesub.BeforePromoteDataMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteData">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="TitleId" jdbcType="INTEGER" property="titleId" />
+    <result column="TitleName" jdbcType="VARCHAR" property="titleName" />
+    <result column="PostId" jdbcType="INTEGER" property="postId" />
+    <result column="PostName" jdbcType="VARCHAR" property="postName" />
+    <result column="MaxEnjoyArea" jdbcType="REAL" property="maxEnjoyArea" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, StaffId, TitleId, TitleName, PostId, PostName, MaxEnjoyArea
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteDataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hs_beforepromotedata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hs_beforepromotedata
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hs_beforepromotedata
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteDataExample">
+    delete from hs_beforepromotedata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteData">
+    insert into hs_beforepromotedata (Id, StaffId, TitleId, 
+      TitleName, PostId, PostName, 
+      MaxEnjoyArea)
+    values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{titleId,jdbcType=INTEGER}, 
+      #{titleName,jdbcType=VARCHAR}, #{postId,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR}, 
+      #{maxEnjoyArea,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteData">
+    insert into hs_beforepromotedata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="staffId != null">
+        StaffId,
+      </if>
+      <if test="titleId != null">
+        TitleId,
+      </if>
+      <if test="titleName != null">
+        TitleName,
+      </if>
+      <if test="postId != null">
+        PostId,
+      </if>
+      <if test="postName != null">
+        PostName,
+      </if>
+      <if test="maxEnjoyArea != null">
+        MaxEnjoyArea,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="titleId != null">
+        #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="titleName != null">
+        #{titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="postName != null">
+        #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="maxEnjoyArea != null">
+        #{maxEnjoyArea,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteDataExample" resultType="java.lang.Long">
+    select count(*) from hs_beforepromotedata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update hs_beforepromotedata
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffId != null">
+        StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.titleId != null">
+        TitleId = #{record.titleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.titleName != null">
+        TitleName = #{record.titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postId != null">
+        PostId = #{record.postId,jdbcType=INTEGER},
+      </if>
+      <if test="record.postName != null">
+        PostName = #{record.postName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxEnjoyArea != null">
+        MaxEnjoyArea = #{record.maxEnjoyArea,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update hs_beforepromotedata
+    set Id = #{record.id,jdbcType=INTEGER},
+      StaffId = #{record.staffId,jdbcType=INTEGER},
+      TitleId = #{record.titleId,jdbcType=INTEGER},
+      TitleName = #{record.titleName,jdbcType=VARCHAR},
+      PostId = #{record.postId,jdbcType=INTEGER},
+      PostName = #{record.postName,jdbcType=VARCHAR},
+      MaxEnjoyArea = #{record.maxEnjoyArea,jdbcType=REAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteData">
+    update hs_beforepromotedata
+    <set>
+      <if test="staffId != null">
+        StaffId = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="titleId != null">
+        TitleId = #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="titleName != null">
+        TitleName = #{titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        PostId = #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="postName != null">
+        PostName = #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="maxEnjoyArea != null">
+        MaxEnjoyArea = #{maxEnjoyArea,jdbcType=REAL},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteData">
+    update hs_beforepromotedata
+    set StaffId = #{staffId,jdbcType=INTEGER},
+      TitleId = #{titleId,jdbcType=INTEGER},
+      TitleName = #{titleName,jdbcType=VARCHAR},
+      PostId = #{postId,jdbcType=INTEGER},
+      PostName = #{postName,jdbcType=VARCHAR},
+      MaxEnjoyArea = #{maxEnjoyArea,jdbcType=REAL}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

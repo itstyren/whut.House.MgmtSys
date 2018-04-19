@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteData;
+import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffIcon;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffModel;
@@ -29,6 +31,8 @@ import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterModel;
 import com.computerdesign.whutHouseMgmt.controller.BaseController;
+import com.computerdesign.whutHouseMgmt.service.housesub.BeforePromoteDataService;
+import com.computerdesign.whutHouseMgmt.service.housesub.MonetarySubVwService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
@@ -48,6 +52,12 @@ public class StaffController extends BaseController {
 	@Autowired
 	private StaffService staffService;
 
+	@Autowired
+	private BeforePromoteDataService beforePromoteDataService;
+	
+	@Autowired
+	private MonetarySubVwService monetarySubVwService;
+	
 	/**
 	 * 获取头像
 	 * 
@@ -282,11 +292,33 @@ public class StaffController extends BaseController {
 			staffBeforeUpdate = staffService.get(staff.getId());
 		}
 
-		//当职称或职务改变时，记之为晋升
+		//当职称或职务改变时，记之为晋升，并将晋升前的数据保存在hs_beforepromotedata表中
 		if(staffBeforeUpdate != null){
+			//记晋升
 			if(staffBeforeUpdate.getTitle() != staff.getTitle() || staffBeforeUpdate.getPost() != staff.getPost()){
 				staff.setPromoteFlag(true);
 			}
+			//保存晋升前的数据
+				//1.查询补贴视图view_hs_monetarysub
+			MonetarySubVw monetarySubVw = monetarySubVwService.getByStaffId(staff.getId());
+				//2.保存
+			BeforePromoteData beforePromoteData = new BeforePromoteData();
+			beforePromoteData.setStaffId(monetarySubVw.getStaffId());
+			beforePromoteData.setTitleId(monetarySubVw.getTitleId());
+			beforePromoteData.setTitleName(monetarySubVw.getTitleName());
+			beforePromoteData.setPostId(monetarySubVw.getPostId());
+			beforePromoteData.setPostName(monetarySubVw.getPostName());
+			beforePromoteData.setMaxEnjoyArea(monetarySubVw.getMaxEnjoyArea().floatValue());
+			
+			//判断该职工的记录是否存在（是否之前晋升过），若存在，则更新记录；若不存在，则插入记录
+			BeforePromoteData example = beforePromoteDataService.selectByStaffId(beforePromoteData.getStaffId());
+			if(example != null){
+				beforePromoteData.setId(example.getId());
+				beforePromoteDataService.update(beforePromoteData);
+			}else{
+				beforePromoteDataService.add(beforePromoteData);
+			}
+			
 		}
 		
 		// staff = staffService.get(staff.getId());

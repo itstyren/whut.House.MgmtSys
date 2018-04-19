@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteData;
 import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw;
 import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubVw;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
+import com.computerdesign.whutHouseMgmt.service.housesub.BeforePromoteDataService;
 import com.computerdesign.whutHouseMgmt.service.housesub.MonetarySubVwService;
 import com.computerdesign.whutHouseMgmt.service.housesub.OneTimeMonetarySubService;
 import com.computerdesign.whutHouseMgmt.service.housesub.StaffMonetarySubService;
@@ -43,10 +45,19 @@ public class OneTimeMonetarySubController {
 	@Autowired
 	private MonetarySubVwService monetarySubVwService;
 
+	@Autowired
+	private BeforePromoteDataService beforePromoteDataService;
+	
+	/**
+	 * 添加老职工晋升补贴
+	 * @param staffId
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "addPromoteSub/{staffId}", method = RequestMethod.POST)
 	public Msg addPromoteSub(@PathVariable("staffId") Integer staffId){
 		Staff staff = staffService.get(staffId);
+//		System.out.println(staff.getName());
 		//如果晋升且是老职工
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1998, 11, 31, 0, 0, 0);
@@ -58,8 +69,31 @@ public class OneTimeMonetarySubController {
 			calendar2.setTime(new Date());
 			oneTimeMonetarySub.setOneTimeSubYear(calendar2.get(Calendar.YEAR) + "");
 			oneTimeMonetarySub.setRemark(calendar2.get(Calendar.YEAR) + "年晋升补贴");
+			
+			//计算补贴额
+			BeforePromoteData beforePromoteData = beforePromoteDataService.selectByStaffId(staffId);
+			//晋升前享受面积
+			double beforePromoteArea = beforePromoteData.getMaxEnjoyArea();
+			//晋升后享受面积
+			MonetarySubVw monetarySubVw = monetarySubVwService.getByStaffId(staffId);
+			double afterPromoteArea = monetarySubVw.getMaxEnjoyArea();
+			if(afterPromoteArea > beforePromoteArea){
+				BigDecimal subsidy = new BigDecimal(698 * (afterPromoteArea - beforePromoteArea));
+				oneTimeMonetarySub.setOneTimeSubsidy(subsidy);
+				oneTimeMonetarySubService.add(oneTimeMonetarySub);
+				staff.setPromoteFlag(false);
+				staffService.update(staff);
+				return Msg.success().add("data", oneTimeMonetarySub);
+			}else{
+				staff.setPromoteFlag(false);
+				staffService.update(staff);
+				return Msg.success("享受面积没有提升，无补贴！");
+			}
+		}else{
+			staff.setPromoteFlag(false);
+			staffService.update(staff);
+			return Msg.error("必须是老职工并晋升才有补贴！");
 		}
-		return null;
 	}
 	
 	/**
