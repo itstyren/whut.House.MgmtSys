@@ -16,67 +16,90 @@ import com.computerdesign.whutHouseMgmt.service.base.BaseService;
 
 @Service
 public class StaffParameterService implements BaseService<StaffParameter> {
-	
+
 	@Autowired
 	private StaffParameterMapper staffParameterMapper;
-	
+
 	@Autowired
 	private HouseSubMapper houseSubMapper;
-	
+
 	/**
-	 * 获取所有住房补贴参数
+	 * 判断职工参数是否已存在
+	 * @param staffParameter
 	 * @return
 	 */
-	public List<HouseSub> getAllHouseSub(){
+	public boolean isExist(StaffParameter staffParameter) {
+		StaffParameterExample example = new StaffParameterExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStaffParamNameEqualTo(staffParameter.getStaffParamName());
+		criteria.andParamTypeIdEqualTo(staffParameter.getParamTypeId());
+		if (staffParameterMapper.selectByExample(example).size() > 0
+				&& staffParameterMapper.selectByExample(example).get(0).getIsDelete() == false) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	/**
+	 * 获取所有住房补贴参数
+	 * 
+	 * @return
+	 */
+	public List<HouseSub> getAllHouseSub() {
 		HouseSubExample example = new HouseSubExample();
 		com.computerdesign.whutHouseMgmt.bean.staffparam.HouseSubExample.Criteria criteria = example.createCriteria();
 		return houseSubMapper.selectByExample(example);
 	}
-	
+
 	/**
 	 * 根据id删除一条住房补贴记录
+	 * 
 	 * @param id
 	 */
-	public void deleteHouseSub(Integer id){
+	public void deleteHouseSub(Integer id) {
 		houseSubMapper.deleteByPrimaryKey(id);
 	}
-	
+
 	/**
 	 * 添加一条住房补贴记录
+	 * 
 	 * @param houseSub
 	 */
-	public void addHouseSub(HouseSub houseSub){
+	public void addHouseSub(HouseSub houseSub) {
 		houseSubMapper.insertSelective(houseSub);
 	}
-	
+
 	/**
 	 * 更新一条住房补贴记录
+	 * 
 	 * @param houseSub
 	 */
-	public void updateHouseSub(HouseSub houseSub){
+	public void updateHouseSub(HouseSub houseSub) {
 		houseSubMapper.updateByPrimaryKeySelective(houseSub);
 	}
-	
-	public List<StaffParameter> getAllByParamTypeId(Integer paramTypeId){
+
+	public List<StaffParameter> getAllByParamTypeId(Integer paramTypeId) {
 		StaffParameterExample example = new StaffParameterExample();
-		Criteria criteria= example.createCriteria();
+		Criteria criteria = example.createCriteria();
 		criteria.andParamTypeIdEqualTo(paramTypeId);
 		criteria.andIsDeleteEqualTo(false);
 		return staffParameterMapper.selectByExample(example);
 	}
-	
+
 	/**
 	 * 根据staffParamId获取一个职工参数
+	 * 
 	 * @return
 	 */
-	public StaffParameter get(Integer staffParamId){
+	public StaffParameter get(Integer staffParamId) {
 		return staffParameterMapper.selectByPrimaryKey(staffParamId);
 	}
 
 	@Override
 	public List<StaffParameter> getAll() {
 		List<StaffParameter> empParams = staffParameterMapper.selectByExample(null);
-	
+
 		return empParams;
 	}
 
@@ -93,18 +116,18 @@ public class StaffParameterService implements BaseService<StaffParameter> {
 	@Override
 	public void update(StaffParameter staffParameter) {
 		staffParameterMapper.updateByPrimaryKeySelective(staffParameter);
-		
+
 	}
-	
 
 	/**
 	 * 通过staffParamId获取该职称或职务的分数
+	 * 
 	 * @param staffParamId
 	 * @return
 	 */
-	public Integer getValByStaffParamId(Integer staffParamId){
+	public Integer getValByStaffParamId(Integer staffParamId) {
 		StaffParameterExample example = new StaffParameterExample();
-		Criteria criteria= example.createCriteria();
+		Criteria criteria = example.createCriteria();
 		criteria.andStaffParamIdEqualTo(staffParamId);
 		criteria.andIsDeleteEqualTo(false);
 		return staffParameterMapper.selectByPrimaryKey(staffParamId).getStaffParamVal();
