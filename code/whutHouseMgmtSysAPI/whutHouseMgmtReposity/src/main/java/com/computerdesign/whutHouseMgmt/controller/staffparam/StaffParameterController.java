@@ -117,8 +117,14 @@ public class StaffParameterController {
 			return Msg.error("数据库中没有找到此条记录，修改失败 ");
 		} else {
 			try {
-				staffParameterService.update(staffParameterModel);
-				return Msg.success().add("data", staffParameterModel);
+				//如果修改后的参数在数据库中不存在或者未修改，则修改成功
+				if(!staffParameterService.isExist(staffParameterModel) || staffParameterService.get(staffParameterModel.getStaffParamId()).equals(staffParameterModel)){
+					staffParameterService.update(staffParameterModel);
+					return Msg.success().add("data", staffParameterModel);
+				}else{
+					return Msg.success("参数已存在");
+				}
+				
 			} catch (Exception e) {
 				return Msg.error();
 			}
@@ -138,9 +144,14 @@ public class StaffParameterController {
 		// System.out.println(paramClass.getParamTypeName());
 		// 验证
 		if (staffParameterModel.getStaffParamName() != null && staffParameterModel.getParamTypeId() != null) {
-			staffParameterModel.setIsDelete(false);
-			staffParameterService.add(staffParameterModel);
-			return Msg.success().add("data", staffParameterModel);
+			if(!staffParameterService.isExist(staffParameterModel)){
+				staffParameterModel.setIsDelete(false);
+				staffParameterService.add(staffParameterModel);
+				return Msg.success().add("data", staffParameterModel);
+			}else{
+				return Msg.success("参数已存在");
+			}
+			
 		} else {
 			return Msg.error("必要信息不完整，添加失败");
 		}

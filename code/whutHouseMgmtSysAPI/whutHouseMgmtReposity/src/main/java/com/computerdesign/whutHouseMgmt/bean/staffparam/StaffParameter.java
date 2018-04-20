@@ -100,6 +100,37 @@ public class StaffParameter {
 				+ ", staffParamSpouseVal=" + staffParamSpouseVal + ", staffParamHouseArea=" + staffParamHouseArea
 				+ ", isDelete=" + isDelete + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((paramTypeId == null) ? 0 : paramTypeId.hashCode());
+		result = prime * result + ((staffParamName == null) ? 0 : staffParamName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StaffParameter other = (StaffParameter) obj;
+		if (paramTypeId == null) {
+			if (other.paramTypeId != null)
+				return false;
+		} else if (!paramTypeId.equals(other.paramTypeId))
+			return false;
+		if (staffParamName == null) {
+			if (other.staffParamName != null)
+				return false;
+		} else if (!staffParamName.equals(other.staffParamName))
+			return false;
+		return true;
+	}
     
 	
 	
