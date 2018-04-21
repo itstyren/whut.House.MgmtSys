@@ -63,7 +63,10 @@
 		<!-- <table tableName="view_hs_onetimemonetarysub" domainObjectName="OneTimeMonetarySubVw">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="hs_beforepromotedata" domainObjectName="BeforePromoteData">
+		<!-- <table tableName="hs_beforepromotedata" domainObjectName="BeforePromoteData">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<table tableName="view_staffformonsub" domainObjectName="StaffForMonSub">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		

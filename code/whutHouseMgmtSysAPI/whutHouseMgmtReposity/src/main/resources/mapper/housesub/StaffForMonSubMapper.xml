@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.housesub.StaffForMonSubMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSub">
+    <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
+    <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
+    <result column="TitleId" jdbcType="INTEGER" property="titleId" />
+    <result column="TitleName" jdbcType="VARCHAR" property="titleName" />
+    <result column="TitleArea" jdbcType="REAL" property="titleArea" />
+    <result column="PostId" jdbcType="INTEGER" property="postId" />
+    <result column="PostName" jdbcType="VARCHAR" property="postName" />
+    <result column="PostArea" jdbcType="REAL" property="postArea" />
+    <result column="MaxEnjoyArea" jdbcType="DOUBLE" property="maxEnjoyArea" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    StaffId, StaffNo, StaffName, TitleId, TitleName, TitleArea, PostId, PostName, PostArea, 
+    MaxEnjoyArea
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSubExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from view_staffformonsub
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSubExample">
+    delete from view_staffformonsub
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSub">
+    insert into view_staffformonsub (StaffId, StaffNo, StaffName, 
+      TitleId, TitleName, TitleArea, 
+      PostId, PostName, PostArea, 
+      MaxEnjoyArea)
+    values (#{staffId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, 
+      #{titleId,jdbcType=INTEGER}, #{titleName,jdbcType=VARCHAR}, #{titleArea,jdbcType=REAL}, 
+      #{postId,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR}, #{postArea,jdbcType=REAL}, 
+      #{maxEnjoyArea,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSub">
+    insert into view_staffformonsub
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        StaffId,
+      </if>
+      <if test="staffNo != null">
+        StaffNo,
+      </if>
+      <if test="staffName != null">
+        StaffName,
+      </if>
+      <if test="titleId != null">
+        TitleId,
+      </if>
+      <if test="titleName != null">
+        TitleName,
+      </if>
+      <if test="titleArea != null">
+        TitleArea,
+      </if>
+      <if test="postId != null">
+        PostId,
+      </if>
+      <if test="postName != null">
+        PostName,
+      </if>
+      <if test="postArea != null">
+        PostArea,
+      </if>
+      <if test="maxEnjoyArea != null">
+        MaxEnjoyArea,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="staffNo != null">
+        #{staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null">
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null">
+        #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="titleName != null">
+        #{titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="titleArea != null">
+        #{titleArea,jdbcType=REAL},
+      </if>
+      <if test="postId != null">
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="postName != null">
+        #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="postArea != null">
+        #{postArea,jdbcType=REAL},
+      </if>
+      <if test="maxEnjoyArea != null">
+        #{maxEnjoyArea,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSubExample" resultType="java.lang.Long">
+    select count(*) from view_staffformonsub
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update view_staffformonsub
+    <set>
+      <if test="record.staffId != null">
+        StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffNo != null">
+        StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffName != null">
+        StaffName = #{record.staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleId != null">
+        TitleId = #{record.titleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.titleName != null">
+        TitleName = #{record.titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleArea != null">
+        TitleArea = #{record.titleArea,jdbcType=REAL},
+      </if>
+      <if test="record.postId != null">
+        PostId = #{record.postId,jdbcType=INTEGER},
+      </if>
+      <if test="record.postName != null">
+        PostName = #{record.postName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postArea != null">
+        PostArea = #{record.postArea,jdbcType=REAL},
+      </if>
+      <if test="record.maxEnjoyArea != null">
+        MaxEnjoyArea = #{record.maxEnjoyArea,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update view_staffformonsub
+    set StaffId = #{record.staffId,jdbcType=INTEGER},
+      StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+      StaffName = #{record.staffName,jdbcType=VARCHAR},
+      TitleId = #{record.titleId,jdbcType=INTEGER},
+      TitleName = #{record.titleName,jdbcType=VARCHAR},
+      TitleArea = #{record.titleArea,jdbcType=REAL},
+      PostId = #{record.postId,jdbcType=INTEGER},
+      PostName = #{record.postName,jdbcType=VARCHAR},
+      PostArea = #{record.postArea,jdbcType=REAL},
+      MaxEnjoyArea = #{record.maxEnjoyArea,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
