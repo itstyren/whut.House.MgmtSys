@@ -221,6 +221,7 @@
 <script type="text/ecmascript-6">
 import { getStaff, putStaffData } from "@/api/basiceData";
 import { getStaffParam } from "@/api/sysManage";
+import { postPromoteSubStaffID } from "@/api/monetarySub";
 import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
 import * as OPTION from "@/assets/data/formOption";
 import utils from "@/utils/index.js";
@@ -303,14 +304,14 @@ export default {
   },
   // 监听
   watch: {
-    $route(){
-      this.getList()
-       if (this.store_ismodify == false) {
-      this.ismodify = false;
-    } else {
-      this.ismodify = true;
-      this.getParam();
-    }    
+    $route() {
+      this.getList();
+      if (this.store_ismodify == false) {
+        this.ismodify = false;
+      } else {
+        this.ismodify = true;
+        this.getParam();
+      }
     },
     oldStaffForm: {
       handler: function(newVal) {
@@ -333,14 +334,14 @@ export default {
     } else {
       this.ismodify = true;
       this.getParam();
-    }    
+    }
     this.getList();
   },
   // 方法集合
   methods: {
     // 获取列表
     getList() {
-      let param = "";      
+      let param = "";
       this.listLoading = true;
       let staffID = this.$route.params.id;
       if (this.$store.state.staffData.id == staffID) {
@@ -413,8 +414,11 @@ export default {
               this.listLoading = true;
               //let param = Object.assign({}, this.staffForm);
               putStaffData(postForm).then(res => {
-                utils.statusinfo(this, res.data);
+                let staffID = this.$store.getters.userID;
+                utils.statusinfo(this, res.data);                
+                postPromoteSubStaffID(staffID).then(res=>{
                 this.detailLoading = false;
+                });
                 this.$refs["staffForm"].resetFields();
               });
             }

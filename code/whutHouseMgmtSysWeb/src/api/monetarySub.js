@@ -34,3 +34,11 @@ export function postAllStaffLumpMonetarySub(params) {
         params: params
     })
 }
+
+// 监听职称的变动
+export function postPromoteSubStaffID(staffID) {
+    return request({
+        url: `/oneTimeMonetarySub/addPromoteSub/${staffID}`,
+        method: 'post',
+    })
+}
