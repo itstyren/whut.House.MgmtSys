@@ -45,97 +45,93 @@
 </template>
 
 <script>
-  import UploadExcelComponent from "@/components/UploadExcel/index.vue";
-  import {
-    postStaffImport,
-    postHouseImport,
-    postHouseRelImport
-  } from "@/api/basiceData";
-  import utils from "@/utils/index.js";
-var basiceUrl='http://localhost:8787/whutHouseMgmtReposity/dataImport/'
+import UploadExcelComponent from "@/components/UploadExcel/index.vue";
+import {
+  postStaffImport,
+  postHouseImport,
+  postHouseRelImport
+} from "@/api/basiceData";
+import utils from "@/utils/index.js";
+var basiceUrl = "http://localhost:8787/whutHouseMgmtReposity/dataImport/";
 // var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
-  export default {
-    name: "uploadExcel",
-    components: {
-      UploadExcelComponent
+export default {
+  name: "uploadExcel",
+  components: {
+    UploadExcelComponent
+  },
+  data() {
+    return {
+      tableData: [],
+      tableHeader: [],
+      itemFile: {},
+      uploadLoading: false,
+      uploadType: "1",
+      isFull: true
+    };
+  },
+  methods: {
+    selected(data, itemFile) {
+      // console.log(data.results[0].备注)
+      this.tableData = data.results;
+      this.itemFile = itemFile;
+      //console.log(this.itemFile);
+      this.tableHeader = data.header;
+      this.isFull = false;
     },
-    data() {
-      return {
-        tableData: [],
-        tableHeader: [],
-        itemFile: {},
-        uploadLoading: false,
-        uploadType: "1",
-        isFull:true
-      };
+    staffDownload() {
+      window.location.href = `${basiceUrl}staffDownLoad`;
     },
-    methods: {
-      selected(data, itemFile) {
-        this.tableData = data.results;
-        this.itemFile = itemFile;
-        //console.log(this.itemFile);
-        this.tableHeader = data.header;
-        this.isFull=false 
-      },
-      staffDownload() {
-        window.location.href =
-          `${basiceUrl}staffDownLoad`;
-      },
-      houseDownload() {
-        window.location.href =
-          `${basiceUrl}houseDownLoad`;
-      },
-      houseRelDownload(){
-window.location.href =
-          `${basiceUrl}residentDownLoad`;
-      },
-      unpload() {
-        this.uploadLoading = true;
-        var formData = new FormData();
-        if (this.uploadType == "1") {
-          formData.append("staffFile", this.itemFile, "staffImport.xls");
-          postStaffImport(formData).then(res => {
-            utils.statusinfo(this, res.data);
-            this.uploadLoading = false;
-            //console.log(res)
-          });
-        } else if(this.uploadType == "2"){
-          formData.append("houseFile", this.itemFile, "houseImport.xls");
-          postHouseImport(formData).then(res => {
-            utils.statusinfo(this, res.data);
-            this.uploadLoading = false;
-            //console.log(res)
-          });
-        }else{
-                    formData.append("residentFile", this.itemFile, "住户模板.xlsx");
-          postHouseRelImport(formData).then(res => {
-            utils.statusinfo(this, res.data);
-            this.uploadLoading = false;
-            //console.log(res)
-          });
-        }
+    houseDownload() {
+      window.location.href = `${basiceUrl}houseDownLoad`;
+    },
+    houseRelDownload() {
+      window.location.href = `${basiceUrl}residentDownLoad`;
+    },
+    unpload() {
+      this.uploadLoading = true;
+      var formData = new FormData();
+      if (this.uploadType == "1") {
+        formData.append("staffFile", this.itemFile, "staffImport.xls");
+        postStaffImport(formData).then(res => {
+          utils.statusinfo(this, res.data);
+          this.uploadLoading = false;
+          //console.log(res)
+        });
+      } else if (this.uploadType == "2") {
+        formData.append("houseFile", this.itemFile, "houseImport.xls");
+        postHouseImport(formData).then(res => {
+          utils.statusinfo(this, res.data);
+          this.uploadLoading = false;
+          //console.log(res)
+        });
+      } else {
+        formData.append("residentFile", this.itemFile, "住户模板.xlsx");
+        postHouseRelImport(formData).then(res => {
+          utils.statusinfo(this, res.data);
+          this.uploadLoading = false;
+          //console.log(res)
+        });
       }
     }
-  };
-
+  }
+};
 </script>
 
 <style scoped lang="scss">
-  .import-data {
-    margin-top: 20px;
-    height: 60vh;
-  }
+.import-data {
+  margin-top: 20px;
+  height: 60vh;
+}
 
-  .download-button {
-    position: absolute;
-    top: 50px;
-    right: 30px;
-  }
+.download-button {
+  position: absolute;
+  top: 50px;
+  right: 30px;
+}
 
-  .save-buttomn {
-    position: absolute;
-    top: 150px;
-    right: 30px;
-  }
-
+.save-buttomn {
+  position: absolute;
+  top: 150px;
+  right: 30px;
+}
 </style>

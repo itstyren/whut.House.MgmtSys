@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input id="excel-upload-input" type="file" accept=".xlsx, .xls" class="c-hide" @change="handkeFileChange">
+    <input id="excel-upload-input" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="c-hide" @change="handkeFileChange">
     <div id="drop" @drop="handleDrop" @dragover="handleDragover" @dragenter="handleDragover">
       拖 入 这 里 或
       <el-button style="margin-left:16px;" size="small" type="primary" @click="handleUpload">导入</el-button>
@@ -25,6 +25,7 @@ export default {
     generateDate({ header, results },itemFile) {
       this.excelData.header = header
       this.excelData.results = results
+      console.log(itemFile)
       this.$emit('on-selected-file', this.excelData,itemFile)
     },
     handleDrop(e) {

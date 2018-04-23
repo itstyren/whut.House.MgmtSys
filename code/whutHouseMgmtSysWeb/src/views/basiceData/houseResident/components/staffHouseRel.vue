@@ -78,6 +78,10 @@ export default {
       getStaffHouseRel(param, staffID)
         .then(res => {
           this.houseRel = res.data.data.data;
+          res.data.data.outSchoolHouse.forEach(item => {
+            this.houseRel.push(item);
+          });
+          // this.houseRel.concat(res.data.data.outSchoolHouse)
           this.listLoading = false;
         })
         .catch(err => {
