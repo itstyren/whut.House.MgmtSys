@@ -9,9 +9,11 @@ import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.BuildingExample;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameterExample;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterExample.Criteria;
@@ -102,8 +104,43 @@ public class DataImportService {
 		staffMapper.insertSelective(staff);
 	}
 	
+	public void updateStaff(Staff staff, String no){
+		StaffExample example = new StaffExample();
+		com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample.Criteria criteria = example.createCriteria();
+		criteria.andNoEqualTo(no);
+		staffMapper.updateByExampleSelective(staff,example);
+	}
+	
 	public void insertResident(Resident resident){
 		residentMapper.insertSelective(resident);
+	}
+	
+	/**
+	 * 根据staffId和houseId获取Resident对象
+	 * @param staffId
+	 * @param houseId
+	 * @return
+	 */
+	public List<Resident> getResidentByStaffIdAndHouseId(Integer staffId, Integer houseId){
+		ResidentExample example = new ResidentExample();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		criteria.andHouseIdEqualTo(houseId);
+		return residentMapper.selectByExample(example);
+	}
+	
+	/**
+	 * 根据staffId和houseId更新Resident对象
+	 * @param resident
+	 * @param staffId
+	 * @param houseId
+	 */
+	public void updateResidentByStaffIdAndHouseId(Resident resident, Integer staffId, Integer houseId){
+		ResidentExample example = new ResidentExample();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample.Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		criteria.andHouseIdEqualTo(houseId);
+		residentMapper.updateByExampleSelective(resident, example);
 	}
 	
 }
