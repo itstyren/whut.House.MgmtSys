@@ -91,6 +91,7 @@ public class OneTimeMonetarySubController {
 			}
 		}else{
 			staff.setPromoteFlag(false);
+			System.out.println(staff.getName());
 			staffService.update(staff);
 			return Msg.error("必须是老职工并晋升才有补贴！");
 		}

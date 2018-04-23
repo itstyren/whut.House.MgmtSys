@@ -315,7 +315,11 @@ public class StaffController extends BaseController {
 			beforePromoteData.setTitleName(staffForMonSub.getTitleName());
 			beforePromoteData.setPostId(staffForMonSub.getPostId());
 			beforePromoteData.setPostName(staffForMonSub.getPostName());
-			beforePromoteData.setMaxEnjoyArea(staffForMonSub.getMaxEnjoyArea().floatValue());
+			if(staffForMonSub.getMaxEnjoyArea() != null){
+				beforePromoteData.setMaxEnjoyArea(staffForMonSub.getMaxEnjoyArea().floatValue());
+			}else{
+				beforePromoteData.setMaxEnjoyArea((float) 0.0);
+			}
 			
 			//判断该职工的记录是否存在（是否之前晋升过），若存在，则更新记录；若不存在，则插入记录
 			BeforePromoteData example = beforePromoteDataService.selectByStaffId(beforePromoteData.getStaffId());

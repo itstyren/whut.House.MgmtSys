@@ -81,7 +81,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from view_staffformonsub
+    from view_hs_staffformonsub
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,13 +90,13 @@
     </if>
   </select>
   <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSubExample">
-    delete from view_staffformonsub
+    delete from view_hs_staffformonsub
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSub">
-    insert into view_staffformonsub (StaffId, StaffNo, StaffName, 
+    insert into view_hs_staffformonsub (StaffId, StaffNo, StaffName, 
       TitleId, TitleName, TitleArea, 
       PostId, PostName, PostArea, 
       MaxEnjoyArea)
@@ -106,7 +106,7 @@
       #{maxEnjoyArea,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSub">
-    insert into view_staffformonsub
+    insert into view_hs_staffformonsub
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="staffId != null">
         StaffId,
@@ -173,13 +173,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSubExample" resultType="java.lang.Long">
-    select count(*) from view_staffformonsub
+    select count(*) from view_hs_staffformonsub
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update view_staffformonsub
+    update view_hs_staffformonsub
     <set>
       <if test="record.staffId != null">
         StaffId = #{record.staffId,jdbcType=INTEGER},
@@ -217,7 +217,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update view_staffformonsub
+    update view_hs_staffformonsub
     set StaffId = #{record.staffId,jdbcType=INTEGER},
       StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       StaffName = #{record.staffName,jdbcType=VARCHAR},

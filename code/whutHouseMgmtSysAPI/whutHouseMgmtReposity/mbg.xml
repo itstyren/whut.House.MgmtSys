@@ -45,9 +45,9 @@
 		<!-- <table tableName="pm_monetarysub" domainObjectName="MonetarySubParam">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<!-- <table tableName="hs_monetarysub" domainObjectName="StaffMonetarySub">
+		<table tableName="hs_monetarysub" domainObjectName="StaffMonetarySub">
 			<property name="useActualColumnNames" value="true"></property>
-		</table> -->
+		</table>
 		<!-- <table tableName="view_hs_staff" domainObjectName="StaffVw">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
@@ -63,12 +63,15 @@
 		<!-- <table tableName="view_hs_onetimemonetarysub" domainObjectName="OneTimeMonetarySubVw">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
+		<table tableName="hs_onetimemonetarysub" domainObjectName="OneTimeMonetarySub">
+			<property name="useActualColumnNames" value="true"></property>
+		</table>
 		<!-- <table tableName="hs_beforepromotedata" domainObjectName="BeforePromoteData">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="view_staffformonsub" domainObjectName="StaffForMonSub">
+		<!-- <table tableName="view_hs_staffformonsub" domainObjectName="StaffForMonSub">
 			<property name="useActualColumnNames" value="true"></property>
-		</table>
+		</table> -->
 		
 	</context>
 </generatorConfiguration>
