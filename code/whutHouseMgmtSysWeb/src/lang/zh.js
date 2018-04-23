@@ -38,7 +38,7 @@ export default {
         monetarySub:'货币化补贴',
     },
     header: {
-        title: '高校房屋管理与货币化补贴系统',
+        title: '高校教职工住房管理信息系统',
         swich:'切换语言成功',
         screenfull:'全屏',
         screenfull_message: 'you browser can not work'                       
