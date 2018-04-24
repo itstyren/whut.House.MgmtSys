@@ -64,6 +64,7 @@ export default {
       tableData: [],
       tableHeader: [],
       itemFile: {},
+      fileName:'',
       uploadLoading: false,
       uploadType: "1",
       isFull: true
@@ -71,6 +72,8 @@ export default {
   },
   methods: {
     selected(data, itemFile) {
+      console.log(itemFile)
+      this.fileName=itemFile.name
       // console.log(data.results[0].备注)
       this.tableData = data.results;
       this.itemFile = itemFile;
@@ -91,21 +94,21 @@ export default {
       this.uploadLoading = true;
       var formData = new FormData();
       if (this.uploadType == "1") {
-        formData.append("staffFile", this.itemFile, "staffImport.xls");
+        formData.append("staffFile", this.itemFile, this.fileName);
         postStaffImport(formData).then(res => {
           utils.statusinfo(this, res.data);
           this.uploadLoading = false;
           //console.log(res)
         });
       } else if (this.uploadType == "2") {
-        formData.append("houseFile", this.itemFile, "houseImport.xls");
+        formData.append("houseFile", this.itemFile, this.fileName);
         postHouseImport(formData).then(res => {
           utils.statusinfo(this, res.data);
           this.uploadLoading = false;
           //console.log(res)
         });
       } else {
-        formData.append("residentFile", this.itemFile, "住户模板.xlsx");
+        formData.append("residentFile", this.itemFile, this.fileName);
         postHouseRelImport(formData).then(res => {
           utils.statusinfo(this, res.data);
           this.uploadLoading = false;

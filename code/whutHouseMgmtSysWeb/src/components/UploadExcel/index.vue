@@ -25,7 +25,6 @@ export default {
     generateDate({ header, results },itemFile) {
       this.excelData.header = header
       this.excelData.results = results
-      console.log(itemFile)
       this.$emit('on-selected-file', this.excelData,itemFile)
     },
     handleDrop(e) {
