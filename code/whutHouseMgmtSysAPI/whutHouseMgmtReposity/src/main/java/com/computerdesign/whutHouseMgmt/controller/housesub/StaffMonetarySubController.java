@@ -44,6 +44,7 @@ public class StaffMonetarySubController {
 
 	/**
 	 * 获取所有补贴记录
+	 * 
 	 * @param page
 	 * @param size
 	 * @return
@@ -52,11 +53,11 @@ public class StaffMonetarySubController {
 	@RequestMapping(value = "getAllMonetarySub", method = RequestMethod.GET)
 	public Msg getAllMonetarySub(@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
-		
+
 		PageHelper.startPage(page, size);
 		List<MonetarySubVw> staffMonetarySubs = staffMonetarySubService.getAllMonetarySub();
-		String[] fileds = { "id", "staffId", "staffNo", "staffName","year", "deptName", "titleName", "postName", "postName",
-				"annualSal", "subsidies", "remark"};
+		String[] fileds = { "id", "staffId", "staffNo", "staffName", "year", "deptName", "titleName", "postName",
+				"postName", "annualSal", "subsidies", "remark" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(staffMonetarySubs, fileds);
 		PageInfo pageInfo = new PageInfo(response);
 		return Msg.success().add("data", pageInfo);
@@ -79,8 +80,8 @@ public class StaffMonetarySubController {
 		PageHelper.startPage(page, size);
 		if (staffNo != null) {
 			List<MonetarySubVw> staffMonetarySubs = staffMonetarySubService.getMonetarySubByStaffNo(staffNo);
-			String[] fileds = { "id", "staffId", "staffNo", "staffName","year", "deptName", "titleName", "postName", "postName",
-					"annualSal", "subsidies", "remark"};
+			String[] fileds = { "id", "staffId", "staffNo", "staffName", "year", "deptName", "titleName", "postName",
+					"postName", "annualSal", "subsidies", "remark" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(staffMonetarySubs, fileds);
 			PageInfo pageInfo = new PageInfo(response);
 			return Msg.success().add("data", pageInfo);
@@ -143,13 +144,14 @@ public class StaffMonetarySubController {
 					&& (staff.getJoinTime().getTime() < calendar.getTime().getTime())
 					&& enjoyHouseArea > buyHouseArea) {
 				// 有房且是老职工且未达标
-				double subsidies = staffMonetarySub.getAnnualSal() * monetarySubParam.getSubParam() / 100.0
-						/ enjoyHouseArea * (enjoyHouseArea - buyHouseArea);
+				double subsidies = (staffMonetarySub.getAnnualSal() + staffMonetarySub.getAnnualSal() * 0.2806)
+						* monetarySubParam.getSubParam() / 100.0 / enjoyHouseArea * (enjoyHouseArea - buyHouseArea);
 				// 没有四舍五入
 				staffMonetarySub.setSubsidies((long) subsidies);
 			} else {
 				// 无房老职工和新职工的补贴标准
-				double subsidies = staffMonetarySub.getAnnualSal() * monetarySubParam.getSubParam() / 100.0;
+				double subsidies = (staffMonetarySub.getAnnualSal() + staffMonetarySub.getAnnualSal() * 0.2806)
+						* monetarySubParam.getSubParam() / 100.0;
 				staffMonetarySub.setSubsidies((long) subsidies);
 			}
 			staffMonetarySubService.add(staffMonetarySub);

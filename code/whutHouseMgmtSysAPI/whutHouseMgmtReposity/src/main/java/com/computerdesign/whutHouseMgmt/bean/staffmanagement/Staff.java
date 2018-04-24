@@ -51,7 +51,7 @@ public class Staff {
 	private String remark;
 
 	private String spouseName;
-
+	
 	@Pattern(regexp = "(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)", message = "身份证号码为18位或15位，最后一位为校验位，可以为数字或字母X")
 	private String spouseCode;
 
@@ -113,8 +113,10 @@ public class Staff {
 	private Boolean isOwnPriHouse;
 
 	private String icon;
-	
+
 	private Boolean promoteFlag;
+
+	private String unionId;
 
 	public Integer getId() {
 		return id;
@@ -473,7 +475,7 @@ public class Staff {
 	}
 
 	public void setIcon(String icon) {
-		this.icon = icon;
+		this.icon = icon == null ? null : icon.trim();
 	}
 
 	public Boolean getPromoteFlag() {
@@ -483,5 +485,12 @@ public class Staff {
 	public void setPromoteFlag(Boolean promoteFlag) {
 		this.promoteFlag = promoteFlag;
 	}
-	
+
+	public String getUnionId() {
+		return unionId;
+	}
+
+	public void setUnionId(String unionId) {
+		this.unionId = unionId == null ? null : unionId.trim();
+	}
 }

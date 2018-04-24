@@ -38,10 +38,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
+import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
+import com.computerdesign.whutHouseMgmt.bean.staffparam.MonetarySubParam;
 import com.computerdesign.whutHouseMgmt.service.dataimport.DataImportService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
+import com.computerdesign.whutHouseMgmt.service.housesub.StaffMonetarySubService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
+import com.computerdesign.whutHouseMgmt.service.staffparam.MonetarySubParamService;
 import com.computerdesign.whutHouseMgmt.utils.DateConversionUtils;
 import com.computerdesign.whutHouseMgmt.utils.DownloadUtils;
 import com.computerdesign.whutHouseMgmt.utils.ExcelUtils;
@@ -52,12 +56,18 @@ public class DataImportController {
 
 	@Autowired
 	private DataImportService dataImportService;
-	
+
 	@Autowired
 	private HouseService houseService;
-	
+
 	@Autowired
 	private StaffService staffService;
+
+	@Autowired
+	private MonetarySubParamService monetarySubParamService;
+
+	@Autowired
+	private StaffMonetarySubService staffMonetarySubService;
 
 	// 用于存储导入的职工数据
 	// private List<Staff> staffList;
@@ -108,19 +118,141 @@ public class DataImportController {
 	// }
 	// }
 
-//	@ResponseBody
-//	@RequestMapping(value = "staffDataImport", method = RequestMethod.POST)
-//	public Msg staffDataImportByJson(@RequestBody StaffDataImport[] staffDataImports){
-//		if(staffDataImports != null){
-//			for(StaffDataImport staffDataImport : staffDataImports){
-//				
-//			}
-//		}else{
-//			return Msg.error("导入数据字段有误，无法封装");
-//		}
-//		return;
-//	}
-	
+	// @ResponseBody
+	// @RequestMapping(value = "staffDataImport", method = RequestMethod.POST)
+	// public Msg staffDataImportByJson(@RequestBody StaffDataImport[]
+	// staffDataImports){
+	// if(staffDataImports != null){
+	// for(StaffDataImport staffDataImport : staffDataImports){
+	//
+	// }
+	// }else{
+	// return Msg.error("导入数据字段有误，无法封装");
+	// }
+	// return;
+	// }
+
+	/**
+	 * 工资导入，计算货币化补贴
+	 * @param multipartFile
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "salaryImport", method = RequestMethod.POST)
+	public Msg salaryImport(@RequestParam("salaryFile") MultipartFile multipartFile) {
+
+		// 用于存放导入的对象集
+		List<StaffMonetarySub> staffMonetarySubs = new ArrayList<StaffMonetarySub>();
+
+		try {
+			Workbook workBook = null;
+			// System.out.println(multipartFile.getOriginalFilename());
+
+			if (!ExcelUtils.validateExcel(multipartFile.getOriginalFilename())) {
+				return Msg.error("请上传Excel格式的文件");
+			}
+
+			if (ExcelUtils.isExcel2003(multipartFile.getOriginalFilename())) {
+				// 获取上传的Excel表
+				workBook = new HSSFWorkbook(multipartFile.getInputStream());
+			}
+
+			if (ExcelUtils.isExcel2007(multipartFile.getOriginalFilename())) {
+				// 获取上传的Excel表
+				workBook = new XSSFWorkbook(multipartFile.getInputStream());
+			}
+
+			// 获取该Excel表的第一个工作表
+			Sheet sheet = workBook.getSheetAt(0);
+			// 获取Excel表中的所有行数
+			int rows = sheet.getPhysicalNumberOfRows();
+			for (int row = 1; row < rows; row++) {
+				// 定位到行
+				Row rowData = sheet.getRow(row);
+				// 用于将每行数据以“A,B,C...”的形式封装起来
+				String result = "";
+				if (rowData != null) {
+					// 获取列
+					int cells = rowData.getPhysicalNumberOfCells();
+					for (int cell = 0; cell < cells; cell++) {
+						// 定位到单元格
+						Cell formData = rowData.getCell(cell);
+						if (formData != null) {
+							// 判断单元格中的数据类型
+							switch (formData.getCellType()) {
+							// 数字
+							case HSSFCell.CELL_TYPE_NUMERIC:
+								result += formData.getNumericCellValue() + ",";
+								break;
+							// 字符串
+							case HSSFCell.CELL_TYPE_STRING:
+								result += formData.getStringCellValue() + ",";
+							default:
+								break;
+							}
+						}
+					}
+
+					System.out.println("BB");
+					// 将数据封装为Resident
+					String val[] = result.split(",");
+					StaffMonetarySub staffMonetarySub = new StaffMonetarySub();
+					// 若Excel单元格为数字型，则末尾会多出“.0”，需要去除
+					String staffNo = val[0];
+					// System.out.println(no.indexOf('.'));
+					// 判断是否包含“.0”，若不包含则会返回-1，此时不需要截取字符串
+					if (staffNo.indexOf('.') != -1) {
+						staffNo = staffNo.substring(0, staffNo.indexOf('.'));
+					}
+
+					// 职工编号
+					if(staffService.getByStaffNo(staffNo).size() > 0){
+						staffMonetarySub.setStaffNo(staffNo);
+					}else{
+						return Msg.error("存在数据库中不存在的员工");
+					}
+
+					System.out.println("CC");
+
+					// 职工年度工资设置
+					String salary = val[2];
+					long annualSal = (long) Double.parseDouble(salary) * 12;
+					staffMonetarySub.setAnnualSal(annualSal);
+
+					// 年份
+					String year = val[3];
+					if (year.indexOf('.') != -1) {
+						year = year.substring(0, year.indexOf('.'));
+					}
+					staffMonetarySub.setYear(year);
+
+					// 获取补贴比例
+					MonetarySubParam monetarySubParam = monetarySubParamService.getIsUsing();
+
+					long subsidies = (long) ((annualSal + annualSal * 0.2806) * monetarySubParam.getSubParam() / 100.0);
+					staffMonetarySub.setSubsidies(subsidies);
+
+					staffMonetarySub.setRemark(year + "年货币化补贴");
+
+					if (staffMonetarySubService.getStaffMonetarySubByStaffNoAndYear(staffNo, year).size() > 0) {
+						staffMonetarySubService.updateStaffMonetarySubByStaffNoAndYear(staffMonetarySub, staffNo, year);
+					}else{
+						staffMonetarySubService.add(staffMonetarySub);
+					}
+					
+					staffMonetarySubs.add(staffMonetarySub);
+
+				}
+			}
+		} catch (Exception e) {
+			return Msg.error("导入失败,可能有数据在数据库中不存在或删除");
+		}
+
+		// 保存数据
+		// setHouseList(houses);
+		return Msg.success("导入数据成功").add("data", staffMonetarySubs);
+	}
+
 	/**
 	 * 导入职工数据，并保存
 	 * 
@@ -137,12 +269,12 @@ public class DataImportController {
 
 		try {
 			Workbook workBook = null;
-			 System.out.println(multipartFile.getOriginalFilename());
+			System.out.println(multipartFile.getOriginalFilename());
 
 			if (!ExcelUtils.validateExcel(multipartFile.getOriginalFilename())) {
 				return Msg.error("请上传Excel格式的文件");
 			}
-//			System.out.println();
+			// System.out.println();
 			if (ExcelUtils.isExcel2003(multipartFile.getOriginalFilename())) {
 				// 获取上传的Excel表
 				System.out.println("2003");
@@ -203,11 +335,11 @@ public class DataImportController {
 					staff.setSex(val[2]);
 					staff.setMarriageState(val[3]);
 					System.out.println("BB");
-					Integer title = dataImportService.getStaffParamId(val[4],7);
-					Integer post = dataImportService.getStaffParamId(val[5],6);
-					Integer type = dataImportService.getStaffParamId(val[6],8);
-					Integer status = dataImportService.getStaffParamId(val[7],9);
-					Integer dept = dataImportService.getStaffParamId(val[8],5);
+					Integer title = dataImportService.getStaffParamId(val[4], 7);
+					Integer post = dataImportService.getStaffParamId(val[5], 6);
+					Integer type = dataImportService.getStaffParamId(val[6], 8);
+					Integer status = dataImportService.getStaffParamId(val[7], 9);
+					Integer dept = dataImportService.getStaffParamId(val[8], 5);
 					System.out.println("CC");
 					if (title == null) {
 						System.out.println("该员工职称参数不存在或已删除");
@@ -229,64 +361,68 @@ public class DataImportController {
 
 					String code = val[9];
 					// 正则验证code的合法性
-//					String codeReg = "(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)";
-//					if (code.matches(codeReg)) {
-//						staff.setCode(code);
-//					} else {
-//						System.out.println("身份证号格式非法,请检查Excel表中是否改为文本模式或知否输入正确");
-//					}
+					// String codeReg =
+					// "(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)";
+					// if (code.matches(codeReg)) {
+					// staff.setCode(code);
+					// } else {
+					// System.out.println("身份证号格式非法,请检查Excel表中是否改为文本模式或知否输入正确");
+					// }
 					staff.setCode(code);
 
 					String eduQualification = val[10];
 					staff.setEduQualifications(eduQualification);
-					
+
 					// 来校工作时间
 					String joinTimeStr = val[11];
 					Date joinTime = DateConversionUtils.stringToDate(joinTimeStr, "yyyy/MM/dd");
-//					// 上大学时间
-//					String goUniversityTimeStr = val[11];
-//					Date goUniversityTime = DateConversionUtils.stringToDate(goUniversityTimeStr, "yyyy/MM/dd");
+					// // 上大学时间
+					// String goUniversityTimeStr = val[11];
+					// Date goUniversityTime =
+					// DateConversionUtils.stringToDate(goUniversityTimeStr,
+					// "yyyy/MM/dd");
 					// 离退休时间
 					String retireTimeStr = val[12];
 					Date retireTime = DateConversionUtils.stringToDate(retireTimeStr, "yyyy/MM/dd");
 					if (joinTime == null) {
 						System.out.println("来校工作时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
-					}else if (retireTime == null) {
+					} else if (retireTime == null) {
 						System.out.println("离退休时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
 					} else {
 						staff.setJoinTime(joinTime);
-//						staff.setGoUniversityTime(goUniversityTime);
+						// staff.setGoUniversityTime(goUniversityTime);
 						staff.setRetireTime(retireTime);
 					}
 
 					// 联系电话
 					String tel = val[13];
 					System.out.println(tel);
-//					String telReg = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
-//					if (tel.matches(telReg)) {
-//						staff.setTel(tel);
-//					} else {
-//						System.out.println("电话号码格式非法,请检查EXCEL表是否为文本格式或是否输入正确");
-//					}
+					// String telReg =
+					// "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+					// if (tel.matches(telReg)) {
+					// staff.setTel(tel);
+					// } else {
+					// System.out.println("电话号码格式非法,请检查EXCEL表是否为文本格式或是否输入正确");
+					// }
 					staff.setTel(tel);
-					
+
 					// 备注
 					staff.setRemark(val[14]);
 					// 配偶姓名
 					staff.setSpouseName(val[15]);
 					// 配偶身份证号
 					String spouseCode = val[16];
-//					if (spouseCode.matches(codeReg)) {
-//						staff.setSpouseCode(spouseCode);
-//					} else {
-//						System.out.println("配偶身份证号格式非法,请检查Excel表中是否改为文本模式或知否输入正确");
-//					}
+					// if (spouseCode.matches(codeReg)) {
+					// staff.setSpouseCode(spouseCode);
+					// } else {
+					// System.out.println("配偶身份证号格式非法,请检查Excel表中是否改为文本模式或知否输入正确");
+					// }
 					staff.setSpouseCode(spouseCode);
 					// 配偶职称
-					Integer spouseTitle = dataImportService.getStaffParamId(val[17],7);
+					Integer spouseTitle = dataImportService.getStaffParamId(val[17], 7);
 					System.out.println(spouseTitle);
 					// 配偶职务
-					Integer spousePost = dataImportService.getStaffParamId(val[18],6);
+					Integer spousePost = dataImportService.getStaffParamId(val[18], 6);
 					System.out.println(spousePost);
 					if (spouseTitle == null) {
 						System.out.println("该员工配偶职称参数不存在或已删除");
@@ -302,8 +438,8 @@ public class DataImportController {
 					System.out.println(val[19]);
 
 					// 配偶单位性质
-					 System.out.println(val[20]);
-					Integer spouseKind = dataImportService.getStaffParamId(val[20],10);
+					System.out.println(val[20]);
+					Integer spouseKind = dataImportService.getStaffParamId(val[20], 10);
 					System.out.println(val[20]);
 					System.out.println("DD");
 					System.out.println(spouseKind);
@@ -335,9 +471,9 @@ public class DataImportController {
 
 					staffs.add(staff);
 
-					if(staffService.getByStaffNo(no).size() > 0){
+					if (staffService.getByStaffNo(no).size() > 0) {
 						dataImportService.updateStaff(staff, no);
-					}else{
+					} else {
 						// 将封装好的数据插入数据库
 						dataImportService.insertStaff(staff);
 					}
@@ -483,32 +619,32 @@ public class DataImportController {
 					}
 					house.setProId(proId);
 
-//					// 租金
-//					Double rental = Double.valueOf(val[10]);
-//					house.setRental(rental);
+					// // 租金
+					// Double rental = Double.valueOf(val[10]);
+					// house.setRental(rental);
 
 					// 备注
 					house.setRemark(val[10]);
 
 					// 竣工时间
 					String finishTimeStr = val[11];
-//					System.out.println(finishTimeStr);
+					// System.out.println(finishTimeStr);
 					Date finishTime = DateConversionUtils.stringToDate(finishTimeStr, "yyyy/MM/dd");
 					if (finishTime == null) {
 						System.out.println("竣工时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
 					} else {
 						house.setFinishTime(finishTime);
 					}
-					
-					//设置一些默认值
+
+					// 设置一些默认值
 					house.setRecordStatus(0);
-					
-					if(houseService.getHouseByNo(no).size() > 0){
+
+					if (houseService.getHouseByNo(no).size() > 0) {
 						houseService.updateByStaffNo(house, no);
-					}else{
+					} else {
 						houseService.add(house);
 					}
-					
+
 					houses.add(house);
 				}
 			}
@@ -520,7 +656,7 @@ public class DataImportController {
 		// setHouseList(houses);
 		return Msg.success("导入数据成功").add("data", houses);
 	}
-	
+
 	/**
 	 * 导入住户数据，并保存
 	 * 
@@ -598,14 +734,14 @@ public class DataImportController {
 						staffNo = staffNo.substring(0, staffNo.indexOf('.'));
 					}
 					Integer staffId = staffService.getStaffIdByStaffNoAndStaffName(staffNo, staffName);
-					if(staffId != null){
+					if (staffId != null) {
 						resident.setStaffId(staffId);
-					}else{
+					} else {
 						return Msg.error("职工编号或职工姓名有误");
 					}
-					
+
 					System.out.println("CC");
-					//住房编号
+					// 住房编号
 					String houseNo = val[2];
 					String address = val[3];
 
@@ -613,60 +749,61 @@ public class DataImportController {
 						houseNo = houseNo.substring(0, houseNo.indexOf('.'));
 					}
 					Integer houseId = houseService.getHouseIdByHouseNoAndAddress(houseNo, address);
-					if(houseId != null){
+					if (houseId != null) {
 						resident.setHouseId(houseId);
-					}else{
+					} else {
 						return Msg.error("住房编号或地址有误");
 					}
-					
+
 					System.out.println("DD");
-					//住房关系
+					// 住房关系
 					Integer houseRel = dataImportService.getHouseParamId(val[4]);
-					if(houseRel != null){
+					if (houseRel != null) {
 						resident.setHouseRel(houseRel);
-						//导入住房关系时同时修改house的状态
+						// 导入住房关系时同时修改house的状态
 						houseService.updateHouseStatus(houseId, houseRel);
-					}else{
+					} else {
 						return Msg.error("住房关系有误");
 					}
-					
+
 					// 登记时间
 					String bookTimeStr = val[5];
-//					System.out.println(finishTimeStr);
+					// System.out.println(finishTimeStr);
 					Date bookTime = DateConversionUtils.stringToDate(bookTimeStr, "yyyy/MM/dd");
 					if (bookTime == null) {
 						System.out.println("登记时间日期字符串格式不对，请检查Excel表中是否改为文本模式或是否输入正确");
 					} else {
-						resident.setBookTime(bookTime);;
+						resident.setBookTime(bookTime);
+						;
 					}
-					
-//					System.out.println(val[6].equals(""));
-//					System.out.println(val[6]);
-//					System.out.println(val[6].equals(""));
-//					houseService.add(house);
+
+					// System.out.println(val[6].equals(""));
+					// System.out.println(val[6]);
+					// System.out.println(val[6].equals(""));
+					// houseService.add(house);
 					resident.setRentType(val[6]);
-					
+
 					String familyCode = val[7];
 
 					if (familyCode.indexOf('.') != -1) {
 						familyCode = familyCode.substring(0, familyCode.indexOf('.'));
 					}
 					resident.setFamilyCode(familyCode);
-					
+
 					resident.setIsDelete(false);
 					System.out.println(familyCode);
-					
+
 					residents.add(resident);
 					System.out.println("add");
-					
-					if(dataImportService.getResidentByStaffIdAndHouseId(staffId, houseId).size() > 0){
+
+					if (dataImportService.getResidentByStaffIdAndHouseId(staffId, houseId).size() > 0) {
 						dataImportService.updateResidentByStaffIdAndHouseId(resident, staffId, houseId);
-					}else{
+					} else {
 						dataImportService.insertResident(resident);
 					}
-					
+
 					System.out.println("end");
-					
+
 				}
 			}
 		} catch (Exception e) {
@@ -707,7 +844,7 @@ public class DataImportController {
 		}
 
 	}
-	
+
 	/**
 	 * 住户模板下载
 	 * 
@@ -720,7 +857,20 @@ public class DataImportController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+	}
+	
+	/**
+	 * 住户模板下载
+	 * 
+	 * @param response
+	 */
+	@RequestMapping("salaryDownLoad")
+	public void salaryDownLoad(HttpServletResponse response) {
+		try {
+			DownloadUtils.downloadSolve("D:\\salaryImport.xlsx", "工资模板.xlsx", response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

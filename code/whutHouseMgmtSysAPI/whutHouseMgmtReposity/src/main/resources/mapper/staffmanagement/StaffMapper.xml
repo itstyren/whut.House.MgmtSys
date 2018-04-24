@@ -48,6 +48,7 @@
     <result column="IsOwnPriHouse" jdbcType="BIT" property="isOwnPriHouse" />
     <result column="Icon" jdbcType="VARCHAR" property="icon" />
     <result column="PromoteFlag" jdbcType="BIT" property="promoteFlag" />
+    <result column="unionId" jdbcType="VARCHAR" property="unionId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -113,7 +114,7 @@
     SpousePost, SpouseDept, SpouseKind, IsDeptManage, StaffPassword, BuyAccount, Compensate, 
     FixFund, SecondJoinTime, SecondRetireTime, StaffDual, Relation, OtherVal, TimeVal, 
     TotalVal, DiscountRate, FamilyCode, FirstJobTime, UserName, IsSuper, RoleId, AccountStatus, 
-    IsOwnPriHouse, Icon, PromoteFlag
+    IsOwnPriHouse, Icon, PromoteFlag, unionId
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffExample" resultMap="BaseResultMap">
     select
@@ -161,7 +162,7 @@
       DiscountRate, FamilyCode, FirstJobTime, 
       UserName, IsSuper, RoleId, 
       AccountStatus, IsOwnPriHouse, Icon, 
-      PromoteFlag)
+      PromoteFlag, unionId)
     values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{marriageState,jdbcType=VARCHAR}, #{title,jdbcType=INTEGER}, 
       #{post,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
@@ -177,7 +178,7 @@
       #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, #{firstJobTime,jdbcType=DATE}, 
       #{userName,jdbcType=VARCHAR}, #{isSuper,jdbcType=TINYINT}, #{roleId,jdbcType=INTEGER}, 
       #{accountStatus,jdbcType=BIT}, #{isOwnPriHouse,jdbcType=BIT}, #{icon,jdbcType=VARCHAR}, 
-      #{promoteFlag,jdbcType=BIT})
+      #{promoteFlag,jdbcType=BIT}, #{unionId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff">
     insert into hs_staff
@@ -320,6 +321,9 @@
       <if test="promoteFlag != null">
         PromoteFlag,
       </if>
+      <if test="unionId != null">
+        unionId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -459,6 +463,9 @@
       </if>
       <if test="promoteFlag != null">
         #{promoteFlag,jdbcType=BIT},
+      </if>
+      <if test="unionId != null">
+        #{unionId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -609,6 +616,9 @@
       <if test="record.promoteFlag != null">
         PromoteFlag = #{record.promoteFlag,jdbcType=BIT},
       </if>
+      <if test="record.unionId != null">
+        unionId = #{record.unionId,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -661,7 +671,8 @@
       AccountStatus = #{record.accountStatus,jdbcType=BIT},
       IsOwnPriHouse = #{record.isOwnPriHouse,jdbcType=BIT},
       Icon = #{record.icon,jdbcType=VARCHAR},
-      PromoteFlag = #{record.promoteFlag,jdbcType=BIT}
+      PromoteFlag = #{record.promoteFlag,jdbcType=BIT},
+      unionId = #{record.unionId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -804,6 +815,9 @@
       <if test="promoteFlag != null">
         PromoteFlag = #{promoteFlag,jdbcType=BIT},
       </if>
+      <if test="unionId != null">
+        unionId = #{unionId,jdbcType=VARCHAR},
+      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
@@ -853,7 +867,8 @@
       AccountStatus = #{accountStatus,jdbcType=BIT},
       IsOwnPriHouse = #{isOwnPriHouse,jdbcType=BIT},
       Icon = #{icon,jdbcType=VARCHAR},
-      PromoteFlag = #{promoteFlag,jdbcType=BIT}
+      PromoteFlag = #{promoteFlag,jdbcType=BIT},
+      unionId = #{unionId,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

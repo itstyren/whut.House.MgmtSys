@@ -204,7 +204,7 @@
 
 	//职工参数
 	$(function() {
-		
+
 		$("#add").click(function() {
 			var data = {
 				'isUsed' : true,
@@ -213,15 +213,15 @@
 			};
 			ajaxRequestPostType("monetarySubParam/add", "POST", data);
 		})
-		
+
 		$("#getAll").click(function() {
 			ajaxRequestGet("monetarySubParam/getAll?page=1&size=2");
 		})
-		
+
 		$("#delete").click(function() {
 			ajaxRequestPostType("monetarySubParam/delete/1", "DELETE", null);
 		})
-		
+
 		$("#update").click(function() {
 			var data = {
 				'id' : 2,
@@ -231,8 +231,7 @@
 			};
 			ajaxRequestPostType("monetarySubParam/update", "PUT", data);
 		})
-		
-		
+
 		$("#addHouseSub").click(function() {
 			var data = {
 				'year' : '2018',
@@ -241,15 +240,15 @@
 			};
 			ajaxRequestPostType("staffParam/addHouseSub", "POST", data);
 		})
-		
+
 		$("#getAllHouseSub").click(function() {
 			ajaxRequestGet("staffParam/getAllHouseSub?page=1&size=2");
 		})
-		
+
 		$("#deleteHouseSub").click(function() {
 			ajaxRequestPostType("staffParam/deleteHouseSub/1", "DELETE", null);
 		})
-		
+
 		$("#updateHouseSub").click(function() {
 			var data = {
 				'id' : 1,
@@ -259,7 +258,7 @@
 			};
 			ajaxRequestPostType("staffParam/updateHouseSub", "PUT", data);
 		})
-		
+
 		$("#staffWorkDeptParamGet").click(function() {
 			ajaxRequestGet("staffParam/get/5?page=1&size=25");
 		})
@@ -315,18 +314,15 @@
 		$("#getIcon").click(function() {
 			ajaxRequestGet("staff/getIcon/1");
 		})
-		
-		$("#saveIcon").click(
-				function() {
-					var data={
-						'id':1,
-						'icon':'C:\\Users\\Administrator\\Desktop\\icon测试.jpg'
-					};
-					ajaxRequestPostType(
-							"staff/saveIcon", "POST",
-							data);
-				})
-		
+
+		$("#saveIcon").click(function() {
+			var data = {
+				'id' : 1,
+				'icon' : 'C:\\Users\\Administrator\\Desktop\\icon测试.jpg'
+			};
+			ajaxRequestPostType("staff/saveIcon", "POST", data);
+		})
+
 		$("#calculateStaffValueByStaffNo").click(
 				function() {
 					ajaxRequestPostType(
@@ -410,7 +406,7 @@
 				'fixFund' : 100,
 				'relation' : 'active',
 				'discountRate' : 20 */
-				
+
 				'id' : 2,
 				'no' : '2',
 				'title' : 95,
@@ -819,7 +815,6 @@
 
 	})
 
-	
 	//查询统计
 	$(function() {
 
@@ -827,8 +822,8 @@
 				.click(
 						function() {
 							var data = {
-								/* 'houseTypeId' : 7,
-								'staffTypeId' : 141 */
+							/* 'houseTypeId' : 7,
+							'staffTypeId' : 141 */
 							};
 							ajaxRequestPostType(
 									"moreHouseQuery/staffMoreHouseQuery?page=1&size=15",
@@ -856,23 +851,20 @@
 				})
 
 	})
-	
+
 	//货币化补贴
 	$(function() {
-		
+
 		$("#addPromoteSub").click(
 				function() {
-					ajaxRequestPostType(
-							"oneTimeMonetarySub/addPromoteSub/2",
+					ajaxRequestPostType("oneTimeMonetarySub/addPromoteSub/2",
 							"POST", null);
 				})
-		
-		$("#getAllOneTimeMonetarySub")
-		.click(
-				function() {
-					ajaxRequestGet("oneTimeMonetarySub/getAllOneTimeMonetarySub");
-				})
-		
+
+		$("#getAllOneTimeMonetarySub").click(function() {
+			ajaxRequestGet("oneTimeMonetarySub/getAllOneTimeMonetarySub");
+		})
+
 		$("#getOneTimeMonetarySubByStaffNo")
 				.click(
 						function() {
@@ -881,33 +873,30 @@
 
 		$("#deleteOneTimeMonetarySub").click(
 				function() {
-					ajaxRequestPostType("oneTimeMonetarySub/deleteOneTimeMonetarySub/1",
+					ajaxRequestPostType(
+							"oneTimeMonetarySub/deleteOneTimeMonetarySub/1",
 							"DELETE", null);
 				})
 		$("#addOneTimeMonetarySub").click(
 				function() {
 					var data = {
-							'staffNo':'2',
-							'oneTimeSubYear':'1999',
-							'remark':'一次性补偿'
-							
+						'staffNo' : '2',
+						'oneTimeSubYear' : '1999',
+						'remark' : '一次性补偿'
+
 					};
 					ajaxRequestPostType(
-							"oneTimeMonetarySub/addOneTimeMonetarySub",
-							"POST", data);
+							"oneTimeMonetarySub/addOneTimeMonetarySub", "POST",
+							data);
 				})
-		
-		$("#getAllMonetarySub")
-		.click(
-				function() {
-					ajaxRequestGet("staffMonetarySub/getAllMonetarySub");
-				})
-		
-		$("#getMonetarySubByStaffNo")
-				.click(
-						function() {
-							ajaxRequestGet("staffMonetarySub/getMonetarySubByStaffNo/2");
-						})
+
+		$("#getAllMonetarySub").click(function() {
+			ajaxRequestGet("staffMonetarySub/getAllMonetarySub");
+		})
+
+		$("#getMonetarySubByStaffNo").click(function() {
+			ajaxRequestGet("staffMonetarySub/getMonetarySubByStaffNo/2");
+		})
 
 		$("#deleteMonetarySub").click(
 				function() {
@@ -917,19 +906,17 @@
 		$("#addMonetarySub").click(
 				function() {
 					var data = {
-							'staffNo':'3',
-							'year':'2018',
-							'annualSal':'180000',
-							'remark':'2018年货币化补贴'
-							
+						'staffNo' : '3',
+						'year' : '2018',
+						'annualSal' : '180000',
+						'remark' : '2018年货币化补贴'
+
 					};
-					ajaxRequestPostType(
-							"staffMonetarySub/addMonetarySub",
+					ajaxRequestPostType("staffMonetarySub/addMonetarySub",
 							"POST", data);
 				})
 
 	})
-	
 </script>
 
 </head>
@@ -985,20 +972,19 @@
 			<br>
 		</div>
 		<div class="tab-pane fade" id="staffParam">
-		
+
 			<h4>添加一条补贴比例参数记录</h4>
-			<input class="btn btn-info btn-lg" type="button"
-				value="Add" id="add" /><br>
+			<input class="btn btn-info btn-lg" type="button" value="Add" id="add" /><br>
 			<h4>删除一条补贴比例参数记录</h4>
-			<input class="btn btn-info btn-lg" type="button"
-				value="Delete" id="delete" /><br>
+			<input class="btn btn-info btn-lg" type="button" value="Delete"
+				id="delete" /><br>
 			<h4>获取所有补贴比例参数记录</h4>
-			<input class="btn btn-info btn-lg" type="button"
-				value="GetAll" id="getAll" /><br>
+			<input class="btn btn-info btn-lg" type="button" value="GetAll"
+				id="getAll" /><br>
 			<h4>更新一条补贴比例参数记录</h4>
-			<input class="btn btn-info btn-lg" type="button"
-				value="Update" id="update" /><br>
-		
+			<input class="btn btn-info btn-lg" type="button" value="Update"
+				id="update" /><br>
+
 			<!-- <h4>添加一条住房补贴参数记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="AddHouseSub" id="addHouseSub" /><br>
@@ -1037,12 +1023,10 @@
 		</div>
 		<div class="tab-pane fade" id="staffManagement">
 			<h4>获取头像</h4>
-			<input class="btn btn-info btn-lg" type="button"
-				value="GetIcon"
+			<input class="btn btn-info btn-lg" type="button" value="GetIcon"
 				id="getIcon" /> <br> <br>
 			<h4>上传头像</h4>
-			<input class="btn btn-info btn-lg" type="button"
-				value="SaveIcon"
+			<input class="btn btn-info btn-lg" type="button" value="SaveIcon"
 				id="saveIcon" /> <br> <br>
 			<h4>计算单个职工总分</h4>
 			<input class="btn btn-info btn-lg" type="button"
@@ -1109,6 +1093,12 @@
 		</div>
 		<div class="tab-pane fade" id="dataImport">
 			<!-- 数据导入 -->
+			<h4>工资数据导入，计算货币化补贴</h4>
+			<form action="dataImport/salaryImport" method="post"
+				enctype="multipart/form-data">
+				SalaryFile:<input type="file" name="salaryFile"> <input
+					type="submit" value="Submit">
+			</form>
 			<h4>职工数据导入</h4>
 			<form action="dataImport/staffDataImport" method="post"
 				enctype="multipart/form-data">
@@ -1134,7 +1124,8 @@
 			<a href="dataImport/staffDownLoad">职工模板下载</a> <br> <br> <a
 				href="dataImport/houseDownLoad">住房模板下载</a><br> <br> <a
 				href="dataImport/residentDownLoad">住户模板下载</a> <a
-				href="exportToWord/hire/18">word</a>
+				href="exportToWord/hire/18">word</a> <a
+				href="dataImport/salaryDownLoad">工资模板下载</a>
 			<!-- <input type="file" id="upfile" name="upfile" placeholder="" />
 			<button onclick="importExp();">导入</button> -->
 			<!-- <input class="btn btn-info btn-lg" type="file"
@@ -1258,22 +1249,22 @@
 			<h4>添加一条老职工晋升补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="AddPromoteSub" id="addPromoteSub" /> <br>
-		
+
 			<h4>获取所有一次性补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetAllOneTimeMonetarySub" id="getAllOneTimeMonetarySub" /> <br>
 			<h4>根据职工编号获取其所有一次性补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="GetOneTimeMonetarySubByStaffNo" id="getOneTimeMonetarySubByStaffNo" /> <br>
+				value="GetOneTimeMonetarySubByStaffNo"
+				id="getOneTimeMonetarySubByStaffNo" /> <br>
 			<h4>根据id删除一条一次性补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="DeleteOneTimeMonetarySub" id="deleteOneTimeMonetarySub" />
-			<br>
+				value="DeleteOneTimeMonetarySub" id="deleteOneTimeMonetarySub" /> <br>
 			<h4>添加一条一次性住房补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="AddOneTimeMonetarySub" id="addOneTimeMonetarySub" /> <br>
-		
-		
+
+
 			<h4>获取所有补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetAllMonetarySub" id="getAllMonetarySub" /> <br>
@@ -1282,8 +1273,7 @@
 				value="GetMonetarySubByStaffNo" id="getMonetarySubByStaffNo" /> <br>
 			<h4>根据id删除一条补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
-				value="DeleteMonetarySub" id="deleteMonetarySub" />
-			<br>
+				value="DeleteMonetarySub" id="deleteMonetarySub" /> <br>
 			<h4>添加一条住房补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="AddMonetarySub" id="addMonetarySub" /> <br>
