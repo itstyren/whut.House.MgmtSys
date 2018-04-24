@@ -131,6 +131,8 @@ public class ViewStaff {
 
     private Boolean accountStatus;
 
+    private String unionId;
+
     public Integer getId() {
         return id;
     }
@@ -561,5 +563,13 @@ public class ViewStaff {
 
     public void setAccountStatus(Boolean accountStatus) {
         this.accountStatus = accountStatus;
+    }
+
+    public String getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(String unionId) {
+        this.unionId = unionId == null ? null : unionId.trim();
     }
 }

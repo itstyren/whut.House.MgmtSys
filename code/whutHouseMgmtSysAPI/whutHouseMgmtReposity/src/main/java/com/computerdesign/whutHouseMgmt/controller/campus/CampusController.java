@@ -21,6 +21,9 @@ import com.computerdesign.whutHouseMgmt.service.campus.CampusService;
 import com.computerdesign.whutHouseMgmt.service.region.ViewRegionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wf.etp.authz.annotation.Logical;
+import com.wf.etp.authz.annotation.RequiresPermissions;
+import com.wf.etp.authz.annotation.RequiresRoles;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

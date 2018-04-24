@@ -20,6 +20,17 @@ public class ViewStaffService {
 	@Autowired
 	private ViewStaffMapper viewStaffMapper ;
 	
+	public ViewStaff getByUnionId(String unionId) {
+		ViewStaffExample example = new ViewStaffExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andUnionIdEqualTo(unionId);
+		if (viewStaffMapper.selectByExample(example).isEmpty()) {
+			return null;
+		}else {
+			return viewStaffMapper.selectByExample(example).get(0);
+		}
+	}
+	
 	/**
 	 * 根据staffId获取ViewStaff
 	 * @param staffId
