@@ -81,7 +81,7 @@ export const asyncRouterMap = [
             path: 'buildingArea',
             component: _import('basiceData/buildingRegionData/indexNav'),
             name: 'indexbldgRgn',
-            redirect: '/basic/buildingArea/region',
+            redirect: '/basic/buildingArea/campus',
             meta: { title: 'region'},          
             children: [
                 { path: 'campus', component: _import('basiceData/buildingRegionData/campus'), name: 'campus', meta: { title: 'campus' } },                
@@ -94,7 +94,7 @@ export const asyncRouterMap = [
             path: 'house',
             component: _import('basiceData/houseData/indexNav'),
             name: 'indexHouse',
-            redirect: '/basic/house/byBuilding/1',
+            //redirect: '/basic/house',
             meta: { title: 'house' },                      
             children: [
                 { path: 'byBuilding/:id', component: _import('basiceData/houseData/houseData'), name: 'house', meta: { title: 'house' } },

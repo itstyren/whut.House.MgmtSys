@@ -1,6 +1,7 @@
 package com.computerdesign.whutHouseMgmt.bean.housesub;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class OneTimeMonetarySub {
     private Integer id;
@@ -12,6 +13,8 @@ public class OneTimeMonetarySub {
     private BigDecimal oneTimeSubsidy;
 
     private String remark;
+
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -51,5 +54,13 @@ public class OneTimeMonetarySub {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

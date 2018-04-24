@@ -85,18 +85,18 @@
     font-size: 26px;
   }
 }
-    @media only screen and (max-width: 1200px){
-        .el-menu--horizontal {
-          .el-menu-item {
-            font-size: 12px;
-          }
-          .el-submenu__title {
-            padding: 0 8px;
-            font-size: 12px;
-          }
-        }
 
+@media only screen and (max-width: 1200px) {
+  .el-menu--horizontal {
+    .el-menu-item {
+      font-size: 12px;
     }
+    .el-submenu__title {
+      padding: 0 8px;
+      font-size: 12px;
+    }
+  }
+}
 
 @media only screen and (max-width: 1060px) {
   .el-menu--horizontal {
@@ -139,6 +139,38 @@
   }
 }
 
-.el-transfer-panel{
-width: 38%
+.el-transfer-panel {
+  width: 38%
+}
+
+.login-container {
+  .el-input__inner {
+    border-radius: 10px;
+        border: 2px solid #eeeeee;
+  }
+  .el-select .el-input.is-focus .el-input__inner{
+    border-color: #eeeeee
+  }
+  .el-select .el-input__inner:focus{
+    border-color: #eeeeee    
+  }
+  .el-button{
+    border-radius: 10px;    
+  }
+  .el-button--primary{
+    background-color: #f7cc46;
+    border-color: #f7cc46;
+    letter-spacing: 5px;
+  }
+  .el-form-item {
+    margin-bottom: 18px;
+  }
+
+}
+
+.avatar-warpper{
+.el-button{
+  background-color: #f7cc46;
+  color: #fff;
+}
 }

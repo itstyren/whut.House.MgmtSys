@@ -94,7 +94,7 @@ $background-color: #373d41;
     > .logo {
       float: left;
       width: 59px;
-      height: $top-bar-height;
+      height: 55px;
       display: flex;
       background-image: url("../../assets/logo.png");
       background-size: 100% 100%;

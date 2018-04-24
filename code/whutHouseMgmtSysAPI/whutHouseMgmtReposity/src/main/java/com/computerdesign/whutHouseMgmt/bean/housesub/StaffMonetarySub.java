@@ -1,5 +1,7 @@
 package com.computerdesign.whutHouseMgmt.bean.housesub;
 
+import java.util.Date;
+
 public class StaffMonetarySub {
     private Integer id;
 
@@ -12,6 +14,8 @@ public class StaffMonetarySub {
     private Long subsidies;
 
     private String remark;
+
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -59,5 +63,13 @@ public class StaffMonetarySub {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

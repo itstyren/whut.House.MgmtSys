@@ -40,7 +40,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTI0MDI2OTYyLCJleHAiOjE1MjQwNjI5NjJ9.2rMkxX-GCQ3mX8QYKcI4W_SA-R27gvJqAiQ4zSxx3mw");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTI0MTM4MTc0LCJleHAiOjE1MjQxNzQxNzR9.LvTWNayBbkHCObusU-xrmJLgMhoC_W6va8RKeCy0TPQ");
 					},
 					type : "get",
 					contentType : 'application/json',
@@ -66,7 +66,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTI0MDI2OTYyLCJleHAiOjE1MjQwNjI5NjJ9.2rMkxX-GCQ3mX8QYKcI4W_SA-R27gvJqAiQ4zSxx3mw");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTI0MTM4MTc0LCJleHAiOjE1MjQxNzQxNzR9.LvTWNayBbkHCObusU-xrmJLgMhoC_W6va8RKeCy0TPQ");
 					},
 					data : JSON.stringify(data),
 					url : uri,
@@ -384,7 +384,7 @@
 
 		$("#staffModify").click(function() {
 			var data = {
-				'id' : 14,
+				/* 'id' : 14,
 				'no' : '4330',
 				'name' : 'asd',
 				'sex' : '男',
@@ -409,7 +409,12 @@
 				'buyAccount' : 20,
 				'fixFund' : 100,
 				'relation' : 'active',
-				'discountRate' : 20
+				'discountRate' : 20 */
+				
+				'id' : 2,
+				'no' : '2',
+				'title' : 95,
+				'post' : 84,
 
 			};
 			ajaxRequestPostType("staff/modify", "PUT", data);
@@ -855,6 +860,13 @@
 	//货币化补贴
 	$(function() {
 		
+		$("#addPromoteSub").click(
+				function() {
+					ajaxRequestPostType(
+							"oneTimeMonetarySub/addPromoteSub/2",
+							"POST", null);
+				})
+		
 		$("#getAllOneTimeMonetarySub")
 		.click(
 				function() {
@@ -1243,6 +1255,10 @@
 				value="StaffMoreHouseSta" id="staffMoreHouseSta" /> <br>
 		</div>
 		<div class="tab-pane fade" id="houseSub">
+			<h4>添加一条老职工晋升补贴记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="AddPromoteSub" id="addPromoteSub" /> <br>
+		
 			<h4>获取所有一次性补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetAllOneTimeMonetarySub" id="getAllOneTimeMonetarySub" /> <br>

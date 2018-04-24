@@ -8,6 +8,7 @@
     <result column="AnnualSal" jdbcType="BIGINT" property="annualSal" />
     <result column="Subsidies" jdbcType="DECIMAL" property="subsidies" />
     <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, StaffNo, Year, AnnualSal, Subsidies, Remark
+    Id, StaffNo, Year, AnnualSal, Subsidies, Remark, CreateTime
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySubExample" resultMap="BaseResultMap">
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySub">
     insert into hs_monetarysub (Id, StaffNo, Year, 
-      AnnualSal, Subsidies, Remark
-      )
+      AnnualSal, Subsidies, Remark, 
+      CreateTime)
     values (#{id,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, 
-      #{annualSal,jdbcType=BIGINT}, #{subsidies,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}
-      )
+      #{annualSal,jdbcType=BIGINT}, #{subsidies,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySub">
     insert into hs_monetarysub
@@ -129,6 +130,9 @@
       <if test="remark != null">
         Remark,
       </if>
+      <if test="createTime != null">
+        CreateTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -148,6 +152,9 @@
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.remark != null">
         Remark = #{record.remark,jdbcType=VARCHAR},
       </if>
+      <if test="record.createTime != null">
+        CreateTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       Year = #{record.year,jdbcType=VARCHAR},
       AnnualSal = #{record.annualSal,jdbcType=BIGINT},
       Subsidies = #{record.subsidies,jdbcType=DECIMAL},
-      Remark = #{record.remark,jdbcType=VARCHAR}
+      Remark = #{record.remark,jdbcType=VARCHAR},
+      CreateTime = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="remark != null">
         Remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="createTime != null">
+        CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
@@ -222,7 +236,8 @@
       Year = #{year,jdbcType=VARCHAR},
       AnnualSal = #{annualSal,jdbcType=BIGINT},
       Subsidies = #{subsidies,jdbcType=DECIMAL},
-      Remark = #{remark,jdbcType=VARCHAR}
+      Remark = #{remark,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=TIMESTAMP}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
