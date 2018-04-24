@@ -13,8 +13,8 @@
     <!-- 下方主内容 -->
     <div class="warp-body">
       <!-- 工具栏 -->
-      <div class="toolbar">
-        <el-form :inline="true" style="margin-bottom:15px">
+      <div class="toolbar " style="padding-left:10px;">
+        <el-form :inline="true">
           <!-- <el-select v-model="selectRegion" placeholder="请选择区域">
             <el-option v-for="region of buildingData" :key="region.id"></el-option>
           </el-select> -->
@@ -23,27 +23,29 @@
       </div>
       <!-- 表格区 -->
       <div class="main-data">
-        <el-table :data="buildingData" class="table" height="string" v-loading="listLoading">
-          <el-table-column prop="name" label="楼栋名称" sortable align="center"></el-table-column>
-          <el-table-column prop="finishTime" label="竣工时间" width="120" sortable align="center"></el-table-column>
-          <el-table-column prop="floorArea" label="占地面积" width="80" align="center"></el-table-column>
-          <el-table-column prop="usedArea" label="使用面积" width="80" align="center"></el-table-column>
-          <el-table-column prop="unitCount" label="单元数" width="80" align="center"></el-table-column>
-          <el-table-column prop="floorCount" label="楼层数" width="80" align="center"></el-table-column>
-          <el-table-column prop="supportFund" label="维修基金" width="80" align="center"></el-table-column>
-          <el-table-column prop="manager" label="负责人" width="100" align="center"></el-table-column>
-          <el-table-column prop="description" label="楼栋描述" align="center"></el-table-column>
-          <el-table-column label="操作" width="170" align="center">
-            <template slot-scope="scope">
-              <el-button size="small" @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
-              <el-button type="danger" size="small" @click="delectBuilding(scope.$index,scope.row)">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+        <div class="card " style="height:95%">
+          <el-table :data="buildingData" class="table" height="93%" v-loading="listLoading">
+            <el-table-column prop="name" label="楼栋名称" sortable align="center"></el-table-column>
+            <el-table-column prop="finishTime" label="竣工时间" width="120" sortable align="center"></el-table-column>
+            <el-table-column prop="floorArea" label="占地面积" width="80" align="center"></el-table-column>
+            <el-table-column prop="usedArea" label="使用面积" width="80" align="center"></el-table-column>
+            <el-table-column prop="unitCount" label="单元数" width="80" align="center"></el-table-column>
+            <el-table-column prop="floorCount" label="楼层数" width="80" align="center"></el-table-column>
+            <el-table-column prop="supportFund" label="维修基金" width="80" align="center"></el-table-column>
+            <el-table-column prop="manager" label="负责人" width="100" align="center"></el-table-column>
+            <el-table-column prop="description" label="楼栋描述" align="center"></el-table-column>
+            <el-table-column label="操作" width="170" align="center">
+              <template slot-scope="scope">
+                <el-button size="small" @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
+                <el-button type="danger" size="small" @click="delectBuilding(scope.$index,scope.row)">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent"
+            :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
+          </el-pagination>
+        </div>
       </div>
-      <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent"
-        :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
-      </el-pagination>
     </div>
     <!-- 新增表单 -->
     <el-dialog title="新增楼栋" class="paramDialog-large" :visible.sync="addFormVisible" v-loading="submitLoading">
@@ -61,7 +63,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="11" >
+          <el-col :span="11">
             <el-form-item label="占地面积" prop="floorArea">
               <el-input v-model="addFormBody.floorArea" placeholder="请输入占地面积"></el-input>
             </el-form-item>
@@ -73,7 +75,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="11" >
+          <el-col :span="11">
             <el-form-item label="楼层数" prop="floorCount">
               <el-input v-model="addFormBody.floorCount" placeholder="请输入楼层数"></el-input>
             </el-form-item>
@@ -85,7 +87,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="11" >
+          <el-col :span="11">
             <el-form-item label="负责人" prop="manager">
               <el-input v-model="addFormBody.manager" placeholder="请输入负责人"></el-input>
             </el-form-item>
@@ -114,7 +116,7 @@
     <el-dialog title="编辑住房类型" class="paramDialog-large" :visible.sync="modifyFormVisible" v-loading="modifyLoading">
       <el-form :model="modifyFromBody" label-width="100px" ref="modifyFrom" :rules="rules">
         <el-row>
-          <el-col :span="11" >
+          <el-col :span="11">
             <el-form-item label="楼栋名称" prop="name">
               <el-input v-model="modifyFromBody.name" placeholder="请输入楼栋名称"></el-input>
             </el-form-item>
@@ -364,6 +366,14 @@
 </script>
 
 <style scoped lang="scss">
+  .toolbar {
+    .el-form-item {
+      margin-bottom: 5px;
+    }
+  }
 
+  .card {
+    padding: 10px;
+  }
 
 </style>

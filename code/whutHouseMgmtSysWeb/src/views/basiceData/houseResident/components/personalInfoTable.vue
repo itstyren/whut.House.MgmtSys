@@ -114,5 +114,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.card{
+  padding: 3px;
+}
 </style>

@@ -19,10 +19,10 @@
       <div class="main-data">
         <!-- 个人信息区 -->
         <el-row style="margin:0 10px 0 -10px;" :gutter="20">
-          <el-col :span="12">
+          <el-col :span="10">
             <personal-info-table  :height="'30vh'"></personal-info-table>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="14">
             <staff-house-rel :height="'30vh'"></staff-house-rel>
           </el-col>
         </el-row>

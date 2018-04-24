@@ -92,13 +92,10 @@ export const asyncRouterMap = [
         // 房屋
         {
             path: 'house',
-            component: _import('basiceData/houseData/indexNav'),
+            component: _import('basiceData/houseData/houseData'),
             name: 'indexHouse',
             //redirect: '/basic/house',
             meta: { title: 'house' },                      
-            children: [
-                { path: 'byBuilding/:id', component: _import('basiceData/houseData/houseData'), name: 'house', meta: { title: 'house' } },
-            ]
         },
         // 职工
         {

@@ -1,6 +1,6 @@
 <template>
 <div class="card" :style="{height:height,width:width}">
-  <el-table :data="houseRel" border stripe class="table" height="string" v-loading="listLoading">
+  <el-table :data="houseRel"  stripe class="table" height="string" v-loading="listLoading">
     <el-table-column prop="staffName" width="90" align="center" label="姓名"></el-table-column>
     <el-table-column prop="houseRel" width="70" align="center" label="关系">
       <template slot-scope="scope">
@@ -147,5 +147,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.card{
+  padding: 3px;
+}
 </style>
