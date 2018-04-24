@@ -108,6 +108,19 @@ public class DataImportController {
 	// }
 	// }
 
+//	@ResponseBody
+//	@RequestMapping(value = "staffDataImport", method = RequestMethod.POST)
+//	public Msg staffDataImportByJson(@RequestBody StaffDataImport[] staffDataImports){
+//		if(staffDataImports != null){
+//			for(StaffDataImport staffDataImport : staffDataImports){
+//				
+//			}
+//		}else{
+//			return Msg.error("导入数据字段有误，无法封装");
+//		}
+//		return;
+//	}
+	
 	/**
 	 * 导入职工数据，并保存
 	 * 
@@ -124,14 +137,16 @@ public class DataImportController {
 
 		try {
 			Workbook workBook = null;
-			// System.out.println(multipartFile.getOriginalFilename());
+			 System.out.println(multipartFile.getOriginalFilename());
 
 			if (!ExcelUtils.validateExcel(multipartFile.getOriginalFilename())) {
 				return Msg.error("请上传Excel格式的文件");
 			}
+//			System.out.println();
 			if (ExcelUtils.isExcel2003(multipartFile.getOriginalFilename())) {
 				// 获取上传的Excel表
 				System.out.println("2003");
+				System.out.println(multipartFile.getInputStream());
 				workBook = new HSSFWorkbook(multipartFile.getInputStream());
 				System.out.println("2003获取成功");
 			}
@@ -320,8 +335,12 @@ public class DataImportController {
 
 					staffs.add(staff);
 
-					// 将封装好的数据插入数据库
-					dataImportService.insertStaff(staff);
+					if(staffService.getByStaffNo(no).size() > 0){
+						dataImportService.updateStaff(staff, no);
+					}else{
+						// 将封装好的数据插入数据库
+						dataImportService.insertStaff(staff);
+					}
 
 				}
 			}
@@ -484,11 +503,13 @@ public class DataImportController {
 					//设置一些默认值
 					house.setRecordStatus(0);
 					
-					houseService.add(house);
+					if(houseService.getHouseByNo(no).size() > 0){
+						houseService.updateByStaffNo(house, no);
+					}else{
+						houseService.add(house);
+					}
 					
 					houses.add(house);
-
-					
 				}
 			}
 		} catch (Exception e) {
@@ -637,7 +658,13 @@ public class DataImportController {
 					
 					residents.add(resident);
 					System.out.println("add");
-					dataImportService.insertResident(resident);
+					
+					if(dataImportService.getResidentByStaffIdAndHouseId(staffId, houseId).size() > 0){
+						dataImportService.updateResidentByStaffIdAndHouseId(resident, staffId, houseId);
+					}else{
+						dataImportService.insertResident(resident);
+					}
+					
 					System.out.println("end");
 					
 				}

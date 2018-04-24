@@ -114,6 +114,19 @@ public class HouseService implements BaseService<House> {
 //		Criteria criteria = example.createCriteria();
 //		
 //	}
+	
+	/**
+	 * 根据编号no更新house记录
+	 * @param house
+	 * @param no
+	 */
+	public void updateByStaffNo(House house, String no){
+		HouseExample example = new HouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andNoEqualTo(no);
+		houseMapper.updateByExampleSelective(house, example);
+	}
+	
 	@Override
 	public List<House> getAll() {
 		return houseMapper.selectByExample(null);
