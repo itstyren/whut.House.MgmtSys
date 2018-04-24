@@ -13,14 +13,15 @@
     <!-- 下方主内容 -->
     <div class="warp-body">
       <!-- 工具栏 -->
-      <div class="toolbar">
-        <el-form :inline="true" style="margin-bottom:15px">
+      <div class="toolbar " style="padding-left:10px;">
+        <el-form :inline="true" >
           <el-button type="primary" @click="addForm">新增区域</el-button>
         </el-form>
       </div>
       <!-- 表格区 -->
       <div class="main-data">
-        <el-table :data="regionData" class="table" height="string" v-loading="listLoading">
+        <div class="card " style="height:95%">                
+        <el-table :data="regionData" class="table" height="93%" v-loading="listLoading">
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column type="index" label="序号" width="70" align="center"></el-table-column>
           <el-table-column prop="name" label="区域" sortable align="center"></el-table-column>
@@ -33,10 +34,11 @@
             </template>
           </el-table-column>
         </el-table>
-      </div>
-      <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent"
+              <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent"
         :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
       </el-pagination>
+      </div>
+      </div>
     </div>
     <!-- 新增表单 -->
     <el-dialog title="新增区域" class="paramDialog" :visible.sync="addFormVisible" v-loading="submitLoading">
@@ -309,5 +311,13 @@
 
 <style scoped lang="scss">
 
+  .toolbar {
+    .el-form-item {
+      margin-bottom: 5px;
+    }
+  }
 
+  .card {
+    padding: 10px;
+  }
 </style>

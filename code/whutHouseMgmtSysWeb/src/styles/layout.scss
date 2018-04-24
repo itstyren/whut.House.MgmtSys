@@ -71,7 +71,7 @@ section.main-container{
             &>.toolbar {
               flex: none;
             }
-            &>.main-data {
+            & .main-data {
               width: 100%;
               flex: 1;
               overflow: auto;
