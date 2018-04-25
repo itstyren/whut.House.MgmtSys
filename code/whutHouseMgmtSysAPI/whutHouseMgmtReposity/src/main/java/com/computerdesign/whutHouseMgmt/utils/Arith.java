@@ -55,7 +55,17 @@ public class Arith {
 	        BigDecimal b1 = new BigDecimal(Double.toString(v1));    
 	        BigDecimal b2 = new BigDecimal(Double.toString(v2));    
 	        return b1.multiply(b2).doubleValue();    
-	    }    
+	    }  
+	    
+	    public static double mulVariableParam(double... ds ){ 
+	    	double result = 1;
+	    	for (double d : ds){
+	    		BigDecimal b = new BigDecimal(Double.toString(d)); 
+	    		result = result * b.doubleValue();
+	    	}
+	           
+	        return result;    
+	    }
 	  
 	    /**   
 	     * 提供（相对）精确的除法运算，当发生除不尽的情况时，精确到   

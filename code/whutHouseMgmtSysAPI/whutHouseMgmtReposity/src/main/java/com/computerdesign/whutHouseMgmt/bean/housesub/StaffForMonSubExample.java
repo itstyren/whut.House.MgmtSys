@@ -743,6 +743,186 @@ public class StaffForMonSubExample {
             addCriterion("MaxEnjoyArea not between", value1, value2, "maxEnjoyArea");
             return (Criteria) this;
         }
+
+        public Criteria andHouseIdIsNull() {
+            addCriterion("HouseId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseIdIsNotNull() {
+            addCriterion("HouseId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseIdEqualTo(Integer value) {
+            addCriterion("HouseId =", value, "houseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseIdNotEqualTo(Integer value) {
+            addCriterion("HouseId <>", value, "houseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseIdGreaterThan(Integer value) {
+            addCriterion("HouseId >", value, "houseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("HouseId >=", value, "houseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseIdLessThan(Integer value) {
+            addCriterion("HouseId <", value, "houseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseIdLessThanOrEqualTo(Integer value) {
+            addCriterion("HouseId <=", value, "houseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseIdIn(List<Integer> values) {
+            addCriterion("HouseId in", values, "houseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseIdNotIn(List<Integer> values) {
+            addCriterion("HouseId not in", values, "houseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseIdBetween(Integer value1, Integer value2) {
+            addCriterion("HouseId between", value1, value2, "houseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("HouseId not between", value1, value2, "houseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaIsNull() {
+            addCriterion("HouseBuildArea is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaIsNotNull() {
+            addCriterion("HouseBuildArea is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaEqualTo(Double value) {
+            addCriterion("HouseBuildArea =", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaNotEqualTo(Double value) {
+            addCriterion("HouseBuildArea <>", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaGreaterThan(Double value) {
+            addCriterion("HouseBuildArea >", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaGreaterThanOrEqualTo(Double value) {
+            addCriterion("HouseBuildArea >=", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaLessThan(Double value) {
+            addCriterion("HouseBuildArea <", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaLessThanOrEqualTo(Double value) {
+            addCriterion("HouseBuildArea <=", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaIn(List<Double> values) {
+            addCriterion("HouseBuildArea in", values, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaNotIn(List<Double> values) {
+            addCriterion("HouseBuildArea not in", values, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaBetween(Double value1, Double value2) {
+            addCriterion("HouseBuildArea between", value1, value2, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaNotBetween(Double value1, Double value2) {
+            addCriterion("HouseBuildArea not between", value1, value2, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaIsNull() {
+            addCriterion("HouseUsedArea is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaIsNotNull() {
+            addCriterion("HouseUsedArea is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaEqualTo(Double value) {
+            addCriterion("HouseUsedArea =", value, "houseUsedArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaNotEqualTo(Double value) {
+            addCriterion("HouseUsedArea <>", value, "houseUsedArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaGreaterThan(Double value) {
+            addCriterion("HouseUsedArea >", value, "houseUsedArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaGreaterThanOrEqualTo(Double value) {
+            addCriterion("HouseUsedArea >=", value, "houseUsedArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaLessThan(Double value) {
+            addCriterion("HouseUsedArea <", value, "houseUsedArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaLessThanOrEqualTo(Double value) {
+            addCriterion("HouseUsedArea <=", value, "houseUsedArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaIn(List<Double> values) {
+            addCriterion("HouseUsedArea in", values, "houseUsedArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaNotIn(List<Double> values) {
+            addCriterion("HouseUsedArea not in", values, "houseUsedArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaBetween(Double value1, Double value2) {
+            addCriterion("HouseUsedArea between", value1, value2, "houseUsedArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseUsedAreaNotBetween(Double value1, Double value2) {
+            addCriterion("HouseUsedArea not between", value1, value2, "houseUsedArea");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

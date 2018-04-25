@@ -505,63 +505,123 @@ public class RentVwExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeIsNull() {
-            addCriterion("ExpireTime is null");
+        public Criteria andHouseStructIdIsNull() {
+            addCriterion("HouseStructId is null");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeIsNotNull() {
-            addCriterion("ExpireTime is not null");
+        public Criteria andHouseStructIdIsNotNull() {
+            addCriterion("HouseStructId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeEqualTo(Date value) {
-            addCriterion("ExpireTime =", value, "expireTime");
+        public Criteria andHouseStructIdEqualTo(Integer value) {
+            addCriterion("HouseStructId =", value, "houseStructId");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeNotEqualTo(Date value) {
-            addCriterion("ExpireTime <>", value, "expireTime");
+        public Criteria andHouseStructIdNotEqualTo(Integer value) {
+            addCriterion("HouseStructId <>", value, "houseStructId");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeGreaterThan(Date value) {
-            addCriterion("ExpireTime >", value, "expireTime");
+        public Criteria andHouseStructIdGreaterThan(Integer value) {
+            addCriterion("HouseStructId >", value, "houseStructId");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("ExpireTime >=", value, "expireTime");
+        public Criteria andHouseStructIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("HouseStructId >=", value, "houseStructId");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeLessThan(Date value) {
-            addCriterion("ExpireTime <", value, "expireTime");
+        public Criteria andHouseStructIdLessThan(Integer value) {
+            addCriterion("HouseStructId <", value, "houseStructId");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeLessThanOrEqualTo(Date value) {
-            addCriterion("ExpireTime <=", value, "expireTime");
+        public Criteria andHouseStructIdLessThanOrEqualTo(Integer value) {
+            addCriterion("HouseStructId <=", value, "houseStructId");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeIn(List<Date> values) {
-            addCriterion("ExpireTime in", values, "expireTime");
+        public Criteria andHouseStructIdIn(List<Integer> values) {
+            addCriterion("HouseStructId in", values, "houseStructId");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeNotIn(List<Date> values) {
-            addCriterion("ExpireTime not in", values, "expireTime");
+        public Criteria andHouseStructIdNotIn(List<Integer> values) {
+            addCriterion("HouseStructId not in", values, "houseStructId");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeBetween(Date value1, Date value2) {
-            addCriterion("ExpireTime between", value1, value2, "expireTime");
+        public Criteria andHouseStructIdBetween(Integer value1, Integer value2) {
+            addCriterion("HouseStructId between", value1, value2, "houseStructId");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeNotBetween(Date value1, Date value2) {
-            addCriterion("ExpireTime not between", value1, value2, "expireTime");
+        public Criteria andHouseStructIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("HouseStructId not between", value1, value2, "houseStructId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaIsNull() {
+            addCriterion("HouseBuildArea is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaIsNotNull() {
+            addCriterion("HouseBuildArea is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaEqualTo(Double value) {
+            addCriterion("HouseBuildArea =", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaNotEqualTo(Double value) {
+            addCriterion("HouseBuildArea <>", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaGreaterThan(Double value) {
+            addCriterion("HouseBuildArea >", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaGreaterThanOrEqualTo(Double value) {
+            addCriterion("HouseBuildArea >=", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaLessThan(Double value) {
+            addCriterion("HouseBuildArea <", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaLessThanOrEqualTo(Double value) {
+            addCriterion("HouseBuildArea <=", value, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaIn(List<Double> values) {
+            addCriterion("HouseBuildArea in", values, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaNotIn(List<Double> values) {
+            addCriterion("HouseBuildArea not in", values, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaBetween(Double value1, Double value2) {
+            addCriterion("HouseBuildArea between", value1, value2, "houseBuildArea");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseBuildAreaNotBetween(Double value1, Double value2) {
+            addCriterion("HouseBuildArea not between", value1, value2, "houseBuildArea");
             return (Criteria) this;
         }
 
@@ -622,6 +682,66 @@ public class RentVwExample {
 
         public Criteria andBookTimeNotBetween(Date value1, Date value2) {
             addCriterion("BookTime not between", value1, value2, "bookTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeIsNull() {
+            addCriterion("ExpireTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeIsNotNull() {
+            addCriterion("ExpireTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeEqualTo(Date value) {
+            addCriterion("ExpireTime =", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeNotEqualTo(Date value) {
+            addCriterion("ExpireTime <>", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeGreaterThan(Date value) {
+            addCriterion("ExpireTime >", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("ExpireTime >=", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeLessThan(Date value) {
+            addCriterion("ExpireTime <", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeLessThanOrEqualTo(Date value) {
+            addCriterion("ExpireTime <=", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeIn(List<Date> values) {
+            addCriterion("ExpireTime in", values, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeNotIn(List<Date> values) {
+            addCriterion("ExpireTime not in", values, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeBetween(Date value1, Date value2) {
+            addCriterion("ExpireTime between", value1, value2, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeNotBetween(Date value1, Date value2) {
+            addCriterion("ExpireTime not between", value1, value2, "expireTime");
             return (Criteria) this;
         }
 

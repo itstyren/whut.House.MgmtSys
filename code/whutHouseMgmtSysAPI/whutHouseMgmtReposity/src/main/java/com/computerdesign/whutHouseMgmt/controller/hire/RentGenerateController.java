@@ -1,8 +1,10 @@
 package com.computerdesign.whutHouseMgmt.controller.hire;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,12 @@ import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentStaffShowMode
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentTimeRange;
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVw;
 import com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVwShowModel;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectModel;
 import com.computerdesign.whutHouseMgmt.service.hire.RentGenerateService;
+import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
+import com.computerdesign.whutHouseMgmt.utils.Arith;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -32,8 +37,12 @@ public class RentGenerateController {
 	@Autowired
 	private RentGenerateService rentGenerateService;
 
+	@Autowired
+	private HouseParamService houseParamService;
+
 	/**
 	 * 根据职工号或姓名模糊查询
+	 * 
 	 * @param conditionValue
 	 * @param page
 	 * @param size
@@ -82,8 +91,8 @@ public class RentGenerateController {
 			rentStaffShowModel.setHouseTypeName(staffHouse.getHouseTypeName());
 			rentStaffShowModel.setHouseLayoutName(staffHouse.getHouseLayoutName());
 			rentStaffShowModel.setHouseStructName(staffHouse.getHouseStructName());
-			//房屋状态
-//			rentStaffShowModel.setHouseStatusName(staffHouse.getHouseStatusName());
+			// 房屋状态
+			// rentStaffShowModel.setHouseStatusName(staffHouse.getHouseStatusName());
 			rentStaffShowModel.setHouseStatusName(staffHouse.getHouseRelName());
 			rentStaffShowModel.setHouseBulidArea(staffHouse.getHouseBuildArea());
 			rentStaffShowModel.setHouseUsedArea(staffHouse.getHouseUsedArea());
@@ -97,9 +106,10 @@ public class RentGenerateController {
 		pageInfo.setList(rentStaffShowModels);
 		return Msg.success().add("data", pageInfo);
 	}
-	
+
 	/**
 	 * 租金查询
+	 * 
 	 * @param rentTimeRange
 	 * @param page
 	 * @param size
@@ -110,40 +120,59 @@ public class RentGenerateController {
 	public Msg queryRent(@RequestBody RentTimeRange rentTimeRange,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
-		if(rentTimeRange == null){
+		if (rentTimeRange == null) {
 			return Msg.error("请选择查询的时间范围");
 		}
 		PageHelper.startPage(page, size);
 		List<RentVw> rentVws = rentGenerateService.queryRent(rentTimeRange);
 		List<RentVwShowModel> rentVwShowModels = new ArrayList<RentVwShowModel>();
-		for(RentVw rentVw : rentVws){
+		for (RentVw rentVw : rentVws) {
 			RentVwShowModel rentVwShowModel = new RentVwShowModel();
-			//职工号
+			// 职工号
 			rentVwShowModel.setStaffNo(rentVw.getStaffNo());
-			//姓名
+			// 姓名
 			rentVwShowModel.setStaffName(rentVw.getStaffName());
-			//住房号
+			// 住房号
 			rentVwShowModel.setHouseNo(rentVw.getHouseNo());
-			//地址
+			// 地址
 			rentVwShowModel.setAddress(rentVw.getAddress());
-			//开始时间
+			// 开始时间
 			rentVwShowModel.setRentBeginTime(rentVw.getRentBeginTime());
-			//结束时间
+			// 结束时间
 			rentVwShowModel.setRentEndTime(rentVw.getRentEndTime());
-			//缴费方式
+			// 缴费方式
 			rentVwShowModel.setRentType(rentVw.getRentType());
-			//原始租金
+			// 原始租金
 			rentVwShowModel.setRentInitMoney(rentVw.getRentInitMoney());
-			//租金
-			rentVwShowModel.setRentMoney(rentVw.getRentMoney());
-			//优惠比例
+			// 租金
+			// rentVwShowModel.setRentMoney(rentVw.getRentMoney());
+
+			// 修改 2018.04.25，并且将显示RentMoney改为显示RentInitMoney
+			// 每平方米的价格（按月）
+			double rentPer = houseParamService.getRentalByStruce(rentVw.getHouseStructId());
+
+			// 判断查询时间一共有多少天
+			// 预定时间
+			Calendar c1 = Calendar.getInstance();
+			c1.setTime(rentVw.getBookTime());
+
+			// 当前时间
+			Calendar c2 = Calendar.getInstance();
+			c2.setTime(new Date());
+			
+			long days = (c2.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
+
+			// 每平方米的价格*面积
+			rentVwShowModel.setRentInitMoney(Double.parseDouble(new DecimalFormat("#.00")
+					.format(Arith.mulVariableParam(rentPer / 30, rentVw.getHouseBuildArea(), days))));
+			// 优惠比例
 			rentVwShowModel.setRentDiscountRate(rentVw.getRentDiscountRate());
-			//是否结算
-			//入住时间
+			// 是否结算
+			// 入住时间
 			rentVwShowModel.setBookTime(rentVw.getBookTime());
-			//到期时间
+			// 到期时间
 			rentVwShowModel.setExpireTime(rentVw.getExpireTime());
-			//工作部门
+			// 工作部门
 			rentVwShowModel.setStaffDeptName(rentVw.getStaffDeptName());
 			rentVwShowModels.add(rentVwShowModel);
 		}
@@ -159,30 +188,36 @@ public class RentGenerateController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "rentGen", method = RequestMethod.POST)
-	public Msg rentGenerate(@RequestBody int[] houseIds) {
-		//根据多条件查询获取
-//		List<StaffHouse> staffHouses = rentGenerateService.selectRentByMultiCondition(staffSelectModel);
-		//根据houseId数组获取
+	public Msg rentGenerate(@RequestBody String[] houseNos) {
+		// 根据多条件查询获取
+		// List<StaffHouse> staffHouses =
+		// rentGenerateService.selectRentByMultiCondition(staffSelectModel);
+		// 根据houseId数组获取
 		List<StaffHouse> staffHouses = new ArrayList<StaffHouse>();
-		for (int houseId : houseIds){
-			StaffHouse staffHouse = rentGenerateService.getByHouseId(houseId);
-			staffHouses.add(staffHouse);
+		for (String houseNo : houseNos) {
+			StaffHouse staffHouse = rentGenerateService.getByHouseNo(houseNo);
+			if (staffHouse != null) {
+				staffHouses.add(staffHouse);
+			}
 		}
-		
-		//获取所有租赁信息，使用contains判断是否重复插入
+
+		// 获取所有租赁信息，使用contains判断是否重复插入
 		List<Rent> rents = rentGenerateService.getAllRent();
-		
+
 		for (StaffHouse staffHouse : staffHouses) {
 			Rent rent = new Rent();
 			rent.setResidentId(staffHouse.getResidentId());
 			rent.setRentType(staffHouse.getRentType());
 			rent.setInitMoney(staffHouse.getHouseRental());
-			if(staffHouse.getStaffDiscountRate() != null){				
+			if (staffHouse.getStaffDiscountRate() != null) {
 				rent.setDiscountRate(staffHouse.getStaffDiscountRate().toString());
 				rent.setRentMoney(rent.getInitMoney() * (staffHouse.getStaffDiscountRate() / 100));
 			}
 			rent.setIsGet((byte) 0);
-			rent.setBeginTime(staffHouse.getLastRentTime());
+
+			// rent.setBeginTime(staffHouse.getLastRentTime());
+			// 修改为预定时间 2018.4.25
+			rent.setBeginTime(staffHouse.getBookTime());
 			// 计算并设置结束时间
 			if (rent.getBeginTime() != null) {
 				Calendar calendar = Calendar.getInstance();
@@ -191,7 +226,7 @@ public class RentGenerateController {
 				rent.setEndTime(calendar.getTime());
 			}
 			rent.setEmploymentDate(staffHouse.getStaffJoinTime());
-			if(!rents.contains(rent)){
+			if (!rents.contains(rent)) {
 				rentGenerateService.rentGenerate(rent);
 			}
 		}
@@ -243,8 +278,8 @@ public class RentGenerateController {
 			rentStaffShowModel.setHouseTypeName(staffHouse.getHouseTypeName());
 			rentStaffShowModel.setHouseLayoutName(staffHouse.getHouseLayoutName());
 			rentStaffShowModel.setHouseStructName(staffHouse.getHouseStructName());
-			//房屋状态
-//			rentStaffShowModel.setHouseStatusName(staffHouse.getHouseStatusName());
+			// 房屋状态
+			// rentStaffShowModel.setHouseStatusName(staffHouse.getHouseStatusName());
 			rentStaffShowModel.setHouseStatusName(staffHouse.getHouseRelName());
 			rentStaffShowModel.setHouseBulidArea(staffHouse.getHouseBuildArea());
 			rentStaffShowModel.setHouseUsedArea(staffHouse.getHouseUsedArea());

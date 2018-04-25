@@ -21,6 +21,12 @@ public class StaffForMonSub {
 
     private Double maxEnjoyArea;
 
+    private Integer houseId;
+
+    private Double houseBuildArea;
+
+    private Double houseUsedArea;
+
     public Integer getStaffId() {
         return staffId;
     }
@@ -99,5 +105,29 @@ public class StaffForMonSub {
 
     public void setMaxEnjoyArea(Double maxEnjoyArea) {
         this.maxEnjoyArea = maxEnjoyArea;
+    }
+
+    public Integer getHouseId() {
+        return houseId;
+    }
+
+    public void setHouseId(Integer houseId) {
+        this.houseId = houseId;
+    }
+
+    public Double getHouseBuildArea() {
+        return houseBuildArea;
+    }
+
+    public void setHouseBuildArea(Double houseBuildArea) {
+        this.houseBuildArea = houseBuildArea;
+    }
+
+    public Double getHouseUsedArea() {
+        return houseUsedArea;
+    }
+
+    public void setHouseUsedArea(Double houseUsedArea) {
+        this.houseUsedArea = houseUsedArea;
     }
 }

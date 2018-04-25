@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw;
+import com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSub;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.MonetarySubParam;
 import com.computerdesign.whutHouseMgmt.service.housesub.MonetarySubVwService;
+import com.computerdesign.whutHouseMgmt.service.housesub.StaffForMonSubService;
 import com.computerdesign.whutHouseMgmt.service.housesub.StaffMonetarySubService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.MonetarySubParamService;
@@ -42,6 +44,9 @@ public class StaffMonetarySubController {
 	@Autowired
 	private MonetarySubVwService monetarySubVwService;
 
+	@Autowired
+	private StaffForMonSubService staffForMonSubService;
+	
 	/**
 	 * 获取所有补贴记录
 	 * 
@@ -125,20 +130,16 @@ public class StaffMonetarySubController {
 			Calendar calendar = Calendar.getInstance();
 			calendar.set(1998, 11, 31, 0, 0, 0);
 
-			MonetarySubVw monetarySubVw = monetarySubVwService.getByStaffId(staffId);
-			double enjoyHouseArea = 0.0;
+			StaffForMonSub staffForMonSub = staffForMonSubService.getByStaffId(staffId);
+			double enjoyHouseArea = 80.0;
 			// 职务职称享受面积取最大值，获取职工住房补贴标准
-			if (monetarySubVw.getTitleHouseArea() != null && monetarySubVw.getPostHouseArea() != null) {
-				enjoyHouseArea = Math.max(monetarySubVw.getTitleHouseArea(), monetarySubVw.getPostHouseArea());
-			} else if (monetarySubVw.getTitleHouseArea() == null && monetarySubVw.getPostHouseArea() != null) {
-				enjoyHouseArea = monetarySubVw.getPostHouseArea();
-			} else {
-				enjoyHouseArea = monetarySubVw.getTitleHouseArea();
+			if(staffForMonSub.getMaxEnjoyArea() != null){
+				enjoyHouseArea = staffForMonSub.getMaxEnjoyArea();
 			}
 
 			// 获取职工家庭已购住房
-			// double buyHouseArea = monetarySubVw.getHouseBuildArea();
-			double buyHouseArea = monetarySubVw.getHouseUsedArea();
+			// double buyHouseArea = staffForMonSub.getHouseBuildArea();
+			double buyHouseArea = staffForMonSub.getHouseUsedArea();
 
 			if (staffMonetarySubService.isOwnHouse(staffId)
 					&& (staff.getJoinTime().getTime() < calendar.getTime().getTime())
@@ -154,6 +155,7 @@ public class StaffMonetarySubController {
 						* monetarySubParam.getSubParam() / 100.0;
 				staffMonetarySub.setSubsidies((long) subsidies);
 			}
+
 			staffMonetarySubService.add(staffMonetarySub);
 			return Msg.success("添加成功").add("data", staffMonetarySub);
 		} else {

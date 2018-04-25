@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,11 +39,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
+import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw;
+import com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSub;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.MonetarySubParam;
 import com.computerdesign.whutHouseMgmt.service.dataimport.DataImportService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
+import com.computerdesign.whutHouseMgmt.service.housesub.StaffForMonSubService;
 import com.computerdesign.whutHouseMgmt.service.housesub.StaffMonetarySubService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.MonetarySubParamService;
@@ -68,6 +72,9 @@ public class DataImportController {
 
 	@Autowired
 	private StaffMonetarySubService staffMonetarySubService;
+	
+	@Autowired
+	private StaffForMonSubService staffForMonSubService;
 
 	// 用于存储导入的职工数据
 	// private List<Staff> staffList;
@@ -228,10 +235,44 @@ public class DataImportController {
 
 					// 获取补贴比例
 					MonetarySubParam monetarySubParam = monetarySubParamService.getIsUsing();
+					// 根据职工编号获取职工ID
+					Integer staffId = staffService.getStaffIdByStaffNo(staffMonetarySub.getStaffNo());
+					Staff staff = staffService.get(staffId);
+					Calendar calendar = Calendar.getInstance();
+					calendar.set(1998, 11, 31, 0, 0, 0);
 
-					long subsidies = (long) ((annualSal + annualSal * 0.2806) * monetarySubParam.getSubParam() / 100.0);
-					staffMonetarySub.setSubsidies(subsidies);
+					StaffForMonSub staffForMonSub = staffForMonSubService.getByStaffId(staffId);
+					double enjoyHouseArea = 80.0;
+					// 职务职称享受面积取最大值，获取职工住房补贴标准
+					if(staffForMonSub.getMaxEnjoyArea() != null){
+						enjoyHouseArea = staffForMonSub.getMaxEnjoyArea();
+					}
 
+					System.out.println("DD");
+					
+					// 获取职工家庭已购住房
+					// double buyHouseArea = staffForMonSub.getHouseBuildArea();
+					double buyHouseArea = 0.0;
+					if(staffForMonSub.getHouseUsedArea() != null){
+						buyHouseArea = staffForMonSub.getHouseUsedArea();
+					}
+
+					if (staffMonetarySubService.isOwnHouse(staffId)
+							&& (staff.getJoinTime().getTime() < calendar.getTime().getTime())
+							&& enjoyHouseArea > buyHouseArea) {
+						// 有房且是老职工且未达标
+						double subsidies = (staffMonetarySub.getAnnualSal() + staffMonetarySub.getAnnualSal() * 0.2806)
+								* monetarySubParam.getSubParam() / 100.0 / enjoyHouseArea * (enjoyHouseArea - buyHouseArea);
+						// 没有四舍五入
+						staffMonetarySub.setSubsidies((long) subsidies);
+					} else {
+						// 无房老职工和新职工的补贴标准
+						double subsidies = (staffMonetarySub.getAnnualSal() + staffMonetarySub.getAnnualSal() * 0.2806)
+								* monetarySubParam.getSubParam() / 100.0;
+						staffMonetarySub.setSubsidies((long) subsidies);
+					}
+
+					System.out.println("EE");
 					staffMonetarySub.setRemark(year + "年货币化补贴");
 
 					if (staffMonetarySubService.getStaffMonetarySubByStaffNoAndYear(staffNo, year).size() > 0) {

@@ -8,8 +8,10 @@
     <result column="Address" jdbcType="VARCHAR" property="address" />
     <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
     <result column="HouseNo" jdbcType="VARCHAR" property="houseNo" />
-    <result column="ExpireTime" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="HouseStructId" jdbcType="INTEGER" property="houseStructId" />
+    <result column="HouseBuildArea" jdbcType="DOUBLE" property="houseBuildArea" />
     <result column="BookTime" jdbcType="TIMESTAMP" property="bookTime" />
+    <result column="ExpireTime" jdbcType="TIMESTAMP" property="expireTime" />
     <result column="RentBeginTime" jdbcType="TIMESTAMP" property="rentBeginTime" />
     <result column="RentEndTime" jdbcType="TIMESTAMP" property="rentEndTime" />
     <result column="RentDiscountRate" jdbcType="VARCHAR" property="rentDiscountRate" />
@@ -82,9 +84,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    StaffId, HouseId, StaffName, Address, StaffNo, HouseNo, ExpireTime, BookTime, RentBeginTime, 
-    RentEndTime, RentDiscountRate, RentInitMoney, RentIsGet, RentId, RentMoney, RentType, 
-    ResidentId, EmployType, StaffDeptId, StaffDeptName
+    StaffId, HouseId, StaffName, Address, StaffNo, HouseNo, HouseStructId, HouseBuildArea, 
+    BookTime, ExpireTime, RentBeginTime, RentEndTime, RentDiscountRate, RentInitMoney, 
+    RentIsGet, RentId, RentMoney, RentType, ResidentId, EmployType, StaffDeptId, StaffDeptName
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVwExample" resultMap="BaseResultMap">
     select
@@ -109,18 +111,20 @@
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVw">
     insert into view_hs_rent (StaffId, HouseId, StaffName, 
       Address, StaffNo, HouseNo, 
-      ExpireTime, BookTime, RentBeginTime, 
-      RentEndTime, RentDiscountRate, RentInitMoney, 
-      RentIsGet, RentId, RentMoney, 
-      RentType, ResidentId, EmployType, 
-      StaffDeptId, StaffDeptName)
+      HouseStructId, HouseBuildArea, BookTime, 
+      ExpireTime, RentBeginTime, RentEndTime, 
+      RentDiscountRate, RentInitMoney, RentIsGet, 
+      RentId, RentMoney, RentType, 
+      ResidentId, EmployType, StaffDeptId, 
+      StaffDeptName)
     values (#{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, #{staffName,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{houseNo,jdbcType=VARCHAR}, 
-      #{expireTime,jdbcType=TIMESTAMP}, #{bookTime,jdbcType=TIMESTAMP}, #{rentBeginTime,jdbcType=TIMESTAMP}, 
-      #{rentEndTime,jdbcType=TIMESTAMP}, #{rentDiscountRate,jdbcType=VARCHAR}, #{rentInitMoney,jdbcType=DOUBLE}, 
-      #{rentIsGet,jdbcType=TINYINT}, #{rentId,jdbcType=INTEGER}, #{rentMoney,jdbcType=DOUBLE}, 
-      #{rentType,jdbcType=VARCHAR}, #{residentId,jdbcType=INTEGER}, #{employType,jdbcType=VARCHAR}, 
-      #{staffDeptId,jdbcType=INTEGER}, #{staffDeptName,jdbcType=VARCHAR})
+      #{houseStructId,jdbcType=INTEGER}, #{houseBuildArea,jdbcType=DOUBLE}, #{bookTime,jdbcType=TIMESTAMP}, 
+      #{expireTime,jdbcType=TIMESTAMP}, #{rentBeginTime,jdbcType=TIMESTAMP}, #{rentEndTime,jdbcType=TIMESTAMP}, 
+      #{rentDiscountRate,jdbcType=VARCHAR}, #{rentInitMoney,jdbcType=DOUBLE}, #{rentIsGet,jdbcType=TINYINT}, 
+      #{rentId,jdbcType=INTEGER}, #{rentMoney,jdbcType=DOUBLE}, #{rentType,jdbcType=VARCHAR}, 
+      #{residentId,jdbcType=INTEGER}, #{employType,jdbcType=VARCHAR}, #{staffDeptId,jdbcType=INTEGER}, 
+      #{staffDeptName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate.RentVw">
     insert into view_hs_rent
@@ -143,11 +147,17 @@
       <if test="houseNo != null">
         HouseNo,
       </if>
-      <if test="expireTime != null">
-        ExpireTime,
+      <if test="houseStructId != null">
+        HouseStructId,
+      </if>
+      <if test="houseBuildArea != null">
+        HouseBuildArea,
       </if>
       <if test="bookTime != null">
         BookTime,
+      </if>
+      <if test="expireTime != null">
+        ExpireTime,
       </if>
       <if test="rentBeginTime != null">
         RentBeginTime,
@@ -205,11 +215,17 @@
       <if test="houseNo != null">
         #{houseNo,jdbcType=VARCHAR},
       </if>
-      <if test="expireTime != null">
-        #{expireTime,jdbcType=TIMESTAMP},
+      <if test="houseStructId != null">
+        #{houseStructId,jdbcType=INTEGER},
+      </if>
+      <if test="houseBuildArea != null">
+        #{houseBuildArea,jdbcType=DOUBLE},
       </if>
       <if test="bookTime != null">
         #{bookTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=TIMESTAMP},
       </if>
       <if test="rentBeginTime != null">
         #{rentBeginTime,jdbcType=TIMESTAMP},
@@ -276,11 +292,17 @@
       <if test="record.houseNo != null">
         HouseNo = #{record.houseNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.expireTime != null">
-        ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
+      <if test="record.houseStructId != null">
+        HouseStructId = #{record.houseStructId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseBuildArea != null">
+        HouseBuildArea = #{record.houseBuildArea,jdbcType=DOUBLE},
       </if>
       <if test="record.bookTime != null">
         BookTime = #{record.bookTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.expireTime != null">
+        ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.rentBeginTime != null">
         RentBeginTime = #{record.rentBeginTime,jdbcType=TIMESTAMP},
@@ -331,8 +353,10 @@
       Address = #{record.address,jdbcType=VARCHAR},
       StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       HouseNo = #{record.houseNo,jdbcType=VARCHAR},
-      ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
+      HouseStructId = #{record.houseStructId,jdbcType=INTEGER},
+      HouseBuildArea = #{record.houseBuildArea,jdbcType=DOUBLE},
       BookTime = #{record.bookTime,jdbcType=TIMESTAMP},
+      ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
       RentBeginTime = #{record.rentBeginTime,jdbcType=TIMESTAMP},
       RentEndTime = #{record.rentEndTime,jdbcType=TIMESTAMP},
       RentDiscountRate = #{record.rentDiscountRate,jdbcType=VARCHAR},
