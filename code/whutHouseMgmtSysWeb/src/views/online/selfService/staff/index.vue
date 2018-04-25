@@ -96,8 +96,8 @@ export default {
       this.ableHouseData = [];
       this.listLoading = true;
       let param = {
-        page: this.page1,
-        size: this.size1
+        page: this.page,
+        size: this.size
       };
       getSetHouse(param).then(res => {
         this.ableHouseData = res.data.data.data.list;
