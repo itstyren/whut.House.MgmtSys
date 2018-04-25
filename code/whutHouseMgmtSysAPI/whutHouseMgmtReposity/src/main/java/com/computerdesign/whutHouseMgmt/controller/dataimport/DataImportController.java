@@ -257,6 +257,8 @@ public class DataImportController {
 						buyHouseArea = staffForMonSub.getHouseUsedArea();
 					}
 
+					boolean flag = true;
+					
 					if (staffMonetarySubService.isOwnHouse(staffId)
 							&& (staff.getJoinTime().getTime() < calendar.getTime().getTime())
 							&& enjoyHouseArea > buyHouseArea) {
@@ -265,24 +267,29 @@ public class DataImportController {
 								* monetarySubParam.getSubParam() / 100.0 / enjoyHouseArea * (enjoyHouseArea - buyHouseArea);
 						// 没有四舍五入
 						staffMonetarySub.setSubsidies((long) subsidies);
-					} else {
+					}else if ((!staffMonetarySubService.isOwnHouse(staffId)
+							&& (staff.getJoinTime().getTime() < calendar.getTime().getTime()))
+							|| (staff.getJoinTime().getTime() >= calendar.getTime().getTime())){
 						// 无房老职工和新职工的补贴标准
 						double subsidies = (staffMonetarySub.getAnnualSal() + staffMonetarySub.getAnnualSal() * 0.2806)
 								* monetarySubParam.getSubParam() / 100.0;
 						staffMonetarySub.setSubsidies((long) subsidies);
-					}
-
-					System.out.println("EE");
-					staffMonetarySub.setRemark(year + "年货币化补贴");
-
-					if (staffMonetarySubService.getStaffMonetarySubByStaffNoAndYear(staffNo, year).size() > 0) {
-						staffMonetarySubService.updateStaffMonetarySubByStaffNoAndYear(staffMonetarySub, staffNo, year);
 					}else{
-						staffMonetarySubService.add(staffMonetarySub);
+						flag = false;
 					}
-					
-					staffMonetarySubs.add(staffMonetarySub);
 
+					if(flag){
+						System.out.println("EE");
+						staffMonetarySub.setRemark(year + "年货币化补贴");
+
+						if (staffMonetarySubService.getStaffMonetarySubByStaffNoAndYear(staffNo, year).size() > 0) {
+							staffMonetarySubService.updateStaffMonetarySubByStaffNoAndYear(staffMonetarySub, staffNo, year);
+						}else{
+							staffMonetarySubService.add(staffMonetarySub);
+						}
+						
+						staffMonetarySubs.add(staffMonetarySub);
+					}
 				}
 			}
 		} catch (Exception e) {
