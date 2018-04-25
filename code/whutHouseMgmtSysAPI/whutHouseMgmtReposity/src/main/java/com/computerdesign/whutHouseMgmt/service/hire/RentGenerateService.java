@@ -102,7 +102,38 @@ public class RentGenerateService {
 		StaffHouseExample example = new StaffHouseExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andHouseIdEqualTo(houseId);
-		return staffHouseMapper.selectByExample(example).get(0);
+		if(staffHouseMapper.selectByExample(example).size() > 0){
+			return staffHouseMapper.selectByExample(example).get(0);
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * 根据HouseNo查询StaffHouse视图中数据
+	 * @param houseNo
+	 * @return
+	 */
+	public StaffHouse getByHouseNo(String houseNo){
+		StaffHouseExample example = new StaffHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andHouseNoEqualTo(houseNo);
+		if(staffHouseMapper.selectByExample(example).size() > 0){
+			return staffHouseMapper.selectByExample(example).get(0);
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取所有租赁的StaffHouse
+	 * @return
+	 */
+	public List<StaffHouse> selectAllRent() {
+		StaffHouseExample example = new StaffHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andHouseRelNameEqualTo("租赁");
+		return staffHouseMapper.selectByExample(example);
 	}
 	
 	/**

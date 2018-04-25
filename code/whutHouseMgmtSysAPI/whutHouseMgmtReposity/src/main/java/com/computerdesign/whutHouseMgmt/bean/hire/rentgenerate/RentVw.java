@@ -2,10 +2,6 @@ package com.computerdesign.whutHouseMgmt.bean.hire.rentgenerate;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class RentVw {
     private Integer staffId;
 
@@ -19,20 +15,16 @@ public class RentVw {
 
     private String houseNo;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date expireTime;
+    private Integer houseStructId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Double houseBuildArea;
+
     private Date bookTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date expireTime;
+
     private Date rentBeginTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date rentEndTime;
 
     private String rentDiscountRate;
@@ -103,12 +95,20 @@ public class RentVw {
         this.houseNo = houseNo == null ? null : houseNo.trim();
     }
 
-    public Date getExpireTime() {
-        return expireTime;
+    public Integer getHouseStructId() {
+        return houseStructId;
     }
 
-    public void setExpireTime(Date expireTime) {
-        this.expireTime = expireTime;
+    public void setHouseStructId(Integer houseStructId) {
+        this.houseStructId = houseStructId;
+    }
+
+    public Double getHouseBuildArea() {
+        return houseBuildArea;
+    }
+
+    public void setHouseBuildArea(Double houseBuildArea) {
+        this.houseBuildArea = houseBuildArea;
     }
 
     public Date getBookTime() {
@@ -117,6 +117,14 @@ public class RentVw {
 
     public void setBookTime(Date bookTime) {
         this.bookTime = bookTime;
+    }
+
+    public Date getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Date expireTime) {
+        this.expireTime = expireTime;
     }
 
     public Date getRentBeginTime() {

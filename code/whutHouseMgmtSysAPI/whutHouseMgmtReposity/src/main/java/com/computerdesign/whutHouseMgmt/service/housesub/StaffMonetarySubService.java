@@ -52,6 +52,34 @@ public class StaffMonetarySubService {
 //	}
 	
 	/**
+	 * 根据职工编号和年份更新对应的补贴记录
+	 * @param staffMonetarySub
+	 * @param staffNo
+	 * @param year
+	 */
+	public void updateStaffMonetarySubByStaffNoAndYear(StaffMonetarySub staffMonetarySub, String staffNo, String year){
+		StaffMonetarySubExample example = new StaffMonetarySubExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStaffNoEqualTo(staffNo);
+		criteria.andYearEqualTo(year);
+		staffMonetarySubMapper.updateByExampleSelective(staffMonetarySub, example);
+	}
+	
+	/**
+	 * 通过职工编号和年份获取货币化补贴数据，用于导入重复验证
+	 * @param staffNo
+	 * @param year
+	 * @return
+	 */
+	public List<StaffMonetarySub> getStaffMonetarySubByStaffNoAndYear(String staffNo, String year){
+		StaffMonetarySubExample example = new StaffMonetarySubExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStaffNoEqualTo(staffNo);
+		criteria.andYearEqualTo(year);
+		return staffMonetarySubMapper.selectByExample(example);
+	}
+	
+	/**
 	 * 判断是否是无房职工
 	 * @param staffId
 	 * @return

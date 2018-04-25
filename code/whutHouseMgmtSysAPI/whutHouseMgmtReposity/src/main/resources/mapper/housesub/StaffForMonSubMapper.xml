@@ -12,6 +12,9 @@
     <result column="PostName" jdbcType="VARCHAR" property="postName" />
     <result column="PostArea" jdbcType="REAL" property="postArea" />
     <result column="MaxEnjoyArea" jdbcType="DOUBLE" property="maxEnjoyArea" />
+    <result column="HouseId" jdbcType="INTEGER" property="houseId" />
+    <result column="HouseBuildArea" jdbcType="DOUBLE" property="houseBuildArea" />
+    <result column="HouseUsedArea" jdbcType="DOUBLE" property="houseUsedArea" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List">
     StaffId, StaffNo, StaffName, TitleId, TitleName, TitleArea, PostId, PostName, PostArea, 
-    MaxEnjoyArea
+    MaxEnjoyArea, HouseId, HouseBuildArea, HouseUsedArea
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSubExample" resultMap="BaseResultMap">
     select
@@ -99,11 +102,13 @@
     insert into view_hs_staffformonsub (StaffId, StaffNo, StaffName, 
       TitleId, TitleName, TitleArea, 
       PostId, PostName, PostArea, 
-      MaxEnjoyArea)
+      MaxEnjoyArea, HouseId, HouseBuildArea, 
+      HouseUsedArea)
     values (#{staffId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, 
       #{titleId,jdbcType=INTEGER}, #{titleName,jdbcType=VARCHAR}, #{titleArea,jdbcType=REAL}, 
       #{postId,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR}, #{postArea,jdbcType=REAL}, 
-      #{maxEnjoyArea,jdbcType=DOUBLE})
+      #{maxEnjoyArea,jdbcType=DOUBLE}, #{houseId,jdbcType=INTEGER}, #{houseBuildArea,jdbcType=DOUBLE}, 
+      #{houseUsedArea,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSub">
     insert into view_hs_staffformonsub
@@ -138,6 +143,15 @@
       <if test="maxEnjoyArea != null">
         MaxEnjoyArea,
       </if>
+      <if test="houseId != null">
+        HouseId,
+      </if>
+      <if test="houseBuildArea != null">
+        HouseBuildArea,
+      </if>
+      <if test="houseUsedArea != null">
+        HouseUsedArea,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="staffId != null">
@@ -169,6 +183,15 @@
       </if>
       <if test="maxEnjoyArea != null">
         #{maxEnjoyArea,jdbcType=DOUBLE},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=INTEGER},
+      </if>
+      <if test="houseBuildArea != null">
+        #{houseBuildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="houseUsedArea != null">
+        #{houseUsedArea,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -211,6 +234,15 @@
       <if test="record.maxEnjoyArea != null">
         MaxEnjoyArea = #{record.maxEnjoyArea,jdbcType=DOUBLE},
       </if>
+      <if test="record.houseId != null">
+        HouseId = #{record.houseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseBuildArea != null">
+        HouseBuildArea = #{record.houseBuildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.houseUsedArea != null">
+        HouseUsedArea = #{record.houseUsedArea,jdbcType=DOUBLE},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -227,7 +259,10 @@
       PostId = #{record.postId,jdbcType=INTEGER},
       PostName = #{record.postName,jdbcType=VARCHAR},
       PostArea = #{record.postArea,jdbcType=REAL},
-      MaxEnjoyArea = #{record.maxEnjoyArea,jdbcType=DOUBLE}
+      MaxEnjoyArea = #{record.maxEnjoyArea,jdbcType=DOUBLE},
+      HouseId = #{record.houseId,jdbcType=INTEGER},
+      HouseBuildArea = #{record.houseBuildArea,jdbcType=DOUBLE},
+      HouseUsedArea = #{record.houseUsedArea,jdbcType=DOUBLE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
