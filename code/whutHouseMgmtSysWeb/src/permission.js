@@ -28,7 +28,6 @@ router.beforeEach((to, from, next) => {
     //如果不是指向login
     else {
       if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
-      
         store.dispatch('GetUserInfo').then(res => { // 拉取user_info
           const roles = store.getters.roles // note: roles must be a array! such as: ['editor','develop'] 
           if (store.getters.roles[0] == 0)
@@ -43,7 +42,8 @@ router.beforeEach((to, from, next) => {
             replace: true
           }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
             })
-        }).catch(() => {
+        }).catch((e) => {
+          console.log(e)
           store.dispatch('FedLogOut').then(() => {
             Message.error('身份验证失败，请重新登录')
             next({

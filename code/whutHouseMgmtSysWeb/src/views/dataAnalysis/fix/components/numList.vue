@@ -9,7 +9,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span>总维修申请</span>
+          <span>总维修申请<br></span>
           <span>
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalFixApply" :duration="3200"></count-to>
           </span>
@@ -19,7 +19,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="10">
-          <span>已处理申请</span>
+          <span>已处理申请<br></span>
           <span>
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalFixHandle" :duration="3200"></count-to>
           </span>
@@ -31,7 +31,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span>已拒绝申请</span>
+          <span>已拒绝申请<br></span>
           <span>
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalFixRefuse" :duration="3200"></count-to>
           </span>
@@ -41,7 +41,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span>维修受理率</span>
+          <span>维修受理率<br></span>
           <span style="color:red;">
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.handleRate" :duration="3200"></count-to>
             %
@@ -54,7 +54,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span>资金花费</span>
+          <span>资金花费<br></span>
           <span>
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalFixMoney" :duration="3200"></count-to>
           </span>
@@ -64,7 +64,7 @@
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="8">
-          <span>平均住户反馈</span>
+          <span>平均住户反馈<br></span>
           <span>
             <count-to class="card-panel-num" :startVal="0" :endVal="numList.aveFixRatings" :duration="3200"></count-to>
           </span>
