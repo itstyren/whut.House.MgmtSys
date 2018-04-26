@@ -315,6 +315,13 @@ public class SelfHelpSelectHouseController {
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
 		PageHelper.startPage(page, size);
 		List<SelfHelpSelectHouse> selfHelpSelectHouses = selfHelpSelectHouseService.getAllCanselectHouse();
+		//获取正在进行的选房规则
+		RentEvent rentEvent = rentEventService.getNowRule();
+		//若选房活动结束或被删除，则查询不到可选房人信息
+		if(rentEvent == null){
+			//使用new PageInfo(null)是为了前端绑定翻页数据
+			return Msg.success("选房活动结束或被删除").add("data",new PageInfo(null));
+		}
 		List<SelfHelpStaffCanselectShowModel> selfHelpStaffCanselectShowModels = new ArrayList<SelfHelpStaffCanselectShowModel>();
 		for (SelfHelpSelectHouse selfHelpSelectHouse : selfHelpSelectHouses) {
 			SelfHelpStaffCanselectShowModel selfHelpStaffCanselectShowModel = new SelfHelpStaffCanselectShowModel();
