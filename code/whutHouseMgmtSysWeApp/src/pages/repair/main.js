@@ -6,6 +6,6 @@ app.$mount()
 
 export default {
     config: {
-        navigationBarTitleText: '申请'
+        navigationBarTitleText: '维修申请'
     }
 }

@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    access_token: '',
     count: 0
   },
   mutations: {
@@ -17,6 +18,10 @@ const store = new Vuex.Store({
     decrement: (state) => {
       const obj = state
       obj.count -= 1
+    },
+    login: (state, data) => {
+      const obj = state
+      obj.access_token = data
     }
   }
 })
