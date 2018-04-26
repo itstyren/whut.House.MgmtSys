@@ -26,7 +26,7 @@ public class RentEventService implements BaseService<RentEvent>{
 		Criteria criteria = example.createCriteria();
 		criteria.andRentIsOpenSelEqualTo(true);
 		criteria.andIsDeleteEqualTo(false);
-		if(rentEventMapper.selectByExample(example) != null){
+		if(rentEventMapper.selectByExample(example).size() > 0){
 			return rentEventMapper.selectByExample(example).get(0);
 		}else{
 			return null;

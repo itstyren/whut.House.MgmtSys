@@ -336,6 +336,21 @@ public class SelfHelpSelectHouseController {
 			selfHelpStaffCanselectShowModel.setHouseSelectEnd(selfHelpSelectHouse.getHouseSelectEnd());
 			selfHelpStaffCanselectShowModels.add(selfHelpStaffCanselectShowModel);
 		}
+		
+		Collections.sort(selfHelpStaffCanselectShowModels, new Comparator<SelfHelpStaffCanselectShowModel>() {
+
+			@Override
+			public int compare(SelfHelpStaffCanselectShowModel o1, SelfHelpStaffCanselectShowModel o2) {
+				if(o1.getStaffTotalVal() > o2.getStaffTotalVal()){
+					return -1;
+				}else if(o1.getStaffTotalVal() == o2.getStaffTotalVal()){
+					return 0;
+				}else{
+					return 1;
+				}
+			}
+		});
+		
 		PageInfo pageInfo = new PageInfo(selfHelpSelectHouses);
 		pageInfo.setList(selfHelpStaffCanselectShowModels);
 		return Msg.success("获取成功").add("data", pageInfo);
