@@ -11,14 +11,14 @@
         </div>
     </div>
     <div class="zan-panel" :hidden="stepOne">
-      <zan-field v-bind="Object.assign({}, handleFunctions, base.accountID)" :disabled="true" :value="value"/>
-      <zan-field v-bind="Object.assign({}, handleFunctions, base.name)" :disabled="true"/>
-      <zan-field v-bind="Object.assign({}, handleFunctions, base.zheng)" :disabled="true"/>
-      <zan-field v-bind="Object.assign({}, handleFunctions, base.sex)" :disabled="true" :value="value"/>
-      <zan-field v-bind="Object.assign({}, handleFunctions, base.zhiwu)" :disabled="true"/>
-      <zan-field v-bind="Object.assign({}, handleFunctions, base.danwei)" :disabled="true"/>
-      <zan-field v-bind="Object.assign({}, handleFunctions, base.tel)" :disabled="true" :value="value"/>
-      <zan-field v-bind="Object.assign({}, handleFunctions, base.email)" :disabled="true"/>
+      <zan-field v-bind="Object.assign({}, handleFunctions, base.accountID)" :disabled="true" :value="baseUserInfo.id"/>
+      <zan-field v-bind="Object.assign({}, handleFunctions, base.name)" :disabled="true" :value="baseUserInfo.name"/>
+      <zan-field v-bind="Object.assign({}, handleFunctions, base.zheng)" :disabled="true" :value="baseUserInfo.code"/>
+      <zan-field v-bind="Object.assign({}, handleFunctions, base.sex)" :disabled="true"  :value="baseUserInfo.sex"/>
+      <zan-field v-bind="Object.assign({}, handleFunctions, base.zhiwu)" :disabled="true" :value="baseUserInfo.titleName"/>
+      <zan-field v-bind="Object.assign({}, handleFunctions, base.danwei)" :disabled="true" :value="baseUserInfo.deptName"/>
+      <zan-field v-bind="Object.assign({}, handleFunctions, base.tel)" :value="baseUserInfo.tel"/>
+      <zan-field v-bind="Object.assign({}, handleFunctions, base.email)" :value="baseUserInfo.email"/>
       <div class="zan-row">
         <div class="zan-col zan-col-16 zan-col-offset-4">
           <button class="zan-btn zan-btn--primary" @click="btnStepNextClick">下一步</button>
@@ -101,6 +101,7 @@ export default {
     return {
       data: "你好",
       value: "123",
+      baseUserInfo:[],
       step: 1,
       stepOne: false,
       stepTwo: true,
@@ -126,7 +127,7 @@ export default {
       base: {
         accountID: {
           title: "职工号",
-          componentId: "accountID"
+          componentId: "accountID",
         },
         name: {
           title: "姓名",
@@ -158,6 +159,7 @@ export default {
         },
         email: {
           title: "邮箱",
+          placeholder: "请输入邮箱",
           componentId: "email"
         }
       },
@@ -265,7 +267,13 @@ export default {
     }
   },
   created() {
-    console.log("created");
+    console.log("created repair/main");
+    console.log(store.state.userinfo);
+  },
+  mounted() {
+    console.log("mounted repair/main");
+    console.log(store.state.userinfo);
+    this.baseUserInfo = store.state.userinfo;
   }
 };
 </script>

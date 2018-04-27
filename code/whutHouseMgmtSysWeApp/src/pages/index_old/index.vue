@@ -1,91 +1,103 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
-    <zan-select v-bind="{ items, checkedValue: checked.base, componentId: 'base'}" @handleZanSelectChange="handleZanSelectChange"></zan-select>
+  <div class="container">
     <div class="userinfo" @click="bindViewTap">
       <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
       <div class="userinfo-nickname">
         <card :text="userInfo.nickName"></card>
       </div>
     </div>
-
-    <div class="usermotto">>
-      <div class="user-motto">
-        <card :text="motto"></card>
-      </div>
-    </div>
-
-    <form class="form-container">
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
   </div>
 </template>
 
 <script>
-import card from '@/components/card'
-import ZanSelect from '../../components/zan/select'
-export default {
-  data () {
-    return {
-      motto: 'Hello World',
-      userInfo: {},
-       items: [
-          {
-            padding: 0,
-            value: '1',
-            name: '选项一'
-          },
-          {
-            padding: 0,
-            value: '2',
-            name: '选项二'
-          }
-        ],
+import card from "@/components/card";
+import ZanSelect from "../../components/zan/select";
+import store from '../../store/store'
 
-        checked: {
-          base: '-1',
-          color: '-1',
-          form: '-1'
-        },
-        activeColor: '#4b0'
-    }
+export default {
+  data() {
+    return {
+      userInfo: {}
+    };
   },
 
   components: {
-    card,ZanSelect
+    card
   },
 
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      wx.navigateTo({ url })
-    },
-    getUserInfo () {
+    getUserInfo() {
       // 调用登录接口
       wx.login({
         success: () => {
           wx.getUserInfo({
-            success: (res) => {
-              this.userInfo = res.userInfo
+            success: res => {
+              this.userInfo = res.userInfo;
             }
-          })
+          });
         }
-      })
+      });
     },
-    clickHandle (msg, ev) {
-      console.log('clickHandle:', msg, ev)
-    },
-          handleZanSelectChange ({ componentId, value }) {
-        this.checked[componentId] = value
-      },
+    login() {
+      // 调用微信登录接口
+      wx.login({
+        success: () => {
+          wx.getUserInfo({
+            success: res => {
+              this.userInfo = res.userInfo;
+            }
+          });
+        }
+      });
+
+      //使用获取的UNIONID 登录系统
+      //发起 网络请求
+      wx.request({
+        url: store.state.API_URL + "/userLogin/loginByUnionId", //仅为示例，并非真实的接口地址
+        data: {
+          unionId: '123456789'//使用获取的用户UnionID
+        },
+        method: "POST",
+        header: {
+          "content-type": "application/json" // 默认值
+        },
+        success: function(res) {
+          console.log(res);
+          if (res.data.status === "success") {
+            const url = "../index/main";
+            wx.switchTab({ url });
+            // store.commit("login", res.data.data.token);
+            // wx.request({
+            //   url:
+            //     "http://118.126.117.96:8080/whutHouseMgmtReposity/userLogin/tokenLogin",
+            //   method: "GET",
+            //   data: {
+            //     token: res.data.data.token
+            //   },
+            //   header: {
+            //     "content-type": "application/json", // 默认值
+            //     "X-token": res.data.data.token
+            //   },
+            //   success: function(_res) {
+            //     console.log(res.data);
+            //     const url = "../index/main";
+            //     wx.switchTab({ url });
+            //   }
+            // });
+          } else {
+            //TODO 登录失败 处理
+            console.log("跳转到登录界面");
+          }
+        }
+      });
+    }
   },
 
-  created () {
+  created() {
     // 调用应用实例的方法获取全局数据
-    this.getUserInfo()
+    this.login();
   }
-}
+};
 </script>
 
 <style scoped>

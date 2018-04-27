@@ -7,8 +7,11 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    API_URL: 'http://118.126.117.96:8080/whutHouseMgmtReposity',
     access_token: '',
-    count: 0
+    unionID:'',
+    count: 0,
+    userinfo:[]
   },
   mutations: {
     increment: (state) => {

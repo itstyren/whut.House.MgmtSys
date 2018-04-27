@@ -1,6 +1,6 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
-    <div class="userinfo" @click="bindViewTap">
+  <div class="container" >
+    <div class="userinfo" >
       <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
       <div class="userinfo-nickname">
         <card :text="userInfo.nickName"></card>
@@ -77,13 +77,14 @@ export default {
           componentId: "password"
         }
       },
-      area: ["角色1", "角色2", "角色3"],
+      area: ["角色1", "角色2", "角色3","职工"],
       areaIndex: 0,
       handleFunctions: {
         handleZanFieldChange: this.handleZanFieldChange,
         handleZanFieldFocus: this.handleZanFieldFocus,
         handleZanFieldBlur: this.handleZanFieldBlur
-      }
+      },
+      test_UNIONID: '111222'
     };
   },
 
@@ -118,37 +119,70 @@ export default {
         success: () => {
           wx.getUserInfo({
             success: res => {
-              console.log(res);
+              //console.log(res);
               this.userInfo = res.userInfo;
+              store.state.unionId = this.test_UNIONID;
+              let param = store.state.unionId;
+              //使用获取的UNIONID 登录系统
+              //发起 网络请求
+              wx.request({
+                url: store.state.API_URL + "/userLogin/loginByUnionId", //仅为示例，并非真实的接口地址
+                data: param,
+                method: "POST",
+                header: {
+                  "content-type": "application/json" // 默认值
+                },
+                success: function(res) {
+                  //console.log(res);
+                  if (res.data.status === "success") {
+                    store.state.access_token = res.data.data.token;
+                    wx.request({
+                      url: store.state.API_URL + "/userLogin/tokenLogin",
+                      method: "GET",
+                      data: {
+                        token: store.state.access_token
+                      },
+                      header: {
+                        "content-type": "application/json", // 默认值
+                        "X-token": res.data.data.token
+                      },
+                      success: function(_res) {
+                        console.log(_res.data.data.data[0]);
+                        store.state.userinfo = _res.data.data.data[0];
+                        const url = "../index/main";
+                        wx.switchTab({ url });
+                      }
+                    });
+                  } else {
+                    //TODO 登录失败 处理
+                    console.log("跳转到登录界面");
+                    this.IsLogin = false;
+                    console.log(this.IsLogin);
+                  }
+                }
+              });
             }
           });
         }
       });
     },
-    clickHandle(msg, ev) {
-    },
-    handleZanSelectChange({ componentId, value }) {
-    },
+    clickHandle(msg, ev) {},
+    handleZanSelectChange({ componentId, value }) {},
     onAreaChange(e) {
       this.areaIndex = e.target.value;
     },
     formSubmit(event) {
       console.log("发起请求");
-
       let param = {
         no: event.target.value.ID,
         password: event.target.value.password,
-        roleId: this.areaIndex
+        roleId: 3,
+        unionId: "111222"
       };
-
-      //不能发出请求
-      // loginByUsername(param).then(res => {
-      //   console.log(res);
-      // });
 
       //发起 网络请求
       wx.request({
-        url: "http://118.126.117.96:8080/whutHouseMgmtReposity/userLogin/login", //仅为示例，并非真实的接口地址
+        url: store.state.API_URL + "/userLogin/loginWX", //仅为示例，并非真实的接口地址
         data: param,
         method: "POST",
         header: {
@@ -159,11 +193,10 @@ export default {
           if (res.data.status === "success") {
             store.commit("login", res.data.data.token);
             wx.request({
-              url:
-                "http://118.126.117.96:8080/whutHouseMgmtReposity/userLogin/tokenLogin",
+              url: store.state.API_URL + "/userLogin/tokenLogin",
               method: "GET",
               data: {
-                token: res.data.data.token
+                token: store.state.access_token
               },
               header: {
                 "content-type": "application/json", // 默认值
@@ -171,12 +204,16 @@ export default {
               },
               success: function(_res) {
                 console.log(res.data);
+                store.state.userinfo = res.data.data[0];
                 const url = "../index/main";
                 wx.switchTab({ url });
               }
             });
           } else {
-            //TODO 登录失败 处理 
+            //TODO 登录失败 处理
+            console.log("跳转登录");
+            const url = "../index_old/main";
+            wx.navigateTo({ url });
           }
         }
       });
@@ -190,7 +227,6 @@ export default {
   created() {
     // 调用应用实例的方法获取全局数据
     this.getUserInfo();
-    //postRequest(123);
   }
 };
 </script>
