@@ -21,6 +21,24 @@ public class StaffSelectHouseService {
 	}
 	
 	/**
+	 * 根据staffId和RecordStatus获取一个StaffSelectHouse对象
+	 * @param staffId
+	 * @param RecordStatus
+	 * @return
+	 */
+	public StaffSelectHouse getByStaffIdAndRecordStatus(Integer staffId, String recordStatus){
+		StaffSelectHouseExample example = new StaffSelectHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		criteria.andRecordStatusEqualTo(recordStatus);
+		if(staffSelectHouseMapper.selectByExample(example).size() > 0){
+			return staffSelectHouseMapper.selectByExample(example).get(0);
+		}else{
+			return null;
+		}
+	}
+	
+	/**
 	 * 根据staffId获取一个StaffSelectHouse对象
 	 * @param staffId
 	 * @return

@@ -120,6 +120,7 @@ public class RentGenerateController {
 	public Msg queryRent(@RequestBody RentTimeRange rentTimeRange,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		PageHelper.startPage(page, size);
 		List<StaffHouse> staffHouses = rentGenerateService.selectAllRent();
 		List<RentVwShowModel> rentVwShowModels = new ArrayList<RentVwShowModel>();
 		for (StaffHouse staffHouse : staffHouses) {
@@ -139,39 +140,65 @@ public class RentGenerateController {
 			// 工作部门
 			rentVwShowModel.setStaffDeptName(staffHouse.getStaffDeptName());
 
-			// 租金
-			// 先以预定时间计算，实际应该是签订合同时间
-			Calendar c1 = Calendar.getInstance();
-			c1.setTime(staffHouse.getBookTime());
+			if(rentTimeRange != null){
 
-			// 开始时间
-			Calendar c2 = Calendar.getInstance();
-			c2.setTime(rentTimeRange.getStartTime());
+				// 租金
+				// 先以预定时间计算，实际应该是签订合同时间
+				Calendar c1 = Calendar.getInstance();
+				c1.setTime(staffHouse.getBookTime());
 
-			// 结束时间
-			Calendar c3 = Calendar.getInstance();
-			c3.setTime(rentTimeRange.getEndTime());
+				// 开始时间
+				Calendar c2 = Calendar.getInstance();
+				c2.setTime(rentTimeRange.getStartTime());
 
-			// 没平方米的租金
-			double rentPer = houseParamService.getRentalByStruce(staffHouse.getHouseStruct());
+				// 结束时间
+				Calendar c3 = Calendar.getInstance();
+				c3.setTime(rentTimeRange.getEndTime());
 
-			long days = 0;
+				// 每平方米的租金
+				double rentPer = houseParamService.getRentalByStruce(staffHouse.getHouseStruct());
 
-			if (c1.getTimeInMillis() <= c2.getTimeInMillis()) {
-				// 预定入住时间在查询范围之前，则以查询范围为准
-				days = (c2.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
-			} else if (c1.getTimeInMillis() < c3.getTimeInMillis()) {
-				// 预定入住时间在查询范围之间，则以入住时间到结束时间为准
-				days = (c3.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
-			} else {
-				// 预定入住时间在查询结束时间之后，则该职工无租金
+				long days = 0;
 
+				if (c1.getTimeInMillis() <= c2.getTimeInMillis()) {
+					// 预定入住时间在查询范围之前，则以查询范围为准
+					days = (c2.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
+				} else if (c1.getTimeInMillis() < c3.getTimeInMillis()) {
+					// 预定入住时间在查询范围之间，则以入住时间到结束时间为准
+					days = (c3.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
+				} else {
+					// 预定入住时间在查询结束时间之后，则该职工无租金
+
+				}
+				// 每平方米的价格*面积*天数
+				rentVwShowModel.setRentInitMoney(Double.parseDouble(new DecimalFormat("#.00")
+						.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), days))));
+
+				rentVwShowModels.add(rentVwShowModel);
+			}else{
+				 // 若不传查询时间区间，则显示从入住到当前时间的租金
+				 // 预定时间（入住时间先以预定时间为主）
+				 Calendar c1 = Calendar.getInstance();
+				 c1.setTime(staffHouse.getBookTime());
+				
+				 // 当前时间
+				 Calendar c2 = Calendar.getInstance();
+				 c2.setTime(new Date());
+				 
+				// 每平方米的租金
+				double rentPer = houseParamService.getRentalByStruce(staffHouse.getHouseStruct());
+				 
+				 long days = (c2.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 *
+				 60 * 24);
+				
+				 // 每平方米的价格*面积
+				 rentVwShowModel.setRentMoney(Double.parseDouble(new
+				 DecimalFormat("#.00")
+				 .format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(),
+				 days))));
+				 rentVwShowModels.add(rentVwShowModel);
 			}
-			// 每平方米的价格*面积*天数
-			rentVwShowModel.setRentInitMoney(Double.parseDouble(new DecimalFormat("#.00")
-					.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), days))));
-
-			rentVwShowModels.add(rentVwShowModel);
+			
 
 		}
 		PageInfo pageInfo = new PageInfo(staffHouses);
