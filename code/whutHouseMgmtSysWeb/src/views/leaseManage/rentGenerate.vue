@@ -135,6 +135,9 @@
                       <el-table-column prop="address" label="住房地址" align="center"></el-table-column>
                       <el-table-column prop="rentInitMoney" label="租金" width="100" align="center"></el-table-column>
                     </el-table>
+                                        <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent1" @current-change="currentChangeEvent1"
+                      :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum1">
+                    </el-pagination>
                   </div>
                 </keep-alive>
               </el-tab-pane>
@@ -542,9 +545,7 @@ export default {
           startTime: this.timeRange[0],
           endTime: this.timeRange[1]
         };
-      } else {
-        return true;
-      }
+      } 
       this.listLoading1 = true;
       let params = {
         size: this.size1,
@@ -567,6 +568,18 @@ export default {
     currentChangeEvent(val) {
       this.listLoading = true;
       this.page = val;
+      this.multiplyQuery();
+    },
+        //更换每页数量
+    sizeChangeEvent1(val) {
+      this.listLoading1 = true;
+      this.size1 = val;
+      this.multiplyQuery();
+    },
+    //页码切换时
+    currentChangeEvent1(val) {
+      this.listLoading1 = true;
+      this.page1 = val;
       this.multiplyQuery();
     }
   }
