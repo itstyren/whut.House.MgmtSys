@@ -46,7 +46,7 @@ public class StaffMonetarySubController {
 
 	@Autowired
 	private StaffForMonSubService staffForMonSubService;
-	
+
 	/**
 	 * 获取所有补贴记录
 	 * 
@@ -133,7 +133,7 @@ public class StaffMonetarySubController {
 			StaffForMonSub staffForMonSub = staffForMonSubService.getByStaffId(staffId);
 			double enjoyHouseArea = 80.0;
 			// 职务职称享受面积取最大值，获取职工住房补贴标准
-			if(staffForMonSub.getMaxEnjoyArea() != null){
+			if (staffForMonSub.getMaxEnjoyArea() != null) {
 				enjoyHouseArea = staffForMonSub.getMaxEnjoyArea();
 			}
 
@@ -149,11 +149,15 @@ public class StaffMonetarySubController {
 						* monetarySubParam.getSubParam() / 100.0 / enjoyHouseArea * (enjoyHouseArea - buyHouseArea);
 				// 没有四舍五入
 				staffMonetarySub.setSubsidies((long) subsidies);
-			} else {
+			} else if ((!staffMonetarySubService.isOwnHouse(staffId)
+					&& (staff.getJoinTime().getTime() < calendar.getTime().getTime()))
+					|| (staff.getJoinTime().getTime() >= calendar.getTime().getTime())) {
 				// 无房老职工和新职工的补贴标准
 				double subsidies = (staffMonetarySub.getAnnualSal() + staffMonetarySub.getAnnualSal() * 0.2806)
 						* monetarySubParam.getSubParam() / 100.0;
 				staffMonetarySub.setSubsidies((long) subsidies);
+			} else {
+				return Msg.error("该职工有房且达标");
 			}
 
 			staffMonetarySubService.add(staffMonetarySub);

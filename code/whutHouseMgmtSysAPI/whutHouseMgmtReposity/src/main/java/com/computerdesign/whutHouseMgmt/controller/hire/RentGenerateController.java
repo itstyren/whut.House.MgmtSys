@@ -108,7 +108,7 @@ public class RentGenerateController {
 	}
 
 	/**
-	 * 租金查询
+	 * 租金查询 2018.04.25 修改
 	 * 
 	 * @param rentTimeRange
 	 * @param page
@@ -120,66 +120,170 @@ public class RentGenerateController {
 	public Msg queryRent(@RequestBody RentTimeRange rentTimeRange,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
-		if (rentTimeRange == null) {
-			return Msg.error("请选择查询的时间范围");
-		}
 		PageHelper.startPage(page, size);
-		List<RentVw> rentVws = rentGenerateService.queryRent(rentTimeRange);
+		List<StaffHouse> staffHouses = rentGenerateService.selectAllRent();
 		List<RentVwShowModel> rentVwShowModels = new ArrayList<RentVwShowModel>();
-		for (RentVw rentVw : rentVws) {
+		for (StaffHouse staffHouse : staffHouses) {
 			RentVwShowModel rentVwShowModel = new RentVwShowModel();
 			// 职工号
-			rentVwShowModel.setStaffNo(rentVw.getStaffNo());
-			// 姓名
-			rentVwShowModel.setStaffName(rentVw.getStaffName());
-			// 住房号
-			rentVwShowModel.setHouseNo(rentVw.getHouseNo());
-			// 地址
-			rentVwShowModel.setAddress(rentVw.getAddress());
-			// 开始时间
-			rentVwShowModel.setRentBeginTime(rentVw.getRentBeginTime());
-			// 结束时间
-			rentVwShowModel.setRentEndTime(rentVw.getRentEndTime());
+			rentVwShowModel.setStaffNo(staffHouse.getStaffNo());
+			// // 姓名
+			rentVwShowModel.setStaffName(staffHouse.getStaffName());
+			// // 住房号
+			rentVwShowModel.setHouseNo(staffHouse.getHouseNo());
+			// // 地址
+			rentVwShowModel.setAddress(staffHouse.getHouseAddress());
 			// 缴费方式
-			rentVwShowModel.setRentType(rentVw.getRentType());
-			// 原始租金
-			rentVwShowModel.setRentInitMoney(rentVw.getRentInitMoney());
-			// 租金
-			// rentVwShowModel.setRentMoney(rentVw.getRentMoney());
-
-			// 修改 2018.04.25，并且将显示RentMoney改为显示RentInitMoney
-			// 每平方米的价格（按月）
-			double rentPer = houseParamService.getRentalByStruce(rentVw.getHouseStructId());
-
-			// 判断查询时间一共有多少天
-			// 预定时间
-			Calendar c1 = Calendar.getInstance();
-			c1.setTime(rentVw.getBookTime());
-
-			// 当前时间
-			Calendar c2 = Calendar.getInstance();
-			c2.setTime(new Date());
-			
-			long days = (c2.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
-
-			// 每平方米的价格*面积
-			rentVwShowModel.setRentInitMoney(Double.parseDouble(new DecimalFormat("#.00")
-					.format(Arith.mulVariableParam(rentPer / 30, rentVw.getHouseBuildArea(), days))));
-			// 优惠比例
-			rentVwShowModel.setRentDiscountRate(rentVw.getRentDiscountRate());
-			// 是否结算
+			rentVwShowModel.setRentType(staffHouse.getRentType());
 			// 入住时间
-			rentVwShowModel.setBookTime(rentVw.getBookTime());
-			// 到期时间
-			rentVwShowModel.setExpireTime(rentVw.getExpireTime());
+			rentVwShowModel.setBookTime(staffHouse.getBookTime());
 			// 工作部门
-			rentVwShowModel.setStaffDeptName(rentVw.getStaffDeptName());
-			rentVwShowModels.add(rentVwShowModel);
+			rentVwShowModel.setStaffDeptName(staffHouse.getStaffDeptName());
+
+			if(rentTimeRange != null){
+
+				// 租金
+				// 先以预定时间计算，实际应该是签订合同时间
+				Calendar c1 = Calendar.getInstance();
+				c1.setTime(staffHouse.getBookTime());
+
+				// 开始时间
+				Calendar c2 = Calendar.getInstance();
+				c2.setTime(rentTimeRange.getStartTime());
+
+				// 结束时间
+				Calendar c3 = Calendar.getInstance();
+				c3.setTime(rentTimeRange.getEndTime());
+
+				// 每平方米的租金
+				double rentPer = houseParamService.getRentalByStruce(staffHouse.getHouseStruct());
+
+				long days = 0;
+
+				if (c1.getTimeInMillis() <= c2.getTimeInMillis()) {
+					// 预定入住时间在查询范围之前，则以查询范围为准
+					days = (c2.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
+				} else if (c1.getTimeInMillis() < c3.getTimeInMillis()) {
+					// 预定入住时间在查询范围之间，则以入住时间到结束时间为准
+					days = (c3.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
+				} else {
+					// 预定入住时间在查询结束时间之后，则该职工无租金
+
+				}
+				// 每平方米的价格*面积*天数
+				rentVwShowModel.setRentInitMoney(Double.parseDouble(new DecimalFormat("#.00")
+						.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), days))));
+
+				rentVwShowModels.add(rentVwShowModel);
+			}else{
+				 // 若不传查询时间区间，则显示从入住到当前时间的租金
+				 // 预定时间（入住时间先以预定时间为主）
+				 Calendar c1 = Calendar.getInstance();
+				 c1.setTime(staffHouse.getBookTime());
+				
+				 // 当前时间
+				 Calendar c2 = Calendar.getInstance();
+				 c2.setTime(new Date());
+				 
+				// 每平方米的租金
+				double rentPer = houseParamService.getRentalByStruce(staffHouse.getHouseStruct());
+				 
+				 long days = (c2.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 *
+				 60 * 24);
+				
+				 // 每平方米的价格*面积
+				 rentVwShowModel.setRentMoney(Double.parseDouble(new
+				 DecimalFormat("#.00")
+				 .format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(),
+				 days))));
+				 rentVwShowModels.add(rentVwShowModel);
+			}
+			
+
 		}
-		PageInfo pageInfo = new PageInfo(rentVws);
+		PageInfo pageInfo = new PageInfo(staffHouses);
 		pageInfo.setList(rentVwShowModels);
 		return Msg.success().add("data", pageInfo);
 	}
+
+	/**
+	 * 租金查询
+	 * 
+	 * @param rentTimeRange
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	// @ResponseBody
+	// @RequestMapping(value = "queryRent", method = RequestMethod.POST)
+	// public Msg queryRent(@RequestBody RentTimeRange rentTimeRange,
+	// @RequestParam(value = "page", defaultValue = "1") Integer page,
+	// @RequestParam(value = "size", defaultValue = "10") Integer size) {
+	// if (rentTimeRange == null) {
+	// return Msg.error("请选择查询的时间范围");
+	// }
+	// PageHelper.startPage(page, size);
+	// List<RentVw> rentVws = rentGenerateService.queryRent(rentTimeRange);
+	// List<RentVwShowModel> rentVwShowModels = new
+	// ArrayList<RentVwShowModel>();
+	// for (RentVw rentVw : rentVws) {
+	// RentVwShowModel rentVwShowModel = new RentVwShowModel();
+	// // 职工号
+	// rentVwShowModel.setStaffNo(rentVw.getStaffNo());
+	// // 姓名
+	// rentVwShowModel.setStaffName(rentVw.getStaffName());
+	// // 住房号
+	// rentVwShowModel.setHouseNo(rentVw.getHouseNo());
+	// // 地址
+	// rentVwShowModel.setAddress(rentVw.getAddress());
+	// // 开始时间
+	// rentVwShowModel.setRentBeginTime(rentVw.getRentBeginTime());
+	// // 结束时间
+	// rentVwShowModel.setRentEndTime(rentVw.getRentEndTime());
+	// // 缴费方式
+	// rentVwShowModel.setRentType(rentVw.getRentType());
+	// // 原始租金
+	// rentVwShowModel.setRentInitMoney(rentVw.getRentInitMoney());
+	// // 租金
+	// // rentVwShowModel.setRentMoney(rentVw.getRentMoney());
+	//
+	// // 修改 2018.04.25，并且将显示RentMoney改为显示RentInitMoney
+	// // 每平方米的价格（按月）
+	// double rentPer =
+	// houseParamService.getRentalByStruce(rentVw.getHouseStructId());
+	//
+	// // 判断查询时间一共有多少天
+	// // 预定时间
+	// Calendar c1 = Calendar.getInstance();
+	// c1.setTime(rentVw.getBookTime());
+	//
+	// // 当前时间
+	// Calendar c2 = Calendar.getInstance();
+	// c2.setTime(new Date());
+	//
+	// long days = (c2.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 *
+	// 60 * 24);
+	//
+	// // 每平方米的价格*面积
+	// rentVwShowModel.setRentInitMoney(Double.parseDouble(new
+	// DecimalFormat("#.00")
+	// .format(Arith.mulVariableParam(rentPer / 30, rentVw.getHouseBuildArea(),
+	// days))));
+	// // 优惠比例
+	// rentVwShowModel.setRentDiscountRate(rentVw.getRentDiscountRate());
+	// // 是否结算
+	// // 入住时间
+	// rentVwShowModel.setBookTime(rentVw.getBookTime());
+	// // 到期时间
+	// rentVwShowModel.setExpireTime(rentVw.getExpireTime());
+	// // 工作部门
+	// rentVwShowModel.setStaffDeptName(rentVw.getStaffDeptName());
+	// rentVwShowModels.add(rentVwShowModel);
+	// }
+	// PageInfo pageInfo = new PageInfo(rentVws);
+	// pageInfo.setList(rentVwShowModels);
+	// return Msg.success().add("data", pageInfo);
+	// }
 
 	/**
 	 * 租金生成

@@ -28,7 +28,7 @@
       </div>
     </el-form>
     </div>
-    <footer>© 2017 Terry. All rights reserved.</footer>
+    <!-- <footer>© 2017 Terry. All rights reserved.</footer> -->
   </div>
 </template>
 

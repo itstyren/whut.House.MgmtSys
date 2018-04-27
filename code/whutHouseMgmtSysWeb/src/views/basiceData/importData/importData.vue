@@ -121,6 +121,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  @import "../../../styles/variables.scss";
+
+  .second-container {
+    // background-color: $background-grey;
 .import-data {
   margin-top: 20px;
   height: 60vh;
@@ -136,5 +140,6 @@ export default {
   position: absolute;
   top: 150px;
   right: 30px;
+}
 }
 </style>

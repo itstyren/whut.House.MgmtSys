@@ -60,69 +60,87 @@ export default {
         // console.log(fixData);
         this.chart.setOption({
           xAxis: { data: fixData[3].data },
-           series: [
-        {
-            name:'审核量',
-            type:'bar',
-            data:fixData[1].data
-        },
-        {
-            name:'拒绝量',
-            type:'bar',
-            data:fixData[0].data
-        },
-        {
-            name:'申请量',
-            type:'line',
-            yAxisIndex: 1,
-            data:fixData[2].data
-        }
-    ],
+          series: [
+            {
+              name: "审核量",
+              type: "bar",
+              data: fixData[1].data
+            },
+            {
+              name: "拒绝量",
+              type: "bar",
+              data: fixData[0].data
+            },
+            {
+              name: "申请量",
+              type: "line",
+              yAxisIndex: 1,
+              data: fixData[2].data
+            }
+          ]
         });
         this.chart.hideLoading();
       });
     },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
-       tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'cross',
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "cross",
             crossStyle: {
-                color: '#999'
+              color: "#999"
             }
-        }
-    },
-    toolbox: {
-        feature: {
-            dataView: {show: true, readOnly: false},
-            magicType: {show: true, type: ['line', 'bar']},
-            restore: {show: true},
-            saveAsImage: {show: true}
-        }
-    },
-    legend: {
-        data:['审核量','拒绝量','申请量']
-    },
-    xAxis: [
-        {
-            type: 'category',
-            axisPointer: {
-                type: 'shadow'
-            }
-        }
-    ],
-    yAxis: [
-        {
-            type: 'value',
-            name: '处理量',
-
+          }
         },
-        {
-            type: 'value',
-            name: '申请量',
-        }
-    ],
+        toolbox: {
+          feature: {
+            dataView: { show: true, readOnly: false },
+            magicType: { show: true, type: ["line", "bar"] },
+            restore: { show: true },
+            saveAsImage: { show: true }
+          }
+        },
+        legend: {
+          data: ["审核量", "拒绝量", "申请量"]
+        },
+        xAxis: [
+          {
+            type: "category",
+            axisPointer: {
+              type: "shadow"
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: "value",
+            name: "处理量",
+            max:5,
+            position: "left"
+          },
+          {
+            type: "value",
+            name: "申请量",
+            max:10,
+            position: "right"
+          }
+        ],
+        series: [
+            {
+              name: "审核量",
+              type: "bar",
+            },
+            {
+              name: "拒绝量",
+              type: "bar",
+            },
+            {
+              name: "申请量",
+              type: "line",
+              yAxisIndex: 1,
+            }
+          ],
         animationDuration: 2800,
         animationEasing: "cubicInOut"
       });

@@ -104,9 +104,12 @@ public class SelHouseQuaAuthController {
 			Staff staff = staffService.getByStaffNo(staffNo).get(0);
 			staff.setRelation("active");
 			staffService.update(staff);
+			
+			System.out.println(staff.getId());
 
 			// 设置StaffSelectHouse数据库中RecordStatus字段
-			StaffSelectHouse staffSelectHouse = staffSelectHouseService.getByStaffId(staff.getId());
+			StaffSelectHouse staffSelectHouse = staffSelectHouseService.getByStaffIdAndRecordStatus(staff.getId(), "canselect");
+			System.out.println(staffSelectHouse.getSelectId());
 			staffSelectHouse.setRecordStatus("inactive");
 			staffSelectHouseService.update(staffSelectHouse);
 		}
@@ -122,23 +125,50 @@ public class SelHouseQuaAuthController {
 	@ResponseBody
 	@RequestMapping(value = "setCanselect", method = RequestMethod.POST)
 	public Msg setCanselect(@RequestBody String[] staffNos) {
-		String message = "";
+//		String message = "";
+		String info = "";
+		int count = 0;
+		for (String staffNo : staffNos){
+			Staff staff = staffService.getByStaffNo(staffNo).get(0);
+			RentEvent rentEvent = rentEventService.getNowRule();
+			if(rentEvent == null){
+				return Msg.error("选房规则未定，无法设置选房职工");
+			}
+			if(rentEvent.getRentTimeBegin().getTime() < new Date().getTime()){
+				return Msg.error("选房活动已开始，无法设置选房职工");
+			}
+			if(staff.getTotalVal() < Integer.parseInt(rentEvent.getRentSelValReq())){
+				count ++;
+			}
+		}
+		
+		if(count == staffNos.length){
+			return Msg.error("设置失败，您设置的全部员工均不满足要求");
+		}
+		
 		for (String staffNo : staffNos) {
 			Staff staff = staffService.getByStaffNo(staffNo).get(0);
 			StaffSelectHouse staffSelectHouseModel = staffSelectHouseService.getByStaffId(staff.getId());
 			//判断是否已是可点房职工，测试用，防止重复插入点房职工
-			if(staffSelectHouseModel != null && staffSelectHouseModel.getRecordStatus().equals("canselect")){
-				message = message + staff.getName() + " ";
+//			if(staffSelectHouseModel != null && staffSelectHouseModel.getRecordStatus().equals("canselect")){
+//				message = message + staff.getName() + " ";
+//				continue;
+//			}
+			RentEvent rentEvent = rentEventService.getNowRule();
+			
+			if(staff.getTotalVal() > Integer.parseInt(rentEvent.getRentSelValReq())){
+				staff.setRelation("canselect");
+				staffService.update(staff);
+			}else{
+				info += staff.getName() + " ";
 				continue;
 			}
-			staff.setRelation("canselect");
-			staffService.update(staff);
 
 			// StaffSelectHouse staffSelectHouse = new StaffSelectHouse();
 			// staffSelectHouse.setStaffId(staff.getId());
 
 			// 获取设置的选房开始时间以及选房时间
-			RentEvent rentEvent = rentEventService.get(1);
+//			RentEvent rentEvent = rentEventService.get(1);
 			Date rentTimeBegin = rentEvent.getRentTimeBegin();
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(rentTimeBegin);
@@ -176,7 +206,7 @@ public class SelHouseQuaAuthController {
 			for (Map.Entry<Integer, Double> mapping : list) {
 				// System.out.println(mapping.getKey() + ":" +
 				// mapping.getValue());
-				StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffId(mapping.getKey());
+				StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffIdAndRecordStatus(mapping.getKey(),"canselect");
 				// 设置选房开始时间
 				staffSelectHouse3.setSelectStart(calendar.getTime());
 				// 设置选房结束时间
@@ -186,12 +216,17 @@ public class SelHouseQuaAuthController {
 			}
 
 		}
-		if(message.equals("")){
+		if(info.equals("")){
 			return Msg.success("设置点房职工成功");
-		}else{			
-			//测试用，防止重复插入点房职工
-			return Msg.success("设置点房职工成功").add("已点房职工姓名", message);
+		}else{
+			return Msg.success("设置点房职工成功,其中" + info + "职工总分不符合要求，没有添加至可选房职工");
 		}
+//		if(message.equals("")){
+//			return Msg.success("设置点房职工成功");
+//		}else{			
+//			//测试用，防止重复插入点房职工
+//			return Msg.success("设置点房职工成功").add("已点房职工姓名", message);
+//		}
 	}
 
 	/**

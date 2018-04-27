@@ -119,7 +119,15 @@ public class RentEventController {
 			//遍历排序后的数据，并根据其key值获取StaffSelectHouse对象，同时设置其selectStart及selectEnd值
 			for (Map.Entry<Integer, Double> mapping : list) {  
 //	            System.out.println(mapping.getKey() + ":" + mapping.getValue()); 
-	            StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffId(mapping.getKey());
+	            StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffIdAndRecordStatus(mapping.getKey(),"canselect");
+	            Staff staff = staffService.get(staffSelectHouse3.getStaffId());
+	            if(staff.getTotalVal() < Integer.parseInt(rentEvent.getRentSelValReq())){
+	            	staff.setRelation("active");
+	            	staffSelectHouse3.setRecordStatus("inactive");
+	            	staffService.update(staff);
+	            	staffSelectHouseService.update(staffSelectHouse3);
+	            	continue;
+	            }
 	            //设置选房开始时间
 	            staffSelectHouse3.setSelectStart(calendar.getTime());
 //	            System.out.println(calendar.get(Calendar.YEAR));
@@ -249,7 +257,15 @@ public class RentEventController {
 				//遍历排序后的数据，并根据其key值获取StaffSelectHouse对象，同时设置其selectStart及selectEnd值
 				for (Map.Entry<Integer, Double> mapping : list) {  
 //		            System.out.println(mapping.getKey() + ":" + mapping.getValue()); 
-		            StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffId(mapping.getKey());
+					StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffIdAndRecordStatus(mapping.getKey(),"canselect");
+					Staff staff = staffService.get(staffSelectHouse3.getStaffId());
+		            if(staff.getTotalVal() < Integer.parseInt(rentEvent.getRentSelValReq())){
+		            	staff.setRelation("active");
+		            	staffSelectHouse3.setRecordStatus("inactive");
+		            	staffService.update(staff);
+		            	staffSelectHouseService.update(staffSelectHouse3);
+		            	continue;
+		            }
 		            //设置选房开始时间
 		            staffSelectHouse3.setSelectStart(calendar.getTime());
 		            //设置选房结束时间

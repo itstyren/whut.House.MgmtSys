@@ -126,6 +126,17 @@ public class RentGenerateService {
 	}
 	
 	/**
+	 * 获取所有租赁的StaffHouse
+	 * @return
+	 */
+	public List<StaffHouse> selectAllRent() {
+		StaffHouseExample example = new StaffHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andHouseRelNameEqualTo("租赁");
+		return staffHouseMapper.selectByExample(example);
+	}
+	
+	/**
 	 * 多条件查询
 	 * 
 	 * @return
