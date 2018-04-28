@@ -100,6 +100,18 @@ public class SelHouseQuaAuthController {
 	@RequestMapping(value = "cancelCanselect", method = RequestMethod.POST)
 	public Msg cancelCanselect(@RequestBody String[] staffNos) {
 		
+		//若选房活动已开始则无法撤销可选员工
+		for (String staffNo : staffNos){
+			Staff staff = staffService.getByStaffNo(staffNo).get(0);
+			RentEvent rentEvent = rentEventService.getNowRule();
+//			if(rentEvent == null){
+//				return Msg.error("选房规则未定，无法撤销选房职工");
+//			}
+			if(rentEvent.getRentTimeBegin().getTime() < new Date().getTime()){
+				return Msg.error("选房活动已开始，无法撤销选房职工");
+			}
+		}
+		
 		for (String staffNo : staffNos) {
 			Staff staff = staffService.getByStaffNo(staffNo).get(0);
 			staff.setRelation("active");
@@ -200,19 +212,101 @@ public class SelHouseQuaAuthController {
 				}
 			});
 
-			// System.out.println(staffScore);
-			// System.out.println(list);
-			// 遍历排序后的数据，并根据其key值获取StaffSelectHouse对象，同时设置其selectStart及selectEnd值
-			for (Map.Entry<Integer, Double> mapping : list) {
-				// System.out.println(mapping.getKey() + ":" +
-				// mapping.getValue());
-				StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffIdAndRecordStatus(mapping.getKey(),"canselect");
-				// 设置选房开始时间
-				staffSelectHouse3.setSelectStart(calendar.getTime());
-				// 设置选房结束时间
-				calendar.add(Calendar.MINUTE, rentEvent.getRentTimeRanges());
-				staffSelectHouse3.setSelectEnd(calendar.getTime());
-				staffSelectHouseService.update(staffSelectHouse3);
+//			// System.out.println(staffScore);
+//			// System.out.println(list);
+//			// 遍历排序后的数据，并根据其key值获取StaffSelectHouse对象，同时设置其selectStart及selectEnd值
+//			for (Map.Entry<Integer, Double> mapping : list) {
+//				// System.out.println(mapping.getKey() + ":" +
+//				// mapping.getValue());
+//				StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffIdAndRecordStatus(mapping.getKey(),"canselect");
+//				// 设置选房开始时间
+//				staffSelectHouse3.setSelectStart(calendar.getTime());
+//				// 设置选房结束时间
+//				calendar.add(Calendar.MINUTE, rentEvent.getRentTimeRanges());
+//				staffSelectHouse3.setSelectEnd(calendar.getTime());
+//				staffSelectHouseService.update(staffSelectHouse3);
+//			}
+			
+			//获取每日选房开始时间
+			String dayRentTimeBegin = rentEvent.getDaySelectTimeRange().split("~")[0];
+			Integer dayRentTimeBeginHour = Integer.parseInt(dayRentTimeBegin.split(":")[0]);
+			Integer dayRentTimeBeginMin = Integer.parseInt(dayRentTimeBegin.split(":")[1]);
+			
+			//获取每日选房结束时间
+			String dayRentTimeEnd = rentEvent.getDaySelectTimeRange().split("~")[1];
+			Integer dayRentTimeEndHour = Integer.parseInt(dayRentTimeEnd.split(":")[0]);
+			Integer dayRentTimeEndMin = Integer.parseInt(dayRentTimeEnd.split(":")[1]);
+			
+			//标记第一个职工，第一个职工设置完成后设置其为false
+			boolean isNumOne = true;
+//			System.out.println(staffScore);
+//			System.out.println(list);
+			//遍历排序后的数据，并根据其key值获取StaffSelectHouse对象，同时设置其selectStart及selectEnd值
+			for (Map.Entry<Integer, Double> mapping : list) {  
+//	            System.out.println(mapping.getKey() + ":" + mapping.getValue()); 
+	            StaffSelectHouse staffSelectHouse3 = staffSelectHouseService.getByStaffIdAndRecordStatus(mapping.getKey(),"canselect");
+	            Staff staff3 = staffService.get(staffSelectHouse3.getStaffId());
+	            if(staff3.getTotalVal() < Integer.parseInt(rentEvent.getRentSelValReq())){
+	            	staff3.setRelation("active");
+	            	staffSelectHouse3.setRecordStatus("inactive");
+	            	staffService.update(staff3);
+	            	staffSelectHouseService.update(staffSelectHouse3);
+	            	continue;
+	            }
+	            //设置选房开始时间
+	            staffSelectHouse3.setSelectStart(calendar.getTime());
+//	            System.out.println(calendar.get(Calendar.YEAR));
+//	            System.out.println(calendar.get(Calendar.MONTH));
+//	            System.out.println(calendar.get(Calendar.DATE));
+	            //设置选房结束时间
+	            calendar.add(Calendar.MINUTE, rentEvent.getRentTimeRanges());
+//	            System.out.println(calendar.get(Calendar.HOUR));
+//	            System.out.println(calendar.get(Calendar.HOUR_OF_DAY));
+//	            System.out.println(calendar.get(Calendar.MINUTE));
+	            
+	            //当前职工选房结束时间的小时
+	            Integer calendarHour = calendar.get(Calendar.HOUR_OF_DAY);
+	            //当前职工选房结束时间的分钟
+	            Integer calendarMin = calendar.get(Calendar.MINUTE);
+//	            System.out.println(calendar.get(Calendar.MINUTE));
+	            
+	            //若第一个选房职工的时间初始设置不在每日选房时间范围内，则进行调整
+	            Calendar calendar2 = Calendar.getInstance();
+	            calendar2.setTime(staffSelectHouse3.getSelectStart());
+	            Integer calendar2Hour = calendar2.get(Calendar.HOUR_OF_DAY);
+	            Integer calendar2Min = calendar2.get(Calendar.MINUTE);
+	            if(isNumOne && (calendar2Hour < dayRentTimeBeginHour || calendar2Hour == dayRentTimeBeginHour && calendar2Min <= dayRentTimeBeginMin)){
+	            	//若第一个选房职工的时间初始设置不在每日选房时间范围内，则进行调整
+	            	int year = calendar.get(Calendar.YEAR);
+	            	int month = calendar.get(Calendar.MONTH);
+	            	int date = calendar.get(Calendar.DATE);
+	            	int hour = dayRentTimeBeginHour;
+	            	int min = dayRentTimeBeginMin;
+	            	calendar.set(year, month, date,hour,min);
+	            	staffSelectHouse3.setSelectStart(calendar.getTime());
+	            	calendar.add(Calendar.MINUTE, rentEvent.getRentTimeRanges());
+	            	staffSelectHouse3.setSelectEnd(calendar.getTime());
+	            	isNumOne = false;
+	            }else{
+	            	 //判断是否推迟到下一天
+		            if(((calendarHour == dayRentTimeBeginHour && calendarMin >= dayRentTimeBeginMin) || calendarHour > dayRentTimeBeginHour)
+		            		&& (calendarHour == dayRentTimeEndHour && calendarMin <= dayRentTimeEndMin || calendarHour < dayRentTimeEndHour)){
+		            	staffSelectHouse3.setSelectEnd(calendar.getTime());
+		            }else{
+		            	int year = calendar.get(Calendar.YEAR);
+		            	//选房推迟到第二天早上
+		            	calendar.add(Calendar.DATE, 1);
+		            	int month = calendar.get(Calendar.MONTH);
+		            	int date = calendar.get(Calendar.DATE);
+		            	int hour = dayRentTimeBeginHour;
+		            	int min = dayRentTimeBeginMin;
+		            	calendar.set(year, month, date,hour,min);
+		            	staffSelectHouse3.setSelectStart(calendar.getTime());
+		            	calendar.add(Calendar.MINUTE, rentEvent.getRentTimeRanges());
+		            	staffSelectHouse3.setSelectEnd(calendar.getTime());
+		            }
+	            }
+	            staffSelectHouseService.update(staffSelectHouse3);
 			}
 
 		}
