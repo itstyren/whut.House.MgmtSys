@@ -101,7 +101,9 @@ export default {
     return {
       data: "你好",
       value: "123",
-      baseUserInfo:[],
+      baseUserInfo: [],
+      userRoomCount: 0,
+      userRoomInfo: [],
       step: 1,
       stepOne: false,
       stepTwo: true,
@@ -127,7 +129,7 @@ export default {
       base: {
         accountID: {
           title: "职工号",
-          componentId: "accountID",
+          componentId: "accountID"
         },
         name: {
           title: "姓名",
@@ -165,8 +167,9 @@ export default {
       },
 
       roomInfo: {
-        area: ["住房1", "住房2", "住房3"],
+        area: [],
         areaIndex: 0,
+        IsHaveRoom: false,
 
         roomID: {
           title: "住房号",
@@ -226,6 +229,37 @@ export default {
         this.steps[1].done = true;
         this.steps[1].current = true;
         (this.stepOne = true), (this.stepTwo = false), (this.stepThree = true);
+
+        let getApply_param = store.state.userinfo.id;
+        wx.request({
+          url: store.state.API_URL + "/fix/getApply/" + getApply_param,
+          method: "GET",
+          data: getApply_param,
+          header: {
+            "content-type": "application/json", // 默认值
+            "X-token": store.state.access_token
+          },
+          success: function(_res) {
+            console.log(_res);
+            if (_res.data.data.data.listHouseGetApply.length === 0) {
+              this.roomInfo.area.push("暂无住房");
+            } else {
+              this.IsHaveRoom = true;
+              this.userRoomInfo = _res.data.data.data.listHouseGetApply;
+              this.userRoomCount = this.userRoomInfo.length;
+              console.log("遍历数组");
+              var data = _res.data.data.data.listHouseGetApply;
+              var _data = [];
+              data.forEach(element => {
+                console.log(element);
+                _data.push(element.address);
+                console.log("+");
+              });
+              console.log(_data);
+              this.roomInfo.area = _data;
+            }
+          }
+        });
       } else if (this.step == 2) {
         this.step++;
         this.steps[2].done = true;
@@ -264,6 +298,33 @@ export default {
     },
     onAreaChange(e) {
       this.roomInfo.areaIndex = e.target.value;
+      if (e.target.value == "0") {
+        this.roomInfo.areaIndex = 0;
+      }
+      if (e.target.value == "1") {
+        this.roomInfo.areaIndex = 1;
+      }
+      if (e.target.value == "2") {
+        this.roomInfo.areaIndex = 2;
+      }
+      if (e.target.value == "3") {
+        this.roomInfo.areaIndex = 3;
+      }
+    },
+    getApply() {
+      let getApply_param = store.state.userinfo.id;
+      wx.request({
+        url: store.state.API_URL + "/fix/getApply",
+        method: "GET",
+        data: getApply_param,
+        header: {
+          "content-type": "application/json", // 默认值
+          "X-token": store.state.access_token
+        },
+        success: function(_res) {
+          console.log(_res);
+        }
+      });
     }
   },
   created() {

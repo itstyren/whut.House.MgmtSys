@@ -122,12 +122,12 @@ export default {
               //console.log(res);
               this.userInfo = res.userInfo;
               store.state.unionId = this.test_UNIONID;
-              let param = store.state.unionId;
+              let loginByUnionID_param = store.state.unionId;
               //使用获取的UNIONID 登录系统
               //发起 网络请求
               wx.request({
                 url: store.state.API_URL + "/userLogin/loginByUnionId", //仅为示例，并非真实的接口地址
-                data: param,
+                data: loginByUnionID_param,
                 method: "POST",
                 header: {
                   "content-type": "application/json" // 默认值
