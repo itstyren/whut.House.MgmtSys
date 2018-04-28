@@ -402,7 +402,7 @@
             <el-form-item label="评价">
               <el-row>
                 <el-col :span="24">
-                  <el-input v-model="fixCommentForm.description" placeholder="请输入...." type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+                  <el-input  placeholder="请输入...." type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
                 </el-col>
               </el-row>
               <el-row style="margin-top:20px;">
@@ -570,6 +570,7 @@
         this.listLoading = true;
         getUserHouse(this.staffID).then(res => {
           this.houseList = res.data.data.data;
+          this.houseList[0].houseRelName='购买'
           this.listLoading = false;
         });
       },

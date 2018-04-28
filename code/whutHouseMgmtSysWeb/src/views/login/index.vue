@@ -57,10 +57,10 @@ export default {
           value: "1",
           label: "单位管理员"
         },
-        {
-          value: "2",
-          label: "学院管理员"
-        },
+        // {
+        //   value: "2",
+        //   label: "学院管理员"
+        // },
         {
           value: "3",
           label: "职工"
