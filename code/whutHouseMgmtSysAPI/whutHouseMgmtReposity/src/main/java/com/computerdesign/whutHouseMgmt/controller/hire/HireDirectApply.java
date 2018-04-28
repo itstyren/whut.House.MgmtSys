@@ -113,7 +113,7 @@ public class HireDirectApply {
 	public Msg HireAddDirectApply(@RequestBody HireAddDirectApply hireAddDirectApply) {
 		Hire hire = new Hire();
 
-		hire.setStaffId(hireAddDirectApply.getId());
+		hire.setStaffId(hireAddDirectApply.getStaffId());
 		hire.setHouseId(hireAddDirectApply.getHouseId());
 
 		// 通过reason来判断是否为直批

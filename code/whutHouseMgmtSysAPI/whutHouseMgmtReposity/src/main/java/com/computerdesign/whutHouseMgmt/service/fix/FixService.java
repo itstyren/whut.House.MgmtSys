@@ -194,7 +194,7 @@ public class FixService {
 	public Long getCountToHandle() {
 		FixExample example = new FixExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andAgreeNoteIsNull();
+//		criteria.andAgreeStateIsNull();
 		criteria.andIsOverEqualTo(false);
 		return fixMapper.countByExample(example);
 	}

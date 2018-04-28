@@ -269,6 +269,7 @@ export default {
       this.acceptForm = object.content;
       this.acceptForm.otherVal = 0;
       this.acceptStatus = object.status;
+      this.acceptForm.jobLevelVal=0
     },
     // 受理信息提交
     acceptSubmit() {

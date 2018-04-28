@@ -1,7 +1,6 @@
 <template>
-  <div class="second-container">
     <aside>
-<scroll-bar>
+        <scroll-bar>
       <!-- 展开关闭按钮 -->
       <div class="filter-button">
         <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
@@ -9,26 +8,13 @@
       <!-- 主菜单 -->
       <el-tree v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode"
         @node-click="nodeClick"></el-tree>
-</scroll-bar>
+        </scroll-bar>
     </aside>
-    <section class="special-container">
-      <!-- 需要长时间存活的 -->
-      <transition>
-        <keep-alive>
-          <router-view v-if="$route.meta.keepAlive" :dep-data="depData"></router-view>
-        </keep-alive>
-      </transition>
-      <!-- 不需要长时间保存的 -->
-      <transition mode="out-in">
-        <router-view v-if="!$route.meta.keepAlive" :dep-data="depData"></router-view>
-      </transition>
-    </section>
-  </div>
 </template>
 
 <script type="text/ecmascript-6">
 import { getDept } from "@/api/basiceData";
-import * as types from "../../../store/mutation-types";
+import * as types from "../../../../store/mutation-types";
 import ScrollBar from "@/components/ScrollBar";
 export default {
   data() {
@@ -124,15 +110,10 @@ export default {
     nodeClick(object, node, component) {
       //console.log(node);
       if (node.level == 1) {
-        // this.$router.push({
-        //   path: "/basic/staff/byDept/" + object.id
-        // });
         return;
       } else if (node.level == 2) {
         this.$store.commit(types.RESIDENT_STAFF, object);
-        this.$router.push({
-          path: "/basic/houseResident/" + object.id
-        });
+        this.$emit('select-staff',object)
       }
     }
   }
@@ -140,9 +121,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../../styles/variables.scss";
 
-.second-container {
-  background-color: $background-grey;
-}
 </style>
