@@ -1,4 +1,7 @@
 <template>
+  <div class="second-container">
+    <inde-nav @select-staff="selectStaff"></inde-nav>
+    <section class="special-container">
   <div class="third-container">
     <!-- 面包屑导航 -->
     <div class="warp-breadcrum">
@@ -20,16 +23,16 @@
         <!-- 个人信息区 -->
         <el-row style="margin:0 10px 0 -10px;" :gutter="20">
           <el-col :span="10">
-            <personal-info-table  :height="'30vh'"></personal-info-table>
+            <personal-info-table :staff-id="staffId" :height="'30vh'"></personal-info-table>
           </el-col>
           <el-col :span="14">
-            <staff-house-rel :height="'30vh'"></staff-house-rel>
+            <staff-house-rel :staff-id="staffId" :height="'30vh'"></staff-house-rel>
           </el-col>
         </el-row>
         <!-- 住房登记区 -->
         <el-row style="margin:0 10px 0 -10px;" :gutter="20">
           <el-col :span="24">
-            <house-resident :height="'120px'" :select-house="selectHouseName" :select-house-id="selectHouseId"></house-resident>
+            <house-resident :height="'120px'" :staff-id="staffId" :select-house="selectHouseName" :select-house-id="selectHouseId"></house-resident>
           </el-col>
         </el-row>
         <!-- 房屋查询区 -->
@@ -90,9 +93,12 @@
     <!-- 详细查找表单 -->
     <seach-house @select-house="selectHouse"></seach-house>
   </div>
+    </section>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
+import indeNav from './components/indexNav'
   import personalInfoTable from "./components/personalInfoTable";
   import staffHouseRel from "./components/staffHouseRel";
   import houseResident from "./components/houseResident";
@@ -120,6 +126,7 @@
         statusData: [],
         houseStruct: [],
         listLoading: false,
+        staffId:-1,
         //表格相应区域
         houseData: [],
         selectHouseName: "",
@@ -132,7 +139,8 @@
       personalInfoTable,
       staffHouseRel,
       houseResident,
-      seachHouse
+      seachHouse,
+      indeNav
     },
     // 计算属性
     computed: {
@@ -155,6 +163,9 @@
     },
     // 方法集合
     methods: {
+      selectStaff(object){
+        this.staffId=object.id
+      },
       // 获取查询时候的房屋参数
       getHouseParam() {
         this.listLoading = true;
@@ -235,6 +246,10 @@
 </script>
 
 <style scoped lang="scss">
+@import "../../../styles/variables.scss";
+
+.second-container {
+  background-color: $background-grey;
   .main-data {
     .conditionalQuery {
       position: relative;
@@ -252,5 +267,6 @@
       }
     }
   }
+}  
 
 </style>

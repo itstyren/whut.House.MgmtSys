@@ -102,7 +102,8 @@ export const asyncRouterMap = [
             path: 'staff',
             component: _import('basiceData/staffData/indexNav'),
             name: 'indexStaff',
-            meta: { title: 'staff' },                      
+            meta: { title: 'staff' },  
+            redirect: '/basic/staff/byDept/48',
             children: [
                 { path: 'byDept/:id', component: _import('basiceData/staffData/staffData'), name: 'staffData', meta: { title: 'staffData' } },
                 { path: 'byId/:id', component: _import('basiceData/staffData/singleStaffData'), name: 'singleStaffData', meta: { title: 'singleStaffData' } },
@@ -112,12 +113,9 @@ export const asyncRouterMap = [
         // 住房登记
         {
             path: 'houseResident',
-            component: _import('basiceData/houseResident/indexNav'),
+            component: _import('basiceData/houseResident/resident'),
             name: 'indexResident',
             meta: { title: 'resident' },
-            children: [
-                { path: ':id', component: _import('basiceData/houseResident/resident'), name: 'houseResident', meta: { title: 'houseResident' } },
-            ]
         },
         // 数据导入
         {
