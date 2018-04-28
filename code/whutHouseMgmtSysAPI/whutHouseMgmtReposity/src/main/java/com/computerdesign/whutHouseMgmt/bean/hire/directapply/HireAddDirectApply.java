@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class HireAddDirectApply {
 
 	@ApiModelProperty(example ="1",value="员工id")
-    private Integer id;
+    private Integer staffId;
 
 	@ApiModelProperty(example="1")
     private Integer houseId;
@@ -16,12 +16,14 @@ public class HireAddDirectApply {
 	@ApiModelProperty(example="乔布斯")
     private String directApplyMan;
 
-	public Integer getId() {
-		return id;
+	
+
+	public Integer getStaffId() {
+		return staffId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setStaffId(Integer staffId) {
+		this.staffId = staffId;
 	}
 
 	public Integer getHouseId() {

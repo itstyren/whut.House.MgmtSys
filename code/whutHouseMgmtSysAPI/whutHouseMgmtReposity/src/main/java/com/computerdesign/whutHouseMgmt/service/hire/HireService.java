@@ -131,6 +131,7 @@ public class HireService {
 		HireExample example = new HireExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andApproveStateIsNull();
+		criteria.andIsOverEqualTo(false);
 		return hireMapper.countByExample(example);
 	}
 

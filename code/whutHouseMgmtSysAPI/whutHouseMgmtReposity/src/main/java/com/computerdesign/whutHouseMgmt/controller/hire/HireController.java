@@ -2,6 +2,7 @@ package com.computerdesign.whutHouseMgmt.controller.hire;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -223,9 +224,11 @@ public class HireController {
 	 * @return
 	 */
 	@Transactional
-	@PostMapping(value = "addSignContract/{id}")
+	@PostMapping(value = "addSignContract")
 	@ApiOperation(value = "签订合同",notes="签订合同",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
-	public Msg hireAddSignContract(@PathVariable("id")Integer id) {
+	public Msg hireAddSignContract(@RequestBody HashMap<String, Object> hashMap) {
+
+		Integer id = (Integer)hashMap.get("id");
 
 		// 获取该房屋申请信息
 		Hire hire = hireService.getHireById(id);

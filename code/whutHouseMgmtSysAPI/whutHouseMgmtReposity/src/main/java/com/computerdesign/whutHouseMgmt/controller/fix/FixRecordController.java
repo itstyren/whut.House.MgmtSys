@@ -291,17 +291,18 @@ public class FixRecordController {
 			}
 		}
 		int max =0;
-		int maxCount =1;
+		int maxCount =0;
 		int sum =0;
-		for (int i = 1; i < listInt.length; i++) {
-			if (listInt[i]>listInt[i-1]) {
-				maxCount = i+1;
+		for (int i = 0; i < listInt.length; i++) {
+			if (listInt[i]>maxCount) {
+				maxCount = listInt[i];
 			}
 		}
+
 		for (int i = 0; i < listInt.length; i++) {
 			sum+=listInt[i];
 		}
-		max = listInt[maxCount-1]+sum/5;
+		max = maxCount+sum/5;
 		return Msg.success().add("data", listInt).add("max", max);
 	}
 }
