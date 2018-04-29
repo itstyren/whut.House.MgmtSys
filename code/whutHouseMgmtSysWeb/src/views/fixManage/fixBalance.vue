@@ -207,7 +207,7 @@ import * as staticData from "@/utils/static";
         };
         let data = Object.assign({}, this.queryForm);
         postFixmulticondition(param, data).then(res => {
-          utils.statusinfo(this, res.data);
+          //utils.statusinfo(this, res.data);
           const data = res.data.data.data.list;
           this.totalNum = res.data.data.data.total;
           this.fixFormData = data.map(v => {

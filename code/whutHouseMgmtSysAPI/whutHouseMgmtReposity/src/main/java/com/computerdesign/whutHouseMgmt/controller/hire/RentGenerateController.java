@@ -140,7 +140,10 @@ public class RentGenerateController {
 			// 工作部门
 			rentVwShowModel.setStaffDeptName(staffHouse.getStaffDeptName());
 
-			if(rentTimeRange != null){
+//			System.out.println(rentTimeRange);
+//			System.out.println(rentTimeRange.getStartTime());
+//			System.out.println(rentTimeRange.getEndTime());
+			if(rentTimeRange.getStartTime() != null && rentTimeRange.getEndTime() != null){
 
 				// 租金
 				// 先以预定时间计算，实际应该是签订合同时间
