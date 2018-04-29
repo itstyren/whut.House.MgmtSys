@@ -140,7 +140,7 @@ public class RentGenerateController {
 			// 工作部门
 			rentVwShowModel.setStaffDeptName(staffHouse.getStaffDeptName());
 
-			if(rentTimeRange != null){
+			if(rentTimeRange.getStartTime() != null && rentTimeRange.getEndTime() != null){
 
 				// 租金
 				// 先以预定时间计算，实际应该是签订合同时间
@@ -176,6 +176,7 @@ public class RentGenerateController {
 
 				rentVwShowModels.add(rentVwShowModel);
 			}else{
+				System.out.println("测试");
 				 // 若不传查询时间区间，则显示从入住到当前时间的租金
 				 // 预定时间（入住时间先以预定时间为主）
 				 Calendar c1 = Calendar.getInstance();
@@ -192,7 +193,7 @@ public class RentGenerateController {
 				 60 * 24);
 				
 				 // 每平方米的价格*面积
-				 rentVwShowModel.setRentMoney(Double.parseDouble(new
+				 rentVwShowModel.setRentInitMoney(Double.parseDouble(new
 				 DecimalFormat("#.00")
 				 .format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(),
 				 days))));
