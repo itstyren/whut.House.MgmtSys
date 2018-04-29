@@ -314,17 +314,12 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
+                  <el-col :span="12">
                     <el-form-item label="产权编号" prop="proId">
                       <el-input v-model="addFormBody.proId" :label='"产权编号"' style="width=80px" placeholder="请输入产权编号"></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item label="租金" prop="rental">
-                      <el-input v-model="addFormBody.rental" placeholder="请输入租金"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
+                  <el-col :span="12">
                     <el-form-item label="竣工日期" prop="finishTime">
                       <el-date-picker v-model="addFormBody.finishTime" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
                     </el-form-item>
@@ -711,13 +706,13 @@ export default {
     },
     // 编辑框关闭时候回调
     modifyFromClose() {
-      if (this.modified == false && this.title != "详情") {
-        this.$notify.info({
-          title: "提示",
-          message: "已取消编辑"
-        });
-        this.$refs["modifyFrom"].resetFields();
-      }
+      // if (this.modified == false && this.title != "详情") {
+      //   this.$notify.info({
+      //     title: "提示",
+      //     message: "已取消编辑"
+      //   });
+      //   this.$refs["modifyFrom"].resetFields();
+      // }
     },
     //在图片提交前进行验证
     beforePicUpload(file) {
