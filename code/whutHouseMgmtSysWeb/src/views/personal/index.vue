@@ -449,6 +449,8 @@
     getStaffMonetaryByNO
   } from "@/api/monetarySub";
   import utils from "@/utils/index.js";
+  var basiceUrl = "http://localhost:8787/whutHouseMgmtReposity/dataImport/";
+// var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
   export default {
     data() {
       var checkPassword = (rule, value, callback) => {
@@ -663,7 +665,7 @@
       // 导出申请单
       downloadApply() {
         let staffID = this.$store.getters.userID;
-        window.location.href = `http://localhost:8787/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
+        window.location.href = `${basiceUrl}exportToWord/hire/${staffID}`;
       },
       uploadURL(url) {
         this.listLoading = true;
