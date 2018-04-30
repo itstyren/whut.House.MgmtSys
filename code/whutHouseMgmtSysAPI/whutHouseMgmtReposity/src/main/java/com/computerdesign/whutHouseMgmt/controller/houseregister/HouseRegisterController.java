@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
-import javax.ws.rs.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllShowModel;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseSelectModel;
@@ -30,17 +31,12 @@ import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentRegister;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
-import com.computerdesign.whutHouseMgmt.bean.houseManagement.building.Building;
-import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
-import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
-import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.HouseRegisterSelectService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.OutSchoolHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.StaffHouseRelService;
-import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -352,7 +348,9 @@ public class HouseRegisterController {
 	 */
 	@RequestMapping(value = "getByMultiCondition", method = RequestMethod.POST)
 	@ResponseBody
-	public Msg getByMultiCondition(@RequestBody HouseSelectModel houseSelectModel) {
+	public Msg getByMultiCondition(@RequestBody HouseSelectModel houseSelectModel,
+			@RequestParam("page")Integer page,@RequestParam("size")Integer size) {
+		PageHelper.startPage(page, size);
 		// 查询出所有符合条件的视图所有数据
 		List<ViewHouse> viewHouses = houseRegisterSelectService.getByMultiConditionQuery(houseSelectModel);
 		System.out.println(houseSelectModel == null); //false
@@ -396,9 +394,11 @@ public class HouseRegisterController {
 			houseShowModels.add(houseShowModel);
 		}
 
+		PageInfo pageInfo = new PageInfo(viewHouses);
+		pageInfo.setList(houseShowModels);
 		System.out.println(houseShowModels);
 
-		return Msg.success().add("data", houseShowModels);
+		return Msg.success().add("data", pageInfo);
 	}
 
 }
