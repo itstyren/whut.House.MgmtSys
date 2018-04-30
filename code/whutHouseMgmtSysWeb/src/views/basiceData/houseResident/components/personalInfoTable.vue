@@ -24,17 +24,16 @@ export default {
     height: {
       type: String,
       default: "350px"
+    },
+    staffId: {
+      type: Number
     }
   },
   // 监听
   watch: {
-    $route() {
+    staffId(newVal) {
       this.getList();
-      //console.log(this.staffID);
     }
-  },
-  created() {
-    if (this.$route.params.id != undefined) this.getList();
   },
   methods: {
     // 获取单一员工
@@ -42,7 +41,7 @@ export default {
       this.personalInfo = [];
       this.listLoading = true;
       let param = {};
-      var staffID = this.$route.params.id;
+      var staffID = this.staffId;
       getStaff(param, staffID)
         .then(res => {
           let resData = res.data.data.data;
@@ -114,7 +113,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.card{
+.card {
   padding: 3px;
 }
 </style>

@@ -48,6 +48,9 @@ export default {
     height: {
       type: String,
       default: "350px"
+    },
+        staffId: {
+      type: Number
     }
   },
   computed: {
@@ -57,16 +60,12 @@ export default {
   },
   // 监听
   watch: {
-    $route() {
+    staffId(newVal) {
       this.getList();
-      //console.log(this.staffID);
     },
     isResident() {
       this.getList();
     }
-  },
-  created() {
-    this.getList();
   },
   methods: {
     // 获取单一员工
@@ -74,7 +73,7 @@ export default {
       this.personalInfo = [];
       this.listLoading = true;
       let param = {};
-      let staffID = this.$route.params.id;
+      let staffID = this.staffId;
       getStaffHouseRel(param, staffID)
         .then(res => {
           this.houseRel = res.data.data.data;

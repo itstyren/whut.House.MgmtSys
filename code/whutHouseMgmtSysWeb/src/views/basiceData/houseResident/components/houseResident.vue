@@ -89,6 +89,9 @@ export default {
     selectHouse: {
       type: String
     },
+        staffId: {
+      type: Number
+    },
     selectHouseId: {}
   },
   computed: {
@@ -98,8 +101,10 @@ export default {
   },
   // 监听
   watch: {
-    $route() {
-      this.getStaffName();
+    staffId(newVal) {
+      this.getList();
+    this.getStaffName();
+      
     },
     selectHouse(newVal) {
       this.residentForm.houseId = newVal;
@@ -112,10 +117,6 @@ export default {
         } else this.isPersonal = false;
       }
     }
-  },
-  created() {
-    this.getStaffName();
-    this.getList();
   },
   methods: {
     getStaffName() {

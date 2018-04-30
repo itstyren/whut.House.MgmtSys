@@ -127,7 +127,7 @@ export default {
       this.listLoading = true;
       let params = {
         staffId: this.staffID,
-        houseId: row.no
+        houseId: row.id
       };
       getSubmitSelectHouseApply(params).then(res => {
         utils.statusinfo(this, res.data);

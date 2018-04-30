@@ -402,7 +402,7 @@
             <el-form-item label="评价">
               <el-row>
                 <el-col :span="24">
-                  <el-input v-model="fixCommentForm.description" placeholder="请输入...." type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+                  <el-input  placeholder="请输入...." type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
                 </el-col>
               </el-row>
               <el-row style="margin-top:20px;">
@@ -449,6 +449,8 @@
     getStaffMonetaryByNO
   } from "@/api/monetarySub";
   import utils from "@/utils/index.js";
+  var basiceUrl = "http://localhost:8787/whutHouseMgmtReposity/dataImport/";
+// var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
   export default {
     data() {
       var checkPassword = (rule, value, callback) => {
@@ -570,6 +572,7 @@
         this.listLoading = true;
         getUserHouse(this.staffID).then(res => {
           this.houseList = res.data.data.data;
+          this.houseList[0].houseRelName='购买'
           this.listLoading = false;
         });
       },
@@ -662,7 +665,7 @@
       // 导出申请单
       downloadApply() {
         let staffID = this.$store.getters.userID;
-        window.location.href = `http://localhost:8787/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
+        window.location.href = `${basiceUrl}exportToWord/hire/${staffID}`;
       },
       uploadURL(url) {
         this.listLoading = true;

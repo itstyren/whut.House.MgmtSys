@@ -18,7 +18,9 @@ import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.HouseAllSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HousingInfo;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
+import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
 import com.computerdesign.whutHouseMgmt.service.internetselecthouse.HousingSetService;
+import com.computerdesign.whutHouseMgmt.utils.Arith;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -31,6 +33,8 @@ public class HousingSetController {
 
 	@Autowired
 	private HouseService houseService;
+	@Autowired
+	private HouseParamService houseParamService;
 
 	/**
 	 * 撤销设置房源
@@ -97,7 +101,11 @@ public class HousingSetController {
 			housingInfo.setRegionName(viewHouse.getRegionName());
 			housingInfo.setBuildingName(viewHouse.getBuildingName());
 			housingInfo.setAddress(viewHouse.getAddress());
-			housingInfo.setRental(viewHouse.getRental());
+			// 每平方米的价格
+			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
+			// 每平方米的价格*面积
+			housingInfo.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+			// housingInfo.setRental(viewHouse.getRental());
 			housingInfos.add(housingInfo);
 		}
 		PageInfo pageInfo = new PageInfo(viewHouses);
@@ -128,7 +136,11 @@ public class HousingSetController {
 			housingInfo.setRegionName(viewHouse.getRegionName());
 			housingInfo.setBuildingName(viewHouse.getBuildingName());
 			housingInfo.setAddress(viewHouse.getAddress());
-			housingInfo.setRental(viewHouse.getRental());
+			// 每平方米的价格
+			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
+			// 每平方米的价格*面积
+			housingInfo.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+			// housingInfo.setRental(viewHouse.getRental());
 			housingInfos.add(housingInfo);
 		}
 		PageInfo pageInfo = new PageInfo(viewHouses);
@@ -158,7 +170,11 @@ public class HousingSetController {
 			housingInfo.setRegionName(viewHouse.getRegionName());
 			housingInfo.setBuildingName(viewHouse.getBuildingName());
 			housingInfo.setAddress(viewHouse.getAddress());
-			housingInfo.setRental(viewHouse.getRental());
+			// 每平方米的价格
+			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
+			// 每平方米的价格*面积
+			housingInfo.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+			// housingInfo.setRental(viewHouse.getRental());
 			housingInfos.add(housingInfo);
 		}
 		PageInfo pageInfo = new PageInfo(viewHouses);
@@ -188,7 +204,11 @@ public class HousingSetController {
 			housingInfo.setRegionName(viewHouse.getRegionName());
 			housingInfo.setBuildingName(viewHouse.getBuildingName());
 			housingInfo.setAddress(viewHouse.getAddress());
-			housingInfo.setRental(viewHouse.getRental());
+			// 每平方米的价格
+			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
+			// 每平方米的价格*面积
+			housingInfo.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+			// housingInfo.setRental(viewHouse.getRental());
 			housingInfos.add(housingInfo);
 		}
 		PageInfo pageInfo = new PageInfo(viewHouses);

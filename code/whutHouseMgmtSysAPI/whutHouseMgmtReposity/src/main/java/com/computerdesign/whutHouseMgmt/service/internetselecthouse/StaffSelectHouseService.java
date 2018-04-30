@@ -65,6 +65,18 @@ public class StaffSelectHouseService {
 		return staffSelectHouseMapper.selectByExample(example);
 	}
 	
+	/**
+	 * 获取所有能够选房的数据并且根据选房时间排序
+	 * @return
+	 */
+	public List<StaffSelectHouse> getAllAndOrderBySelectTime(){
+		StaffSelectHouseExample example = new StaffSelectHouseExample();
+		example.setOrderByClause("SelectStart DESC");
+		Criteria criteria = example.createCriteria();
+		criteria.andRecordStatusEqualTo("canselect");
+		return staffSelectHouseMapper.selectByExample(example);
+	}
+	
 	public void insert(StaffSelectHouse staffSelectHouse){
 		staffSelectHouseMapper.insertSelective(staffSelectHouse);
 	}

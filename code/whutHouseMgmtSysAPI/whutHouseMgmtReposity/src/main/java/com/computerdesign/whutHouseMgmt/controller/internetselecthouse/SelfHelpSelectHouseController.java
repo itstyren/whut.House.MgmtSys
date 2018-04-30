@@ -262,12 +262,13 @@ public class SelfHelpSelectHouseController {
 			@RequestParam(value = "houseId") Integer houseId) {
 		Date date = new Date();
 		long currentTime = date.getTime();
-		long selectStart = staffSelectHouseService.getByStaffId(staffId).getSelectStart().getTime();
-		long selectEnd = staffSelectHouseService.getByStaffId(staffId).getSelectEnd().getTime();
-		// System.out.println("currentTime" + currentTime);
-		// System.out.println("selectStart" + selectStart);
-		// System.out.println("selectEnd" + selectEnd);
+		long selectStart = staffSelectHouseService.getByStaffIdAndRecordStatus(staffId,"canselect").getSelectStart().getTime();
+		long selectEnd = staffSelectHouseService.getByStaffIdAndRecordStatus(staffId,"canselect").getSelectEnd().getTime();
+//		 System.out.println("currentTime" + currentTime);
+//		 System.out.println("selectStart" + selectStart);
+//		 System.out.println("selectEnd" + selectEnd);
 		if (currentTime > selectStart && currentTime < selectEnd) {
+//			System.out.println("测试");
 			Hire hire = new Hire();
 			Staff staff = staffService.get(staffId);
 			hire.setStaffId(staffId);

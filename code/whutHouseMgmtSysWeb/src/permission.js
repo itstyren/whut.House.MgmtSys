@@ -32,6 +32,8 @@ router.beforeEach((to, from, next) => {
           const roles = store.getters.roles // note: roles must be a array! such as: ['editor','develop'] 
           if (store.getters.roles[0] == 0)
             store.getters.roles[0] = 'ADMIN'
+          else if (store.getters.roles[0] == 1)
+            store.getters.roles[0] = 'OFFICER'
           else if (store.getters.roles[0] == 3)
             store.getters.roles[0] = 'STAFF'
           store.dispatch('GenerateRoutes', {
