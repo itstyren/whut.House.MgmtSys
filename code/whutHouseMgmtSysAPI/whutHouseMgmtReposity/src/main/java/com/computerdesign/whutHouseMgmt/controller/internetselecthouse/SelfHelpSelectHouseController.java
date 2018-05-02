@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HireRecent;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.IsSelectingHouseInfo;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.SelectedStaffHouseInfo;
@@ -28,6 +29,7 @@ import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectHous
 import com.computerdesign.whutHouseMgmt.bean.rentparam.RentEvent;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
+import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.internetselecthouse.HireRecentService;
 import com.computerdesign.whutHouseMgmt.service.internetselecthouse.SelfHelpSelectHouseService;
 import com.computerdesign.whutHouseMgmt.service.internetselecthouse.StaffSelectHouseService;
@@ -63,6 +65,9 @@ public class SelfHelpSelectHouseController {
 	@Autowired
 	private RentEventService rentEventService;
 
+	@Autowired
+	private HouseService houseService;
+	
 	@ResponseBody
 	@RequestMapping(value = "isSelectingHouse/{staffId}", method = RequestMethod.GET)
 	public Msg isSelectingHouse(@PathVariable("staffId") Integer staffId) {
@@ -71,7 +76,13 @@ public class SelfHelpSelectHouseController {
 		RentEvent rentEvent = rentEventService.getNowRule();
 
 		// 获取当前员工选房信息
-		StaffSelectHouse staffSelectHouseNow = staffSelectHouseService.getByStaffId(staffId);
+		StaffSelectHouse staffSelectHouseNow = staffSelectHouseService.getByStaffIdAndDoubleRecordStatus(staffId);
+		if(staffSelectHouseNow == null){
+			return Msg.success("您不在本次选房名单中，无法选房");
+		}
+		if(staffSelectHouseNow.getRecordStatus().equals("selected")){
+			return Msg.success("您已选过房，无法再次选房");
+		}
 
 		List<SelfHelpSelectHouse> selfHelpSelectHouses = selfHelpSelectHouseService.getAllCanselectHouse();
 		if (selfHelpSelectHouses != null) {
@@ -101,8 +112,8 @@ public class SelfHelpSelectHouseController {
 			// 获取选房开始时间,默认先使用id为1的选房参数
 
 			if (rentEvent != null) {
-				// long beginTime = rentEvent.getRentTimeBegin().getTime();
-				long beginTime = selfHelpSelectHouses.get(0).getHouseSelectStart().getTime();
+				 long beginTime = rentEvent.getRentTimeBegin().getTime();
+//				long beginTime = selfHelpSelectHouses.get(0).getHouseSelectStart().getTime();
 				// 判断当前是否还有选房活动，开始时间是第一个选房职工的开始时间，结束时间是最后一个选房职工的结束时间
 				if (beginTime <= new Date().getTime() && endTime >= new Date().getTime()) {
 
@@ -180,6 +191,7 @@ public class SelfHelpSelectHouseController {
 					// }
 					// }
 
+					
 					// 当前登陆系统的人已选房，并且正有选房活动
 					if (staffSelectHouseNow.getSelectEnd().getTime() < new Date().getTime()) {
 						return Msg.success("您的选房时间已过").add("data", isSelectingHouseInfo);
@@ -188,7 +200,8 @@ public class SelfHelpSelectHouseController {
 						return Msg.success().add("data", isSelectingHouseInfo);
 					}
 				} else if (beginTime >= new Date().getTime()) {
-					return Msg.success("选房活动未开始");
+					return Msg.success("选房活动未开始，您的选房开始时间是" + DateConversionUtils
+							.dateToString(staffSelectHouseNow.getSelectStart(), "yyyy年MM月dd日 HH时mm分ss秒"));
 				} else {
 					System.out.println("AAA");
 					rentEvent.setRentIsOpenSel(false);
@@ -260,6 +273,16 @@ public class SelfHelpSelectHouseController {
 	@RequestMapping(value = "submitSelectHouseApplication", method = RequestMethod.GET)
 	public Msg submitSelectHouseApplication(@RequestParam(value = "staffId") Integer staffId,
 			@RequestParam(value = "houseId") Integer houseId) {
+		// 获取当前员工选房信息
+		StaffSelectHouse staffSelectHouseNow = staffSelectHouseService.getByStaffIdAndDoubleRecordStatus(staffId);
+		if(staffSelectHouseNow == null){
+			return Msg.error("您不在本次选房名单内，无法选房");
+		}
+		
+		if(staffService.get(staffId).getRelation().equals("selected")){
+			return Msg.error("您已选过房");
+		}
+		
 		Date date = new Date();
 		long currentTime = date.getTime();
 		long selectStart = staffSelectHouseService.getByStaffIdAndRecordStatus(staffId,"canselect").getSelectStart().getTime();
@@ -292,11 +315,15 @@ public class SelfHelpSelectHouseController {
 
 			staff.setRelation("selected");
 			staffService.update(staff);
-			staffSelectHouseService.getByStaffId(staffId).setRecordStatus("selected");
-			staffSelectHouseService.update(staffSelectHouseService.getByStaffId(staffId));
+			StaffSelectHouse staffSelectHouse = staffSelectHouseService.getByStaffIdAndRecordStatus(staffId, "canselect");
+			staffSelectHouse.setRecordStatus("selected");
+			staffSelectHouseService.update(staffSelectHouse);
+			House house = houseService.get(houseId);
+			house.setRecordStatus(1);
+			houseService.update(house);
 			return Msg.success("提交成功").add("data", hire);
 		} else {
-			return Msg.error("您的点房时间已到");
+			return Msg.error("当前时间不在您的点房时间范围内");
 		}
 
 	}
@@ -341,12 +368,19 @@ public class SelfHelpSelectHouseController {
 
 			@Override
 			public int compare(SelfHelpStaffCanselectShowModel o1, SelfHelpStaffCanselectShowModel o2) {
-				if (o1.getStaffTotalVal() > o2.getStaffTotalVal()) {
-					return -1;
-				} else if (o1.getStaffTotalVal() == o2.getStaffTotalVal()) {
+//				if (o1.getStaffTotalVal() > o2.getStaffTotalVal()) {
+//					return -1;
+//				} else if (o1.getStaffTotalVal() == o2.getStaffTotalVal()) {
+//					return 0;
+//				} else {
+//					return 1;
+//				}
+				if (o1.getHouseSelectStart().getTime() > o2.getHouseSelectStart().getTime()) {
+					return 1;
+				} else if (o1.getHouseSelectStart().getTime() == o2.getHouseSelectStart().getTime()) {
 					return 0;
 				} else {
-					return 1;
+					return -1;
 				}
 			}
 		});

@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.service.internetselecthouse;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,23 @@ public class StaffSelectHouseService {
 		Criteria criteria = example.createCriteria();
 		criteria.andStaffIdEqualTo(staffId);
 		criteria.andRecordStatusEqualTo(recordStatus);
+		if(staffSelectHouseMapper.selectByExample(example).size() > 0){
+			return staffSelectHouseMapper.selectByExample(example).get(0);
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * 根据staffId获取一个StaffSelectHouse对象，允许RecordStatus为canselect和selected
+	 * @param staffId
+	 * @return
+	 */
+	public StaffSelectHouse getByStaffIdAndDoubleRecordStatus(Integer staffId){
+		StaffSelectHouseExample example = new StaffSelectHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		criteria.andRecordStatusIn(Arrays.asList("canselect","selected"));
 		if(staffSelectHouseMapper.selectByExample(example).size() > 0){
 			return staffSelectHouseMapper.selectByExample(example).get(0);
 		}else{
