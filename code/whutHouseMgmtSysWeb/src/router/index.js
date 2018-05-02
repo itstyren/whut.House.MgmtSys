@@ -74,7 +74,7 @@ export const asyncRouterMap = [
         component: layout,
         redirect: '/sysmanage/paramSet',
         name: 'basic',        
-        meta: { roles: ['ADMIN'], noCache: true, title: 'basiceData'  }, // you can set roles in root nav
+        meta: { roles: ['ADMIN', 'OFFICER'], noCache: true, title: 'basiceData'  }, // you can set roles in root nav
         children: [
             // 区域楼栋
             {
@@ -132,13 +132,13 @@ export const asyncRouterMap = [
         path: '/fixManage',
         component: layout,
         name: 'fixManage',                
-        meta: { roles: ['ADMIN', 'STAFF'], title: 'fixManage'  }, // you can set roles in root nav
+        meta: { roles: ['ADMIN', 'STAFF','OFFICER'], title: 'fixManage'  }, // you can set roles in root nav
         children: [
-            { path: 'fixAccept', component: _import('fixManage/fixAccept'), name: 'fixAccept', meta: { title: 'fixAccept', roles: ['ADMIN'] } },
+            { path: 'fixAccept', component: _import('fixManage/fixAccept'), name: 'fixAccept', meta: { title: 'fixAccept', roles: ['ADMIN','OFFICER'] } },
             { path: 'fixAgree', component: _import('fixManage/fixAgree'), name: 'fixAgree', meta: { title: 'fixAgree', roles: ['ADMIN'] } },
             { path: 'fixSuper', component: _import('fixManage/fixSuper'), name: 'fixSuper', meta: { title: 'fixSuper', roles: ['ADMIN']} },
             { path: 'fixApplyManager', component: _import('fixManage/fixApplyManager'), name: 'fixApplyManager', meta: { title: 'fixApplyManager', roles: ['ADMIN'] } },
-            { path: 'fixBalance', component: _import('fixManage/fixBalance'), name: 'fixBalance', meta: { title: 'fixBalance', roles: ['ADMIN'] } },   
+            { path: 'fixBalance', component: _import('fixManage/fixBalance'), name: 'fixBalance', meta: { title: 'fixBalance', roles: ['ADMIN','OFFICER'] } },   
             { path: 'fixApply', component: _import('fixManage/fixApply'), name: 'fixApply', meta: { title: 'fixApply', roles: ['ADMIN','STAFF'] } },
         ]
     },
@@ -147,15 +147,15 @@ export const asyncRouterMap = [
         path: '/leaseManage',
         component: layout,
         name: 'leaseManage',                        
-        meta: { roles: ['ADMIN'], title: 'leaseManage'  }, // you can set roles in root nav
+        meta: { roles: ['ADMIN', 'OFFICER'], title: 'leaseManage'  }, // you can set roles in root nav
         children: [
             { path: 'hireAccept', component: _import('leaseManage/hireAccept'), name: 'hireAccept', meta: { title: 'hireAccept' } },
             { path: 'hireAgree', component: _import('leaseManage/hireAgree'), name: 'hireAgree', meta: { title: 'hireAgree' } },
-            { path: 'hireApprove', component: _import('leaseManage/hireApprove'), name: 'hireApprove', meta: { title: 'hireApprove' } },
-            { path: 'hireSuper', component: _import('leaseManage/hireSuper'), name: 'hireSuper', meta: { title: 'hireSuper' } },
-            { path: 'hireContract', component: _import('leaseManage/hireContract'), name: 'hireContract', meta: { title: 'hireContract' } },
-            { path: 'hireApplyManage', component: _import('leaseManage/hireApplyManage'), name: 'hireApplyManage', meta: { title: 'hireApplyManage' } },
-            { path: 'rentGenerate', component: _import('leaseManage/rentGenerate'), name: 'rentGenerate', meta: { title: 'rentGenerate' } },
+            { path: 'hireApprove', component: _import('leaseManage/hireApprove'), name: 'hireApprove', meta: { title: 'hireApprove', roles: ['ADMIN'] } },
+            { path: 'hireSuper', component: _import('leaseManage/hireSuper'), name: 'hireSuper', meta: { title: 'hireSuper', roles: ['ADMIN'] } },
+            { path: 'hireContract', component: _import('leaseManage/hireContract'), name: 'hireContract', meta: { title: 'hireContract', roles: ['ADMIN']  } },
+            { path: 'hireApplyManage', component: _import('leaseManage/hireApplyManage'), name: 'hireApplyManage', meta: { title: 'hireApplyManage', roles: ['ADMIN']  } },
+            { path: 'rentGenerate', component: _import('leaseManage/rentGenerate'), name: 'rentGenerate', meta: { title: 'rentGenerate',  } },
         ]
     },
     /* 网上选房 */
@@ -192,12 +192,12 @@ export const asyncRouterMap = [
         path: '/analysis',
         component: layout,
         name: 'analysis',  
-        meta: { roles: ['ADMIN'], title: 'analysis' }, // you can set roles in root nav                                              
+        meta: { roles: ['ADMIN','OFFICER'], title: 'analysis' }, // you can set roles in root nav                                              
         children: [
             { path: 'house', component: _import('dataAnalysis/house/index'), name: 'houseAnalysis', meta: { title: 'houseAnalysis' } },
             { path: 'fix', component: _import('dataAnalysis/fix/index'), name: 'fixFormAnalysis', meta: { title: 'fixFormAnalysis' } },
             { path: 'scanning', component: _import('dataAnalysis/scanning'), name: 'scanning', meta: { title: 'scanning' } },
-            { path: 'monetarySub', component: _import('dataAnalysis/monetarySub'), name: 'monetarySub', meta: { title: 'monetarySub' } },
+            { path: 'monetarySub', component: _import('dataAnalysis/monetarySub'), name: 'monetarySub', meta: { title: 'monetarySub', roles: ['ADMIN']  } },
         ]
     },
     /* 个人设置 */
