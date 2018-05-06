@@ -13,6 +13,12 @@ public class OneTimeMonetarySubVw {
 
     private Integer deptId;
 
+    private Integer titleId;
+
+    private Integer postId;
+
+    private Integer typeId;
+
     private String deptName;
 
     private String oneTimeSubYear;
@@ -61,6 +67,30 @@ public class OneTimeMonetarySubVw {
         this.deptId = deptId;
     }
 
+    public Integer getTitleId() {
+        return titleId;
+    }
+
+    public void setTitleId(Integer titleId) {
+        this.titleId = titleId;
+    }
+
+    public Integer getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Integer postId) {
+        this.postId = postId;
+    }
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
     public String getDeptName() {
         return deptName;
     }
@@ -92,13 +122,4 @@ public class OneTimeMonetarySubVw {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
-
-	@Override
-	public String toString() {
-		return "OneTimeMonetarySubVw [id=" + id + ", staffId=" + staffId + ", staffNo=" + staffNo + ", staffName="
-				+ staffName + ", deptId=" + deptId + ", deptName=" + deptName + ", oneTimeSubYear=" + oneTimeSubYear
-				+ ", oneTimeSubsidy=" + oneTimeSubsidy + ", remark=" + remark + "]";
-	}
-    
-    
 }

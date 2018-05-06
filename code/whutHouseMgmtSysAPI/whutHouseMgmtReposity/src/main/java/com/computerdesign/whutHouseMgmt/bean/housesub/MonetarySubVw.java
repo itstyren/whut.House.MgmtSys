@@ -35,6 +35,10 @@ public class MonetarySubVw {
 
     private String postName;
 
+    private Integer typeId;
+
+    private String typeName;
+
     private Float postHouseArea;
 
     private Double maxEnjoyArea;
@@ -173,6 +177,22 @@ public class MonetarySubVw {
 
     public void setPostName(String postName) {
         this.postName = postName == null ? null : postName.trim();
+    }
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName == null ? null : typeName.trim();
     }
 
     public Float getPostHouseArea() {

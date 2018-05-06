@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSub;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySub;
@@ -47,6 +48,27 @@ public class StaffMonetarySubController {
 	@Autowired
 	private StaffForMonSubService staffForMonSubService;
 
+	/**
+	 * 根据条件获取补贴记录
+	 * 
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getAllMonetarySubByCondition", method = RequestMethod.POST)
+	public Msg getAllMonetarySubByCondition(@RequestBody MonetarySubSelectModel monetarySubSelectModel, @RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+
+		PageHelper.startPage(page, size);
+		List<MonetarySubVw> staffMonetarySubs = staffMonetarySubService.getAllMonetarySubByCondition(monetarySubSelectModel);
+		String[] fileds = { "id", "staffId", "staffNo", "staffName", "year", "deptName", "titleName", "postName",
+				"postName", "annualSal", "subsidies", "remark" };
+		List<Map<String, Object>> response = ResponseUtil.getResultMap(staffMonetarySubs, fileds);
+		PageInfo pageInfo = new PageInfo(response);
+		return Msg.success().add("data", pageInfo);
+	}
+	
 	/**
 	 * 获取所有补贴记录
 	 * 

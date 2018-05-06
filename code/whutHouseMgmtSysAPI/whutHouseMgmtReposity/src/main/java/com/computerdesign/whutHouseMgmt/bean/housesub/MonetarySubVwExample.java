@@ -1162,6 +1162,136 @@ public class MonetarySubVwExample {
             return (Criteria) this;
         }
 
+        public Criteria andTypeIdIsNull() {
+            addCriterion("TypeId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdIsNotNull() {
+            addCriterion("TypeId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdEqualTo(Integer value) {
+            addCriterion("TypeId =", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdNotEqualTo(Integer value) {
+            addCriterion("TypeId <>", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdGreaterThan(Integer value) {
+            addCriterion("TypeId >", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("TypeId >=", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdLessThan(Integer value) {
+            addCriterion("TypeId <", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdLessThanOrEqualTo(Integer value) {
+            addCriterion("TypeId <=", value, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdIn(List<Integer> values) {
+            addCriterion("TypeId in", values, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdNotIn(List<Integer> values) {
+            addCriterion("TypeId not in", values, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdBetween(Integer value1, Integer value2) {
+            addCriterion("TypeId between", value1, value2, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("TypeId not between", value1, value2, "typeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameIsNull() {
+            addCriterion("TypeName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameIsNotNull() {
+            addCriterion("TypeName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameEqualTo(String value) {
+            addCriterion("TypeName =", value, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameNotEqualTo(String value) {
+            addCriterion("TypeName <>", value, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameGreaterThan(String value) {
+            addCriterion("TypeName >", value, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameGreaterThanOrEqualTo(String value) {
+            addCriterion("TypeName >=", value, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameLessThan(String value) {
+            addCriterion("TypeName <", value, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameLessThanOrEqualTo(String value) {
+            addCriterion("TypeName <=", value, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameLike(String value) {
+            addCriterion("TypeName like", value, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameNotLike(String value) {
+            addCriterion("TypeName not like", value, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameIn(List<String> values) {
+            addCriterion("TypeName in", values, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameNotIn(List<String> values) {
+            addCriterion("TypeName not in", values, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameBetween(String value1, String value2) {
+            addCriterion("TypeName between", value1, value2, "typeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNameNotBetween(String value1, String value2) {
+            addCriterion("TypeName not between", value1, value2, "typeName");
+            return (Criteria) this;
+        }
+
         public Criteria andPostHouseAreaIsNull() {
             addCriterion("PostHouseArea is null");
             return (Criteria) this;

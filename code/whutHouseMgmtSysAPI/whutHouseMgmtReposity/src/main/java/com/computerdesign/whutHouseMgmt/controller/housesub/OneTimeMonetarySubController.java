@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteData;
+import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw;
 import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubVw;
@@ -26,6 +28,7 @@ import com.computerdesign.whutHouseMgmt.service.housesub.MonetarySubVwService;
 import com.computerdesign.whutHouseMgmt.service.housesub.OneTimeMonetarySubService;
 import com.computerdesign.whutHouseMgmt.service.housesub.StaffMonetarySubService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
+import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -95,6 +98,25 @@ public class OneTimeMonetarySubController {
 			staffService.update(staff);
 			return Msg.error("必须是老职工并晋升才有补贴！");
 		}
+	}
+	
+	/**
+	 * 根据条件获取一次性补贴记录
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getAllOneTimeMonetarySubByCondition", method = RequestMethod.POST)
+	public Msg getAllOneTimeMonetarySubByCondition(@RequestBody MonetarySubSelectModel monetarySubSelectModel ,@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		PageHelper.startPage(page, size);
+		List<OneTimeMonetarySubVw> oneTimeMonetarySubVws = oneTimeMonetarySubService.getAllOneTimeMonetarySubByCondition(monetarySubSelectModel);
+//		System.out.println(oneTimeMonetarySubVws);
+//		String[] fileds = { "id", "staffId", "staffNo", "staffName", "deptId", "deptName", "oneTimeSubYear", "oneTimeSubsidy", "remark" };
+//		List<Map<String, Object>> response = ResponseUtil.getResultMap(oneTimeMonetarySubVws, fileds);
+		PageInfo pageInfo = new PageInfo(oneTimeMonetarySubVws);
+		return Msg.success().add("data", pageInfo);
 	}
 	
 	/**

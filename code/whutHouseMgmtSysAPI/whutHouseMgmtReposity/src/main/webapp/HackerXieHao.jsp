@@ -40,7 +40,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTI0MTM4MTc0LCJleHAiOjE1MjQxNzQxNzR9.LvTWNayBbkHCObusU-xrmJLgMhoC_W6va8RKeCy0TPQ");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTI1NTk1ODgzLCJleHAiOjE1MjU2MzE4ODN9.DsCGKeU-Rgh2a753oJgO8L11Odb-JTzGWG0hNZpnBHs");
 					},
 					type : "get",
 					contentType : 'application/json',
@@ -66,7 +66,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTI0MTM4MTc0LCJleHAiOjE1MjQxNzQxNzR9.LvTWNayBbkHCObusU-xrmJLgMhoC_W6va8RKeCy0TPQ");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTI1NTk1ODgzLCJleHAiOjE1MjU2MzE4ODN9.DsCGKeU-Rgh2a753oJgO8L11Odb-JTzGWG0hNZpnBHs");
 					},
 					data : JSON.stringify(data),
 					url : uri,
@@ -915,7 +915,34 @@
 					ajaxRequestPostType("staffMonetarySub/addMonetarySub",
 							"POST", data);
 				})
-
+				
+		$("#getAllMonetarySubByCondition").click(
+				function() {
+					var data = {
+						'deptId' : '49',
+						'postId' : '84',
+						'titleId' : '95',
+						'typeId' : '144',
+						'yearStart':2017,
+						'yearEnd':2018
+					};
+					ajaxRequestPostType("staffMonetarySub/getAllMonetarySubByCondition",
+							"POST", data);
+				})
+		$("#getAllOneTimeMonetarySubByCondition").click(
+				function() {
+					var data = {
+						'deptId' : '49',
+						'postId' : '84',
+						'titleId' : '95',
+						'typeId' : '144',
+						'yearStart':2017,
+						'yearEnd':2018
+					};
+					ajaxRequestPostType("oneTimeMonetarySub/getAllOneTimeMonetarySubByCondition",
+							"POST", data);
+				})
+				
 	})
 </script>
 
@@ -1246,6 +1273,10 @@
 				value="StaffMoreHouseSta" id="staffMoreHouseSta" /> <br>
 		</div>
 		<div class="tab-pane fade" id="houseSub">
+			<h4>根据条件获取一次性补贴记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetAllOneTimeMonetarySubByCondition" id="getAllOneTimeMonetarySubByCondition" /> <br>
+		
 			<h4>添加一条老职工晋升补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="AddPromoteSub" id="addPromoteSub" /> <br>
@@ -1265,6 +1296,9 @@
 				value="AddOneTimeMonetarySub" id="addOneTimeMonetarySub" /> <br>
 
 
+			<h4>根据条件获取补贴记录</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetAllMonetarySubByCondition" id="getAllMonetarySubByCondition" /> <br>
 			<h4>获取所有补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetAllMonetarySub" id="getAllMonetarySub" /> <br>
