@@ -89,7 +89,7 @@ export default {
     selectHouse: {
       type: String
     },
-        staffId: {
+    staffId: {
       type: Number
     },
     selectHouseId: {}
@@ -103,8 +103,7 @@ export default {
   watch: {
     staffId(newVal) {
       this.getList();
-    this.getStaffName();
-      
+      this.getStaffName();
     },
     selectHouse(newVal) {
       this.residentForm.houseId = newVal;
@@ -159,16 +158,16 @@ export default {
             type: "warning"
           })
             .then(() => {
-              let params={}
+              let params = {};
               if (this.isPersonal == false) {
-                 params = {
+                params = {
                   bookTime: this.residentForm.bookTime,
                   house: this.selectHouseId,
                   houseRel: this.residentForm.houseRel,
                   staffId: this.$store.state.residentStaffData.id
                 };
               } else {
-                 params = {
+                params = {
                   bookTime: this.residentForm.bookTime,
                   house: this.residentForm.houseId,
                   houseRel: this.residentForm.houseRel,
@@ -183,6 +182,7 @@ export default {
                   this.listLoading = false;
                   this.$store.commit(types.RESIDENT_SUCCESS);
                   this.$refs["residentForm"].resetFields();
+                  this.residentForm.staffId = this.$store.state.residentStaffData.label;
                 })
                 .catch(err => {
                   console.log(err);
