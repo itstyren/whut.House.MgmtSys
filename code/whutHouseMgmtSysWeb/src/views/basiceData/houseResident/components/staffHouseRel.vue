@@ -1,8 +1,8 @@
 <template>
 <div class="card" :style="{height:height,width:width}">
   <el-table :data="houseRel"  stripe class="table" height="string" v-loading="listLoading">
-    <el-table-column prop="staffName" width="90" align="center" label="姓名"></el-table-column>
-    <el-table-column prop="houseRel" width="70" align="center" label="关系">
+    <el-table-column prop="staffName" width="100" align="center" label="姓名"></el-table-column>
+    <el-table-column prop="houseRel" width="100" align="center" label="关系">
       <template slot-scope="scope">
         <el-popover v-if="scope.row.houseRel=='购买'" trigger="hover" placement="top">
           <p>购房款: {{ scope.row.staffBuyAccount }}</p>

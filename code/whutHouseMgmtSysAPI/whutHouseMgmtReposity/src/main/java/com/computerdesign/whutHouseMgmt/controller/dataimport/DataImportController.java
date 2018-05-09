@@ -858,6 +858,7 @@ public class DataImportController {
 	public void staffDownLoad(HttpServletResponse response) {
 		try {
 			DownloadUtils.downloadSolve("D:\\staffImport.xlsx", "职工模板.xlsx", response);
+//			DownloadUtils.downloadSolve("C:\\staffImport.xlsx", "职工模板.xlsx", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -873,6 +874,7 @@ public class DataImportController {
 	public void houseDownLoad(HttpServletResponse response) {
 		try {
 			DownloadUtils.downloadSolve("D:\\houseImport.xlsx", "住房模板.xlsx", response);
+//			DownloadUtils.downloadSolve("C:\\houseImport.xlsx", "住房模板.xlsx", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -888,6 +890,7 @@ public class DataImportController {
 	public void residentDownLoad(HttpServletResponse response) {
 		try {
 			DownloadUtils.downloadSolve("D:\\residentImport.xlsx", "住户模板.xlsx", response);
+//			DownloadUtils.downloadSolve("C:\\residentImport.xlsx", "住户模板.xlsx", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -902,6 +905,7 @@ public class DataImportController {
 	public void salaryDownLoad(HttpServletResponse response) {
 		try {
 			DownloadUtils.downloadSolve("D:\\salaryImport.xlsx", "工资模板.xlsx", response);
+//			DownloadUtils.downloadSolve("C:\\salaryImport.xlsx", "工资模板.xlsx", response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

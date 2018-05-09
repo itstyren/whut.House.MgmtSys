@@ -434,7 +434,7 @@ export default {
               this.listLoading = true;
               //let param = Object.assign({}, this.staffForm);
               putStaffData(postForm).then(res => {
-                let staffID = this.$store.getters.userID;
+                let staffID = this.staffForm.id;
                 utils.statusinfo(this, res.data);
                 postPromoteSubStaffID(staffID).then(res => {
                   this.detailLoading = false;

@@ -89,7 +89,7 @@
         <el-submenu index="rentalParam">
           <template slot="title">
             <i class="el-icon-star-off"></i>
-            <span slot="title">租赁参数</span>
+            <span slot="title">其他参数</span>
           </template>
           <el-menu-item index="/sysmanage/paramSet/rentalOption">
             租金选项

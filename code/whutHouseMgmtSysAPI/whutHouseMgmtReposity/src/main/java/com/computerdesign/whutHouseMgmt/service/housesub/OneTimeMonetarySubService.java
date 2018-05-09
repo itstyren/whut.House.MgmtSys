@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubExample;
 import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubExample.Criteria;
@@ -21,6 +22,43 @@ public class OneTimeMonetarySubService {
 	
 	@Autowired
 	private OneTimeMonetarySubVwMapper oneTimeMonetarySubVwMapper;
+	
+	/**
+	 * 根据条件获取一次性补贴记录
+	 * @param staffNo
+	 * @return
+	 */
+	public List<OneTimeMonetarySubVw> getAllOneTimeMonetarySubByCondition(MonetarySubSelectModel monetarySubSelectModel){
+		OneTimeMonetarySubVwExample example = new OneTimeMonetarySubVwExample();
+		com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubVwExample.Criteria criteria = example.createCriteria();
+		if(monetarySubSelectModel != null){
+			if(monetarySubSelectModel.getDeptId() != null){
+				criteria.andDeptIdEqualTo(monetarySubSelectModel.getDeptId());
+			}
+			
+			if(monetarySubSelectModel.getPostId() != null){
+				criteria.andPostIdEqualTo(monetarySubSelectModel.getPostId());
+			}
+			
+			if(monetarySubSelectModel.getTitleId() != null){
+				criteria.andTitleIdEqualTo(monetarySubSelectModel.getTitleId());
+			}
+			
+			if(monetarySubSelectModel.getTypeId() != null){
+				criteria.andTypeIdEqualTo(monetarySubSelectModel.getTypeId());
+			}
+			
+			if(monetarySubSelectModel.getYearStart() != null){
+				criteria.andOneTimeSubYearGreaterThanOrEqualTo(monetarySubSelectModel.getYearStart());
+			}
+			
+			if(monetarySubSelectModel.getYearEnd() != null){
+				criteria.andOneTimeSubYearLessThanOrEqualTo(monetarySubSelectModel.getYearEnd());
+			}
+			
+		}
+		return oneTimeMonetarySubVwMapper.selectByExample(example);
+	}
 	
 	/**
 	 * 获取所有一次性补贴记录

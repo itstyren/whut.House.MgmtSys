@@ -18,6 +18,8 @@
     <result column="TitleHouseArea" jdbcType="REAL" property="titleHouseArea" />
     <result column="PostId" jdbcType="INTEGER" property="postId" />
     <result column="PostName" jdbcType="VARCHAR" property="postName" />
+    <result column="TypeId" jdbcType="INTEGER" property="typeId" />
+    <result column="TypeName" jdbcType="VARCHAR" property="typeName" />
     <result column="PostHouseArea" jdbcType="REAL" property="postHouseArea" />
     <result column="MaxEnjoyArea" jdbcType="DOUBLE" property="maxEnjoyArea" />
     <result column="HouseId" jdbcType="INTEGER" property="houseId" />
@@ -85,8 +87,8 @@
   </sql>
   <sql id="Base_Column_List">
     Id, StaffId, StaffNo, StaffName, Year, AnnualSal, Subsidies, Remark, JoinTime, DeptId, 
-    DeptName, TitleId, TitleName, TitleHouseArea, PostId, PostName, PostHouseArea, MaxEnjoyArea, 
-    HouseId, HouseNo, HouseBuildArea, HouseUsedArea
+    DeptName, TitleId, TitleName, TitleHouseArea, PostId, PostName, TypeId, TypeName, 
+    PostHouseArea, MaxEnjoyArea, HouseId, HouseNo, HouseBuildArea, HouseUsedArea
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVwExample" resultMap="BaseResultMap">
     select
@@ -114,17 +116,19 @@
       Subsidies, Remark, JoinTime, 
       DeptId, DeptName, TitleId, 
       TitleName, TitleHouseArea, PostId, 
-      PostName, PostHouseArea, MaxEnjoyArea, 
-      HouseId, HouseNo, HouseBuildArea, 
-      HouseUsedArea)
+      PostName, TypeId, TypeName, 
+      PostHouseArea, MaxEnjoyArea, HouseId, 
+      HouseNo, HouseBuildArea, HouseUsedArea
+      )
     values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, 
       #{staffName,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{annualSal,jdbcType=BIGINT}, 
       #{subsidies,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{joinTime,jdbcType=DATE}, 
       #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{titleId,jdbcType=INTEGER}, 
       #{titleName,jdbcType=VARCHAR}, #{titleHouseArea,jdbcType=REAL}, #{postId,jdbcType=INTEGER}, 
-      #{postName,jdbcType=VARCHAR}, #{postHouseArea,jdbcType=REAL}, #{maxEnjoyArea,jdbcType=DOUBLE}, 
-      #{houseId,jdbcType=INTEGER}, #{houseNo,jdbcType=VARCHAR}, #{houseBuildArea,jdbcType=DOUBLE}, 
-      #{houseUsedArea,jdbcType=DOUBLE})
+      #{postName,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, 
+      #{postHouseArea,jdbcType=REAL}, #{maxEnjoyArea,jdbcType=DOUBLE}, #{houseId,jdbcType=INTEGER}, 
+      #{houseNo,jdbcType=VARCHAR}, #{houseBuildArea,jdbcType=DOUBLE}, #{houseUsedArea,jdbcType=DOUBLE}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw">
     insert into view_hs_monetarysub
@@ -176,6 +180,12 @@
       </if>
       <if test="postName != null">
         PostName,
+      </if>
+      <if test="typeId != null">
+        TypeId,
+      </if>
+      <if test="typeName != null">
+        TypeName,
       </if>
       <if test="postHouseArea != null">
         PostHouseArea,
@@ -244,6 +254,12 @@
       </if>
       <if test="postName != null">
         #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
       </if>
       <if test="postHouseArea != null">
         #{postHouseArea,jdbcType=REAL},
@@ -322,6 +338,12 @@
       <if test="record.postName != null">
         PostName = #{record.postName,jdbcType=VARCHAR},
       </if>
+      <if test="record.typeId != null">
+        TypeId = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeName != null">
+        TypeName = #{record.typeName,jdbcType=VARCHAR},
+      </if>
       <if test="record.postHouseArea != null">
         PostHouseArea = #{record.postHouseArea,jdbcType=REAL},
       </if>
@@ -363,6 +385,8 @@
       TitleHouseArea = #{record.titleHouseArea,jdbcType=REAL},
       PostId = #{record.postId,jdbcType=INTEGER},
       PostName = #{record.postName,jdbcType=VARCHAR},
+      TypeId = #{record.typeId,jdbcType=INTEGER},
+      TypeName = #{record.typeName,jdbcType=VARCHAR},
       PostHouseArea = #{record.postHouseArea,jdbcType=REAL},
       MaxEnjoyArea = #{record.maxEnjoyArea,jdbcType=DOUBLE},
       HouseId = #{record.houseId,jdbcType=INTEGER},

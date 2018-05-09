@@ -7,6 +7,9 @@
     <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
     <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
     <result column="DeptId" jdbcType="INTEGER" property="deptId" />
+    <result column="TitleId" jdbcType="INTEGER" property="titleId" />
+    <result column="PostId" jdbcType="INTEGER" property="postId" />
+    <result column="TypeId" jdbcType="INTEGER" property="typeId" />
     <result column="DeptName" jdbcType="VARCHAR" property="deptName" />
     <result column="OneTimeSubYear" jdbcType="VARCHAR" property="oneTimeSubYear" />
     <result column="OneTimeSubsidy" jdbcType="DECIMAL" property="oneTimeSubsidy" />
@@ -71,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, StaffId, StaffNo, StaffName, DeptId, DeptName, OneTimeSubYear, OneTimeSubsidy, 
-    Remark
+    Id, StaffId, StaffNo, StaffName, DeptId, TitleId, PostId, TypeId, DeptName, OneTimeSubYear, 
+    OneTimeSubsidy, Remark
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubVwExample" resultMap="BaseResultMap">
     select
@@ -96,11 +99,13 @@
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubVw">
     insert into view_hs_onetimemonetarysub (Id, StaffId, StaffNo, 
-      StaffName, DeptId, DeptName, 
+      StaffName, DeptId, TitleId, 
+      PostId, TypeId, DeptName, 
       OneTimeSubYear, OneTimeSubsidy, Remark
       )
     values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, 
-      #{staffName,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
+      #{staffName,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{titleId,jdbcType=INTEGER}, 
+      #{postId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, 
       #{oneTimeSubYear,jdbcType=VARCHAR}, #{oneTimeSubsidy,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
@@ -121,6 +126,15 @@
       </if>
       <if test="deptId != null">
         DeptId,
+      </if>
+      <if test="titleId != null">
+        TitleId,
+      </if>
+      <if test="postId != null">
+        PostId,
+      </if>
+      <if test="typeId != null">
+        TypeId,
       </if>
       <if test="deptName != null">
         DeptName,
@@ -150,6 +164,15 @@
       </if>
       <if test="deptId != null">
         #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="titleId != null">
+        #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="postId != null">
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
       </if>
       <if test="deptName != null">
         #{deptName,jdbcType=VARCHAR},
@@ -189,6 +212,15 @@
       <if test="record.deptId != null">
         DeptId = #{record.deptId,jdbcType=INTEGER},
       </if>
+      <if test="record.titleId != null">
+        TitleId = #{record.titleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.postId != null">
+        PostId = #{record.postId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeId != null">
+        TypeId = #{record.typeId,jdbcType=INTEGER},
+      </if>
       <if test="record.deptName != null">
         DeptName = #{record.deptName,jdbcType=VARCHAR},
       </if>
@@ -213,6 +245,9 @@
       StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       StaffName = #{record.staffName,jdbcType=VARCHAR},
       DeptId = #{record.deptId,jdbcType=INTEGER},
+      TitleId = #{record.titleId,jdbcType=INTEGER},
+      PostId = #{record.postId,jdbcType=INTEGER},
+      TypeId = #{record.typeId,jdbcType=INTEGER},
       DeptName = #{record.deptName,jdbcType=VARCHAR},
       OneTimeSubYear = #{record.oneTimeSubYear,jdbcType=VARCHAR},
       OneTimeSubsidy = #{record.oneTimeSubsidy,jdbcType=DECIMAL},

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample;
+import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubSelectModel;
 import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw;
 import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVwExample;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffMonetarySub;
@@ -101,6 +102,42 @@ public class StaffMonetarySubService {
 		}else{
 			return false;
 		}
+	}
+	
+	/**
+	 * 条件查询补贴记录
+	 * @return
+	 */
+	public List<MonetarySubVw> getAllMonetarySubByCondition(MonetarySubSelectModel monetarySubSelectModel){
+		MonetarySubVwExample example = new MonetarySubVwExample();
+		com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVwExample.Criteria criteria = example.createCriteria();
+		if(monetarySubSelectModel != null){
+			if(monetarySubSelectModel.getDeptId() != null){
+				criteria.andDeptIdEqualTo(monetarySubSelectModel.getDeptId());
+			}
+			
+			if(monetarySubSelectModel.getPostId() != null){
+				criteria.andPostIdEqualTo(monetarySubSelectModel.getPostId());
+			}
+			
+			if(monetarySubSelectModel.getTitleId() != null){
+				criteria.andTitleIdEqualTo(monetarySubSelectModel.getTitleId());
+			}
+			
+			if(monetarySubSelectModel.getTypeId() != null){
+				criteria.andTypeIdEqualTo(monetarySubSelectModel.getTypeId());
+			}
+			
+			if(monetarySubSelectModel.getYearStart() != null){
+				criteria.andYearGreaterThanOrEqualTo(monetarySubSelectModel.getYearStart());
+			}
+			
+			if(monetarySubSelectModel.getYearEnd() != null){
+				criteria.andYearLessThanOrEqualTo(monetarySubSelectModel.getYearEnd());
+			}
+			
+		}
+		return monetarySubVwMapper.selectByExample(example);
 	}
 	
 	/**

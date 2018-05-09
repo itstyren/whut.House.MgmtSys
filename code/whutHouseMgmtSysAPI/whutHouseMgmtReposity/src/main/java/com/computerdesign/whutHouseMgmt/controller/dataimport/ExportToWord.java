@@ -52,6 +52,7 @@ public class ExportToWord {
 
 
 		String outFilePath = "C:\\Users\\user\\Desktop\\"+outFileName+".doc";
+//		String outFilePath = "C:\\WordTemplate\\"+outFileName+".doc";
 
 		String modelFileName = "申请租赁住房表格.ftl";
 		
