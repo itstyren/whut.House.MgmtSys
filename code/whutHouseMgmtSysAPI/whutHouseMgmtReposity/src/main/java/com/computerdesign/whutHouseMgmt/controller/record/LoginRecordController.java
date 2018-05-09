@@ -154,6 +154,12 @@ public class LoginRecordController extends BaseController{
 		return Msg.success().add("data",list);
 	}
 	
+	/**
+	 * 设置快读通道
+	 * @param request
+	 * @param map
+	 * @return
+	 */
 	@PostMapping(value = "quickPassage")
 	public Msg addOrUpdateQuickPassage(HttpServletRequest request,@RequestBody HashMap<String, List<String>> map){
 		//TODO 前端不一定传名为data

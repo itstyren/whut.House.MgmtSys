@@ -16,6 +16,7 @@ public class ParamClassService implements BaseService<ParamClass>{
 	private ParamClassMapper paramClassMapper;
 	
 	public ParamClass get(Integer paramTypeId){
+		System.out.println(paramTypeId);
 		return paramClassMapper.selectByPrimaryKey(paramTypeId);
 	}
 	
