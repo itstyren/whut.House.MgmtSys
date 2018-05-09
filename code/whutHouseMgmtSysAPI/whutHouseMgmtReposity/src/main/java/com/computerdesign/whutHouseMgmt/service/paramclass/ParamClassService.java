@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass;
-import com.computerdesign.whutHouseMgmt.dao.paramclass.ParamClassMapper;
+import com.computerdesign.whutHouseMgmt.bean.param.paramclass.ParamClass;
+import com.computerdesign.whutHouseMgmt.dao.param.paramclass.ParamClassMapper;
 import com.computerdesign.whutHouseMgmt.service.base.BaseService;
 
 @Service
@@ -16,7 +16,6 @@ public class ParamClassService implements BaseService<ParamClass>{
 	private ParamClassMapper paramClassMapper;
 	
 	public ParamClass get(Integer paramTypeId){
-		System.out.println(paramTypeId);
 		return paramClassMapper.selectByPrimaryKey(paramTypeId);
 	}
 	

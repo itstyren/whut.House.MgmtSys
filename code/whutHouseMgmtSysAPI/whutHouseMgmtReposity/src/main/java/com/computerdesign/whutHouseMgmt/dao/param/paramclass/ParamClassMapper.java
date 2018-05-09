@@ -1,7 +1,7 @@
-package com.computerdesign.whutHouseMgmt.dao.paramclass;
+package com.computerdesign.whutHouseMgmt.dao.param.paramclass;
 
-import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass;
-import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClassExample;
+import com.computerdesign.whutHouseMgmt.bean.param.paramclass.ParamClass;
+import com.computerdesign.whutHouseMgmt.bean.param.paramclass.ParamClassExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
