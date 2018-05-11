@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
-import com.computerdesign.whutHouseMgmt.bean.paramclass.ParamClass;
+import com.computerdesign.whutHouseMgmt.bean.param.paramclass.ParamClass;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.HouseSub;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.service.paramclass.ParamClassService;

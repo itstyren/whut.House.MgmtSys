@@ -11,7 +11,7 @@
         <el-col :span="16" :offset="2">
           <span>有
             <span style="color:red;">
-              <count-to class="card-panel-num" :startVal="0" :endVal="todoList.fixToCheck" :duration="3200"></count-to>
+              <count-to class="card-panel-num" :startVal="0" :endVal="todoList.fixToHandle" :duration="3200"></count-to>
             </span>条维修信息待处理</span>
         </el-col>
         <el-col :span="4" :offset="1">
@@ -27,7 +27,7 @@
         <el-col :span="16" :offset="2">
           <span>有
             <span style="color:red;">
-              <count-to class="card-panel-num" :startVal="0" :endVal="todoList.fixToHandle" :duration="3200"></count-to>
+              <count-to class="card-panel-num" :startVal="0" :endVal="todoList.fixToCheck" :duration="3200"></count-to>
             </span>条维修信息待结算</span>
         </el-col>
         <el-col :span="4" :offset="1">
