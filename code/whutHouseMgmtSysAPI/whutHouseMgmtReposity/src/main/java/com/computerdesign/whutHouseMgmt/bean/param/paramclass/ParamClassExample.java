@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.bean.paramclass;
+package com.computerdesign.whutHouseMgmt.bean.param.paramclass;
 
 import java.util.ArrayList;
 import java.util.List;

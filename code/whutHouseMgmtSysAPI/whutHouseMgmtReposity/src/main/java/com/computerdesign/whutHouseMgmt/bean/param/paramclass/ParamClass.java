@@ -1,4 +1,4 @@
-package com.computerdesign.whutHouseMgmt.bean.paramclass;
+package com.computerdesign.whutHouseMgmt.bean.param.paramclass;
 
 public class ParamClass {
     private Integer paramTypeId;

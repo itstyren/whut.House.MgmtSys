@@ -141,7 +141,7 @@ public class HireDirectApply {
 
 		hireService.add(hire);
 		registerService.registerByHire(hire);
-		//TODO 78为当前数据库租赁对于的id
+		//TODO 78为当前数据库租赁对应的id
 		houseService.updateHouseStatus(hire.getHouseId(), 78);
 		return Msg.success("房屋直批");
 	}
