@@ -1,7 +1,7 @@
 <template>
 <div class="container">
 
-  <div class="doc-title zan-hairline--bottom">申请</div>
+  <!-- <div class="doc-title zan-hairline--bottom">申请</div> -->
   <div class="zan-panel-title"></div>
   <div class="zan-panel">
       <div class="zan-row">
@@ -9,7 +9,7 @@
         </div>
         <div class="zan-col zan-col-20 zan-col-offset-2">
           <!-- <button class="zan-btn zan-btn--large zan-btn--primary" @click="btnRepairClick">维修申请</button> -->
-          <a><img src="../../../static/images/btnImage/维修申请banner.png" class = "link"/></a>
+          <a href="/pages/repair/main"><img src="../../../static/images/btnImage/roomrepair.png" class = "link"/></a>
         </div>
         <div class="zan-col zan-col-2">
         </div>
@@ -18,7 +18,7 @@
         <div class="zan-col zan-col-2">
         </div>
         <div class="zan-col zan-col-20 zan-col-offset-2">
-          <a><img src="../../../static/images/btnImage/自助选房banner.png" class = "link"/></a>
+          <a><img src="../../../static/images/btnImage/roomselect.png" class = "link"/></a>
         </div>
         <div class="zan-col zan-col-2">
         </div>
@@ -27,7 +27,7 @@
         <div class="zan-col zan-col-2">
         </div>
         <div class="zan-col zan-col-20 zan-col-offset-2">
-          <a><img src="../../../static/images/btnImage/租赁申请banner.png" class = "link"/></a>
+          <a><img src="../../../static/images/btnImage/roomrent.png" class = "link"/></a>
         </div>
         <div class="zan-col zan-col-2">
         </div>
@@ -58,7 +58,7 @@ export default {
     },
     btnRepairClick() {
       const url = "../repair/main";
-      wx.navigateTo({url});
+      wx.navigateTo({ url });
     }
   },
   created() {
@@ -81,7 +81,7 @@ export default {
   text-align: center;
   font-size: 12px;
   color: #fff;
-  align-items:center;
+  align-items: center;
 }
 
 .zan-row {
@@ -95,5 +95,8 @@ export default {
 .link {
   width: 277.5px;
   height: 105px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  box-shadow: 5px 5px 5px #888888;
 }
 </style>
