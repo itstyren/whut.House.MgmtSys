@@ -1,127 +1,102 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
-    <zan-select v-bind="{ items, checkedValue: checked.base, componentId: 'base'}" @handleZanSelectChange="handleZanSelectChange"></zan-select>
-    <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
-    </div>
+<div class="container">
 
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
+  <!-- <div class="doc-title zan-hairline--bottom">申请</div> -->
+  <div class="zan-panel-title"></div>
+  <div class="zan-panel">
+      <div class="zan-row">
+        <div class="zan-col zan-col-2">
+        </div>
+        <div class="zan-col zan-col-20 zan-col-offset-2">
+          <!-- <button class="zan-btn zan-btn--large zan-btn--primary" @click="btnRepairClick">维修申请</button> -->
+          <a href="/pages/repair/main"><img src="../../../static/images/btnImage/roomrepair.png" class = "link"/></a>
+        </div>
+        <div class="zan-col zan-col-2">
+        </div>
       </div>
-    </div>
-
-    <form class="form-container">
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
+      <div class="zan-row">
+        <div class="zan-col zan-col-2">
+        </div>
+        <div class="zan-col zan-col-20 zan-col-offset-2">
+          <a><img src="../../../static/images/btnImage/roomselect.png" class = "link"/></a>
+        </div>
+        <div class="zan-col zan-col-2">
+        </div>
+      </div>
+      <div class="zan-row">
+        <div class="zan-col zan-col-2">
+        </div>
+        <div class="zan-col zan-col-20 zan-col-offset-2">
+          <a><img src="../../../static/images/btnImage/roomrent.png" class = "link"/></a>
+        </div>
+        <div class="zan-col zan-col-2">
+        </div>
+      </div>
   </div>
+
+</div>
 </template>
 
 <script>
-import card from '@/components/card'
-import ZanSelect from '../../components/zan/select'
-export default {
-  data () {
-    return {
-      motto: 'Hello World',
-      userInfo: {},
-       items: [
-          {
-            padding: 0,
-            value: '1',
-            name: '选项一'
-          },
-          {
-            padding: 0,
-            value: '2',
-            name: '选项二'
-          }
-        ],
+import store from "../../store/store";
 
-        checked: {
-          base: '-1',
-          color: '-1',
-          form: '-1'
-        },
-        activeColor: '#4b0'
+export default {
+  data() {
+    return {
+      data: "你好"
+    };
+  },
+  computed: {
+    count() {
+      return store.state.count;
     }
   },
-
-  components: {
-    card,ZanSelect
-  },
-
+  components: {},
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      wx.navigateTo({ url })
+    tap() {
+      this.data += "0";
     },
-    getUserInfo () {
-      // 调用登录接口
-      wx.login({
-        success: () => {
-          wx.getUserInfo({
-            success: (res) => {
-              this.userInfo = res.userInfo
-            }
-          })
-        }
-      })
-    },
-    clickHandle (msg, ev) {
-      console.log('clickHandle:', msg, ev)
-    },
-          handleZanSelectChange ({ componentId, value }) {
-        this.checked[componentId] = value
-      },
+    btnRepairClick() {
+      const url = "../repair/main";
+      wx.navigateTo({ url });
+    }
   },
-
-  created () {
-    // 调用应用实例的方法获取全局数据
-    this.getUserInfo()
+  created() {
+    console.log("created index/main");
+    console.log(store.state.userinfo);
+  },
+  mounted() {
+    console.log("mounted index/main");
+    console.log(store.state.userinfo);
   }
-}
+};
 </script>
 
-<style scoped>
-.userinfo {
-  display: flex;
-  flex-direction: column;
+<style >
+.red {
+  color: #f00;
+}
+.zan-col {
+  line-height: 30px;
+  text-align: center;
+  font-size: 12px;
+  color: #fff;
   align-items: center;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.zan-row {
+  padding-bottom: 30px;
 }
 
-.userinfo-nickname {
-  color: #aaa;
+.doc-title {
+  text-align: center;
 }
 
-.usermotto {
-  margin-top: 150px;
-}
-
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
-}
-
-.counter {
-  display: inline-block;
-  margin: 10px auto;
-  padding: 5px 10px;
-  color: blue;
-  border: 1px solid blue;
+.link {
+  width: 277.5px;
+  height: 105px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  box-shadow: 5px 5px 5px #888888;
 }
 </style>
