@@ -21,6 +21,7 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.login.LoginRecord;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
+import com.computerdesign.whutHouseMgmt.bean.user.LoginByUnionId;
 import com.computerdesign.whutHouseMgmt.bean.user.UserLogin;
 import com.computerdesign.whutHouseMgmt.controller.BaseController;
 import com.computerdesign.whutHouseMgmt.service.login.LoginRecordService;
@@ -53,8 +54,8 @@ public class UserLoginController extends BaseController{
 	 */
 	@PostMapping(value = "loginByUnionId")
 	@ResponseBody
-	public Msg loginByUnionId(@RequestBody String unionId){
-		ViewStaff viewStaff = viewStaffService.getByUnionId(unionId);
+	public Msg loginByUnionId(@RequestBody LoginByUnionId loginByUnionId){
+		ViewStaff viewStaff = viewStaffService.getByUnionId(loginByUnionId.getUnionId());
 		if (viewStaff == null) {
 			return Msg.error();
 		}

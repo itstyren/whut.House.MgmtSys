@@ -29,7 +29,6 @@
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 		<!-- 指定mybatis mapper文件的位置 -->
 		<property name="mapperLocations" value="classpath:mapper/**/*.xml"></property>
-
 	</bean>
 
 	<!-- 配置扫描器，将mybatis接口的实现加入ioc的容器中 -->
