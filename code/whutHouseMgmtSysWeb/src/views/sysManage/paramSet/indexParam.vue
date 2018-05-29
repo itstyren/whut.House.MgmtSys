@@ -43,7 +43,7 @@
           <el-menu-item index="/sysmanage/paramSet/staffTitle">
             职称
           </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/staffClass">
+          <el-menu-item index="/sysmanage/paramSet/staffType">
             职工类别
           </el-menu-item>
           <el-menu-item index="/sysmanage/paramSet/staffStatus">

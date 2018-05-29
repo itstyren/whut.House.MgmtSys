@@ -77,10 +77,6 @@
 
 <script type="text/ecmascript-6">
 import {
-  postStaffMultiplyHouse,
-  postStaffMultiplyHouseNum
-} from "@/api/dataAnalysis";
-import {
   postAllStaffMonetarySub,
   postAllStaffLumpMonetarySub
 } from "@/api/monetarySub";
@@ -107,21 +103,16 @@ export default {
       filterData:{}
     };
   },
-  // 过滤器的哈希表
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        租赁: "info",
-        私有: "warning",
-        购买: "success"
-      };
-      return statusMap[status];
-    }
-  },
   components: { staffFilter, exportPopover },
   created() {
     this.getMonetarySub();
     this.getLumpMonetarySub();
+  },
+  watch: {
+    filterData(newVal){
+    this.getMonetarySub();
+    this.getLumpMonetarySub();
+    }
   },
   methods: {
     getMonetarySub() {
@@ -130,10 +121,8 @@ export default {
         page: this.page,
         size: this.size
       };
-      postAllStaffMonetarySub(params).then(res => {
-        // console.log(res.data.data);
+      postAllStaffMonetarySub(params,this.filterData).then(res => {
         this.monetarySubData = res.data.data.data.list;
-        // console.log(this.houseData)
         this.totalNum = res.data.data.data.total;
         this.listLoading = false;
       });
@@ -144,14 +133,14 @@ export default {
         page: this.page1,
         size: this.size1
       };
-      postAllStaffLumpMonetarySub(params).then(res => {
+      postAllStaffLumpMonetarySub(params,this.filterData).then(res => {
         // console.log(res.data.data.data);
         this.totalNum1 = res.data.data.data.total;
         this.lumpMonetarySubData = res.data.data.data.list;
       });
     },
     queryStaff(data) {
-      console.log(data);
+      // console.log(data);
       this.filterData=data
     },
     // 处理导出情况

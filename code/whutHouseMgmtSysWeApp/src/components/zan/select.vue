@@ -70,7 +70,7 @@
       },
       callback (componentId, value) {
         const e = {componentId, value}
-        console.info('[zan:Select:change]', e)
+        //console.info('[zan:Select:change]', e)
         this.$emit('handleZanSelectChange', e)
       }
     }

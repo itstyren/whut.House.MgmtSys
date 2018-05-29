@@ -49,7 +49,7 @@ export const asyncRouterMap = [
                 { path: 'staffDept', component: _import('sysManage/paramSet/staffParam/staffDept'), name: 'staffDept', meta: { title: 'staffDept' } },
                 { path: 'staffPost', component: _import('sysManage/paramSet/staffParam/staffPost'), name: 'staffPost', meta: { title: 'staffPost' } },
                 { path: 'staffTitle', component: _import('sysManage/paramSet/staffParam/staffTitle'), name: 'staffTitle', meta: { title: 'staffTitle' } },
-                { path: 'staffClass', component: _import('sysManage/paramSet/staffParam/staffClass'), name: 'staffClass', meta: { title: 'staffClass' } },
+                { path: 'staffType', component: _import('sysManage/paramSet/staffParam/staffType'), name: 'staffType', meta: { title: 'staffType' } },
                 { path: 'staffStatus', component: _import('sysManage/paramSet/staffParam/staffStatus'), name: 'staffStatus', meta: { title: 'staffStatus' } },
                 { path: 'staffSpouse', component: _import('sysManage/paramSet/staffParam/staffSpouse'), name: 'staffSpouse', meta: { title: 'staffSpouse' } },
                 { path: 'rentOption', component: _import('sysManage/paramSet/rentParam/rentOption'), name: 'rentOption', meta: { title: 'rentOption' } },

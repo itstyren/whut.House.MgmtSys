@@ -6,13 +6,15 @@
       <button @click="decrement">-</button>
     </p>
 
-    <a href="/pages/index/main" class="home">去往首页</a>
+    <a href="/pages/index/main" open-type="switchTab" class="home">去往首页</a>
+    <a href="/pages/login/main" class="home">前往登录界面</a>
+    
   </div>
 </template>
 
 <script>
 // Use Vuex
-import store from './store'
+import store from '@/store/index'
 
 export default {
   computed: {

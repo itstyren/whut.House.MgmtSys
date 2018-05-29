@@ -48,6 +48,7 @@ export default {
         .then(res => {
           if (res.data.status != "error") {
             let resData = res.data.data.data;
+            console.log(resData)
             this.$store.commit(types.FIX_GETHOUSE, resData.houseList);
             utils.statusinfo(this, res.data);
             this.personalInfo.push(
@@ -107,7 +108,7 @@ export default {
             this.listLoading = false;
                     let selectStaff={
                       name:resData.name,
-                      id:resData.staffId
+                      id:resData.id
                     }
         this.$emit('select-staff',selectStaff)
           } else {
