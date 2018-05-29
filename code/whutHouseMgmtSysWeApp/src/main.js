@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import App from './App'
+import store from './store/index'
+//引入weui样式
+import '../static/weui/weui.css'
 
 Vue.config.productionTip = false
 App.mpType = 'app'
 
-//引入weui样式
-import '../static/weui/weui.css'
+Vue.prototype.$store=store
 
 const app = new Vue(App)
 app.$mount()

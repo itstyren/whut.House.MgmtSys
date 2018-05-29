@@ -2,6 +2,7 @@
 // make sure to call Vue.use(Vuex) if using a module system
 import Vue from 'vue'
 import Vuex from 'vuex'
+import getters from './getters'
 
 Vue.use(Vuex)
 
@@ -9,23 +10,27 @@ const store = new Vuex.Store({
   state: {
     API_URL: 'http://118.126.117.96:8080/whutHouseMgmtReposity',
     access_token: '',
-    unionID:'',
+    unionID: '',
     count: 0,
-    userinfo:[]
+    userinfo: []
   },
+  getters,
   mutations: {
     increment: (state) => {
-      const obj = state
-      obj.count += 1
+      state.count += 1
     },
     decrement: (state) => {
-      const obj = state
-      obj.count -= 1
+      obstatej.count -= 1
     },
     login: (state, data) => {
-      const obj = state
-      obj.access_token = data
-    }
+      state.access_token = data
+    },
+    setUserInfo: (state, data) => {
+      state.userinfo = data
+    },
+    setUnionID: (state, data) => {
+      state.unionID = data
+    },
   }
 })
 

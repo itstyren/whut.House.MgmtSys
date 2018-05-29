@@ -1,4 +1,4 @@
-import store from '../store/store'
+import store from '../store/index'
 
 const root_url = 'http://118.126.117.96:8080/whutHouseMgmtReposity';
 

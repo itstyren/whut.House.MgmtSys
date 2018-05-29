@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import store from "../../store/store";
+import store from "../../store/index";
 import ZanSteps from "../../components/zan/steps";
 import ZanField from "../../components/zan/field";
 
@@ -319,7 +319,7 @@ export default {
         data: getApply_param,
         header: {
           "content-type": "application/json", // 默认值
-          "X-token": store.state.access_token
+            "X-token": store.state.access_token
         },
         success: function(_res) {
           console.log(_res);

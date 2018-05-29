@@ -12,7 +12,7 @@
 <script>
 import card from "@/components/card";
 import ZanSelect from "../../components/zan/select";
-import store from '../../store/store'
+import store from '../../store/index'
 
 export default {
   data() {

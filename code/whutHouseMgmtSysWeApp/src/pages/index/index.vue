@@ -1,9 +1,6 @@
 <template>
 <div class="container">
 
-  <!-- <div class="doc-title zan-hairline--bottom">申请</div> -->
-  <div class="zan-panel-title"></div>
-  <div class="zan-panel">
       <div class="zan-row">
         <div class="zan-col zan-col-2">
         </div>
@@ -31,14 +28,13 @@
         </div>
         <div class="zan-col zan-col-2">
         </div>
-      </div>
   </div>
 
 </div>
 </template>
 
 <script>
-import store from "../../store/store";
+import store from "@/store/index";
 
 export default {
   data() {
@@ -73,6 +69,9 @@ export default {
 </script>
 
 <style >
+.container{
+  padding-top: 8vh;
+}
 .red {
   color: #f00;
 }
