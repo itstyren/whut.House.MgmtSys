@@ -36,8 +36,8 @@ public class DocumentHandler{
 		System.out.println(DocumentHandler.class.getClassLoader().getResource("../../"));
 		System.out.println(DocumentHandler.class.getClassLoader().getResource("../../").getPath());
 //		 final String templateFolder = DocumentHandler.class.getClassLoader().getResource("../../").getPath() + "WEB-INF/HireFiles/";
-		this.configuration.setDirectoryForTemplateLoading(new File("D:\\"));// 第二种模板路径
-//		this.configuration.setDirectoryForTemplateLoading(new File("C:\\"));// 第二种模板路径
+//		this.configuration.setDirectoryForTemplateLoading(new File("D:\\"));// 第二种模板路径
+		this.configuration.setDirectoryForTemplateLoading(new File("C:\\"));// 第二种模板路径
 		Template t = null;
 		File outFile = null;
 		byte[] bFile = null;
