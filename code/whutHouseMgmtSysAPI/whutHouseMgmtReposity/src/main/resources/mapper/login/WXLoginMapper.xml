@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.login.WXLoginMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.login.WXLogin">
+    <result column="appid" jdbcType="VARCHAR" property="appid" />
+    <result column="secret" jdbcType="VARCHAR" property="secret" />
+    <result column="grant_type" jdbcType="VARCHAR" property="grant_type" />
+    <result column="jscode" jdbcType="VARCHAR" property="jscode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    appid, secret, grant_type, jscode
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.login.WXLoginExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Pm_WXLogin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.login.WXLoginExample">
+    delete from Pm_WXLogin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.login.WXLogin">
+    insert into Pm_WXLogin (appid, secret, grant_type, 
+      jscode)
+    values (#{appid,jdbcType=VARCHAR}, #{secret,jdbcType=VARCHAR}, #{grant_type,jdbcType=VARCHAR}, 
+      #{jscode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.login.WXLogin">
+    insert into Pm_WXLogin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appid != null">
+        appid,
+      </if>
+      <if test="secret != null">
+        secret,
+      </if>
+      <if test="grant_type != null">
+        grant_type,
+      </if>
+      <if test="jscode != null">
+        jscode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="secret != null">
+        #{secret,jdbcType=VARCHAR},
+      </if>
+      <if test="grant_type != null">
+        #{grant_type,jdbcType=VARCHAR},
+      </if>
+      <if test="jscode != null">
+        #{jscode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.login.WXLoginExample" resultType="java.lang.Long">
+    select count(*) from Pm_WXLogin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Pm_WXLogin
+    <set>
+      <if test="record.appid != null">
+        appid = #{record.appid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secret != null">
+        secret = #{record.secret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grant_type != null">
+        grant_type = #{record.grant_type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jscode != null">
+        jscode = #{record.jscode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Pm_WXLogin
+    set appid = #{record.appid,jdbcType=VARCHAR},
+      secret = #{record.secret,jdbcType=VARCHAR},
+      grant_type = #{record.grant_type,jdbcType=VARCHAR},
+      jscode = #{record.jscode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
