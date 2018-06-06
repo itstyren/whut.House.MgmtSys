@@ -5,6 +5,9 @@
       <div class="userinfo-nickname">
         <card :text="userInfo.nickName"></card>
       </div>
+      <button  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+      <!-- <open-data type="userAvatarUrl"></open-data>
+<open-data type="userNickName"></open-data> -->
     </div>
 
 
@@ -35,7 +38,7 @@
         </div>
       </div>
       <div class="zan-row login_button">
-        <div class="zan-col zan-col-8 zan-col-offset-8">
+        <div class="zan-col zan-col-18 zan-col-offset-3">
           <button class="zan-btn zan-btn--primary" formType="submit">登录并绑定</button>
         </div>
         <!-- <div class="zan-col zan-col-6 zan-col-offset-4">
@@ -49,7 +52,6 @@
 </template>
 
 <script>
-import fly from "@/utils/request";
 import card from "@/components/card";
 import ZanField from "@/components/zan/field";
 import ZanTopTips from "../../components/zan/toptips";
@@ -63,17 +65,18 @@ export default {
       activeColor: "#4b0",
       fieldBase: {
         ID: {
-          focus: true,
+          mode: "wrapped",
           placeholder: "请输入账号",
           componentId: "ID"
         },
         password: {
+          mode: "wrapped",
           placeholder: "请输入密码",
           inputType: "password",
           componentId: "password"
         }
       },
-      roleArray: [ "请选择角色","超级管理员", "单位管理员", "职工"],
+      roleArray: ["请选择角色", "超级管理员", "单位管理员", "职工"],
       roleID: 0,
       handleFunctions: {
         handleZanFieldChange: this.handleZanFieldChange,
@@ -113,20 +116,23 @@ export default {
     },
     // 通过微信id优先进入
     getUserInfo() {
+      console.log(233);
       // 微信自身的登录
       wx.login({
-        success: () => {
+        success: (res) => {
+          console.log(res)
           wx.getUserInfo({
             success: res => {
+              console.log(res);
               this.userInfo = res.userInfo;
               this.$store.commit("setUnionID", this.test_UNIONID);
               let data = {
-                unionID: this.$store.state.unionID
+                unionId: this.$store.state.unionID
               };
               //console.log(loginByUnionID_param)
               postLoginByUnionID(data).then(res => {
                 if (res.status === "success") {
-                  this.$store.state.access_token = res.data.data.token;
+                  this.$store.state.access_token = res.data.token;
                   getTokenLogin(this.$store.getters.token).then(res => {
                     this.$store.commit("setUserInfo", res.data.data[0]);
                     const url = "../index/main";
@@ -150,7 +156,7 @@ export default {
       let data = {
         no: event.target.value.ID,
         password: event.target.value.password,
-        roleId: this.roleID-1,
+        roleId: this.roleID - 1,
         unionId: "111222"
       };
       postLoginWX(data).then(res => {
@@ -217,13 +223,14 @@ export default {
 }
 
 .zan-row {
-    text-align: center;
+  text-align: center;
+  padding-bottom: 2vh;
 }
 
 .zan-panel-title {
   font-size: 14px;
 }
-.login_button{
+.login_button {
   margin-top: 5vh;
 }
 </style>
