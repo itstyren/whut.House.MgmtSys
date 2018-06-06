@@ -52,9 +52,9 @@ import {
   postHouseRelImport
 } from "@/api/basiceData";
 import utils from "@/utils/index.js";
-var basiceUrl = "http://localhost:8787/whutHouseMgmtReposity/dataImport/";
+// var basiceUrl = "http://localhost:8787/whutHouseMgmtReposity/dataImport/";
 // var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
-  // var baseURL: 'http://120.78.226.24:8080/whutHouseMgmtReposity', // api的base_url  
+  var baseURL= 'http://120.78.226.24:8080/whutHouseMgmtRepositydataImport/'
 
 export default {
   name: "uploadExcel",
@@ -123,25 +123,25 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import "../../../styles/variables.scss";
+@import "../../../styles/variables.scss";
 
-  .second-container {
-    // background-color: $background-grey;
-.import-data {
-  margin-top: 20px;
-  height: 60vh;
-}
+.second-container {
+  // background-color: $background-grey;
+  .import-data {
+    margin-top: 20px;
+    height: 60vh;
+  }
 
-.download-button {
-  position: absolute;
-  top: 50px;
-  right: 30px;
-}
+  .download-button {
+    position: absolute;
+    top: 50px;
+    right: 30px;
+  }
 
-.save-buttomn {
-  position: absolute;
-  top: 150px;
-  right: 30px;
-}
+  .save-buttomn {
+    position: absolute;
+    top: 150px;
+    right: 30px;
+  }
 }
 </style>
