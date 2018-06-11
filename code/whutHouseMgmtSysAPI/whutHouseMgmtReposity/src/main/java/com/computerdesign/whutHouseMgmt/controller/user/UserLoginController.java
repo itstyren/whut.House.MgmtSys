@@ -3,8 +3,10 @@ package com.computerdesign.whutHouseMgmt.controller.user;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.InvalidAlgorithmParameterException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +38,7 @@ import com.computerdesign.whutHouseMgmt.service.login.LoginRecordService;
 import com.computerdesign.whutHouseMgmt.service.login.WXService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
+import com.computerdesign.whutHouseMgmt.utils.AES;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.computerdesign.whutHouseMgmt.utils.UserAgentGetter;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -44,6 +48,7 @@ import com.wf.etp.authz.exception.ErrorTokenException;
 import com.wf.etp.authz.exception.ExpiredTokenException;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.swagger.annotations.ApiOperation;
 
 @RequestMapping(value = "/userLogin/")
 @Controller
@@ -63,6 +68,31 @@ public class UserLoginController extends BaseController {
 	@Autowired
 	private WXService wxService;
 
+	@GetMapping(value="decodeUserInfo")
+	@ApiOperation(value="解密用户信息",notes="获取用户openId和unionId数据(如果没绑定微信开放平台，解密数据中不包含unionId)")
+	@ResponseBody
+	public Msg decodeUserInfo(@RequestParam(required = true,value = "encryptedData")String encryptedData,
+	        @RequestParam(required = true,value = "iv")String iv,
+	        @RequestParam(required = true,value = "session_key")String sessionKey){
+		
+
+	    try {
+	        AES aes = new AES();
+	        byte[] resultByte = aes.decrypt(Base64.decodeBase64(encryptedData), Base64.decodeBase64(sessionKey), Base64.decodeBase64(iv));
+	        if(null != resultByte && resultByte.length > 0){
+	            String userInfo = new String(resultByte, "UTF-8");
+	            return Msg.success().add("data", userInfo);
+//	            return rtnParam(0, userInfo);
+	        }
+	    } catch (InvalidAlgorithmParameterException e) {
+	        e.printStackTrace();
+	    } catch (UnsupportedEncodingException e) {
+	        e.printStackTrace();
+	    }
+//	    return rtnParam(50021, null);
+	    return Msg.error();
+	}
+	
 	@GetMapping(value = "code")
 	@ResponseBody
 	public Msg getCode(@RequestParam("code") String code) {
@@ -112,8 +142,11 @@ public class UserLoginController extends BaseController {
 	}
 
 	private String getUrl(String appid, String secret, String js_code, String grant_type) {
-		return "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code="
-				+ js_code + "&grant_type=" + grant_type;
+		return "https://api.weixin.qq.com/sns/jscode2session?"
+				+ "appid=" + appid 
+				+ "&secret=" + secret 
+				+ "&js_code=" + js_code 
+				+ "&grant_type=" + grant_type;
 	}
 
 	/**
