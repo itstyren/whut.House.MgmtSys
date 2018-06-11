@@ -5,12 +5,12 @@
       <div class="userinfo-nickname">
         <card :text="userInfo.nickName"></card>
       </div>
-      <button  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
-      <!-- <open-data type="userAvatarUrl"></open-data>
-<open-data type="userNickName"></open-data> -->
+      <button :class="{'hide':isAuthorization}"  open-type="getUserInfo" @getuserinfo="bindGetUserInfo">授权登录</button>
+      <!-- <open-data type="userAvatarUrl"></open-data> -->
+<!-- <open-data type="userNickName"></open-data> -->
     </div>
 
-
+<div   :class="{'hide':!isAuthorization}">
       <form @submit="formSubmit" @reset="formReset">
       <div class="zan-row">
         <div class="zan-col zan-col-20 zan-col-offset-2">
@@ -46,7 +46,7 @@
         </div> -->
       </div>
       </form>
-
+</div>
     <toptips />
   </div>
 </template>
@@ -55,12 +55,18 @@
 import card from "@/components/card";
 import ZanField from "@/components/zan/field";
 import ZanTopTips from "../../components/zan/toptips";
-import { postLoginWX, getTokenLogin, postLoginByUnionID } from "@/api";
+import {
+  postLoginWX,
+  getTokenLogin,
+  postLoginByUnionID,
+  getWXCode
+} from "@/api";
 import { getComponentByTag } from "../../utils/helper";
 export default {
   data() {
     return {
       motto: "房屋租赁管理系统",
+      isAuthorization: false,
       userInfo: {},
       activeColor: "#4b0",
       fieldBase: {
@@ -92,7 +98,7 @@ export default {
     toptips: ZanTopTips
   },
   created() {
-    this.getUserInfo();
+    this.checkStatus();
   },
   methods: {
     handleZanFieldChange(e) {
@@ -115,36 +121,57 @@ export default {
       wx.navigateTo({ url });
     },
     // 通过微信id优先进入
-    getUserInfo() {
-      console.log(233);
-      // 微信自身的登录
-      wx.login({
-        success: (res) => {
-          console.log(res)
-          wx.getUserInfo({
-            success: res => {
-              console.log(res);
-              this.userInfo = res.userInfo;
-              this.$store.commit("setUnionID", this.test_UNIONID);
-              let data = {
-                unionId: this.$store.state.unionID
-              };
-              //console.log(loginByUnionID_param)
-              postLoginByUnionID(data).then(res => {
-                if (res.status === "success") {
-                  this.$store.state.access_token = res.data.token;
-                  getTokenLogin(this.$store.getters.token).then(res => {
-                    this.$store.commit("setUserInfo", res.data.data[0]);
-                    const url = "../index/main";
-                    wx.switchTab({ url });
+    checkStatus() {
+      let that = this;
+      wx.getSetting({
+        success(res) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          if (res.authSetting["scope.userInfo"]) {
+            this.isAuthorization = true;
+            // 从服务器端获取code
+            wx.login({
+              success: res => {
+                getWXCode(res.code).then(res => {
+                  wx.setStorage({
+                    key: "openid",
+                    data: res.data.data.openid
                   });
-                } else {
-                }
-              });
-            }
-          });
+                  wx.setStorage({
+                    key: "session_key",
+                    data: res.data.data.session_key
+                  });
+                });
+                wx.getUserInfo({
+                  success: res => {
+                    console.log(res);
+                    this.userInfo = res.userInfo;
+                    that.$store.commit("setUnionID", that.test_UNIONID);
+                    let data = {
+                      unionId: that.$store.state.unionID
+                    };
+                    postLoginByUnionID(data).then(res => {
+                      if (res.status === "success") {
+                        that.$store.state.access_token = res.data.token;
+                        getTokenLogin(that.$store.getters.token).then(res => {
+                          that.$store.commit("setUserInfo", res.data.data[0]);
+                          const url = "../index/main";
+                          wx.switchTab({ url });
+                        });
+                      } else {
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
         }
       });
+    },
+    // 获取用户授权
+    bindGetUserInfo(e) {
+      this.userInfo = e.mp.detail.userInfo;
+      this.isAuthorization = true;
     },
     clickHandle(msg, ev) {},
     handleZanSelectChange({ componentId, value }) {},
@@ -184,6 +211,9 @@ export default {
 </script>
 
 <style scoped>
+.hide {
+  display: none;
+}
 .userinfo {
   display: flex;
   flex-direction: column;

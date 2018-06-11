@@ -4,7 +4,7 @@ import store from "../store";
 
 //配置请求基地址
 fly.config = {
-  baseURL: "http://118.126.117.96:8080/whutHouseMgmtReposity",
+  baseURL: "http://localhost:8787/whutHouseMgmtReposity",
   timeout: '5000',
 }
 

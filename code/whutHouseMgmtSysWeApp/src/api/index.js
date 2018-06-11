@@ -12,3 +12,8 @@ export function postLoginByUnionID(data) {
 export function getTokenLogin(token) {
   return fly.get(`/userLogin/tokenLogin?token=${token}`,)
 }
+
+// 向服务器发送code
+export function getWXCode(code) {
+  return fly.get(`/userLogin/code?code=${code}`, )
+}
