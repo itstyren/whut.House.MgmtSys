@@ -449,8 +449,9 @@
     getStaffMonetaryByNO
   } from "@/api/monetarySub";
   import utils from "@/utils/index.js";
-  var basiceUrl = "http://localhost:8787/whutHouseMgmtReposity/dataImport/";
+  // var basiceUrl = "http://localhost:8787/whutHouseMgmtReposity/dataImport/";
 // var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
+  var basiceUrl= 'http://120.78.226.24:8080/whutHouseMgmtReposity/dataImport/'
   export default {
     data() {
       var checkPassword = (rule, value, callback) => {
