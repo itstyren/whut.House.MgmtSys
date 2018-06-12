@@ -34,6 +34,7 @@ import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.bean.user.LoginByUnionId;
 import com.computerdesign.whutHouseMgmt.bean.user.UserLogin;
+import com.computerdesign.whutHouseMgmt.bean.user.WXUserInfo;
 import com.computerdesign.whutHouseMgmt.controller.BaseController;
 import com.computerdesign.whutHouseMgmt.service.login.LoginRecordService;
 import com.computerdesign.whutHouseMgmt.service.login.WXService;
@@ -71,17 +72,14 @@ public class UserLoginController extends BaseController {
 	@GetMapping(value="decodeUserInfo")
 	@ApiOperation(value="解密用户信息",notes="获取用户openId和unionId数据(如果没绑定微信开放平台，解密数据中不包含unionId)")
 	@ResponseBody
-	public Msg decodeUserInfo(@RequestParam(required = true,value = "encryptedData")String encryptedData,
-	        @RequestParam(required = true,value = "iv")String iv,
-	        @RequestParam(required = true,value = "session_key")String sessionKey){
+	public Msg decodeUserInfo(@RequestBody WXUserInfo wxUserInfo){
 
-		System.out.println(sessionKey);
-		System.out.println(encryptedData);
-		System.out.println(iv);
-		System.out.println("???");
-	    try {
+		String encryptedData = wxUserInfo.getEncryptedData();
+		String sessionKey = wxUserInfo.getSessionKey();
+		String iv = wxUserInfo.getIv();
+		try {
 	        AES aes = new AES();
-	        byte[] resultByte = aes.decrypt(Base64.decodeBase64(URLEncoder.encode(encryptedData,"utf-8")), Base64.decodeBase64(sessionKey), Base64.decodeBase64(iv));
+	        byte[] resultByte = aes.decrypt(Base64.decodeBase64(encryptedData), Base64.decodeBase64(sessionKey), Base64.decodeBase64(iv));
 	        if(null != resultByte && resultByte.length > 0){
 	            String userInfo = new String(resultByte, "UTF-8");
 	            return Msg.success().add("data", userInfo);
