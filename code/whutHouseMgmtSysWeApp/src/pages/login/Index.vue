@@ -59,7 +59,8 @@ import {
   postLoginWX,
   getTokenLogin,
   postLoginByUnionID,
-  getWXCode
+  getWXCode,
+  getdecodeInfo
 } from "@/api";
 import { getComponentByTag } from "../../utils/helper";
 export default {
@@ -131,7 +132,9 @@ export default {
             // 从服务器端获取code
             wx.login({
               success: res => {
+                console.log(res.code);
                 getWXCode(res.code).then(res => {
+                  console.log(res.data.data.session_key);
                   wx.setStorage({
                     key: "openid",
                     data: res.data.data.openid
@@ -140,27 +143,36 @@ export default {
                     key: "session_key",
                     data: res.data.data.session_key
                   });
-                });
-                wx.getUserInfo({
-                  success: res => {
-                    console.log(res);
-                    this.userInfo = res.userInfo;
-                    that.$store.commit("setUnionID", that.test_UNIONID);
-                    let data = {
-                      unionId: that.$store.state.unionID
-                    };
-                    postLoginByUnionID(data).then(res => {
-                      if (res.status === "success") {
-                        that.$store.state.access_token = res.data.token;
-                        getTokenLogin(that.$store.getters.token).then(res => {
-                          that.$store.commit("setUserInfo", res.data.data[0]);
-                          const url = "../index/main";
-                          wx.switchTab({ url });
-                        });
-                      } else {
-                      }
-                    });
-                  }
+                  wx.getUserInfo({
+                    success: res => {
+                      console.log(res);
+                      // console.log(wx.getStorageSync("session_key"));
+                      let data1 = {
+                        encryptedData: res.encryptedData,
+                        iv: res.iv,
+                        session_key: wx.getStorageSync("session_key")
+                      };
+                      getdecodeInfo(data1).then(res => {
+                        console.log(res);
+                      });
+                      this.userInfo = res.userInfo;
+                      that.$store.commit("setUnionID", that.test_UNIONID);
+                      let data = {
+                        unionId: that.$store.state.unionID
+                      };
+                      postLoginByUnionID(data).then(res => {
+                        if (res.status === "success") {
+                          that.$store.state.access_token = res.data.token;
+                          getTokenLogin(that.$store.getters.token).then(res => {
+                            that.$store.commit("setUserInfo", res.data.data[0]);
+                            const url = "../index/main";
+                            wx.switchTab({ url });
+                          });
+                        } else {
+                        }
+                      });
+                    }
+                  });
                 });
               }
             });
@@ -172,6 +184,7 @@ export default {
     bindGetUserInfo(e) {
       this.userInfo = e.mp.detail.userInfo;
       this.isAuthorization = true;
+      this.checkStatus();
     },
     clickHandle(msg, ev) {},
     handleZanSelectChange({ componentId, value }) {},
