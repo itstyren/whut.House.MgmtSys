@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,7 +55,6 @@ import io.swagger.annotations.ApiOperation;
 @Controller
 public class UserLoginController extends BaseController {
 
-	private static final String URL = "https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code";
 
 	@Autowired
 	private LoginRecordService loginRecordService;
@@ -74,11 +74,14 @@ public class UserLoginController extends BaseController {
 	public Msg decodeUserInfo(@RequestParam(required = true,value = "encryptedData")String encryptedData,
 	        @RequestParam(required = true,value = "iv")String iv,
 	        @RequestParam(required = true,value = "session_key")String sessionKey){
-		
 
+		System.out.println(sessionKey);
+		System.out.println(encryptedData);
+		System.out.println(iv);
+		System.out.println("???");
 	    try {
 	        AES aes = new AES();
-	        byte[] resultByte = aes.decrypt(Base64.decodeBase64(encryptedData), Base64.decodeBase64(sessionKey), Base64.decodeBase64(iv));
+	        byte[] resultByte = aes.decrypt(Base64.decodeBase64(URLEncoder.encode(encryptedData,"utf-8")), Base64.decodeBase64(sessionKey), Base64.decodeBase64(iv));
 	        if(null != resultByte && resultByte.length > 0){
 	            String userInfo = new String(resultByte, "UTF-8");
 	            return Msg.success().add("data", userInfo);
@@ -99,6 +102,7 @@ public class UserLoginController extends BaseController {
 		// 隐私数据存放数据库
 		WXLogin wxLogin = wxService.get();
 		String urlString = getUrl(wxLogin.getAppid(), wxLogin.getSecret(), code, wxLogin.getGrant_type());
+	
 		String result = "";
 		BufferedReader in = null;
 		InputStream is = null;

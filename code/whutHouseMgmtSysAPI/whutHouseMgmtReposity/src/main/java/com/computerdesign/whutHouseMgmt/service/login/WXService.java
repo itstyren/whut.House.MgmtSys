@@ -21,4 +21,5 @@ public class WXService {
 	public WXLogin get() {
 		return wxLoginMapper.selectByExample(null).get(0);
 	}
+	
 }
