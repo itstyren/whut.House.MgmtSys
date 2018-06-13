@@ -16,8 +16,6 @@ public class HireAddDirectApply {
 	@ApiModelProperty(example="乔布斯")
     private String directApplyMan;
 
-	
-
 	public Integer getStaffId() {
 		return staffId;
 	}

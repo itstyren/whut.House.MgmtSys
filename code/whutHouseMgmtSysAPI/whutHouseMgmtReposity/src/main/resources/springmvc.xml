@@ -29,6 +29,7 @@
 	<mvc:resources mapping="/webjars/**"
 		location="classpath:/META-INF/resources/webjars/" />
  
+ 	<!-- 配置注解方式 -->
 	<context:annotation-config />
 
 	<!-- 两个标准配置 -->

@@ -30,9 +30,11 @@ public class ResponseHeaderFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		
 		// httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-Token");
 		// httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token");
 //		httpServletResponse.setHeader("Access-Control-Allow-Headers", "X-Token,Content-Type");
+		
 		httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
 		httpServletResponse.setHeader("Access-Control-Allow-Headers",
 				"X-Token, Origin, Content-Type, Accept");

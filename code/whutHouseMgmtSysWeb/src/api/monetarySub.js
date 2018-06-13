@@ -18,20 +18,20 @@ export function getStaffMonetaryByNO(params,staffNO) {
 }
 
 // 获取所有的年度补贴统计
-export function postAllStaffMonetarySub(params) {
+export function postAllStaffMonetarySub(params,data) {
     return request({
-        url: `/staffMonetarySub/getAllMonetarySub`,
-        method: 'get',
-        params: params
+        url: `/staffMonetarySub/getAllMonetarySubByCondition?page=${params.page}&size=${params.size}`,
+        method: 'post',
+        data:data
     })
 }
 
 // 获取所有一次性补贴统计
-export function postAllStaffLumpMonetarySub(params) {
+export function postAllStaffLumpMonetarySub(params,data) {
     return request({
-        url: `/oneTimeMonetarySub/getAllOneTimeMonetarySub`,
-        method: 'get',
-        params: params
+        url: `/oneTimeMonetarySub/getAllOneTimeMonetarySubByCondition?page=${params.page}&size=${params.size}`,
+        method: 'post',
+        data:data,
     })
 }
 
