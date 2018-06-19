@@ -117,7 +117,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background: url(../../../static/loginBg.png);
+  background: url(../../../static/loginBg.gif);
   // background-position: center;
   background-size: 100% 100%;
   background-repeat: no-repeat;
