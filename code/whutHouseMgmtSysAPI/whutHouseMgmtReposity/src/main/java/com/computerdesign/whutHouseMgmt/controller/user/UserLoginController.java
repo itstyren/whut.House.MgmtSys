@@ -42,6 +42,7 @@ import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 import com.computerdesign.whutHouseMgmt.utils.AES;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
+import com.computerdesign.whutHouseMgmt.utils.JSONUtil;
 import com.computerdesign.whutHouseMgmt.utils.UserAgentGetter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,7 +70,7 @@ public class UserLoginController extends BaseController {
 	@Autowired
 	private WXService wxService;
 
-	@GetMapping(value="decodeUserInfo")
+	@PostMapping(value="decodeUserInfo")
 	@ApiOperation(value="解密用户信息",notes="获取用户openId和unionId数据(如果没绑定微信开放平台，解密数据中不包含unionId)")
 	@ResponseBody
 	public Msg decodeUserInfo(@RequestBody WXUserInfo wxUserInfo){
@@ -82,7 +83,8 @@ public class UserLoginController extends BaseController {
 	        byte[] resultByte = aes.decrypt(Base64.decodeBase64(encryptedData), Base64.decodeBase64(sessionKey), Base64.decodeBase64(iv));
 	        if(null != resultByte && resultByte.length > 0){
 	            String userInfo = new String(resultByte, "UTF-8");
-	            return Msg.success().add("data", userInfo);
+	            return Msg.success().add("data",JSONUtil.parseObject(userInfo, Map.class)).add("origin", userInfo);
+	            
 //	            return rtnParam(0, userInfo);
 	        }
 	    } catch (InvalidAlgorithmParameterException e) {

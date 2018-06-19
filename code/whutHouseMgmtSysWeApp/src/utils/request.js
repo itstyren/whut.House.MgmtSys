@@ -4,7 +4,8 @@ import store from "../store";
 
 //配置请求基地址
 fly.config = {
-  baseURL: "http://localhost:8787/whutHouseMgmtReposity",
+  // baseURL: "http://localhost:8787/whutHouseMgmtReposity",
+  baseURL: 'http://120.78.226.24:8080/whutHouseMgmtReposity', // api的base_url  
   timeout: '5000',
 }
 

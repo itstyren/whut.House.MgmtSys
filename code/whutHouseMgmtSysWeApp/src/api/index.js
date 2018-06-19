@@ -25,3 +25,13 @@ export function getdecodeInfo(data) {
   return fly.post(`/userLogin/decodeUserInfo`, { ...data
   })
 }
+
+// 获取职工个人信息及已有住房
+export function getStaffInfo(staffID) {
+  return fly.get(`/fix/getApply/${staffID}`, )
+}
+
+// 维修参数获取
+export function getFixParam(params, paramClass) {
+  return fly.get(`/fixParam/get/${paramClass}`,{...params})
+}
