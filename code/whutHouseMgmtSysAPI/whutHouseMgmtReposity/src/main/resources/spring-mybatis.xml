@@ -13,17 +13,34 @@
 
 	<!-- 引入资源文件 -->
 	<context:property-placeholder location="classpath:db.properties" />
- 
-	<!-- 配置数据源 --> 
+
+	<!-- 配置数据源 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="user" value="${jdbc.username}"></property>
 		<property name="password" value="${jdbc.password}"></property>
 		<property name="driverClass" value="${jdbc.driverClass}"></property>
 		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}">
+		</property>
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}">
+		</property>
+		<property name="minPoolSize" value="${jdbc.minPoolSize}">
+		</property>
+		<property name="testConnectionOnCheckin" value="${jdbc.testConnectionOnCheckin}">
+		</property>
+		<property name="automaticTestTable" value="${jdbc.automaticTestTable}">
+		</property>
+		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}">
+		</property>
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}">
+		</property>
+		<property name="testConnectionOnCheckout" value="${jdbc.testConnectionOnCheckout}">
+		</property>
+		
 	</bean>
-	
+
 	<!-- 配置和mybatis整合 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<!-- 指定mybatis全局变量的位置 -->
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
