@@ -84,14 +84,12 @@
 
       </form>
     </div>
-    <ZanDialog v-bind="zanDialog"/>
   </div>
 </template>
 
 <script>
 import ZanSteps from "../../components/zan/steps";
 import ZanField from "../../components/zan/field";
-import ZanDialog from "../../components/zan/dialog";
 import { getStaffInfo, getFixParam, postFixApply } from "@/api";
 export default {
   data() {
@@ -218,8 +216,7 @@ export default {
   },
   components: {
     ZanSteps,
-    ZanField,
-    ZanDialog
+    ZanField
   },
   mounted() {
     wx.showLoading({
@@ -249,7 +246,6 @@ export default {
     });
   },
   methods: {
-    ...ZanDialog.methods,
     handleZanFieldChange(e) {
       const { componentId, target, detail } = e;
     },
@@ -308,24 +304,16 @@ export default {
     },
     // 提交申请验证
     checkSubmit() {
-      const obj = {
-        title: "确认提交",
-        buttonsShowVertical: true,
-        buttons: [
-          {
-            text: "提交",
-            color: "#3CC51F",
-            type: "submit"
-          },
-          {
-            text: "取消",
-            type: "cancel"
+      let _this = this;
+      wx.showModal({
+        title: "提示",
+        content: "确认提交",
+        success: function(res) {
+          if (res.confirm) {
+            _this.addSubmit();
+          } else if (res.cancel) {
+            console.log("用户点击取消");
           }
-        ]
-      };
-      this.showZanDialog(obj).then(({ type }) => {
-        if (type == "submit") {
-          this.addSubmit();
         }
       });
     },

@@ -1,34 +1,23 @@
 <template>
 <div class="container">
-
       <div class="zan-row">
-        <div class="zan-col zan-col-2">
-        </div>
         <div class="zan-col zan-col-20 zan-col-offset-2">
-          <a href="/pages/fixApply/main"><img src="../../../static/images/btnImage/fixApply.png" class = "link"/></a>
-        </div>
-        <div class="zan-col zan-col-2">
+          <a href="/pages/fixApply/main"><image src="../../../static/images/btnImage/fixApply.png" class = "link"/></a>
         </div>
       </div>
       <div class="zan-row">
-        <div class="zan-col zan-col-2">
-        </div>
         <div class="zan-col zan-col-20 zan-col-offset-2">
-          <a><img src="../../../static/images/btnImage/roomselect.png" class = "link"/></a>
-        </div>
-        <div class="zan-col zan-col-2">
+          <a><image src="../../../static/images/btnImage/roomselect.png" class = "link"/></a>
         </div>
       </div>
       <div class="zan-row">
-        <div class="zan-col zan-col-2">
-        </div>
         <div class="zan-col zan-col-20 zan-col-offset-2">
-          <a><img src="../../../static/images/btnImage/roomrent.png" class = "link"/></a>
-        </div>
-        <div class="zan-col zan-col-2">
+          <a><image src="../../../static/images/btnImage/roomrent.png" class = "link"/></a>
         </div>
   </div>
-
+  <div class="scaner" @click="scanerClick">
+    <image src="../../../static/images/nav_icon/nav_scaner.png" class="scaner_img"/>
+  </div>
 </div>
 </template>
 
@@ -48,23 +37,37 @@ export default {
   },
   components: {},
   methods: {
-    tap() {
-      this.data += "0";
-    },
-    btnfixApplyClick() {
-      const url = "../fixApply/main";
-      wx.navigateTo({ url });
+    // 当点击了扫描时
+    scanerClick() {
+      wx.scanCode({
+        success: res => {
+          console.log(res);
+        }
+      });
     }
-  },
+  }
 };
 </script>
 
-<style >
-.container{
+<style lang="scss" >
+.container {
   padding-top: 8vh;
-}
-.red {
-  color: #f00;
+  position: relative;
+  height: 90vh;
+  .scaner {
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid #e6ebf5;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    background-color: #f0f2f5;
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    .scaner_img {
+      width: 30px;
+      height: 30px;
+    }
+  }
 }
 .zan-col {
   line-height: 30px;
