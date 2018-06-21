@@ -90,7 +90,7 @@ export default {
         handleZanFieldFocus: this.handleZanFieldFocus,
         handleZanFieldBlur: this.handleZanFieldBlur
       },
-      test_UNIONID: "111222"
+      test_UNIONID: "22"
     };
   },
   components: {
@@ -104,18 +104,14 @@ export default {
   methods: {
     handleZanFieldChange(e) {
       const { componentId, target, detail } = e;
-      //console.log("[zan:field:change]", componentId, target, detail);
     },
 
     handleZanFieldFocus(e) {
       const { componentId, target, detail } = e;
-      // console.log("[zan:field:focus]", componentId, target, detail);
     },
 
     handleZanFieldBlur(e) {
       const { componentId, target, detail } = e;
-
-      // console.log("[zan:field:blur]", componentId, target, detail);
     },
     bindViewTap() {
       const url = "../logs/main";
@@ -132,9 +128,9 @@ export default {
             // 从服务器端获取code
             wx.login({
               success: res => {
-                console.log(res.code);
+                // console.log(res.code);
                 getWXCode(res.code).then(res => {
-                  console.log(res.data.data.session_key);
+                  // console.log(res.data.data.session_key);
                   wx.setStorage({
                     key: "openid",
                     data: res.data.data.openid
@@ -145,12 +141,12 @@ export default {
                   });
                   wx.getUserInfo({
                     success: res => {
-                      console.log(res);
+                      // console.log(res);
                       // console.log(wx.getStorageSync("session_key"));
                       let data1 = {
                         encryptedData: res.encryptedData,
                         iv: res.iv,
-                        session_key: wx.getStorageSync("session_key")
+                        sessionKey: wx.getStorageSync("session_key")
                       };
                       getdecodeInfo(data1).then(res => {
                         console.log(res);
@@ -197,7 +193,7 @@ export default {
         no: event.target.value.ID,
         password: event.target.value.password,
         roleId: this.roleID - 1,
-        unionId: "111222"
+        unionId: this.test_UNIONID
       };
       postLoginWX(data).then(res => {
         if (res.status === "success") {

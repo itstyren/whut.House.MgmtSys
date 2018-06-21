@@ -57,14 +57,6 @@ export default {
       wx.navigateTo({ url });
     }
   },
-  created() {
-    console.log("created index/main");
-    console.log(store.state.userinfo);
-  },
-  mounted() {
-    console.log("mounted index/main");
-    console.log(store.state.userinfo);
-  }
 };
 </script>
 

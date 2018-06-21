@@ -944,6 +944,14 @@
 				})
 				
 	})
+	
+	//权限控制测试
+	$(function() {
+		$("#authGet").click(function() {
+			ajaxRequestGet("auth/testGetAuth");
+		})
+				
+	})
 </script>
 
 </head>
@@ -972,8 +980,15 @@
 		<li><a href="#personalInfo" data-toggle="tab">个人信息</a></li>
 		<li><a href="#querySta" data-toggle="tab">查询统计</a></li>
 		<li><a href="#houseSub" data-toggle="tab">货币化补贴</a></li>
+		<li><a href="#authTest" data-toggle="tab">权限控制测试版</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade in active" id="authTest">
+			<h4>权限获取测试</h4>
+			<input class="btn btn-info btn-lg" type="button" value="Get"
+				id="authGet" /> <br> <br>
+		</div>
+	
 		<div class="tab-pane fade in active" id="rentEvent">
 			<h4>租赁历史获取测试</h4>
 			<input class="btn btn-info btn-lg" type="button" value="Get"
