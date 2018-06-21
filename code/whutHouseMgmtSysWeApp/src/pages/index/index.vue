@@ -5,8 +5,7 @@
         <div class="zan-col zan-col-2">
         </div>
         <div class="zan-col zan-col-20 zan-col-offset-2">
-          <!-- <button class="zan-btn zan-btn--large zan-btn--primary" @click="btnRepairClick">维修申请</button> -->
-          <a href="/pages/repair/main"><img src="../../../static/images/btnImage/roomrepair.png" class = "link"/></a>
+          <a href="/pages/fixApply/main"><img src="../../../static/images/btnImage/fixApply.png" class = "link"/></a>
         </div>
         <div class="zan-col zan-col-2">
         </div>
@@ -52,8 +51,8 @@ export default {
     tap() {
       this.data += "0";
     },
-    btnRepairClick() {
-      const url = "../repair/main";
+    btnfixApplyClick() {
+      const url = "../fixApply/main";
       wx.navigateTo({ url });
     }
   },

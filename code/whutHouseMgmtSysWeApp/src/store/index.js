@@ -10,7 +10,6 @@ const store = new Vuex.Store({
   state: {
     API_URL: 'http://118.126.117.96:8080/whutHouseMgmtReposity',
     access_token: '',
-    unionID: '',
     count: 0,
     userinfo: []
   },
@@ -27,9 +26,6 @@ const store = new Vuex.Store({
     },
     setUserInfo: (state, data) => {
       state.userinfo = data
-    },
-    setUnionID: (state, data) => {
-      state.unionID = data
     },
   }
 })

@@ -33,5 +33,12 @@ export function getStaffInfo(staffID) {
 
 // 维修参数获取
 export function getFixParam(params, paramClass) {
-  return fly.get(`/fixParam/get/${paramClass}`,{...params})
+  return fly.get(`/fixParam/get/${paramClass}`, { ...params
+  })
+}
+
+// 维修申请提交
+export function postFixApply(data) {
+  return fly.post(`/fix/addApply`, { ...data
+  })
 }
