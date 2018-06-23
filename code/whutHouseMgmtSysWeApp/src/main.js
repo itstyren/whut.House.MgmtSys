@@ -7,7 +7,7 @@ import '../static/weui/weui.css'
 Vue.config.productionTip = false
 App.mpType = 'app'
 
-Vue.prototype.$store=store
+Vue.prototype.$store = store
 
 const app = new Vue(App)
 app.$mount()
@@ -16,7 +16,7 @@ export default {
   // 这个字段走 app.json
   config: {
     // 页面前带有 ^ 符号的，会被编译成首页，其他页面可以选填，我们会自动把 webpack entry 里面的入口页面加进去
-    pages: ['pages/index_old/main', '^pages/login/main'],
+    pages: ['^pages/login/main', 'pages/index/main', 'pages/scaner/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
@@ -28,30 +28,17 @@ export default {
       selectedColor: '#1AAD16',
       backgroundColor: '#ffffff',
       borderStyle: 'white',
-      list: [
-        {
+      list: [{
           pagePath: 'pages/index/main',
           text: '申请',
-          iconPath: 'static/images/icon_nav_button.png',
-          selectedIconPath: 'static/images/icon_nav_button.png'
+          iconPath: 'static/images/nav_icon/nav_apply.png',
+          selectedIconPath: 'static/images/nav_icon/nav_apply.png'
         },
-        // {
-        //   pagePath: 'pages/index/main',
-        //   text: '通讯录',
-        //   iconPath: 'static/images/icon_nav_cell.png',
-        //   selectedIconPath: 'static/images/icon_nav_cell.png'
-        // },
-        // {
-        //   pagePath: 'pages/index/main',
-        //   text: '发现',
-        //   iconPath: 'static/images/icon_nav_cell.png',
-        //   selectedIconPath: 'static/images/icon_nav_cell.png'
-        // },
         {
           pagePath: 'pages/counter/main',
-          text: '我',
-          iconPath: 'static/images/icon_nav_toast.png',
-          selectedIconPath: 'static/images/icon_nav_toast.png'
+          text: '我的',
+          iconPath: 'static/images/nav_icon/nav_user.png',
+          selectedIconPath: 'static/images/nav_icon/nav_user.png'
         }
       ]
     }
