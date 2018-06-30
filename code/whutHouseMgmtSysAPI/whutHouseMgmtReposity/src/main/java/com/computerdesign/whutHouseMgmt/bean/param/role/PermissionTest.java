@@ -1,12 +1,14 @@
 package com.computerdesign.whutHouseMgmt.bean.param.role;
 
+import java.util.List;
+
 public class PermissionTest {
 	
 	private Integer id;
 	
 	private String name;
 	
-	private String role;
+	private List role;
 
 	public Integer getId() {
 		return id;
@@ -24,14 +26,14 @@ public class PermissionTest {
 		this.name = name;
 	}
 
-	public String getRole() {
+	public List getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(List role) {
 		this.role = role;
 	}
-	
+
 	
 	
 }
