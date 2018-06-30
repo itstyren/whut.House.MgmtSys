@@ -1,0 +1,14 @@
+// 边框效果
+.card_noboder {
+  margin: 10px;
+  padding: 10px;
+}
+
+._card{
+      margin: 10px;
+      padding: 15px;    
+    //   border: 1px solid #e6ebf5;
+      background-color: #fff;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+}

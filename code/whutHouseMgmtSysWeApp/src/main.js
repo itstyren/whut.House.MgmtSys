@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store/index'
+import "./assets/style/index.scss";
+
 //引入weui样式
 import '../static/weui/weui.css'
 
