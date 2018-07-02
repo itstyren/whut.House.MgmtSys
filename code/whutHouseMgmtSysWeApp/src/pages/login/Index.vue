@@ -5,12 +5,9 @@
       <div class="userinfo-nickname">
         <card :text="userInfo.nickName"></card>
       </div>
-      <button :class="{'hide':isAuthorization}" open-type="getUserInfo" @getuserinfo="bindGetUserInfo">授权登录</button>
-      <!-- <open-data type="userAvatarUrl"></open-data> -->
-      <!-- <open-data type="userNickName"></open-data> -->
     </div>
 
-    <div :class="{'hide':!isAuthorization}">
+    <div >
       <form @submit="formSubmit" @reset="formReset">
         <div class="zan-row">
           <div class="zan-col zan-col-20 zan-col-offset-2">
@@ -93,7 +90,7 @@ export default {
     toptips: ZanTopTips
   },
   created() {
-    this.checkStatus();
+    this.userInfo = wx.getStorageSync("userInfo");
   },
   methods: {
     handleZanFieldChange(e) {
@@ -106,84 +103,6 @@ export default {
 
     handleZanFieldBlur(e) {
       const { componentId, target, detail } = e;
-    },
-    bindViewTap() {
-      const url = "../logs/main";
-      wx.navigateTo({
-        url
-      });
-    },
-    // 通过微信id优先进入
-    checkStatus() {
-      let that = this;
-      wx.getSetting({
-        success(res) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          if (res.authSetting["scope.userInfo"]) {
-            wx.showLoading({
-              title: "加载中"
-            });
-            this.isAuthorization = true;
-            // 从服务器端获取code
-            wx.login({
-              success: res => {
-                // console.log(res.code);
-                getWXCode(res.code).then(res => {
-                  // console.log(res.data.data.session_key);
-                  wx.setStorage({
-                    key: "openid",
-                    data: res.data.data.openid
-                  });
-                  wx.setStorage({
-                    key: "session_key",
-                    data: res.data.data.session_key
-                  });
-                  wx.getUserInfo({
-                    success: res => {
-                      // console.log(res);
-                      // console.log(wx.getStorageSync("session_key"));
-                      let data1 = {
-                        encryptedData: res.encryptedData,
-                        iv: res.iv,
-                        sessionKey: wx.getStorageSync("session_key")
-                      };
-                      getdecodeInfo(data1).then(res => {
-                        wx.setStorage({
-                          key: "unionId",
-                          data: res.data.data.unionId
-                        });
-                      });
-                      this.userInfo = res.userInfo;
-                      let data = {
-                        unionId: wx.getStorageSync("unionId")
-                      };
-                      postLoginByUnionID(data).then(res => {
-                        if (res.status === "success") {
-                          that.$store.state.access_token = res.data.token;
-                          getTokenLogin(that.$store.getters.token).then(res => {
-                            that.$store.commit("setUserInfo", res.data.data[0]);
-                            const url = "../index/main";
-                            wx.switchTab({
-                              url
-                            });
-                          });
-                        } else {
-                        }
-                      });
-                    }
-                  });
-                });
-              }
-            });
-          }
-        }
-      });
-    },
-    // 获取用户授权
-    bindGetUserInfo(e) {
-      this.userInfo = e.mp.detail.userInfo;
-      this.isAuthorization = true;
-      this.checkStatus();
     },
     clickHandle(msg, ev) {},
     handleZanSelectChange({ componentId, value }) {},

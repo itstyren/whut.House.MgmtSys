@@ -35,7 +35,7 @@ export default {
       return store.state.count;
     }
   },
-  components: {},
+  components: {}, 
   methods: {
     // 当点击了扫描时
     scanerClick() {
