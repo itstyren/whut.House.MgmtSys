@@ -42,3 +42,8 @@ export function postFixApply(data) {
   return fly.post(`/fix/addApply`, { ...data
   })
 }
+
+// 个人维修处理查看
+export function getFixByStaffID(staffID) {
+  return fly.get(`/fix/getByStaffId/${staffID}`, )
+}

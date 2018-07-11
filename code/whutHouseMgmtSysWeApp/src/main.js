@@ -21,9 +21,10 @@ export default {
     pages: ['^pages/authorization/main', 'pages/index/main', 'pages/scaner/main'],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
+      backgroundColor:'#ffffff',
+      navigationBarBackgroundColor: '#383D41',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      // navigationBarTextStyle: 'black'
     },
     tabBar: {
       color: '#999999',
@@ -37,7 +38,7 @@ export default {
           selectedIconPath: 'static/images/nav_icon/nav_apply.png'
         },
         {
-          pagePath: 'pages/counter/main',
+          pagePath: 'pages/user/index/main',
           text: '我的',
           iconPath: 'static/images/nav_icon/nav_user.png',
           selectedIconPath: 'static/images/nav_icon/nav_user.png'

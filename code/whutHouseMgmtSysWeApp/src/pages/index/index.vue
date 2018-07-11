@@ -51,18 +51,18 @@ export default {
 
 <style lang="scss" >
 .container {
-  padding-top: 8vh;
+  padding-top: 30px;
   position: relative;
-  height: 90vh;
+  height: 92vh;
   .scaner {
     padding: 10px;
     border-radius: 50%;
     border: 1px solid #e6ebf5;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
-    background-color: #f0f2f5;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+    background-color: #ffffff;
     position: absolute;
-    bottom: 10px;
-    right: 20px;
+    bottom: 15px;
+    right: 24px;
     .scaner_img {
       width: 30px;
       height: 30px;
@@ -78,7 +78,7 @@ export default {
 }
 
 .zan-row {
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 
 .doc-title {
@@ -86,11 +86,11 @@ export default {
 }
 
 .link {
-  width: 277.5px;
-  height: 105px;
+  width: 85vw;
+  height: 22vh;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   // box-shadow: 5px 5px 5px #888888;
-      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
 </style>
