@@ -1,0 +1,31 @@
+// 边框效果
+.card_noboder {
+  margin: 10px;
+  padding: 10px;
+}
+
+._card{
+      margin: 10px;
+      padding: 15px;    
+    //   border: 1px solid #e6ebf5;
+      background-color: #fff;
+      box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+      border-radius: 2px;
+      .title {
+        padding: 0px 0 0 10px;
+        position: relative;
+        width: 100%;
+        text-align: left;
+        &::after {
+          content: "";
+          width: 95%;
+          height: 2px;
+          background-color: #dcdcdc;
+          position: absolute;
+          bottom: -10px;
+          z-index: 1;
+          left: 1%;
+          right: 1%;
+        }
+      }
+}

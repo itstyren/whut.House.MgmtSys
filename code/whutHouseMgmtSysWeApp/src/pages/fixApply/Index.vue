@@ -1,25 +1,20 @@
 <template>
   <div class="container">
-
-    <!-- <div class="doc-title zan-hairline--bottom">维修申请</div> -->
-    <div class="zan-panel">
-      <form>
-
-        <div class="zan-cell">
-          <div class="zan-cell__bd">
-            <ZanSteps v-bind="{ steps: steps }" />
-          </div>
-        </div>
-        <!-- 基础信息区块 -->
-        <div class="zan-panel" :hidden="stepOne">
-          <zan-field v-bind="Object.assign({}, handleFunctions, base.accountID)" :disabled="true" :value="baseUserInfo.id" />
-          <zan-field v-bind="Object.assign({}, handleFunctions, base.name)" :disabled="true" :value="baseUserInfo.name" />
-          <zan-field v-bind="Object.assign({}, handleFunctions, base.zheng)" :disabled="true" :value="baseUserInfo.code" />
-          <zan-field v-bind="Object.assign({}, handleFunctions, base.sex)" :disabled="true" :value="baseUserInfo.sex" />
-          <zan-field v-bind="Object.assign({}, handleFunctions, base.zhiwu)" :disabled="true" :value="baseUserInfo.titleName" />
-          <zan-field v-bind="Object.assign({}, handleFunctions, base.danwei)" :disabled="true" :value="baseUserInfo.deptName" />
-          <zan-field v-bind="Object.assign({}, handleFunctions, base.tel)" :value="baseUserInfo.tel" />
-          <zan-field v-bind="Object.assign({}, handleFunctions, base.email)" :value="baseUserInfo.email" />
+    <div class="zan-panel zan-panel--without-border card_noboder" :hide-border="true">
+      <ZanSteps v-bind="{ steps: steps }" />
+    </div>
+    <!-- 基础信息区块 -->
+    <div class="zan-row">
+      <div class="zan-col zan-col-23 zan-col-offset-1">
+          <div class="_card" :hidden="stepOne">
+            <zan-field v-bind="Object.assign({}, handleFunctions, base.accountID)" :disabled="true" :value="baseUserInfo.id" />
+            <zan-field v-bind="Object.assign({}, handleFunctions, base.name)" :disabled="true" :value="baseUserInfo.name" />
+            <zan-field v-bind="Object.assign({}, handleFunctions, base.zheng)" :disabled="true" :value="baseUserInfo.code" />
+            <zan-field v-bind="Object.assign({}, handleFunctions, base.sex)" :disabled="true" :value="baseUserInfo.sex" />
+            <zan-field v-bind="Object.assign({}, handleFunctions, base.zhiwu)" :disabled="true" :value="baseUserInfo.titleName" />
+            <zan-field v-bind="Object.assign({}, handleFunctions, base.danwei)" :disabled="true" :value="baseUserInfo.deptName" />
+            <zan-field v-bind="Object.assign({}, handleFunctions, base.tel)" :value="baseUserInfo.tel" />
+            <zan-field v-bind="Object.assign({}, handleFunctions, base.email)" :value="baseUserInfo.email" />
           <div class="zan-row">
             <div class="zan-col zan-col-16 zan-col-offset-4">
               <button class="zan-btn zan-btn--primary" @click="btnStepNextClick">下一步</button>
@@ -68,8 +63,7 @@
           <div class="zan-row">
             <div class="zan-cell zan-field">
               <div class="zan-cell__hd zan-field__title">填写原因</div>
-              <textarea  v-model="fixBase.description" auto-height placeholder="请详细描述您的住房困难及要求，并留下您的联系方式，以便工作人员和您联系！"
-              />
+              <textarea v-model="fixBase.description" auto-height placeholder="请详细描述您的住房困难及要求，并留下您的联系方式，以便工作人员和您联系！" />
             </div>
           </div>
           <div class="zan-row">
@@ -81,8 +75,7 @@
             </div>
           </div>
         </div>
-
-      </form>
+      </div>
     </div>
   </div>
 </template>
@@ -227,16 +220,36 @@ export default {
     let staffID = this.$store.state.userinfo.id;
     // 获取用户的住房信息
     getStaffInfo(staffID).then(res => {
-      if (res.data.data.listHouseGetApply.length === 0) {
-        this.houseBase.address.push("暂无住房");
-      } else {
-        this.houseList = res.data.data.listHouseGetApply;
-        var _list = [];
-        this.houseList.forEach(element => {
-          _list.push(element.address);
+      try {
+        if (res.data.data.listHouseGetApply.length === 0) {
+          this.houseBase.address.push("暂无住房");
+        } else {
+          this.houseList = res.data.data.listHouseGetApply;
+          var _list = [];
+          this.houseList.forEach(element => {
+            _list.push(element.address);
+          });
+          this.houseBase.address = _list;
+          this.houseInfo = this.houseList[0];
+        }
+      } catch (error) {
+        wx.showModal({
+          title: "提示",
+          content: "无住房，不可申请维修",
+          success: function(res) {
+            if (res.confirm) {
+              const url = "../index/main";
+              wx.switchTab({
+                url
+              });
+            } else if (res.cancel) {
+              const url = "../index/main";
+              wx.switchTab({
+                url
+              });
+            }
+          }
         });
-        this.houseBase.address = _list;
-        this.houseInfo = this.houseList[0];
       }
     });
     getFixParam({}, 16).then(res => {
@@ -350,28 +363,7 @@ export default {
 </script>
 
 <style>
-.red {
-  color: #f00;
-}
-
-.zan-col {
-  line-height: 30px;
-  text-align: center;
-  background-color: #39a9ed;
-  font-size: 12px;
-  color: #fff;
-}
-
-.zan-row {
-  padding-bottom: 30px;
-  padding-top: 20px;
-}
-
-.zan-col:nth-child(even) {
-  background-color: #66c6f2;
-}
-
-.doc-title {
-  text-align: center;
+.container {
+  background-color: #fff;
 }
 </style>

@@ -9,6 +9,13 @@ import request from '@/utils/request'
 //     }
 //   })
 // }
+// 获取员工权限
+export function getAuth() {
+  return request({
+    url: `/auth/testGetAuth`,
+    method: 'get',
+  })
+}
 // 个人信息界面维修更新信息
 export function getUserFix(staffID) {
   return request({

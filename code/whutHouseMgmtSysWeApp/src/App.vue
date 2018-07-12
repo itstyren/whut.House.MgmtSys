@@ -11,6 +11,7 @@ export default {
 
 <style>
   @import "./assets/style/zanui.wxss";
+
   .container::before {
     position: fixed;
     top: 0;
