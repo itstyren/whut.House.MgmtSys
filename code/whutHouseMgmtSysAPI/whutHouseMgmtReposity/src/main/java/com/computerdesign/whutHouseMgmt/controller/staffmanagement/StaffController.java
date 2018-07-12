@@ -64,6 +64,29 @@ public class StaffController extends BaseController {
 	private StaffForMonSubService staffForMonSubService;
 	
 	/**
+	 * 解除绑定
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "unbind/{id}", method = RequestMethod.GET)
+	public Msg unbind(@PathVariable("id") Integer id) {
+		Staff staff = staffService.get(id);
+		if(staff != null){
+			staff.setUnionId(null);
+			staffService.update(staff);
+		}else{
+			return Msg.error("没有此员工");
+		}
+		return Msg.success("解绑成功");
+//		if (staff.getIcon() != null) {
+//			return Msg.success().add("data", staff.getIcon());
+//		} else {
+//			return Msg.error("无头像信息");
+//		}
+	}
+	
+	/**
 	 * 获取头像
 	 * 
 	 * @param id

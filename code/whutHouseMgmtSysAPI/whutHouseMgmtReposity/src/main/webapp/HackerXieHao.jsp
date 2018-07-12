@@ -40,7 +40,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTI1NTk1ODgzLCJleHAiOjE1MjU2MzE4ODN9.DsCGKeU-Rgh2a753oJgO8L11Odb-JTzGWG0hNZpnBHs");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTMxNDAxMzg2LCJleHAiOjE1MzE0MzczODZ9.6MInefREIudxXH1mvC10NrMjlBKgZDk5iFk4Ozk_kUI");
 					},
 					type : "get",
 					contentType : 'application/json',
@@ -66,7 +66,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTI1NTk1ODgzLCJleHAiOjE1MjU2MzE4ODN9.DsCGKeU-Rgh2a753oJgO8L11Odb-JTzGWG0hNZpnBHs");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTMxNDAxMzg2LCJleHAiOjE1MzE0MzczODZ9.6MInefREIudxXH1mvC10NrMjlBKgZDk5iFk4Ozk_kUI");
 					},
 					data : JSON.stringify(data),
 					url : uri,
@@ -310,7 +310,11 @@
 
 	//职工管理
 	$(function() {
-
+		//854
+		$("#unbind").click(function() {
+			ajaxRequestGet("staff/unbind/3");
+		})
+		
 		$("#getIcon").click(function() {
 			ajaxRequestGet("staff/getIcon/1");
 		})
@@ -1064,6 +1068,9 @@
 				value="staffParamModify" id="staffParamModify" /><br>
 		</div>
 		<div class="tab-pane fade" id="staffManagement">
+			<h4>解除绑定</h4>
+			<input class="btn btn-info btn-lg" type="button" value="Unbind"
+				id="unbind" /> <br> <br>
 			<h4>获取头像</h4>
 			<input class="btn btn-info btn-lg" type="button" value="GetIcon"
 				id="getIcon" /> <br> <br>
