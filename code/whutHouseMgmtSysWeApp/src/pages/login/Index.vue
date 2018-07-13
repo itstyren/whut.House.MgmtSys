@@ -89,7 +89,7 @@ export default {
     ZanField,
     toptips: ZanTopTips
   },
-  created() {
+  mounted ()  {
     this.userInfo = wx.getStorageSync("userInfo");
   },
   methods: {

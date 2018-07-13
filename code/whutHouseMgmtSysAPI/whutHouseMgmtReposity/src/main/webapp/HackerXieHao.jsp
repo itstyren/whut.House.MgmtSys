@@ -40,7 +40,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTMxNDAxMzg2LCJleHAiOjE1MzE0MzczODZ9.6MInefREIudxXH1mvC10NrMjlBKgZDk5iFk4Ozk_kUI");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTMxNDYxNzk2LCJleHAiOjE1MzE0OTc3OTZ9.dRmZ0079XFMO9RbFtw7cn4u9jD124kaXKRhlow2tGDc");
 					},
 					type : "get",
 					contentType : 'application/json',

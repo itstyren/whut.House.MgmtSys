@@ -73,7 +73,7 @@ public class StaffController extends BaseController {
 	public Msg unbind(@PathVariable("id") Integer id) {
 		Staff staff = staffService.get(id);
 		if(staff != null){
-			staff.setUnionId(null);
+			staff.setUnionId("");
 			staffService.update(staff);
 		}else{
 			return Msg.error("没有此员工");

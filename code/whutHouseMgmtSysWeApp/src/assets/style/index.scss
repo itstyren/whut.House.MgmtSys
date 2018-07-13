@@ -10,15 +10,15 @@
     //   border: 1px solid #e6ebf5;
       background-color: #fff;
       box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
-      border-radius: 2px;
+      border-radius: 10px;
       .title {
-        padding: 0px 0 0 10px;
+        // padding: 0px 10px 0 10px;
         position: relative;
         width: 100%;
         text-align: left;
         &::after {
           content: "";
-          width: 95%;
+          width: 98%;
           height: 2px;
           background-color: #dcdcdc;
           position: absolute;

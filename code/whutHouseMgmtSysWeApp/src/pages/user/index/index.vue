@@ -28,17 +28,18 @@
 
 <script type="text/ecmascript-6">
 // import wxccc from '@minui/wxc-cc';
-import { getFixByStaffID } from "@/api";
+import { getFixByStaffID, getUnbindUnionID } from "@/api";
 export default {
   data() {
     return {
       userInfo: {},
       staffInfo: [],
-      recentlyFixStatus:'',
-      status:''
+      fixForm: [],
+      recentlyFixStatus: "",
+      status: ""
     };
   },
-  mounted() {
+  onShow() {
     this.userInfo = wx.getStorageSync("userInfo");
     this.staffInfo = this.$store.state.userinfo;
     this.getFixForm();
@@ -52,14 +53,44 @@ export default {
     getFixForm() {
       let staffID = this.staffInfo.id;
       getFixByStaffID(staffID).then(res => {
-        this.recentlyFixStatus=res.data.data[0].fixState
-        if(this.recentlyFixStatus=='已审核')
-        this.status='yishenhe'
+        let todoFixForm = [];
+        let doneFixForm = [];
+        this.fixForm = res.data.data;
+        this.recentlyFixStatus =
+          res.data.data[res.data.data.length - 1].fixState;
+        if (this.recentlyFixStatus == "已审核") this.status = "yishenhe";
+        this.fixForm.forEach(i => {
+          if (i.fixState == "待受理" || i.fixState == "待审核") {
+            todoFixForm.push(i);
+          } else {
+            doneFixForm.push(i);
+          }
+        });
+        wx.setStorageSync("todoFixForm", todoFixForm);
+        wx.setStorageSync("doneFixForm", doneFixForm);
       });
     },
     // 用户解除绑定
-    logOut(){
-      
+    logOut() {
+      let staffID = this.staffInfo.id;
+      wx.showModal({
+        title: "提示",
+        content: "是否确认解除绑定",
+        success: function(res) {
+          if (res.confirm) {
+            wx.showLoading({
+              title: "请稍后"
+            });
+            getUnbindUnionID(staffID).then(res => {
+              const url = "../../login/main";
+              wx.redirectTo({
+                url
+              });
+            });
+          } else {
+          }
+        }
+      });
     }
   }
 };
@@ -107,17 +138,15 @@ export default {
       color: #fff;
       border-radius: 30px;
     }
-    .yishenhe{
-      background-color: #81CACB;
+    .yishenhe {
+      background-color: #81cacb;
     }
-    .yijujue{
-      
+    .yijujue {
     }
   }
-      .logOut{
- margin: 20px 20px 0;
+  .logOut {
+    margin: 20px 20px 0;
   }
 }
-
 </style>
 

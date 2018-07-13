@@ -47,3 +47,8 @@ export function postFixApply(data) {
 export function getFixByStaffID(staffID) {
   return fly.get(`/fix/getByStaffId/${staffID}`, )
 }
+
+// 解除登录绑定
+export function getUnbindUnionID(staffID) {
+  return fly.get(`/staff/unbind/${staffID}`, )
+}
