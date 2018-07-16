@@ -30,12 +30,37 @@
 }
 
 // 维修详情页面
-.fix-detail {
+.fix-detail,
+.fix-apply {
   .zan-field__title {
     font-size: 16px;
     font-weight: 600;
   }
-      .zan-field__input {
-        text-align: center;
-      }
+  .zan-field__input {
+    text-align: center;
+  }
+}
+
+// 下方操作区域
+.button-area {
+  position: absolute;
+  height: 50px;
+  background-color: #fff;
+  bottom: 0;
+  width: 100%;
+  .left-button {
+    position: absolute;
+    left: 0;
+    width: 30%;
+  }
+  .right-button {
+    position: absolute;
+    right: 0;
+    top:0;
+    bottom: 0;
+    width: 30%;
+  }
+  .zan-btn{
+    height: 100%;
+  }
 }

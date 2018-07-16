@@ -5,19 +5,19 @@
         <span>维修申请</span>
       </div>
       <div class="content">
-        <zan-field v-bind="Object.assign({}, handleFunctions, fixBase.fixType)" :disabled="true" :value="fixBase.formData.fixType"
+        <zan-field v-bind="Object.assign({}, handleFunctions, fixBase.fixType)" :disabled="true" v-model.lazy="fixBase.formData.fixType"
         />
-        <zan-field v-bind="Object.assign({}, handleFunctions, fixBase.applyTime)" :disabled="true" :value="fixBase.formData.applyTime"
+        <zan-field v-bind="Object.assign({}, handleFunctions, fixBase.applyTime)" :disabled="true" v-model.lazy="fixBase.formData.applyTime"
         />
-        <zan-field v-bind="Object.assign({}, handleFunctions, fixBase.fixState)" :disabled="true" :value="fixBase.formData.fixState"
+        <zan-field v-bind="Object.assign({}, handleFunctions, fixBase.fixState)" :disabled="true" v-model.lazy="fixBase.formData.fixState"
         />
-        <zan-field v-bind="Object.assign({}, handleFunctions, fixBase.processReson)" :disabled="true" :value="fixBase.formData.processReason"
+        <zan-field v-bind="Object.assign({}, handleFunctions, fixBase.processReson)" :disabled="true" v-model.lazy="fixBase.formData.processReason"
         />
         <div class="zan-cell zan-field" v-if="canSubmit||isComment">
           <div class="zan-cell__hd zan-field__title">维修评价</div>
           <div class=" zan-field__input zan-cell__bd">
-            <textarea style="height: 3.3em" auto-focus class="weui-textarea" 
-             :value="fixBase.formData.description" :disabled="isComment" placeholder="请输入本次维修评价"></textarea>
+            <textarea style="height: 3.3em"  class="weui-textarea" 
+             v-model.lazy="fixBase.formData.description" :disabled="isComment" placeholder="请输入本次维修评价"></textarea>
             <div class="weui-textarea-counter">限50字</div>
 
           </div>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="button-area">
-      <button @click="commentSubmit" :class="{'zan-btn--disabled':!canSubmit,'zan-btn':true,'zan-btn--danger':true}">提交评分</button>
+      <button class="right-button" @click="commentSubmit" :class="{'zan-btn--disabled':!canSubmit,'zan-btn':true,'zan-btn--danger':true}">提交评分</button>
     </div>
     <toptips />
   </div>
@@ -116,7 +116,6 @@ export default {
               wx.showLoading({
                 title: "请稍后"
               });
-              console.log(_this.fixBase)
               _this.fixBase.formData.ratings++;
               let data = {
                 description: _this.fixBase.formData.description,
@@ -152,7 +151,7 @@ export default {
     selectRate(e) {
       if (this.fixBase.formData.fixState != "已评价") {
         this.fixBase.formData.ratings = e.mp.currentTarget.dataset.index;
-        this.rateScore = this.rateScoreDesc[this.fixBase.formData.ratings];
+        // this.rateScore = this.rateScoreDesc[this.fixBase.formData.ratings];
       } else {
         return;
       }
@@ -176,16 +175,6 @@ export default {
   }
 }
 
-.button-area {
-  position: absolute;
-  height: 50px;
-  background-color: #fff;
-  bottom: 0;
-  width: 100%;
-  button {
-    width: 30%;
-  }
-}
 
 .weui-rate-wrap {
   margin: 30px 15px;

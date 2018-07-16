@@ -58,3 +58,9 @@ export function putFixComment(data) {
   return fly.put(`/fixRatings/fixEvaluation`, { ...data
   })
 }
+
+// 租赁申请提交
+export function postHireApply(data) {
+  return fly.post(`/hire/addApply`, { ...data
+  })
+}

@@ -7,7 +7,7 @@
       </div>
       <div class="zan-row">
         <div class="zan-col zan-col-20 zan-col-offset-2">
-          <a><image src="http://p1z72063k.bkt.clouddn.com/wx/hireApply.png" class = "link"/></a>
+          <a href="/pages/hireApply/main"><image src="http://p1z72063k.bkt.clouddn.com/wx/hireApply.png" class = "link"/></a>
         </div>
       </div>
       <div class="zan-row">

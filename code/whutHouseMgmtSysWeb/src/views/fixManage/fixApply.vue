@@ -140,7 +140,7 @@
                   <el-row type="flex" justify="center">
                     <el-col :span="20">
                       <el-form-item label="申请原因" prop="description">
-                        <el-input v-model="accoutInfo.description" type="textarea" style="width:600px" :rows="6" placeholder="请详细说明您的住房困难及需求,并留下您的联系方式，以便工作人员与您联系">
+                        <el-input v-model="accoutInfo.description" type="textarea" style="width:600px" :rows="6" placeholder="请详细说明您的房屋问题，以便快读得到反馈！">
                         </el-input>
                       </el-form-item>
                     </el-col>

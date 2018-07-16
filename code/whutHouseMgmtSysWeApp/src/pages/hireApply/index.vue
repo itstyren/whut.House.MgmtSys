@@ -40,15 +40,8 @@
         <!-- 填写原因提交区块 -->
         <div class="_card" :hidden="stepThree">
             <div class="zan-cell zan-field">
-              <div class="zan-cell__hd zan-field__title">维修类型</div>
-              <picker mode="selector" class="zan-field__input zan-cell__bd" :range="fixBase.fixParam" :value="fixBase.selectIndex" range-key="fixParamName"
-                @change="seletFixParamChange">
-                {{ fixBase.fixParam[fixBase.selectIndex].fixParamName }}
-              </picker>
-          </div>
-            <div class="zan-cell zan-field">
               <div class="zan-cell__hd zan-field__title">填写原因</div>
-              <textarea v-model="fixBase.description" style="height: 3.3em"  placeholder="请详细描述您房屋出现的问题，以便快速得到反馈！" />
+              <textarea v-model="hireBase.description" style="height: 3.3em"  placeholder="请详细描述您的住房困难及要求，谢谢！" />
           </div>
         </div>
       </div>
@@ -61,9 +54,9 @@
   </div>
 </template>
 
-<script>
-import ZanSteps from "../../components/zan/steps";
-import ZanField from "../../components/zan/field";
+<script type="text/ecmascript-6">
+import ZanSteps from "@/components/zan/steps";
+import ZanField from "@/components/zan/field";
 import { getStaffInfo, getFixParam, postFixApply } from "@/api";
 export default {
   data() {
@@ -84,7 +77,7 @@ export default {
         {
           done: false,
           current: false,
-          text: "选择住房"
+          text: "信息确认"
         },
         {
           done: false,
@@ -161,7 +154,7 @@ export default {
           componentId: "houseUsedArea"
         }
       },
-      fixBase: {
+      hireBase: {
         fixParam: [
           {
             fixParamName: ""
@@ -234,8 +227,8 @@ export default {
       }
     });
     getFixParam({}, 16).then(res => {
-      this.fixBase.fixParam = res.data.data.list;
-      this.fixBase.fixContentId = this.fixBase.fixParam[0].fixParamId;
+      this.hireBase.fixParam = res.data.data.list;
+      this.hireBase.fixContentId = this.hireBase.fixParam[0].fixParamId;
       wx.hideLoading();
     });
   },
@@ -291,8 +284,8 @@ export default {
     },
     // 选择维修信息改变
     seletFixParamChange(e) {
-      this.fixBase.selectIndex = e.target.value;
-      this.fixBase.fixContentId = this.fixBase.fixParam[
+      this.hireBase.selectIndex = e.target.value;
+      this.hireBase.fixContentId = this.hireBase.fixParam[
         e.target.value
       ].fixParamId;
     },
@@ -317,9 +310,9 @@ export default {
         title: "加载中"
       });
       let applyForm = {
-        description: this.fixBase.description,
+        description: this.hireBase.description,
         email: this.baseUserInfo.email,
-        fixContentId: this.fixBase.fixContentId,
+        fixContentId: this.hireBase.fixContentId,
         houseId: this.houseInfo.id,
         phone: this.baseUserInfo.tel,
         staffId: this.$store.state.userinfo.id
