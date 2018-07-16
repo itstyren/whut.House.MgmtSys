@@ -54,7 +54,7 @@ import {
   getWXCode,
   getdecodeInfo
 } from "@/api";
-import { getComponentByTag } from "../../utils/helper";
+import { getComponentByTag } from "@/utils/helper";
 export default {
   data() {
     return {

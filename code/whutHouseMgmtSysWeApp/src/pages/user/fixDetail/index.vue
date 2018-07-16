@@ -13,38 +13,30 @@
         <div class="weui-tab__panel">
           <!-- 正在处理的表单 -->
           <div class="weui-tab__content " :hidden="activeIndex != 0">
-              <!-- 待受理表单 -->
-            <div class="_card fixFormList">
-                 <div class="table">
-      <div class="tr ">
-          <div class="th th1">日期</div>
-          <div class="th th2">维修类型</div>
-          <div class="th th3">状态</div>
-      </div>
-      <div class="tr" v-for="item in todoFixForm" :key="item.fixId" >
-          <div class="td td1">{{item.applyTime}}</div>
-          <div class="td td2">{{item.fixType}}</div>
-          <div class="td td3">{{item.fixState}}</div>
-      </div>
-    </div>
+            <!-- 待受理表单 -->
+            <div class="_card  fix-list" v-for="item in todoFixForm" :key="item.fixId" @click="listClick(item)">
+              <div class="first">
+                <span>申请时间：{{item.applyTime}}</span>
+              </div>
+              <div class="second">
+                <span> 维修类型：{{item.fixType}}</span>
+                <span>审核状态：{{item.fixState}}</span>
+              </div>
+              <div class="sleect">></div>
             </div>
           </div>
           <!-- 已经结束的表单 -->
           <div class="weui-tab__content" :hidden="activeIndex != 1">
-                            <!-- 已通过表单 -->
-            <div class="_card fixFormList">
-                 <div class="table">
-      <div class="tr ">
-          <div class="th th1">日期</div>
-          <div class="th th2">维修类型</div>
-          <div class="th th3">状态</div>
-      </div>
-      <div class="tr" v-for="item in doneFixForm" :key="item.fixId" >
-          <div class="td td1">{{item.applyTime}}</div>
-          <div class="td td2">{{item.fixType}}</div>
-          <div class="td td3">{{item.fixState}}</div>
-      </div>
-    </div>
+            <!-- 已通过表单 -->
+            <div class="_card  fix-list" v-for="item in doneFixForm" :key="item.fixId" @click="listClick(item)">
+              <div class="first">
+                <span>申请时间：{{item.applyTime}}</span>
+              </div>
+              <div class="second">
+                <span> 维修类型：{{item.fixType}}</span>
+                <span>审核状态：{{item.fixState}}</span>
+              </div>
+              <div class="sleect">></div>
             </div>
           </div>
         </div>
@@ -61,8 +53,8 @@
         tabs: ["正在进行", "已经结束"],
         activeIndex: 0,
         fontSize: 30,
-        todoFixForm : [],
-        doneFixForm : [],
+        todoFixForm: [],
+        doneFixForm: []
       };
     },
     computed: {
@@ -76,13 +68,19 @@
       }
     },
     mounted() {
-      this.todoFixForm=wx.getStorageSync('todoFixForm')
-      this.doneFixForm=wx.getStorageSync('doneFixForm')
+      this.todoFixForm = wx.getStorageSync("todoFixForm");
+      this.doneFixForm = wx.getStorageSync("doneFixForm");
     },
     methods: {
       tabClick(e) {
         console.log(e);
         this.activeIndex = e.currentTarget.id;
+      },
+      listClick(form) {
+        const url = "./detail/main?data=" + JSON.stringify(form);
+        wx.navigateTo({
+          url
+        });
       }
     }
   };
@@ -114,43 +112,90 @@
     left: 29rpx;
     transform: translateX(380rpx);
   }
-.weui-navbar__slider {
-  width: 9em;
 
-}
-/* 表格代码   */
-.table{
-  border:1px solid #dadada;
-  border-right:0;
-  border-bottom: 0;
-  width: 98%;
-  margin-left: 1%;
-}
-.tr{
-  width:100%;
-  display: flex;
-  padding: 5px 10px;
-  justify-content: space-between;
-}
-.th,.td{
-  padding: 10px;
-  border-bottom: 1px solid #dadada;
-  // border-right: 1px solid #dadada;
-  text-align: center;
-  width: 100%;
-}
-.th1,.th2,.td1,.td2{
-  width: 100%;
-}
-.th{
-  padding: 0;
-  border: none;
-  font-weight: 800;
-  // background-color: #b66242;
-  font-size: 28rpx;
-  color: #330e0e;
-}
-.td{
-  font-size: 28rpx;
-}
+  .weui-navbar__slider {
+    width: 9em;
+  }
+
+  /* 表格代码   */
+
+  .table {
+    border: 1px solid #dadada;
+    border: none;
+    width: 98%;
+    margin-left: 1%;
+  }
+
+  .title {
+    border-bottom: 1px solid #dadada;
+  }
+
+  .tr {
+    width: 100%;
+    display: flex;
+    padding: 5px 10px;
+    justify-content: space-between;
+  }
+
+  .th,
+  .td {
+    padding: 10px;
+    border-bottom: 1px solid #dadada; // border-right: 1px solid #dadada;
+    text-align: center;
+    width: 100%;
+  }
+
+  .th1,
+  .th2,
+  .td1,
+  .td2 {
+    width: 100%;
+  }
+
+  .th {
+    padding: 0;
+    border: none;
+    font-weight: 800; // background-color: #b66242;
+    font-size: 28rpx;
+    color: #330e0e;
+  }
+
+  .td {
+    font-size: 28rpx;
+  }
+
+  .fix-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative; // justify-content: space-around;
+    // align-items: center;
+    .first {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .second {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      font-size: 14px;
+      font-weight: 200;
+      >span {
+        margin-right: 15px;
+      }
+    }
+    .sleect {
+      position: absolute;
+      right: 14px;
+      top: 40%;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+
 </style>

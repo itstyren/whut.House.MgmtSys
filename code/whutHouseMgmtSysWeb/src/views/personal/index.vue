@@ -451,7 +451,9 @@
   import utils from "@/utils/index.js";
   // var basiceUrl = "http://localhost:8787/whutHouseMgmtReposity/dataImport/";
 // var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
-  var basiceUrl= 'http://120.78.226.24:8080/whutHouseMgmtReposity/dataImport/'
+  // var basiceUrl= 'http://120.78.226.24:8080/whutHouseMgmtReposity/dataImport/'
+var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity' // api的base_url
+
   export default {
     data() {
       var checkPassword = (rule, value, callback) => {
@@ -652,7 +654,6 @@
         let data = {
           description: this.fixCommentForm.description,
           fixId: this.fixCommentForm.fixId,
-          description: this.fixCommentForm.description,
           ratings: this.fixCommentForm.comment
         };
         putFixComment(data).then(res => {
@@ -692,85 +693,84 @@
 </script>
 
 <style scoped lang="scss">
-  @import "../../styles/variables.scss";
+@import "../../styles/variables.scss";
 
-  .second-container {
-    background-color: $background-grey;
-    .user-info {
-      width: 100%;
-      .avatar-warpper {
-        padding: 15px;
-        .avatar {
-          margin: 0px auto 20px;
-          width: 12vw;
-          height: 12vw;
-          border-radius: 50%;
-          overflow: hidden;
-        }
-      }
-      .info-form {
-        padding: 0 10px 10px;
-        & .title {
-          width: 100%;
-          border-bottom: 2px solid #ccc;
-        }
-        .info-row {
-          border-bottom: 1px solid #eee;
-          padding: 10px;
-          height: 45px;
-        }
-        .is-change {
-          background-color: #f5f5f5;
-          border-bottom: 1px solid #eee;
-          padding: 10px;
-          .old-vertify {
-            margin-bottom: 5px;
-            &::after {
-              content: " *";
-              color: #ed1c24;
-            }
-          }
-        }
-        .no-result {
-          height: 50vh;
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          text-align: center;
-        }
-        .fix-result,
-        .hire-result {
-          height: 60vh;
-        }
-        .change-password {
-          height: 400px;
-          padding: 20px;
-          position: relative;
-          .tool {
-            position: absolute;
-            right: 30px;
-            text-align: right;
-            bottom: 30px;
-          }
-        }
+.second-container {
+  background-color: $background-grey;
+  .user-info {
+    width: 100%;
+    .avatar-warpper {
+      padding: 15px;
+      .avatar {
+        margin: 0px auto 20px;
+        width: 12vw;
+        height: 12vw;
+        border-radius: 50%;
+        overflow: hidden;
       }
     }
-    .fix-comment {
-      .border {
+    .info-form {
+      padding: 0 10px 10px;
+      & .title {
+        width: 100%;
+        border-bottom: 2px solid #ccc;
+      }
+      .info-row {
+        border-bottom: 1px solid #eee;
+        padding: 10px;
+        height: 45px;
+      }
+      .is-change {
+        background-color: #f5f5f5;
+        border-bottom: 1px solid #eee;
+        padding: 10px;
+        .old-vertify {
+          margin-bottom: 5px;
+          &::after {
+            content: " *";
+            color: #ed1c24;
+          }
+        }
+      }
+      .no-result {
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+      }
+      .fix-result,
+      .hire-result {
+        height: 60vh;
+      }
+      .change-password {
+        height: 400px;
+        padding: 20px;
         position: relative;
-        margin-bottom: 15px;
-        &::after {
-          content: "";
-          width: 105%;
-          height: 2px;
-          background-color: #dcdcdc;
+        .tool {
           position: absolute;
-          bottom: -2px;
-          z-index: 1;
-          left: 4%; //right: 2%;
+          right: 30px;
+          text-align: right;
+          bottom: 30px;
         }
       }
     }
   }
-
+  .fix-comment {
+    .border {
+      position: relative;
+      margin-bottom: 15px;
+      &::after {
+        content: "";
+        width: 105%;
+        height: 2px;
+        background-color: #dcdcdc;
+        position: absolute;
+        bottom: -2px;
+        z-index: 1;
+        left: 4%; //right: 2%;
+      }
+    }
+  }
+}
 </style>

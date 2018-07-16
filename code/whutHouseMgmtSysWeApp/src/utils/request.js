@@ -7,6 +7,7 @@ fly.config = {
   // baseURL: "http://localhost:8787/whutHouseMgmtReposity",
   baseURL: 'https://www.terryren.com/whutHouseMgmtReposity', // api的base_url
   // baseURL: 'http://120.78.226.24:8080/whutHouseMgmtReposity', // api的base_url
+  // baseURL: 'http://118.126.117.96:8080/whutHouseMgmtReposity', // api的base_url
   timeout: '5000',
 }
 

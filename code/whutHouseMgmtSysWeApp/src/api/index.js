@@ -52,3 +52,9 @@ export function getFixByStaffID(staffID) {
 export function getUnbindUnionID(staffID) {
   return fly.get(`/staff/unbind/${staffID}`, )
 }
+
+//维修评分
+export function putFixComment(data) {
+  return fly.put(`/fixRatings/fixEvaluation`, { ...data
+  })
+}

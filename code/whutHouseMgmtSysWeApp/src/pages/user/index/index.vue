@@ -66,6 +66,8 @@ export default {
             doneFixForm.push(i);
           }
         });
+        todoFixForm.reverse();
+        doneFixForm.reverse()
         wx.setStorageSync("todoFixForm", todoFixForm);
         wx.setStorageSync("doneFixForm", doneFixForm);
       });
