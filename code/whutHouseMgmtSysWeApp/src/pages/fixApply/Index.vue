@@ -43,7 +43,7 @@
               <div class="zan-cell__hd zan-field__title">维修类型</div>
               <picker mode="selector" class="zan-field__input zan-cell__bd" :range="fixBase.fixParam" :value="fixBase.selectIndex" range-key="fixParamName"
                 @change="seletFixParamChange">
-                {{ fixBase.fixParam[fixBase.selectIndex].fixParamName }}
+               <div class="weui-select weui-select_in-select-after"> {{ fixBase.fixParam[fixBase.selectIndex].fixParamName }}</div>
               </picker>
           </div>
             <div class="zan-cell zan-field">
@@ -192,7 +192,14 @@ export default {
     ZanField
   },
   mounted() {
-    this.step=1
+    this.step = 1;
+    this.stepOne = false;
+    this.stepTwo = true;
+    this.stepThree=true
+    this.steps[1].done = false;
+    this.steps[1].current = false;
+    this.steps[2].done=false;
+    this.steps[2].current=false
     wx.showLoading({
       title: "加载中"
     });
@@ -346,6 +353,9 @@ export default {
 <style scoped lang="scss">
 .fix-apply{
   margin: 0 10px;
+  .weui-select{
+    border: none;
+  }
 }
 .step-bar{
   margin:0 10px;

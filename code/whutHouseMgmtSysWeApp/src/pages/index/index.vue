@@ -65,7 +65,7 @@ export default {
     right: 24px;
     .scaner_img {
       width: 30px;
-      height: 30px;
+      height: 25px;
     }
   }
 }

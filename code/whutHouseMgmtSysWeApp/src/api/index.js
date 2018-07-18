@@ -64,3 +64,8 @@ export function postHireApply(data) {
   return fly.post(`/hire/addApply`, { ...data
   })
 }
+
+// 返回租赁申请
+export function getStaffHireInfo(staffID) {
+  return fly.get(`/hire/getApply/${staffID}`, )
+}

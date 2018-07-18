@@ -17,28 +17,8 @@
           <zan-field v-bind="Object.assign({}, handleFunctions, base.tel)" :value="baseUserInfo.tel" />
           <zan-field v-bind="Object.assign({}, handleFunctions, base.email)" :value="baseUserInfo.email" />
         </div>
-        <!-- 选择住房区块 -->
-        <div class="_card" :hidden="stepTwo">
-          <div class="zan-cell zan-field">
-            <div class="zan-cell__hd zan-field__title">选择住房</div>
-            <picker mode="selector" class="zan-field__input zan-cell__bd" :range="houseBase.address" :value="houseBase.selectIndex" @change="seletHouseChange">
-              {{ houseBase.address[houseBase.selectIndex] }}
-            </picker>
-          </div>
-          <zan-field v-bind="Object.assign({}, handleFunctions, houseBase.houseID)" :disabled="true" :value="houseInfo.id" />
-          <zan-field v-bind="Object.assign({}, handleFunctions, houseBase.houseType)" :disabled="true" :value="houseInfo.typeName"
-          />
-          <zan-field v-bind="Object.assign({}, handleFunctions, houseBase.houseAddress)" :disabled="true" :value="houseInfo.address"
-          />
-          <zan-field v-bind="Object.assign({}, handleFunctions, houseBase.houseArea)" :disabled="true" :value="houseInfo.usedArea"
-          />
-          <zan-field v-bind="Object.assign({}, handleFunctions, houseBase.houseStatus)" :disabled="true" :value="houseInfo.statusName"
-          />
-          <zan-field v-bind="Object.assign({}, handleFunctions, houseBase.houseUsedArea)" :disabled="true" :value="houseInfo.usedArea"
-          />
-        </div>
         <!-- 填写原因提交区块 -->
-        <div class="_card" :hidden="stepThree">
+        <div class="_card" :hidden="stepTwo">
             <div class="zan-cell zan-field">
               <div class="zan-cell__hd zan-field__title">填写原因</div>
               <textarea v-model="hireBase.description" style="height: 3.3em"  placeholder="请详细描述您的住房困难及要求，谢谢！" />
@@ -48,7 +28,7 @@
     <!-- 按钮区域 -->
     <div class="button-area">
       <button class="left-button" v-if="step!=1" @click="btnStepBackClick" :class="{'zan-btn':true,'zan-btn--warn':true}">上一步</button>
-      <button class="right-button" v-if="step!=3" @click="btnStepNextClick" :class="{'zan-btn':true,'zan-btn--primary':true}">下一步</button>
+      <button class="right-button" v-if="step!=2" @click="btnStepNextClick" :class="{'zan-btn':true,'zan-btn--primary':true}">下一步</button>
       <button class="right-button" v-else @click="checkSubmit" :class="{'zan-btn':true,'zan-btn--primary':true}">提交</button>
     </div>
   </div>
@@ -57,7 +37,7 @@
 <script type="text/ecmascript-6">
 import ZanSteps from "@/components/zan/steps";
 import ZanField from "@/components/zan/field";
-import { getStaffInfo, getFixParam, postFixApply } from "@/api";
+import { getStaffInfo, getStaffHireInfo, postHireApply } from "@/api";
 export default {
   data() {
     return {
@@ -67,17 +47,11 @@ export default {
       step: 1,
       stepOne: false,
       stepTwo: true,
-      stepThree: true,
       steps: [
         {
           current: true,
           done: false,
           text: "基本信息"
-        },
-        {
-          done: false,
-          current: false,
-          text: "信息确认"
         },
         {
           done: false,
@@ -125,41 +99,7 @@ export default {
           componentId: "email"
         }
       },
-      // 住房选择页组件信息
-      houseBase: {
-        address: [],
-        selectIndex: 0,
-        houseID: {
-          title: "住房号",
-          componentId: "houseID"
-        },
-        houseType: {
-          title: "住房类型",
-          componentId: "houseType"
-        },
-        houseAddress: {
-          title: "住房地址",
-          componentId: "houseAddress"
-        },
-        houseArea: {
-          title: "住房面积",
-          componentId: "houseArea"
-        },
-        houseStatus: {
-          title: "产权关系",
-          componentId: "houseStatus"
-        },
-        houseUsedArea: {
-          title: "使用面积",
-          componentId: "houseUsedArea"
-        }
-      },
       hireBase: {
-        fixParam: [
-          {
-            fixParamName: ""
-          }
-        ],
         selectIndex: 0,
         description: "",
         fixContentId: ""
@@ -185,7 +125,11 @@ export default {
     ZanField
   },
   mounted() {
-    this.step=1
+    this.step = 1;
+    this.stepOne = false;
+    this.stepTwo = true;
+    this.steps[1].done = false;
+    this.steps[1].current = false;
     wx.showLoading({
       title: "加载中"
     });
@@ -193,23 +137,14 @@ export default {
     this.baseUserInfo = this.$store.state.userinfo;
     let staffID = this.$store.state.userinfo.id;
     // 获取用户的住房信息
-    getStaffInfo(staffID).then(res => {
-      try {
-        if (res.data.data.listHouseGetApply.length === 0) {
-          this.houseBase.address.push("暂无住房");
-        } else {
-          this.houseList = res.data.data.listHouseGetApply;
-          var _list = [];
-          this.houseList.forEach(element => {
-            _list.push(element.address);
-          });
-          this.houseBase.address = _list;
-          this.houseInfo = this.houseList[0];
-        }
-      } catch (error) {
+    getStaffHireInfo(staffID).then(res => {
+      // console.log(res.data.data.listHouseGetApply||res.data.data.hireApplyAlready)
+      // if (res.data.data.listHouseGetApply||res.data.data.hireApplyAlread) {
+      if (false) {
+        wx.hideLoading();
         wx.showModal({
-          title: "提示",
-          content: "无住房，不可申请维修",
+          title: "警告",
+          content: "您已有住房或已申请",
           success: function(res) {
             if (res.confirm) {
               const url = "../index/main";
@@ -224,12 +159,9 @@ export default {
             }
           }
         });
+      } else {
+        wx.hideLoading();
       }
-    });
-    getFixParam({}, 16).then(res => {
-      this.hireBase.fixParam = res.data.data.list;
-      this.hireBase.fixContentId = this.hireBase.fixParam[0].fixParamId;
-      wx.hideLoading();
     });
   },
   methods: {
@@ -250,44 +182,27 @@ export default {
         this.step++;
         this.steps[1].done = true;
         this.steps[1].current = true;
-        (this.stepOne = true), (this.stepTwo = false), (this.stepThree = true);
+        (this.stepOne = true), (this.stepTwo = false);
       } else if (this.step == 2) {
         this.step++;
         this.steps[2].done = true;
         this.steps[2].current = true;
-        (this.stepOne = true), (this.stepTwo = true), (this.stepThree = false);
+        (this.stepOne = true), (this.stepTwo = true);
       }
     },
+    // 返回上一步
     btnStepBackClick() {
       if (this.step == 3) {
         this.step--;
         this.steps[2].done = false;
         this.steps[2].current = false;
-        (this.stepOne = true), (this.stepTwo = false), (this.stepThree = true);
+        (this.stepOne = true), (this.stepTwo = false);
       } else if (this.step == 2) {
         this.step--;
         this.steps[1].done = false;
         this.steps[1].current = false;
-        (this.stepOne = false), (this.stepTwo = true), (this.stepThree = true);
+        (this.stepOne = false), (this.stepTwo = true);
       }
-    },
-    pageClose() {
-      this.step = 1;
-      this.stepOne = false;
-      this.stepTwo = true;
-      this.stepThree = true;
-    },
-    // 用户选择住房改变
-    seletHouseChange(e) {
-      this.houseBase.selectIndex = e.target.value;
-      this.houseInfo = this.houseList[e.target.value];
-    },
-    // 选择维修信息改变
-    seletFixParamChange(e) {
-      this.hireBase.selectIndex = e.target.value;
-      this.hireBase.fixContentId = this.hireBase.fixParam[
-        e.target.value
-      ].fixParamId;
     },
     // 提交申请验证
     checkSubmit() {
@@ -310,14 +225,12 @@ export default {
         title: "加载中"
       });
       let applyForm = {
-        description: this.hireBase.description,
+        reason: this.hireBase.description,
         email: this.baseUserInfo.email,
-        fixContentId: this.hireBase.fixContentId,
-        houseId: this.houseInfo.id,
         phone: this.baseUserInfo.tel,
         staffId: this.$store.state.userinfo.id
       };
-      postFixApply(applyForm).then(res => {
+      postHireApply(applyForm).then(res => {
         wx.hideLoading();
         wx.showToast({
           title: "提交成功",
@@ -337,12 +250,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.fix-apply{
+.fix-apply {
   margin: 0 10px;
 }
-.step-bar{
-  margin:0 10px;
-  ._card{
+.step-bar {
+  margin: 0 10px;
+  ._card {
     height: 30px;
   }
 }
