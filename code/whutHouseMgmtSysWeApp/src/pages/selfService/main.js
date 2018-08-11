@@ -6,6 +6,6 @@ app.$mount()
 
 export default {
   config: {
-    navigationBarTitleText: '个人'
+    navigationBarTitleText: '自助选房'
   }
 }

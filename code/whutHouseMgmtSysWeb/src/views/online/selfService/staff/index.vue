@@ -73,10 +73,10 @@ export default {
   data() {
     return {
       staffID: this.$store.getters.userID,
-      isSelecting:false,
+      isSelecting: false,
       ableHouseData: [],
       listLoading: false,
-      isOwn:false,
+      isOwn: false,
       totalNum: 0,
       page: 1,
       size: 10,
@@ -107,16 +107,15 @@ export default {
     },
     getSelectInfo() {
       getSelectInfoByName(this.staffID).then(res => {
-        if(res.data.data.data!=undefined)
-        {
+        if (res.data.data.data != undefined) {
           this.selectInfo = res.data.data.data;
-        this.isSelecting=true
-        if(this.selectInfo.staffStartTimeNow==null){
-          this.isOwn=true
-        }}
-        else{
-          this.selectInfo=res.data.message
-          this.isSelecting=false
+          this.isSelecting = true;
+          if (this.selectInfo.staffStartTimeNow == null) {
+            this.isOwn = true;
+          }
+        } else {
+          this.selectInfo = res.data.message;
+          this.isSelecting = false;
         }
         //var endTime=new Date(this.selectInfo.isSelectingStaffEndTime)
         //this.selectInfo.isSelectingStaffEndTime=endTime.getTime()

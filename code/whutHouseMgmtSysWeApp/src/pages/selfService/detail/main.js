@@ -3,9 +3,8 @@ import App from './index'
 
 const app = new Vue(App)
 app.$mount()
-
 export default {
   config: {
-    navigationBarTitleText: '个人'
+    navigationBarTitleText: '可选住房查看'
   }
 }

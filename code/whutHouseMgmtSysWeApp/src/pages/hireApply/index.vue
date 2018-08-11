@@ -138,12 +138,12 @@ export default {
     let staffID = this.$store.state.userinfo.id;
     // 获取用户的住房信息
     getStaffHireInfo(staffID).then(res => {
-      // console.log(res.data.data.listHouseGetApply||res.data.data.hireApplyAlready)
-      // if (res.data.data.listHouseGetApply||res.data.data.hireApplyAlread) {
-      if (false) {
+      console.log(res)
+      if (JSON.stringify(res.data)=='{}'||res.data.data.listHouseGetApply||res.data.data.hireApplyAlread) {
+      // if (false) {
         wx.hideLoading();
         wx.showModal({
-          title: "警告",
+          title: "提示",
           content: "您已有住房或已申请",
           success: function(res) {
             if (res.confirm) {

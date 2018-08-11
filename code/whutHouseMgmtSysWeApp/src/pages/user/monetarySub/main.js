@@ -6,6 +6,6 @@ app.$mount()
 
 export default {
   config: {
-    navigationBarTitleText: '个人'
+    navigationBarTitleText: '货币化补贴'
   }
 }

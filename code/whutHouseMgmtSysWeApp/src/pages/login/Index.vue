@@ -7,11 +7,11 @@
       </div>
     </div>
 
-    <div >
+    <div>
       <form @submit="formSubmit" @reset="formReset">
         <div class="zan-row">
           <div class="zan-col zan-col-20 zan-col-offset-2">
-                        <zan-field v-bind="Object.assign({}, handleFunctions, fieldBase.ID)" />
+            <zan-field v-bind="Object.assign({}, handleFunctions, fieldBase.ID)" />
           </div>
         </div>
         <div class="zan-row">
@@ -89,7 +89,7 @@ export default {
     ZanField,
     toptips: ZanTopTips
   },
-  mounted ()  {
+  mounted() {
     this.userInfo = wx.getStorageSync("userInfo");
   },
   methods: {
@@ -117,6 +117,9 @@ export default {
         roleId: this.roleID - 1,
         unionId: wx.getStorageSync("unionId")
       };
+      if (data.roleId == 2) {
+        data.roleId = 3;
+      }
       postLoginWX(data).then(res => {
         if (res.status === "success") {
           wx.showLoading({

@@ -321,7 +321,7 @@ export default {
     // 提交维修申请
     addSubmit() {
       wx.showLoading({
-        title: "加载中"
+        title: "请稍后"
       });
       let applyForm = {
         description: this.fixBase.description,

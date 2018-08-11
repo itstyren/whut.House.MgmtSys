@@ -1,65 +1,82 @@
 <template>
- <div class="page">
-   <div class="info-card zan-row" >
-      <img class="userinfo-avatar"  :src="userInfo.avatarUrl" background-size="cover" />
+  <div class="page">
+    <div class="info-card zan-row">
+      <img class="userinfo-avatar" :src="userInfo.avatarUrl" background-size="cover" />
       <div class="userinfo-nickname">
         {{userInfo.nickName}}
       </div>
-   </div>
-   <!-- 操作区域 -->
-   <div class="zan-row user-cell">
-      <a href="../fixDetail/main"><div class="zan-cell zan-cell--access" @click="fixCheck">
-        <div class="zan-icon zan-icon-description" style="color: #ff4343;"></div>
-        <div class="zan-cell__bd">查看维修申请单</div>
-        <div class="zan-cell__ft"><span :class="status">{{recentlyFixStatus}}</span></div>
-      </div></a>
-      <div class="zan-cell zan-cell--access">
-        <div class="zan-icon zan-icon-description" style="color: #ff4343;"></div>
-        <div class="zan-cell__bd">查看维修申请单</div>
-        <div class="zan-cell__ft">未审核</div>
+    </div>
+    <!-- 操作区域 -->
+    <div class="zan-row user-cell">
+      <a href="../fixDetail/main">
+        <div class="zan-cell zan-cell--access">
+          <div class="zan-icon zan-icon-description" style="color: #ff4343;"></div>
+          <div class="zan-cell__bd">查看维修申请单</div>
+          <div class="zan-cell__ft">
+            <span :class="fixStatus">{{recentlyFixStatus}}</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="../hireDetail/main">
+        <div class="zan-cell zan-cell--access">
+          <div class="zan-icon zan-icon-points-mall" style="color: #ff4343;"></div>
+          <div class="zan-cell__bd">查看租赁申请单</div>
+          <div class="zan-cell__ft">
+            <span :class="hireState">{{recentlyHireStatus}}</span>
+          </div>
+        </div>
+      </a>
+            <a href="../monetarySub/main">
+        <div class="zan-cell zan-cell--access">
+          <div class="zan-icon zan-icon-cash-back-record" style="color: #ff4343;"></div>
+          <div class="zan-cell__bd">住房补贴查询</div>
+          <div class="zan-cell__ft">
+            <!-- <span :class="hireState">{{recentlyHireStatus}}</span> -->
+          </div>
+        </div>
+      </a>
+      <!-- 解除绑定 -->
+      <div class="logOut">
+        <button @click="logOut" class="zan-btn zan-btn--danger">解除绑定</button>
       </div>
-         <!-- 解除绑定 -->
-   <div class="logOut">
-         <button @click="logOut" class="zan-btn zan-btn--danger">解除绑定</button>
-         </div>
-   </div>
- </div>
+    </div>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
 // import wxccc from '@minui/wxc-cc';
-import { getFixByStaffID, getUnbindUnionID } from "@/api";
+import { getFixByStaffID, getUnbindUnionID, getHireByStaffID } from "@/api";
 export default {
   data() {
     return {
       userInfo: {},
       staffInfo: [],
-      fixForm: [],
       recentlyFixStatus: "",
-      status: ""
+      recentlyHireStatus: "",
+      fixStatus: "",
+      hireState: ""
     };
   },
   onShow() {
     this.userInfo = wx.getStorageSync("userInfo");
     this.staffInfo = this.$store.state.userinfo;
     this.getFixForm();
+    this.getHireForm();
   },
   components: {},
   methods: {
-    fixCheck() {
-      console.log(233);
-    },
     // 获取维修表单信息
     getFixForm() {
       let staffID = this.staffInfo.id;
       getFixByStaffID(staffID).then(res => {
         let todoFixForm = [];
         let doneFixForm = [];
-        this.fixForm = res.data.data;
+        let fixForm = res.data.data;
         this.recentlyFixStatus =
           res.data.data[res.data.data.length - 1].fixState;
-        if (this.recentlyFixStatus == "已审核") this.status = "yishenhe";
-        this.fixForm.forEach(i => {
+        if (this.recentlyFixStatus == "已审核") this.fixStatus = "yishenhe";
+        fixForm.forEach(i => {
           if (i.fixState == "待受理" || i.fixState == "待审核") {
             todoFixForm.push(i);
           } else {
@@ -67,9 +84,23 @@ export default {
           }
         });
         todoFixForm.reverse();
-        doneFixForm.reverse()
+        doneFixForm.reverse();
         wx.setStorageSync("todoFixForm", todoFixForm);
         wx.setStorageSync("doneFixForm", doneFixForm);
+      });
+    },
+    getHireForm() {
+      let staffID = this.staffInfo.id;
+      getHireByStaffID(staffID).then(res => {
+        // console.log(res.data.data);
+        let hireForm = res.data.data;
+        if (hireForm.length != 0) {
+          this.recentlyHireStatus = hireForm[0].hireState;
+        } else {
+          this.recentlyHireStatus = "暂无申请单";
+        }
+        if (this.recentlyHireStatus == "已审核") this.hireState = "yishenhe";
+        wx.setStorageSync("hireForm", hireForm);
       });
     },
     // 用户解除绑定
@@ -118,6 +149,7 @@ export default {
     color: #aaa;
   }
 }
+
 .user-cell {
   margin-top: 3vh;
   .zan-cell {
@@ -151,4 +183,3 @@ export default {
   }
 }
 </style>
-
