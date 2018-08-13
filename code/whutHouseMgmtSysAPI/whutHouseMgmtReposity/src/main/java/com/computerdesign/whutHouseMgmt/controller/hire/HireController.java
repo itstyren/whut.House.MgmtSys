@@ -182,16 +182,36 @@ public class HireController {
 		hire.setHireState("待受理");
 		hire.setIsOver(false);
 
-		hire.setTimeVal(viewStaff.getTimeVal());
-		hire.setOtherVal(viewStaff.getOtherVal());
-		hire.setSpouseVal(viewStaff.getSpouseTitleVal().doubleValue());
+		//2018.08.13 XieHao增加并更改空值判断，若为空，则设置为0
+		if(viewStaff.getTimeVal()!= null){
+			hire.setTimeVal(viewStaff.getTimeVal());
+		}else{
+			hire.setTimeVal(0.0);
+		}
+		if(viewStaff.getOtherVal() != null){
+			hire.setOtherVal(viewStaff.getOtherVal());
+		}else{
+			hire.setOtherVal(0.0);
+		}
+		if(viewStaff.getSpouseTitleVal() != null){
+			hire.setSpouseVal(viewStaff.getSpouseTitleVal().doubleValue());
+		}else{
+			hire.setSpouseVal(0.0);
+		}
 
 		if (viewStaff.getTitleVal() != null) {
 			hire.setTitleVal(viewStaff.getTitleVal().doubleValue());
+		}else{
+			hire.setTitleVal(0.0);
 		}
-		if (viewStaff.getTotalVal() != null) {
-			hire.setTotalVal(viewStaff.getTotalVal().doubleValue());
-		}
+		
+//		if (viewStaff.getTotalVal() != null) {
+//			hire.setTotalVal(viewStaff.getTotalVal().doubleValue());
+//		}else{
+//			hire.setTotalVal(0.0);
+//		}
+		
+		hire.setTotalVal(hire.getOtherVal() + hire.getSpouseVal() + hire.getTitleVal() + hire.getTimeVal());
 
 		hireService.add(hire);
 		return Msg.success("提交申请成功");

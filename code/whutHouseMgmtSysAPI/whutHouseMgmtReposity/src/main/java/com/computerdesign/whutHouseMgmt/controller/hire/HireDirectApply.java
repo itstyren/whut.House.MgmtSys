@@ -16,13 +16,16 @@ import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.directapply.HireAddDirectApply;
 import com.computerdesign.whutHouseMgmt.bean.hire.directapply.HireGetDirectApply;
 import com.computerdesign.whutHouseMgmt.bean.hire.directapply.HireHouseGetDirectApply;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValue;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
+import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 
 import io.swagger.annotations.ApiOperation;
@@ -51,6 +54,9 @@ public class HireDirectApply {
 	
 	@Autowired
 	private HouseService houseService;
+	
+	@Autowired
+	private StaffService staffService;
 	
 	/**
 	 * 获取房屋直批页面
@@ -113,36 +119,76 @@ public class HireDirectApply {
 	public Msg HireAddDirectApply(@RequestBody HireAddDirectApply hireAddDirectApply) {
 		Hire hire = new Hire();
 
-		hire.setStaffId(hireAddDirectApply.getStaffId());
-		hire.setHouseId(hireAddDirectApply.getHouseId());
+		List<ViewHouse> viewHouse = viewHouseService.get(hireAddDirectApply.getHouseId());
+		if(viewHouse != null && viewHouse.size() > 0){
+			if(viewHouse.get(0).getStatusName().equals("空闲")){
+				
+				if(registerService.isRentByStaffId(hireAddDirectApply.getStaffId())){
+					return Msg.error("该职工已有租赁住房");
+				}else{
+					hire.setStaffId(hireAddDirectApply.getStaffId());
+					hire.setHouseId(hireAddDirectApply.getHouseId());
 
-		// 通过reason来判断是否为直批
-		hire.setReason("直批");
+					// 通过reason来判断是否为直批
+					hire.setReason("直批");
 
-		hire.setApplyTime(new Date());
-		hire.setHireState("已审批");
+					hire.setApplyTime(new Date());
+					hire.setHireState("已审批");
 
-		hire.setAcceptMan(hireAddDirectApply.getDirectApplyMan());
-		hire.setAcceptNote(hireAddDirectApply.getDirectApplyNote());
-		hire.setAcceptState("通过");
-		hire.setAcceptTime(new Date());
+					hire.setAcceptMan(hireAddDirectApply.getDirectApplyMan());
+					hire.setAcceptNote(hireAddDirectApply.getDirectApplyNote());
+					hire.setAcceptState("通过");
+					hire.setAcceptTime(new Date());
 
-		hire.setAgreeMan(hireAddDirectApply.getDirectApplyMan());
-		hire.setAgreeNote(hireAddDirectApply.getDirectApplyNote());
-		hire.setAgreeState("通过");
-		hire.setAgreeTime(new Date());
+					hire.setAgreeMan(hireAddDirectApply.getDirectApplyMan());
+					hire.setAgreeNote(hireAddDirectApply.getDirectApplyNote());
+					hire.setAgreeState("通过");
+					hire.setAgreeTime(new Date());
 
-		hire.setApproveMan(hireAddDirectApply.getDirectApplyMan());
-		hire.setApproveNote(hireAddDirectApply.getDirectApplyNote());
-		hire.setApproveState("通过");
-		hire.setApproveTime(new Date());
+					hire.setApproveMan(hireAddDirectApply.getDirectApplyMan());
+					hire.setApproveNote(hireAddDirectApply.getDirectApplyNote());
+					hire.setApproveState("通过");
+					hire.setApproveTime(new Date());
+					
+					StaffValue staffValue = staffService.getStaffValueByStaffId(hireAddDirectApply.getStaffId());
+					if(staffValue.getStaffTitleValue() != null){
+						hire.setTitleVal((double) staffValue.getStaffTitleValue());
+					}else{
+						hire.setTitleVal(0.0);
+					}
+					if(staffValue.getTimeValue() != null){
+						hire.setTimeVal(staffValue.getTimeValue());
+					}else{
+						hire.setTimeVal(0.0);
+					}
+					//暂时以配偶职称分做为配偶分
+					if(staffValue.getSpouseTitleValue() != null){
+						hire.setSpouseVal((double) staffValue.getSpouseTitleValue());
+					}else{
+						hire.setSpouseVal(0.0);
+					}
+					if(staffValue.getOtherValue() != null){
+						hire.setOtherVal(staffValue.getOtherValue());
+					}else{
+						hire.setOtherVal(0.0);
+					}
+					hire.setTotalVal(hire.getTitleVal() + hire.getTimeVal() + hire.getSpouseVal() + hire.getOtherVal());
+					
+					hire.setIsOver(false);
 
-		hire.setIsOver(false);
-
-		hireService.add(hire);
-		registerService.registerByHire(hire);
-		//TODO 78为当前数据库租赁对应的id
-		houseService.updateHouseStatus(hire.getHouseId(), 78);
-		return Msg.success("房屋直批");
+					hireService.add(hire);
+					registerService.registerByHire(hire);
+					//TODO 78为当前数据库租赁对应的id
+					houseService.updateHouseStatus(hire.getHouseId(), 78);
+					return Msg.success("房屋直批");
+				}
+				
+			}else{
+				return Msg.error("该房屋已有人居住");
+			}
+		}else{
+			return Msg.error("无该套住房");
+		}
+		
 	}
 }

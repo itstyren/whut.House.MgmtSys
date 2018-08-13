@@ -16,9 +16,11 @@ import com.computerdesign.whutHouseMgmt.bean.hire.agree.HireAddAgree;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.hire.ViewHireService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
+import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastHireRecordService;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.computerdesign.whutHouseMgmt.utils.StaffHomePageUtils;
@@ -41,7 +43,6 @@ public class HireAgreeController {
 	private ViewHouseService viewHouseService;
 	@Autowired
 	private LastHireRecordService lastHireRecordService;
-
 	
 	@RequestMapping(value = "getAgree/{agreeState}",method = RequestMethod.GET)
 	@ApiOperation(value = "进入房屋申请审核页面 0代表未经审核流程的全部信息，1代表审核过程结束的全部信息",httpMethod="GET",response = com.computerdesign.whutHouseMgmt.bean.Msg.class)
@@ -119,13 +120,24 @@ public class HireAgreeController {
 			if (hireService.getCountByHouseId(hire.getHouseId())>0) {
 				return Msg.error("该房屋已被分配给其他员工");
 			}
-			//保存上一级租赁状态
-			StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
 			
-			hire.setHireState("待审批");
-			hireService.update(hire);
-						
-			return Msg.success("审核成功").add("data", hire);
+			List<ViewHouse> viewHouses = viewHouseService.get(hire.getHouseId());
+			if(viewHouses != null && viewHouses.size() > 0){
+				if(viewHouses.get(0).getStatusName().equals("空闲")){
+					//保存上一级租赁状态
+					StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
+					
+					hire.setHireState("待审批");
+					hireService.update(hire);
+								
+					return Msg.success("审核成功").add("data", hire);
+				}else{
+					return Msg.error("该住房已有人居住");
+				}
+			}else{
+				return Msg.error("住房不存在");
+			}
+			
 		}else {
 			return Msg.error("请检查你的网络");
 		}

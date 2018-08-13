@@ -127,6 +127,26 @@ public class RegisterService{
 	}
 	
 	/**
+	 * XieHao新增
+	 * 使用view_hs_resident,根据staffId获取信息,判断该员工是否已租赁住房
+	 * @param staffId
+	 * @return
+	 * 2018.08.13
+	 */
+	public boolean isRentByStaffId(Integer staffId) {
+		ResidentVwExample example = new ResidentVwExample();
+		com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample.Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		criteria.andHouseRelEqualTo("租赁");
+		criteria.andIsDeleteEqualTo(false);
+		if(residentVwMapper.selectByExample(example)!= null && residentVwMapper.selectByExample(example).size() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
 	 * R新增
 	 * 使用view_hs_resident,根据staffId获取信息
 	 * @param staffId

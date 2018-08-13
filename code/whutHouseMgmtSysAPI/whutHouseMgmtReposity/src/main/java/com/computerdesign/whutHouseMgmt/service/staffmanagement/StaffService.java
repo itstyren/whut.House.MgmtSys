@@ -54,6 +54,22 @@ public class StaffService implements BaseService<Staff> {
 	}
 	
 	/**
+	 * 根据staffId获取单个StaffValue记录
+	 * @param staffId
+	 * @return
+	 */
+	public StaffValue getStaffValueByStaffId(Integer staffId){
+		StaffValueExample example = new StaffValueExample();
+		com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffValueExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(staffId);
+		if(staffValueMapper.selectByExample(example) != null){
+			return staffValueMapper.selectByExample(example).get(0);
+		}else{
+			return null;
+		}
+	}
+	
+	/**
 	 * 根据staffNo获取单个StaffValue记录
 	 * @param staffNo
 	 * @return

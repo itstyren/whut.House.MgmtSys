@@ -67,7 +67,16 @@ public class HireAcceptController {
 			// 设置titleVal自动计算和totalVal自动计算
 			for (ViewHire viewHire : listViewHire) {
 				ViewStaff viewStaff = viewStaffService.getByStaffId(viewHire.getStaffId()).get(0);
-				Double titleVal = (double) staffParameterService.getValByStaffParamId(viewStaff.getTitle());
+//				System.out.println(viewStaff);
+//				System.out.println(viewStaff.getName());
+//				Double titleVal = (double) staffParameterService.getValByStaffParamId(viewStaff.getTitle());
+				//2018.08.13 XieHao修改
+				Double titleVal;
+				if(viewStaff.getTitleVal() != null){
+					titleVal = viewStaff.getTitleVal().doubleValue();
+				}else{
+					titleVal = 0.0;
+				}
 				Double totalVal = titleVal + viewStaff.getOtherVal() + viewStaff.getTimeVal();
 				viewHire.setTitleVal(titleVal);
 				viewHire.setTotalVal(totalVal);
@@ -82,7 +91,14 @@ public class HireAcceptController {
 			List<ViewHire> listViewHire = viewHireService.getAcceptHasBeen();
 			for (ViewHire viewHire : listViewHire) {
 				ViewStaff viewStaff = viewStaffService.getByStaffId(viewHire.getStaffId()).get(0);
-				Double titleVal = (double) staffParameterService.getValByStaffParamId(viewStaff.getTitle());
+//				Double titleVal = (double) staffParameterService.getValByStaffParamId(viewStaff.getTitle());
+				//2018.08.13 XieHao修改
+				Double titleVal;
+				if(viewStaff.getTitleVal() != null){
+					titleVal = viewStaff.getTitleVal().doubleValue();
+				}else{
+					titleVal = 0.0;
+				}
 				Double totalVal = titleVal + viewHire.getOtherVal() + viewHire.getTimeVal() + viewHire.getSpouseVal();
 				viewHire.setTitleVal(titleVal);
 				viewHire.setTotalVal(totalVal);
@@ -182,12 +198,17 @@ public class HireAcceptController {
 		hire.setAcceptState(null);
 		hire.setAcceptTime(null);
 
-		hire.setTimeVal(null);
-		hire.setTotalVal(null);
-		hire.setTimeVal(null);
-		hire.setOtherVal(null);
-		hire.setSpouseVal(null);
+//		hire.setTimeVal(null);
+//		hire.setTotalVal(null);
+//		hire.setTimeVal(null);
+//		hire.setOtherVal(null);
+//		hire.setSpouseVal(null);
 
+		hire.setTimeVal(0.0);
+		hire.setTotalVal(0.0);
+		hire.setTimeVal(0.0);
+		hire.setOtherVal(0.0);
+		hire.setSpouseVal(0.0);
 		//保存上一级租赁状态
 		StaffHomePageUtils.saveLastHireRecord(lastHireRecordService,hire);
 		

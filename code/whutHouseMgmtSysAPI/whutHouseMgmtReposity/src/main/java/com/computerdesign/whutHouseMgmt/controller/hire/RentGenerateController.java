@@ -162,7 +162,7 @@ public class RentGenerateController {
 
 				if (c1.getTimeInMillis() <= c2.getTimeInMillis()) {
 					// 预定入住时间在查询范围之前，则以查询范围为准
-					days = (c2.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
+					days = (c3.getTimeInMillis() - c2.getTimeInMillis()) / (1000 * 60 * 60 * 24);
 				} else if (c1.getTimeInMillis() < c3.getTimeInMillis()) {
 					// 预定入住时间在查询范围之间，则以入住时间到结束时间为准
 					days = (c3.getTimeInMillis() - c1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
@@ -173,7 +173,17 @@ public class RentGenerateController {
 				// 每平方米的价格*面积*天数
 				rentVwShowModel.setRentInitMoney(Double.parseDouble(new DecimalFormat("#.00")
 						.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), days))));
-
+				
+				//测试
+//				if(staffHouse.getStaffNo().equals("7958")){
+//					System.out.println(rentPer / 30);
+//					System.out.println(staffHouse.getHouseBuildArea());
+//					System.out.println(days);
+//					
+//					System.out.println(staffHouse.getBookTime());
+//					System.out.println(rentTimeRange.getStartTime());
+//				}
+				
 				rentVwShowModels.add(rentVwShowModel);
 			}else{
 				System.out.println("测试");

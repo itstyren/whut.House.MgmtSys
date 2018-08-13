@@ -572,4 +572,11 @@ public class ViewStaff {
     public void setUnionId(String unionId) {
         this.unionId = unionId == null ? null : unionId.trim();
     }
+
+	@Override
+	public String toString() {
+		return "ViewStaff [id=" + id + ", no=" + no + ", name=" + name + "]";
+	}
+    
+    
 }

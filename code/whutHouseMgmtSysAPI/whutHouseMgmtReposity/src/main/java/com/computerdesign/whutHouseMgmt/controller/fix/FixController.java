@@ -255,7 +255,7 @@ public class FixController {
 
 		if (listResidentVw.isEmpty()) {
 			viewStaffResponse.put("houseList", null);
-			return Msg.success("没有房子").add("data", viewStaffResponse);
+			return Msg.success().add("data", viewStaffResponse);
 		} else {
 			// 根据每一个房屋登记信息获取每一个house
 			for (ResidentVw residentVw : listResidentVw) {
@@ -278,7 +278,7 @@ public class FixController {
 			}
 			viewStaffResponse.put("houseList", listHouse);
 
-			return Msg.success("根据员工id获取维修直批页面").add("data", viewStaffResponse);
+			return Msg.success().add("data", viewStaffResponse);
 		}
 	}
 
