@@ -7,17 +7,17 @@
       </div>
       <div class="zan-row">
         <div class="zan-col zan-col-20 zan-col-offset-2">
-          <a><image src="http://p1z72063k.bkt.clouddn.com/wx/hireApply.png" class = "link"/></a>
+          <a href="/pages/hireApply/main"><image src="http://p1z72063k.bkt.clouddn.com/wx/hireApply.png" class = "link"/></a>
         </div>
       </div>
       <div class="zan-row">
         <div class="zan-col zan-col-20 zan-col-offset-2">
-          <a><image src="http://p1z72063k.bkt.clouddn.com/wx/selfService.png" class = "link"/></a>
+          <a href="/pages/selfService/main"><image src="http://p1z72063k.bkt.clouddn.com/wx/selfService.png" class = "link"/></a>
         </div>
   </div>
-  <div class="scaner" @click="scanerClick">
+  <!-- <div class="scaner" @click="scanerClick">
     <image src="http://p1z72063k.bkt.clouddn.com/wx/nav_scaner.png" class="scaner_img"/>
-  </div>
+  </div> -->
 </div>
 </template>
 
@@ -27,7 +27,6 @@ import store from "@/store/index";
 export default {
   data() {
     return {
-      data: "你好"
     };
   },
   computed: {
@@ -53,7 +52,7 @@ export default {
 .container {
   padding-top: 30px;
   position: relative;
-  height: 92vh;
+  height: 99vh;
   .scaner {
     padding: 10px;
     border-radius: 50%;
@@ -65,7 +64,7 @@ export default {
     right: 24px;
     .scaner_img {
       width: 30px;
-      height: 30px;
+      height: 35px;
     }
   }
 }
@@ -87,7 +86,7 @@ export default {
 
 .link {
   width: 85vw;
-  height: 22vh;
+  height: 24vh;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   // box-shadow: 5px 5px 5px #888888;

@@ -4,28 +4,71 @@
   padding: 10px;
 }
 
-._card{
-      margin: 10px;
-      padding: 15px;    
-    //   border: 1px solid #e6ebf5;
-      background-color: #fff;
-      box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
-      border-radius: 2px;
-      .title {
-        padding: 0px 0 0 10px;
-        position: relative;
-        width: 100%;
-        text-align: left;
-        &::after {
-          content: "";
-          width: 95%;
-          height: 2px;
-          background-color: #dcdcdc;
-          position: absolute;
-          bottom: -10px;
-          z-index: 1;
-          left: 1%;
-          right: 1%;
-        }
-      }
+._card {
+  margin: 10px;
+  padding: 15px; //   border: 1px solid #e6ebf5;
+  background-color: #fff;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  .title {
+    // padding: 0px 10px 0 10px;
+    position: relative;
+    width: 100%;
+    text-align: left;
+    &::after {
+      content: "";
+      width: 98%;
+      height: 2px;
+      background-color: #dcdcdc;
+      position: absolute;
+      bottom: -10px;
+      z-index: 1;
+      left: 1%;
+      right: 1%;
+    }
+  }
+}
+
+// 维修详情页面
+.fix-detail,
+.fix-apply {
+  .zan-field__title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .zan-field__input {
+    text-align: center;
+  }
+}
+
+// 下方操作区域
+.button-area {
+  position: absolute;
+  height: 50px;
+  background-color: #fff;
+  bottom: 0;
+  width: 100%;
+  .left-button {
+    position: absolute;
+    left: 0;
+    width: 30%;
+  }
+  .right-button {
+    position: absolute;
+    right: 0;
+    top:0;
+    bottom: 0;
+    width: 30%;
+  }
+  .zan-btn{
+    height: 100%;
+  }
+}
+
+.footer{
+  .zan-btn{
+    color: #fff;
+    margin-left: 23%;
+    font-size: 16px;
+  }
 }

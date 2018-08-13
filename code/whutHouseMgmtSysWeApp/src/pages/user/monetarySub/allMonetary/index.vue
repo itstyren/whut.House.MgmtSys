@@ -13,30 +13,36 @@
         <div class="weui-tab__panel">
           <!-- 正在处理的表单 -->
           <div class="weui-tab__content " :hidden="activeIndex != 0">
-            <!-- 待受理表单 -->
-            <div class="_card  fix-list" v-for="item in todoFixForm" :key="item.fixId" @click="listClick(item)">
+            <!-- 年度补贴 -->
+            <div class="_card  moetary-list" v-for="item in yaerMonetary" :key="item.year" @click="listClick(item)">
               <div class="first">
-                <span>申请时间：{{item.applyTime}}</span>
+                <span>发放年度：{{item.year}}</span>
               </div>
               <div class="second">
-                <span> 维修类型：{{item.fixType}}</span>
-                <span>审核状态：{{item.fixState}}</span>
+                <span> 年度工资：{{item.annualSal}}</span>
+                <span>补贴金额：{{item.subsidies}}</span>
               </div>
               <div class="sleect">></div>
+            </div>
+            <div class="null" v-if="yaerMonetary.length==0">
+              暂无年度补贴发放记录
             </div>
           </div>
           <!-- 已经结束的表单 -->
           <div class="weui-tab__content" :hidden="activeIndex != 1">
-            <!-- 已通过表单 -->
-            <div class="_card  fix-list" v-for="item in doneFixForm" :key="item.fixId" @click="listClick(item)">
+            <!-- 一次性补贴 -->
+            <div class="_card  moetary-list" v-for="item in lumpMonetary" :key="item.year" @click="listClick(item)">
               <div class="first">
-                <span>申请时间：{{item.applyTime}}</span>
+                <span>发放年度：{{item.year}}</span>
               </div>
               <div class="second">
-                <span> 维修类型：{{item.fixType}}</span>
-                <span>审核状态：{{item.fixState}}</span>
+                <!-- <span> 维修类型：{{item.fixType}}</span> -->
+                <span>补贴金额：{{item.subsidies}}</span>
               </div>
               <div class="sleect">></div>
+            </div>
+            <div class="null" v-if="lumpMonetary.length==0">
+              暂无一次性补贴发放记录
             </div>
           </div>
         </div>
@@ -50,11 +56,11 @@
   export default {
     data() {
       return {
-        tabs: ["正在进行", "已经结束"],
+        tabs: ["年度补贴", "一次补贴"],
         activeIndex: 0,
         fontSize: 30,
-        todoFixForm: [],
-        doneFixForm: []
+        yaerMonetary: [],
+        lumpMonetary: []
       };
     },
     computed: {
@@ -68,8 +74,8 @@
       }
     },
     mounted() {
-      this.todoFixForm = wx.getStorageSync("todoFixForm");
-      this.doneFixForm = wx.getStorageSync("doneFixForm");
+      this.yaerMonetary = wx.getStorageSync("yaerMonetary");
+      this.lumpMonetary = wx.getStorageSync("lumpMonetary");
     },
     methods: {
       tabClick(e) {
@@ -164,7 +170,7 @@
     font-size: 28rpx;
   }
 
-  .fix-list {
+  .moetary-list {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
