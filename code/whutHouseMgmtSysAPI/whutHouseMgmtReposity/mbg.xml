@@ -12,7 +12,7 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql:///whlglease" userId="root" password="XH05250619.">
+			connectionURL="jdbc:mysql://118.126.117.96:3306/whlglease" userId="root" password="MIS666">
 		</jdbcConnection>
 
 		<javaTypeResolver>
@@ -21,7 +21,7 @@
  
 		<!-- 指定javabean的生成位置 -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.login"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.staffmanagement"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -29,13 +29,13 @@
 
 		<!-- 指定sql映射文件的生成位置 -->
 
-		<sqlMapGenerator targetPackage="mapper.login" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper.staffmanagement" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" /> 
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.login" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.staffmanagement" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -60,7 +60,10 @@
 		<!-- <table tableName="view_hs_monetarysub" domainObjectName="MonetarySubVw">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<table tableName="Pm_WXLogin" domainObjectName="WXLogin">
+		<!-- <table tableName="Pm_WXLogin" domainObjectName="WXLogin">
+			<property name="useActualColumnNames" value="true"></property>
+		</table> -->
+		<table tableName="view_hs_staff" domainObjectName="StaffVw">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		<!-- <table tableName="hs_staff" domainObjectName="Staff">

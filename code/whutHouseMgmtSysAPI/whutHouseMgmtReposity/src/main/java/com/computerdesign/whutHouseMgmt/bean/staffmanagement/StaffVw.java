@@ -101,6 +101,8 @@ public class StaffVw {
     private String userName;
 
     private Boolean isOwnPriHouse;
+    
+    private Integer roleId;
 
     public Integer getId() {
         return id;
@@ -437,4 +439,13 @@ public class StaffVw {
     public void setIsOwnPriHouse(Boolean isOwnPriHouse) {
         this.isOwnPriHouse = isOwnPriHouse;
     }
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+    
 }

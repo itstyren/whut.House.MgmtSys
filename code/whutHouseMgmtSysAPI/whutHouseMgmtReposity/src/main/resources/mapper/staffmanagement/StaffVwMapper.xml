@@ -44,6 +44,7 @@
     <result column="FirstJobTime" jdbcType="DATE" property="firstJobTime" />
     <result column="UserName" jdbcType="VARCHAR" property="userName" />
     <result column="IsOwnPriHouse" jdbcType="BIT" property="isOwnPriHouse" />
+    <result column="RoleId" jdbcType="INTEGER" property="roleId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -109,7 +110,7 @@
     Tel, Email, Remark, SpouseName, SpouseCode, SpouseTitleName, SpousePostName, SpouseDept, 
     SpouseKind, IsDeptManage, StaffPassword, BuyAccount, Compensate, FixFund, SecondJoinTime, 
     SecondRetireTime, StaffDual, Relation, DiscountRate, FamilyCode, FirstJobTime, UserName, 
-    IsOwnPriHouse
+    IsOwnPriHouse, RoleId
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVwExample" resultMap="BaseResultMap">
     select
@@ -145,8 +146,8 @@
       BuyAccount, Compensate, FixFund, 
       SecondJoinTime, SecondRetireTime, StaffDual, 
       Relation, DiscountRate, FamilyCode, 
-      FirstJobTime, UserName, IsOwnPriHouse
-      )
+      FirstJobTime, UserName, IsOwnPriHouse, 
+      RoleId)
     values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{marriageState,jdbcType=VARCHAR}, #{titleId,jdbcType=INTEGER}, 
       #{titleName,jdbcType=VARCHAR}, #{postId,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR}, 
@@ -160,8 +161,8 @@
       #{buyAccount,jdbcType=DECIMAL}, #{compensate,jdbcType=DECIMAL}, #{fixFund,jdbcType=DECIMAL}, 
       #{secondJoinTime,jdbcType=DATE}, #{secondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, 
       #{relation,jdbcType=VARCHAR}, #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, 
-      #{firstJobTime,jdbcType=DATE}, #{userName,jdbcType=VARCHAR}, #{isOwnPriHouse,jdbcType=BIT}
-      )
+      #{firstJobTime,jdbcType=DATE}, #{userName,jdbcType=VARCHAR}, #{isOwnPriHouse,jdbcType=BIT}, 
+      #{roleId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw">
     insert into view_hs_staff
@@ -292,6 +293,9 @@
       <if test="isOwnPriHouse != null">
         IsOwnPriHouse,
       </if>
+      <if test="roleId != null">
+        RoleId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -419,6 +423,9 @@
       </if>
       <if test="isOwnPriHouse != null">
         #{isOwnPriHouse,jdbcType=BIT},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -557,6 +564,9 @@
       <if test="record.isOwnPriHouse != null">
         IsOwnPriHouse = #{record.isOwnPriHouse,jdbcType=BIT},
       </if>
+      <if test="record.roleId != null">
+        RoleId = #{record.roleId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -605,7 +615,8 @@
       FamilyCode = #{record.familyCode,jdbcType=INTEGER},
       FirstJobTime = #{record.firstJobTime,jdbcType=DATE},
       UserName = #{record.userName,jdbcType=VARCHAR},
-      IsOwnPriHouse = #{record.isOwnPriHouse,jdbcType=BIT}
+      IsOwnPriHouse = #{record.isOwnPriHouse,jdbcType=BIT},
+      RoleId = #{record.roleId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

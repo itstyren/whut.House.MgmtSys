@@ -75,6 +75,22 @@ public class OneTimeMonetarySubService {
 	}
 	
 	/**
+	 * 根据职工ID获取其所有一次性补贴记录
+	 * @param staffNo
+	 * @return
+	 */
+	public List<OneTimeMonetarySubVw> getOneTimeMonetarySubByStaffId(Integer staffId){
+//		OneTimeMonetarySubExample example = new OneTimeMonetarySubExample();
+//		Criteria criteria = example.createCriteria();
+//		criteria.andStaffNoEqualTo(staffNo);
+//		return oneTimeMonetarySubMapper.selectByExample(example);
+		OneTimeMonetarySubVwExample example = new OneTimeMonetarySubVwExample();
+		com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySubVwExample.Criteria criteria = example.createCriteria();
+		criteria.andStaffIdEqualTo(staffId);
+		return oneTimeMonetarySubVwMapper.selectByExample(example);
+	}
+	
+	/**
 	 * 根据职工编号获取其所有一次性补贴记录
 	 * @param staffNo
 	 * @return

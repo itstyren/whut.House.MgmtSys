@@ -40,7 +40,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTMxNDAxMzg2LCJleHAiOjE1MzE0MzczODZ9.6MInefREIudxXH1mvC10NrMjlBKgZDk5iFk4Ozk_kUI");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTMzOTk1MzE3LCJleHAiOjE1MzQwMzEzMTZ9.xWxoNEEKzTgzJLRrqBtxxIVWxUBuKdwqgEyuqrHqfqw");
 					},
 					type : "get",
 					contentType : 'application/json',
@@ -66,7 +66,7 @@
 						request
 								.setRequestHeader(
 										"X-token",
-										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTMxNDAxMzg2LCJleHAiOjE1MzE0MzczODZ9.6MInefREIudxXH1mvC10NrMjlBKgZDk5iFk4Ozk_kUI");
+										"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNTMzOTk1MzE3LCJleHAiOjE1MzQwMzEzMTZ9.xWxoNEEKzTgzJLRrqBtxxIVWxUBuKdwqgEyuqrHqfqw");
 					},
 					data : JSON.stringify(data),
 					url : uri,
@@ -310,6 +310,11 @@
 
 	//职工管理
 	$(function() {
+		
+		$("#updateStaffRole").click(function() {
+			ajaxRequestPostType("staff/updateStaffRole/3/0","POST",null);
+		})
+		
 		//854
 		$("#unbind").click(function() {
 			ajaxRequestGet("staff/unbind/3");
@@ -858,7 +863,11 @@
 
 	//货币化补贴
 	$(function() {
-
+		
+		$("#getFormulaParameter").click(function() {
+			ajaxRequestGet("staffMonetarySub/getFormulaParameter/2");
+		})
+		
 		$("#addPromoteSub").click(
 				function() {
 					ajaxRequestPostType("oneTimeMonetarySub/addPromoteSub/2",
@@ -1068,6 +1077,9 @@
 				value="staffParamModify" id="staffParamModify" /><br>
 		</div>
 		<div class="tab-pane fade" id="staffManagement">
+			<h4>设置角色</h4>
+			<input class="btn btn-info btn-lg" type="button" value="UpdateStaffRole"
+				id="updateStaffRole" /> <br> <br>
 			<h4>解除绑定</h4>
 			<input class="btn btn-info btn-lg" type="button" value="Unbind"
 				id="unbind" /> <br> <br>
@@ -1295,6 +1307,10 @@
 				value="StaffMoreHouseSta" id="staffMoreHouseSta" /> <br>
 		</div>
 		<div class="tab-pane fade" id="houseSub">
+			<h4>根据员工ID获取年度补贴计算公式参数</h4>
+			<input class="btn btn-info btn-lg" type="button"
+				value="GetFormulaParameter" id="getFormulaParameter" /> <br>
+		
 			<h4>根据条件获取一次性补贴记录</h4>
 			<input class="btn btn-info btn-lg" type="button"
 				value="GetAllOneTimeMonetarySubByCondition" id="getAllOneTimeMonetarySubByCondition" /> <br>
