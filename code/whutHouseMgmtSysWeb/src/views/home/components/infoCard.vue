@@ -72,7 +72,7 @@ export default {
   methods: {
     getData() {
       getUserAvatar(this.staffID).then(res => {
-        if (res.data.status == "error") {
+        if (JSON.stringify(res.data.data) == "{}") {
           this.avatarURL = img_avatar;
         } else {
           this.avatarURL = res.data.data.data;

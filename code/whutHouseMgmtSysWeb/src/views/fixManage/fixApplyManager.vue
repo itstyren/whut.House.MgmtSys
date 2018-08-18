@@ -33,7 +33,7 @@
               <el-table-column prop="postName" label="职称" align="center"></el-table-column>
               <el-table-column prop="titleName" label="职务" align="center"></el-table-column>
               <el-table-column prop="deptName" label="工作部门" align="center"></el-table-column>
-              <el-table-column label="操作" width="250" align="center">
+              <el-table-column label="操作" width="300" align="center">
                 <template slot-scope="scope">
                   <el-button type="infor" size="small" @click="ReAccept(scope.$index,scope.row)">重受理</el-button>
                   <el-button type="primary" size="small" @click="ReAgree(scope.$index,scope.row)">重审核</el-button>

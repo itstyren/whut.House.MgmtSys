@@ -211,7 +211,8 @@ export default {
     // 导出申请单
     downloadApply() {
       let staffID = this.$store.getters.userID;
-      window.location.href = `http://localhost:8787/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
+      window.location.href = `https://www.terryren.com/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;      
+      // window.location.href = `http://localhost:8787/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
     },
     // 前进一步
     nextButton() {

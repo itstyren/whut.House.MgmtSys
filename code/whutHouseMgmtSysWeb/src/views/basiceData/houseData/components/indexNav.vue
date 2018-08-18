@@ -69,7 +69,6 @@ export default {
         });
     },
     itemSelect(index,indexPath){
-        //console.log(index)
         this.$emit('select-house',index)
     }
   }

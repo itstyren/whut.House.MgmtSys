@@ -267,9 +267,7 @@ export default {
       for (let paramClass = 5; paramClass <= paramNum; paramClass++) {
         getStaffParam(param, paramClass)
           .then(res => {
-            //console.log(res.data.data);
             this.staffParam[paramClass] = res.data.data.data.list;
-            //console.log(this.staffParam)
             if (this.staffParam[10] != null) this.submitLoading = false;
           })
           .catch(err => {

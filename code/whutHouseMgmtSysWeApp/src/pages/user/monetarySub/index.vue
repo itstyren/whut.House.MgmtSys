@@ -23,7 +23,7 @@
         </div>
       </a>
 
-      <a href="../hireDetail/main">
+      <a href="./policyInterpretation/main">
         <div class="zan-cell zan-cell--access">
           <div class="zan-icon zan-icon-points-mall" style="color: #ff4343;"></div>
           <div class="zan-cell__bd">补贴政策解读</div>
@@ -42,7 +42,7 @@ export default {
     return {
       monetaryList: [],
       staffNO: "",
-      currentMonetary: ""
+      currentMonetary: 0
     };
   },
   components: {},
@@ -58,9 +58,13 @@ export default {
         size: 10
       };
       getStaffMonetaryByNO(params, this.staffNO).then(res => {
+        wx.showLoading({
+          title: "请稍后"
+        });
         let monetaryList = res.data.data.list;
         wx.setStorageSync("yaerMonetary", monetaryList);
-        this.currentMonetary = res.data.totalSubNumber;
+          this.currentMonetary=res.data.totalSubNumber
+        // this.currentMonetary = res.data.totalSubNumber;
         getStaffLumpMonetaryByNO(this.staffNO).then(res => {
           const array = res.data.data;
           let temp = [];
@@ -80,6 +84,7 @@ export default {
             });
             wx.setStorageSync("lumpMonetary", temp);
           }
+          wx.hideLoading();
         });
       });
     },

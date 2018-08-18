@@ -51,7 +51,7 @@ export default {
       RoleIDs: [
         {
           value: "0",
-          label: "超级管理员"
+          label: "高级管理员"
         },
         {
           value: "1",

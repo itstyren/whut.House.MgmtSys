@@ -11,8 +11,6 @@ function getRemoteAuth() {
     getAuth().then(res => {
       const remoteAuth = res.data.data.roles
       filterAuth(remoteAuth, asyncRouterMap)
-      console.log(remoteAuth)
-      console.log(asyncRouterMap)
       resolve()
     })
   })
@@ -23,7 +21,6 @@ function filterAuth(remoteAuth, asyncRouterMap) {
   asyncRouterMap.forEach(route => {
     remoteAuth.forEach(auth => {
       if (route.name == auth.name) {
-        console.log(route.name)
       }
     })
     if (route.children && route.children.length) {
@@ -80,7 +77,6 @@ const permission = {
         const {
           roles
         } = data
-        // console.log(roles.indexOf(3) >= 0)
         let accessedRouters
         if (roles.indexOf(0) >= 0) {
           accessedRouters = asyncRouterMap

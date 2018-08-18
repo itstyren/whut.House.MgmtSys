@@ -79,7 +79,7 @@
     },
     methods: {
       getList() {
-        this.listLoading = false;
+        this.listLoading = true;
         let params = {
           page: this.page,
           size: this.size

@@ -51,7 +51,6 @@ export default {
     handkeFileChange(e) {
       const files = e.target.files
       const itemFile = files[0] // only use files[0]
-      //console.log(itemFile)
       this.readerData(itemFile)
     },
     readerData(itemFile) {

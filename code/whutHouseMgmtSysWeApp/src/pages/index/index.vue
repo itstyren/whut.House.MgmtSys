@@ -52,7 +52,7 @@ export default {
 .container {
   padding-top: 30px;
   position: relative;
-  height: 99vh;
+  height: 93vh;
   .scaner {
     padding: 10px;
     border-radius: 50%;

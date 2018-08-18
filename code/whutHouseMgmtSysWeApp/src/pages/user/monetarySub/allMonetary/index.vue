@@ -14,7 +14,7 @@
           <!-- 正在处理的表单 -->
           <div class="weui-tab__content " :hidden="activeIndex != 0">
             <!-- 年度补贴 -->
-            <div class="_card  moetary-list" v-for="item in yaerMonetary" :key="item.year" @click="listClick(item)">
+            <div class="_card  moetary-list" v-for="item in yaerMonetary" :key="item.year">
               <div class="first">
                 <span>发放年度：{{item.year}}</span>
               </div>
@@ -22,7 +22,7 @@
                 <span> 年度工资：{{item.annualSal}}</span>
                 <span>补贴金额：{{item.subsidies}}</span>
               </div>
-              <div class="sleect">></div>
+              <!-- <div class="sleect">></div> -->
             </div>
             <div class="null" v-if="yaerMonetary.length==0">
               暂无年度补贴发放记录
@@ -31,7 +31,7 @@
           <!-- 已经结束的表单 -->
           <div class="weui-tab__content" :hidden="activeIndex != 1">
             <!-- 一次性补贴 -->
-            <div class="_card  moetary-list" v-for="item in lumpMonetary" :key="item.year" @click="listClick(item)">
+            <div class="_card  moetary-list" v-for="item in lumpMonetary" :key="item.year">
               <div class="first">
                 <span>发放年度：{{item.year}}</span>
               </div>
@@ -39,7 +39,7 @@
                 <!-- <span> 维修类型：{{item.fixType}}</span> -->
                 <span>补贴金额：{{item.subsidies}}</span>
               </div>
-              <div class="sleect">></div>
+              <!-- <div class="sleect">></div> -->
             </div>
             <div class="null" v-if="lumpMonetary.length==0">
               暂无一次性补贴发放记录
@@ -79,15 +79,9 @@
     },
     methods: {
       tabClick(e) {
-        console.log(e);
+        // console.log(e);
         this.activeIndex = e.currentTarget.id;
       },
-      listClick(form) {
-        const url = "./detail/main?data=" + JSON.stringify(form);
-        wx.navigateTo({
-          url
-        });
-      }
     }
   };
 
@@ -110,17 +104,17 @@
   }
 
   .weui-navbar__slider_0 {
-    left: 29rpx;
+    left: 0rpx;
     transform: translateX(0);
   }
 
   .weui-navbar__slider_1 {
-    left: 29rpx;
-    transform: translateX(380rpx);
+    left: 80rpx;
+    transform: translateX(340rpx);
   }
 
   .weui-navbar__slider {
-    width: 9em;
+    width: 10em;
   }
 
   /* 表格代码   */

@@ -58,7 +58,6 @@ export default {
               children: []
             });
             dept.staffModels.forEach(staff => {
-              // console.log(staff)
               this.depData[num].children.push({
                 id: staff.id,
                 label: staff.name

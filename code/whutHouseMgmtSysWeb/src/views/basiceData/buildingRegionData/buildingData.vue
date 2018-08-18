@@ -250,9 +250,6 @@
         }
       };
     },
-    // created(){
-    //   console.log(this.$route.params.id)
-    // },
     created() {
       this.getList();
     },
@@ -270,10 +267,8 @@
         let regionID = this.$route.params.id;
         getbuildingDataByID(param, regionID)
           .then(res => {
-            // console.log(res.data.data)
             this.buildingData = res.data.data.data.list;
             this.totalNum = res.data.data.data.total;
-            // console.log(res.data.data.list)
             this.listLoading = false;
           })
           .catch(err => {
@@ -330,7 +325,6 @@
         this.modifyFormVisible = true;
         this.modifyFromBody = Object.assign({}, row);
         this.selectRowIndex = index;
-        //console.log(this.selectRowIndex)
       },
       //编辑提交
       modifySubmit() {

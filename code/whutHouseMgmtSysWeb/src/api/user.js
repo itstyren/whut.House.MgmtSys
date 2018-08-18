@@ -103,3 +103,11 @@ export function postUserAvatar(data) {
     data: data
   })
 }
+// 角色设置
+export function postUserRole(data) {
+  return request({
+    url: '/staff/updateStaffRole',
+    method: 'post',
+    data: data
+  })
+}

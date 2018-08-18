@@ -104,18 +104,19 @@
   }
 
   .weui-navbar__slider_0 {
-    left: 29rpx;
+    left: 0rpx;
     transform: translateX(0);
   }
 
   .weui-navbar__slider_1 {
-    left: 29rpx;
-    transform: translateX(380rpx);
+    left: 80rpx;
+    transform: translateX(340rpx);
   }
 
   .weui-navbar__slider {
-    width: 9em;
+    width: 10em;
   }
+
 
   /* 表格代码   */
 

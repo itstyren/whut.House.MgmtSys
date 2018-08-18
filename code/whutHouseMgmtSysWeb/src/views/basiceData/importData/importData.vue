@@ -52,10 +52,10 @@ import {
   postHouseRelImport
 } from "@/api/basiceData";
 import utils from "@/utils/index.js";
-// var basiceUrl = "http://localhost:8787/whutHouseMgmtReposity/dataImport/";
-// var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
+// var baseURL = "http://localhost:8787/whutHouseMgmtReposity/dataImport/";
+// var baseURL='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
   // var baseURL= 'http://120.78.226.24:8080/whutHouseMgmtRepositydataImport/'
-var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity'// api的base_url
+var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity/dataImport/'// api的base_url
 
 export default {
   name: "uploadExcel",
@@ -75,23 +75,20 @@ export default {
   },
   methods: {
     selected(data, itemFile) {
-      console.log(itemFile)
       this.fileName=itemFile.name
-      // console.log(data.results[0].备注)
       this.tableData = data.results;
       this.itemFile = itemFile;
-      //console.log(this.itemFile);
       this.tableHeader = data.header;
       this.isFull = false;
     },
     staffDownload() {
-      window.location.href = `${basiceUrl}staffDownLoad`;
+      window.location.href = `${baseURL}staffDownLoad`;
     },
     houseDownload() {
-      window.location.href = `${basiceUrl}houseDownLoad`;
+      window.location.href = `${baseURL}houseDownLoad`;
     },
     houseRelDownload() {
-      window.location.href = `${basiceUrl}residentDownLoad`;
+      window.location.href = `${baseURL}residentDownLoad`;
     },
     unpload() {
       this.uploadLoading = true;
