@@ -5,13 +5,13 @@ export default {
       vue.$message({
         type: 'success',
         message: data.message,
-        duration: 1500
+        duration: 2000
       })
     } else {
       vue.$message({
         type: 'error',
         message: data.message,
-        duration: 1500
+        duration: 2000
 
       })
     }

@@ -4,7 +4,7 @@
       <strong>新的通知</strong>
     </div>
     <div class="content">
-      <el-row class="info-row" v-for="(note,index) in hireNote" :key="index">
+      <el-row class="info-row" v-for="note in hireNote" :key="note">
         <el-col :span="1">
           <my-icon icon-class="information"></my-icon>
         </el-col>
@@ -17,7 +17,7 @@
           </router-link>
         </el-col>
       </el-row>
-      <el-row class="info-row" v-for="(note,index) in fixNote" :key="index">
+      <el-row class="info-row" v-for="note in fixNote" :key="note">
         <el-col :span="1">
           <my-icon icon-class="information"></my-icon>
         </el-col>
@@ -56,7 +56,6 @@
         this.listLongding = true
         getUserFix(this.staffID).then(res => {
           this.hireNote = res.data.data.data
-          console.log(this.hireNote)
           getUserHire(this.staffID).then(res => {
             this.fixNote = res.data.data.data
           })

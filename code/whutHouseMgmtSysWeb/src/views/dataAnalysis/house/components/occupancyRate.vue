@@ -46,9 +46,11 @@ export default {
     }
   },
   watch: {
-    filtersData(newVal) {
-      console.log(newVal)
-      this.getData(newVal);
+    chartData: {
+      deep: true,
+      handler(val) {
+        this.setOptions(val);
+      }
     }
   },
   methods: {

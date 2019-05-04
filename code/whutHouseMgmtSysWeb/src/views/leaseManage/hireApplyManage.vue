@@ -135,8 +135,10 @@
         };
         getHireForm(param)
           .then(res => {
+            // console.log(res.data.data)
             this.hireFormData = res.data.data.data.list;
             this.totalNum = res.data.data.data.total;
+            // console.log(res.data.data.list)
             this.listLoading = false;
           })
           .catch(err => {

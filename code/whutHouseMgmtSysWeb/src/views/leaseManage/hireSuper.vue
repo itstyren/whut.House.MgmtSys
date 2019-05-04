@@ -131,8 +131,10 @@
         this.propQuery = this.query;
       },
       getPropsStaff(selectStaff) {
+        console.log(selectStaff)
         this.$set(this.hireSuperForm, "staffName", selectStaff.name);
         this.hireSuperForm.staffId = selectStaff.id;
+        console.log(this.hireSuperForm)
       },
       // 从组件中传递
       selectHouse(data) {
@@ -147,19 +149,19 @@
           directApplyMan: this.$store.getters.userName,
           directApplyNote: this.hireSuperForm.directApplyNote,
           houseId: this.selectHouseId,
-          staffId: this.hireSuperForm.staffId
+          id: this.hireSuperForm.staffId
         };
         putHireSuper(postData).then(res => {
           let params = {
-            hireId: this.hireSuperForm.id
+            hireId: hireSuperForm.id
           };
           postHireEmail(params).catch(err => {
-            // console.log(err);
+            console.log(err);
           });
           utils.statusinfo(this, res.data);
           this.listLoading = false;
           if (res.data.status == "success") {
-            this.hireSuperForm= {};
+            this.hireSuperForm = {};
             this.$set(this.hireSuperForm, "staffName", name);
           }
         });

@@ -1,47 +1,110 @@
 <template>
-  <el-row class="panel-group" :gutter="15">
-      <el-col :span="6" class="card-panel-col " >
-      <div class='card' @click="handleSetLineChartData('newVisitis')">
-        <div class="card-panel-icon-wrapper icon-people">
-          <my-icon icon-class="studio" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">今日访问量</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="todayData.todayVisit" :duration="2600"></count-to>
-        </div>
-      </div>
-      </el-col>
-        <el-col :span="6" class="card-panel-col">
-      <div class="card" @click="handleSetLineChartData('messages')">
-        <div class="card-panel-icon-wrapper icon-message">
-          <my-icon icon-class="fixApplyManager" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">今日维修申请</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="todayData.todayFixApply" :duration="3000"></count-to>
-        </div>
-      </div>
-    </el-col>
-    <el-col :span="6" class="card-panel-col">
-      <div class="card" @click="handleSetLineChartData('purchases')">
-        <div class="card-panel-icon-wrapper icon-money">
-          <my-icon icon-class="dengji" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">今日租赁申请</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="todayData.todayHireApply" :duration="3200"></count-to>
-        </div>
+  <el-row class="panel-group"
+          :gutter="15">
+    <el-col :span="6"
+            class="card-panel-col">
+      <div class='card'
+           @click="handleSetLineChartData('newVisitis')">
+        <el-row class="card-panel-row"
+                type="flex"
+                align="middle">
+          <el-col :span="12"
+                  class="card-panel-icon-col">
+            <div class="card-panel-icon-wrapper icon-people">
+              <my-icon icon-class="studio"
+                       class-name="card-panel-icon" />
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="card-panel-description">
+              <div class="card-panel-text">今日访问量</div>
+              <count-to class="card-panel-num"
+                        :startVal="0"
+                        :endVal="todayData.todayVisit"
+                        :duration="2600"></count-to>
+            </div>
+          </el-col>
+        </el-row>
+
       </div>
     </el-col>
-    <el-col :span="6" class="card-panel-col">
-      <div class="card" @click="handleSetLineChartData('shoppings')">
-        <div class="card-panel-icon-wrapper icon-shoppingCard">
-          <my-icon icon-class="success" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">今日业务受理</div>
-          <count-to class="card-panel-num" :startVal="0" :endVal="todayData.todayHandle" :duration="3600"></count-to>
-        </div>
+
+    <el-col :span="6"
+            class="card-panel-col">
+      <div class="card"
+           @click="handleSetLineChartData('messages')">
+        <el-row class="card-panel-row"
+                type="flex"
+                align="middle">
+          <el-col :span="12"
+                  class="card-panel-icon-col">
+            <div class="card-panel-icon-wrapper icon-message">
+              <my-icon icon-class="fixApplyManager"
+                       class-name="card-panel-icon" />
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="card-panel-description">
+              <div class="card-panel-text">今日维修申请</div>
+              <count-to class="card-panel-num"
+                        :startVal="0"
+                        :endVal="todayData.todayFixApply"
+                        :duration="3000"></count-to>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </el-col>
+    <el-col :span="6"
+            class="card-panel-col">
+      <div class="card"
+           @click="handleSetLineChartData('purchases')">
+        <el-row class="card-panel-row"
+                type="flex"
+                align="middle">
+          <el-col :span="12"
+                  class="card-panel-icon-col">
+            <div class="card-panel-icon-wrapper icon-money">
+              <my-icon icon-class="dengji"
+                       class-name="card-panel-icon" />
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="card-panel-description">
+              <div class="card-panel-text">今日租赁申请</div>
+              <count-to class="card-panel-num"
+                        :startVal="0"
+                        :endVal="todayData.todayHireApply"
+                        :duration="3200"></count-to>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </el-col>
+    <el-col :span="6"
+            class="card-panel-col">
+      <div class="card"
+           @click="handleSetLineChartData('shoppings')">
+        <el-row class="card-panel-row"
+                type="flex"
+                align="middle">
+          <el-col :span="12"
+                  class="card-panel-icon-col">
+            <div class="card-panel-icon-wrapper icon-shoppingCard">
+              <my-icon icon-class="success"
+                       class-name="card-panel-icon" />
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="card-panel-description">
+              <div class="card-panel-text">今日业务受理</div>
+              <count-to class="card-panel-num"
+                        :startVal="0"
+                        :endVal="todayData.todayHandle"
+                        :duration="3600"></count-to>
+            </div>
+          </el-col>
+        </el-row>
       </div>
     </el-col>
   </el-row>
@@ -50,16 +113,16 @@
 <script type="text/ecmascript-6">
 import countTo from "vue-count-to";
 export default {
-  data() {
+  data () {
     return {};
   },
   components: {
     countTo
   },
-  created() {
+  created () {
   },
   computed: {
-    todayData() {
+    todayData () {
       return this.$store.state.app.todayData;
     }
   }
@@ -69,7 +132,6 @@ export default {
 <style scoped lang="scss">
 .card {
   cursor: pointer;
-  font-size: 12px;
   position: relative;
   overflow: hidden;
   color: #666;
@@ -104,30 +166,39 @@ export default {
     color: #34bfa3;
   }
   .card-panel-icon-wrapper {
-    float: left;
-    margin: 10px 0 10px 14px;
-    padding: 16px;
-    transition: all 0.38s ease-out;
+    padding: 8%;
     border-radius: 6px;
   }
   .card-panel-icon {
     float: left;
-    font-size: 48px;
+    font-size: 3.2vw;
   }
   .card-panel-description {
-    float: right;
     font-weight: bold;
-    margin: 26px;
     margin-left: 0px;
     .card-panel-text {
       line-height: 18px;
       color: rgba(0, 0, 0, 0.45);
-      font-size: 16px;
+      font-size: 1.05vw;
       margin-bottom: 12px;
     }
     .card-panel-num {
       font-size: 20px;
     }
   }
+}
+.card-panel-col,
+.card,
+.card-panel-row,
+.card-panel-icon-col {
+  height: 100%;
+}
+.card {
+  margin: 0 !important;
+}
+.card-panel-icon-col {
+  display: flex;
+  justify-content: center;
+  align-items: Center;
 }
 </style>
