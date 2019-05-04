@@ -118,9 +118,9 @@
                     <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
                       :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
                     </el-pagination>
-                    <!-- <div class="bottom-tool">
+                    <div class="bottom-tool">
                       <el-button type="warning" size="small" @click="generateSelectRental">租金生成</el-button>
-                    </div> -->
+                    </div>
                   </div>
                 </keep-alive>
               </el-tab-pane>

@@ -129,7 +129,7 @@ export default {
         size: this.size
       };
       postActiveHousemulticondition(param, data).then(res => {
-        // utils.statusinfo(this, res.data);
+        utils.statusinfo(this, res.data);
         this.activeHouseData = res.data.data.data.list;
         this.totalNum = res.data.data.data.total;
         postSetHousemulticondition(param, data).then(res => {
@@ -147,7 +147,7 @@ export default {
         size: this.size
       };
       postActiveHousemulticondition(param, this.queryData).then(res => {
-        // utils.statusinfo(this, res.data);
+        utils.statusinfo(this, res.data);
         this.activeHouseData = res.data.data.data.list;
         this.totalNum = res.data.data.data.total;
         this.listLoading=false
@@ -161,7 +161,7 @@ export default {
         size: this.size
       };
       postSetHousemulticondition(param, this.queryData).then(res => {
-        // utils.statusinfo(this, res.data);
+        utils.statusinfo(this, res.data);
         this.setHouseData = res.data.data.data.list;
         this.totalNum1 = res.data.data.data.total;
         this.listLoading1=false

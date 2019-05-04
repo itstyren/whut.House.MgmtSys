@@ -449,10 +449,10 @@
     getStaffMonetaryByNO
   } from "@/api/monetarySub";
   import utils from "@/utils/index.js";
-  // var baseURL = "http://localhost:8787/whutHouseMgmtReposity/dataImport/";
-// var baseURL='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
-  // var baseURL= 'http://120.78.226.24:8080/whutHouseMgmtReposity/dataImport/'
-var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity' // api的base_url
+  var basiceUrl = "http://172.16.65.105:8080/whutHouseMgmtReposity/dataImport/";
+// var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
+  // var basiceUrl= 'http://120.78.226.24:8080/whutHouseMgmtReposity/dataImport/'
+// var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity' // api的base_url
 
   export default {
     data() {
@@ -587,10 +587,12 @@ var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity' // api的base_ur
           size: 10
         };
         getStaffMonetaryByNO(params, this.staffNO).then(res => {
+          // console.log(res.data.data);
           this.monetaryList = res.data.data.data.list;
           this.listLoading = false;
           getStaffLumpMonetaryByNO(this.staffNO).then(res => {
             const array = res.data.data.data;
+            // console.log(array);
             if (array.length != 0) {
               array.forEach(item => {
                 let data = {
@@ -599,6 +601,7 @@ var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity' // api的base_ur
                   subsidies: item.oneTimeSubsidy,
                   remark: item.remark
                 };
+                // console.log(data);
                 this.monetaryList.unshift(data);
               });
             }
@@ -665,7 +668,7 @@ var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity' // api的base_ur
       // 导出申请单
       downloadApply() {
         let staffID = this.$store.getters.userID;
-        window.location.href = `${baseURL}exportToWord/hire/${staffID}`;
+        window.location.href = `${basiceUrl}exportToWord/hire/${staffID}`;
       },
       uploadURL(url) {
         this.listLoading = true;

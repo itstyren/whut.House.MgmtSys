@@ -1,6 +1,8 @@
 <template>
   <div class="second-container">
-    <indexNav :hire-status="hireStatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
+    <indexNav :hire-status="hireStatus"
+              :is-submit="isSubmit"
+              @emit-form="getList"></indexNav>
     <section class="special-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
@@ -23,166 +25,228 @@
             <div class="accept-form card">
               <div class="need-accept">
                 <h1>租赁受理单</h1>
-                <el-form :model="acceptForm" label-width="100px" ref="acceptForm" :rules="rules">
+                <el-form :model="acceptForm"
+                         label-width="100px"
+                         ref="acceptForm"
+                         :rules="rules">
                   <el-row v-if="!acceptStatus">
-                    <el-col :span="10" :offset="1">
+                    <el-col :span="10"
+                            :offset="1">
                       <el-form-item label="申请人姓名">
-                        <el-input v-model="acceptForm.name" readonly></el-input>
+                        <el-input v-model="acceptForm.name"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
                       <el-form-item label="工作部门">
-                        <el-input v-model="acceptForm.deptName" readonly></el-input>
+                        <el-input v-model="acceptForm.deptName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="acceptStatus">
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="申请人姓名">
-                        <el-input v-model="acceptForm.name" readonly></el-input>
+                        <el-input v-model="acceptForm.name"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="工作部门">
-                        <el-input v-model="acceptForm.deptName" readonly></el-input>
+                        <el-input v-model="acceptForm.deptName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="联系电话">
-                        <el-input v-model="acceptForm.phone" readonly></el-input>
+                        <el-input v-model="acceptForm.phone"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="!acceptStatus">
-                    <el-col :span="10" :offset="1">
+                    <el-col :span="10"
+                            :offset="1">
                       <el-form-item label="职称">
-                        <el-input v-model="acceptForm.titleName" readonly></el-input>
+                        <el-input v-model="acceptForm.titleName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
                       <el-form-item label="职务">
-                        <el-input v-model="acceptForm.postName" readonly></el-input>
+                        <el-input v-model="acceptForm.postName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="acceptStatus">
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="职称">
-                        <el-input v-model="acceptForm.titleName" readonly></el-input>
+                        <el-input v-model="acceptForm.titleName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职务">
-                        <el-input v-model="acceptForm.postName" readonly></el-input>
+                        <el-input v-model="acceptForm.postName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="申请时间">
-                        <el-input v-model="acceptForm.applyTime" readonly></el-input>
+                        <el-input v-model="acceptForm.applyTime"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="!acceptStatus">
-                    <el-col :span="10" :offset="1">
+                    <el-col :span="10"
+                            :offset="1">
                       <el-form-item label="联系电话">
-                        <el-input v-model="acceptForm.phone" readonly></el-input>
+                        <el-input v-model="acceptForm.phone"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
                       <el-form-item label="申请时间">
-                        <el-input v-model="acceptForm.applyTime" readonly></el-input>
+                        <el-input v-model="acceptForm.applyTime"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="!acceptStatus">
-                    <el-col :span="10" :offset="1">
+                    <el-col :span="10"
+                            :offset="1">
                       <el-form-item label="职称分">
-                        <el-input v-model="acceptForm.titleVal" readonly></el-input>
+                        <el-input v-model="acceptForm.titleVal"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
                       <el-form-item label="职务分">
-                        <el-input v-model="acceptForm.jobLevelVal" readonly></el-input>
+                        <el-input v-model="acceptForm.jobLevelVal"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="acceptStatus">
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="职称分">
-                        <el-input v-model="acceptForm.titleVal" readonly></el-input>
+                        <el-input v-model="acceptForm.titleVal"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职务分">
-                        <el-input v-model="acceptForm.jobLevelVal" readonly></el-input>
+                        <el-input v-model="acceptForm.jobLevelVal"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="工龄分">
-                        <el-input v-model="acceptForm.timeVal" readonly></el-input>
+                        <el-input v-model="acceptForm.timeVal"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row :class="{'is-accept':!acceptStatus}" v-if="!acceptStatus">
-                    <el-col :span="10" :offset="1">
+                  <el-row :class="{'is-accept':!acceptStatus}"
+                          v-if="!acceptStatus">
+                    <el-col :span="10"
+                            :offset="1">
                       <el-form-item label="申请理由">
-                        <el-input v-model="acceptForm.reason" type="textarea" :rows="2" readonly placeholder="无额外描述"></el-input>
+                        <el-input v-model="acceptForm.reason"
+                                  type="textarea"
+                                  :rows="2"
+                                  readonly
+                                  placeholder="无额外描述"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <!-- 操作区域 -->
-                  <el-row type="flex" justify="start" v-if="!acceptStatus">
-                    <el-col :span="7" :push="1">
+                  <el-row type="flex"
+                          justify="start"
+                          v-if="!acceptStatus">
+                    <el-col :span="7"
+                            :push="1">
                       <el-form-item label="工龄分">
                         <el-input v-model="acceptForm.timeVal"></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="7" :push="1">
+                    <el-col :span="7"
+                            :push="1">
                       <el-form-item label="配偶加分">
                         <el-input v-model="acceptForm.spouseVal"></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="7" :push="1">
+                    <el-col :span="7"
+                            :push="1">
                       <el-form-item label="其他加分">
                         <el-input v-model="acceptForm.otherVal"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="start" v-if="!acceptStatus">
-                    <el-col :span="7" :push="1">
+                  <el-row type="flex"
+                          justify="start"
+                          v-if="!acceptStatus">
+                    <el-col :span="7"
+                            :push="1">
                       <el-form-item label="总计得分">
                         <el-input v-model="totalVal"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="start" v-if="!acceptStatus">
-                    <el-col :span="10" :push="1">
-                      <el-form-item label="受理意见" prop="acceptNote">
-                        <el-input v-model="acceptForm.acceptNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                  <el-row type="flex"
+                          justify="start"
+                          v-if="!acceptStatus">
+                    <el-col class="agree-col-width">
+                      <el-form-item label="受理意见"
+                                    prop="acceptNote">
+                        <el-input v-model="acceptForm.acceptNote"
+                                  type="textarea"
+                                  :rows="2"
+                                  placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="start" v-if="!acceptStatus">
-                    <el-col :span="6" :push="1">
+                  <el-row type="flex"
+                          justify="start"
+                          v-if="!acceptStatus">
+                    <el-col class="agree-col-width">
                       <el-form-item label="受理状态">
-                        <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
-                          inactive-text="通过" inactive-value="通过"></el-switch>
+                        <el-switch v-model="acceptForm.acceptState"
+                                   active-color="#ff4949"
+                                   inactive-color="#13ce66"
+                                   active-text="拒绝"
+                                   active-value="拒绝"
+                                   inactive-text="通过"
+                                   inactive-value="通过"
+                                   class="agree-col-switch"></el-switch>
+                        <el-button type="primary"
+                                   v-if="!acceptStatus"
+                                   class="agree-col-btn"
+                                   size="medium"
+                                   @click="acceptSubmit">提交</el-button>
+
                       </el-form-item>
                     </el-col>
-                    <el-col :span="1" :push="1">
-                      <el-button type="primary" v-if="!acceptStatus" @click="acceptSubmit">提交</el-button>
-                    </el-col>
+
                   </el-row>
                   <!-- 非操作区域 -->
                   <el-row v-if="acceptStatus">
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="配偶加分">
-                        <el-input v-model="acceptForm.spouseVal" placeholder="无配偶分"></el-input>
+                        <el-input v-model="acceptForm.spouseVal"
+                                  placeholder="无配偶分"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="其他分">
-                        <el-input v-model="acceptForm.otherVal" placeholder="无其他分"></el-input>
+                        <el-input v-model="acceptForm.otherVal"
+                                  placeholder="无其他分"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
@@ -192,29 +256,44 @@
                     </el-col>
                   </el-row>
                   <el-row v-if="acceptStatus">
-                    <el-col :span="10" :offset="1">
+                    <el-col :span="10"
+                            :offset="1">
                       <el-form-item label="受理人">
-                        <el-input v-model="acceptForm.acceptMan" placeholder="受理人未知"></el-input>
+                        <el-input v-model="acceptForm.acceptMan"
+                                  placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
-                               <el-col :span="11">
+                    <el-col :span="11">
                       <el-form-item label="受理时间">
-                        <el-input v-model="acceptForm.acceptTime" placeholder="受理时间未知"></el-input>
+                        <el-input v-model="acceptForm.acceptTime"
+                                  placeholder="受理时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="acceptStatus">
-                    <el-col :span="10" :offset="1">
+                    <el-col :span="10"
+                            :offset="1">
                       <el-form-item label="受理说明">
-                        <el-input v-model="acceptForm.acceptNote" type="textarea" :rows="2" readonly placeholder="无额外描述"></el-input>
+                        <el-input v-model="acceptForm.acceptNote"
+                                  type="textarea"
+                                  :rows="2"
+                                  readonly
+                                  placeholder="无额外描述"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="acceptStatus">
-                    <el-col :span="10" :offset="1">
+                    <el-col :span="10"
+                            :offset="1">
                       <el-form-item label="受理状态">
-                        <el-switch v-model="acceptForm.acceptState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
-                          inactive-text="通过" inactive-value="通过" :disabled="acceptStatus"></el-switch>
+                        <el-switch v-model="acceptForm.acceptState"
+                                   active-color="#ff4949"
+                                   inactive-color="#13ce66"
+                                   active-text="拒绝"
+                                   active-value="拒绝"
+                                   inactive-text="通过"
+                                   inactive-value="通过"
+                                   :disabled="acceptStatus"></el-switch>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -233,7 +312,7 @@ import indexNav from "./components/indexNav";
 import { putHireAccept, postHireEmail } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
 export default {
-  data() {
+  data () {
     return {
       listLoading: false,
       acceptForm: {},
@@ -251,7 +330,7 @@ export default {
     };
   },
   computed: {
-    totalVal: function() {
+    totalVal: function () {
       return (
         parseInt(this.acceptForm.otherVal) +
         parseInt(this.acceptForm.titleVal) +
@@ -265,14 +344,14 @@ export default {
   },
   methods: {
     // 从子组件获取
-    getList(object) {
+    getList (object) {
       this.acceptForm = object.content;
       this.acceptForm.otherVal = 0;
       this.acceptStatus = object.status;
-      this.acceptForm.jobLevelVal=0
+      this.acceptForm.jobLevelVal = 0
     },
     // 受理信息提交
-    acceptSubmit() {
+    acceptSubmit () {
       if (this.acceptForm.acceptState == null)
         this.acceptForm.acceptState = "通过";
       this.$confirm(`确认${this.acceptForm.acceptState}受理`, "提示", {

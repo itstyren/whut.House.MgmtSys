@@ -3,12 +3,16 @@
 .main-menu {
   .el-submenu .el-menu-item:hover {
     color: #fff;
-  } //激活后的主菜单
+  }
+
+  //激活后的主菜单
   .el-menu--horizontal>.el-menu-item.is-active,
   .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
     border-bottom: 2px solid #ffd04b;
     color: #fff;
-  } //激活后子菜单
+  }
+
+  //激活后子菜单
   .el-submenu .el-menu-item {
     min-width: 0;
     text-align: center
@@ -51,10 +55,15 @@
   text-align: center;
 }
 
+.el-menu--collapse {
+  width: auto !important;
+}
+
 .user-info {
   .el-input.is-disabled .el-input__inner {
     color: #000;
   }
+
   .nav .el-menu {
     padding-left: 12px;
   }
@@ -66,6 +75,7 @@
     font-weight: 700;
     padding: 0;
   }
+
   .el-form-item {
     margin-bottom: 10px;
   }
@@ -75,6 +85,7 @@
   .el-dialog {
     width: 30%;
   }
+
   .el-rate__icon {
     font-size: 30px;
   }
@@ -91,6 +102,7 @@
     .el-menu-item {
       font-size: 12px;
     }
+
     .el-submenu__title {
       padding: 0 8px;
       font-size: 12px;
@@ -103,6 +115,7 @@
     .el-menu-item {
       font-size: 12px;
     }
+
     .el-submenu__title {
       padding: 0 10px;
       font-size: 12px;
@@ -133,11 +146,11 @@
   }
 }
 
-.paramDialog-large {
-  .el-dialog {
-    width: 40%;
-  }
-}
+// .paramDialog-large {
+//   .el-dialog {
+//     width: 40%;
+//   }
+// }
 
 .el-transfer-panel {
   width: 38%
@@ -146,31 +159,51 @@
 .login-container {
   .el-input__inner {
     border-radius: 10px;
-        border: 2px solid #eeeeee;
+    border: 2px solid #eeeeee;
   }
-  .el-select .el-input.is-focus .el-input__inner{
+
+  .el-select .el-input.is-focus .el-input__inner {
     border-color: #eeeeee
   }
-  .el-select .el-input__inner:focus{
-    border-color: #eeeeee    
+
+  .el-select .el-input__inner:focus {
+    border-color: #eeeeee
   }
-  .el-button{
-    border-radius: 10px;    
+
+  .el-button {
+    border-radius: 10px;
   }
-  .el-button--primary{
+
+  .el-button--primary {
     background-color: #f7cc46;
     border-color: #f7cc46;
     letter-spacing: 5px;
   }
+
   .el-form-item {
     margin-bottom: 18px;
   }
 
 }
 
-.avatar-warpper{
-.el-button{
-  background-color: #f7cc46;
-  color: #fff;
+.avatar-warpper {
+  .el-button {
+    background-color: #f7cc46;
+    color: #fff;
+  }
 }
+
+// 覆盖fixForm-filter筛选器的label字体大小
+.fixForm-filter {
+  .el-form-item__label {
+    font-size: 1.05vw;
+  }
+}
+
+// 覆盖house-filter筛选器的label字体大小
+
+.house-filter {
+  .el-form-item__label {
+    font-size: 1.1vw;
+  }
 }

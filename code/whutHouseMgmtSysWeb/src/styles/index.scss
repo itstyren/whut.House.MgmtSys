@@ -2,12 +2,14 @@
 @import './variables';
 @import './layout.scss';
 @import './sidebar.scss';
+
 body {
   height: 100%;
   margin: 0;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-size: 1.1vw;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
 
@@ -42,7 +44,9 @@ a:hover {
 //用于面包屑样式
 .warp-breadcrum {
   margin: 5px 10px 15px 0px;
-} //参数设置中面包屑下方内容
+}
+
+//参数设置中面包屑下方内容
 .warp-main {
   margin: 20px 20px 15px 0px;
   height: 100%
@@ -55,6 +59,7 @@ a:hover {
 //参数设置页相关样式
 .topic {
   height: 30px;
+
   h1 {
     text-align: center;
   }
@@ -81,8 +86,22 @@ a:hover {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   transition: all .2s ease-in-out;
+
   &:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     border-color: #eee;
   }
+}
+
+// 修改审核单中审核状态的的布局
+.agree-col-width {
+  width: 380px;
+}
+
+.agree-col-btn {
+  float: right;
+}
+
+.agree-col-switch {
+  margin-left: 12px;
 }

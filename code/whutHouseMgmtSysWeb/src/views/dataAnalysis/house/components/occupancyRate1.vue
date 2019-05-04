@@ -53,8 +53,11 @@ export default {
     }
   },
   watch: {
-    filtersData(newVal) {
-      this.getData(newVal);
+    chartData: {
+      deep: true,
+      handler(val) {
+        this.setOptions(val);
+      }
     }
   },
   methods: {

@@ -38,6 +38,7 @@ export default {
     }
   },
   created() {
+    //console.log(this.fixStatus)
     if (this.fixStatus == "hangding") this.getHandingList();
     else this.getReviewList();
   },

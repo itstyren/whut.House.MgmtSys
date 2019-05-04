@@ -1,5 +1,7 @@
 <template>
-  <div class="card numList" :style="{height:height,width:width}" v-loading="listLoading">
+  <div class="card numList"
+       :style="{height:height,width:width}"
+       v-loading="listLoading">
     <div class="title">
       <strong>数据分析</strong>
     </div>
@@ -11,17 +13,24 @@
         <el-col :span="8">
           <span>总建筑面积<br></span>
           <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalBuildArea" :duration="3200"></count-to>
+            <count-to class="card-panel-num"
+                      :startVal="0"
+                      :endVal="numList.totalBuildArea"
+                      :duration="3200"></count-to>
           </span>
           <span>平方米</span>
         </el-col>
-        <el-col :span="1" :offset="2">
+        <el-col :span="1"
+                :offset="2">
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="10">
           <span>总使用面积<br></span>
           <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.totalUsedArea" :duration="3200"></count-to>
+            <count-to class="card-panel-num"
+                      :startVal="0"
+                      :endVal="numList.totalUsedArea"
+                      :duration="3200"></count-to>
           </span>
           <span>平方米</span>
         </el-col>
@@ -34,17 +43,24 @@
         <el-col :span="8">
           <span>空闲套数<br></span>
           <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.unoccupiedNumber" :duration="3200"></count-to>
+            <count-to class="card-panel-num"
+                      :startVal="0"
+                      :endVal="numList.unoccupiedNumber"
+                      :duration="3200"></count-to>
           </span>
           <span>套</span>
         </el-col>
-        <el-col :span="1" :offset="2">
+        <el-col :span="1"
+                :offset="2">
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="10">
           <span>入住套数<br></span>
           <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.occupiedNumber" :duration="3200"></count-to>
+            <count-to class="card-panel-num"
+                      :startVal="0"
+                      :endVal="numList.occupiedNumber"
+                      :duration="3200"></count-to>
           </span>
           <span>套</span>
         </el-col>
@@ -57,17 +73,24 @@
         <el-col :span="8">
           <span>空闲面积<br></span>
           <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.unoccupiedArea" :duration="3200"></count-to>
+            <count-to class="card-panel-num"
+                      :startVal="0"
+                      :endVal="numList.unoccupiedArea"
+                      :duration="3200"></count-to>
           </span>
           <span>平方米 </span>
         </el-col>
-        <el-col :span="1" :offset="2">
+        <el-col :span="1"
+                :offset="2">
           <my-icon icon-class="dian"></my-icon>
         </el-col>
         <el-col :span="10">
           <span>入住面积<br></span>
           <span>
-            <count-to class="card-panel-num" :startVal="0" :endVal="numList.occupiedArea" :duration="3200"></count-to>
+            <count-to class="card-panel-num"
+                      :startVal="0"
+                      :endVal="numList.occupiedArea"
+                      :duration="3200"></count-to>
           </span>
           <span>平方米 </span>
         </el-col>
@@ -81,10 +104,10 @@ import countTo from "vue-count-to";
 import { postHouseRecordTotal } from "@/api/dataAnalysis.js";
 
 export default {
-  data() {
+  data () {
     return {
       listLoading: false,
-      numList:{}
+      numList: {}
     };
   },
   props: {
@@ -104,16 +127,16 @@ export default {
   components: {
     countTo
   },
-  created() {
+  created () {
     this.getData();
   },
   watch: {
-    filtersData(newVal) {
+    filtersData (newVal) {
       this.getData(newVal);
     }
   },
   methods: {
-    getData() {
+    getData () {
       this.listLoading = false;
       let params = {
         paramTypeId: 1
@@ -121,7 +144,7 @@ export default {
       if (arguments[0] !== undefined) var data = arguments[0];
       else var data = {};
       postHouseRecordTotal(data).then(res => {
-        this.numList=res.data.data.data
+        this.numList = res.data.data.data
       });
     }
   }
@@ -150,7 +173,7 @@ export default {
   margin-top: 15px;
   padding: 20px;
   span {
-    font-size: 16px;
+    font-size: 1.05vw;
     font-weight: 600;
     .card-panel-num {
       color: red;
