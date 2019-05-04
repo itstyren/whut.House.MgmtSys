@@ -39,7 +39,7 @@ exports.cssLoaders = function (options) {
       return ExtractTextPlugin.extract({
         use: loaders,
         fallback: 'vue-style-loader',
-        publicPath: '../../' //为了实现在github-pages上的预览(解决字体图标异常)
+        // publicPath: '../../' //为了实现在github-pages上的预览(解决字体图标异常)
       })
     } else {
       return ['vue-style-loader'].concat(loaders)
