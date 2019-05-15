@@ -3,6 +3,7 @@ import {
   setToken,
   removeToken
 } from '@/utils/auth'
+
 import {
   loginByUsername,
   getUserInfo,
@@ -13,6 +14,25 @@ import {
 } from '@/api/user'
 import * as types from '../mutation-types.js'
 
+/**
+ * 递归后台返回的路由表，将component属性改成完整的.vue文件路径
+ * @param {Array}   array
+ * @returns {Array}  
+ */
+const addComponentDir = (array) => {
+  array.forEach(element => {
+    if (element.component) {
+      let component = element.component
+      delete element.component
+      console.log("component:", component)
+      element.component = () => import('@/views/' + component + '.vue')
+    }
+    if (element.children && element.children.length !== 0) {
+      addComponentDir(element.children)
+    }
+  });
+}
+
 const user = {
   state: {
     token: getToken(),
@@ -22,7 +42,9 @@ const user = {
     id: -1,
     ip: -1,
     loginTime: -1,
-    qiniuToken: ''
+    qiniuToken: '',
+    hasGetUserInfo: false,
+    userRouters: []
   },
   mutations: {
     // 设置token
@@ -53,7 +75,13 @@ const user = {
     },
     SET_QINIU_TOKEN: (state, token) => {
       state.qiniuToken = token
-    }
+    },
+    [types.SET_HASGETUSERINFO]: (state, status) => {
+      state.hasGetUserInfo = status
+    },
+    [types.SET_USERROUTERS]: (state, routers) => {
+      state.userRouters = routers
+    },
   },
 
   actions: {
@@ -64,14 +92,14 @@ const user = {
       //const username = userInfo.no.trim()
       return new Promise((resolve, reject) => {
         loginByUsername(userInfo).then(res => {
-          if (res.data.status == 'success') {
-            const data = res.data.data
-            commit(types.SET_TOKEN, data.token)
-            setToken(data.token) //将登录成功的保存在cookie
-            resolve(res.data.message)
-          } else {
-            reject(res.data.message)
-          }
+          // if (res.data.status == 'success') {
+          const data = res.data.data
+          commit(types.SET_TOKEN, data.token)
+          setToken(data.token) //将登录成功的保存在cookie
+          resolve(res.data.message)
+          // } else {
+          //   reject(res.data.message)
+          // }
         }).catch(error => {
           reject(error)
         })
@@ -84,20 +112,28 @@ const user = {
     }) {
       return new Promise((resolve, reject) => {
         getUserInfo(state.token).then(res => {
+          console.log("res:", res)
+
           if (res.data.status == 'error') {
             reject('error')
           }
-          const data = res.data.data.data[0]
-          const logindata = res.data.data.logindata
+          const data = res.data.data
+          const userRouters = data.userRouters
+          addComponentDir(userRouters)
+          // const data = res.data.data.data[0]
+          // const logindata = res.data.data.logindata
           commit(types.SET_ROLEID, data.roleId)
           commit(types.SET_NAME, data.name)
           commit(types.SET_USERNO, data.no)
           commit(types.SET_USERID, data.id)
-          if (logindata != null) {
-            commit(types.SET_USERIP, logindata.ip)
-            commit(types.SET_USERLASTLOGIN, logindata.loginTime)
-            
-          }
+          commit(types.SET_HASGETUSERINFO, true)
+          commit(types.SET_USERROUTERS, userRouters)
+          console.log(userRouters[0].component.toString())
+          // if (logindata != null) {
+          //   commit(types.SET_USERIP, logindata.ip)
+          //   commit(types.SET_USERLASTLOGIN, logindata.loginTime)
+
+          // }
           resolve(res)
           getQiniuToken().then(res => {
             commit('SET_QINIU_TOKEN', res.data.message)

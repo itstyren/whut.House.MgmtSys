@@ -12,16 +12,20 @@
         <span>{{$t('header.title')}}</span>
       </div>
       <!-- 主菜单 -->
-      <div class="main-menu" :router="true">
+      <div class="main-menu"
+           :router="true">
         <horizon-menu></horizon-menu>
       </div>
       <!-- 头部账户 -->
       <div class="account">
-        <el-tooltip effect="dark" :content="$t('header.screenfull')" placement="bottom">
+        <el-tooltip effect="dark"
+                    :content="$t('header.screenfull')"
+                    placement="bottom">
           <screenfull class="screenfull right-menu-item"></screenfull>
         </el-tooltip>
         <lang-select class="international right-menu-item"></lang-select>
-        <el-dropdown trigger="click" class=" right-menu-item">
+        <el-dropdown trigger="click"
+                     class=" right-menu-item">
           <span class="dropdown-main">
             <my-icon icon-class="account" />
             <span>{{userName}}</span>
@@ -39,7 +43,7 @@
               </router-link>
             </el-dropdown-item>
             <el-dropdown-item divided>
-              <span  @click.prevent="logout">退出登录</span>
+              <span @click.prevent="logout">退出登录</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -59,11 +63,11 @@ import LangSelect from "@/components/LangSelect";
 import Screenfull from "@/components/Screenfull";
 
 export default {
-  data() {
+  data () {
     return {};
   },
   computed: {
-    userName() {
+    userName () {
       return this.$store.getters.userName;
     }
   },
@@ -74,7 +78,7 @@ export default {
   },
   methods: {
     // 退出登录
-    logout() {
+    logout () {
       // console.log('2')
       this.$store.dispatch("LogOut").then(() => {
         location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
@@ -115,7 +119,7 @@ $background-color: #373d41;
         background-color: $background-color;
       }
     }
-        @media only screen and (max-width: 1060px) {
+    @media only screen and (max-width: 1060px) {
       > .title {
         display: none;
       }

@@ -13,7 +13,7 @@ import App from './App'
 import router from './router'
 import store from './store/index'
 // simulation data
-import './mock'
+// import './mock'
 // permission control
 import './permission'
 // global filters
@@ -26,13 +26,12 @@ import './assets/icons/iconfont'
 import i18n from './lang' // Internationalization
 
 import VueQuillEditor from 'vue-quill-editor'
-
 // require styles
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
-
+if (process.env.NODE_ENV !== 'production') require('./mock')
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
@@ -43,7 +42,7 @@ Vue.use(Element, {
   i18n: (key, value) => i18n.t(key, value)
 })
 Vue.use(VCharts)
-Vue.use(VueQuillEditor, /* { default global options } */)
+Vue.use(VueQuillEditor, /* { default global options } */ )
 Vue.use(VueAMap);
 Vue.config.productionTip = false
 VueAMap.initAMapApiLoader({

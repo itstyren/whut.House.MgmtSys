@@ -207,3 +207,31 @@
     font-size: 1.1vw;
   }
 }
+
+// 给对话框的header部分底部添加一条实线
+.el-dialog__header {
+  border-bottom: 1px solid #909399;
+}
+
+.group-textarea {
+  textarea {
+    text-align: center;
+  }
+}
+
+// 操作用户组的权限时的搜索框
+.permission-search-input {
+  width: 70%;
+
+  .el-input__inner {
+    border-radius: 40px;
+    height: 35px;
+  }
+}
+
+// 用户组列表的搜索框
+.search-input-wrapper {
+  .el-input__inner {
+    border-radius: 40px;
+  }
+}
