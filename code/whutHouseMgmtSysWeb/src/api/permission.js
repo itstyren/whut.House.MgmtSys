@@ -11,16 +11,15 @@ export const getAuthList = () => {
 export const delAuthList = (list) => {
   return request({
     url: '/auth/delAuthList',
-    method: 'post',
+    method: 'delete',
     data: list
   })
 }
 // 获取某一用户组的信息
-export const getOneAuth = (data) => {
+export const getOneAuth = (id) => {
   return request({
-    url: '/auth/getOneAuth',
-    method: 'get',
-    data: data
+    url: `/auth/getOneAuth/${id}`,
+    method: 'get'
   })
 }
 
@@ -28,7 +27,7 @@ export const getOneAuth = (data) => {
 export const editAuth = (data) => {
   return request({
     url: '/auth/editAuth',
-    method: 'post',
+    method: 'put',
     data: data
   })
 }

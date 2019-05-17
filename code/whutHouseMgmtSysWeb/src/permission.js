@@ -14,7 +14,12 @@ NProgress.configure({
 }) // NProgress Configuration
 
 const whiteList = ['/login'] // no redirect whitelist
-
+/* 错误界面 */
+const errorPage = {
+  path: '*',
+  redirect: '/404',
+  hidden: true
+}
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
   if (getToken()) { // determine if there has token
@@ -29,14 +34,15 @@ router.beforeEach((to, from, next) => {
     else {
       if (!store.state.user.hasGetUserInfo) { // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetUserInfo').then(res => { // 拉取user_info
-
-          router.addRoutes(store.state.user.userRouters)
+          // 合并错误页面的路由
+          let addRouters = [...store.state.user.userRouters, errorPage]
+          router.addRoutes(addRouters)
           next({
             ...to,
             replace: true
           }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
         }).catch((e) => {
-          console.log(e)
+          console.log("e", e)
           store.dispatch('FedLogOut').then(() => {
             Message.error('身份验证失败，请重新登录')
             next({

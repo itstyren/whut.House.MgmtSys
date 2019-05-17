@@ -68,7 +68,7 @@ export default {
       //角色
       RoleIDs: [
         {
-          value: "0",
+          value: "3",
           label: "超级管理员"
         },
         {
@@ -80,7 +80,7 @@ export default {
         //   label: "学院管理员"
         // },
         {
-          value: "3",
+          value: "2",
           label: "职工"
         }
       ]

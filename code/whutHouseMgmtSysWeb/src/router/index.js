@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from '@/store'
 const _import = require('./_import_' + process.env.NODE_ENV)
 
 

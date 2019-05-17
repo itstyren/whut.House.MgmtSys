@@ -18,7 +18,7 @@
             <div class="right-actions">
               <el-button type="info"
                          :disabled="tableChecked.length===0"
-                         @click="dialogVisible = true"
+                         @click="delDialogVisible = true"
                          round>删除<span v-if="tableChecked.length!==0"> {{tableChecked.length}} 个</span></el-button>
               <div class="search-input-wrapper">
                 <el-input placeholder="搜索"
@@ -55,7 +55,6 @@
                     style="width:100%"
                     ref="authTable"
                     :select-on-indeterminate="false"
-                    @select="handleSelectEvent"
                     @selection-change="selectionChangeEvent"
                     v-loading="listLoading">
             <el-table-column type="selection"
@@ -65,20 +64,20 @@
                              width="90"
                              prop="id"></el-table-column>
             <el-table-column label="用户组名称"
-                             prop="group_name"></el-table-column>
+                             prop="groupName"></el-table-column>
             <el-table-column label="描述"
-                             prop="desc"></el-table-column>
+                             prop="remark"></el-table-column>
             <el-table-column label="状态"
                              prop="state"
                              :formatter="stateFormatter"></el-table-column>
             <el-table-column label="创建时间"
-                             prop="add_time"></el-table-column>
+                             prop="addTime"></el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-button type="primary"
                            size="mini"
                            icon="el-icon-edit"
-                           @click="handleEditAuth(scope.row.id,scope.row.group_name)"
+                           @click="handleEditAuth(scope.row.id,scope.row.groupName)"
                            circle></el-button>
               </template>
             </el-table-column>
@@ -94,19 +93,17 @@
           </el-pagination>
         </div>
         <el-dialog title="操作提示"
-                   :visible.sync="dialogVisible"
+                   :visible.sync="delDialogVisible"
                    width="30%">
           <span>确定删除当前选中项吗？一旦删除，则属于其用户组的特殊权限也随之删除。</span>
           <span slot="footer"
                 class="dialog-footer">
-            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button @click="delDialogVisible = false">取 消</el-button>
             <el-button type="danger"
                        @click="handleDelMultRow">删 除</el-button>
           </span>
         </el-dialog>
-
         <!-- 操作用户组的对话框 -->
-
         <el-dialog :visible.sync="AuthDialogVisiable"
                    custom-class="el-form-group"
                    width="35%"
@@ -117,20 +114,13 @@
           <h2 slot="title"
               v-if="AuthFormAddOrEdit==='edit'">修改用户组</h2>
           <!-- 编辑用户组信息的表单 -->
-          <auth-form v-if="AuthDialogVisiable&&AuthFormAddOrEdit==='add'"
+          <auth-form v-if="AuthDialogVisiable"
                      :AddOrEdit='AuthFormAddOrEdit'
-                     @close-dialog="handleCloseDialog"></auth-form>
-          <auth-form v-if="AuthDialogVisiable&&AuthFormAddOrEdit==='edit'"
-                     :AddOrEdit='AuthFormAddOrEdit'
-                     :id="editAuthMsg.id"
-                     :group_name="editAuthMsg.group_name"
-                     :desc="editAuthMsg.desc"
-                     :state="editAuthMsg.state"
-                     :checkedKeys="editAuthMsg.userRouters"
-                     @close-dialog="handleCloseDialog"></auth-form>
+                     :groupForm="groupFormData"
+                     @close-dialog="handleCloseDialog"
+                     @authList-change="authListChange"></auth-form>
 
         </el-dialog>
-
       </div>
     </el-scrollbar>
   </div>
@@ -139,6 +129,8 @@
 <script>
 import { getAuthList, delAuthList, addAuth, getOneAuth, editAuth } from '@/api/permission'
 import AuthForm from './editAuth'
+import userRouters from './userRouters'
+
 export default {
   components: { AuthForm },
   props: {
@@ -155,14 +147,14 @@ export default {
     return {
       searchText: '',
       listLoading: false,
-      dialogVisible: false,
+      delDialogVisible: false,
       AuthDialogVisiable: false,
       AuthFormAddOrEdit: '',
       currentPage: 1,
       pageSize: 10,
       tableData: [],
       tableChecked: [],//选中项
-      editAuthMsg: {}
+      groupFormData: {}
     };
   },
   // 所以Props，methods,data和computed的初始化都是在beforeCreated和created之间完成的。
@@ -177,19 +169,19 @@ export default {
     }
   },
   methods: {
-    // 获取表格数据
+    // 获取用户组列表
     getTableData () {
-      let that = this
-      that.listLoading = true
+      let app = this
+      app.listLoading = true
       // let params = {
       //   page: that.currentPage,
       //   size: that.pageSize
       // }
       getAuthList().then(res => {
-        that.tableData = res.data.data.data.list
-        that.listLoading = false
+        app.tableData = res.data.data.data
+        app.listLoading = false
       }).catch(err => {
-        that.$message.error(err)
+        app.$message.error(err)
       })
     },
     // 一页总条数
@@ -208,18 +200,18 @@ export default {
     // 批量删除行
     delSelection () {
       this.listLoading = true
-      let authNameList = this.tableChecked.map(item => item.id)
+      let authNameList = this.tableChecked.map(item => item.groupName)
       delAuthList(authNameList).then(res => {
         this.getTableData()
-        this.listLoading = false
         this.$message({
           showClose: true,
-          message: res.data.data.data.msg,
-          type: 'success'
+          message: res.data.message,
+          type: res.data.status
         });
       }).catch(err => {
         this.$message.error(err)
       })
+      this.listLoading = false
     },
     // 删除再次确认
     handleDelMultRow () {
@@ -227,31 +219,44 @@ export default {
       app.$confirm('请三思而后行，确认删除？')
         .then(_ => {
           app.delSelection()
-          app.dialogVisible = false
+          app.delDialogVisible = false
         })
-        .catch(_ => { app.dialogVisible = false });
+        .catch(_ => { app.delDialogVisible = false });
     },
     // 新增用户组
     handleAddUserGroup () {
+      this.groupFormData = {
+        groupName: '',
+        remark: '',
+        state: true,
+        checkedKeys: '',
+        userRouters: [{
+          name: 'allPermission',
+          children: userRouters
+        }]
+      }
       this.AuthDialogVisiable = true
       this.AuthFormAddOrEdit = 'add'
     },
-    // 获取某一组用户组信息
-    getOneAuthMsg (data) {
-      getOneAuth(data).then(res => {
-        this.editAuthMsg = res.data.data.data.data
-      })
-    },
     // 打开修改某一用户组信息的对话框，并获取该用户组信息
-    handleEditAuth (id, group_name) {
+    handleEditAuth (id) {
+      this.getOneAuthMsg(id)
       this.AuthDialogVisiable = true
       this.AuthFormAddOrEdit = 'edit'
-      let data = {
-        id: id,
-        groupName: group_name
-      }
-      this.getOneAuthMsg(data)
     },
+    // 获取某一组用户组信息
+    getOneAuthMsg (id) {
+      getOneAuth(id).then(res => {
+        let data = res.data.data.data
+        data.checkedKeys = data.userRouters
+        data.userRouters = [{
+          name: 'allPermission',
+          children: userRouters
+        }]
+        this.groupFormData = data
+      })
+    },
+
     // 取消按钮关闭对话框
     handleCloseDialog (boolean) {
       this.AuthDialogVisiable = false
@@ -260,10 +265,9 @@ export default {
     stateFormatter (row, column, cellValue, index) {
       return row.state ? '启用' : '禁用'
     },
-    handleSelectEvent (selection, row) {
-      console.log("勾选中：selection:", selection);
-      console.log("row:", row);
-
+    // 更新表格
+    authListChange () {
+      this.getTableData()
     }
   },
 }

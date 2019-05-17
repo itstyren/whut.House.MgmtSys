@@ -13,7 +13,6 @@ import App from './App'
 import router from './router'
 import store from './store/index'
 // simulation data
-// import './mock'
 // permission control
 import './permission'
 // global filters
@@ -31,7 +30,7 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
-if (process.env.NODE_ENV !== 'production') require('./mock')
+// if (process.env.NODE_ENV !== 'production') require('./mock')
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

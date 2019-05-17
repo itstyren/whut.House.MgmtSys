@@ -44,7 +44,6 @@ export default {
     ...mapGetters(["permission_routers"])
   },
   mounted () {
-    console.log("permission_routers", this.permission_routers)
   },
   methods: {
     generateTitle

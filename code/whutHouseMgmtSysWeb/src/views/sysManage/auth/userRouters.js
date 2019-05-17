@@ -492,11 +492,5 @@ export default [
         title: 'personal',
       }
     }, ]
-  },
-  /* 错误界面 */
-  {
-    path: '*',
-    redirect: '/404',
-    hidden: true
   }
 ]
