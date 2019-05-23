@@ -27,16 +27,16 @@ import adminDashboard from "./admin/index";
 import staffDashboard from "./staff/index";
 import { mapGetters } from "vuex";
 export default {
-  data() {
+  data () {
     return {
       currentRole: "adminDashboard"
     };
   },
   computed: {
-    ...mapGetters(["roles"])
+    ...mapGetters(["property"])
   },
-  mounted() {
-    if (this.roles[0] == 'ADMIN'||this.roles[0] == 'OFFICER') {
+  mounted () {
+    if (this.property = '管理员') {
       this.currentRole = "adminDashboard";
     } else {
       this.currentRole = "staffDashboard";

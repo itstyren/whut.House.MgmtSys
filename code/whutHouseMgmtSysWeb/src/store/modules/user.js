@@ -47,7 +47,8 @@ const user = {
     loginTime: -1,
     qiniuToken: '',
     hasGetUserInfo: false,
-    userRouters: []
+    userRouters: [],
+    property: ''
   },
   mutations: {
     // 设置token
@@ -84,6 +85,9 @@ const user = {
     },
     [types.SET_USERROUTERS]: (state, routers) => {
       state.userRouters = routers
+    },
+    [types.SET_PROPERTY]: (state, property) => {
+      state.property = property
     },
   },
 
@@ -128,6 +132,7 @@ const user = {
           commit(types.SET_NAME, userData.name)
           commit(types.SET_USERNO, userData.no)
           commit(types.SET_USERID, userData.id)
+          commit(types.SET_USERID, userData.property)
           commit(types.SET_HASGETUSERINFO, true)
           commit(types.SET_USERROUTERS, userRouters)
           if (logindata != null) {

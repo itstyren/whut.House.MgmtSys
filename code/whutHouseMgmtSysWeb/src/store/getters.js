@@ -5,6 +5,7 @@ const getters = {
   language: state => state.app.language,
   token: state => state.user.token,
   roles: state => state.user.roles,
+  property: state => state.user.property,
   userName: state => state.user.name,
   userNO: state => state.user.no,
   userID: state => state.user.id,

@@ -9,6 +9,7 @@ export const SET_USERIP = "setUserIP"
 export const SET_USERLASTLOGIN = "setUserLastLogin"
 export const SET_HASGETUSERINFO = "setHasGetUserInfo"
 export const SET_USERROUTERS = "setUserRouters"
+export const SET_PROPERTY = "setProperty"
 
 export const LOGIN = 'login'
 // 登出时

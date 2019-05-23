@@ -65,6 +65,8 @@
                              prop="id"></el-table-column>
             <el-table-column label="用户组名称"
                              prop="groupName"></el-table-column>
+            <el-table-column label="属性"
+                             prop="property"></el-table-column>
             <el-table-column label="描述"
                              prop="remark"></el-table-column>
             <el-table-column label="状态"
@@ -229,34 +231,34 @@ export default {
         groupName: '',
         remark: '',
         state: true,
-        checkedKeys: '',
-        userRouters: [{
-          name: 'allPermission',
-          children: userRouters
-        }]
+        property: '职工'
       }
-      this.AuthDialogVisiable = true
       this.AuthFormAddOrEdit = 'add'
+      this.AuthDialogVisiable = true
     },
     // 打开修改某一用户组信息的对话框，并获取该用户组信息
     handleEditAuth (id) {
-      this.getOneAuthMsg(id)
-      this.AuthDialogVisiable = true
-      this.AuthFormAddOrEdit = 'edit'
+      this.getOneAuthMsg(id).then(() => {
+        this.AuthFormAddOrEdit = 'edit'
+        this.AuthDialogVisiable = true
+      }).catch(err => this.$message.error(err))
     },
     // 获取某一组用户组信息
     getOneAuthMsg (id) {
-      getOneAuth(id).then(res => {
-        let data = res.data.data.data
-        data.checkedKeys = data.userRouters
-        data.userRouters = [{
-          name: 'allPermission',
-          children: userRouters
-        }]
-        this.groupFormData = data
+      return new Promise((resolve, reject) => {
+        getOneAuth(id).then(res => {
+          if (res.data.status === 'success') {
+            let data = res.data.data.data
+            data.checkedKeys = data.userRouters
+            delete data.userRouters
+            this.groupFormData = data
+            resolve()
+          } else {
+            reject(new Error('获取该用户组信息失败，无法操作！'))
+          }
+        })
       })
     },
-
     // 取消按钮关闭对话框
     handleCloseDialog (boolean) {
       this.AuthDialogVisiable = false

@@ -22,7 +22,15 @@
                   maxlength="100"
                   show-word-limit></el-input>
       </el-form-item>
-      <!-- 单选框 -->
+      <!-- 属性单选框 -->
+      <el-form-item label="属性："
+                    prop="property">
+        <el-radio-group v-model="groupForm.property">
+          <el-radio label="职工">职工</el-radio>
+          <el-radio label="管理员">管理员</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <!-- 启用单选框 -->
       <el-form-item label="状态："
                     prop="state">
         <el-radio-group v-model="groupForm.state">
@@ -31,20 +39,19 @@
         </el-radio-group>
       </el-form-item>
       <!-- 权限列表 -->
-      <el-form-item label="权限列表："
-                    prop="userRouters">
+      <el-form-item label="权限列表：">
         <el-input placeholder="输入关键字进行过滤"
                   clearable
                   class="permission-search-input"
                   v-model="filterText">
         </el-input>
-        <el-tree :data="groupForm.userRouters"
+        <el-tree :data="userRouters"
                  show-checkbox
                  node-key="name"
                  :default-expanded-keys="['allPermission']"
                  :filter-node-method="filterTree"
                  :props="defaultProps"
-                 ref="permissionTree">
+                 ref="tree">
         </el-tree>
       </el-form-item>
     </el-form>
@@ -61,6 +68,7 @@
 <script>
 import { generateTitle } from "@/utils/i18n";
 import { addAuth, editAuth } from '@/api/permission'
+import userRouters from './userRouters'
 
 export default {
   props: {
@@ -69,8 +77,8 @@ export default {
       groupName: String,
       remark: String,
       state: Boolean,
-      checkedKeys: String,
-      userRouters: Array,
+      property: String,
+      checkedKeys: String
     },
     AddOrEdit: {
       type: String,
@@ -80,7 +88,10 @@ export default {
   },
   data () {
     return {
-
+      userRouters: [{
+        name: 'allPermission',
+        children: userRouters
+      }],
       defaultProps: {
         children: 'children',
         label: (data, node) => {
@@ -99,21 +110,16 @@ export default {
         ]
       },
       filterText: '',
+
     }
   },
   mounted () {
-
+    // 初始化选中项
+    if (this.AddOrEdit === 'edit') {
+      this.setCheckedKeys(this.groupForm.checkedKeys)
+    }
   },
   watch: {
-    groupForm: {
-      handler: function (newVal, oldVal) {
-        if (newVal.checkedKeys) {
-          let checkedRouter = JSON.parse(newVal.checkedKeys)
-          this.$refs.permissionTree.setCheckedKeys(this.recursiveCheckedKeys(checkedRouter));
-        }
-      },
-      deep: true
-    },
     filterText (val) {
       this.$refs.permissionTree.filter(val);
     }
@@ -135,6 +141,10 @@ export default {
         })
       }
       return newArr
+    },
+    setCheckedKeys (checkedKeys) {
+      let checkedRouter = JSON.parse(checkedKeys)
+      this.$refs.tree.setCheckedKeys(this.recursiveCheckedKeys(checkedRouter));
     },
     // 寻找节点的嫡系
     getUserRouters (node) {
@@ -174,9 +184,9 @@ export default {
     // 提交对话框的表单
     handleSumbitForm () {
       let app = this
-      let validateForm = app.submitForm()
+      let validateForm = app.submitForm.call(app)
       if (validateForm) {
-        let firstNode = this.$refs.permissionTree.getNode('allPermission')
+        let firstNode = app.$refs.tree.getNode('allPermission')
         let newRouters = []
         firstNode.childNodes.forEach(childNode => {
           let data = app.getUserRouters(childNode)
@@ -184,28 +194,25 @@ export default {
             newRouters.push(data)
           }
         })
-        let groupForm = this.groupForm
+        let groupForm = app.groupForm
         groupForm.userRouters = JSON.stringify(newRouters)
         // 如果对话框就是添加用户组
         if (app.AddOrEdit === 'add') {
           addAuth(groupForm).then(res => {
-            console.log("添加用户组-响应：", res);
-            this.$message({
+            app.$message({
               type: res.data.status,
               message: res.data.message
             })
-          })
+          }).catch(err => app.$message.error(err))
         }
         // 如果对话框是修改用户组的话
         if (app.AddOrEdit === 'edit') {
           editAuth(groupForm).then(res => {
-            console.log("修改用户组-响应：", res);
-
-            this.$message({
+            app.$message({
               type: res.data.status,
               message: res.data.message
             })
-          })
+          }).catch(err => app.$message.error(err))
         }
         app.handleAuthDialogVisiable()
         app.$emit("authList-change")
@@ -215,13 +222,11 @@ export default {
     },
     // 提交前校验表单
     submitForm () {
+      let validate
       this.$refs.groupForm.validate((valid) => {
-        if (valid) {
-          return true
-        } else {
-          return false;
-        }
-      });
+        validate = valid
+      })
+      return validate
     },
     //  引入翻译函数
     generateTitle
