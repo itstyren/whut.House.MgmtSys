@@ -58,11 +58,7 @@ export default {
     };
   },
   mounted () {
-    if (this.$store.getters.roles == 'ADMIN') {
-      this.roleName = "超级管理员";
-    } else {
-      this.roleName = "职工";
-    }
+    this.roleName = this.$store.getters.property
     this.getData()
   },
   methods: {

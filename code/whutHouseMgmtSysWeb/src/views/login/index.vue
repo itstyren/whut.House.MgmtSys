@@ -29,9 +29,9 @@
           <el-select v-model="loginForm.roleId"
                      placeholder="请选择角色">
             <el-option v-for="Role in RoleIDs"
-                       :key="Role.value"
-                       :label="Role.label"
-                       :value="Role.value"></el-option>
+                       :key="Role.id"
+                       :label="Role.groupName"
+                       :value="Role.id"></el-option>
           </el-select>
         </el-form-item>
         <!-- <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox> -->
@@ -54,6 +54,7 @@
 import * as types from "@/store/mutation-types";
 import utils from "@/utils/index.js";
 import { getQiniuToken } from '@/api/login'
+import { getPartAuthList } from '@/api/auth'
 export default {
   data () {
     return {
@@ -66,25 +67,11 @@ export default {
       },
       tipMessage: "",
       //角色
-      RoleIDs: [
-        {
-          value: "3",
-          label: "超级管理员"
-        },
-        {
-          value: "1",
-          label: "单位管理员"
-        },
-        // {
-        //   value: "2",
-        //   label: "学院管理员"
-        // },
-        {
-          value: "2",
-          label: "职工"
-        }
-      ]
+      RoleIDs: []
     };
+  },
+  mounted () {
+    this.getRoleIdByAuthList()
   },
   methods: {
     // 登录方法
@@ -121,6 +108,13 @@ export default {
             });
         }
       });
+    },
+    getRoleIdByAuthList () {
+      getPartAuthList().then(res => {
+        this.RoleIDs = res.data.data.data
+      }).catch(err => {
+        this.$message.error(err)
+      })
     }
   }
 };

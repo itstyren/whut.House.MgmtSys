@@ -49,3 +49,10 @@ export const getStaffList = (group_name) => {
     data: group_name
   })
 }
+// 获取用户组的部分信息（id、用户组名称）
+export const getPartAuthList = () => {
+  return request({
+    url: '/auth/partAuthList',
+    method: 'get'
+  })
+}

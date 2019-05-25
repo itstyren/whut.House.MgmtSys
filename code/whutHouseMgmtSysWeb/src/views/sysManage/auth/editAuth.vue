@@ -67,7 +67,7 @@
 </template>
 <script>
 import { generateTitle } from "@/utils/i18n";
-import { addAuth, editAuth } from '@/api/permission'
+import { addAuth, editAuth } from '@/api/auth'
 import userRouters from './userRouters'
 
 export default {
