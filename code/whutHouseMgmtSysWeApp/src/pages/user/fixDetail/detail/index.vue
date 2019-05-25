@@ -86,7 +86,7 @@ export default {
   },
    // 捕捉页面传递路由
   onLoad(form) {
-    console.log(JSON.parse(form.data))
+    // console.log(JSON.parse(form.data))
     this.fixBase.formData = JSON.parse(form.data);
     if (this.fixBase.formData.ratings == null)
       this.fixBase.formData.ratings = 4;

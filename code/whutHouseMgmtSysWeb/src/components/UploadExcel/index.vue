@@ -1,9 +1,19 @@
 <template>
   <div>
-    <input id="excel-upload-input" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="c-hide" @change="handkeFileChange">
-    <div id="drop" @drop="handleDrop" @dragover="handleDragover" @dragenter="handleDragover">
+    <input id="excel-upload-input"
+           type="file"
+           accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+           class="c-hide"
+           @change="handkeFileChange">
+    <div id="drop"
+         @drop="handleDrop"
+         @dragover="handleDragover"
+         @dragenter="handleDragover">
       拖 入 这 里 或
-      <el-button style="margin-left:16px;" size="small" type="primary" @click="handleUpload">导入</el-button>
+      <el-button style="margin-left:16px;"
+                 size="small"
+                 type="primary"
+                 @click="handleUpload">导入</el-button>
     </div>
   </div>
 </template>
@@ -12,7 +22,7 @@
 import XLSX from 'xlsx'
 
 export default {
-  data() {
+  data () {
     return {
       loading: false,
       excelData: {
@@ -22,12 +32,12 @@ export default {
     }
   },
   methods: {
-    generateDate({ header, results },itemFile) {
+    generateDate ({ header, results }, itemFile) {
       this.excelData.header = header
       this.excelData.results = results
-      this.$emit('on-selected-file', this.excelData,itemFile)
+      this.$emit('on-selected-file', this.excelData, itemFile)
     },
-    handleDrop(e) {
+    handleDrop (e) {
       e.stopPropagation()
       e.preventDefault()
       const files = e.dataTransfer.files
@@ -40,21 +50,21 @@ export default {
       e.stopPropagation()
       e.preventDefault()
     },
-    handleDragover(e) {
+    handleDragover (e) {
       e.stopPropagation()
       e.preventDefault()
       e.dataTransfer.dropEffect = 'copy'
     },
-    handleUpload() {
+    handleUpload () {
       document.getElementById('excel-upload-input').click()
     },
-    handkeFileChange(e) {
+    handkeFileChange (e) {
       const files = e.target.files
       const itemFile = files[0] // only use files[0]
       //console.log(itemFile)
       this.readerData(itemFile)
     },
-    readerData(itemFile) {
+    readerData (itemFile) {
       const reader = new FileReader()
       reader.onload = e => {
         const data = e.target.result
@@ -64,11 +74,11 @@ export default {
         const worksheet = workbook.Sheets[firstSheetName]
         const header = this.get_header_row(worksheet)
         const results = XLSX.utils.sheet_to_json(worksheet)
-        this.generateDate({ header, results },itemFile)
+        this.generateDate({ header, results }, itemFile)
       }
       reader.readAsArrayBuffer(itemFile)
     },
-    fixdata(data) {
+    fixdata (data) {
       let o = ''
       let l = 0
       const w = 10240
@@ -76,7 +86,7 @@ export default {
       o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)))
       return o
     },
-    get_header_row(sheet) {
+    get_header_row (sheet) {
       const headers = []
       const range = XLSX.utils.decode_range(sheet['!ref'])
       let C
@@ -94,11 +104,11 @@ export default {
 </script>
 
 <style scoped>
-#excel-upload-input{
+#excel-upload-input {
   display: none;
   z-index: -9999;
 }
-#drop{
+#drop {
   border: 2px dashed #bbb;
   width: 600px;
   height: 160px;

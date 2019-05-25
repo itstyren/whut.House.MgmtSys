@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="info-card zan-row">
-      <img class="userinfo-avatar" :src="userInfo.avatarUrl" background-size="cover" />
+      <a href="../userInfo/main"><img class="userinfo-avatar" :src="userInfo.avatarUrl" background-size="cover" /></a>
       <div class="userinfo-nickname">
         {{userInfo.nickName}}
       </div>

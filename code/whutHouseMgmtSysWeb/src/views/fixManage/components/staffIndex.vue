@@ -122,7 +122,6 @@ aside {
     background: #4a5064;
   }
   > .el-tree {
-    width: 250px;
     height: auto;
   }
 

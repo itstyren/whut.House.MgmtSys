@@ -1,37 +1,42 @@
 <template>
   <div class="dashboard-admin">
-    <el-row>
-      <el-col :span="6" style="margin-left:50x">
-        <el-row>
+    <el-row :gutter="14">
+      <el-col :span="6"
+              class="col-height">
+        <el-row class="row-height-23">
           <info-card></info-card>
         </el-row>
-        <el-row>
+        <el-row class="row-height-44">
           <todo-list></todo-list>
         </el-row>
-        <el-row>
-          <flowmeter></flowmeter>
+        <el-row class="row-height-33">
+          <flowmeter height="100%"></flowmeter>
         </el-row>
       </el-col>
-      <el-col :span="18" class="right">
-        <el-row>
-          <pannel-group></pannel-group>
+      <el-col :span="18"
+              class="col-height">
+        <!-- 每日业务 -->
+        <pannel-group class="row-height-10"></pannel-group>
+        <!-- 快速通道 -->
+        <el-row class="row-height-27">
+          <channel class="pag-view"></channel>
         </el-row>
-        <el-row>
-          <el-col class="pag-view">
-         <channel :height="'275px'"></channel>
-          </el-col>
-        </el-row>
-        <el-row>
+
+        <el-row class="row-height-28">
+          <!-- 周维修类型统计 -->
           <el-col :span="11">
-            <fix-pie :height="'290px'"></fix-pie>
+            <fix-pie :height="'35.84vh'"></fix-pie>
           </el-col>
-          <el-col :span="12" style="margin-left:30px;">
-            <page-view :height="'290px'"></page-view>     
+          <!-- 近7天访问量 -->
+          <el-col :span="12"
+                  style="float:right;">
+            <page-view :height="'35.84vh'"></page-view>
           </el-col>
         </el-row>
+        <!-- 周维修处理情况分析 -->
         <el-row>
-          <el-col class="channel">          
-            <fix-bar :height="'350px'"></fix-bar>
+          <el-col class="fix-bar">
+            <fix-bar :height="'42.24vh'"></fix-bar>
           </el-col>
         </el-row>
       </el-col>
@@ -50,7 +55,7 @@ import fixBar from "./components/fixBar";
 import flowmeter from "./components/flowmeter";
 import channel from './components/channel'
 export default {
-  data() {
+  data () {
     return {};
   },
   components: {
@@ -67,7 +72,36 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.pag-view,.channel {
-  width: calc(100% - 20px);
+.card {
+  margin: 0 !important;
+}
+.dashboard-admin {
+  .el-row {
+    margin-bottom: 17px;
+  }
+}
+.col-height {
+  height: 128vh;
+}
+// .row-margin-10 {
+//   margin-bottom: 20px;
+// }
+.row-height-10 {
+  height: 10%;
+}
+.row-height-23 {
+  height: 23%;
+}
+.row-height-27 {
+  height: 27%;
+}
+.row-height-28 {
+  height: 28%;
+}
+.row-height-33 {
+  height: 33%;
+}
+.row-height-44 {
+  height: 44%;
 }
 </style>

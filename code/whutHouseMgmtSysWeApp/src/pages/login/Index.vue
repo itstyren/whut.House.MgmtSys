@@ -75,7 +75,7 @@ export default {
           componentId: "password"
         }
       },
-      roleArray: ["请选择角色", "超级管理员", "单位管理员", "职工"],
+      roleArray: ["请选择角色", "高级管理员", "单位管理员", "职工"],
       roleID: 0,
       handleFunctions: {
         handleZanFieldChange: this.handleZanFieldChange,

@@ -1,6 +1,8 @@
 <template>
   <div class="second-container">
-    <indexNav :hire-status="hireStatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
+    <indexNav :hire-status="hireStatus"
+              :is-submit="isSubmit"
+              @emit-form="getList"></indexNav>
     <section class="special-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
@@ -23,166 +25,245 @@
             <div class="accept-form card">
               <div class="need-accept">
                 <h1>租赁审核单</h1>
-                <el-form :model="agreeForm" label-width="100px" ref="agreeForm" :rules="rules">
+                <el-form :model="agreeForm"
+                         label-width="100px"
+                         ref="agreeForm"
+                         :rules="rules">
                   <el-row>
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="申请人姓名">
-                        <el-input v-model="agreeForm.name"  readonly></el-input>
+                        <el-input v-model="agreeForm.name"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="申请时间">
-                        <el-input v-model="agreeForm.applyTime"  readonly></el-input>
+                        <el-input v-model="agreeForm.applyTime"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="联系电话">
-                        <el-input v-model="agreeForm.phone"  readonly></el-input>
+                        <el-input v-model="agreeForm.phone"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="工作部门">
-                        <el-input v-model="agreeForm.deptName"  readonly></el-input>
+                        <el-input v-model="agreeForm.deptName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职称">
-                        <el-input v-model="agreeForm.postName"  readonly></el-input>
+                        <el-input v-model="agreeForm.postName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职务">
-                        <el-input v-model="agreeForm.titleName"  readonly></el-input>
+                        <el-input v-model="agreeForm.titleName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="职称分">
-                        <el-input v-model="agreeForm.titleVal"  readonly></el-input>
+                        <el-input v-model="agreeForm.titleVal"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职务分">
-                        <el-input v-model="agreeForm.titleVal"  readonly></el-input>
+                        <el-input v-model="agreeForm.titleVal"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="工龄分">
-                        <el-input v-model="agreeForm.timeVal"  readonly></el-input>
+                        <el-input v-model="agreeForm.timeVal"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="配偶分">
-                        <el-input v-model="agreeForm.spouseVal"  readonly></el-input>
+                        <el-input v-model="agreeForm.spouseVal"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="其他分">
-                        <el-input v-model="agreeForm.otherVal"  readonly></el-input>
+                        <el-input v-model="agreeForm.otherVal"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="总得分">
-                        <el-input v-model="agreeForm.totalVal"  readonly></el-input>
+                        <el-input v-model="agreeForm.totalVal"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="受理人">
-                        <el-input v-model="agreeForm.acceptMan"  readonly placeholder="受理人未知"></el-input>
+                        <el-input v-model="agreeForm.acceptMan"
+                                  readonly
+                                  placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="受理状态">
-                        <el-input v-model="agreeForm.acceptState"  readonly placeholder="状态未知"></el-input>
+                        <el-input v-model="agreeForm.acceptState"
+                                  readonly
+                                  placeholder="状态未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="受理时间">
-                        <el-input v-model="agreeForm.acceptTime"  readonly placeholder="受理时间未知"></el-input>
+                        <el-input v-model="agreeForm.acceptTime"
+                                  readonly
+                                  placeholder="受理时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row v-if="!status" :class="{'is-agree':!status}">
-                    <el-col :span="9" :offset="1">
+                  <el-row v-if="!status"
+                          :class="{'is-agree':!status}">
+                    <el-col :span="9"
+                            :offset="1">
                       <el-form-item label="受理说明">
-                        <el-input v-model="agreeForm.acceptNote" readonly type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                        <el-input v-model="agreeForm.acceptNote"
+                                  readonly
+                                  type="textarea"
+                                  :rows="2"
+                                  placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="status">
-                    <el-col :span="14" :offset="1">
+                    <el-col :span="14"
+                            :offset="1">
                       <el-form-item label="预分配住房">
-                        <el-input v-model="agreeForm.houseAddress"  readonly>
+                        <el-input v-model="agreeForm.houseAddress"
+                                  readonly>
                         </el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="预分配面积">
-                        <el-input v-model="agreeForm.houseBuildArea"  readonly placeholder="请选择住房">
+                        <el-input v-model="agreeForm.houseBuildArea"
+                                  readonly
+                                  placeholder="请选择住房">
                         </el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="status">
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="审核人">
-                        <el-input v-model="agreeForm.agreeMan" readonly placeholder="审核人未知"></el-input>
+                        <el-input v-model="agreeForm.agreeMan"
+                                  readonly
+                                  placeholder="审核人未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="审核时间">
-                        <el-input v-model="agreeForm.agreeTime" readonly placeholder="审核时间未知"></el-input>
+                        <el-input v-model="agreeForm.agreeTime"
+                                  readonly
+                                  placeholder="审核时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <!-- 操作区域 -->
-                  <el-row type="flex" justify="start" v-if="!status">
-                    <el-col :span="16" :offset="1">
-                      <el-form-item label="住房分配" prop="houseName">
-                        <el-input v-model="agreeForm.houseName"  readonly placeholder="请选择住房">
-                          <el-button slot="append" icon="el-icon-search" @click="dialogVisible"></el-button>
+                  <el-row type="flex"
+                          justify="start"
+                          v-if="!status">
+                    <el-col :span="16"
+                            :offset="1">
+                      <el-form-item label="住房分配"
+                                    prop="houseName">
+                        <el-input v-model="agreeForm.houseName"
+                                  readonly
+                                  placeholder="请选择住房">
+                          <el-button slot="append"
+                                     icon="el-icon-search"
+                                     @click="dialogVisible"></el-button>
                         </el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="start" v-if="!status">
-                    <el-col :span="8" :offset="1">
-                      <el-form-item label="审核意见" prop="agreeNote">
-                        <el-input v-model="agreeForm.agreeNote" type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                  <el-row type="flex"
+                          justify="start"
+                          v-if="!status">
+                    <el-col class="agree-col-width">
+                      <el-form-item label="审核意见"
+                                    prop="agreeNote">
+                        <el-input v-model="agreeForm.agreeNote"
+                                  type="textarea"
+                                  :rows="2"
+                                  placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="start" v-if="!status">
-                    <el-col :span="6" :offset="1">
-                      <el-form-item label="审核状态" prop="agreeState">
-                        <el-switch v-model="agreeForm.agreeState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
-                          inactive-text="通过" inactive-value="通过"></el-switch>
+                  <el-row type="flex"
+                          justify="start"
+                          v-if="!status">
+                    <el-col class="agree-col-width">
+                      <el-form-item label="审核状态"
+                                    prop="agreeState">
+                        <el-switch v-model="agreeForm.agreeState"
+                                   active-color="#ff4949"
+                                   inactive-color="#13ce66"
+                                   active-text="拒绝"
+                                   active-value="拒绝"
+                                   inactive-text="通过"
+                                   inactive-value="通过"
+                                   class="agree-col-switch"></el-switch>
+                        <el-button type="primary"
+                                   class="agree-col-btn"
+                                   size="medium"
+                                   @click="agreeSubmit">提交</el-button>
+
                       </el-form-item>
                     </el-col>
-                    <el-col :span="1">
-                      <el-button type="primary" @click="agreeSubmit">提交</el-button>
-                    </el-col>
+
                   </el-row>
                   <!-- 非操作区域 -->
                   <el-row v-if="status">
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="审核意见">
-                        <el-input v-model="agreeForm.agreeNote" readonly type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                        <el-input v-model="agreeForm.agreeNote"
+                                  readonly
+                                  type="textarea"
+                                  :rows="2"
+                                  placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="status">
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="审核状态">
-                        <el-switch v-model="agreeForm.agreeState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
-                          inactive-text="通过" inactive-value="通过" :disabled="status"></el-switch>
+                        <el-switch v-model="agreeForm.agreeState"
+                                   active-color="#ff4949"
+                                   inactive-color="#13ce66"
+                                   active-text="拒绝"
+                                   active-value="拒绝"
+                                   inactive-text="通过"
+                                   inactive-value="通过"
+                                   :disabled="status"></el-switch>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -191,7 +272,7 @@
             </div>
           </div>
         </div>
-        <seach-house  @select-house="selectHouse"></seach-house>
+        <seach-house @select-house="selectHouse"></seach-house>
       </div>
     </section>
   </div>
@@ -203,7 +284,7 @@ import seachHouse from "@/views/tools/seachHouse";
 import { putHireAgree, postHireEmail } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
 export default {
-  data() {
+  data () {
     return {
       listLoading: false,
       agreeForm: {},
@@ -227,24 +308,24 @@ export default {
     indexNav
   },
   computed: {
-    totalVal: function() {
+    totalVal: function () {
       return (
         parseInt(this.agreeForm.otherVal) + parseInt(this.agreeForm.titleVal)
       );
     }
   },
   methods: {
-    dialogVisible() {
+    dialogVisible () {
       this.$store.dispatch("setSeachHouse", true);
     },
     // 从子组件获取
-    getList(object) {
+    getList (object) {
       this.agreeForm = object.content;
       this.agreeForm.otherVal = 0;
       this.status = object.status;
     },
     // 审核信息提交
-    agreeSubmit() {
+    agreeSubmit () {
       if (this.agreeForm.agreeState == null) this.agreeForm.agreeState = "通过";
       this.$confirm(`确认${this.agreeForm.agreeState}审核`, "提示", {
         confirmButtonText: "确定",
@@ -288,7 +369,7 @@ export default {
         });
     },
     // 从组件中传递
-    selectHouse(data) {
+    selectHouse (data) {
       this.$set(this.agreeForm, "houseName", data[0]);
       this.selectHouseId = data[1];
     }

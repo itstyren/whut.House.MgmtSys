@@ -1,7 +1,8 @@
 import axios from 'axios'
 import router from '../router'
 import {
-  Message,MessageBox
+  Message,
+  MessageBox
 } from 'element-ui'
 import store from '@/store'
 import {
@@ -10,10 +11,11 @@ import {
 
 // create an axios instance
 const service = axios.create({
-  // baseURL: 'http://localhost:8787/whutHouseMgmtReposity', // api的base_url
+  // baseURL: '',
+  baseURL: 'http://172.16.65.105:8080/whutHouseMgmtReposity', // api的base_url
   // baseURL: 'http://118.126.117.96:8080/whutHouseMgmtReposity', // api的base_url  
   // baseURL: 'http://120.78.226.24:8080/whutHouseMgmtReposity', // api的base_url  
-  baseURL: 'https://www.terryren.com/whutHouseMgmtReposity', // api的base_url
+  // baseURL: 'https://www.terryren.com/whutHouseMgmtReposity', // api的base_url
 
   // `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
   // 如果请求花费超过 `timeout` 的时间，请求将被中断
@@ -56,9 +58,9 @@ service.interceptors.response.use(
   error => {
     console.log('err' + error) // for debug
     //  401:Token 过期了;
-    const err =error.response
-    console.log('出现错误')
-    if (err.code == 401) {
+    const err = error.response
+    console.log('出现错误', err)
+    if (err.status == 401) {
       MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
         confirmButtonText: '重新登录',
         cancelButtonText: '取消',

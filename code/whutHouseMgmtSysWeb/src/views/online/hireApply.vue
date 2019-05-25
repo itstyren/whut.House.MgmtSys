@@ -211,7 +211,7 @@ export default {
     // 导出申请单
     downloadApply() {
       let staffID = this.$store.getters.userID;
-      window.location.href = `http://localhost:8787/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
+      window.location.href = `http://172.16.65.105:8080/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
     },
     // 前进一步
     nextButton() {

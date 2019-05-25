@@ -1,6 +1,8 @@
 <template>
   <div class="second-container">
-    <indexNav :hire-status="hireStatus" :is-submit="isSubmit" @emit-form="getList"></indexNav>
+    <indexNav :hire-status="hireStatus"
+              :is-submit="isSubmit"
+              @emit-form="getList"></indexNav>
     <section class="special-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
@@ -23,38 +25,49 @@
             <div class="accept-form card">
               <div class="need-accept">
                 <h1>租赁审批单</h1>
-                <el-form :model="approveForm" label-width="100px" ref="approveForm" :rules="rules">
+                <el-form :model="approveForm"
+                         label-width="100px"
+                         ref="approveForm"
+                         :rules="rules">
                   <el-row>
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="申请人姓名">
-                        <el-input v-model="approveForm.name"  readonly></el-input>
+                        <el-input v-model="approveForm.name"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="申请时间">
-                        <el-input v-model="approveForm.applyTime"  readonly></el-input>
+                        <el-input v-model="approveForm.applyTime"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="联系电话">
-                        <el-input v-model="approveForm.phone"  readonly></el-input>
+                        <el-input v-model="approveForm.phone"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="工作部门">
-                        <el-input v-model="approveForm.deptName"  readonly></el-input>
+                        <el-input v-model="approveForm.deptName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职称">
-                        <el-input v-model="approveForm.postName"  readonly></el-input>
+                        <el-input v-model="approveForm.postName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="职务">
-                        <el-input v-model="approveForm.titleName"  readonly></el-input>
+                        <el-input v-model="approveForm.titleName"
+                                  readonly></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -81,104 +94,162 @@
                     </el-col>
                   </el-row> -->
                   <el-row>
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="受理人">
-                        <el-input v-model="approveForm.acceptMan"  readonly placeholder="受理人未知"></el-input>
+                        <el-input v-model="approveForm.acceptMan"
+                                  readonly
+                                  placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="受理状态">
-                        <el-input v-model="approveForm.acceptState"  readonly placeholder="状态未知"></el-input>
+                        <el-input v-model="approveForm.acceptState"
+                                  readonly
+                                  placeholder="状态未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="受理时间">
-                        <el-input v-model="approveForm.acceptTime"  readonly placeholder="受理时间未知"></el-input>
+                        <el-input v-model="approveForm.acceptTime"
+                                  readonly
+                                  placeholder="受理时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="审核人">
-                        <el-input v-model="approveForm.agreeMan"  readonly placeholder="受理人未知"></el-input>
+                        <el-input v-model="approveForm.agreeMan"
+                                  readonly
+                                  placeholder="受理人未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="审核状态">
-                        <el-input v-model="approveForm.agreeState"  readonly placeholder="状态未知"></el-input>
+                        <el-input v-model="approveForm.agreeState"
+                                  readonly
+                                  placeholder="状态未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="审核时间">
-                        <el-input v-model="approveForm.agreeTime"  readonly placeholder="受理时间未知"></el-input>
+                        <el-input v-model="approveForm.agreeTime"
+                                  readonly
+                                  placeholder="受理时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="14" :offset="1">
+                    <el-col :span="14"
+                            :offset="1">
                       <el-form-item label="预分配住房">
-                        <el-input v-model="approveForm.houseAddress"  readonly>
+                        <el-input v-model="approveForm.houseAddress"
+                                  readonly>
                         </el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="预分配面积">
-                        <el-input v-model="approveForm.houseBuildArea"  readonly placeholder="请选择住房">
+                        <el-input v-model="approveForm.houseBuildArea"
+                                  readonly
+                                  placeholder="请选择住房">
                         </el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row v-if="!status" :class="{'is-agree':!status}">
-                    <el-col :span="9" :offset="1">
+                  <el-row v-if="!status"
+                          :class="{'is-agree':!status}">
+                    <el-col :span="9"
+                            :offset="1">
                       <el-form-item label="审核说明">
-                        <el-input v-model="approveForm.agreeNote" readonly type="textarea" :rows="2"></el-input>
+                        <el-input v-model="approveForm.agreeNote"
+                                  readonly
+                                  type="textarea"
+                                  :rows="2"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="status">
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="审批人">
-                        <el-input v-model="approveForm.approveMan" readonly placeholder="审核人未知"></el-input>
+                        <el-input v-model="approveForm.approveMan"
+                                  readonly
+                                  placeholder="审核人未知"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
                       <el-form-item label="审核时间">
-                        <el-input v-model="approveForm.approveTime" readonly placeholder="审核时间未知"></el-input>
+                        <el-input v-model="approveForm.approveTime"
+                                  readonly
+                                  placeholder="审核时间未知"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <!-- 操作区域 -->
-                  <el-row type="flex" justify="start" v-if="!status">
-                    <el-col :span="8" :offset="1">
-                      <el-form-item label="审批意见" prop="approveNote">
-                        <el-input v-model="approveForm.approveNote" type="textarea" :rows="2" placeholder="请输入审批意见"></el-input>
+                  <el-row type="flex"
+                          justify="start"
+                          v-if="!status">
+                    <el-col class="agree-col-width">
+                      <el-form-item label="审批意见"
+                                    prop="approveNote">
+                        <el-input v-model="approveForm.approveNote"
+                                  type="textarea"
+                                  :rows="2"
+                                  placeholder="请输入审批意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="start" v-if="!status">
-                    <el-col :span="6" :offset="1">
-                      <el-form-item label="审核状态" prop="approveState">
-                        <el-switch v-model="approveForm.approveState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
-                          inactive-text="通过" inactive-value="通过"></el-switch>
+                  <el-row type="flex"
+                          justify="start"
+                          v-if="!status">
+                    <el-col class="agree-col-width">
+                      <el-form-item label="审核状态"
+                                    prop="approveState">
+                        <el-switch v-model="approveForm.approveState"
+                                   active-color="#ff4949"
+                                   inactive-color="#13ce66"
+                                   active-text="拒绝"
+                                   active-value="拒绝"
+                                   inactive-text="通过"
+                                   inactive-value="通过"
+                                   class="agree-col-switch"></el-switch>
+                        <el-button type="primary"
+                                   class="agree-col-btn"
+                                   size="medium"
+                                   @click="approveSubmit">提交</el-button>
+
                       </el-form-item>
                     </el-col>
-                    <el-col :span="1">
-                      <el-button type="primary" @click="approveSubmit">提交</el-button>
-                    </el-col>
+
                   </el-row>
                   <!-- 非操作区域 -->
                   <el-row v-if="status">
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="审批意见">
-                        <el-input v-model="approveForm.approveNote" readonly type="textarea" :rows="2" placeholder="请输入受理意见"></el-input>
+                        <el-input v-model="approveForm.approveNote"
+                                  readonly
+                                  type="textarea"
+                                  :rows="2"
+                                  placeholder="请输入受理意见"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row v-if="status">
-                    <el-col :span="7" :offset="1">
+                    <el-col :span="7"
+                            :offset="1">
                       <el-form-item label="审批状态">
-                        <el-switch v-model="approveForm.approveState" active-color="#ff4949" inactive-color="#13ce66" active-text="拒绝" active-value="拒绝"
-                          inactive-text="通过" inactive-value="通过" :disabled="status"></el-switch>
+                        <el-switch v-model="approveForm.approveState"
+                                   active-color="#ff4949"
+                                   inactive-color="#13ce66"
+                                   active-text="拒绝"
+                                   active-value="拒绝"
+                                   inactive-text="通过"
+                                   inactive-value="通过"
+                                   :disabled="status"></el-switch>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -197,7 +268,7 @@ import indexNav from "./components/indexNav";
 import { putHireApprove, postHireEmail } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
 export default {
-  data() {
+  data () {
     return {
       listLoading: false,
       approveForm: {},
@@ -221,13 +292,13 @@ export default {
   },
   methods: {
     // 从子组件获取
-    getList(object) {
+    getList (object) {
       this.approveForm = object.content;
       this.approveForm.otherVal = 0;
       this.status = object.status;
     },
     // 审批信息提交
-    approveSubmit() {
+    approveSubmit () {
       if (this.approveForm.approveState == null)
         this.approveForm.approveState = "通过";
       this.$confirm(`确认${this.approveForm.approveState}审批`, "提示", {

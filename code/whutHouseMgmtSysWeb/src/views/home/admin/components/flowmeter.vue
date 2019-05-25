@@ -1,9 +1,11 @@
 <template>
-  <div class="card" :style="{height:height}">
+  <div class="card"
+       :style="{height:height}">
     <div class="title">
       <strong>当前服务器负载率</strong>
     </div>
-    <div class="chart" ref="flowmeter"></div>
+    <div class="chart"
+         ref="flowmeter"></div>
   </div>
 </template>
 
@@ -26,12 +28,12 @@ export default {
       default: true
     }
   },
-  data() {
+  data () {
     return {
       chart: null
     };
   },
-  mounted() {
+  mounted () {
     this.initChart();
     if (this.autoResize) {
       this.__resizeHanlder = _.debounce(() => {
@@ -45,13 +47,13 @@ export default {
   watch: {
     chartData: {
       deep: true,
-      handler(val) {
+      handler (val) {
         this.setOptions(val);
       }
     }
   },
   methods: {
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions ({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {
           formatter: "{a} <br/>{b} : {c}%"
@@ -66,7 +68,7 @@ export default {
         ]
       });
     },
-    initChart() {
+    initChart () {
       this.chart = echarts.init(this.$refs.flowmeter, "macarons");
       this.setOptions(this.chartData);
     }

@@ -107,3 +107,7 @@ export function getSubmitSelectHouseApply(params) {
   return fly.get(`/selfHelpSelectHouse/submitSelectHouseApplication`, { ...params
   })
 }
+// 获取方法--根据员工id获取单一员工信息
+export function getStaff(staffID) {
+  return fly.get(`/staff/getByID/${staffID}`)
+}

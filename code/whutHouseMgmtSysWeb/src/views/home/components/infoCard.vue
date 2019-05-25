@@ -2,9 +2,13 @@
   <div class="info-card card">
     <div class="top">
       <el-row>
-        <el-col :span="10" :offset="2">
+        <el-col :span="10"
+                :offset="2">
           <div class="avatar">
-            <img :src="avatarURL" width="100%" height="100%" alt="avatar">
+            <img :src="avatarURL"
+                 width="100%"
+                 height="100%"
+                 alt="avatar">
           </div>
         </el-col>
         <el-col :span="12">
@@ -14,7 +18,8 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="24" class="basice-info-role">
+            <el-col :span="24"
+                    class="basice-info-role">
               <span>{{roleName}}</span>
             </el-col>
           </el-row>
@@ -23,22 +28,13 @@
     </div>
     <div class="bottom">
       <el-row>
-        <el-col :span="22" :offset="2">
+        <el-col :span="22"
+                :offset="2">
           <el-row>
-            <el-col :span="8" :offset="1">
-              <strong>上次登录时间:</strong>
-            </el-col>
-            <el-col :span="12">
-              <strong>{{loginTime}}</strong>
-            </el-col>
+            <strong>上次登录时间: {{loginTime}}</strong>
           </el-row>
           <el-row style="padding-top:5px;">
-            <el-col :span="8" :offset="1">
-              <strong>上次登录地址:</strong>
-            </el-col>
-            <el-col :span="12">
-              <strong>{{ip}}</strong>
-            </el-col>
+            <strong>上次登录地址: {{ip}}</strong>
           </el-row>
         </el-col>
       </el-row>
@@ -51,7 +47,7 @@
 import img_avatar from "@/assets/avatar.jpg";
 import { getUserAvatar } from "@/api/user";
 export default {
-  data() {
+  data () {
     return {
       staffID: this.$store.getters.userID,
       avatarURL: "",
@@ -61,7 +57,7 @@ export default {
       loginTime: this.$store.state.user.loginTime
     };
   },
-  mounted() {
+  mounted () {
     if (this.$store.getters.roles == 'ADMIN') {
       this.roleName = "超级管理员";
     } else {
@@ -70,7 +66,7 @@ export default {
     this.getData()
   },
   methods: {
-    getData() {
+    getData () {
       getUserAvatar(this.staffID).then(res => {
         if (res.data.status == "error") {
           this.avatarURL = img_avatar;
@@ -85,7 +81,8 @@ export default {
 
 <style scoped lang="scss">
 .info-card {
-  height: 240px;
+  // height: 240px;
+  height: 100%;
   .top {
     position: relative;
     padding-bottom: 20px;
@@ -109,13 +106,13 @@ export default {
       overflow: hidden;
     }
     .basice-info-name {
-      font-size: 22px;
+      font-size: 1.5vw;
       padding-top: 30px;
       color: #2d8cf0;
     }
     .basice-info-role {
       margin-top: 10px;
-      font-size: 18px;
+      font-size: 1.2vw;
     }
   }
 
