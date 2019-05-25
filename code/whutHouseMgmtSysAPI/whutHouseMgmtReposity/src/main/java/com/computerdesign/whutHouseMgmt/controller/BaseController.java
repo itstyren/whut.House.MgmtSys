@@ -2,6 +2,8 @@ package com.computerdesign.whutHouseMgmt.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jasig.cas.client.authentication.AttributePrincipal;
+
 /**
  *
  * @author wanhaoran
@@ -14,6 +16,8 @@ public class BaseController {
 	 * 获取登录的User
 	 */
 	public String getUserId(HttpServletRequest request) {
+//		AttributePrincipal principal = (AttributePrincipal)request.getUserPrincipal();
+//		return principal.getName();
 		return (String) request.getAttribute("userId");
 	}
 

@@ -60,7 +60,8 @@
 			<mvc:exclude-mapping path="/dataImport/houseDownLoad" />
 			<mvc:exclude-mapping path="/dataImport/residentDownLoad" />	
 			<mvc:exclude-mapping path="/exportToWord/hire/**" />
-			<mvc:exclude-mapping path="/auth/testGetAuth" />		
+			<mvc:exclude-mapping path="/auth/testGetAuth" />	
+			<mvc:exclude-mapping path="/auth/partAuthList/**" />	
 					 
 			<bean class="com.wf.etp.authz.ApiInterceptor">
 				<property name="userRealm" ref="userRealm" />  <!-- 需要提供UserRealm -->

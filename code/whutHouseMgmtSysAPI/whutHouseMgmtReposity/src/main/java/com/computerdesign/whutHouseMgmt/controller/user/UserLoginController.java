@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
+import org.jasig.cas.client.authentication.AttributePrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,14 +29,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.authority.AuthList;
 import com.computerdesign.whutHouseMgmt.bean.login.LoginRecord;
 import com.computerdesign.whutHouseMgmt.bean.login.WXLogin;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.bean.user.LoginByUnionId;
 import com.computerdesign.whutHouseMgmt.bean.user.UserLogin;
 import com.computerdesign.whutHouseMgmt.bean.user.WXUserInfo;
 import com.computerdesign.whutHouseMgmt.controller.BaseController;
+import com.computerdesign.whutHouseMgmt.service.authority.AuthListService;
 import com.computerdesign.whutHouseMgmt.service.login.LoginRecordService;
 import com.computerdesign.whutHouseMgmt.service.login.WXService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
@@ -69,6 +73,9 @@ public class UserLoginController extends BaseController {
 
 	@Autowired
 	private WXService wxService;
+	
+	@Autowired
+	private AuthListService authListService;
 
 	@PostMapping(value="decodeUserInfo")
 	@ApiOperation(value="解密用户信息",notes="获取用户openId和unionId数据(如果没绑定微信开放平台，解密数据中不包含unionId)")
@@ -258,6 +265,8 @@ public class UserLoginController extends BaseController {
 		String userId = null;
 		try { // 解析token
 			userId = SubjectUtil.getInstance().parseToken(token).getSubject();
+//			AttributePrincipal principal = (AttributePrincipal)request.getUserPrincipal();
+//			userId = principal.getName();
 		} catch (ExpiredJwtException e) {
 			SubjectUtil.getInstance().expireToken(userId, token); // 从缓存中移除过期的token
 			throw new ExpiredTokenException();
@@ -272,11 +281,16 @@ public class UserLoginController extends BaseController {
 
 		request.setAttribute("userId", userId);
 		Integer staffId = Integer.parseInt(userId);
-		viewStaffService.getByStaffId(staffId);
+		List<ViewStaff> staffVw = viewStaffService.getByStaffId(staffId);
 		LoginRecord loginRecord = loginRecordService.getStaffLoginRecord(staffId);
+		
+//		返回用户组权限
+		int roleId = staffVw.get(0).getRoleId();
+		AuthList authlist = authListService.getOneAuth(roleId);
+		
 		// 要返回登陆数据
 		addLoginRecord(request, userId);
-		return Msg.success().add("data", viewStaffService.getByStaffId(staffId)).add("logindata", loginRecord);
+		return Msg.success().add("data", viewStaffService.getByStaffId(staffId)).add("logindata", loginRecord).add("userRouters", authlist.getUserRouters()).add("property", authlist.getProperty());
 
 	}
 
