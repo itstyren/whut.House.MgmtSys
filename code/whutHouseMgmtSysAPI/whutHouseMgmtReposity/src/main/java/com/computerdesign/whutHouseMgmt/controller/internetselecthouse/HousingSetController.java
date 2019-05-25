@@ -169,6 +169,7 @@ public class HousingSetController {
 			housingInfo.setUsedArea(viewHouse.getUsedArea());
 			housingInfo.setRegionName(viewHouse.getRegionName());
 			housingInfo.setBuildingName(viewHouse.getBuildingName());
+			housingInfo.setCampusName(viewHouse.getCampusName());
 			housingInfo.setAddress(viewHouse.getAddress());
 			// 每平方米的价格
 			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
@@ -202,6 +203,7 @@ public class HousingSetController {
 			housingInfo.setLayout(viewHouse.getLayoutName());
 			housingInfo.setUsedArea(viewHouse.getUsedArea());
 			housingInfo.setRegionName(viewHouse.getRegionName());
+			housingInfo.setCampusName(viewHouse.getCampusName());
 			housingInfo.setBuildingName(viewHouse.getBuildingName());
 			housingInfo.setAddress(viewHouse.getAddress());
 			// 每平方米的价格
