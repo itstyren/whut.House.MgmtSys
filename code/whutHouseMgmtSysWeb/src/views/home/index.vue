@@ -36,7 +36,7 @@ export default {
     ...mapGetters(["property"])
   },
   mounted () {
-    if (this.property = '管理员') {
+    if (this.property === '管理员') {
       this.currentRole = "adminDashboard";
     } else {
       this.currentRole = "staffDashboard";
