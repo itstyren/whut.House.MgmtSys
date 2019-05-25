@@ -68,6 +68,18 @@ public class AuthListService {
 	}
 	
 	/**
+	 * 获取所有的用户组信息
+	 * @return
+	 */
+	public List<AuthList> getPartAuthList(){
+		AuthListExample example = new AuthListExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStateEqualTo(true);
+		return authListMapper.selectByExampleWithBLOBs(example);
+	}
+	
+	
+	/**
 	 * 根据用户组名称列表删除用户组信息
 	 * @param groupNameList
 	 * @return
