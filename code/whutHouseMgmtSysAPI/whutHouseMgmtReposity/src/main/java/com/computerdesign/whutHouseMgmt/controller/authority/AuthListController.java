@@ -41,7 +41,7 @@ public class AuthListController {
 	@ResponseBody
 	@RequestMapping(value="partAuthList", method = RequestMethod.GET)
 	public Msg getPartAuthList(){
-		List<AuthList> authLists = authListService.getAllAuthList();
+		List<AuthList> authLists = authListService.getPartAuthList();
 		String[] fileds = { "id", "groupName"};
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(authLists, fileds);
 		return Msg.success("获取成功").add("data", response);
