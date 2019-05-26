@@ -110,7 +110,7 @@
     Tel, Email, Remark, SpouseName, SpouseCode, SpouseTitleName, SpousePostName, SpouseDept, 
     SpouseKind, IsDeptManage, StaffPassword, BuyAccount, Compensate, FixFund, SecondJoinTime, 
     SecondRetireTime, StaffDual, Relation, DiscountRate, FamilyCode, FirstJobTime, UserName, 
-    IsOwnPriHouse, RoleId
+    IsOwnPriHouse
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVwExample" resultMap="BaseResultMap">
     select
