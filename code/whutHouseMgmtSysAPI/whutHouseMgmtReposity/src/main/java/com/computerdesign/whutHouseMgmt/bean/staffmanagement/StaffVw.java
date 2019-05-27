@@ -103,6 +103,8 @@ public class StaffVw {
     private Boolean isOwnPriHouse;
     
     private Integer roleId;
+    
+    private String groupName;
 
     public Integer getId() {
         return id;
@@ -448,4 +450,11 @@ public class StaffVw {
 		this.roleId = roleId;
 	}
     
+	public String getGroupName() {
+		return groupName;
+	}
+	
+	public void setGroupName(String groupName) {
+		this.groupName=groupName;
+	}
 }

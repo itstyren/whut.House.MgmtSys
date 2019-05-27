@@ -45,6 +45,7 @@
     <result column="UserName" jdbcType="VARCHAR" property="userName" />
     <result column="IsOwnPriHouse" jdbcType="BIT" property="isOwnPriHouse" />
     <result column="RoleId" jdbcType="INTEGER" property="roleId" />
+    <result column="GroupName" jdbcType="VARCHAR" property="groupName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -110,7 +111,7 @@
     Tel, Email, Remark, SpouseName, SpouseCode, SpouseTitleName, SpousePostName, SpouseDept, 
     SpouseKind, IsDeptManage, StaffPassword, BuyAccount, Compensate, FixFund, SecondJoinTime, 
     SecondRetireTime, StaffDual, Relation, DiscountRate, FamilyCode, FirstJobTime, UserName, 
-    IsOwnPriHouse
+    IsOwnPriHouse, RoleId, GroupName
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVwExample" resultMap="BaseResultMap">
     select
