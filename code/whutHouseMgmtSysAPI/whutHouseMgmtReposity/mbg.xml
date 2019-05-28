@@ -21,7 +21,7 @@
  
 		<!-- 指定javabean的生成位置 -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.authority"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.staffmanagement"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -29,13 +29,13 @@
 
 		<!-- 指定sql映射文件的生成位置 -->
 
-		<sqlMapGenerator targetPackage="mapper.authority" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper.staffmanagement" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" /> 
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.authority" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.staffmanagement" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -63,12 +63,14 @@
 		<!-- <table tableName="Pm_WXLogin" domainObjectName="WXLogin">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
-		<!-- <table tableName="view_hs_staff" domainObjectName="StaffVw">
+		<table tableName="view_hs_staff" domainObjectName="StaffVw">
 			<property name="useActualColumnNames" value="true"></property>
-		</table> -->
+		</table>
+		<!-- 
 		<table tableName="au_authlist" domainObjectName="AuthList">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
+		 -->
 		<!-- <table tableName="hs_staff" domainObjectName="Staff">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->

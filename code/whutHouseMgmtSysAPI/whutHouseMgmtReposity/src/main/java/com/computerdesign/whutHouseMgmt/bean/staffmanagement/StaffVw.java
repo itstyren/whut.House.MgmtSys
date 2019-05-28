@@ -101,8 +101,10 @@ public class StaffVw {
     private String userName;
 
     private Boolean isOwnPriHouse;
-    
+
     private Integer roleId;
+
+    private String groupName;
 
     public Integer getId() {
         return id;
@@ -440,12 +442,19 @@ public class StaffVw {
         this.isOwnPriHouse = isOwnPriHouse;
     }
 
-	public Integer getRoleId() {
-		return roleId;
-	}
+    public Integer getRoleId() {
+        return roleId;
+    }
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
-    
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName == null ? null : groupName.trim();
+    }
 }

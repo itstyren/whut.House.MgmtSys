@@ -45,6 +45,7 @@
     <result column="UserName" jdbcType="VARCHAR" property="userName" />
     <result column="IsOwnPriHouse" jdbcType="BIT" property="isOwnPriHouse" />
     <result column="RoleId" jdbcType="INTEGER" property="roleId" />
+    <result column="GroupName" jdbcType="VARCHAR" property="groupName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -110,7 +111,7 @@
     Tel, Email, Remark, SpouseName, SpouseCode, SpouseTitleName, SpousePostName, SpouseDept, 
     SpouseKind, IsDeptManage, StaffPassword, BuyAccount, Compensate, FixFund, SecondJoinTime, 
     SecondRetireTime, StaffDual, Relation, DiscountRate, FamilyCode, FirstJobTime, UserName, 
-    IsOwnPriHouse, RoleId
+    IsOwnPriHouse, RoleId, GroupName
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVwExample" resultMap="BaseResultMap">
     select
@@ -147,7 +148,7 @@
       SecondJoinTime, SecondRetireTime, StaffDual, 
       Relation, DiscountRate, FamilyCode, 
       FirstJobTime, UserName, IsOwnPriHouse, 
-      RoleId)
+      RoleId, GroupName)
     values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{marriageState,jdbcType=VARCHAR}, #{titleId,jdbcType=INTEGER}, 
       #{titleName,jdbcType=VARCHAR}, #{postId,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR}, 
@@ -162,7 +163,7 @@
       #{secondJoinTime,jdbcType=DATE}, #{secondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, 
       #{relation,jdbcType=VARCHAR}, #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, 
       #{firstJobTime,jdbcType=DATE}, #{userName,jdbcType=VARCHAR}, #{isOwnPriHouse,jdbcType=BIT}, 
-      #{roleId,jdbcType=INTEGER})
+      #{roleId,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw">
     insert into view_hs_staff
@@ -296,6 +297,9 @@
       <if test="roleId != null">
         RoleId,
       </if>
+      <if test="groupName != null">
+        GroupName,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -426,6 +430,9 @@
       </if>
       <if test="roleId != null">
         #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -567,6 +574,9 @@
       <if test="record.roleId != null">
         RoleId = #{record.roleId,jdbcType=INTEGER},
       </if>
+      <if test="record.groupName != null">
+        GroupName = #{record.groupName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -616,7 +626,8 @@
       FirstJobTime = #{record.firstJobTime,jdbcType=DATE},
       UserName = #{record.userName,jdbcType=VARCHAR},
       IsOwnPriHouse = #{record.isOwnPriHouse,jdbcType=BIT},
-      RoleId = #{record.roleId,jdbcType=INTEGER}
+      RoleId = #{record.roleId,jdbcType=INTEGER},
+      GroupName = #{record.groupName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
