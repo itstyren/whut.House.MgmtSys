@@ -289,6 +289,27 @@
                   </el-form-item>
                 </el-col>
               </el-row>
+              <el-row>
+                <el-col :span="6"
+                        :offset="1">
+
+                  <el-form-item label="所属用户组"
+                                prop="groupName">
+                    <el-input v-model="staffForm.groupName"
+                              v-if="!ismodify"
+                              :readonly="!ismodify"></el-input>
+                    <el-select v-model="staffForm.roleId"
+                               clearable
+                               v-if="ismodify"
+                               placeholder="请选择角色组">
+                      <el-option v-for="param in RoleIDs"
+                                 :key="param.id"
+                                 :label="param.groupName"
+                                 :value="param.id"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </div>
             <div class="title">
               <strong>配偶信息</strong>
@@ -383,6 +404,7 @@
 <script type="text/ecmascript-6">
 import { getStaff, putStaffData } from "@/api/basiceData";
 import { getStaffParam } from "@/api/sysManage";
+import { getPartAuthList } from '@/api/auth'
 import { postPromoteSubStaffID } from "@/api/monetarySub";
 import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
 import * as OPTION from "@/assets/data/formOption";
@@ -398,6 +420,8 @@ export default {
       formOption: OPTION,
       // 编辑时候需要填充的数据
       staffParam: [],
+      // 用户组列表（id,groupName）
+      RoleIDs: [],
       // 表单验证规则
       rules: {
         no: [
@@ -447,6 +471,9 @@ export default {
             validator: checkTel,
             trigger: "blur"
           }
+        ],
+        groupName: [
+          { required: true, message: '请选择所属用户组', trigger: 'change' }
         ],
         buyAccount: {
           validator: checkNum,
@@ -498,6 +525,8 @@ export default {
       this.getParam();
     }
     this.getList();
+    this.getRoleIdByAuthList()
+
   },
   // 方法集合
   methods: {
@@ -536,7 +565,7 @@ export default {
       for (let paramClass = 5; paramClass <= paramNum; paramClass++) {
         getStaffParam(param, paramClass)
           .then(res => {
-            this.$set(this.staffParam, paramClass, res.data.data.data.list);
+            this.$set(this.staffParam, paramClass, res.data.data.data);
             if (this.staffParam[10] != null) this.submitLoading = false;
           })
           .catch(err => {
@@ -617,6 +646,14 @@ export default {
     routerBack () {
       this.$store.commit("SET_STAFF_SHOW", false);
       this.$router.go(-1);
+    },
+    // 获取用户组部分信息（id、groupName）
+    getRoleIdByAuthList () {
+      getPartAuthList().then(res => {
+        this.RoleIDs = res.data.data.data
+      }).catch(err => {
+        this.$message.error(err)
+      })
     }
   }
 };
