@@ -129,7 +129,7 @@
 </template>
 
 <script>
-import { getAuthList, delAuthList, addAuth, getOneAuth, editAuth } from '@/api/permission'
+import { getAuthList, delAuthList, addAuth, getOneAuth, editAuth } from '@/api/auth'
 import AuthForm from './editAuth'
 import userRouters from './userRouters'
 
@@ -175,6 +175,7 @@ export default {
     getTableData () {
       let app = this
       app.listLoading = true
+      // app.tableData = []
       // let params = {
       //   page: that.currentPage,
       //   size: that.pageSize
@@ -183,6 +184,7 @@ export default {
         app.tableData = res.data.data.data
         app.listLoading = false
       }).catch(err => {
+        app.listLoading = false
         app.$message.error(err)
       })
     },
@@ -269,7 +271,7 @@ export default {
     },
     // 更新表格
     authListChange () {
-      this.getTableData()
+      setTimeout(() => this.getTableData(), 100)
     }
   },
 }

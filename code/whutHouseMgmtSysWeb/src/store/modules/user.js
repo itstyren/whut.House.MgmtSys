@@ -132,7 +132,7 @@ const user = {
           commit(types.SET_NAME, userData.name)
           commit(types.SET_USERNO, userData.no)
           commit(types.SET_USERID, userData.id)
-          commit(types.SET_USERID, userData.property)
+          commit(types.SET_PROPERTY, res.data.data.property)
           commit(types.SET_HASGETUSERINFO, true)
           commit(types.SET_USERROUTERS, userRouters)
           if (logindata != null) {
