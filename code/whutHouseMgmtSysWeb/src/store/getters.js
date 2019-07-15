@@ -4,7 +4,7 @@ import {
 const getters = {
   language: state => state.app.language,
   token: state => state.user.token,
-  roles: state => state.user.roles,
+  roleId: state => state.user.roleId,
   property: state => state.user.property,
   userName: state => state.user.name,
   userNO: state => state.user.no,
@@ -13,6 +13,7 @@ const getters = {
   permission_routers: state => constantRouterMap.concat(state.user.userRouters),
   seachVisible: state => state.app.seachVisible,
   qiniuURL: state => state.uploadUrl,
-  qiniuToken: state => state.user.qiniuToken
+  qiniuToken: state => state.user.qiniuToken,
+  campusList: state => state.user.campusList
 }
 export default getters
