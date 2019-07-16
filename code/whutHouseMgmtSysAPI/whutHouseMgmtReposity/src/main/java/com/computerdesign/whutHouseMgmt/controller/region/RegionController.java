@@ -85,8 +85,6 @@ public class RegionController {
 	@RequestMapping(value = "getRegionsWithMP/{roleId}", method = RequestMethod.GET)
 	public Msg getRegionsWithMP(@PathVariable("roleId") Integer roleId, @RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "0") Integer size) {
-		// 分页，下一条语句为查询语句
-		PageHelper.startPage(page, size);
 		
 		String manageCampus = authListService.getOneAuth(roleId).getManageCampus();
 //		System.out.println(manageCampus);
@@ -96,6 +94,8 @@ public class RegionController {
 //		for (String campus : campusStr){
 //			campusList.add(Integer.valueOf(campus));
 //		}
+		// 分页，下一条语句为查询语句
+		PageHelper.startPage(page, size);
 		List<Integer> campusList = MyUtils.roleIdToMP(manageCampus);
 		System.out.println(campusList);
 		
