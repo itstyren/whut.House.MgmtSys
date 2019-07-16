@@ -3,7 +3,9 @@ import {
   setToken,
   removeToken
 } from '@/utils/auth'
-
+import {
+  getCampusData
+} from '@/api/basiceData'
 import {
   loginByUsername,
   getUserInfo,
@@ -40,7 +42,7 @@ const user = {
   state: {
     token: getToken(),
     name: '',
-    roles: [],
+    roleId: -1,
     no: -1,
     id: -1,
     ip: -1,
@@ -48,7 +50,8 @@ const user = {
     qiniuToken: '',
     hasGetUserInfo: false,
     userRouters: [],
-    property: ''
+    property: '',
+    campusList: null
   },
   mutations: {
     // 设置token
@@ -61,7 +64,7 @@ const user = {
     },
     // set login staff role ID
     [types.SET_ROLEID]: (state, roleId) => {
-      state.roles.push(roleId)
+      state.roleId = roleId
     },
     // set login staff NO
     [types.SET_USERNO]: (state, staffNO) => {
@@ -89,6 +92,9 @@ const user = {
     [types.SET_PROPERTY]: (state, property) => {
       state.property = property
     },
+    "setCampusList": (state, campusList) => {
+      state.campusList = campusList
+    }
   },
 
   actions: {
@@ -124,7 +130,6 @@ const user = {
           }
           const data = res.data.data
           const userRouters = JSON.parse(data.userRouters)
-
           addComponentDir(userRouters)
           const userData = res.data.data.data[0]
           const logindata = res.data.data.logindata
@@ -177,7 +182,25 @@ const user = {
           reject(error)
         })
       })
+    },
+    // 获取校区及其编号对应表
+    getCampusNumber({
+      commit
+    }) {
+      getCampusData().then(res => {
+        let list = res.data.data.data.list
+        let id = list.map(item => item.id)
+        let name = list.map(item => item.name)
+        let campusList = {
+          id: id,
+          name: name
+        }
+        console.log("campusList:", campusList)
+        commit("setCampusList", campusList)
+      }).catch(err => console.log("获取所有校区名称失败！", err))
     }
+
+
   }
 
 }

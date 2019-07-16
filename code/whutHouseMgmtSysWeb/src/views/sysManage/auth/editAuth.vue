@@ -30,6 +30,16 @@
           <el-radio label="管理员">管理员</el-radio>
         </el-radio-group>
       </el-form-item>
+      <!-- 校区复选框 -->
+      <el-form-item label="校区："
+                    prop="manageCampus">
+        <el-checkbox-group v-model="groupForm.manageCampus">
+          <el-checkbox v-for="campus in campusList.name"
+                       :label="campus"
+                       :key="campus">{{campus}}</el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
+
       <!-- 启用单选框 -->
       <el-form-item label="状态："
                     prop="state">
@@ -66,7 +76,8 @@
   </div>
 </template>
 <script>
-import { generateTitle } from "@/utils/i18n";
+import { generateTitle } from "@/utils/i18n"
+import { campusToNumber } from "@/utils/auth"
 import { addAuth, editAuth } from '@/api/auth'
 import userRouters from './userRouters'
 
@@ -78,6 +89,7 @@ export default {
       remark: String,
       state: Boolean,
       property: String,
+      manageCampus: Array,
       checkedKeys: String
     },
     AddOrEdit: {
@@ -107,16 +119,23 @@ export default {
         remark: [
           { required: true, message: '请描述该用户组', trigger: 'blur' },
           { min: 1, max: 100, message: '长度在 1 到 100 个字符', trigger: 'blur' }
+        ],
+        manageCampus: [
+          { required: true, message: '请至少选择一个校区', trigger: 'blur' }
         ]
       },
-      filterText: '',
-
+      filterText: ''
     }
   },
   mounted () {
     // 初始化选中项
     if (this.AddOrEdit === 'edit') {
       this.setCheckedKeys(this.groupForm.checkedKeys)
+    }
+  },
+  computed: {
+    campusList () {
+      return this.$store.getters.campusList
     }
   },
   watch: {
@@ -143,8 +162,11 @@ export default {
       return newArr
     },
     setCheckedKeys (checkedKeys) {
-      let checkedRouter = JSON.parse(checkedKeys)
-      this.$refs.tree.setCheckedKeys(this.recursiveCheckedKeys(checkedRouter));
+      console.log("checkedKeys:", checkedKeys)
+      if (checkedKeys) {
+        let checkedRouter = JSON.parse(checkedKeys)
+        this.$refs.tree.setCheckedKeys(this.recursiveCheckedKeys(checkedRouter))
+      }
     },
     // 寻找节点的嫡系
     getUserRouters (node) {
@@ -180,6 +202,7 @@ export default {
     handleAuthDialogVisiable () {
       this.$emit('close-dialog', false)
     },
+    // 获取所有校区及其编号的对应表
 
     // 提交对话框的表单
     handleSumbitForm () {
@@ -195,8 +218,10 @@ export default {
           }
         })
         let groupForm = app.groupForm
+        groupForm.manageCampus = campusToNumber(groupForm.manageCampus, this.campusList.id, this.campusList.name)
         groupForm.userRouters = JSON.stringify(newRouters)
-        // 如果对话框就是添加用户组
+        console.log("groupForm:", groupForm)
+        // 如果对话框是添加用户组
         if (app.AddOrEdit === 'add') {
           addAuth(groupForm).then(res => {
             app.$message({
@@ -227,6 +252,9 @@ export default {
         validate = valid
       })
       return validate
+    },
+    handleCheckedCampusChange (newVal) {
+      console.log("checkbox group当绑定值变化时：", newVal)
     },
     //  引入翻译函数
     generateTitle

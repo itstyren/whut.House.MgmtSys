@@ -41,9 +41,9 @@ export function getRegionWithBuildings(params) {
   })
 }
 // 获取方法
-export function getRegionData(params) {
+export function getRegionData(params, roleId) {
   return request({
-    url: `/region/get`,
+    url: `/region/getRegionsWithMP/${roleId}`,
     method: 'get',
     params: params
   })
@@ -203,7 +203,7 @@ export function putStaffData(data) {
   })
 }
 // 重置密码
-export function putResetStaffPwd(data,staffID) {
+export function putResetStaffPwd(data, staffID) {
   return request({
     url: `/staff/resetPassword/${staffID}`,
     method: 'put',
@@ -243,11 +243,11 @@ export function getHouseByMultiCondition(data) {
   })
 }
 // 全面多条件查找
-export function postHouseByComplexMultiCondition(params,data) {
+export function postHouseByComplexMultiCondition(params, data) {
   return request({
     url: `/houseRegister/getByAllMultiCondition`,
     method: 'post',
-    params:params,
+    params: params,
     data: data
   })
 }
@@ -282,4 +282,3 @@ export function postHouseRelImport(data) {
     data: data
   })
 }
-

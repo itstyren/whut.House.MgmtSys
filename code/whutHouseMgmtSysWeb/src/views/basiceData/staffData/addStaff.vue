@@ -15,96 +15,184 @@
     <div class="warp-body">
       <!-- 工具栏 -->
       <div class="toolbar">
-        <el-form :inline="true" style="margin-bottom:15px">
-          <el-button type="primary" @click="addSubmit">提交</el-button>
-          <el-button type="primary" @click="routerBack">返回</el-button>
+        <el-form :inline="true"
+                 style="margin-bottom:15px">
+          <el-button type="primary"
+                     @click="addSubmit">提交</el-button>
+          <el-button type="primary"
+                     @click="routerBack">返回</el-button>
         </el-form>
       </div>
       <!-- 表单区 -->
       <div class="main-data">
         <!-- 两个表单的大盒子 -->
         <div class="from">
-          <el-form :model="staffForm" label-width="110px" ref="staffForm" :rules="rules">
+          <el-form :model="staffForm"
+                   label-width="110px"
+                   ref="staffForm"
+                   :rules="rules">
             <h1>员工本人信息</h1>
             <!-- 员工信息 -->
             <div class="staff-from">
               <!-- 左半边的信息 -->
               <div class="single-staff-from">
-                <el-form-item label="职工编号" prop="no">
-                  <el-input v-model="staffForm.no" placeholder="请输入职工编号"></el-input>
+                <el-form-item label="职工编号"
+                              prop="no">
+                  <el-input v-model="staffForm.no"
+                            placeholder="请输入职工编号"></el-input>
                 </el-form-item>
-                <el-form-item label="姓名" prop="name">
-                  <el-input v-model="staffForm.name" placeholder="请输入姓名"></el-input>
+                <el-form-item label="姓名"
+                              prop="name">
+                  <el-input v-model="staffForm.name"
+                            placeholder="请输入姓名"></el-input>
                 </el-form-item>
-                <el-form-item label="性别" prop="sex">
-                  <el-select v-model="staffForm.sex" placeholder="请选择性别">
-                    <el-option v-for="sex in formOption.sexOption" :key="sex.value" :label="sex.label" :value="sex.value"></el-option>
+                <el-form-item label="性别"
+                              prop="sex">
+                  <el-select v-model="staffForm.sex"
+                             placeholder="请选择性别">
+                    <el-option v-for="sex in formOption.sexOption"
+                               :key="sex.value"
+                               :label="sex.label"
+                               :value="sex.value"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="婚姻状况" prop="marriageState">
-                  <el-select v-model="staffForm.marriageState" placeholder="请选择婚姻状况">
-                    <el-option v-for="state in formOption.marriageState" :key="state.value" :label="state.label" :value="state.value"></el-option>
+                <el-form-item label="婚姻状况"
+                              prop="marriageState">
+                  <el-select v-model="staffForm.marriageState"
+                             placeholder="请选择婚姻状况">
+                    <el-option v-for="state in formOption.marriageState"
+                               :key="state.value"
+                               :label="state.label"
+                               :value="state.value"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="身份证号" prop="code">
-                  <el-input v-model="staffForm.code" placeholder="请输入身份证号"></el-input>
+                <el-form-item label="身份证号"
+                              prop="code">
+                  <el-input v-model="staffForm.code"
+                            placeholder="请输入身份证号"></el-input>
                 </el-form-item>
-                <el-form-item label="联系电话" prop="tel">
-                  <el-input v-model="staffForm.tel" placeholder="请输入联系电话"></el-input>
+                <el-form-item label="联系电话"
+                              prop="tel">
+                  <el-input v-model="staffForm.tel"
+                            placeholder="请输入联系电话"></el-input>
+                </el-form-item>
+                <el-form-item label="所属用户组"
+                              prop="groupName">
+                  <el-select v-model="staffForm.groupName"
+                             clearable
+                             placeholder="请选择角色组">
+                    <el-option v-for="param in RoleIDs"
+                               :key="param.id"
+                               :label="param.groupName"
+                               :value="param.id"></el-option>
+                  </el-select>
                 </el-form-item>
               </div>
               <!-- 中间信息 -->
               <div class="single-staff-from">
-                <el-form-item label="职称" prop="title">
-                  <el-select v-model="staffForm.title" clearable placeholder="请选择职称">
-                    <el-option v-for="param in staffParam[7]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
+                <el-form-item label="职称"
+                              prop="title">
+                  <el-select v-model="staffForm.title"
+                             clearable
+                             placeholder="请选择职称">
+                    <el-option v-for="param in staffParam[7]"
+                               :key="param.staffParamId"
+                               :label="param.staffParamName"
+                               :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="职务" prop="post">
-                  <el-select v-model="staffForm.post" clearable placeholder="请选择职务">
-                    <el-option v-for="param in staffParam[6]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
+                <el-form-item label="职务"
+                              prop="post">
+                  <el-select v-model="staffForm.post"
+                             clearable
+                             placeholder="请选择职务">
+                    <el-option v-for="param in staffParam[6]"
+                               :key="param.staffParamId"
+                               :label="param.staffParamName"
+                               :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="职工类别" prop="type">
-                  <el-select v-model="staffForm.type" clearable placeholder="请选择职工类别">
-                    <el-option v-for="param in staffParam[8]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
+                <el-form-item label="职工类别"
+                              prop="type">
+                  <el-select v-model="staffForm.type"
+                             clearable
+                             placeholder="请选择职工类别">
+                    <el-option v-for="param in staffParam[8]"
+                               :key="param.staffParamId"
+                               :label="param.staffParamName"
+                               :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="工作状态" prop="status">
-                  <el-select v-model="staffForm.status" clearable placeholder="请选择工作状态">
-                    <el-option v-for="param in staffParam[9]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
+                <el-form-item label="工作状态"
+                              prop="status">
+                  <el-select v-model="staffForm.status"
+                             clearable
+                             placeholder="请选择工作状态">
+                    <el-option v-for="param in staffParam[9]"
+                               :key="param.staffParamId"
+                               :label="param.staffParamName"
+                               :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="工作部门" prop="dept">
-                  <el-select v-model="staffForm.dept" clearable filterable placeholder="请选择工作部门">
-                    <el-option v-for="param in staffParam[5]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
+                <el-form-item label="工作部门"
+                              prop="dept">
+                  <el-select v-model="staffForm.dept"
+                             clearable
+                             filterable
+                             placeholder="请选择工作部门">
+                    <el-option v-for="param in staffParam[5]"
+                               :key="param.staffParamId"
+                               :label="param.staffParamName"
+                               :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="优惠比例" prop="discountRate">
-                  <el-input v-model="staffForm.discountRate" placeholder="请输入优惠比例">
+                <el-form-item label="优惠比例"
+                              prop="discountRate">
+                  <el-input v-model="staffForm.discountRate"
+                            placeholder="请输入优惠比例">
                   </el-input>
                 </el-form-item>
               </div>
               <!-- 右半边的信息 -->
               <div class="single-staff-from">
-                <el-form-item label="上大学时间" prop="goUniversityTime">
-                  <el-date-picker v-model="staffForm.goUniversityTime" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
+                <el-form-item label="上大学时间"
+                              prop="goUniversityTime">
+                  <el-date-picker v-model="staffForm.goUniversityTime"
+                                  placeholder="请选择日期"
+                                  format="yyyy-MM-dd"
+                                  value-format="yyyy-MM-dd"></el-date-picker>
                 </el-form-item>
-                <el-form-item label="参加工作时间" prop="joinTime">
-                  <el-date-picker v-model="staffForm.joinTime" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
+                <el-form-item label="参加工作时间"
+                              prop="joinTime">
+                  <el-date-picker v-model="staffForm.joinTime"
+                                  placeholder="请选择日期"
+                                  format="yyyy-MM-dd"
+                                  value-format="yyyy-MM-dd"></el-date-picker>
                 </el-form-item>
-                <el-form-item label="来校工作时间" prop="firstJobTime">
-                  <el-date-picker v-model="staffForm.firstJobTime" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
+                <el-form-item label="来校工作时间"
+                              prop="firstJobTime">
+                  <el-date-picker v-model="staffForm.firstJobTime"
+                                  placeholder="请选择日期"
+                                  format="yyyy-MM-dd"
+                                  value-format="yyyy-MM-dd"></el-date-picker>
                 </el-form-item>
-                <el-form-item label="离退休时间" prop="retireTime">
-                  <el-date-picker v-model="staffForm.retireTime" placeholder="请选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd"></el-date-picker>
+                <el-form-item label="离退休时间"
+                              prop="retireTime">
+                  <el-date-picker v-model="staffForm.retireTime"
+                                  placeholder="请选择日期"
+                                  format="yyyy-MM-dd"
+                                  value-format="yyyy-MM-dd"></el-date-picker>
                 </el-form-item>
-                <el-form-item label="购房款" prop="buyAccount">
-                  <el-input v-model="staffForm.buyAccount" placeholder="请输入购房款">
+                <el-form-item label="购房款"
+                              prop="buyAccount">
+                  <el-input v-model="staffForm.buyAccount"
+                            placeholder="请输入购房款">
                   </el-input>
                 </el-form-item>
-                <el-form-item label="维修基金" prop="fixFund">
-                  <el-input v-model="staffForm.fixFund" placeholder="请输入维修基金">
+                <el-form-item label="维修基金"
+                              prop="fixFund">
+                  <el-input v-model="staffForm.fixFund"
+                            placeholder="请输入维修基金">
                   </el-input>
                 </el-form-item>
               </div>
@@ -116,32 +204,49 @@
             <div class="staff-from">
               <!-- 右半边的信息 -->
               <div class="single-staff-from">
-                <el-form-item label="姓名" prop="spouseName">
-                  <el-input v-model="staffForm.spouseName" placeholder="请输入配偶姓名"></el-input>
+                <el-form-item label="姓名"
+                              prop="spouseName">
+                  <el-input v-model="staffForm.spouseName"
+                            placeholder="请输入配偶姓名"></el-input>
                 </el-form-item>
-                <el-form-item label="身份证号" prop="spouseCode">
-                  <el-input v-model="staffForm.spouseCode" placeholder="请输入身份证号"></el-input>
+                <el-form-item label="身份证号"
+                              prop="spouseCode">
+                  <el-input v-model="staffForm.spouseCode"
+                            placeholder="请输入身份证号"></el-input>
                 </el-form-item>
               </div>
               <div class="single-staff-from">
                 <el-form-item label="单位性质">
-                  <el-select v-model="staffForm.spouseKind" placeholder="请选择单位性质">
-                    <el-option v-for="param in staffParam[10]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
+                  <el-select v-model="staffForm.spouseKind"
+                             placeholder="请选择单位性质">
+                    <el-option v-for="param in staffParam[10]"
+                               :key="param.staffParamId"
+                               :label="param.staffParamName"
+                               :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="工作部门">
-                  <el-input v-model="staffForm.spouseDept" placeholder="请输入工作部门"></el-input>
+                  <el-input v-model="staffForm.spouseDept"
+                            placeholder="请输入工作部门"></el-input>
                 </el-form-item>
               </div>
               <div class="single-staff-from">
                 <el-form-item label="职称">
-                  <el-select v-model="staffForm.spouseTitle" placeholder="请选择职称">
-                    <el-option v-for="param in staffParam[7]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
+                  <el-select v-model="staffForm.spouseTitle"
+                             placeholder="请选择职称">
+                    <el-option v-for="param in staffParam[7]"
+                               :key="param.staffParamId"
+                               :label="param.staffParamName"
+                               :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="职务">
-                  <el-select v-model="staffForm.spousePost" placeholder="请选择职务">
-                    <el-option v-for="param in staffParam[6]" :key="param.staffParamId" :label="param.staffParamName" :value="param.staffParamId"></el-option>
+                  <el-select v-model="staffForm.spousePost"
+                             placeholder="请选择职务">
+                    <el-option v-for="param in staffParam[6]"
+                               :key="param.staffParamId"
+                               :label="param.staffParamName"
+                               :value="param.staffParamId"></el-option>
                   </el-select>
                 </el-form-item>
               </div>
@@ -156,11 +261,12 @@
 <script type="text/ecmascript-6">
 import { postStaffData } from "@/api/basiceData";
 import { getStaffParam } from "@/api/sysManage";
+import { getPartAuthList } from '@/api/auth'
 import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
 import * as OPTION from "@/assets/data/formOption";
 import utils from "@/utils/index.js";
 export default {
-  data() {
+  data () {
     return {
       // 表单需要的信息
       staffForm: {},
@@ -169,6 +275,8 @@ export default {
       formOption: OPTION,
       // 编辑时候需要填充的数据
       staffParam: [],
+      // 用户组列表（id,groupName）
+      RoleIDs: [],
       // 表单验证规则
       rules: {
         no: [
@@ -219,6 +327,9 @@ export default {
             trigger: "blur"
           }
         ],
+        groupName: [
+          { required: true, message: '请选择所属用户组', trigger: 'change' }
+        ],
         buyAccount: {
           validator: checkNum,
           trigger: "blur"
@@ -252,13 +363,15 @@ export default {
   },
   // 监听
   watch: {},
-  created() {
+  created () {
     this.getParam();
+    this.getRoleIdByAuthList()
+
   },
   // 方法集合
   methods: {
     // 编辑时候需要获取的数据
-    getParam() {
+    getParam () {
       if (this.staffParam[5] != null) return;
       this.submitLoading = true;
       let param,
@@ -278,7 +391,7 @@ export default {
       }
     },
     // 新增提交
-    addSubmit() {
+    addSubmit () {
       this.$confirm("此操作新增职工", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -299,8 +412,16 @@ export default {
       });
     },
     // 路由返回
-    routerBack() {
+    routerBack () {
       this.$router.go(-1);
+    },
+    // 获取用户组部分信息（id、groupName）
+    getRoleIdByAuthList () {
+      getPartAuthList().then(res => {
+        this.RoleIDs = res.data.data.data
+      }).catch(err => {
+        this.$message.error(err)
+      })
     }
   }
 };

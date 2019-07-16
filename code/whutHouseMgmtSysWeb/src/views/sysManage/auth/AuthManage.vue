@@ -108,7 +108,6 @@
         <!-- 操作用户组的对话框 -->
         <el-dialog :visible.sync="AuthDialogVisiable"
                    custom-class="el-form-group"
-                   width="35%"
                    top="8vh"
                    center>
           <h2 slot="title"
@@ -132,6 +131,7 @@
 import { getAuthList, delAuthList, addAuth, getOneAuth, editAuth } from '@/api/auth'
 import AuthForm from './editAuth'
 import userRouters from './userRouters'
+import { numberToCampus } from "@/utils/auth"
 
 export default {
   components: { AuthForm },
@@ -156,18 +156,22 @@ export default {
       pageSize: 10,
       tableData: [],
       tableChecked: [],//选中项
-      groupFormData: {}
+      groupFormData: {},
     };
   },
   // 所以Props，methods,data和computed的初始化都是在beforeCreated和created之间完成的。
   created () {
     this.getTableData()
+    this.$store.dispatch("getCampusNumber")
   },
 
   computed: {
     // 前端式分页
     tableData2 () {
       return this.tableData.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+    },
+    campusList () {
+      return this.$store.getters.campusList
     }
   },
   methods: {
@@ -233,7 +237,8 @@ export default {
         groupName: '',
         remark: '',
         state: true,
-        property: '职工'
+        property: '职工',
+        manageCampus: []
       }
       this.AuthFormAddOrEdit = 'add'
       this.AuthDialogVisiable = true
@@ -252,8 +257,11 @@ export default {
           if (res.data.status === 'success') {
             let data = res.data.data.data
             data.checkedKeys = data.userRouters
+            console.log("this.campusList:", this.campusList)
+            data.manageCampus = numberToCampus(data.manageCampus, this.campusList.id, this.campusList.name)
             delete data.userRouters
             this.groupFormData = data
+            console.log("this.groupFormData:", this.groupFormData)
             resolve()
           } else {
             reject(new Error('获取该用户组信息失败，无法操作！'))
