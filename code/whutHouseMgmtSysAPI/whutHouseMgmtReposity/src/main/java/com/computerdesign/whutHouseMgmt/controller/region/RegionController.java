@@ -19,9 +19,11 @@ import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.Region;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.RegionWithBuilding;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.region.ViewRegion;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
+import com.computerdesign.whutHouseMgmt.service.authority.AuthListService;
 import com.computerdesign.whutHouseMgmt.service.building.BuildingService;
 import com.computerdesign.whutHouseMgmt.service.region.RegionService;
 import com.computerdesign.whutHouseMgmt.service.region.ViewRegionService;
+import com.computerdesign.whutHouseMgmt.utils.MyUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -35,6 +37,9 @@ public class RegionController {
 	private ViewRegionService viewRegionService;
 	@Autowired
 	private BuildingService buildingService;
+	
+	@Autowired
+	private AuthListService authListService;
 
 	@RequestMapping(value = "get/{id}", method = RequestMethod.GET)
 	public Msg getRegions(@PathVariable("id") Integer id) {
@@ -60,6 +65,41 @@ public class RegionController {
 		// 分页，下一条语句为查询语句
 		PageHelper.startPage(page, size);
 		List<ViewRegion> viewRegions = viewRegionService.getAll();
+
+		PageInfo<ViewRegion> pageInfo = new PageInfo<ViewRegion>(viewRegions);
+		if (viewRegions == null) {
+			return Msg.error("查找不到数据");
+		} else {
+			return Msg.success().add("data", pageInfo);
+		}
+	}
+	
+	/**
+	 * 不传入page和size 获取管理员权限内的全部数据
+	 * 
+	 * @param manageCampus
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@RequestMapping(value = "getRegionsWithMP/{roleId}", method = RequestMethod.GET)
+	public Msg getRegionsWithMP(@PathVariable("roleId") Integer roleId, @RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size) {
+		// 分页，下一条语句为查询语句
+		PageHelper.startPage(page, size);
+		
+		String manageCampus = authListService.getOneAuth(roleId).getManageCampus();
+//		System.out.println(manageCampus);
+//		解析manageCampus字段，获取管理员权限内的校区
+//		String[] campusStr = manageCampus.split("-");
+//		List<Integer> campusList = new ArrayList<>();
+//		for (String campus : campusStr){
+//			campusList.add(Integer.valueOf(campus));
+//		}
+		List<Integer> campusList = MyUtils.roleIdToMP(manageCampus);
+		System.out.println(campusList);
+		
+		List<ViewRegion> viewRegions = viewRegionService.getAllWithMP(campusList);
 
 		PageInfo<ViewRegion> pageInfo = new PageInfo<ViewRegion>(viewRegions);
 		if (viewRegions == null) {

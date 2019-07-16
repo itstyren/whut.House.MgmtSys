@@ -8,6 +8,7 @@
     <result column="State" jdbcType="BIT" property="state" />
     <result column="AddTime" jdbcType="TIMESTAMP" property="addTime" />
     <result column="Property" jdbcType="VARCHAR" property="property" />
+    <result column="ManageCampus" jdbcType="VARCHAR" property="manageCampus" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.computerdesign.whutHouseMgmt.bean.authority.AuthList">
     <result column="UserRouters" jdbcType="LONGVARCHAR" property="userRouters" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, GroupName, Remark, State, AddTime, Property
+    Id, GroupName, Remark, State, AddTime, Property, ManageCampus
   </sql>
   <sql id="Blob_Column_List">
     UserRouters
@@ -127,10 +128,10 @@
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.authority.AuthList">
     insert into au_authlist (Id, GroupName, Remark, 
       State, AddTime, Property, 
-      UserRouters)
+      ManageCampus, UserRouters)
     values (#{id,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{state,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, #{property,jdbcType=VARCHAR}, 
-      #{userRouters,jdbcType=LONGVARCHAR})
+      #{manageCampus,jdbcType=VARCHAR}, #{userRouters,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.authority.AuthList">
     insert into au_authlist
@@ -152,6 +153,9 @@
       </if>
       <if test="property != null">
         Property,
+      </if>
+      <if test="manageCampus != null">
+        ManageCampus,
       </if>
       <if test="userRouters != null">
         UserRouters,
@@ -175,6 +179,9 @@
       </if>
       <if test="property != null">
         #{property,jdbcType=VARCHAR},
+      </if>
+      <if test="manageCampus != null">
+        #{manageCampus,jdbcType=VARCHAR},
       </if>
       <if test="userRouters != null">
         #{userRouters,jdbcType=LONGVARCHAR},
@@ -208,6 +215,9 @@
       <if test="record.property != null">
         Property = #{record.property,jdbcType=VARCHAR},
       </if>
+      <if test="record.manageCampus != null">
+        ManageCampus = #{record.manageCampus,jdbcType=VARCHAR},
+      </if>
       <if test="record.userRouters != null">
         UserRouters = #{record.userRouters,jdbcType=LONGVARCHAR},
       </if>
@@ -224,6 +234,7 @@
       State = #{record.state,jdbcType=BIT},
       AddTime = #{record.addTime,jdbcType=TIMESTAMP},
       Property = #{record.property,jdbcType=VARCHAR},
+      ManageCampus = #{record.manageCampus,jdbcType=VARCHAR},
       UserRouters = #{record.userRouters,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -236,7 +247,8 @@
       Remark = #{record.remark,jdbcType=VARCHAR},
       State = #{record.state,jdbcType=BIT},
       AddTime = #{record.addTime,jdbcType=TIMESTAMP},
-      Property = #{record.property,jdbcType=VARCHAR}
+      Property = #{record.property,jdbcType=VARCHAR},
+      ManageCampus = #{record.manageCampus,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -259,6 +271,9 @@
       <if test="property != null">
         Property = #{property,jdbcType=VARCHAR},
       </if>
+      <if test="manageCampus != null">
+        ManageCampus = #{manageCampus,jdbcType=VARCHAR},
+      </if>
       <if test="userRouters != null">
         UserRouters = #{userRouters,jdbcType=LONGVARCHAR},
       </if>
@@ -272,6 +287,7 @@
       State = #{state,jdbcType=BIT},
       AddTime = #{addTime,jdbcType=TIMESTAMP},
       Property = #{property,jdbcType=VARCHAR},
+      ManageCampus = #{manageCampus,jdbcType=VARCHAR},
       UserRouters = #{userRouters,jdbcType=LONGVARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
@@ -281,7 +297,8 @@
       Remark = #{remark,jdbcType=VARCHAR},
       State = #{state,jdbcType=BIT},
       AddTime = #{addTime,jdbcType=TIMESTAMP},
-      Property = #{property,jdbcType=VARCHAR}
+      Property = #{property,jdbcType=VARCHAR},
+      ManageCampus = #{manageCampus,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

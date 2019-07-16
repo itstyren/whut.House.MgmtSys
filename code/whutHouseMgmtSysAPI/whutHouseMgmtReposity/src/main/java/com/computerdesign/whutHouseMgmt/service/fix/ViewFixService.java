@@ -205,7 +205,7 @@ public class ViewFixService {
 	 */
 	public List<ViewFix> getAcceptUntil() {
 		ViewFixExample example = new ViewFixExample();
-		Criteria criteria = example.createCriteria();
+		Criteria criteria = example.createCriteria();		
 		criteria.andIsOverEqualTo(false);
 		criteria.andFixStateEqualTo("待受理");
 		return viewFixMapper.selectByExample(example);

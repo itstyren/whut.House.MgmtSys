@@ -55,4 +55,16 @@ public class ViewRegionService {
 	public List<ViewRegion> getAll() {
 		return viewRegionMapper.selectByExample(null);
 	}
+	
+	/**
+	 * 返回管理员权限内的ViewRegion
+	 * 
+	 * @return
+	 */
+	public List<ViewRegion> getAllWithMP(List<Integer> campusList) {
+		ViewRegionExample example = new ViewRegionExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andCampusIdIn(campusList);
+		return viewRegionMapper.selectByExample(example);
+	}
 }

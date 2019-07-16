@@ -494,6 +494,76 @@ public class AuthListExample {
             addCriterion("Property not between", value1, value2, "property");
             return (Criteria) this;
         }
+
+        public Criteria andManageCampusIsNull() {
+            addCriterion("ManageCampus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusIsNotNull() {
+            addCriterion("ManageCampus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusEqualTo(String value) {
+            addCriterion("ManageCampus =", value, "manageCampus");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusNotEqualTo(String value) {
+            addCriterion("ManageCampus <>", value, "manageCampus");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusGreaterThan(String value) {
+            addCriterion("ManageCampus >", value, "manageCampus");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusGreaterThanOrEqualTo(String value) {
+            addCriterion("ManageCampus >=", value, "manageCampus");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusLessThan(String value) {
+            addCriterion("ManageCampus <", value, "manageCampus");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusLessThanOrEqualTo(String value) {
+            addCriterion("ManageCampus <=", value, "manageCampus");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusLike(String value) {
+            addCriterion("ManageCampus like", value, "manageCampus");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusNotLike(String value) {
+            addCriterion("ManageCampus not like", value, "manageCampus");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusIn(List<String> values) {
+            addCriterion("ManageCampus in", values, "manageCampus");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusNotIn(List<String> values) {
+            addCriterion("ManageCampus not in", values, "manageCampus");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusBetween(String value1, String value2) {
+            addCriterion("ManageCampus between", value1, value2, "manageCampus");
+            return (Criteria) this;
+        }
+
+        public Criteria andManageCampusNotBetween(String value1, String value2) {
+            addCriterion("ManageCampus not between", value1, value2, "manageCampus");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
