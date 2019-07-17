@@ -29,12 +29,14 @@ import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
+import com.computerdesign.whutHouseMgmt.service.authority.AuthListService;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
+import com.computerdesign.whutHouseMgmt.utils.MyUtils;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -58,6 +60,9 @@ public class FixController {
 	@Autowired
 	private RegisterService registerService;
 
+	@Autowired
+	private AuthListService authListService;
+	
 	/**
 	 * 个人信息页面，通过id获取维修信息
 	 * 
@@ -336,6 +341,35 @@ public class FixController {
 		// PageInfo pageInfo = new PageInfo(listViewFix);
 		// return Msg.success("获取全部尚未定价的维修信息").add("data", pageInfo);
 	}
+	
+	/**
+	 * 维修申请管理
+	 * 获取全部尚未定价的维修信息
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getFixManagement/{roleId}", method = RequestMethod.GET)
+	public Msg getFixManagementWithMP(@PathVariable("roleId") Integer roleId,@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size) {
+//		获取管理员权限范围的校区
+		String manageCampus = authListService.getOneAuth(roleId).getManageCampus();
+		List<Integer> campusList = MyUtils.roleIdToMP(manageCampus);
+		
+		PageHelper.startPage(page, size);
+		List<ViewFix> listViewFix = viewFixService.getManagementWithMP(campusList);
+
+		String[] fileds = { "id", "fixContentId", "fixContentName", "fixState", "description", "applyTime", "staffName",
+				"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote", "acceptTime",
+				"acceptState", "agreeMan", "agreeNote", "agreeTime", "agreeState" };
+		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);
+		// 让listViewFix设置好pageInfo中的各项属性，再替换pageInfo中的list
+		PageInfo pageInfo = new PageInfo(listViewFix);
+		pageInfo.setList(response);
+
+		return Msg.success("获取全部尚未定价的维修信息").add("data", pageInfo);
+		// PageInfo pageInfo = new PageInfo(listViewFix);
+		// return Msg.success("获取全部尚未定价的维修信息").add("data", pageInfo);
+	}
 
 	/**
 	 * 获取结算页面信息
@@ -380,6 +414,27 @@ public class FixController {
 		return Msg.success().add("data", pageInfo);
 	}
 
+	/**
+	 * 结算页面按条件查询
+	 * 
+	 * @param fixGetCheck
+	 * @return
+	 */
+	@RequestMapping(value = "getCheckByAllMultiCondition/{roleId}", method = RequestMethod.POST)
+	public Msg getFixCheckWithMP(@PathVariable("roleId") Integer roleId, @RequestBody FixGetCheck fixGetCheck,
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "0") Integer size) {
+//		获取管理员权限范围的校区
+		String manageCampus = authListService.getOneAuth(roleId).getManageCampus();
+		List<Integer> campusList = MyUtils.roleIdToMP(manageCampus);
+		
+		PageHelper.startPage(page, size);
+		List<ViewFix> list = viewFixService.getByMultiConditionWithMP(fixGetCheck, campusList);
+
+		PageInfo pageInfo = new PageInfo(list);
+		return Msg.success().add("data", pageInfo);
+	}
+	
 	/**
 	 * 维修定价
 	 * 
