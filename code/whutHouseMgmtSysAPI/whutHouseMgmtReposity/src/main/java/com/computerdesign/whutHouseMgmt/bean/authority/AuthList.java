@@ -21,6 +21,8 @@ public class AuthList {
 
     private String property;
 
+    private String manageCampus;
+
     private String userRouters;
 
     public Integer getId() {
@@ -69,6 +71,14 @@ public class AuthList {
 
     public void setProperty(String property) {
         this.property = property == null ? null : property.trim();
+    }
+
+    public String getManageCampus() {
+        return manageCampus;
+    }
+
+    public void setManageCampus(String manageCampus) {
+        this.manageCampus = manageCampus == null ? null : manageCampus.trim();
     }
 
     public String getUserRouters() {

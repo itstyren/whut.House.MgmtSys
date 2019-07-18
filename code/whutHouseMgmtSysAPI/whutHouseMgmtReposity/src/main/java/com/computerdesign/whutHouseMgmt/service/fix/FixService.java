@@ -9,13 +9,18 @@ import org.springframework.stereotype.Service;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample.Criteria;
+import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFixExample;
 import com.computerdesign.whutHouseMgmt.dao.fix.FixMapper;
+import com.computerdesign.whutHouseMgmt.dao.fix.ViewFixMapper;
 
 @Service
 public class FixService {
 
 	@Autowired
 	private FixMapper fixMapper;
+	
+	@Autowired
+	private ViewFixMapper viewFixMapper;
 
 	/**
 	 * 根据id获取一个fix
@@ -69,6 +74,23 @@ public class FixService {
 		criteria.andApplyTimeEqualTo(date);
 		return fixMapper.countByExample(example);
 	}
+	
+	
+	/**
+	 * 指定日期的申请量，附带管理员权限
+	 * @param date
+	 * @param campusIds
+	 * @return
+	 */
+	public Long getCountTodayApplyWithMP(Date date, List<Integer> campusIds) {
+//		FixExample example = new FixExample();
+		ViewFixExample example = new ViewFixExample();
+		com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFixExample.Criteria criteria = example.createCriteria();
+		criteria.andApplyTimeEqualTo(date);
+		criteria.andCampusIdIn(campusIds);
+//		return fixMapper.countByExample(example);
+		return viewFixMapper.countByExample(example);
+	}
 
 	/**
 	 * 指定日期间的申请量
@@ -103,6 +125,34 @@ public class FixService {
 		agreeCriteria.andIsOverEqualTo(true);
 		agreeCriteria.andAgreeTimeEqualTo(date);
 		return fixMapper.countByExample(agreeExample) + fixMapper.countByExample(acceptExample);
+	}
+	
+	/**
+	 * 获取指定日期全部拒绝的维修请求数量，附带管理员权限
+	 * @param date
+	 * @param campusIds
+	 * @return
+	 */
+	public Long getTotalCountRefusedWithMP(Date date, List<Integer> campusIds) {
+//		FixExample acceptExample = new FixExample();
+		ViewFixExample acceptExample = new ViewFixExample();
+		com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFixExample.Criteria acceptCriteria = acceptExample.createCriteria();
+		acceptCriteria.andFixStateEqualTo("受理拒绝");
+		acceptCriteria.andIsOverEqualTo(true);
+		acceptCriteria.andAcceptTimeEqualTo(date);
+		
+		acceptCriteria.andCampusIdIn(campusIds);
+
+//		FixExample agreeExample = new FixExample();
+		ViewFixExample agreeExample = new ViewFixExample();
+		com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFixExample.Criteria agreeCriteria = agreeExample.createCriteria();
+		agreeCriteria.andFixStateEqualTo("审核拒绝");
+		agreeCriteria.andIsOverEqualTo(true);
+		agreeCriteria.andAgreeTimeEqualTo(date);
+		
+		agreeCriteria.andCampusIdIn(campusIds);
+//		return fixMapper.countByExample(agreeExample) + fixMapper.countByExample(acceptExample);
+		return viewFixMapper.countByExample(agreeExample) + viewFixMapper.countByExample(acceptExample);
 	}
 
 	/**
@@ -142,6 +192,24 @@ public class FixService {
 		criteria.andIsOverEqualTo(true);
 		criteria.andAgreeStateEqualTo("通过");
 		return fixMapper.countByExample(example);
+	}
+	
+	/**
+	 * 获取全部通过的维修信息，附带管理员权限
+	 * @param date
+	 * @param campusIds
+	 * @return
+	 */
+	public Long getCountAgreetedWithMP(Date date, List<Integer> campusIds) {
+//		FixExample example = new FixExample();
+		ViewFixExample example = new ViewFixExample();
+		com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFixExample.Criteria criteria = example.createCriteria();
+		criteria.andAgreeTimeEqualTo(date);
+		criteria.andIsOverEqualTo(true);
+		criteria.andAgreeStateEqualTo("通过");
+		criteria.andCampusIdIn(campusIds);
+//		return fixMapper.countByExample(example);
+		return viewFixMapper.countByExample(example);
 	}
 
 	/**

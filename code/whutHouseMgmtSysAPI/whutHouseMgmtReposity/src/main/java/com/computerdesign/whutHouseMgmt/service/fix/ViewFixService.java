@@ -63,6 +63,21 @@ public class ViewFixService {
 		criteria.andApplyTimeBetween(startTime, endTime);
 		return viewFixMapper.selectByExample(example);
 	}
+	
+	/**
+	 * 根据起始时间和结束时间获取全部的维修信息 使用的ViewFix表，附带管理员权限
+	 * @param startTime
+	 * @param endTime
+	 * @param campusIds
+	 * @return
+	 */
+	public List<ViewFix> getByTimeWithMP(Date startTime, Date endTime, List<Integer> campusIds) {
+		ViewFixExample example = new ViewFixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andApplyTimeBetween(startTime, endTime);
+		criteria.andCampusIdIn(campusIds);
+		return viewFixMapper.selectByExample(example);
+	}
 
 	/**
 	 * 根据条件查询 FixGetCheck中包括申请时间的起始和终止时间，维修内容属于哪一项
@@ -107,6 +122,56 @@ public class ViewFixService {
 		return viewFixMapper.selectByExample(example);
 
 	}
+	
+
+	/**
+	 * 维修结算
+	 * 根据条件查询 FixGetCheck中包括申请时间的起始和终止时间，维修内容属于哪一项，附带管理员权限
+	 * @param fixGetCheck
+	 * @param campusIds
+	 * @return
+	 */
+	public List<ViewFix> getByMultiConditionWithMP(FixGetCheck fixGetCheck, List<Integer> campusIds) {
+		ViewFixExample example = new ViewFixExample();
+		Criteria criteria = example.createCriteria();
+		example.setOrderByClause("IsCheck");
+		Date startTime = fixGetCheck.getStartTime();
+		Date endTime = fixGetCheck.getEndTime();
+		Integer conditionId = fixGetCheck.getConditionId();
+		String conditionContent = fixGetCheck.getConditionContent();
+		
+		criteria.andCampusIdIn(campusIds);
+		
+		// 时间参数
+		if (startTime != null && endTime != null) {
+			// 时间在中间
+			criteria.andApplyTimeBetween(startTime, endTime);
+		} else if (startTime != null && endTime == null) {
+			// 时间大于设置的起始时间
+			criteria.andApplyTimeGreaterThanOrEqualTo(startTime);
+		} else if (startTime == null && endTime != null) {
+			// 时间小于设置的终止时间
+			criteria.andApplyTimeLessThanOrEqualTo(endTime);
+		}
+
+		// 强制参数
+		if (conditionContent != null) {
+			if (conditionId == 1) {
+				criteria.andIdEqualTo(Integer.parseInt(conditionContent));
+			} else if (conditionId == 2) {
+				criteria.andStaffNoEqualTo(conditionContent);
+			} else if (conditionId == 3) {
+				criteria.andHouseNoEqualTo(conditionContent);
+			} else if (conditionId == 4) {
+				criteria.andStaffNameEqualTo(conditionContent);
+			}
+		}
+		criteria.andIsOverEqualTo(true);
+		criteria.andAgreeStateEqualTo("通过");
+		return viewFixMapper.selectByExample(example);
+
+	}
+	
 
 	/**
 	 * 根据条件查询维修信息
@@ -120,6 +185,53 @@ public class ViewFixService {
 		Date endTime = fixAllSelectModel.getEndTime();
 		ViewFixExample viewFixExample = new ViewFixExample();
 		Criteria criteria = viewFixExample.createCriteria();
+		if (isRating == true) {
+			criteria.andRatingsIsNotNull();
+		}
+		if (fixAllSelectModel.getCampusId() != null) {
+			criteria.andCampusIdEqualTo(fixAllSelectModel.getCampusId());
+		}
+		if (fixAllSelectModel.getRegionId() != null) {
+			criteria.andRegionIdEqualTo(fixAllSelectModel.getRegionId());
+		}
+		if (fixAllSelectModel.getBuildingId() != null) {
+			criteria.andBuildingIdEqualTo(fixAllSelectModel.getBuildingId());
+		}
+		if (fixAllSelectModel.getFixContentId() != null) {
+			criteria.andFixContentIdEqualTo(fixAllSelectModel.getFixContentId());
+		}
+
+		// 时间设定
+		if (startTime != null && endTime != null) {
+			// 时间在中间
+			criteria.andApplyTimeBetween(startTime, endTime);
+		} else if (startTime != null && endTime == null) {
+			// 时间大于设置的起始时间
+			criteria.andApplyTimeGreaterThanOrEqualTo(startTime);
+		} else if (startTime == null && endTime != null) {
+			// 时间小于设置的终止时间
+			criteria.andApplyTimeLessThanOrEqualTo(endTime);
+		}
+		
+		return viewFixMapper.selectByExample(viewFixExample);
+	}
+	
+	/**
+	 * 根据条件查询维修信息，附带管理员权限
+	 * isRating为true则表示要求评价后的数据，如何为false则表示不做评价要求
+	 * @param fixAllSelectModel
+	 * @param isRating
+	 * @param campusIds
+	 * @return
+	 */
+	public List<ViewFix> multiConditionQueryWithMP(FixAllSelectModel fixAllSelectModel,boolean isRating, List<Integer> campusIds) {
+		Date startTime = fixAllSelectModel.getStartTime();
+		Date endTime = fixAllSelectModel.getEndTime();
+		ViewFixExample viewFixExample = new ViewFixExample();
+		Criteria criteria = viewFixExample.createCriteria();
+		
+		criteria.andCampusIdIn(campusIds);
+		
 		if (isRating == true) {
 			criteria.andRatingsIsNotNull();
 		}
@@ -205,11 +317,26 @@ public class ViewFixService {
 	 */
 	public List<ViewFix> getAcceptUntil() {
 		ViewFixExample example = new ViewFixExample();
-		Criteria criteria = example.createCriteria();
+		Criteria criteria = example.createCriteria();		
 		criteria.andIsOverEqualTo(false);
 		criteria.andFixStateEqualTo("待受理");
 		return viewFixMapper.selectByExample(example);
 	}
+	
+	/**
+	 * 获取全部待受理的维修信息 获取条件为IsOver为0，FixState为"待受理"，附带管理员权限
+	 * 
+	 * @return
+	 */
+	public List<ViewFix> getAcceptUntilWithMP(List<Integer> campusIds) {
+		ViewFixExample example = new ViewFixExample();
+		Criteria criteria = example.createCriteria();		
+		criteria.andIsOverEqualTo(false);
+		criteria.andCampusIdIn(campusIds);
+		criteria.andFixStateEqualTo("待受理");
+		return viewFixMapper.selectByExample(example);
+	}
+	
 
 	/**
 	 * 获取全部的已经受理的维修信息 获取条件为AcceptState不为空
@@ -224,6 +351,22 @@ public class ViewFixService {
 		criteria.andAcceptStateIsNotNull();
 		return viewFixMapper.selectByExample(example);
 	}
+	
+	/**
+	 * 获取全部的已经受理的维修信息 获取条件为AcceptState不为空，附带管理员权限
+	 * 
+	 * @return
+	 */
+	public List<ViewFix> getAcceptHasBeenWithMP(List<Integer> campusIds) {
+		ViewFixExample example = new ViewFixExample();
+		example.setOrderByClause("ApplyTime DESC");
+		Criteria criteria = example.createCriteria();
+		// 已经受理的信息在AcceptState不为空
+		criteria.andAcceptStateIsNotNull();
+		criteria.andCampusIdIn(campusIds);
+		return viewFixMapper.selectByExample(example);
+	}
+	
 
 	/**
 	 * 获取全部待审核的维修信息 获取条件IsOver为0，FixState为“待审核”，AcceptState为“通过”
@@ -235,6 +378,20 @@ public class ViewFixService {
 		Criteria criteria = example.createCriteria();
 		criteria.andFixStateEqualTo("待审核");
 		criteria.andAcceptStateEqualTo("通过");
+		return viewFixMapper.selectByExample(example);
+	}
+	
+	/**
+	 * 获取全部待审核的维修信息 获取条件IsOver为0，FixState为“待审核”，AcceptState为“通过”，附带管理员权限
+	 * 
+	 * @return
+	 */
+	public List<ViewFix> getAgreeUntilWithMP(List<Integer> campusIds) {
+		ViewFixExample example = new ViewFixExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andFixStateEqualTo("待审核");
+		criteria.andAcceptStateEqualTo("通过");
+		criteria.andCampusIdIn(campusIds);
 		return viewFixMapper.selectByExample(example);
 	}
 
@@ -252,6 +409,22 @@ public class ViewFixService {
 		criteria.andAgreeStateIsNotNull();
 		return viewFixMapper.selectByExample(example);
 	}
+	
+	/**
+	 * 获取全部的已审核的维修信息，附带管理员权限
+	 * 
+	 * @return
+	 */
+	public List<ViewFix> getAgreeHasBeenWithMP(List<Integer> campusIds) {
+		ViewFixExample example = new ViewFixExample();
+		example.setOrderByClause("ApplyTime DESC");
+		Criteria criteria = example.createCriteria();
+		criteria.andIsOverEqualTo(true);
+		// 已经审核的信息在AgreeState不为空
+		criteria.andAgreeStateIsNotNull();
+		criteria.andCampusIdIn(campusIds);
+		return viewFixMapper.selectByExample(example);
+	}
 
 	/**
 	 * 获取全部未定价，未结算的维修信息
@@ -264,6 +437,22 @@ public class ViewFixService {
 		Criteria criteria = example.createCriteria();
 		criteria.andIsCheckEqualTo(false);
 		criteria.andPriceTimeIsNull();
+		return viewFixMapper.selectByExample(example);
+	}
+	
+	/**
+	 * 维修申请管理
+	 * 获取全部未定价，未结算的维修信息，附带管理员权限
+	 * 
+	 * @return
+	 */
+	public List<ViewFix> getManagementWithMP(List<Integer> campusIds) {
+		ViewFixExample example = new ViewFixExample();
+		example.setOrderByClause("ApplyTime DESC");
+		Criteria criteria = example.createCriteria();
+		criteria.andIsCheckEqualTo(false);
+		criteria.andPriceTimeIsNull();
+		criteria.andCampusIdIn(campusIds);
 		return viewFixMapper.selectByExample(example);
 	}
 }

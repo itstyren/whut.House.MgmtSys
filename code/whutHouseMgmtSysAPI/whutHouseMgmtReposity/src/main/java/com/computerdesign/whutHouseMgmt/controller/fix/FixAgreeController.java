@@ -15,9 +15,11 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.fix.agree.FixAddAgree;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
+import com.computerdesign.whutHouseMgmt.service.authority.AuthListService;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastFixRecordService;
+import com.computerdesign.whutHouseMgmt.utils.MyUtils;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.computerdesign.whutHouseMgmt.utils.StaffHomePageUtils;
 
@@ -35,6 +37,9 @@ public class FixAgreeController {
 
 	@Autowired
 	private LastFixRecordService lastFixRecordService;
+	
+	@Autowired
+	private AuthListService authListService;
 	
 	/**
 	 * 获取维修审核页面的信息，agreeState=1为获取全部的已经过审核操作的信息
@@ -55,6 +60,40 @@ public class FixAgreeController {
 			return Msg.success("获取全部的待审核信息").add("data", response);
 		}else if (1 == agreeState) {
 			List<ViewFix> list = viewFixService.getAgreeHasBeen();
+			
+			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
+					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
+					"acceptTime", "acceptState" ,"agreeMan", "agreeNote","agreeTime", "agreeState"};
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
+			return Msg.success("获取全部的已经过审核操作的信息").add("data", response);
+		}else{
+			return Msg.error("请检查你的网络");
+		}
+	}
+	
+	/**
+	 * 获取维修审核页面的信息，agreeState=1为获取全部的已经过审核操作的信息，附带管理员权限
+	 * @param agreeState
+	 * @return
+	 */
+	@RequestMapping(value = "getAgree/{agreeState}/{roleId}",method = RequestMethod.GET)
+	public Msg getFixAgreeWithMP(@PathVariable("agreeState")Integer agreeState, @PathVariable("roleId") Integer roleId){
+//		获取管理员权限范围的校区
+		String manageCampus = authListService.getOneAuth(roleId).getManageCampus();
+		List<Integer> campusList = MyUtils.roleIdToMP(manageCampus);
+		
+		if( agreeState == null){
+			return Msg.error("请检查你的网络");
+		}else if(0 == agreeState){
+			List<ViewFix> list = viewFixService.getAgreeUntilWithMP(campusList);
+			
+			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
+					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
+					"acceptTime", "acceptState" };
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
+			return Msg.success("获取全部的待审核信息").add("data", response);
+		}else if (1 == agreeState) {
+			List<ViewFix> list = viewFixService.getAgreeHasBeenWithMP(campusList);
 			
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
 					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",

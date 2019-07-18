@@ -27,5 +27,13 @@
 		<input type="submit" value="保存">
 	</form>
 	
+	<form action="fileUpload/multiFileUpload" method="post" enctype="multipart/form-data">
+		File1:<input type="file" name="file">
+		File2:<input type="file" name="file">
+		<input type="submit" value="Submit">
+	</form>
+	
+	<img alt="图片" src="http://172.16.65.105:8080/images/1.jpg">
+	
 </body>
 </html>

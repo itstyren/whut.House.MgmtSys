@@ -16,8 +16,10 @@ import com.computerdesign.whutHouseMgmt.bean.fix.accept.FixAddAccept;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastFixRecord;
+import com.computerdesign.whutHouseMgmt.service.authority.AuthListService;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
+import com.computerdesign.whutHouseMgmt.utils.MyUtils;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 
 import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastFixRecordService;
@@ -37,6 +39,9 @@ public class FixAcceptController {
 	
 	@Autowired
 	private LastFixRecordService lastFixRecordService;
+	
+	@Autowired
+	private AuthListService authListService;
 	
 	/**
 	 * 获取受理页面信息
@@ -68,6 +73,44 @@ public class FixAcceptController {
 		}
 
 	}
+	
+	/**
+	 * 获取受理页面信息，附带管理员权限
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getAccept/{acceptState}/{roleId}", method = RequestMethod.GET)
+	public Msg getFixAcceptWithMP(@PathVariable("acceptState") Integer acceptState, @PathVariable("roleId") Integer roleId) {
+
+//		获取管理员权限范围的校区
+		String manageCampus = authListService.getOneAuth(roleId).getManageCampus();
+		List<Integer> campusList = MyUtils.roleIdToMP(manageCampus);
+		
+		if (acceptState == null) {
+			return Msg.error("请检查你的网络");
+			// acceptState=0表示待受理的
+		} else if (0 == acceptState) {
+//			List<ViewFix> list = viewFixService.getAcceptUntil();
+			List<ViewFix> list = viewFixService.getAcceptUntilWithMP(campusList);
+			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
+					"titleName", "postName", "deptName", "phone", "address"};
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
+			return Msg.success("获取全部的待受理信息").add("data", response);
+
+		} else if (1 == acceptState) {
+//			List<ViewFix> list = viewFixService.getAcceptHasBeen();
+			List<ViewFix> list = viewFixService.getAcceptHasBeenWithMP(campusList);
+			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
+					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
+					"acceptTime", "acceptState" };
+			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
+			return Msg.success("获取全部的已进行受理操作的信息").add("data", response);
+		} else {
+			return Msg.error("请检查你的网络");
+		}
+
+	}
+	
 
 	/**
 	 * 维修受理处理
