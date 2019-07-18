@@ -1,5 +1,6 @@
 package com.computerdesign.whutHouseMgmt.controller.house;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -269,7 +270,7 @@ public class HouseController {
 		} else if (house.getBuildingId() == null) {
 			return Msg.error("房屋楼栋不能为空");
 		}
-
+		
 		// 根据传入的编号获取数据库中的该house
 		List<House> housePres = houseService.getHouseByNo(house.getNo());
 		// 根据传入的id获取数据库中的该house
@@ -296,6 +297,49 @@ public class HouseController {
 			return Msg.error("不存在的住房类型");
 		}
 
+
+//		图片保存与删除
+		if(house.getImage() != null){
+//			获取传来的路径
+			String[] paths = house.getImage().split(",");
+//			System.out.println("paths:" + paths);
+			
+//			获取数据库保存的路径
+			String imagePath = houseService.get(house.getId()).getImage();
+//			若原来该住房有图片，则需要进行比对，是否删除
+			if(imagePath != null){
+				String[] originPaths = imagePath.split(",");
+//				System.out.println("originPaths:" + originPaths);
+//				将数据库中原保存的图片与现在上传的图片一一比对，若不存在则删除图片文件
+				for (String originPath : originPaths){
+					boolean flag = false;
+					for (String path : paths){
+//						System.out.println(originPath + ":" + path);
+						if (originPath.equals(path)){
+//							System.out.println("相等");
+							flag = true;
+							break;
+						}
+					}
+					if (flag){
+//						System.out.println("aaa");
+						continue;
+					}else{
+						String fileName = originPath.substring(originPath.lastIndexOf("/"), originPath.length());
+//						System.out.println(fileName);
+						String filePathName = "E:\\WhutHouseSysImage\\" + fileName;
+						File file = new File(filePathName);
+						if(file.delete()){
+							System.out.println("图片删除成功");
+						}else{
+							return Msg.error("重复图片删除失败");
+						}
+					}
+				}
+			}
+			
+		}
+		
 		try {
 			houseService.update(house);
 			return Msg.success("修改成功");
