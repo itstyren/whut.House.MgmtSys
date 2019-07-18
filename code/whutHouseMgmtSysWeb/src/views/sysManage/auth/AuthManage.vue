@@ -257,11 +257,9 @@ export default {
           if (res.data.status === 'success') {
             let data = res.data.data.data
             data.checkedKeys = data.userRouters
-            console.log("this.campusList:", this.campusList)
             data.manageCampus = numberToCampus(data.manageCampus, this.campusList.id, this.campusList.name)
             delete data.userRouters
             this.groupFormData = data
-            console.log("this.groupFormData:", this.groupFormData)
             resolve()
           } else {
             reject(new Error('获取该用户组信息失败，无法操作！'))

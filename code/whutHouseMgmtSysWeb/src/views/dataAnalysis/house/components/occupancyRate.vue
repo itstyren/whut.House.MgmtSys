@@ -1,14 +1,16 @@
 <template>
-  <div class="card" :style="{height:height,width:width}">
+  <div class="card"
+       :style="{height:height,width:width}">
     <div class="title">
       <strong>入住率分析</strong>
     </div>
-    <div class="chart" ref="structPie"></div>
+    <div class="chart"
+         ref="structPie"></div>
   </div>
 </template>
 
 <script>
-const color=['#3fb1e3','#6be6c1','#626c91','#a0a7e6','#c4ebad','#96dee8']
+const color = ['#3fb1e3', '#6be6c1', '#626c91', '#a0a7e6', '#c4ebad', '#96dee8']
 import echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
 import { postHouseRecordCampus } from "@/api/dataAnalysis.js";
@@ -28,12 +30,12 @@ export default {
       default: {}
     }
   },
-  data() {
+  data () {
     return {
       chart: null
     };
   },
-  mounted() {
+  mounted () {
     this.initChart();
     this.getData();
     if (this.autoResize) {
@@ -48,17 +50,18 @@ export default {
   watch: {
     chartData: {
       deep: true,
-      handler(val) {
+      handler (val) {
         this.setOptions(val);
       }
     }
   },
   methods: {
-    getData() {
+    getData () {
       if (arguments[0] !== undefined) var data = arguments[0];
       else var data = {};
+      let roleId = this.$store.getters.roleId
       this.chart.showLoading();
-      postHouseRecordCampus(data).then(res => {
+      postHouseRecordCampus(data, roleId).then(res => {
         let _series = [];
         res.data.data.data.forEach((data, index) => {
           // console.log(data)
@@ -107,7 +110,7 @@ export default {
         this.chart.hideLoading();
       });
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions ({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {},
         series: [
@@ -125,7 +128,7 @@ export default {
             type: "pie",
             radius: ["40%", "70%"],
             center: ["30%", "50%"],
-            color:"#ddd",
+            color: "#ddd",
             label: {
               normal: {
                 position: "center"
@@ -168,7 +171,7 @@ export default {
         animationEasing: "cubicInOut"
       });
     },
-    initChart() {
+    initChart () {
       this.chart = echarts.init(this.$refs.structPie);
       this.setOptions(this.chartData);
     }

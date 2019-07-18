@@ -443,7 +443,6 @@ export default {
     .el-select {
       display: inline-block;
       position: relative;
-      width: 205px;
     } // 员工主表
     h1 {
       margin-left: 10px;

@@ -73,8 +73,8 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="3"
-                :offset="1">
+        <el-col :span="4"
+                class="horizontalCenter">
           <el-button type="danger"
                      size="small"
                      @click="resseting">重置</el-button>
@@ -232,5 +232,9 @@ export default {
   .el-form-item {
     margin-bottom: 5px;
   }
+}
+.horizontalCenter {
+  display: flex;
+  justify-content: center;
 }
 </style>

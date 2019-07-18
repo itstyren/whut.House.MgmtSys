@@ -20,139 +20,236 @@
           <!-- 表格区 -->
           <div class="main-data">
             <!-- 申请表单区 -->
-            <div class="apply-from card" v-loading="listLoading">
-              <el-steps :active="active" finish-status="success">
+            <div class="apply-from card"
+                 v-loading="listLoading">
+              <el-steps :active="active"
+                        finish-status="success">
                 <el-step title="个人信息"></el-step>
                 <el-step title="选择住房"></el-step>
                 <el-step title="填写原因"></el-step>
               </el-steps>
-              <el-form :model="accoutInfo" label-width="100px" inline ref="fixApplyForm" :rules="rules">
+              <el-form :model="accoutInfo"
+                       label-width="100px"
+                       inline
+                       ref="fixApplyForm"
+                       :rules="rules">
                 <!-- 个人信息区域 -->
-                <div v-if="active==0" class="personal-info">
-                  <el-row type="flex" justify="center">
+                <div v-if="active==0"
+                     class="personal-info">
+                  <el-row type="flex"
+                          justify="center">
                     <el-col :span="10">
-                      <el-form-item label="职工号">
-                        <el-input v-model="accoutInfo.no" :readonly="true"></el-input>
+                      <el-form-item label="职工号"
+                                    prop="no">
+                        <el-input v-model="accoutInfo.no"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
-                      <el-form-item label="姓名">
-                        <el-input v-model="accoutInfo.name" :readonly="true"></el-input>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row type="flex" justify="center">
-                    <el-col :span="10">
-                      <el-form-item label="身份证号">
-                        <el-input v-model="accoutInfo.code" :readonly="true"></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="10">
-                      <el-form-item label="性别">
-                        <el-input v-model="accoutInfo.sex" :readonly="true"></el-input>
+                      <el-form-item label="姓名"
+                                    prop="name">
+                        <el-input v-model="accoutInfo.name"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center">
+                  <el-row type="flex"
+                          justify="center">
                     <el-col :span="10">
-                      <el-form-item label="职务">
-                        <el-input v-model="accoutInfo.postName" :readonly="true"></el-input>
+                      <el-form-item label="身份证号"
+                                    prop="code">
+                        <el-input v-model="accoutInfo.code"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
-                      <el-form-item label="单位">
-                        <el-input v-model="accoutInfo.deptName" :readonly="true"></el-input>
+                      <el-form-item label="性别"
+                                    prop="sex">
+                        <el-input v-model="accoutInfo.sex"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center">
+                  <el-row type="flex"
+                          justify="center">
                     <el-col :span="10">
-                      <el-form-item label="手机号" prop="tel">
-                        <el-input v-model="accoutInfo.tel" placeholder="请输入手机号"></el-input>
+                      <el-form-item label="职务"
+                                    prop="postName">
+                        <el-input v-model="accoutInfo.postName"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
-                      <el-form-item label="邮箱" prop="email">
-                        <el-input v-model="accoutInfo.email" placeholder="请输入邮箱"></el-input>
+                      <el-form-item label="单位"
+                                    prop="deptName">
+                        <el-input v-model="accoutInfo.deptName"
+                                  :readonly="true"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row type="flex"
+                          justify="center">
+                    <el-col :span="10">
+                      <el-form-item label="手机号"
+                                    prop="tel">
+                        <el-input v-model="accoutInfo.tel"
+                                  placeholder="请输入手机号"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="10">
+                      <el-form-item label="邮箱"
+                                    prop="email">
+                        <el-input v-model="accoutInfo.email"
+                                  placeholder="请输入邮箱"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </div>
                 <!-- 选择住房区域 -->
-                <div v-if="active==1" class="house-info">
-                  <el-row type="flex" justify="center">
-                    <el-col :span="20">
-                      <el-form-item label="住房" prop="houseId">
-                        <el-select v-model="accoutInfo.houseId" placeholder="请选择住房" style="width:300px" clearable>
-                          <el-option v-for="house in accoutInfo.listHouseGetApply" :key="house.id" :value="house.id" :label="house.address"></el-option>
+                <div v-if="active==1"
+                     class="house-info">
+                  <el-row type="flex"
+                          justify="center">
+                    <el-col :span="14"
+                            :md="14"
+                            :lg="9">
+                      <el-form-item label="住房"
+                                    label-width="80px"
+                                    prop="houseId">
+                        <el-select v-model="accoutInfo.houseId"
+                                   placeholder="请选择住房"
+                                   style="width:300px"
+                                   clearable>
+                          <el-option v-for="house in accoutInfo.listHouseGetApply"
+                                     :key="house.id"
+                                     :value="house.id"
+                                     :label="house.address"></el-option>
                         </el-select>
                       </el-form-item>
                     </el-col>
+                    <el-col :span="10"
+                            :md="10"
+                            :lg="7"></el-col>
                   </el-row>
-                  <el-row type="flex" justify="center">
-                    <el-col :span="10">
-                      <el-form-item label="住房号">
-                        <el-input v-model="accoutInfo.no" style="width:300px" :readonly="true"></el-input>
+                  <el-row type="flex"
+                          justify="center">
+                    <el-col :span="14"
+                            :md="14"
+                            :lg="9">
+                      <el-form-item label="住房号"
+                                    label-width="80px"
+                                    prop="no">
+                        <el-input v-model="accoutInfo.no"
+                                  style="width:300px"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="10">
-                      <el-form-item label="住房类型">
-                        <el-input v-model="accoutInfo.typeName" :readonly="true"></el-input>
+                    <el-col :span="10"
+                            :md="10"
+                            :lg="7">
+                      <el-form-item label="住房类型"
+                                    label-width="80px"
+                                    prop="typeName">
+                        <el-input v-model="accoutInfo.typeName"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center">
-                    <el-col :span="10">
-                      <el-form-item label="住房地址">
-                        <el-input v-model="accoutInfo.address" style="width:300px" :readonly="true"></el-input>
+                  <el-row type="flex"
+                          justify="center">
+                    <el-col :span="14"
+                            :md="14"
+                            :lg="9">
+                      <el-form-item label="住房地址"
+                                    label-width="80px"
+                                    prop="address">
+                        <el-input v-model="accoutInfo.address"
+                                  style="width:300px"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="10">
-                      <el-form-item label="住房面积">
-                        <el-input v-model="accoutInfo.buildArea" :readonly="true"></el-input>
+                    <el-col :span="10"
+                            :md="10"
+                            :lg="7">
+                      <el-form-item label="住房面积"
+                                    label-width="80px"
+                                    prop="buildArea">
+                        <el-input v-model="accoutInfo.buildArea"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center">
-                    <el-col :span="10">
-                      <el-form-item label="产权关系">
-                        <el-input v-model="accoutInfo.statusName" style="width:300px" :readonly="true"></el-input>
+                  <el-row type="flex"
+                          justify="center">
+                    <el-col :span="14"
+                            :md="14"
+                            :lg="9">
+                      <el-form-item label="产权关系"
+                                    label-width="80px"
+                                    prop="statusName">
+                        <el-input v-model="accoutInfo.statusName"
+                                  style="width:300px"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="10">
-                      <el-form-item label="使用面积">
-                        <el-input v-model="accoutInfo.usedArea" :readonly="true"></el-input>
+                    <el-col :span="10"
+                            :md="10"
+                            :lg="7">
+                      <el-form-item label="使用面积"
+                                    label-width="80px"
+                                    prop="usedArea">
+                        <el-input v-model="accoutInfo.usedArea"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </div>
                 <!-- 维修填写区域 -->
-                <div v-if="active==2" class="fix-reason">
-                  <el-row type="flex" justify="center">
+                <div v-if="active==2"
+                     class="fix-reason">
+                  <el-row type="flex"
+                          justify="center">
                     <el-col :span="20">
-                      <el-form-item label="维修类型" prop="fixContentId">
-                        <el-select v-model="accoutInfo.fixContentId" placeholder="请选择维修类型" style="width:200px" clearable>
-                          <el-option v-for="fix in fixType" :key="fix.fixParamId" :value="fix.fixParamId" :label="fix.fixParamName"></el-option>
+                      <el-form-item label="维修类型"
+                                    prop="fixContentId">
+                        <el-select v-model="accoutInfo.fixContentId"
+                                   placeholder="请选择维修类型"
+                                   style="width:200px"
+                                   clearable>
+                          <el-option v-for="fix in fixType"
+                                     :key="fix.fixParamId"
+                                     :value="fix.fixParamId"
+                                     :label="fix.fixParamName"></el-option>
                         </el-select>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center">
+                  <el-row type="flex"
+                          justify="center">
                     <el-col :span="20">
-                      <el-form-item label="申请原因" prop="description">
-                        <el-input v-model="accoutInfo.description" type="textarea" style="width:600px" :rows="6" placeholder="请详细说明您的房屋问题，以便快读得到反馈！">
+                      <el-form-item label="申请原因"
+                                    prop="description">
+                        <el-input v-model="accoutInfo.description"
+                                  type="textarea"
+                                  style="width:600px"
+                                  :rows="6"
+                                  placeholder="请详细说明您的房屋问题，以便快读得到反馈！">
                         </el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </div>
-                <div v-if="active==3" class="fix-result">
+                <div v-if="active==3"
+                     class="fix-result">
                   <span>提交成功，请等待审核！</span>
-                </div>                
+                </div>
                 <div class="opera-area">
-                  <el-button @click="backButton" v-if="active>=1&&active<3">上一步</el-button>
-                  <el-button @click="nextButton" v-if="active<2">下一步</el-button>
-                  <el-button @click="addSubmit" v-if="active==2">提交</el-button>
+                  <el-button @click="backButton"
+                             v-if="active>=1&&active<3">上一步</el-button>
+                  <el-button @click="nextButton"
+                             v-if="active<2">下一步</el-button>
+                  <el-button @click="addSubmit"
+                             v-if="active==2">提交</el-button>
                 </div>
               </el-form>
             </div>
@@ -169,7 +266,7 @@ import { getFixParam } from "@/api/sysManage";
 import { checkEmail, checkNULL, checkTel } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
 export default {
-  data() {
+  data () {
     return {
       listLoading: false,
       // 个人信息填充
@@ -217,13 +314,13 @@ export default {
   },
   // 计算属性
   computed: {
-    selectHouse() {
+    selectHouse () {
       return this.accoutInfo.houseId;
     }
   },
   //　监视者
   watch: {
-    selectHouse(newVal) {
+    selectHouse (newVal) {
       this.accoutInfo.listHouseGetApply.forEach(house => {
         if (house.id == newVal) {
           this.accoutInfo.no = house.no;
@@ -236,12 +333,12 @@ export default {
       });
     }
   },
-  created() {
+  created () {
     this.getList();
   },
   methods: {
     // 前进一步
-    nextButton() {
+    nextButton () {
       let vaild = true;
       // 个人信息验证
       if (this.active == 0) {
@@ -253,11 +350,11 @@ export default {
       } else if (this.active++ > 2) this.active = 0;
     },
     // 返回一步
-    backButton() {
+    backButton () {
       this.active--;
     },
     // 获取个人信息
-    getList() {
+    getList () {
       this.listLoading = true;
       let staffID = this.$store.getters.userID;
       let param = {};
@@ -282,7 +379,7 @@ export default {
         });
     },
     // 提交维修申请
-    addSubmit() {
+    addSubmit () {
       this.active++;
       this.$refs["fixApplyForm"].validate(valid => {
         if (valid) {
@@ -320,7 +417,7 @@ export default {
   position: relative;
   .personal-info {
     padding-top: 8vh;
-    margin-bottom: 8vh;
+    margin-bottom: 5vh;
   }
   .house-info {
     padding-top: 8vh;
@@ -339,8 +436,8 @@ export default {
     }
   }
   .opera-area {
-    position: absolute;
-    bottom: 10%;
+    // position: absolute;
+    // bottom: 10%;
     left: 0;
     right: 0;
     display: flex;

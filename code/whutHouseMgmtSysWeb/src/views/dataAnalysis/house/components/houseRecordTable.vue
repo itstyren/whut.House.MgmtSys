@@ -80,11 +80,12 @@
     methods: {
       getList() {
         this.listLoading = false;
+        let roleId=this.$store.getters.roleId
         let params = {
           page: this.page,
           size: this.size
         };
-        postHouseStaffRecord(params, this.filtersData).then(res => {
+        postHouseStaffRecord(params, this.filtersData,roleId).then(res => {
           this.houseData = res.data.data.data.list;
           // console.log(this.houseData)
           this.totalNum = res.data.data.data.total;

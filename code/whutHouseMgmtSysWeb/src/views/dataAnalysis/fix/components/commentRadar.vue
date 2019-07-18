@@ -1,9 +1,11 @@
 <template>
-  <div class="card" :style="{height:height,width:width}">
+  <div class="card"
+       :style="{height:height,width:width}">
     <div class="title">
-      <strong>维修评价占比分析  </strong>
+      <strong>维修评价占比分析 </strong>
     </div>
-    <div class="chart" ref="pageView"></div>
+    <div class="chart"
+         ref="pageView"></div>
   </div>
 </template>
 
@@ -32,12 +34,12 @@ export default {
       default: {}
     }
   },
-  data() {
+  data () {
     return {
       chart: null
     };
   },
-  mounted() {
+  mounted () {
     this.initChart();
     this.getData();
     if (this.autoResize) {
@@ -50,16 +52,17 @@ export default {
     }
   },
   watch: {
-    filtersData(newVal) {
+    filtersData (newVal) {
       this.getData(newVal);
     }
   },
   methods: {
-    getData() {
+    getData () {
       if (arguments[0] !== undefined) var data = arguments[0];
       else var data = {};
+      let roleId = this.$store.getters.roleId
       this.chart.showLoading();
-      postFixCommentRadar(data).then(res => {
+      postFixCommentRadar(data, roleId).then(res => {
         console.log(res.data.data);
         const data = res.data.data;
         this.chart.setOption({
@@ -161,10 +164,10 @@ export default {
         this.chart.hideLoading();
       });
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions ({ expectedData, actualData } = {}) {
       this.chart.setOption({});
     },
-    initChart() {
+    initChart () {
       this.chart = echarts.init(this.$refs.pageView, "macarons");
       this.setOptions(this.chartData);
     }
