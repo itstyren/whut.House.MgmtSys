@@ -34,7 +34,7 @@ public class FileUploadController {
 				long time = new Date().getTime();
 				String name = fileSuffix.substring(1) + time + fileSuffix;
 				
-				String filePath = "E:\\WhutHouseSysImage\\" + name;
+				String filePath = "E:\\WhutHouseSysStore\\" + name;
 				File loaclFile = new File(filePath);
 //				System.out.println(multipartFile.getOriginalFilename());
 //				System.out.println(multipartFile.getName());

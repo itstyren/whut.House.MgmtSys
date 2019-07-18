@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.bean.authority.AuthList;
 import com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix;
 import com.computerdesign.whutHouseMgmt.bean.fix.record.FixAllSelectModel;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.campus.Campus;
 import com.computerdesign.whutHouseMgmt.service.authority.AuthListService;
+import com.computerdesign.whutHouseMgmt.service.campus.CampusService;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.fix.ViewFixService;
 import com.computerdesign.whutHouseMgmt.utils.Arith;
@@ -49,8 +54,30 @@ public class FixRecordController {
 	private FixService fixService;
 	
 	@Autowired
+	private CampusService campusService;
+	
+	@Autowired
 	private AuthListService authListService;
-
+	
+	@ResponseBody
+	@RequestMapping(value = "getCampusData/{roleId}", method = RequestMethod.GET)
+	public Msg getCampusData(@PathVariable("roleId") Integer roleId){
+		AuthList authList = authListService.getOneAuth(roleId);
+		String manageCampus = authList.getManageCampus();
+		List<Campus> campusList = new ArrayList<Campus>();
+		if(manageCampus != null){			
+			String[] campusIds = manageCampus.split("-");
+			for (String campusId : campusIds){				
+				Campus campus = campusService.getById(Integer.valueOf(campusId));
+				campusList.add(campus);
+			}
+			return Msg.success().add("data", campusList);
+		}else{
+			return Msg.error("该角色ManageCampus字段为空");
+		}
+		
+	}
+	
 	/**
 	 * 返回一周内每天的维修申请量，拒绝量，通过量
 	 * 

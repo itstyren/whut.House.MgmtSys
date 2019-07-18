@@ -99,7 +99,20 @@ public class HireAcceptController {
 				}else{
 					titleVal = 0.0;
 				}
-				Double totalVal = titleVal + viewHire.getOtherVal() + viewHire.getTimeVal() + viewHire.getSpouseVal();
+				Double spouseVal = 0.0;
+				if(viewHire.getSpouseVal() != null){
+					spouseVal = viewHire.getSpouseVal();
+				}
+				Double timeVal = 0.0;
+				if(viewHire.getTimeVal() != null){
+					timeVal = viewHire.getTimeVal();
+				}
+				Double otherVal = 0.0;
+				if(otherVal != null){
+					otherVal = viewHire.getOtherVal();
+				}
+//				Double totalVal = titleVal + viewHire.getOtherVal() + viewHire.getTimeVal() + viewHire.getSpouseVal();
+				Double totalVal = titleVal + otherVal + timeVal + spouseVal;
 				viewHire.setTitleVal(titleVal);
 				viewHire.setTotalVal(totalVal);
 			}
