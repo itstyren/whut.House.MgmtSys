@@ -49,4 +49,34 @@ public class FileUploadController {
 		return Msg.success("上传成功").add("data", storePath);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "multiFileNamedUpload", method = RequestMethod.POST)
+	public Msg multiFileNamedUpload(@RequestParam("file") MultipartFile[] multipartFiles) throws IllegalStateException, IOException{
+//		保存存储路径
+		List<String> storePath = new ArrayList<String>();
+		for (MultipartFile multipartFile : multipartFiles){
+			String fileName = multipartFile.getOriginalFilename();
+			System.out.println(multipartFile);
+			System.out.println(fileName);
+			if(fileName != ""){
+//				System.out.println("上传");
+//				String fileSuffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+//				long time = new Date().getTime();
+//				String name = fileSuffix.substring(1) + time + fileSuffix;
+				
+				String filePath = "E:\\WhutHouseSysStore\\" + fileName;
+				File loaclFile = new File(filePath);
+//				System.out.println(multipartFile.getOriginalFilename());
+//				System.out.println(multipartFile.getName());
+				multipartFile.transferTo(loaclFile);
+				
+				String responsePath = "http://172.16.65.105:8080/images/" + fileName;
+				storePath.add(responsePath);
+			}
+			
+		}
+//		System.out.println(multipartFiles.getOriginalFilename());
+		return Msg.success("上传成功").add("data", storePath);
+	}
+	
 }

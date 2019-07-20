@@ -327,12 +327,13 @@ public class HouseController {
 					}else{
 						String fileName = originPath.substring(originPath.lastIndexOf("/"), originPath.length());
 //						System.out.println(fileName);
-						String filePathName = "E:\\WhutHouseSysImage\\" + fileName;
+						String filePathName = "E:\\WhutHouseSysStore\\" + fileName;
 						File file = new File(filePathName);
 						if(file.delete()){
 							System.out.println("图片删除成功");
 						}else{
-							return Msg.error("重复图片删除失败");
+//							return Msg.error("重复图片删除失败");
+							System.out.println("没有该图片");
 						}
 					}
 				}

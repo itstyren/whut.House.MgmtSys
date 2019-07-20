@@ -33,7 +33,14 @@
 		<input type="submit" value="Submit">
 	</form>
 	
-	<img alt="图片" src="http://172.16.65.105:8080/images/1.jpg">
+	<form action="fileUpload/multiFileNamedUpload" method="post" enctype="multipart/form-data">
+		File1:<input type="file" name="file">
+		File2:<input type="file" name="file">
+		<input type="submit" value="Submit">
+	</form>
+	
+	<!-- 校园网 -->
+	<!-- <img alt="图片" src="http://172.16.65.105:8080/images/1.jpg"> -->
 	
 </body>
 </html>
