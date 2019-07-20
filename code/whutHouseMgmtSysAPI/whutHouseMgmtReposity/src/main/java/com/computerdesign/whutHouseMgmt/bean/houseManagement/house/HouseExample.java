@@ -1082,6 +1082,76 @@ public class HouseExample {
             return (Criteria) this;
         }
 
+        public Criteria andFilesIsNull() {
+            addCriterion("Files is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesIsNotNull() {
+            addCriterion("Files is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesEqualTo(String value) {
+            addCriterion("Files =", value, "files");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesNotEqualTo(String value) {
+            addCriterion("Files <>", value, "files");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesGreaterThan(String value) {
+            addCriterion("Files >", value, "files");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesGreaterThanOrEqualTo(String value) {
+            addCriterion("Files >=", value, "files");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesLessThan(String value) {
+            addCriterion("Files <", value, "files");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesLessThanOrEqualTo(String value) {
+            addCriterion("Files <=", value, "files");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesLike(String value) {
+            addCriterion("Files like", value, "files");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesNotLike(String value) {
+            addCriterion("Files not like", value, "files");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesIn(List<String> values) {
+            addCriterion("Files in", values, "files");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesNotIn(List<String> values) {
+            addCriterion("Files not in", values, "files");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesBetween(String value1, String value2) {
+            addCriterion("Files between", value1, value2, "files");
+            return (Criteria) this;
+        }
+
+        public Criteria andFilesNotBetween(String value1, String value2) {
+            addCriterion("Files not between", value1, value2, "files");
+            return (Criteria) this;
+        }
+
         public Criteria andRentalIsNull() {
             addCriterion("Rental is null");
             return (Criteria) this;

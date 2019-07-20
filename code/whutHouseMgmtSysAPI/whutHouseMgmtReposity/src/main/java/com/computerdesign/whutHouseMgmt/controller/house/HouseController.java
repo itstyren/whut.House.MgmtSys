@@ -306,8 +306,9 @@ public class HouseController {
 			
 //			获取数据库保存的路径
 			String imagePath = houseService.get(house.getId()).getImage();
+//			System.out.println("imagePath:" + imagePath );
 //			若原来该住房有图片，则需要进行比对，是否删除
-			if(imagePath != null){
+			if(imagePath != null && !imagePath.trim().equals("")){
 				String[] originPaths = imagePath.split(",");
 //				System.out.println("originPaths:" + originPaths);
 //				将数据库中原保存的图片与现在上传的图片一一比对，若不存在则删除图片文件
@@ -327,13 +328,57 @@ public class HouseController {
 					}else{
 						String fileName = originPath.substring(originPath.lastIndexOf("/"), originPath.length());
 //						System.out.println(fileName);
-						String filePathName = "E:\\WhutHouseSysStore\\" + fileName;
+						String filePathName = "E:\\WhutHouseSysStore\\images\\" + fileName;
 						File file = new File(filePathName);
 						if(file.delete()){
 							System.out.println("图片删除成功");
 						}else{
 //							return Msg.error("重复图片删除失败");
 							System.out.println("没有该图片");
+						}
+					}
+				}
+			}
+			
+		}
+		
+//		文件保存与删除
+		if(house.getFiles() != null){
+//			获取传来的路径
+			String[] paths = house.getFiles().split(",");
+//			System.out.println("paths:" + paths);
+			
+//			获取数据库保存的路径
+			String filesPath = houseService.get(house.getId()).getFiles();
+//			System.out.println("imagePath:" + imagePath );
+//			若原来该住房有图片，则需要进行比对，是否删除
+			if(filesPath != null && !filesPath.trim().equals("")){
+				String[] originPaths = filesPath.split(",");
+//				System.out.println("originPaths:" + originPaths);
+//				将数据库中原保存的图片与现在上传的图片一一比对，若不存在则删除图片文件
+				for (String originPath : originPaths){
+					boolean flag = false;
+					for (String path : paths){
+//						System.out.println(originPath + ":" + path);
+						if (originPath.equals(path)){
+//							System.out.println("相等");
+							flag = true;
+							break;
+						}
+					}
+					if (flag){
+//						System.out.println("aaa");
+						continue;
+					}else{
+						String fileName = originPath.substring(originPath.lastIndexOf("/"), originPath.length());
+//						System.out.println(fileName);
+						String filePathName = "E:\\WhutHouseSysStore\\files\\" + fileName;
+						File file = new File(filePathName);
+						if(file.delete()){
+							System.out.println("文件删除成功");
+						}else{
+//							return Msg.error("重复文件删除失败");
+							System.out.println("没有该文件");
 						}
 					}
 				}

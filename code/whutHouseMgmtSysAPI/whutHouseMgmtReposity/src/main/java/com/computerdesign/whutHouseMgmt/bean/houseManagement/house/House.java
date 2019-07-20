@@ -37,6 +37,8 @@ public class House {
 
     private String image;
 
+    private String files;
+
     private Double rental;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -163,6 +165,14 @@ public class House {
 
     public void setImage(String image) {
         this.image = image == null ? null : image.trim();
+    }
+
+    public String getFiles() {
+        return files;
+    }
+
+    public void setFiles(String files) {
+        this.files = files == null ? null : files.trim();
     }
 
     public Double getRental() {

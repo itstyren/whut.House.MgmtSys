@@ -34,7 +34,7 @@ public class FileUploadController {
 				long time = new Date().getTime();
 				String name = fileSuffix.substring(1) + time + fileSuffix;
 				
-				String filePath = "E:\\WhutHouseSysStore\\" + name;
+				String filePath = "E:\\WhutHouseSysStore\\images\\" + name;
 				File loaclFile = new File(filePath);
 //				System.out.println(multipartFile.getOriginalFilename());
 //				System.out.println(multipartFile.getName());
@@ -64,14 +64,14 @@ public class FileUploadController {
 //				long time = new Date().getTime();
 //				String name = fileSuffix.substring(1) + time + fileSuffix;
 				
-				String filePath = "E:\\WhutHouseSysStore\\" + fileName;
+				String filePath = "E:\\WhutHouseSysStore\\files\\" + fileName;
 				File loaclFile = new File(filePath);
 //				System.out.println(multipartFile.getOriginalFilename());
 //				System.out.println(multipartFile.getName());
 				multipartFile.transferTo(loaclFile);
 				
-				String responsePath = "http://172.16.65.105:8080/images/" + fileName;
-				storePath.add(responsePath);
+//				String responsePath = "http://172.16.65.105:8080/images/" + fileName;
+				storePath.add(filePath);
 			}
 			
 		}

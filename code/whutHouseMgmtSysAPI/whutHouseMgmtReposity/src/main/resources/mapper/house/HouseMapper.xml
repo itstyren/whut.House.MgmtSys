@@ -17,6 +17,7 @@
     <result column="ProId" jdbcType="VARCHAR" property="proId" />
     <result column="Remark" jdbcType="VARCHAR" property="remark" />
     <result column="Image" jdbcType="VARCHAR" property="image" />
+    <result column="Files" jdbcType="VARCHAR" property="files" />
     <result column="Rental" jdbcType="DOUBLE" property="rental" />
     <result column="FinishTime" jdbcType="DATE" property="finishTime" />
     <result column="RecordStatus" jdbcType="INTEGER" property="recordStatus" />
@@ -81,7 +82,7 @@
   </sql>
   <sql id="Base_Column_List">
     Id, No, IsOutSchool, Type, Layout, Struct, Status, BuildArea, UsedArea, BasementArea, 
-    Address, BuildingId, ProId, Remark, Image, Rental, FinishTime, RecordStatus
+    Address, BuildingId, ProId, Remark, Image, Files, Rental, FinishTime, RecordStatus
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.HouseExample" resultMap="BaseResultMap">
     select
@@ -89,7 +90,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Hs_House
+    from hs_house
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -100,37 +101,37 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from Hs_House
+    from hs_house
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Hs_House
+    delete from hs_house
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.HouseExample">
-    delete from Hs_House
+    delete from hs_house
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House">
-    insert into Hs_House (Id, No, IsOutSchool, 
+    insert into hs_house (Id, No, IsOutSchool, 
       Type, Layout, Struct, 
       Status, BuildArea, UsedArea, 
       BasementArea, Address, BuildingId, 
       ProId, Remark, Image, 
-      Rental, FinishTime, RecordStatus
-      )
+      Files, Rental, FinishTime, 
+      RecordStatus)
     values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{isOutSchool,jdbcType=BIT}, 
       #{type,jdbcType=INTEGER}, #{layout,jdbcType=INTEGER}, #{struct,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{buildArea,jdbcType=DOUBLE}, #{usedArea,jdbcType=DOUBLE}, 
       #{basementArea,jdbcType=DOUBLE}, #{address,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, 
       #{proId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
-      #{rental,jdbcType=DOUBLE}, #{finishTime,jdbcType=DATE}, #{recordStatus,jdbcType=INTEGER}
-      )
+      #{files,jdbcType=VARCHAR}, #{rental,jdbcType=DOUBLE}, #{finishTime,jdbcType=DATE}, 
+      #{recordStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House">
-    insert into Hs_House
+    insert into hs_house
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
@@ -176,6 +177,9 @@
       </if>
       <if test="image != null">
         Image,
+      </if>
+      <if test="files != null">
+        Files,
       </if>
       <if test="rental != null">
         Rental,
@@ -233,6 +237,9 @@
       <if test="image != null">
         #{image,jdbcType=VARCHAR},
       </if>
+      <if test="files != null">
+        #{files,jdbcType=VARCHAR},
+      </if>
       <if test="rental != null">
         #{rental,jdbcType=DOUBLE},
       </if>
@@ -245,13 +252,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.HouseExample" resultType="java.lang.Long">
-    select count(*) from Hs_House
+    select count(*) from hs_house
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Hs_House
+    update hs_house
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
@@ -298,6 +305,9 @@
       <if test="record.image != null">
         Image = #{record.image,jdbcType=VARCHAR},
       </if>
+      <if test="record.files != null">
+        Files = #{record.files,jdbcType=VARCHAR},
+      </if>
       <if test="record.rental != null">
         Rental = #{record.rental,jdbcType=DOUBLE},
       </if>
@@ -313,7 +323,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Hs_House
+    update hs_house
     set Id = #{record.id,jdbcType=INTEGER},
       No = #{record.no,jdbcType=VARCHAR},
       IsOutSchool = #{record.isOutSchool,jdbcType=BIT},
@@ -329,6 +339,7 @@
       ProId = #{record.proId,jdbcType=VARCHAR},
       Remark = #{record.remark,jdbcType=VARCHAR},
       Image = #{record.image,jdbcType=VARCHAR},
+      Files = #{record.files,jdbcType=VARCHAR},
       Rental = #{record.rental,jdbcType=DOUBLE},
       FinishTime = #{record.finishTime,jdbcType=DATE},
       RecordStatus = #{record.recordStatus,jdbcType=INTEGER}
@@ -337,7 +348,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House">
-    update Hs_House
+    update hs_house
     <set>
       <if test="no != null">
         No = #{no,jdbcType=VARCHAR},
@@ -381,6 +392,9 @@
       <if test="image != null">
         Image = #{image,jdbcType=VARCHAR},
       </if>
+      <if test="files != null">
+        Files = #{files,jdbcType=VARCHAR},
+      </if>
       <if test="rental != null">
         Rental = #{rental,jdbcType=DOUBLE},
       </if>
@@ -394,7 +408,7 @@
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House">
-    update Hs_House
+    update hs_house
     set No = #{no,jdbcType=VARCHAR},
       IsOutSchool = #{isOutSchool,jdbcType=BIT},
       Type = #{type,jdbcType=INTEGER},
@@ -409,6 +423,7 @@
       ProId = #{proId,jdbcType=VARCHAR},
       Remark = #{remark,jdbcType=VARCHAR},
       Image = #{image,jdbcType=VARCHAR},
+      Files = #{files,jdbcType=VARCHAR},
       Rental = #{rental,jdbcType=DOUBLE},
       FinishTime = #{finishTime,jdbcType=DATE},
       RecordStatus = #{recordStatus,jdbcType=INTEGER}
