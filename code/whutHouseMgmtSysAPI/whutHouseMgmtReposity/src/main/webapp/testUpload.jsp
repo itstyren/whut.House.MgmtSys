@@ -41,6 +41,6 @@
 	
 	<!-- 校园网 -->
 	<!-- <img alt="图片" src="http://172.16.65.105:8080/images/1.jpg"> -->
-	
+	<a href="fileUpload/fileDownLoad?fileName=参数.txt">文件下载</a>
 </body>
 </html>

@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
+import com.computerdesign.whutHouseMgmt.utils.DownloadUtils;
 
 @RequestMapping("/fileUpload/")
 @Controller
@@ -49,6 +53,8 @@ public class FileUploadController {
 		return Msg.success("上传成功").add("data", storePath);
 	}
 	
+	
+//	文件名相同会直接覆盖
 	@ResponseBody
 	@RequestMapping(value = "multiFileNamedUpload", method = RequestMethod.POST)
 	public Msg multiFileNamedUpload(@RequestParam("file") MultipartFile[] multipartFiles) throws IllegalStateException, IOException{
@@ -78,5 +84,25 @@ public class FileUploadController {
 //		System.out.println(multipartFiles.getOriginalFilename());
 		return Msg.success("上传成功").add("data", storePath);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "fileDownLoad", method = RequestMethod.GET)
+	public Msg fileDownLoad(@RequestParam("fileName") String fileName, HttpServletRequest request ,HttpServletResponse response){
+		try {
+			
+//			String fileName = "staffImport.xlsx";
+//			System.out.println(fileName);
+			//中文字符重新编码
+			fileName = new String(request.getParameter("fileName").getBytes("iso8859-1"), "utf-8");
+//			System.out.println(fileName);
+			String originFile = "E:\\WhutHouseSysStore\\files\\" + fileName;
+			DownloadUtils.downloadSolve(originFile, fileName, response);
+			return Msg.success();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Msg.error();
+		}
+	}
+	
 	
 }
