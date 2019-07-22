@@ -143,7 +143,8 @@ export default {
       };
       if (arguments[0] !== undefined) var data = arguments[0];
       else var data = {};
-      postHouseRecordTotal(data).then(res => {
+      let roleId = this.$store.getters.roleId
+      postHouseRecordTotal(data, roleId).then(res => {
         this.numList = res.data.data.data
       });
     }

@@ -282,3 +282,13 @@ export function postHouseRelImport(data) {
     data: data
   })
 }
+// 根据文件名下载附件
+export function downloadFileByFileName(fileName) {
+  return request({
+    url: '/fileUpload/fileDownLoad',
+    method: 'get',
+    params: {
+      fileName: fileName
+    }
+  })
+}

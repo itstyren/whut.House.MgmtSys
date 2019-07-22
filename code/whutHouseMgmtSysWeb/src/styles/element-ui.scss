@@ -26,7 +26,7 @@
 
 .detail-modify .el-dialog {
   margin-top: 12vh ! important;
-  width: 60%;
+  width: 85%;
 }
 
 // 住房登记组件
@@ -190,21 +190,6 @@
   .el-button {
     background-color: #f7cc46;
     color: #fff;
-  }
-}
-
-// 覆盖fixForm-filter筛选器的label字体大小
-.fixForm-filter {
-  .el-form-item__label {
-    font-size: 1.05vw;
-  }
-}
-
-// 覆盖house-filter筛选器的label字体大小
-
-.house-filter {
-  .el-form-item__label {
-    font-size: 1.1vw;
   }
 }
 

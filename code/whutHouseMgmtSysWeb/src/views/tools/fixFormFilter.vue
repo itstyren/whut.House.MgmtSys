@@ -73,8 +73,8 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="3"
-                :offset="1">
+        <el-col :span="4"
+                class="horizontalCenter">
           <el-button type="danger"
                      size="small"
                      @click="resseting">重置</el-button>
@@ -89,7 +89,8 @@
 
 <script type="text/ecmascript-6">
 import { getFixParam } from "@/api/sysManage";
-import { getRegionWithBuildings, getCampusData } from "@/api/basiceData";
+import { getRegionWithBuildings } from "@/api/basiceData";
+import { getCampusDataByRoleId } from "@/api/dataAnalysis";
 import * as staticData from "@/utils/static";
 export default {
   data () {
@@ -116,6 +117,9 @@ export default {
     },
     selectCampus () {
       return this.campusId;
+    },
+    campusList () {
+      return this.$store.getters.campusList
     }
   },
   watch: {
@@ -174,8 +178,9 @@ export default {
         page: 1,
         size: 9999
       };
-      getCampusData().then(res => {
-        this.campusData = res.data.data.data.list;
+      let roleId = this.$store.getters.roleId
+      getCampusDataByRoleId(roleId).then(res => {
+        this.campusData = res.data.data.data;
         this.listLoading = false;
       });
     },
@@ -208,6 +213,7 @@ export default {
       this.regionId = "";
       this.buildingId = "";
       this.queryForm = {};
+      this.queryHandle()
     },
     // 清空搜索的区域时
     clearRegion () {
@@ -232,5 +238,9 @@ export default {
   .el-form-item {
     margin-bottom: 5px;
   }
+}
+.horizontalCenter {
+  display: flex;
+  justify-content: center;
 }
 </style>

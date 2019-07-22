@@ -1,9 +1,11 @@
 <template>
-<div class="card" :style="{height:height,width:width}">
+  <div class="card"
+       :style="{height:height,width:width}">
     <div class="title">
       <strong>周维修处理情况分析</strong>
     </div>
-  <div class="chart" ref="pageView"></div>
+    <div class="chart"
+         ref="pageView"></div>
   </div>
 </template>
 
@@ -27,12 +29,12 @@ export default {
       default: true
     }
   },
-  data() {
+  data () {
     return {
       chart: null
     };
   },
-  mounted() {
+  mounted () {
     this.initChart();
     this.getDate();
     if (this.autoResize) {
@@ -47,15 +49,16 @@ export default {
   watch: {
     chartData: {
       deep: true,
-      handler(val) {
+      handler (val) {
         this.setOptions(val);
       }
     }
   },
   methods: {
-    getDate() {
+    getDate () {
       this.chart.showLoading();
-      getFixContentCount().then(res => {
+      let roleId = this.$store.getters.roleId
+      getFixContentCount(roleId).then(res => {
         const fixData = res.data.data.data;
         // console.log(fixData);
         this.chart.setOption({
@@ -82,7 +85,7 @@ export default {
         this.chart.hideLoading();
       });
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions ({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {
           trigger: "axis",
@@ -116,36 +119,36 @@ export default {
           {
             type: "value",
             name: "处理量",
-            max:5,
+            max: 5,
             position: "left"
           },
           {
             type: "value",
             name: "申请量",
-            max:10,
+            max: 10,
             position: "right"
           }
         ],
         series: [
-            {
-              name: "审核量",
-              type: "bar",
-            },
-            {
-              name: "拒绝量",
-              type: "bar",
-            },
-            {
-              name: "申请量",
-              type: "line",
-              yAxisIndex: 1,
-            }
-          ],
+          {
+            name: "审核量",
+            type: "bar",
+          },
+          {
+            name: "拒绝量",
+            type: "bar",
+          },
+          {
+            name: "申请量",
+            type: "line",
+            yAxisIndex: 1,
+          }
+        ],
         animationDuration: 2800,
         animationEasing: "cubicInOut"
       });
     },
-    initChart() {
+    initChart () {
       this.chart = echarts.init(this.$refs.pageView, "macarons");
       this.setOptions(this.chartData);
     }

@@ -1,9 +1,11 @@
 <template>
-  <div class="card" :style="{height:height,width:width}">
+  <div class="card"
+       :style="{height:height,width:width}">
     <div class="title">
       <strong>房屋状态占比</strong>
     </div>
-    <div class="chart" ref="pageView"></div>
+    <div class="chart"
+         ref="pageView"></div>
   </div>
 </template>
 
@@ -31,12 +33,12 @@ export default {
       default: {}
     }
   },
-  data() {
+  data () {
     return {
       chart: null
     };
   },
-  mounted() {
+  mounted () {
     this.initChart();
     if (this.autoResize) {
       this.__resizeHanlder = _.debounce(() => {
@@ -49,19 +51,20 @@ export default {
     this.getData();
   },
   watch: {
-    filtersData(newVal) {
+    filtersData (newVal) {
       this.getData(newVal);
     }
   },
   methods: {
-    getData() {
+    getData () {
       let params = {
         paramTypeId: 3
       };
       if (arguments[0] !== undefined) var data = arguments[0];
       else var data = {};
+      let roleId = this.$store.getters.roleId
       this.chart.showLoading();
-      postHouseParamCount(params, data).then(res => {
+      postHouseParamCount(params, data, roleId).then(res => {
         // console.log(res.data.data)
         this.chart.setOption({
           legend: {
@@ -74,7 +77,7 @@ export default {
         this.chart.hideLoading();
       });
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions ({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {
           trigger: "item",
@@ -133,7 +136,7 @@ export default {
         animationEasing: "cubicInOut"
       });
     },
-    initChart() {
+    initChart () {
       this.chart = echarts.init(this.$refs.pageView, "macarons");
       this.setOptions(this.chartData);
     }

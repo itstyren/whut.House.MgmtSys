@@ -16,24 +16,54 @@
         <div class="warp-body">
           <!-- 工具栏 -->
           <div class="toolbar">
-            <div class="download-button">
-              <el-button type="primary" size="small" @click="staffDownload">职工模板下载</el-button>
-              <el-button type="primary" size="small" @click="houseDownload">房屋模板下载</el-button>
-              <el-button type="primary" size="small" @click="houseRelDownload">住户模板下载</el-button>
-            </div>
-            <div class="save-buttomn">
-              <el-radio v-model="uploadType" label="1">职工</el-radio>
-              <el-radio v-model="uploadType" style="margin-right:10px" label="2">住房</el-radio>
-              <el-radio v-model="uploadType" style="margin-right:10px" label="3">住户关系</el-radio>
-              <el-button type="success" size="small" :disabled="isFull" @click="unpload">确认并导入</el-button>
-            </div>
-            <upload-excel-component @on-selected-file='selected'></upload-excel-component>
+            <el-row :gutter="20">
+              <el-col :span="14">
+                <upload-excel-component @on-selected-file='selected'></upload-excel-component>
+              </el-col>
+              <el-col :span="9">
+                <div class="download-button">
+                  <el-button type="primary"
+                             size="small"
+                             @click="staffDownload">职工模板下载</el-button>
+                  <el-button type="primary"
+                             size="small"
+                             @click="houseDownload">房屋模板下载</el-button>
+                  <el-button type="primary"
+                             size="small"
+                             @click="houseRelDownload">住户模板下载</el-button>
+                </div>
+                <div class="save-button">
+                  <el-radio v-model="uploadType"
+                            label="1">职工</el-radio>
+                  <el-radio v-model="uploadType"
+                            style="margin-right:10px"
+                            label="2">住房</el-radio>
+                  <el-radio v-model="uploadType"
+                            style="margin-right:10px"
+                            label="3">住户关系</el-radio>
+                  <el-button type="success"
+                             size="small"
+                             :disabled="isFull"
+                             @click="unpload">确认并导入</el-button>
+                </div>
+              </el-col>
+            </el-row>
           </div>
           <!-- 表格区 -->
           <div class="main-data">
             <div class="card import-data">
-              <el-table v-loading="uploadLoading" :data="tableData" class="table" border height="string" highlight-current-row>
-                <el-table-column v-for='item of tableHeader' width="120" align="center" :prop="item" :label="item" :key='item'>
+              <el-table v-loading="uploadLoading"
+                        :data="tableData"
+                        class="table"
+                        border
+                        height="string"
+                        highlight-current-row>
+                <el-table-column v-for='item of tableHeader'
+                                 width="120"
+                                 align="center"
+                                 :prop="item"
+                                 :label="item"
+                                 :key='item'>
                 </el-table-column>
               </el-table>
             </div>
@@ -54,7 +84,7 @@ import {
 import utils from "@/utils/index.js";
 var basiceUrl = "http://172.16.65.105:8080/whutHouseMgmtReposity/dataImport/";
 // var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
-  // var baseURL= 'http://120.78.226.24:8080/whutHouseMgmtRepositydataImport/'
+// var baseURL= 'http://120.78.226.24:8080/whutHouseMgmtRepositydataImport/'
 // var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity'// api的base_url
 
 export default {
@@ -62,21 +92,21 @@ export default {
   components: {
     UploadExcelComponent
   },
-  data() {
+  data () {
     return {
       tableData: [],
       tableHeader: [],
       itemFile: {},
-      fileName:'',
+      fileName: '',
       uploadLoading: false,
       uploadType: "1",
       isFull: true
     };
   },
   methods: {
-    selected(data, itemFile) {
+    selected (data, itemFile) {
       console.log(itemFile)
-      this.fileName=itemFile.name
+      this.fileName = itemFile.name
       // console.log(data.results[0].备注)
       this.tableData = data.results;
       this.itemFile = itemFile;
@@ -84,16 +114,16 @@ export default {
       this.tableHeader = data.header;
       this.isFull = false;
     },
-    staffDownload() {
+    staffDownload () {
       window.location.href = `${basiceUrl}staffDownLoad`;
     },
-    houseDownload() {
+    houseDownload () {
       window.location.href = `${basiceUrl}houseDownLoad`;
     },
-    houseRelDownload() {
+    houseRelDownload () {
       window.location.href = `${basiceUrl}residentDownLoad`;
     },
-    unpload() {
+    unpload () {
       this.uploadLoading = true;
       var formData = new FormData();
       if (this.uploadType == "1") {
@@ -132,17 +162,9 @@ export default {
     margin-top: 20px;
     height: 60vh;
   }
-
-  .download-button {
+  .save-button {
     position: absolute;
-    top: 50px;
-    right: 30px;
-  }
-
-  .save-buttomn {
-    position: absolute;
-    top: 150px;
-    right: 30px;
+    bottom: 0;
   }
 }
 </style>

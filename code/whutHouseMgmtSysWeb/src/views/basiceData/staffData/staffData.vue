@@ -58,7 +58,6 @@
       <!-- 表格区 -->
       <div class="main-data">
         <el-table :data="deptStaffData"
-                  border
                   class="table"
                   height="string"
                   v-loading="listLoading">
