@@ -370,7 +370,7 @@ public class HouseController {
 //						System.out.println("aaa");
 						continue;
 					}else{
-						String fileName = originPath.substring(originPath.lastIndexOf("/"), originPath.length());
+						String fileName = originPath.substring(originPath.lastIndexOf("\\"), originPath.length());
 //						System.out.println(fileName);
 						String filePathName = "E:\\WhutHouseSysStore\\files\\" + fileName;
 						File file = new File(filePathName);
