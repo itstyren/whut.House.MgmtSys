@@ -74,7 +74,7 @@
 		</table>
 		  -->
 		
-		<table tableName="hs_house" domainObjectName="House">
+		<table tableName="view_hs_house" domainObjectName="ViewHouse">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		<!-- <table tableName="hs_staff" domainObjectName="Staff">

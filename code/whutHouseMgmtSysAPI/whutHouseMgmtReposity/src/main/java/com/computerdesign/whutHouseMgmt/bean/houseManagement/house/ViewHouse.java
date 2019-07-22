@@ -63,6 +63,8 @@ public class ViewHouse {
 
     private Integer recordStatus;
 
+    private String files;
+
     public Integer getId() {
         return id;
     }
@@ -277,5 +279,13 @@ public class ViewHouse {
 
     public void setRecordStatus(Integer recordStatus) {
         this.recordStatus = recordStatus;
+    }
+
+    public String getFiles() {
+        return files;
+    }
+
+    public void setFiles(String files) {
+        this.files = files == null ? null : files.trim();
     }
 }
