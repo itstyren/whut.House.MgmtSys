@@ -95,7 +95,7 @@
                   <el-select v-model="staffForm.title"
                              clearable
                              placeholder="请选择职称">
-                    <el-option v-for="param in staffParam[7]"
+                    <el-option v-for="param in staffParam[7].list"
                                :key="param.staffParamId"
                                :label="param.staffParamName"
                                :value="param.staffParamId"></el-option>
@@ -106,7 +106,7 @@
                   <el-select v-model="staffForm.post"
                              clearable
                              placeholder="请选择职务">
-                    <el-option v-for="param in staffParam[6]"
+                    <el-option v-for="param in staffParam[6].list"
                                :key="param.staffParamId"
                                :label="param.staffParamName"
                                :value="param.staffParamId"></el-option>
@@ -117,7 +117,7 @@
                   <el-select v-model="staffForm.type"
                              clearable
                              placeholder="请选择职工类别">
-                    <el-option v-for="param in staffParam[8]"
+                    <el-option v-for="param in staffParam[8].list"
                                :key="param.staffParamId"
                                :label="param.staffParamName"
                                :value="param.staffParamId"></el-option>
@@ -128,7 +128,7 @@
                   <el-select v-model="staffForm.status"
                              clearable
                              placeholder="请选择工作状态">
-                    <el-option v-for="param in staffParam[9]"
+                    <el-option v-for="param in staffParam[9].list"
                                :key="param.staffParamId"
                                :label="param.staffParamName"
                                :value="param.staffParamId"></el-option>
@@ -140,7 +140,7 @@
                              clearable
                              filterable
                              placeholder="请选择工作部门">
-                    <el-option v-for="param in staffParam[5]"
+                    <el-option v-for="param in staffParam[5].list"
                                :key="param.staffParamId"
                                :label="param.staffParamName"
                                :value="param.staffParamId"></el-option>
@@ -219,7 +219,7 @@
                 <el-form-item label="单位性质">
                   <el-select v-model="staffForm.spouseKind"
                              placeholder="请选择单位性质">
-                    <el-option v-for="param in staffParam[10]"
+                    <el-option v-for="param in staffParam[10].list"
                                :key="param.staffParamId"
                                :label="param.staffParamName"
                                :value="param.staffParamId"></el-option>
@@ -234,7 +234,7 @@
                 <el-form-item label="职称">
                   <el-select v-model="staffForm.spouseTitle"
                              placeholder="请选择职称">
-                    <el-option v-for="param in staffParam[7]"
+                    <el-option v-for="param in staffParam[7].list"
                                :key="param.staffParamId"
                                :label="param.staffParamName"
                                :value="param.staffParamId"></el-option>
@@ -243,7 +243,7 @@
                 <el-form-item label="职务">
                   <el-select v-model="staffForm.spousePost"
                              placeholder="请选择职务">
-                    <el-option v-for="param in staffParam[6]"
+                    <el-option v-for="param in staffParam[6].list"
                                :key="param.staffParamId"
                                :label="param.staffParamName"
                                :value="param.staffParamId"></el-option>
