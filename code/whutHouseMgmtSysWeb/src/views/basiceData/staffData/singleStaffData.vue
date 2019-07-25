@@ -8,7 +8,7 @@
         </el-breadcrumb-item>
         <el-breadcrumb-item>基础数据</el-breadcrumb-item>
         <el-breadcrumb-item>职工管理</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: `/basic/staff/byDept/${staffForm.deptId}` }">{{staffForm.deptName}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: `/basic/staff/byDept/${staffForm.deptName}` }">{{breadcrumbDeptName}}</el-breadcrumb-item>
         <el-breadcrumb-item>职工</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -149,7 +149,7 @@
                     <el-input v-model="staffForm.typeName"
                               v-if="!ismodify"
                               :readonly="!ismodify"></el-input>
-                    <el-select v-model="staffForm.typeId"
+                    <el-select v-model="staffForm.typeName"
                                clearable
                                v-if="ismodify"
                                placeholder="请选择职工类别">
@@ -198,7 +198,7 @@
                     <el-input v-model="staffForm.statusName"
                               v-if="!ismodify"
                               :readonly="!ismodify"></el-input>
-                    <el-select v-model="staffForm.statusId"
+                    <el-select v-model="staffForm.statusName"
                                clearable
                                v-if="ismodify"
                                placeholder="请选择工作状态">
@@ -238,10 +238,11 @@
                     <el-input v-model="staffForm.deptName"
                               v-if="!ismodify"
                               :readonly="!ismodify"></el-input>
-                    <el-select v-model="staffForm.deptId"
+                    <el-select v-model="staffForm.deptName"
                                clearable
                                v-if="ismodify"
-                               placeholder="请选择工作部门">
+                               placeholder="请选择工作部门"
+                               @change="handleDeptSelectionChange">
                       <el-option v-for="param in staffParam[5].list"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
@@ -425,6 +426,8 @@ import utils from "@/utils/index.js";
 export default {
   data () {
     return {
+      // 面包屑显示的工作部门的名称
+      breadcrumbDeptName: '',
       ismodify: false,
       // 表单需要的信息
       staffForm: {},
@@ -539,23 +542,31 @@ export default {
     }
     this.getList();
     this.getRoleIdByAuthList()
-
   },
   // 方法集合
   methods: {
+    // 工作部门下拉框选中值发生变化时，面包屑显示的工作部门名称
+    handleDeptSelectionChange (deptId) {
+      let deptList = this.staffParam[5].list
+      let selectDept = deptList.find((item) => {
+        return item.staffParamId = deptId
+      })
+      this.breadcrumbDeptName = selectDept.staffParamName
+    },
     // 获取列表
     getList () {
       let param = "";
       this.listLoading = true;
       let staffID = this.$route.params.id;
-      if (this.$store.state.staffData.id == staffID) {
-        this.staffForm = this.$store.state.staffData;
-        Object.assign(this.oldStaffForm, this.$store.state.staffData);
-        return;
-      }
+      // if (this.$store.state.staffData.id == staffID) {
+      //   this.staffForm = this.$store.state.staffData;
+      //   Object.assign(this.oldStaffForm, this.$store.state.staffData);
+      //   return;
+      // }
       getStaff(param, staffID)
         .then(res => {
           this.staffForm = res.data.data.data;
+          this.breadcrumbDeptName = this.staffForm.deptName
           Object.assign(this.oldStaffForm, res.data.data.data);
           this.listLoading = false;
         })
@@ -571,7 +582,7 @@ export default {
     // 点击取消编辑，还原原表单
     handleCancelEdit () {
       this.ismodify = !this.ismodify
-      this.staffForm = Object.assign({}, this.oldStaffForm)
+      this.staffForm = JSON.parse(JSON.stringify(this.oldStaffForm))
       this.$refs["staffForm"].clearValidate()
 
     },
@@ -603,32 +614,32 @@ export default {
     beforModify () {
       const postForm = {};
       postForm.id = this.oldStaffForm.id;
-      let newVal = this.staffForm;
-      let oldVal = this.oldStaffForm;
+      let newVal = JSON.parse(JSON.stringify(this.staffForm))
+      let oldVal = JSON.parse(JSON.stringify(this.oldStaffForm))
       for (let v in newVal) {
         if (newVal[v] != oldVal[v]) {
           postForm[v] = newVal[v];
         }
       }
-      if (postForm.hasOwnProperty("postId")) {
-        postForm.post = postForm.postId;
-        delete postForm.postId;
+      if (postForm.hasOwnProperty("postName")) {
+        postForm.post = postForm.postName;
+        delete postForm.postName;
       }
-      if (postForm.hasOwnProperty("titleId")) {
-        postForm.title = postForm.titleId;
-        delete postForm.titleId;
+      if (postForm.hasOwnProperty("titleName")) {
+        postForm.title = postForm.titleName;
+        delete postForm.titleName;
       }
-      if (postForm.hasOwnProperty("typeId")) {
-        postForm.type = postForm.typeId;
-        delete postForm.typeId;
+      if (postForm.hasOwnProperty("typeName")) {
+        postForm.type = postForm.typeName;
+        delete postForm.typeName;
       }
-      if (postForm.hasOwnProperty("statusId")) {
-        postForm.status = postForm.statusId;
-        delete postForm.statusId;
+      if (postForm.hasOwnProperty("statusName")) {
+        postForm.status = postForm.statusName;
+        delete postForm.statusName;
       }
-      if (postForm.hasOwnProperty("deptId")) {
-        postForm.type = postForm.deptId;
-        delete postForm.deptId;
+      if (postForm.hasOwnProperty("deptName")) {
+        postForm.dept = postForm.deptName;
+        delete postForm.deptName;
       }
       this.modifySubmit(postForm);
     },
@@ -650,7 +661,7 @@ export default {
                 postPromoteSubStaffID(staffID).then(res => {
                   this.detailLoading = false;
                 });
-                this.$refs["staffForm"].resetFields();
+                this.getList()
                 this.ismodify = false
               });
             }

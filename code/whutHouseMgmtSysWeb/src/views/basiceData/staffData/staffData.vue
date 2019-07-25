@@ -269,7 +269,7 @@ export default {
     },
     // 显示详情页面
     showDetailDialog (index, row) {
-      this.$store.commit(types.STAFF_DATA, row);
+      // this.$store.commit(types.STAFF_DATA, row);
       this.$store.commit(types.STAFF_MODIFY, false);
       this.$store.commit('SET_STAFF_SHOW', true)
       this.$router.push({
@@ -278,7 +278,7 @@ export default {
     },
     //切换到编辑
     showModifyDialog (index, row) {
-      this.$store.commit(types.STAFF_DATA, row);
+      // this.$store.commit(types.STAFF_DATA, row);
       this.$store.commit(types.STAFF_MODIFY, true);
       this.$store.commit('SET_STAFF_SHOW', true)
       this.$router.push({
