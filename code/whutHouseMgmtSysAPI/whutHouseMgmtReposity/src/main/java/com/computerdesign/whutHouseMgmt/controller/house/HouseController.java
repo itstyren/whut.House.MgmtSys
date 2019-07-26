@@ -37,6 +37,7 @@ public class HouseController {
 	@Autowired
 	private ViewHouseService viewHouseService;
 
+	
 	/**
 	 * 根据id获取一个House
 	 * 

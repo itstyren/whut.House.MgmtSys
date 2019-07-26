@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.staffhomepage.houseinfo.ResidentHouse">
     <result column="ResidentId" jdbcType="INTEGER" property="residentId" />
     <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
     <result column="HouseId" jdbcType="INTEGER" property="houseId" />
     <result column="Address" jdbcType="VARCHAR" property="address" />
     <result column="BuildingId" jdbcType="INTEGER" property="buildingId" />
@@ -16,6 +17,16 @@
     <result column="HouseLayoutName" jdbcType="VARCHAR" property="houseLayoutName" />
     <result column="HouseRelId" jdbcType="INTEGER" property="houseRelId" />
     <result column="HouseRelName" jdbcType="VARCHAR" property="houseRelName" />
+    <result column="BookTime" jdbcType="TIMESTAMP" property="bookTime" />
+    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
+    <result column="ExpireTime" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="RentType" jdbcType="VARCHAR" property="rentType" />
+    <result column="PayType" jdbcType="INTEGER" property="payType" />
+    <result column="UsedArea" jdbcType="DOUBLE" property="usedArea" />
+    <result column="BuildArea" jdbcType="DOUBLE" property="buildArea" />
+    <result column="HouseNo" jdbcType="VARCHAR" property="houseNo" />
+    <result column="HouseTypeId" jdbcType="INTEGER" property="houseTypeId" />
+    <result column="HouseTypeName" jdbcType="VARCHAR" property="houseTypeName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,8 +87,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ResidentId, StaffId, HouseId, Address, BuildingId, BuildingName, RegionId, RegionName, 
-    HouseStructId, HouseStructName, HouseLayoutId, HouseLayoutName, HouseRelId, HouseRelName
+    ResidentId, StaffId, StaffNo, HouseId, Address, BuildingId, BuildingName, RegionId, 
+    RegionName, HouseStructId, HouseStructName, HouseLayoutId, HouseLayoutName, HouseRelId, 
+    HouseRelName, BookTime, IsDelete, ExpireTime, RentType, PayType, UsedArea, BuildArea, 
+    HouseNo, HouseTypeId, HouseTypeName
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffhomepage.houseinfo.ResidentHouseExample" resultMap="BaseResultMap">
     select
@@ -100,16 +113,24 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.staffhomepage.houseinfo.ResidentHouse">
-    insert into view_hs_residenthouse (ResidentId, StaffId, HouseId, 
-      Address, BuildingId, BuildingName, 
-      RegionId, RegionName, HouseStructId, 
-      HouseStructName, HouseLayoutId, HouseLayoutName, 
-      HouseRelId, HouseRelName)
-    values (#{residentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
-      #{address,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, 
-      #{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, #{houseStructId,jdbcType=INTEGER}, 
-      #{houseStructName,jdbcType=VARCHAR}, #{houseLayoutId,jdbcType=INTEGER}, #{houseLayoutName,jdbcType=VARCHAR}, 
-      #{houseRelId,jdbcType=INTEGER}, #{houseRelName,jdbcType=VARCHAR})
+    insert into view_hs_residenthouse (ResidentId, StaffId, StaffNo, 
+      HouseId, Address, BuildingId, 
+      BuildingName, RegionId, RegionName, 
+      HouseStructId, HouseStructName, HouseLayoutId, 
+      HouseLayoutName, HouseRelId, HouseRelName, 
+      BookTime, IsDelete, ExpireTime, 
+      RentType, PayType, UsedArea, 
+      BuildArea, HouseNo, HouseTypeId, 
+      HouseTypeName)
+    values (#{residentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, 
+      #{houseId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, 
+      #{buildingName,jdbcType=VARCHAR}, #{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, 
+      #{houseStructId,jdbcType=INTEGER}, #{houseStructName,jdbcType=VARCHAR}, #{houseLayoutId,jdbcType=INTEGER}, 
+      #{houseLayoutName,jdbcType=VARCHAR}, #{houseRelId,jdbcType=INTEGER}, #{houseRelName,jdbcType=VARCHAR}, 
+      #{bookTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=BIT}, #{expireTime,jdbcType=TIMESTAMP}, 
+      #{rentType,jdbcType=VARCHAR}, #{payType,jdbcType=INTEGER}, #{usedArea,jdbcType=DOUBLE}, 
+      #{buildArea,jdbcType=DOUBLE}, #{houseNo,jdbcType=VARCHAR}, #{houseTypeId,jdbcType=INTEGER}, 
+      #{houseTypeName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffhomepage.houseinfo.ResidentHouse">
     insert into view_hs_residenthouse
@@ -119,6 +140,9 @@
       </if>
       <if test="staffId != null">
         StaffId,
+      </if>
+      <if test="staffNo != null">
+        StaffNo,
       </if>
       <if test="houseId != null">
         HouseId,
@@ -156,6 +180,36 @@
       <if test="houseRelName != null">
         HouseRelName,
       </if>
+      <if test="bookTime != null">
+        BookTime,
+      </if>
+      <if test="isDelete != null">
+        IsDelete,
+      </if>
+      <if test="expireTime != null">
+        ExpireTime,
+      </if>
+      <if test="rentType != null">
+        RentType,
+      </if>
+      <if test="payType != null">
+        PayType,
+      </if>
+      <if test="usedArea != null">
+        UsedArea,
+      </if>
+      <if test="buildArea != null">
+        BuildArea,
+      </if>
+      <if test="houseNo != null">
+        HouseNo,
+      </if>
+      <if test="houseTypeId != null">
+        HouseTypeId,
+      </if>
+      <if test="houseTypeName != null">
+        HouseTypeName,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="residentId != null">
@@ -163,6 +217,9 @@
       </if>
       <if test="staffId != null">
         #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="staffNo != null">
+        #{staffNo,jdbcType=VARCHAR},
       </if>
       <if test="houseId != null">
         #{houseId,jdbcType=INTEGER},
@@ -200,6 +257,36 @@
       <if test="houseRelName != null">
         #{houseRelName,jdbcType=VARCHAR},
       </if>
+      <if test="bookTime != null">
+        #{bookTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentType != null">
+        #{rentType,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="usedArea != null">
+        #{usedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="buildArea != null">
+        #{buildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="houseNo != null">
+        #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseTypeId != null">
+        #{houseTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="houseTypeName != null">
+        #{houseTypeName,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffhomepage.houseinfo.ResidentHouseExample" resultType="java.lang.Long">
@@ -216,6 +303,9 @@
       </if>
       <if test="record.staffId != null">
         StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffNo != null">
+        StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       </if>
       <if test="record.houseId != null">
         HouseId = #{record.houseId,jdbcType=INTEGER},
@@ -253,6 +343,36 @@
       <if test="record.houseRelName != null">
         HouseRelName = #{record.houseRelName,jdbcType=VARCHAR},
       </if>
+      <if test="record.bookTime != null">
+        BookTime = #{record.bookTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDelete != null">
+        IsDelete = #{record.isDelete,jdbcType=BIT},
+      </if>
+      <if test="record.expireTime != null">
+        ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rentType != null">
+        RentType = #{record.rentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payType != null">
+        PayType = #{record.payType,jdbcType=INTEGER},
+      </if>
+      <if test="record.usedArea != null">
+        UsedArea = #{record.usedArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.buildArea != null">
+        BuildArea = #{record.buildArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.houseNo != null">
+        HouseNo = #{record.houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseTypeId != null">
+        HouseTypeId = #{record.houseTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseTypeName != null">
+        HouseTypeName = #{record.houseTypeName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -262,6 +382,7 @@
     update view_hs_residenthouse
     set ResidentId = #{record.residentId,jdbcType=INTEGER},
       StaffId = #{record.staffId,jdbcType=INTEGER},
+      StaffNo = #{record.staffNo,jdbcType=VARCHAR},
       HouseId = #{record.houseId,jdbcType=INTEGER},
       Address = #{record.address,jdbcType=VARCHAR},
       BuildingId = #{record.buildingId,jdbcType=INTEGER},
@@ -273,7 +394,17 @@
       HouseLayoutId = #{record.houseLayoutId,jdbcType=INTEGER},
       HouseLayoutName = #{record.houseLayoutName,jdbcType=VARCHAR},
       HouseRelId = #{record.houseRelId,jdbcType=INTEGER},
-      HouseRelName = #{record.houseRelName,jdbcType=VARCHAR}
+      HouseRelName = #{record.houseRelName,jdbcType=VARCHAR},
+      BookTime = #{record.bookTime,jdbcType=TIMESTAMP},
+      IsDelete = #{record.isDelete,jdbcType=BIT},
+      ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
+      RentType = #{record.rentType,jdbcType=VARCHAR},
+      PayType = #{record.payType,jdbcType=INTEGER},
+      UsedArea = #{record.usedArea,jdbcType=DOUBLE},
+      BuildArea = #{record.buildArea,jdbcType=DOUBLE},
+      HouseNo = #{record.houseNo,jdbcType=VARCHAR},
+      HouseTypeId = #{record.houseTypeId,jdbcType=INTEGER},
+      HouseTypeName = #{record.houseTypeName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

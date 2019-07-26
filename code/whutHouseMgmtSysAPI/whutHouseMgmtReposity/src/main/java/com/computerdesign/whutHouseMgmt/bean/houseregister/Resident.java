@@ -14,6 +14,8 @@ public class Resident {
     private Integer houseId;
 
     private Integer houseRel;
+    
+    private Integer payType;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -25,7 +27,7 @@ public class Resident {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date expireTime;
 
-    private String rentType;
+	private String rentType;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -89,6 +91,16 @@ public class Resident {
         this.expireTime = expireTime;
     }
 
+
+    public Integer getPayType() {
+		return payType;
+	}
+
+	public void setPayType(Integer payType) {
+		this.payType = payType;
+	}
+
+    
     public String getRentType() {
         return rentType;
     }
@@ -152,9 +164,13 @@ public class Resident {
 
 	@Override
 	public String toString() {
-		return "Resident [staffId=" + staffId + ", houseId=" + houseId + ", houseRel=" + houseRel + ", isDelete="
-				+ isDelete + ", rentType=" + rentType + "]";
+		return "Resident [id=" + id + ", staffId=" + staffId + ", houseId=" + houseId + ", houseRel=" + houseRel
+				+ ", payType=" + payType + ", bookTime=" + bookTime + ", isDelete=" + isDelete + ", expireTime="
+				+ expireTime + ", rentType=" + rentType + ", lastRentTime=" + lastRentTime + ", familyCode="
+				+ familyCode + "]";
 	}
+
+	
     
     
 }
