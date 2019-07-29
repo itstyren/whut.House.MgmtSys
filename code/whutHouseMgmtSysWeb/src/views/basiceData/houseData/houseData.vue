@@ -429,6 +429,14 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
+                <!-- 查看历史住房记录 -->
+                <el-row v-if="!ismodify"
+                        style="margin-left:15px;">
+                  <el-col :span="24">
+                    <el-button type="text"
+                               @click="getAllResidentDataByHouseId(detailData.id)">查询历史使用情况</el-button>
+                  </el-col>
+                </el-row>
                 <!-- 备注输入框 -->
                 <el-row>
                   <el-col :span="24">
@@ -662,34 +670,91 @@
                 </el-row>
               </el-col>
             </el-row>
-
-            <!-- 右边图片部分 -->
-            <div class="picFrom">
-
-            </div>
           </el-form>
+
         </el-dialog>
       </div>
     </section>
+    <!-- 内层对话框（住房历史记录） -->
+    <el-dialog :title="`房屋编号为${detailData.no}的历史使用情况`"
+               :visible.sync="residentDialogVisiable"
+               class="house-Resident-dialog"
+               append-to-body>
+      <el-table :data="houseResidentData"
+                class="table"
+                v-loading="houseResidentLoading">
+        <el-table-column prop="staffNo"
+                         label="职工号"
+                         sortable
+                         width="90"
+                         align="center"></el-table-column>
+        <el-table-column prop="staff"
+                         label="姓名"
+                         sortable
+                         width="140"
+                         align="center"></el-table-column>
+        <el-table-column prop="deptName"
+                         label="工作部门"
+                         sortable
+                         width="120"
+                         align="center"></el-table-column>
+        <el-table-column prop="houseRelName"
+                         label="入住关系"
+                         sortable
+                         width="120"
+                         align="center"></el-table-column>
+        <el-table-column prop="usedArea"
+                         label="使用面积"
+                         sortable
+                         width="120"
+                         align="center"></el-table-column>
+        <el-table-column prop="bookTime"
+                         label="入住时间"
+                         align="center"></el-table-column>
+        <el-table-column prop="expireTime"
+                         label="退出时间"
+                         align="center"></el-table-column>
+        <el-table-column label="操作"
+                         width="180"
+                         align="center">
+          <template slot-scope="scope">
+            <el-button type="danger"
+                       size="mini"
+                       @click="handleDelRel(scope.$index,scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import {
+  getStaff,
   getHouse,
   getHouseByBuildingID,
   getHouseByRegionID,
   postHouseData,
   deleteHouseData,
-  putHouseData
+  putHouseData,
+  getAllResidentDataByHouseId,
+  deleteResidentLog
 } from "@/api/basiceData";
 import indexNav from "./components/indexNav";
 import { getHouseParam } from "@/api/sysManage";
 import { checkNum, checkNULL } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
+import HouseDetailDialog from '@/components/OneHouseData'
+
 export default {
   data () {
     return {
+      // 住房历史使用情况的对话框
+      residentDialogVisiable: false,
+      // 住房历史使用的职工表格数据
+      houseResidentData: [],
+      // 住房历史使用情况的表格是否加载
+      houseResidentLoading: false,
       // 图片上传的域名
       basiceUrl: "http://172.16.65.105:8080/whutHouseMgmtReposity",
       // 已经上传但是未提交的图片数组
@@ -875,7 +940,8 @@ export default {
   mounted () {
   },
   components: {
-    indexNav
+    indexNav,
+    HouseDetailDialog
   },
   methods: {
     // 
@@ -1198,6 +1264,50 @@ export default {
     // 文件上传失败
     errorFileUpload (res, file) {
       this.$message.error("文件上传失败！")
+    },
+    // 获取住房历史使用情况数据
+    getAllResidentDataByHouseId (houseId) {
+      this.residentDialogVisiable = true
+      this.houseResidentLoading = true
+      getAllResidentDataByHouseId(houseId).then(res => {
+        let staffId = res.data.data.data.staffId
+        this.houseResidentData = res.data.data.data
+        getStaff(staffId).then(res => {
+          this.houseResidentData.name = res.data.data.data.name
+          this.houseResidentData.deptName = res.data.data.data.deptName
+        })
+      }).catch(err => {
+        this.$message.error("获取住房历史使用情况失败")
+      })
+      this.houseResidentLoading = false
+    },
+    // 删除历史住房纪录
+    handleDelRel (index, row) {
+      // 删除关系
+      this.$confirm("此操作将删除该关系", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let param = row.residentId;
+          this.listLoading = true;
+          deleteResidentLog(param)
+            .then(res => {
+              // 公共提示方法
+              utils.statusinfo(this, res.data);
+              this.getList();
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     },
     // 删除功能
     delectHouse (index, row) {

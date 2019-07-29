@@ -114,6 +114,14 @@ export function getHouse(params) {
     params: params
   })
 }
+// 获取方法--根据house的id获取一个house
+export function getOneHouseData(houseId) {
+  return request({
+    url: `/house/get/${houseId}`,
+    method: 'get'
+  })
+}
+
 // 获取方法--根据楼栋id
 export function getHouseByBuildingID(params, buildingID) {
   return request({
@@ -290,5 +298,20 @@ export function downloadFileByFileName(fileName) {
     params: {
       fileName: fileName
     }
+  })
+}
+
+// 获取某一职工与其所有房子的住房关系的数据
+export function getAllHouseRelByStaffId(staffId) {
+  return request({
+    url: `/houseRegister/getAllResidentDataByStaffId/${staffId}`,
+    method: 'get'
+  })
+}
+// 获取某一住房与职工的关系
+export function getAllResidentDataByHouseId(houseId) {
+  return request({
+    url: `/houseRegister/getAllResidentDataByHouseId/${houseId}`,
+    method: 'get'
   })
 }
