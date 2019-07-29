@@ -1,17 +1,15 @@
 <template>
-  <div class="card"
-       :style="{height:height,width:width}">
+  <div class="card" :style="{height:height,width:width}">
     <div class="title">
       <strong>周维修类型统计</strong>
     </div>
-    <div class="chart"
-         ref="pageView"></div>
+    <div class="chart" ref="pageView"></div>
   </div>
 </template>
 
 <script>
 import echarts from "echarts";
-import { getFixContentByDay } from "@/api/dataAnalysis.js";
+import {  getFixContentByDay } from "@/api/dataAnalysis.js";
 require("echarts/theme/macarons"); // echarts theme
 let _ = require("underscore");
 export default {
@@ -29,12 +27,12 @@ export default {
       default: true
     }
   },
-  data () {
+  data() {
     return {
       chart: null
     };
   },
-  mounted () {
+  mounted() {
     this.initChart();
     if (this.autoResize) {
       this.__resizeHanlder = _.debounce(() => {
@@ -49,32 +47,31 @@ export default {
   watch: {
     chartData: {
       deep: true,
-      handler (val) {
+      handler(val) {
         this.setOptions(val);
       }
     }
   },
   methods: {
-    getData () {
+    getData() {
       let params = {
         day: 7
       };
-      let roleId = this.$store.getters.roleId
       this.chart.showLoading();
-      getFixContentByDay(params, roleId).then(res => {
-        //const content = res.data.data.data;
-        this.chart.setOption({
-          legend: {
-            data: res.data.data.name
-          },
-          series: {
+        getFixContentByDay(params).then(res => {
+          //const content = res.data.data.data;
+          this.chart.setOption({
+            legend: {
+              data: res.data.data.name
+            },
+            series:{
             data: res.data.data.count
-          }
+            }
+          });
+          this.chart.hideLoading();
         });
-        this.chart.hideLoading();
-      });
     },
-    setOptions ({ expectedData, actualData } = {}) {
+    setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {
           trigger: "item",
@@ -133,7 +130,7 @@ export default {
         animationEasing: "cubicInOut"
       });
     },
-    initChart () {
+    initChart() {
       this.chart = echarts.init(this.$refs.pageView, "macarons");
       this.setOptions(this.chartData);
     }

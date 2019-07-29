@@ -1,11 +1,9 @@
 <template>
-  <div class="card"
-       :style="{height:height,width:width}">
+  <div class="card" :style="{height:height,width:width}">
     <div class="title">
       <strong>维修类型比例</strong>
     </div>
-    <div class="chart"
-         ref="fixType"></div>
+    <div class="chart" ref="fixType"></div>
   </div>
 </template>
 
@@ -34,12 +32,12 @@ export default {
       default: {}
     }
   },
-  data () {
+  data() {
     return {
       chart: null
     };
   },
-  mounted () {
+  mounted() {
     this.initChart();
     this.getData();
     if (this.autoResize) {
@@ -52,31 +50,30 @@ export default {
     }
   },
   watch: {
-    filtersData (newVal) {
+    filtersData(newVal) {
       this.getData(newVal);
     }
   },
   methods: {
-    getData () {
-      if (arguments[0] !== undefined) var data = arguments[0];
+    getData() {
+            if (arguments[0] !== undefined) var data = arguments[0];
       else var data = {};
-      let roleId = this.$store.getters.roleId
       this.chart.showLoading();
-      postFixTypeBar(data, roleId).then(res => {
-        const data = res.data.data
+      postFixTypeBar(data).then(res => {
+        const data=res.data.data
         console.log(data)
         this.chart.setOption({
-          legend: {
-            data: data.name
-          },
-          series: {
-            data: data.data
-          }
+         legend:{
+           data:data.name
+         },
+         series:{
+           data:data.data
+         }
         });
         this.chart.hideLoading();
       });
     },
-    setOptions ({ expectedData, actualData } = {}) {
+    setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {
           trigger: "item",
@@ -106,7 +103,7 @@ export default {
         animationEasing: "cubicInOut"
       });
     },
-    initChart () {
+    initChart() {
       this.chart = echarts.init(this.$refs.fixType, "macarons");
       this.setOptions(this.chartData);
     }

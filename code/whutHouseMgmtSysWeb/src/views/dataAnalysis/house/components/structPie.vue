@@ -1,11 +1,9 @@
 <template>
-  <div class="card"
-       :style="{height:height,width:width}">
+  <div class="card" :style="{height:height,width:width}">
     <div class="title">
       <strong>房屋类型占比</strong>
     </div>
-    <div class="chart"
-         ref="structPie"></div>
+    <div class="chart" ref="structPie"></div>
   </div>
 </template>
 
@@ -33,12 +31,12 @@ export default {
       default: {}
     }
   },
-  data () {
+  data() {
     return {
       chart: null
     };
   },
-  mounted () {
+  mounted() {
     this.initChart();
     this.getData();
     if (this.autoResize) {
@@ -51,21 +49,20 @@ export default {
     }
   },
   watch: {
-    filtersData (newVal) {
+    filtersData(newVal) {
       this.getData(newVal);
     }
   },
   methods: {
-    getData () {
+    getData() {
       let params = {
         paramTypeId: 1
       };
-      if (arguments[0] !== undefined)
-        var data = arguments[0];
-      else var data = {}
-      let roleId = this.$store.getters.roleId
+     if(arguments[0]!==undefined)
+      var data = arguments[0];
+      else var data={}
       this.chart.showLoading();
-      postHouseParamCount(params, data, roleId).then(res => {
+      postHouseParamCount(params, data).then(res => {
         this.chart.setOption({
           series: {
             data: res.data.data.content
@@ -74,7 +71,7 @@ export default {
         this.chart.hideLoading();
       });
     },
-    setOptions ({ expectedData, actualData } = {}) {
+    setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {
           trigger: "item",
@@ -93,7 +90,7 @@ export default {
                 textStyle: {
                   fontSize: 14
                 },
-                formatter: function (param) {
+                formatter: function(param) {
                   return param.name + ":\n" + Math.round(param.percent) + "%";
                 }
               }
@@ -118,7 +115,7 @@ export default {
 
             animationType: "scale",
             animationEasing: "elasticOut",
-            animationDelay: function (idx) {
+            animationDelay: function(idx) {
               return Math.random() * 200;
             }
           }
@@ -127,7 +124,7 @@ export default {
         animationEasing: "cubicInOut"
       });
     },
-    initChart () {
+    initChart() {
       this.chart = echarts.init(this.$refs.structPie, "macarons");
       this.setOptions(this.chartData);
     }

@@ -1,11 +1,9 @@
 <template>
-  <div class="card"
-       :style="{height:height,width:width}">
+  <div class="card" :style="{height:height,width:width}">
     <div class="title">
       <strong>维修类型趋势变动</strong>
     </div>
-    <div class="chart"
-         ref="pageView"></div>
+    <div class="chart" ref="pageView"></div>
   </div>
 </template>
 
@@ -34,12 +32,12 @@ export default {
       default: {}
     }
   },
-  data () {
+  data() {
     return {
       chart: null
     };
   },
-  mounted () {
+  mounted() {
     this.initChart();
     this.getData()
     if (this.autoResize) {
@@ -52,43 +50,42 @@ export default {
     }
   },
   watch: {
-    filtersData (newVal) {
+    filtersData(newVal) {
       this.getData(newVal);
     }
   },
   methods: {
-    getData () {
+    getData() {
       if (arguments[0] !== undefined) var data = arguments[0];
       else var data = {};
-      let roleId = this.$store.getters.roleId
       this.chart.showLoading();
-      postFixTypeRecord(data, roleId).then(res => {
-        const data = res.data.data
-        let _series = []
+      postFixTypeRecord(data).then(res => {
+        const data=res.data.data
+        let _series=[]
         data.data.forEach(v => {
           _series.push(
             {
-              name: v.name,
-              type: "line",
-              stack: "总量",
-              areaStyle: { normal: {} },
-              data: v.data
-            },
+            name: v.name,
+            type: "line",
+            stack: "总量",
+            areaStyle: { normal: {} },
+            data:v.data
+          },
           )
         });
         this.chart.setOption({
-          legend: {
-            data: data.ContentName
+          legend:{
+            data:data.ContentName
           },
-          xAxis: [{
-            data: data.dataString
+          xAxis:[{
+            data:data.dataString
           }],
-          series: _series
+          series:_series
         });
         this.chart.hideLoading();
       });
     },
-    setOptions ({ expectedData, actualData } = {}) {
+    setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         tooltip: {
           trigger: "axis"
@@ -115,7 +112,7 @@ export default {
         animationEasing: "cubicInOut"
       });
     },
-    initChart () {
+    initChart() {
       this.chart = echarts.init(this.$refs.pageView, "macarons");
       this.setOptions(this.chartData);
     }

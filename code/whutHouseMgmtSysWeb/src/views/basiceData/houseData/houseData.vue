@@ -138,22 +138,6 @@
                    v-loading="detailLoading"
                    class="detail-modify"
                    @close="modifyFromClose">
-          <!-- 内层对话框（走马灯） -->
-          <el-dialog :title="`房屋编号为${detailData.no}的相关图片`"
-                     :visible.sync="carouselVisible"
-                     append-to-body>
-            <el-carousel indicator-position="outside"
-                         arrow="always"
-                         :height="imgHeight">
-              <el-carousel-item v-for="(item, index) in allImageData"
-                                :key="index"
-                                :index="index">
-                <img :src="item"
-                     style="height:100%"
-                     class="imgCenter" />
-              </el-carousel-item>
-            </el-carousel>
-          </el-dialog>
           <el-form :model="detailData"
                    label-width="85px"
                    ref="modifyFrom"
@@ -338,93 +322,26 @@
               </el-col>
               <!-- 中间右边 -->
               <el-col :span="8">
-                <!-- 相关图片和上传图片 -->
-                <div class="top-line">
-                  <el-row>
-                    <el-col :span="24">
-                      <el-form-item label="相关图片">
-                        <span v-if="allImageData.length===0">暂无图片</span>
-                        <template v-else>
-                          <el-button type="text"
-                                     @click="carouselVisible=true">点击查看所有上传的图片</el-button>
-                          <el-upload v-if="ismodify"
-                                     action=""
-                                     class="detail-pic-upload"
-                                     :on-remove="handlePastImageRemove"
-                                     :before-remove="beforeRemove"
-                                     :file-list="pastImageShowNameList">
-                            <!-- <div slot="tip"
-                             class="el-upload__tip">历史图片：</div> -->
-                          </el-upload>
-                        </template>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="24">
-                      <el-form-item v-if="ismodify"
-                                    label="上传图片"
-                                    prop="picEditData">
-
-                        <el-upload :action="`${basiceUrl}/fileUpload/multiFileUpload`"
-                                   :multiple="true"
-                                   ref="modifyImageUpload"
-                                   :on-success="successUpload"
-                                   :on-error="errorUpload"
-                                   :on-remove="handleNowImageRemove"
-                                   :before-remove="beforeRemove"
-                                   :before-upload="beforePicUpload">
-                          <el-button size="small"
-                                     type="primary">点击上传</el-button>
-                        </el-upload>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                </div>
-                <!-- 附件上传 -->
                 <el-row>
                   <el-col :span="24">
-                    <el-form-item label="相关附件">
-                      <span v-if="pastFileList.length===0">暂无附件</span>
-                      <template v-else>
-                        <!-- 编辑状态显示上传列表 -->
-                        <el-upload v-if="ismodify"
-                                   action=""
-                                   class="detail-pic-upload"
-                                   :on-remove="handleAddFileRemove"
-                                   :before-remove="beforeRemove"
-                                   :file-list="pastFileList">
-                        </el-upload>
-                        <!-- 详情页面显示附件下载链接 -->
-                        <el-row v-else>
-                          <el-col :span="24"
-                                  v-for=" (item,index) in pastFileList"
-                                  :key="index"
-                                  :index="index">
-                            <el-button type="text"
-                                       @click="handleDownloadFile(item.name)"> {{item.name}}</el-button>
-                          </el-col>
-                        </el-row>
-                      </template>
+                    <el-form-item label="相关图片">
+                      <img class="file"
+                           :src="detailData.image"
+                           alt="暂无证明材料">
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="24">
                     <el-form-item v-if="ismodify"
-                                  label="上传附件"
-                                  prop="addFileEditData">
-                      <el-upload :action="`${basiceUrl}/fileUpload/multiFileNamedUpload`"
-                                 :multiple="true"
-                                 name="file"
-                                 ref="modifyFileUpload"
-                                 :on-success="handleUploadAddFileUpload"
-                                 :on-error="errorFileUpload"
-                                 :on-remove="handleAddFileRemove"
-                                 :before-remove="beforeRemove"
-                                 :before-upload="beforeAddFileUpload">
+                                  label="上传图片">
+                      <el-upload action="http://upload.qiniu.com/"
+                                 :data="postData"
+                                 :on-success="successUpload"
+                                 :before-upload="beforePicUpload">
                         <el-button size="small"
                                    type="primary">点击上传</el-button>
+                        <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
                       </el-upload>
                     </el-form-item>
                   </el-col>
@@ -449,7 +366,6 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <!-- 提交-取消按钮 -->
                 <el-row>
                   <el-col :span="24">
                     <el-form-item v-if="ismodify"
@@ -457,7 +373,7 @@
                                   style="margin-top:20px;margin-left:40px">
                       <el-button type="primary"
                                  @click.native="modifySubmit">提交</el-button>
-                      <el-button @click="modifyFromClose">取消</el-button>
+                      <el-button @click="cancelAdd">取消</el-button>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -618,33 +534,16 @@
               <el-col :span="8">
                 <el-row>
                   <el-col :span="24">
-                    <el-form-item label="上传图片"
-                                  prop="picData">
-                      <el-upload :action="`${basiceUrl}/fileUpload/multiFileUpload`"
-                                 :multiple="true"
-                                 ref="addFormImageUpload"
+                    <el-form-item label="上传图片">
+                      <el-upload action="http://upload.qiniu.com/"
+                                 :limit="1"
+                                 list-type="picture-card"
+                                 :data="postData"
                                  :on-success="successUpload"
-                                 :on-error="errorUpload"
-                                 :on-remove="handleNowImageRemove"
-                                 :before-remove="beforeRemove"
                                  :before-upload="beforePicUpload">
                         <el-button size="small"
                                    type="primary">点击上传</el-button>
-                      </el-upload>
-                    </el-form-item>
-                    <el-form-item label="上传附件"
-                                  prop="addFileEditData">
-                      <el-upload :action="`${basiceUrl}/fileUpload/multiFileNamedUpload`"
-                                 :multiple="true"
-                                 name="file"
-                                 ref="addFormFileUpload"
-                                 :on-success="handleUploadAddFileUpload"
-                                 :on-error="errorFileUpload"
-                                 :on-remove="handleAddFileRemove"
-                                 :before-remove="beforeRemove"
-                                 :before-upload="beforeAddFileUpload">
-                        <el-button size="small"
-                                   type="primary">点击上传</el-button>
+                        <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
                       </el-upload>
                     </el-form-item>
                   </el-col>
@@ -776,9 +675,9 @@ export default {
       // 是否处于编辑状态
       ismodify: false,
       // 七牛云令牌
-      // postData: {
-      //   token: this.$store.getters.qiniuToken
-      // },
+      postData: {
+        token: this.$store.getters.qiniuToken
+      },
       // 表格数据
       houseData: [],
       listLoading: false,
@@ -920,7 +819,7 @@ export default {
     },
     addSelectRegion () {
       return this.addFormBody.regionId || this.detailData.regionId;
-    },
+    }
   },
   watch: {
     // 监听选项的变动
@@ -931,24 +830,23 @@ export default {
     },
     // 监听新增表单区域选择变动
     addSelectRegion (newval) {
+      // console.log('2')
       //this.addFormBody.buildingId=null
       for (var region of this.regionBuildingData) {
         if (region.id == newval) this.regionBuilding = region.buildingList;
       }
     },
   },
-  mounted () {
-  },
   components: {
     indexNav,
     HouseDetailDialog
   },
   methods: {
-    // 
     selectHouse (index) {
       this.queryStatus = 0;
       this.queryHouseId = index;
       this.getList();
+      // console.log(index)
     },
     getRegionBuilding (regionBuildingData) {
       this.regionBuildingData = regionBuildingData
@@ -968,6 +866,7 @@ export default {
     },
     // 获取房屋列表
     getList () {
+      //console.log(this.queryStatus);
       this.listLoading = true;
       let param = {
         page: this.page,
@@ -990,6 +889,7 @@ export default {
           this.houseData = res.data.data.data.list;
           this.totalNum = res.data.data.data.total;
           this.listLoading = false;
+          //console.log(this.houseData);
         })
         .catch(err => {
           console.log(err);
@@ -1003,7 +903,9 @@ export default {
       for (let paramClass = 1; paramClass <= paramNum; paramClass++) {
         getHouseParam(param, paramClass)
           .then(res => {
+            //console.log(res.data.data);
             this.addFormParam[paramClass] = res.data.data.data.list;
+            // console.log(res.data.data.list)
             if (this.addFormParam[4] != null) this.submitLoading = false;
           })
           .catch(err => {
@@ -1014,21 +916,16 @@ export default {
     // 新增表单取消时
     cancelAdd () {
       this.$refs["addForm"].resetFields();
-      this.$refs["addFormImageUpload"].clearFiles()
-      this.$refs["addFormFileUpload"].clearFiles()
       this.addFormVisible = false;
-      this.allImageData = []
-      this.allFileList = []
     },
     // 新增表单提交
     addSubmit () {
+      //console.log(this.addFormBody);
       this.$refs["addForm"].validate(valid => {
         if (valid) {
           this.submitLoading = true;
           //复制字符串
           let para = Object.assign({}, this.addFormBody);
-          para.image = this.allImageData.join(",")
-          para.files = this.allFileList.length ? this.allFileList.join(',') : ''
           postHouseData(para).then(res => {
             this.submitLoading = false;
             //公共提示方法，传入当前的vue以及res.data
@@ -1036,11 +933,6 @@ export default {
             this.$refs["addForm"].resetFields();
             this.addFormVisible = false;
           });
-          this.allImageData = []
-          // 清空上传文件列表
-          this.$refs["addFormImageUpload"].clearFiles()
-          this.$refs["addFormFileUpload"].clearFiles()
-          this.allFileList = []
         }
       });
     },
@@ -1050,6 +942,7 @@ export default {
     },
     // 显示新增页面
     showAddForm () {
+      // if (this.addFormParam == "")
       this.addFromGetList();
       this.addFormVisible = true;
     },
@@ -1059,20 +952,6 @@ export default {
       this.ismodify = false;
       this.detailFormVisible = true;
       this.detailData = Object.assign({}, row);
-      // 获取走马灯的图片地址
-      this.allImageData = this.detailData.image ? this.detailData.image.split(',') : []
-      if (this.detailData.files) {
-        let fileList = this.detailData.files.split(',')
-        this.pastFileList = fileList.map((item, index, array) => {
-          let name = item.split('\\')
-          return {
-            name: name[name.length - 1],
-            url: item
-          }
-        })
-      } else {
-        this.pastFileList = []
-      }
     },
     //显示编辑
     showModifyDialog (index, row) {
@@ -1096,36 +975,6 @@ export default {
       }
       this.detailFormVisible = true;
       this.detailData = Object.assign({}, row);
-      // 获取图片的地址
-      if (this.detailData.image) {
-        let imageData = this.detailData.image.split(',')
-        // 获取走马灯的图片地址
-        this.allImageData = imageData
-        // 获取文件列表
-        this.pastImageShowNameList = imageData.map((item, index, array) => {
-          let name = item.split('/')
-          return {
-            name: name[name.length - 1],
-            url: item
-          }
-        })
-      } else {
-        this.pastImageShowNameList = []
-      }
-      // 获取附件的地址
-      if (this.detailData.files) {
-        let fileList = this.detailData.files.split(',')
-        this.allFileList = fileList
-        this.pastFileList = fileList.map((item, index, array) => {
-          let name = item.split('\\')
-          return {
-            name: name[name.length - 1],
-            url: item
-          }
-        })
-      } else {
-        this.pastFileList = []
-      }
     },
     //编辑提交
     modifySubmit () {
@@ -1134,8 +983,6 @@ export default {
           this.detailLoading = true;
           let param = Object.assign({}, this.detailData);
           param.regionId = this.$route.params.id;
-          param.image = this.allImageData.length ? this.allImageData.join(',') : ''
-          param.files = this.allFileList.length ? this.allFileList.join(',') : ''
           putHouseData(param).then(res => {
             utils.statusinfo(this, res.data);
             this.detailLoading = false;
@@ -1144,29 +991,18 @@ export default {
             this.detailFormVisible = false;
             this.getList();
           });
-          this.pastImageShowNameList = []
-          this.$refs["modifyImageUpload"].clearFiles()
-          this.$refs["modifyFileUpload"].clearFiles()
-          this.allImageData = []
-          this.allFileList = []
-          this.pastFileList = []
         }
       });
     },
     // 编辑框关闭时候回调
     modifyFromClose () {
-      if (this.ismodify) {
-        this.$refs["modifyFrom"].resetFields();
-        this.$nextTick(() => {
-          this.$refs["modifyImageUpload"].clearFiles()
-          this.$refs["modifyFileUpload"].clearFiles()
-        })
-      }
-      this.pastImageShowNameList = []
-      this.allImageData = []
-      this.detailFormVisible = false;
-      this.allFileList = []
-      this.pastFileList = []
+      // if (this.modified == false && this.title != "详情") {
+      //   this.$notify.info({
+      //     title: "提示",
+      //     message: "已取消编辑"
+      //   });
+      //   this.$refs["modifyFrom"].resetFields();
+      // }
     },
     //在图片提交前进行验证
     beforePicUpload (file) {
@@ -1175,70 +1011,12 @@ export default {
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isJPG && !isPNG) {
         this.$message.error("上传头像图片只能是 JPG/PNG 格式!");
-        this.isBeforeRemove = false
         return false;
       } else if (!isLt2M) {
         this.$message.error("上传证明图片大小不能超过 2MB!");
-        this.isBeforeRemove = false
         return false;
       }
       return true;
-    },
-    //附件上传之前进行验证的钩子
-    beforeAddFileUpload (file) {
-      const isLt30M = file.size / 1024 / 1024 < 30;
-      if (!isLt30M) {
-        this.$message.error("上传附件大小不能超过 30MB!");
-        return false
-        this.isBeforeRemove = false
-      } else {
-        return true
-      }
-    },
-    // 删除图片前的钩子
-    beforeRemove (file, fileList) {
-      if (this.isBeforeRemove) {
-        return this.$confirm(`确定移除 ${file.name}？`);
-      } else {
-        this.isBeforeRemove = true
-        return true
-      }
-    },
-    // 删除未提交的图片之后的钩子
-    handleNowImageRemove (file, fileList) {
-      let imageUrl = file.response.data.data[0]
-      let index = this.allImageData.indexOf(imageUrl)
-      this.allImageData.splice(index, 1)
-      console.log("删除未提交的图片之后allImageData:", this.allImageData)
-    },
-    // 删除已经提交的图片之后的钩子
-    handlePastImageRemove (file, fileList) {
-      let imageUrl = file.url
-      let index = this.allImageData.indexOf(imageUrl)
-      this.allImageData.splice(index, 1)
-      console.log("删除已提交的图片之后allImageData:", this.allImageData)
-    },
-    // 上传未提交的图片成功的钩子
-    successUpload (response, file, fileList) {
-      this.allImageData = this.allImageData.concat(response.data.data[0])
-    },
-    // 上传附件成功的钩子
-    handleUploadAddFileUpload (response, file, fileList) {
-      this.allFileList = this.allFileList.concat(response.data.data[0])
-    },
-    // 删除附件之后的钩子
-    handleAddFileRemove (file, fileList) {
-      let fileUrl = file.url
-      console.log("fileUrl:", fileUrl)
-      console.log("file:", file)
-      let index = this.allFileList.indexOf(fileUrl)
-      this.allFileList.splice(index, 1)
-
-    },
-    // 详情页中点击附件直接进行下载
-    handleDownloadFile (fileName) {
-      let url = `${this.basiceUrl}/fileUpload/fileDownLoad?fileName=${fileName}`
-      window.location.href = url
     },
     // 清空搜索的区域时
     clearRegion () {
@@ -1250,20 +1028,13 @@ export default {
       this.queryStatus = 2;
     },
 
-    // 七牛云-上传成功钩子
-    // successUpload (res, file, fileLis) {
-    //   /*       if (this.addFormVisible == false) {
-    //           this.detailData.image = this.$store.getters.qiniuURL + res.key;
-    //         } else this.addFormBody.image = this.$store.state.qiniuURL + res.key; */
-
-    // },
-    // 图片上传失败的钩子
-    errorUpload (res, file) {
-      this.$message.error("图片上传失败！")
-    },
-    // 文件上传失败
-    errorFileUpload (res, file) {
-      this.$message.error("文件上传失败！")
+    // 上传成功钩子
+    successUpload (res, file, fileLis) {
+      //console.log(res)
+      if (this.addFormVisible == false) {
+        this.detailData.image = this.$store.getters.qiniuURL + res.key;
+      } else this.addFormBody.image = this.$store.state.qiniuURL + res.key;
+      //console.log(this.addFormBody.image);
     },
     // 获取住房历史使用情况数据
     getAllResidentDataByHouseId (houseId) {
@@ -1385,21 +1156,5 @@ export default {
 img {
   width: 100%;
   height: 200px;
-}
-// .el-carousel__item:nth-child(2n) {
-//   background-color: #99a9bf;
-// }
-
-// .el-carousel__item:nth-child(2n + 1) {
-//   background-color: #d3dce6;
-// }
-.imgCenter {
-  position: relative; /*设置position位置*/
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-.detail-pic-upload {
-  margin-top: -50px;
 }
 </style>

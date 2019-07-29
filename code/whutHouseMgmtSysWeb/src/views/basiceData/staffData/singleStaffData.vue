@@ -8,7 +8,7 @@
         </el-breadcrumb-item>
         <el-breadcrumb-item>基础数据</el-breadcrumb-item>
         <el-breadcrumb-item>职工管理</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: `/basic/staff/byDept/${staffForm.deptName}` }">{{breadcrumbDeptName}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: `/basic/staff/byDept/${staffForm.deptId}` }">{{staffForm.deptName}}</el-breadcrumb-item>
         <el-breadcrumb-item>职工</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -26,7 +26,7 @@
                      @click="routerBack">返回</el-button>
           <el-button v-if="ismodify"
                      type="primary"
-                     @click="handleCancelEdit">取消编辑</el-button>
+                     @click="ismodify=!ismodify">取消编辑</el-button>
           <el-button v-if="ismodify"
                      type="primary"
                      @click="beforModify">提交</el-button>
@@ -45,7 +45,6 @@
             </div>
             <!-- 员工信息 -->
             <div class="staff-form">
-              <!-- 第一行表单 -->
               <el-row>
                 <el-col :span="6"
                         :offset="1">
@@ -62,11 +61,11 @@
                     <el-input v-model="staffForm.titleName"
                               v-if="!ismodify"
                               :readonly="!ismodify"></el-input>
-                    <el-select v-model="staffForm.titleName"
+                    <el-select v-model="staffForm.titleId"
                                clearable
                                v-if="ismodify"
                                placeholder="请选择职称">
-                      <el-option v-for="param in staffParam[7].list"
+                      <el-option v-for="param in staffParam[7]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -83,8 +82,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <!-- 第二行表单 -->
-
               <el-row>
                 <el-col :span="6"
                         :offset="1">
@@ -100,11 +97,11 @@
                     <el-input v-model="staffForm.postName"
                               v-if="!ismodify"
                               :readonly="!ismodify"></el-input>
-                    <el-select v-model="staffForm.postName"
+                    <el-select v-model="staffForm.postId"
                                clearable
                                v-if="ismodify"
                                placeholder="请选择职务">
-                      <el-option v-for="param in staffParam[6].list"
+                      <el-option v-for="param in staffParam[6]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -123,8 +120,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <!-- 第三行表单 -->
-
               <el-row>
                 <el-col :span="6"
                         :offset="1">
@@ -149,11 +144,11 @@
                     <el-input v-model="staffForm.typeName"
                               v-if="!ismodify"
                               :readonly="!ismodify"></el-input>
-                    <el-select v-model="staffForm.typeName"
+                    <el-select v-model="staffForm.typeId"
                                clearable
                                v-if="ismodify"
                                placeholder="请选择职工类别">
-                      <el-option v-for="param in staffParam[8].list"
+                      <el-option v-for="param in staffParam[8]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -172,8 +167,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <!-- 第四行表单 -->
-
               <el-row>
                 <el-col :span="6"
                         :offset="1">
@@ -198,11 +191,11 @@
                     <el-input v-model="staffForm.statusName"
                               v-if="!ismodify"
                               :readonly="!ismodify"></el-input>
-                    <el-select v-model="staffForm.statusName"
+                    <el-select v-model="staffForm.statusId"
                                clearable
                                v-if="ismodify"
                                placeholder="请选择工作状态">
-                      <el-option v-for="param in staffParam[9].list"
+                      <el-option v-for="param in staffParam[9]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -221,8 +214,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <!-- 第五行表单 -->
-
               <el-row>
                 <el-col :span="6"
                         :offset="1">
@@ -238,12 +229,11 @@
                     <el-input v-model="staffForm.deptName"
                               v-if="!ismodify"
                               :readonly="!ismodify"></el-input>
-                    <el-select v-model="staffForm.deptName"
+                    <el-select v-model="staffForm.deptId"
                                clearable
                                v-if="ismodify"
-                               placeholder="请选择工作部门"
-                               @change="handleDeptSelectionChange">
-                      <el-option v-for="param in staffParam[5].list"
+                               placeholder="请选择工作部门">
+                      <el-option v-for="param in staffParam[5]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -270,8 +260,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <!-- 第六行表单 -->
-
               <el-row>
                 <el-col :span="6"
                         :offset="1">
@@ -301,8 +289,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <!-- 第七行表单 -->
-
               <el-row>
                 <el-col :span="6"
                         :offset="1">
@@ -348,7 +334,7 @@
                     <el-select v-model="staffForm.spouseKind"
                                v-if="ismodify"
                                placeholder="请选择职称">
-                      <el-option v-for="param in staffParam[10].list"
+                      <el-option v-for="param in staffParam[10]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -365,7 +351,7 @@
                                clearable
                                v-if="ismodify"
                                placeholder="请选择职称">
-                      <el-option v-for="param in staffParam[7].list"
+                      <el-option v-for="param in staffParam[7]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -399,7 +385,7 @@
                                clearable
                                v-if="ismodify"
                                placeholder="请选择职务">
-                      <el-option v-for="param in staffParam[6].list"
+                      <el-option v-for="param in staffParam[6]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -426,8 +412,6 @@ import utils from "@/utils/index.js";
 export default {
   data () {
     return {
-      // 面包屑显示的工作部门的名称
-      breadcrumbDeptName: '',
       ismodify: false,
       // 表单需要的信息
       staffForm: {},
@@ -542,31 +526,23 @@ export default {
     }
     this.getList();
     this.getRoleIdByAuthList()
+
   },
   // 方法集合
   methods: {
-    // 工作部门下拉框选中值发生变化时，面包屑显示的工作部门名称
-    handleDeptSelectionChange (deptId) {
-      let deptList = this.staffParam[5].list
-      let selectDept = deptList.find((item) => {
-        return item.staffParamId = deptId
-      })
-      this.breadcrumbDeptName = selectDept.staffParamName
-    },
     // 获取列表
     getList () {
       let param = "";
       this.listLoading = true;
       let staffID = this.$route.params.id;
-      // if (this.$store.state.staffData.id == staffID) {
-      //   this.staffForm = this.$store.state.staffData;
-      //   Object.assign(this.oldStaffForm, this.$store.state.staffData);
-      //   return;
-      // }
+      if (this.$store.state.staffData.id == staffID) {
+        this.staffForm = this.$store.state.staffData;
+        Object.assign(this.oldStaffForm, this.$store.state.staffData);
+        return;
+      }
       getStaff(param, staffID)
         .then(res => {
           this.staffForm = res.data.data.data;
-          this.breadcrumbDeptName = this.staffForm.deptName
           Object.assign(this.oldStaffForm, res.data.data.data);
           this.listLoading = false;
         })
@@ -578,13 +554,6 @@ export default {
     modifyForm () {
       this.getParam();
       this.ismodify = !this.ismodify;
-    },
-    // 点击取消编辑，还原原表单
-    handleCancelEdit () {
-      this.ismodify = !this.ismodify
-      this.staffForm = JSON.parse(JSON.stringify(this.oldStaffForm))
-      this.$refs["staffForm"].clearValidate()
-
     },
     // 编辑时候需要获取的数据
     getParam () {
@@ -614,32 +583,32 @@ export default {
     beforModify () {
       const postForm = {};
       postForm.id = this.oldStaffForm.id;
-      let newVal = JSON.parse(JSON.stringify(this.staffForm))
-      let oldVal = JSON.parse(JSON.stringify(this.oldStaffForm))
+      let newVal = this.staffForm;
+      let oldVal = this.oldStaffForm;
       for (let v in newVal) {
         if (newVal[v] != oldVal[v]) {
           postForm[v] = newVal[v];
         }
       }
-      if (postForm.hasOwnProperty("postName")) {
-        postForm.post = postForm.postName;
-        delete postForm.postName;
+      if (postForm.hasOwnProperty("postId")) {
+        postForm.post = postForm.postId;
+        delete postForm.postId;
       }
-      if (postForm.hasOwnProperty("titleName")) {
-        postForm.title = postForm.titleName;
-        delete postForm.titleName;
+      if (postForm.hasOwnProperty("titleId")) {
+        postForm.title = postForm.titleId;
+        delete postForm.titleId;
       }
-      if (postForm.hasOwnProperty("typeName")) {
-        postForm.type = postForm.typeName;
-        delete postForm.typeName;
+      if (postForm.hasOwnProperty("typeId")) {
+        postForm.type = postForm.typeId;
+        delete postForm.typeId;
       }
-      if (postForm.hasOwnProperty("statusName")) {
-        postForm.status = postForm.statusName;
-        delete postForm.statusName;
+      if (postForm.hasOwnProperty("statusId")) {
+        postForm.status = postForm.statusId;
+        delete postForm.statusId;
       }
-      if (postForm.hasOwnProperty("deptName")) {
-        postForm.dept = postForm.deptName;
-        delete postForm.deptName;
+      if (postForm.hasOwnProperty("deptId")) {
+        postForm.type = postForm.deptId;
+        delete postForm.deptId;
       }
       this.modifySubmit(postForm);
     },
@@ -661,8 +630,7 @@ export default {
                 postPromoteSubStaffID(staffID).then(res => {
                   this.detailLoading = false;
                 });
-                this.getList()
-                this.ismodify = false
+                this.$refs["staffForm"].resetFields();
               });
             }
           });

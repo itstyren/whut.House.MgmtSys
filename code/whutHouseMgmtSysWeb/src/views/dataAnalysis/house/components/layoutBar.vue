@@ -1,11 +1,9 @@
 <template>
-  <div class="card"
-       :style="{height:height,width:width}">
+  <div class="card" :style="{height:height,width:width}">
     <div class="title">
       <strong>住房户型及使用率分析</strong>
     </div>
-    <div class="chart"
-         ref="pageView"></div>
+    <div class="chart" ref="pageView"></div>
   </div>
 </template>
 
@@ -29,12 +27,12 @@ export default {
       default: {}
     }
   },
-  data () {
+  data() {
     return {
       chart: null
     };
   },
-  mounted () {
+  mounted() {
     this.initChart();
     this.getData();
     if (this.autoResize) {
@@ -47,33 +45,32 @@ export default {
     }
   },
   watch: {
-    filtersData (newVal) {
+    filtersData(newVal) {
       this.getData(newVal);
     }
   },
   methods: {
-    getData () {
+    getData() {
       if (arguments[0] !== undefined) var data = arguments[0];
       else var data = {};
-      let roleId = this.$store.getters.roleId
       this.chart.showLoading();
-      postHouseRecordLayout(data, roleId).then(res => {
+      postHouseRecordLayout(data).then(res => {
         this.chart.setOption({
           xAxis: [
             {
               data: res.data.data.name
             }
           ],
-          series: [{
-            data: res.data.data.proportion
-          }, {
-            data: res.data.data.number
+          series:[{
+              data:res.data.data.proportion
+          },{
+              data:res.data.data.number
           }]
         });
         this.chart.hideLoading();
       });
     },
-    setOptions ({ expectedData, actualData } = {}) {
+    setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         title: {
           //text: '2000-2016年中国汽车销量及增长率'
@@ -98,9 +95,9 @@ export default {
         },
         grid: {
           containLabel: true,
-          bottom: '8%',
-          left: '5%',
-          right: '5%'
+          bottom:'8%',
+          left:'5%',
+          right:'5%'
         },
         legend: {
           data: ["入住率", "入住量"]
@@ -111,9 +108,9 @@ export default {
             axisTick: {
               alignWithLabel: true
             },
-            axisLabel: {
-              interval: 0,
-              rotate: 0,
+            axisLabel:{
+                interval:0,
+                rotate:0,
             }
           }
         ],
@@ -169,7 +166,7 @@ export default {
         animationEasing: "cubicInOut"
       });
     },
-    initChart () {
+    initChart() {
       this.chart = echarts.init(this.$refs.pageView, "macarons");
       this.setOptions(this.chartData);
     }

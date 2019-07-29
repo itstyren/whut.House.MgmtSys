@@ -195,6 +195,7 @@ const user = {
           id: id,
           name: name
         }
+        console.log("campusList:", campusList)
         commit("setCampusList", campusList)
       }).catch(err => console.log("获取所有校区名称失败！", err))
     }

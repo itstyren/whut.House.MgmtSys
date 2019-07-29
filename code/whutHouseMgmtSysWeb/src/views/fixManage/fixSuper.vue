@@ -17,20 +17,14 @@
         <div class="warp-body">
           <!-- 工具栏 -->
           <div class="toolbar card">
-            <el-row :gutter="30"
-                    type="flex"
-                    justify="center">
-              <el-col :span="8">
-                <el-input v-model="query"
-                          placeholder="输入职工姓名或id搜索"></el-input>
+            <el-row>
+              <el-col :span="4" :offset="1">
+                <el-input v-model="query" placeholder="输入职工姓名或id搜索"></el-input>
               </el-col>
-              <el-col :md="3"
-                      :lg="2">
-                <el-button type="primary"
-                           @click="queryMethod">查询</el-button>
+              <el-col :span="1" :offset="1">
+                <el-button type="primary" @click="queryMethod">查询</el-button>
               </el-col>
-              <el-col :md="3"
-                      :lg="3">
+              <el-col :span="1" :offset="1">
                 <el-button type="primary">重置</el-button>
               </el-col>
             </el-row>
@@ -38,70 +32,45 @@
           <div class="main-data">
             <!-- 表格区 -->
             <el-row class="personal-info">
-              <el-col :span="5"
-                      class="col card">
-                <personal-info-table @select-staff="getPropsStaff"
-                                     :query-data="queryData"></personal-info-table>
+              <el-col :span="8" class="col card">
+                <personal-info-table @select-staff="getPropsStaff" :query-data="queryData"></personal-info-table>
               </el-col>
-              <el-col :span="17"
-                      class="col card">
+              <el-col :span="15" class="col card" style="margin-left:20px">
                 <house-rel @select-house="getPropHouse"></house-rel>
               </el-col>
             </el-row>
             <!-- 表单区域 -->
             <div class="super-form card">
-              <el-form :model="superForm"
-                       label-width="100px"
-                       ref="superForm"
-                       v-loading="listLoading">
+              <el-form :model="superForm" label-width="100px" ref="superForm" v-loading="listLoading">
                 <el-row>
-                  <el-col :span="8"
-                          :offset="2">
+                  <el-col :span="8" :offset="2">
                     <el-form-item label="职工名称">
-                      <el-input v-model="staffName"
-                                readonly
-                                placeholder="请选择职工"></el-input>
+                      <el-input v-model="staffName" readonly  placeholder="请选择职工"></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8"
-                          :offset="1">
+                  <el-col :span="8" :offset="1">
                     <el-form-item label="维修类型">
-                      <el-select v-model="superForm.fixContentId"
-                                 placeholder="请选择维修类型"
-                                 clearable>
-                        <el-option v-for="fix in fixType"
-                                   :key="fix.fixParamId"
-                                   :value="fix.fixParamId"
-                                   :label="fix.fixParamName"></el-option>
+                      <el-select v-model="superForm.fixContentId" placeholder="请选择维修类型" clearable>
+                        <el-option v-for="fix in fixType" :key="fix.fixParamId" :value="fix.fixParamId" :label="fix.fixParamName"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="17"
-                          :offset="2">
+                  <el-col :span="17" :offset="2">
                     <el-form-item label="住房地址">
-                      <el-input v-model="houseName"
-                                readonly
-                                placeholder="请选择住房"></el-input>
+                      <el-input v-model="houseName" readonly placeholder="请选择住房"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="10"
-                          :offset="2">
-                    <el-form-item label="附加说明"
-                                  prop="acceptNote">
-                      <el-input v-model="superForm.fixDirectApplyNote"
-                                type="textarea"
-                                :rows="2"
-                                placeholder="请输入备注说明（可选）"></el-input>
+                  <el-col :span="10" :offset="2">
+                    <el-form-item label="附加说明" prop="acceptNote">
+                      <el-input v-model="superForm.fixDirectApplyNote" type="textarea" :rows="2" placeholder="请输入备注说明（可选）"></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="5"
-                          :offset="2">
-                    <el-button type="primary"
-                               @click="superSubmit">提交</el-button>
+                  <el-col :span="5" :offset="2">
+                    <el-button type="primary" @click="superSubmit">提交</el-button>
                   </el-col>
                 </el-row>
               </el-form>
@@ -121,7 +90,7 @@ import { postFixSuper, postFixEmail } from "@/api/fixManage";
 import { getFixParam } from "@/api/sysManage";
 import utils from "@/utils/index.js";
 export default {
-  data () {
+  data() {
     return {
       // 查询需要相关的
       propQuery: "",
@@ -139,7 +108,7 @@ export default {
     };
   },
   watch: {
-    propQuery (newVal) {
+    propQuery(newVal) {
       if (typeof newVal == "number") {
         this.queryData.param = newVal;
         this.queryData.type = 0;
@@ -149,7 +118,7 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.getFixType();
   },
   components: {
@@ -159,23 +128,23 @@ export default {
   },
   methods: {
     // 从组件获取id
-    getStaff (object) {
+    getStaff(object) {
       this.propQuery = object.id;
     },
     //查询方法
-    queryMethod () {
+    queryMethod() {
       this.propQuery = this.query;
     },
-    getPropHouse (selectHouse) {
+    getPropHouse(selectHouse) {
       this.houseName = selectHouse.name;
       this.superForm.houseId = selectHouse.id;
     },
-    getPropsStaff (selectStaff) {
+    getPropsStaff(selectStaff) {
       this.staffName = selectStaff.name;
       this.superForm.staffId = selectStaff.id;
     },
     // 获取维修类型
-    getFixType () {
+    getFixType() {
       this.listLoading = true;
       let param = {};
       getFixParam(param, 16)
@@ -189,7 +158,7 @@ export default {
         });
     },
     // 维修直批提交
-    superSubmit () {
+    superSubmit() {
       this.listLoading = true;
       let params = Object.assign({}, this.superForm);
       params.directApplyMan = this.$store.getters.userName;

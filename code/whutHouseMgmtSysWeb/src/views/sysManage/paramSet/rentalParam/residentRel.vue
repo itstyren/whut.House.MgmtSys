@@ -20,27 +20,15 @@
         <el-card class="resident-rel-card">
           <div slot="header">
             <span>当前关系</span>
-            <el-button type="text"
-                       style="float:right; padding:3px 0"
-                       @click="submit">修改并提交</el-button>
+            <el-button type="text" style="float:right; padding:3px 0" @click="submit">修改并提交</el-button>
           </div>
           <div class="rel-form">
-            <el-table :data="residentRelData"
-                      v-loading="listLoading"
-                      style="width:100%">
-              <el-table-column label="状态名"
-                               prop="houseParamName"
-                               align="center"></el-table-column>
-              <el-table-column label="关系登记"
-                               width="400"
-                               align="center">
+            <el-table :data="residentRelData" v-loading="listLoading" style="width:100%">
+              <el-table-column label="状态名" prop="houseParamName" align="center"></el-table-column>
+              <el-table-column label="关系登记" width="400" align="center">
                 <template slot-scope="scope">
                   <el-checkbox-group v-model="scope.row.checkedStatus">
-                    <el-checkbox v-for="status in  statusData"
-                                 :key="status"
-                                 :label="status"
-                                 :checked="checked"
-                                 @change="checked=!checked">{{status}}</el-checkbox>
+                    <el-checkbox v-for="status in  statusData" :key="status" :label="status" :checked="checked" @change="checked=!checked">{{status}}</el-checkbox>
                   </el-checkbox-group>
                 </template>
               </el-table-column>
@@ -54,11 +42,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getResident, postResident } from "@/api/sysManage";
-import { getHouseParam } from '@/api/sysManage'
+import { getResident,  postResident } from "@/api/sysManage";
+import {getHouseParam} from '@/api/sysManage'
 import utils from "@/utils/index.js";
 export default {
-  data () {
+  data() {
     return {
       // 表格数据
       listLoading: "false",
@@ -71,13 +59,13 @@ export default {
     };
   },
   // 声明周期调用
-  mounted () {
+  mounted() {
     this.getList();
     this.getHouseStatus();
   },
   methods: {
     // 获取职工职务
-    getList () {
+    getList() {
       this.listLoading = true;
       let param = {};
       // http请求
@@ -98,7 +86,7 @@ export default {
         });
     },
     // 获取房屋状态
-    getHouseStatus () {
+    getHouseStatus() {
       this.listLoading = true;
       let param = {};
       // http请求
@@ -117,7 +105,7 @@ export default {
         });
     },
     // 提交修改并保存
-    submit () {
+    submit() {
       this.$confirm("此操作将修改房屋关系并提交", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -157,6 +145,7 @@ export default {
 <style scoped lang="scss">
 .resident-rel-card {
   width: 60%;
+  height: 60%;
   margin: 100px auto;
   padding: 200px auto;
   .rel-form {

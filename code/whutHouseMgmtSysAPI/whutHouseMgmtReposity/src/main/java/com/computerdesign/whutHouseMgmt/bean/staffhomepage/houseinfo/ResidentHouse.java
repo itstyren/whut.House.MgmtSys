@@ -1,9 +1,13 @@
 package com.computerdesign.whutHouseMgmt.bean.staffhomepage.houseinfo;
 
+import java.util.Date;
+
 public class ResidentHouse {
     private Integer residentId;
 
     private Integer staffId;
+
+    private String staffNo;
 
     private Integer houseId;
 
@@ -29,6 +33,26 @@ public class ResidentHouse {
 
     private String houseRelName;
 
+    private Date bookTime;
+
+    private Boolean isDelete;
+
+    private Date expireTime;
+
+    private String rentType;
+
+    private Integer payType;
+
+    private Double usedArea;
+
+    private Double buildArea;
+
+    private String houseNo;
+
+    private Integer houseTypeId;
+
+    private String houseTypeName;
+
     public Integer getResidentId() {
         return residentId;
     }
@@ -43,6 +67,14 @@ public class ResidentHouse {
 
     public void setStaffId(Integer staffId) {
         this.staffId = staffId;
+    }
+
+    public String getStaffNo() {
+        return staffNo;
+    }
+
+    public void setStaffNo(String staffNo) {
+        this.staffNo = staffNo == null ? null : staffNo.trim();
     }
 
     public Integer getHouseId() {
@@ -139,5 +171,85 @@ public class ResidentHouse {
 
     public void setHouseRelName(String houseRelName) {
         this.houseRelName = houseRelName == null ? null : houseRelName.trim();
+    }
+
+    public Date getBookTime() {
+        return bookTime;
+    }
+
+    public void setBookTime(Date bookTime) {
+        this.bookTime = bookTime;
+    }
+
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public Date getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Date expireTime) {
+        this.expireTime = expireTime;
+    }
+
+    public String getRentType() {
+        return rentType;
+    }
+
+    public void setRentType(String rentType) {
+        this.rentType = rentType == null ? null : rentType.trim();
+    }
+
+    public Integer getPayType() {
+        return payType;
+    }
+
+    public void setPayType(Integer payType) {
+        this.payType = payType;
+    }
+
+    public Double getUsedArea() {
+        return usedArea;
+    }
+
+    public void setUsedArea(Double usedArea) {
+        this.usedArea = usedArea;
+    }
+
+    public Double getBuildArea() {
+        return buildArea;
+    }
+
+    public void setBuildArea(Double buildArea) {
+        this.buildArea = buildArea;
+    }
+
+    public String getHouseNo() {
+        return houseNo;
+    }
+
+    public void setHouseNo(String houseNo) {
+        this.houseNo = houseNo == null ? null : houseNo.trim();
+    }
+
+    public Integer getHouseTypeId() {
+        return houseTypeId;
+    }
+
+    public void setHouseTypeId(Integer houseTypeId) {
+        this.houseTypeId = houseTypeId;
+    }
+
+    public String getHouseTypeName() {
+        return houseTypeName;
+    }
+
+    public void setHouseTypeName(String houseTypeName) {
+        this.houseTypeName = houseTypeName == null ? null : houseTypeName.trim();
     }
 }
