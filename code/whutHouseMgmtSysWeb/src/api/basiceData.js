@@ -229,16 +229,16 @@ export function getStaffHouseRel(params, staffID) {
   })
 }
 // 房屋关系解除--不保留历史记录
-export function removeResidentLog(staffID) {
+export function removeResidentLog(residentId) {
   return request({
-    url: `/houseRegister/relieveHouseRel/${staffID}`,
+    url: `/houseRegister/relieveHouseRel/${residentId}`,
     method: 'delete',
   })
 }
-// 房屋关系解除--不保留历史记录
-export function deleteResidentLog(staffID) {
+// 房屋关系删除--不保留历史记录
+export function deleteResidentLog(residentId) {
   return request({
-    url: `/houseRegister/deleteHouseRel/${staffID}`,
+    url: `/houseRegister/deleteHouseRel/${residentId}`,
     method: 'delete',
   })
 }

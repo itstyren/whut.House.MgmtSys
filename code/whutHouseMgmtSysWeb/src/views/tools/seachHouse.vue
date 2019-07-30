@@ -204,6 +204,7 @@
                            align="center"
                            prop="buildArea"></el-table-column>
           <el-table-column label="地址"
+                           class-name="address-cursor"
                            align="center"
                            prop="address"></el-table-column>
         </el-table>

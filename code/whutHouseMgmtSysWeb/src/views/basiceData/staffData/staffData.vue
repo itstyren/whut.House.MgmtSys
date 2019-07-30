@@ -14,7 +14,7 @@
     <!-- 下方主内容 -->
     <div class="warp-body">
       <!-- 工具栏 -->
-      <div class="toolbar"
+      <div class="toolbar card"
            style="margin-left:10px;">
         <el-form :model="queryOption"
                  :inline="true"
@@ -57,70 +57,73 @@
       </div>
       <!-- 表格区 -->
       <div class="main-data">
-        <el-table :data="deptStaffData"
-                  class="table"
-                  height="string"
-                  v-loading="listLoading">
-          <el-table-column type="selection"
-                           width="55"></el-table-column>
-          <el-table-column prop="no"
-                           label="职工号"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="name"
-                           label="姓名"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="sex"
-                           label="性别"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="marriageState"
-                           label="婚姻状况"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="titleName"
-                           label="职称"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="postName"
-                           label="职务"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="statusName"
-                           label="工作状态"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="groupName"
-                           label="用户组"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column label="操作"
-                           width="350"
-                           align="center">
-            <template slot-scope="scope">
-              <el-button size="small"
-                         @click="showDetailDialog(scope.$index,scope.row)">详情</el-button>
-              <el-button type="success"
-                         size="small"
-                         @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
-              <el-button type="warning"
-                         size="small"
-                         @click="resetStaffPwd(scope.$index,scope.row)">重置</el-button>
-              <el-button type="danger"
-                         size="small"
-                         @click="delectStaff(scope.$index,scope.row)">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+        <div class="card"
+             style="height:95%">
+          <el-table :data="deptStaffData"
+                    class="table"
+                    height="93%"
+                    v-loading="listLoading">
+            <el-table-column type="selection"
+                             width="55"></el-table-column>
+            <el-table-column prop="no"
+                             label="职工号"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="name"
+                             label="姓名"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="sex"
+                             label="性别"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="marriageState"
+                             label="婚姻状况"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="titleName"
+                             label="职称"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="postName"
+                             label="职务"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="statusName"
+                             label="工作状态"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="groupName"
+                             label="用户组"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column label="操作"
+                             width="350"
+                             align="center">
+              <template slot-scope="scope">
+                <el-button size="small"
+                           @click="showDetailDialog(scope.$index,scope.row)">详情</el-button>
+                <el-button type="success"
+                           size="small"
+                           @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
+                <el-button type="warning"
+                           size="small"
+                           @click="resetStaffPwd(scope.$index,scope.row)">重置</el-button>
+                <el-button type="danger"
+                           size="small"
+                           @click="delectStaff(scope.$index,scope.row)">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <el-pagination layout="total, prev, pager, next, sizes, jumper"
+                         @size-change="SizeChangeEvent"
+                         @current-change="CurrentChangeEvent"
+                         :page-size="size"
+                         :page-sizes="[10,15,20,25,30]"
+                         :total="totalNum">
+          </el-pagination>
+        </div>
       </div>
-      <el-pagination layout="total, prev, pager, next, sizes, jumper"
-                     @size-change="SizeChangeEvent"
-                     @current-change="CurrentChangeEvent"
-                     :page-size="size"
-                     :page-sizes="[10,15,20,25,30]"
-                     :total="totalNum">
-      </el-pagination>
     </div>
   </div>
 </template>
@@ -364,4 +367,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../../styles/variables.scss";
+
+.second-container {
+  background-color: $background-grey;
+  .toolbar {
+    .el-form-item {
+      margin-bottom: 5px;
+    }
+  }
+  .card {
+    padding: 10px;
+  }
+}
 </style>

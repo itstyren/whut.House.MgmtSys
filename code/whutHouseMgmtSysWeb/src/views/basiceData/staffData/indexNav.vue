@@ -2,16 +2,23 @@
   <div class="second-container">
     <aside>
       <scroll-bar>
-      <!-- 展开关闭按钮 -->
-      <div class="filter-button">
-        <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
-      </div>
-      <!-- 主菜单 -->
-      <el-tree class="aside-tree" v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode"
-        @node-click="nodeClick"></el-tree>
+        <!-- 展开关闭按钮 -->
+        <div class="filter-button">
+          <el-input v-model="filterText"
+                    placeholder="输入职工搜索"
+                    class="filter"></el-input>
+        </div>
+        <!-- 主菜单 -->
+        <el-tree class="aside-tree"
+                 v-loading="listLoading"
+                 ref="staffTree"
+                 :data="depData"
+                 :render-content="renderContent"
+                 :filter-node-method="filterNode"
+                 @node-click="nodeClick"></el-tree>
       </scroll-bar>
     </aside>
-    <section  :class="{'special-container':staffShow,'main-container':!staffShow}">
+    <section :class="{'special-container':staffShow,'main-container':!staffShow}">
       <transition mode="out-in">
         <router-view :dep-data="depData"></router-view>
       </transition>
@@ -24,7 +31,7 @@ import { getDept } from "@/api/basiceData";
 import ScrollBar from "@/components/ScrollBar";
 import * as types from "../../../store/mutation-types";
 export default {
-  data() {
+  data () {
     return {
       // 树控件需要的
       listLoading: false,
@@ -36,27 +43,27 @@ export default {
   components: {
     ScrollBar
   },
-  created() {
+  created () {
     this.getList();
   },
   computed: {
-    staffShow() {
+    staffShow () {
       return this.$store.state.app.staffShow;
     }
   },
   watch: {
     // 监听输入值
-    filterText(val) {
+    filterText (val) {
       this.$refs.staffTree.filter(val);
     }
   },
   methods: {
     //折叠
-    collapse: function() {
+    collapse: function () {
       this.isCollapse = !this.isCollapse;
     },
     // 获取部门信息包括职工
-    getList() {
+    getList () {
       this.listLoading = true;
       let param = {};
       let num = 0;
@@ -84,7 +91,7 @@ export default {
         });
     },
     // 渲染函数
-    renderContent(h, { node, data, store }) {
+    renderContent (h, { node, data, store }) {
       // console.log(node);
       if (node.level == 1) {
         return (
@@ -113,12 +120,12 @@ export default {
       }
     },
     // 筛选函数
-    filterNode(value, data) {
+    filterNode (value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
     },
     // 节点被点击时的回调
-    nodeClick(object, node, component) {
+    nodeClick (object, node, component) {
       //console.log(node);
       if (node.level == 1) {
         this.$store.commit("SET_STAFF_SHOW", false);
@@ -139,7 +146,9 @@ export default {
 
 <style scoped lang="scss">
 @import "../../../styles/variables.scss";
-
+.second-container {
+  background-color: $background-grey;
+}
 .special-container {
   background-color: $background-grey;
 }

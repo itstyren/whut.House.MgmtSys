@@ -21,6 +21,7 @@
                          width="130"></el-table-column>
         <el-table-column prop="address"
                          label="地址"
+                         class-name="address-cursor"
                          align="center"></el-table-column>
         <el-table-column prop="layoutName"
                          label="住房户型"

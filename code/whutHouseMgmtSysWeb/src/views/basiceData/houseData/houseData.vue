@@ -58,13 +58,13 @@
             </el-form>
           </div>
           <!-- 表格区 -->
-          <div class="main-data  ">
+          <div class="main-data">
             <div class="card "
                  style="height:95%">
               <el-table :data="houseData"
                         class="table"
                         height="93%"
-                        v-loading="listLoading">
+                        v-loading="houseRelLoading">
                 <el-table-column type="selection"
                                  width="55"></el-table-column>
                 <el-table-column prop="no"
@@ -688,7 +688,7 @@
                          sortable
                          width="90"
                          align="center"></el-table-column>
-        <el-table-column prop="staff"
+        <el-table-column prop="staffName"
                          label="姓名"
                          sortable
                          width="140"
@@ -751,10 +751,13 @@ export default {
     return {
       // 住房历史使用情况的对话框
       residentDialogVisiable: false,
-      // 住房历史使用的职工表格数据
+      // 住房历史入住记录数据
       houseResidentData: [],
+      // 住房历史入住记录表格是否加载
+      houseRelLoading: false,
       // 住房历史使用情况的表格是否加载
       houseResidentLoading: false,
+      houseId: null,
       // 图片上传的域名
       basiceUrl: "http://172.16.65.105:8080/whutHouseMgmtReposity",
       // 已经上传但是未提交的图片数组
@@ -1269,17 +1272,28 @@ export default {
     getAllResidentDataByHouseId (houseId) {
       this.residentDialogVisiable = true
       this.houseResidentLoading = true
-      getAllResidentDataByHouseId(houseId).then(res => {
-        let staffId = res.data.data.data.staffId
-        this.houseResidentData = res.data.data.data
-        getStaff(staffId).then(res => {
-          this.houseResidentData.name = res.data.data.data.name
-          this.houseResidentData.deptName = res.data.data.data.deptName
+      this.houseId = houseId
+      getAllResidentDataByHouseId(houseId)
+        .then(res => {
+          return res.data.data.data
         })
-      }).catch(err => {
-        this.$message.error("获取住房历史使用情况失败")
-      })
-      this.houseResidentLoading = false
+        .then(data => {
+          let promises = data.map((item, index, array) => {
+            return new Promise((resolve, reject) => {
+              getStaff({}, item.staffId).then(res => {
+                data[index].staffName = res.data.data.data.name
+                data[index].deptName = res.data.data.data.deptName
+                resolve()
+              })
+            })
+          })
+          Promise.all(promises).then(() => {
+            this.houseResidentData = data
+            this.houseResidentLoading = false
+          }).catch(err => {
+            this.$message.error("获取住房历史使用情况失败")
+          })
+        })
     },
     // 删除历史住房纪录
     handleDelRel (index, row) {
@@ -1291,12 +1305,15 @@ export default {
       })
         .then(() => {
           let param = row.residentId;
-          this.listLoading = true;
+          this.houseRelLoading = true;
           deleteResidentLog(param)
             .then(res => {
               // 公共提示方法
               utils.statusinfo(this, res.data);
-              this.getList();
+              this.getAllResidentDataByHouseId(this.houseId);
+            })
+            .then(() => {
+              this.houseRelLoading = false
             })
             .catch(err => {
               console.log(err);

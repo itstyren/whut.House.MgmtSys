@@ -34,6 +34,7 @@
       </el-table-column>
       <el-table-column prop="address"
                        align="center"
+                       class-name="address-cursor"
                        label="地址">
       </el-table-column>
       <el-table-column label="操作"
@@ -56,7 +57,8 @@
 <script type="text/ecmascript-6">
 import {
   getStaffHouseRel,
-  deleteResidentLog, getOneHouseData
+  removeResidentLog,
+  getOneHouseData
 } from "@/api/basiceData";
 import utils from "@/utils/index.js";
 import HouseDetailDialog from '@/components/OneHouseData'
@@ -146,6 +148,9 @@ export default {
             message: "已取消解除"
           });
         });
+      setTimeout(() => {
+        this.listLoading = false;
+      }, 0)
     },
 
     // 点击地址弹开对话框

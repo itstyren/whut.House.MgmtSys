@@ -213,7 +213,7 @@
                          sortable
                          width="90"
                          align="center"></el-table-column>
-        <el-table-column prop="name"
+        <el-table-column prop="staffName"
                          label="姓名"
                          sortable
                          width="140"
@@ -257,7 +257,10 @@ import {
   getOneHouseData,
   getAllResidentDataByHouseId,
   deleteResidentLog,
-  getStaff} from "@/api/basiceData";
+  getStaff
+} from "@/api/basiceData";
+import utils from "@/utils/index.js";
+
 export default {
   name: 'HouseDetailDialog',
   data () {
@@ -298,10 +301,8 @@ export default {
     // 是否显示住房详情的对话框
     show () {
       this.visible = this.show;
+      this.getHouseDetailDataByHouseId(this.houseId)
     },
-    houseId () {
-      this.getHouseDetailDataByHouseId()
-    }
   },
   methods: {
     // 显示住房详情的数据
@@ -336,17 +337,27 @@ export default {
     getAllResidentDataByHouseId (houseId) {
       this.residentDialogVisiable = true
       this.houseResidentLoading = true
-      getAllResidentDataByHouseId(houseId).then(res => {
-        let staffId = res.data.data.data.staffId
-        this.houseResidentData = res.data.data.data
-        getStaff(staffId).then(res => {
-          this.houseResidentData.name = res.data.data.data.name
-          this.houseResidentData.deptName = res.data.data.data.deptName
+      getAllResidentDataByHouseId(houseId)
+        .then(res => {
+          return res.data.data.data
         })
-      }).catch(err => {
-        this.$message.error("获取住房历史使用情况失败")
-      })
-      this.houseResidentLoading = false
+        .then(data => {
+          let promises = data.map((item, index, array) => {
+            return new Promise((resolve, reject) => {
+              getStaff({}, item.staffId).then(res => {
+                data[index].staffName = res.data.data.data.name
+                data[index].deptName = res.data.data.data.deptName
+                resolve()
+              })
+            })
+          })
+          Promise.all(promises).then(() => {
+            this.houseResidentData = data
+            this.houseResidentLoading = false
+          }).catch(err => {
+            this.$message.error("获取住房历史使用情况失败")
+          })
+        })
     },
     // 删除历史住房纪录
     handleDelRel (index, row) {
@@ -358,12 +369,12 @@ export default {
       })
         .then(() => {
           let param = row.residentId;
-          this.listLoading = true;
+          this.houseResidentLoading = true;
           deleteResidentLog(param)
             .then(res => {
               // 公共提示方法
               utils.statusinfo(this, res.data);
-              this.getList();
+              this.getAllResidentDataByHouseId(this.houseId)
             })
             .catch(err => {
               console.log(err);

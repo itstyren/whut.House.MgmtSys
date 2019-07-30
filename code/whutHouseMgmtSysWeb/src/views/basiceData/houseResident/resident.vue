@@ -80,6 +80,7 @@
                                      align="center"></el-table-column>
                     <el-table-column prop="address"
                                      label="地址"
+                                     class-name="address-cursor"
                                      align="center"></el-table-column>
                     <el-table-column prop="payType"
                                      label="缴费方式"
@@ -122,7 +123,8 @@ import {
   getRegionWithBuildings,
   getHouseByMultiCondition,
   getAllHouseRelByStaffId,
-  getOneHouseData
+  getOneHouseData,
+  deleteResidentLog
 } from "@/api/basiceData";
 import {
   getHouseParam
@@ -252,8 +254,10 @@ export default {
       this.listLoading = true
       getAllHouseRelByStaffId(this.staffId).then(res => {
         this.houseRelData = res.data.data.data
+      }).then(() => {
+        this.listLoading = false
       })
-      this.listLoading = false
+
     },
     cellClick (row, column, cell, event) {
 
@@ -284,11 +288,8 @@ export default {
             .then(res => {
               // 公共提示方法
               utils.statusinfo(this, res.data);
-              this.getList();
+              this.getAllHouseRelByStaffId(this.staffId)
             })
-            .catch(err => {
-              console.log(err);
-            });
         })
         .catch(() => {
           this.$message({
