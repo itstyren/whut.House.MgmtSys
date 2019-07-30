@@ -17,6 +17,18 @@ public class ViewHouseService {
 	private ViewHouseMapper viewHouseMapper;
 	
 	/**
+	 * 根据houseNo获取viewHouse
+	 * @param houseNo
+	 * @return
+	 */
+	public List<ViewHouse> getByNo(String houseNo) {
+		ViewHouseExample example = new ViewHouseExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andNoEqualTo(houseNo);
+		return viewHouseMapper.selectByExample(example);
+	}
+	
+	/**
 	 * 根据id获取viewHouse
 	 * @param id
 	 * @return

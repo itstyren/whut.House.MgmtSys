@@ -2552,6 +2552,66 @@ public class StaffHouseExample {
             return (Criteria) this;
         }
 
+        public Criteria andStaffSpouseNoIsNull() {
+            addCriterion("StaffSpouseNo is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNoIsNotNull() {
+            addCriterion("StaffSpouseNo is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNoEqualTo(Integer value) {
+            addCriterion("StaffSpouseNo =", value, "staffSpouseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNoNotEqualTo(Integer value) {
+            addCriterion("StaffSpouseNo <>", value, "staffSpouseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNoGreaterThan(Integer value) {
+            addCriterion("StaffSpouseNo >", value, "staffSpouseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNoGreaterThanOrEqualTo(Integer value) {
+            addCriterion("StaffSpouseNo >=", value, "staffSpouseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNoLessThan(Integer value) {
+            addCriterion("StaffSpouseNo <", value, "staffSpouseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNoLessThanOrEqualTo(Integer value) {
+            addCriterion("StaffSpouseNo <=", value, "staffSpouseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNoIn(List<Integer> values) {
+            addCriterion("StaffSpouseNo in", values, "staffSpouseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNoNotIn(List<Integer> values) {
+            addCriterion("StaffSpouseNo not in", values, "staffSpouseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNoBetween(Integer value1, Integer value2) {
+            addCriterion("StaffSpouseNo between", value1, value2, "staffSpouseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSpouseNoNotBetween(Integer value1, Integer value2) {
+            addCriterion("StaffSpouseNo not between", value1, value2, "staffSpouseNo");
+            return (Criteria) this;
+        }
+
         public Criteria andStaffSpouseKindIsNull() {
             addCriterion("StaffSpouseKind is null");
             return (Criteria) this;

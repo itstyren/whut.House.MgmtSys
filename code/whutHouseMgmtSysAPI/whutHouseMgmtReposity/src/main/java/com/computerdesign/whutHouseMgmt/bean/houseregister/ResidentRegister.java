@@ -17,6 +17,8 @@ public class ResidentRegister {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date bookTime;
+    
+    private Integer payType;
 
 	public Integer getStaffId() {
 		return staffId;
@@ -49,6 +51,13 @@ public class ResidentRegister {
 	public void setBookTime(Date bookTime) {
 		this.bookTime = bookTime;
 	}
-    
+
+	public Integer getPayType() {
+		return payType;
+	}
+
+	public void setPayType(Integer payType) {
+		this.payType = payType;
+	}
     
 }

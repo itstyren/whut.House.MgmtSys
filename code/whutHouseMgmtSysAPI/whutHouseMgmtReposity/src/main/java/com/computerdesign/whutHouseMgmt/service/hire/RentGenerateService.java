@@ -133,6 +133,7 @@ public class RentGenerateService {
 		StaffHouseExample example = new StaffHouseExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andHouseRelNameEqualTo("租赁");
+		criteria.andIsDeleteEqualTo(false);
 		return staffHouseMapper.selectByExample(example);
 	}
 	

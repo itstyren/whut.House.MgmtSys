@@ -10,8 +10,13 @@ public class Test {
 		
 //		StaffMonetarySubService staffMonetarySubService = new StaffMonetarySubService();
 //		staffMonetarySubService.isOldStaff(2);
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		context.getBean("staffDao",StaffMapper.class);
+//		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		context.getBean("staffDao",StaffMapper.class);
+		
+		String a = "0.2";
+		double b = Double.valueOf(a);
+		System.out.println(b * 20);
+		
 		
 	}
 }

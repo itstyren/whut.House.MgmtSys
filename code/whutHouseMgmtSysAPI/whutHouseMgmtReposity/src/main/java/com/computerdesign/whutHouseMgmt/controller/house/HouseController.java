@@ -37,6 +37,26 @@ public class HouseController {
 	@Autowired
 	private ViewHouseService viewHouseService;
 
+	/**
+	 * 根据houseNo获取一个House
+	 * 
+	 * @param houseNo
+	 * @return
+	 */
+	@RequestMapping(value = "getByNo/{houseNo}", method = RequestMethod.GET)
+	@ApiOperation(value = "根据house的houseNo获取一个house")
+	public Msg get(@PathVariable("houseNo") String houseNo) {
+		System.out.println(houseNo);
+		if (viewHouseService.getByNo(houseNo).isEmpty()) {
+			return Msg.error("查找不到数据");
+		}
+		ViewHouse viewHouse = viewHouseService.getByNo(houseNo).get(0);
+		// 每平方米的价格
+		double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
+		// 每平方米的价格*面积
+		viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+		return Msg.success().add("data", viewHouse);
+	}
 	
 	/**
 	 * 根据id获取一个House

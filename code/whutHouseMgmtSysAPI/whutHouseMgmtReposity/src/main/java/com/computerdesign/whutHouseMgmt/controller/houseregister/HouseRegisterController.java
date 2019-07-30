@@ -75,7 +75,7 @@ public class HouseRegisterController {
 	public Msg getAllResidentDataByHouseId(@PathVariable("houseId") Integer houseId){
 		List<ResidentHouse> residentHouses = staffHouseRelService.getAllResidentByHouseId(houseId);
 		
-		String[] fileds = {"staffNo", "houseRelName", "bookTime", "expireTime"};
+		String[] fileds = { "staffId", "staffNo", "houseRelName", "usedArea", "bookTime", "expireTime"};
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(residentHouses, fileds);
 		
 		return Msg.success().add("data", response);
@@ -91,7 +91,7 @@ public class HouseRegisterController {
 	public Msg getAllResidentDataByStaffId(@PathVariable("staffId") Integer staffId){
 		List<ResidentHouse> residentHouses = staffHouseRelService.getAllResidentByStaffId(staffId);
 		
-		String[] fileds = { "houseNo", "houseTypeName", "houseRelName", "usedArea", "bookTime", "expireTime", "address", "payType" };
+		String[] fileds = { "houseId" ,"houseNo", "houseTypeName", "houseRelName", "usedArea", "bookTime", "expireTime", "address", "payType" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(residentHouses, fileds);
 		
 		return Msg.success().add("data", response);
@@ -123,10 +123,11 @@ public class HouseRegisterController {
 				
 		registerService.deleteResident(resident);
 
-		return Msg.success("删除成功");
+		return Msg.success("解除成功");
 	}
 
 	/**
+	 * 20190729修改 删除住房历史租赁信息，在租金核算过程中租赁天数也会被删除
 	 * 删除住房关系，即删除住房关系和住房登记历史记录
 	 * 
 	 * @return
@@ -135,17 +136,34 @@ public class HouseRegisterController {
 	@ResponseBody
 	public Msg deleteHouseRel(@PathVariable("residentId") Integer residentId) {
 		// 获取该住房登记记录
-		Resident resident = registerService.getResident(residentId);
-		if (resident == null) {
-			return Msg.error("无该id的记录");
-		}
+//		Resident resident = registerService.getResident(residentId);
+//		if (resident == null) {
+//			return Msg.error("无该id的记录");
+//		}
 		// 删除，即设置isDelete字段为1
-		resident.setIsDelete(true);
-		registerService.deleteResident(resident);
+//		resident.setIsDelete(true);
+//		registerService.deleteResident(resident);
 
+		//若该住房正在被租赁，则需将该住房的状态设置为空闲
+			// 获取该住房登记记录
+		Resident resident = registerService.getResident(residentId);
+			// 获取房屋信息
+		House house = houseService.get(resident.getHouseId());
+		house.setStatus(24);
+		houseService.update(house);
+		
+		//从数据库删除住房记录
+		registerService.delete(residentId);
+		
+		
 		// 删除住房登记历史记录
-		registerService.deleteResidentHistory(residentId);
-		return Msg.success("解除成功");
+		try {
+			registerService.deleteResidentHistory(residentId);
+		} catch (Exception e) {
+			System.out.println("住房登记历史记录表中没有该数据");
+		}
+		
+		return Msg.success("删除成功").add("data", resident);
 	}
 
 	/**
@@ -239,6 +257,14 @@ public class HouseRegisterController {
 			resident.setHouseRel(residentRegister.getHouseRel());
 			resident.setBookTime(residentRegister.getBookTime());
 			resident.setIsDelete(false);
+			
+			//设置缴费方式
+			if(residentRegister.getPayType() != null){				
+				resident.setPayType(residentRegister.getPayType());
+			}else{
+				return Msg.error("请选择缴费方式");
+			}
+			
 			if (resident.getStaffId() == null) {
 				return Msg.error("请选择一个员工");
 			}
