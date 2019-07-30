@@ -11,6 +11,7 @@
     <result column="StaffFixFund" jdbcType="DECIMAL" property="staffFixFund" />
     <result column="Address" jdbcType="VARCHAR" property="address" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
+    <result column="HouseId" jdbcType="INTEGER" property="houseId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List">
     ResidentId, StaffId, StaffNo, StaffName, HouseRel, StaffBuyAccount, StaffFixFund, 
-    Address, IsDelete
+    Address, IsDelete, HouseId
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRelExample" resultMap="BaseResultMap">
     select
@@ -97,12 +98,12 @@
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel">
     insert into view_hs_staffhouserel (ResidentId, StaffId, StaffNo, 
       StaffName, HouseRel, StaffBuyAccount, 
-      StaffFixFund, Address, IsDelete
-      )
+      StaffFixFund, Address, IsDelete, 
+      HouseId)
     values (#{residentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{staffNo,jdbcType=VARCHAR}, 
       #{staffName,jdbcType=VARCHAR}, #{houseRel,jdbcType=VARCHAR}, #{staffBuyAccount,jdbcType=DECIMAL}, 
-      #{staffFixFund,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
-      )
+      #{staffFixFund,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}, 
+      #{houseId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel">
     insert into view_hs_staffhouserel
@@ -134,6 +135,9 @@
       <if test="isDelete != null">
         IsDelete,
       </if>
+      <if test="houseId != null">
+        HouseId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="residentId != null">
@@ -162,6 +166,9 @@
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -201,6 +208,9 @@
       <if test="record.isDelete != null">
         IsDelete = #{record.isDelete,jdbcType=BIT},
       </if>
+      <if test="record.houseId != null">
+        HouseId = #{record.houseId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -216,7 +226,8 @@
       StaffBuyAccount = #{record.staffBuyAccount,jdbcType=DECIMAL},
       StaffFixFund = #{record.staffFixFund,jdbcType=DECIMAL},
       Address = #{record.address,jdbcType=VARCHAR},
-      IsDelete = #{record.isDelete,jdbcType=BIT}
+      IsDelete = #{record.isDelete,jdbcType=BIT},
+      HouseId = #{record.houseId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

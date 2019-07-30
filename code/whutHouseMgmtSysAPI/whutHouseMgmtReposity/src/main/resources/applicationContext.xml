@@ -15,6 +15,15 @@
 			expression="org.springframework.stereotype.Controller" /> 
 	</context:component-scan>
 
+	<bean id="loggingAspect" class="com.computerdesign.whutHouseMgmt.LoggingAspect"></bean>
+	<aop:config>
+		<aop:pointcut expression="execution(* com.computerdesign.whutHouseMgmt.Test.add())" id="pointcut"/>
+		<aop:aspect ref="loggingAspect">
+			<aop:before method="before" pointcut-ref="pointcut"/>
+		</aop:aspect>
+	</aop:config>
+
+			
 	<import resource="spring-mybatis.xml"/>
 	<import resource="spring-redis.xml" />
 </beans>

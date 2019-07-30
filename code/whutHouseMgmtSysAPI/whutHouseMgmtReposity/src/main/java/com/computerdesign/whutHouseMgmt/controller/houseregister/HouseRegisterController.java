@@ -75,7 +75,7 @@ public class HouseRegisterController {
 	public Msg getAllResidentDataByHouseId(@PathVariable("houseId") Integer houseId){
 		List<ResidentHouse> residentHouses = staffHouseRelService.getAllResidentByHouseId(houseId);
 		
-		String[] fileds = { "staffId", "staffNo", "houseRelName", "usedArea", "bookTime", "expireTime"};
+		String[] fileds = { "residentId" ,"staffId", "staffNo", "houseRelName", "usedArea", "bookTime", "expireTime"};
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(residentHouses, fileds);
 		
 		return Msg.success().add("data", response);
@@ -91,7 +91,7 @@ public class HouseRegisterController {
 	public Msg getAllResidentDataByStaffId(@PathVariable("staffId") Integer staffId){
 		List<ResidentHouse> residentHouses = staffHouseRelService.getAllResidentByStaffId(staffId);
 		
-		String[] fileds = { "houseId" ,"houseNo", "houseTypeName", "houseRelName", "usedArea", "bookTime", "expireTime", "address", "payType" };
+		String[] fileds = { "residentId" ,"houseId" ,"houseNo", "houseTypeName", "houseRelName", "usedArea", "bookTime", "expireTime", "address", "payType" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(residentHouses, fileds);
 		
 		return Msg.success().add("data", response);
