@@ -82,6 +82,7 @@
     <result column="HouseFinishTime" jdbcType="DATE" property="houseFinishTime" />
     <result column="HouseRecordStatus" jdbcType="INTEGER" property="houseRecordStatus" />
     <result column="LastRentTime" jdbcType="TIMESTAMP" property="lastRentTime" />
+    <result column="PayType" jdbcType="INTEGER" property="payType" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -155,7 +156,7 @@
     HouseStruct, HouseStructName, HouseStatus, HouseStatusName, HouseBuildArea, HouseUsedArea, 
     HouseBasementArea, HouseAddress, BuildingId, BuildingName, RegionId, RegionName, 
     ProId, HouseRemark, HouseImage, HouseRental, HouseFinishTime, HouseRecordStatus, 
-    LastRentTime
+    LastRentTime, PayType
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouseExample" resultMap="BaseResultMap">
     select
@@ -204,8 +205,8 @@
       HouseAddress, BuildingId, BuildingName, 
       RegionId, RegionName, ProId, 
       HouseRemark, HouseImage, HouseRental, 
-      HouseFinishTime, HouseRecordStatus, LastRentTime
-      )
+      HouseFinishTime, HouseRecordStatus, LastRentTime, 
+      PayType)
     values (#{residentId,jdbcType=INTEGER}, #{houseRel,jdbcType=INTEGER}, #{houseRelName,jdbcType=VARCHAR}, 
       #{bookTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=BIT}, #{expireTime,jdbcType=TIMESTAMP}, 
       #{rentType,jdbcType=VARCHAR}, #{familyCode,jdbcType=VARCHAR}, #{staffId,jdbcType=INTEGER}, 
@@ -232,8 +233,8 @@
       #{houseAddress,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, 
       #{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, #{proId,jdbcType=VARCHAR}, 
       #{houseRemark,jdbcType=VARCHAR}, #{houseImage,jdbcType=VARCHAR}, #{houseRental,jdbcType=DOUBLE}, 
-      #{houseFinishTime,jdbcType=DATE}, #{houseRecordStatus,jdbcType=INTEGER}, #{lastRentTime,jdbcType=TIMESTAMP}
-      )
+      #{houseFinishTime,jdbcType=DATE}, #{houseRecordStatus,jdbcType=INTEGER}, #{lastRentTime,jdbcType=TIMESTAMP}, 
+      #{payType,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse">
     insert into view_hs_staffhouse
@@ -478,6 +479,9 @@
       <if test="lastRentTime != null">
         LastRentTime,
       </if>
+      <if test="payType != null">
+        PayType,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="residentId != null">
@@ -719,6 +723,9 @@
       </if>
       <if test="lastRentTime != null">
         #{lastRentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -971,6 +978,9 @@
       <if test="record.lastRentTime != null">
         LastRentTime = #{record.lastRentTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.payType != null">
+        PayType = #{record.payType,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -1057,7 +1067,8 @@
       HouseRental = #{record.houseRental,jdbcType=DOUBLE},
       HouseFinishTime = #{record.houseFinishTime,jdbcType=DATE},
       HouseRecordStatus = #{record.houseRecordStatus,jdbcType=INTEGER},
-      LastRentTime = #{record.lastRentTime,jdbcType=TIMESTAMP}
+      LastRentTime = #{record.lastRentTime,jdbcType=TIMESTAMP},
+      PayType = #{record.payType,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

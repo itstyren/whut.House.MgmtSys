@@ -32,6 +32,9 @@ public class RentVwShowModel {
 	//缴费方式
 	private String rentType;
 	
+	//新增缴费方式
+	private Integer payType;
+	
 	//原始租金
 	private Double rentInitMoney;
 	
@@ -56,6 +59,14 @@ public class RentVwShowModel {
     
     private String staffDeptName;
     
+	public Integer getPayType() {
+		return payType;
+	}
+
+	public void setPayType(Integer payType) {
+		this.payType = payType;
+	}
+
 	public String getStaffDeptName() {
 		return staffDeptName;
 	}

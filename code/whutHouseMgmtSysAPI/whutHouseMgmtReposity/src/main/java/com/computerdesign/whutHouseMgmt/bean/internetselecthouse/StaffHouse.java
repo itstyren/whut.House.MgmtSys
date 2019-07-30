@@ -184,8 +184,18 @@ public class StaffHouse {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date lastRentTime;
+    
+    private Integer payType;
 
-    public Integer getResidentId() {
+    public Integer getPayType() {
+		return payType;
+	}
+
+	public void setPayType(Integer payType) {
+		this.payType = payType;
+	}
+
+	public Integer getResidentId() {
         return residentId;
     }
 

@@ -150,6 +150,10 @@ public class RentGenerateController {
 			rentVwShowModel.setBookTime(staffHouse.getBookTime());
 			// 工作部门
 			rentVwShowModel.setStaffDeptName(staffHouse.getStaffDeptName());
+			
+			//缴费方式
+			rentVwShowModel.setPayType(staffHouse.getPayType());
+			
 			double rentMoney = 0.0;
 			
 			//99年以前入职的使用老的计算方法
