@@ -27,8 +27,10 @@
                 <personal-info-table :staff-id="staffId"
                                      :height="'30vh'"></personal-info-table>
               </el-col>
+              <!-- 职工当前住房关系表 -->
               <el-col :span="14">
                 <staff-house-rel :staff-id="staffId"
+                                 @remove-resident-success="handleremoveResiSuccess"
                                  :height="'30vh'"></staff-house-rel>
               </el-col>
             </el-row>
@@ -38,11 +40,12 @@
               <el-col :span="24">
                 <house-resident :height="'120px'"
                                 :staff-id="staffId"
+                                @resident-success="handleResidentSuccess"
                                 :select-house="selectHouseName"
                                 :select-house-id="selectHouseId"></house-resident>
               </el-col>
             </el-row>
-            <!-- 职工与住房的关系表格 -->
+            <!-- 职工的历史住房表格 -->
             <el-row class="conditionalQuery card">
               <el-col :span="24"
                       style="height:75%">
@@ -193,6 +196,7 @@ export default {
   },
   // 方法集合
   methods: {
+    // 选择左侧的某一职工时
     selectStaff (object) {
       this.staffId = object.id
       this.getAllHouseRelByStaffId(this.staffId)
@@ -273,7 +277,7 @@ export default {
         this.houseId = row.houseId
       }
     },
-    // 删除历史住房纪录
+    // 删除职工的历史住房纪录
     handleDelRel (index, row) {
       // 删除关系
       this.$confirm("此操作将删除该关系", "提示", {
@@ -307,6 +311,14 @@ export default {
         }
       })
       return value
+    },
+    // 住房登记成功之后
+    handleResidentSuccess () {
+      this.getAllHouseRelByStaffId(this.staffId)
+    },
+    // 解除职工与某一住房的关系之后
+    handleremoveResiSuccess () {
+      this.getAllHouseRelByStaffId(this.staffId)
     }
   }
 };

@@ -137,6 +137,7 @@ export default {
               // 公共提示方法
               utils.statusinfo(this, res.data);
               this.getList();
+              this.$emit("remove-resident-success")
             })
             .catch(err => {
               console.log(err);

@@ -1,9 +1,22 @@
+// 匹配0——3000的整数
 export const checkNum = (rule, value, callback) => {
   const RULES = /^\d{0,3000}$/
   if (!value) {
     callback();
   } else if (!RULES.test(value)) {
     callback(new Error("必须为数字"));
+  } else {
+    callback();
+  }
+};
+
+// 匹配整数或者小数
+export const checkIntOrDecimal = (rule, value, callback) => {
+  const RULES = /^\d+(\.\d+)?$/
+  if (!value) {
+    callback();
+  } else if (!RULES.test(value)) {
+    callback(new Error("必须为整数或者小数"));
   } else {
     callback();
   }

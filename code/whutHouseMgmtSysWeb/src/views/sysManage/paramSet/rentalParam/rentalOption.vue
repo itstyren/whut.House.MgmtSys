@@ -87,6 +87,27 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="递增开始年限:"
+                          prop="limitYear">
+              <el-slider v-model="modifyFromBody.limitYear"
+                         show-input
+                         :max="9999"></el-slider>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="递增比例:"
+                          prop="rentUpRate">
+              <el-slider v-model="modifyFromBody.rentUpRate"
+                         show-input
+                         :step="0.01"
+                         :max="1"></el-slider>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer"
            class="dialog-footer">
@@ -119,7 +140,9 @@ export default {
         rentalOldDct: "",
         rentTimeBegin: "",
         rentalNewDctYear: "",
-        rentalNewDct: ""
+        rentalNewDct: "",
+        limitYear: '',
+        rentUpRate: ''
       }
     };
   },
@@ -142,6 +165,14 @@ export default {
         this.rentalData.push({
           param: "新职工优惠比例",
           paramVal: newVal.rentalNewDct
+        });
+        this.rentalData.push({
+          param: "递增开始年限",
+          paramVal: newVal.limitYear
+        });
+        this.rentalData.push({
+          param: "递增比例",
+          paramVal: newVal.rentUpRate
         });
       },
       deep: true
@@ -174,6 +205,9 @@ export default {
       this.modifyFromBody.rentalNewDct = Number(
         this.modifyFromBody.rentalNewDct
       );
+      this.modifyFromBody.rentUpRate = Number(
+        this.modifyFromBody.rentUpRate
+      );
       this.modifyFromBody.rentalOldDct = Number(
         this.modifyFromBody.rentalOldDct
       );
@@ -200,7 +234,6 @@ export default {
 <style scoped lang="scss">
 .rentalCard {
   width: 60%;
-  height: 60%;
   margin: 100px auto;
   .rentalCard-text {
     margin: 10px 50px;

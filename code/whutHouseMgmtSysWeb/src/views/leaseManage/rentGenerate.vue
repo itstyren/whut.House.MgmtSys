@@ -259,6 +259,11 @@
                       <el-table-column prop="address"
                                        label="住房地址"
                                        align="center"></el-table-column>
+                      <el-table-column prop="payType"
+                                       label="缴费方式"
+                                       width="100"
+                                       :formatter="payTypeColFormat"
+                                       align="center"></el-table-column>
                       <el-table-column prop="rentInitMoney"
                                        label="租金"
                                        width="100"
@@ -622,7 +627,6 @@ export default {
     },
     // 处理导出情况
     exportHandle (exportType) {
-      //console.log(33)
       if (exportType == 1) this.handleDownload();
       else {
         let param = {
@@ -645,16 +649,17 @@ export default {
       }
     },
     // 导出
-    handleDownload (...values) {
+    handleDownload (values) {
       let filename = "租金表统计";
       this.downloadLoading = true;
       import("@/vendor/Export2Excel").then(excel => {
-        const tHeader = ["职工号", "姓名", "工作部门", "住房地址", "租金"];
+        const tHeader = ["职工号", "姓名", "工作部门", "住房地址", '缴费方式', "租金"];
         const filterVal = [
           "staffNo",
           "staffName",
           "staffDeptName",
           "address",
+          "payType",
           "rentInitMoney"
         ];
         let list = [];
@@ -667,14 +672,64 @@ export default {
         this.downloadLoading = false;
       });
     },
+    // 缴租方式的代号替换：1：自缴。2：代扣
+    payTypeFormat (id) {
+      let value = ''
+      let payTypes = [
+        {
+          id: 0,
+          typeName: '无需'
+        },
+        {
+          id: 1,
+          typeName: '自缴'
+        },
+        {
+          id: 2,
+          typeName: '代扣'
+        }
+      ]
+      payTypes.forEach(item => {
+        if (item.id == id) {
+          value = item.typeName
+        }
+      })
+      return value
+    },
+    // 格式化缴费方式的内容
+    payTypeColFormat (row, column, cellValue, index) {
+      let value = ''
+      let payTypes = [
+        {
+          id: 0,
+          typeName: '无需'
+        },
+        {
+          id: 1,
+          typeName: '自缴'
+        },
+        {
+          id: 2,
+          typeName: '代扣'
+        }
+      ]
+      payTypes.forEach(item => {
+        if (item.id == cellValue) {
+          value = item.typeName
+        }
+      })
+      return value
+    },
     formatJson (filterVal, jsonData) {
       return jsonData.map(v =>
         filterVal.map(j => {
           if (j === "timestamp") {
             return parseTime(v[j]);
-          } else {
-            return v[j];
           }
+          if (j === "payType") {
+            return this.payTypeFormat(v[j])
+          }
+          return v[j];
         })
       );
     },

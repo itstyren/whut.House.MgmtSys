@@ -429,14 +429,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <!-- 查看历史住房记录 -->
-                <el-row v-if="!ismodify"
-                        style="margin-left:15px;">
-                  <el-col :span="24">
-                    <el-button type="text"
-                               @click="getAllResidentDataByHouseId(detailData.id)">查询历史使用情况</el-button>
-                  </el-col>
-                </el-row>
+
                 <!-- 备注输入框 -->
                 <el-row>
                   <el-col :span="24">
@@ -449,6 +442,14 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
+                <!-- 查看历史住房记录 -->
+                <el-row v-if="!ismodify"
+                        type="flex"
+                        justify="center"
+                        style="margin-left:15px;">
+                  <el-button @click="getAllResidentDataByHouseId(detailData.id)">历史使用情况</el-button>
+                </el-row>
+
                 <!-- 提交-取消按钮 -->
                 <el-row>
                   <el-col :span="24">
@@ -742,7 +743,7 @@ import {
 } from "@/api/basiceData";
 import indexNav from "./components/indexNav";
 import { getHouseParam } from "@/api/sysManage";
-import { checkNum, checkNULL } from "@/assets/function/validator";
+import { checkNum, checkNULL, checkIntOrDecimal } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
 import HouseDetailDialog from '@/components/OneHouseData'
 
@@ -844,7 +845,7 @@ export default {
             trigger: "blur"
           },
           {
-            validator: checkNum,
+            validator: checkIntOrDecimal,
             trigger: "blur"
           }
         ],

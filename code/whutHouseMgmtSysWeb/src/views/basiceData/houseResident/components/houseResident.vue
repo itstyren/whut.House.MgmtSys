@@ -18,7 +18,7 @@
           </el-form-item>
         </el-col>
         <!-- 住房地址 -->
-        <el-col :span="11">
+        <el-col :span="12">
           <el-form-item label="住房地址"
                         prop="houseId">
             <el-input v-model="residentForm.houseId"
@@ -258,6 +258,7 @@ export default {
                   utils.statusinfo(this, res.data);
                   this.listLoading = false;
                   this.$store.commit(types.RESIDENT_SUCCESS);
+                  this.$emit("resident-success")
                   this.$refs["residentForm"].resetFields();
                   this.residentForm.staffId = this.$store.state.residentStaffData.label;
                 })

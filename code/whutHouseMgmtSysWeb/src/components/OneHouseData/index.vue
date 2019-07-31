@@ -177,14 +177,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!-- 查看历史住房记录 -->
-
-          <el-row style="margin-left:15px;">
-            <el-col :span="24">
-              <el-button type="text"
-                         @click="getAllResidentDataByHouseId(detailData.id)">查询历史使用情况</el-button>
-            </el-col>
-          </el-row>
           <!-- 备注输入框 -->
           <el-row>
             <el-col :span="24">
@@ -196,6 +188,13 @@
                           readonly></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+          <!-- 查看历史住房记录 -->
+
+          <el-row style="margin-left:15px;"
+                  type="flex"
+                  justify="center">
+            <el-button @click="getAllResidentDataByHouseId(detailData.id)">历史使用情况</el-button>
           </el-row>
         </el-col>
       </el-row>
