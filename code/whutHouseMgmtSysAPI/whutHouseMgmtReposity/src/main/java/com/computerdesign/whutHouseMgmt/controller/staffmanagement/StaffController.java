@@ -24,6 +24,9 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteData;
 import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSub;
+import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
+import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectModel;
+import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffShowModel;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffIcon;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffModel;
@@ -57,39 +60,41 @@ public class StaffController extends BaseController {
 
 	@Autowired
 	private BeforePromoteDataService beforePromoteDataService;
-	
+
 	@Autowired
 	private MonetarySubVwService monetarySubVwService;
-	
+
 	@Autowired
 	private StaffForMonSubService staffForMonSubService;
-	
+
 	/**
 	 * 该员工设置角色
+	 * 
 	 * @param staffId
 	 * @param roleId
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "updateStaffRole", method = RequestMethod.POST)
-	public Msg updateStaffRole(@RequestBody UpdateStaffRoleModel updateStaffRoleModel){
-		if(updateStaffRoleModel != null){
+	public Msg updateStaffRole(@RequestBody UpdateStaffRoleModel updateStaffRoleModel) {
+		if (updateStaffRoleModel != null) {
 			Staff staff = staffService.get(updateStaffRoleModel.getStaffId());
-			if(staff != null){
+			if (staff != null) {
 				staff.setRoleId(updateStaffRoleModel.getRoleId());
 				staffService.update(staff);
 				return Msg.success("设置成功");
-			}else{
+			} else {
 				return Msg.error("员工不存在");
 			}
-		}else{
+		} else {
 			return Msg.error("传递参数错误");
 		}
-		
+
 	}
-	
+
 	/**
 	 * 解除绑定
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -97,20 +102,20 @@ public class StaffController extends BaseController {
 	@RequestMapping(value = "unbind/{id}", method = RequestMethod.GET)
 	public Msg unbind(@PathVariable("id") Integer id) {
 		Staff staff = staffService.get(id);
-		if(staff != null){
+		if (staff != null) {
 			staff.setUnionId("");
 			staffService.update(staff);
-		}else{
+		} else {
 			return Msg.error("没有此员工");
 		}
 		return Msg.success("解绑成功");
-//		if (staff.getIcon() != null) {
-//			return Msg.success().add("data", staff.getIcon());
-//		} else {
-//			return Msg.error("无头像信息");
-//		}
+		// if (staff.getIcon() != null) {
+		// return Msg.success().add("data", staff.getIcon());
+		// } else {
+		// return Msg.error("无头像信息");
+		// }
 	}
-	
+
 	/**
 	 * 获取头像
 	 * 
@@ -345,41 +350,42 @@ public class StaffController extends BaseController {
 			staffBeforeUpdate = staffService.get(staff.getId());
 		}
 
-		//当职称或职务改变时，记之为晋升，并将晋升前的数据保存在hs_beforepromotedata表中
-		if(staffBeforeUpdate != null){
-			//记晋升
-			if(staffBeforeUpdate.getTitle() != staff.getTitle() || staffBeforeUpdate.getPost() != staff.getPost()){
+		// 当职称或职务改变时，记之为晋升，并将晋升前的数据保存在hs_beforepromotedata表中
+		if (staffBeforeUpdate != null) {
+			// 记晋升
+			if (staffBeforeUpdate.getTitle() != staff.getTitle() || staffBeforeUpdate.getPost() != staff.getPost()) {
 				staff.setPromoteFlag(true);
 			}
-			//保存晋升前的数据
-				//1.查询补贴视图view_hs_monetarysub
-//			MonetarySubVw monetarySubVw = monetarySubVwService.getByStaffId(staff.getId());
-				//修改： 1. 查询view_hs_staffformonsub
+			// 保存晋升前的数据
+			// 1.查询补贴视图view_hs_monetarysub
+			// MonetarySubVw monetarySubVw =
+			// monetarySubVwService.getByStaffId(staff.getId());
+			// 修改： 1. 查询view_hs_staffformonsub
 			StaffForMonSub staffForMonSub = staffForMonSubService.getByStaffId(staff.getId());
-				//2.保存
+			// 2.保存
 			BeforePromoteData beforePromoteData = new BeforePromoteData();
 			beforePromoteData.setStaffId(staffForMonSub.getStaffId());
 			beforePromoteData.setTitleId(staffForMonSub.getTitleId());
 			beforePromoteData.setTitleName(staffForMonSub.getTitleName());
 			beforePromoteData.setPostId(staffForMonSub.getPostId());
 			beforePromoteData.setPostName(staffForMonSub.getPostName());
-			if(staffForMonSub.getMaxEnjoyArea() != null){
+			if (staffForMonSub.getMaxEnjoyArea() != null) {
 				beforePromoteData.setMaxEnjoyArea(staffForMonSub.getMaxEnjoyArea().floatValue());
-			}else{
+			} else {
 				beforePromoteData.setMaxEnjoyArea((float) 0.0);
 			}
-			
-			//判断该职工的记录是否存在（是否之前晋升过），若存在，则更新记录；若不存在，则插入记录
+
+			// 判断该职工的记录是否存在（是否之前晋升过），若存在，则更新记录；若不存在，则插入记录
 			BeforePromoteData example = beforePromoteDataService.selectByStaffId(beforePromoteData.getStaffId());
-			if(example != null){
+			if (example != null) {
 				beforePromoteData.setId(example.getId());
 				beforePromoteDataService.update(beforePromoteData);
-			}else{
+			} else {
 				beforePromoteDataService.add(beforePromoteData);
 			}
-			
+
 		}
-		
+
 		// staff = staffService.get(staff.getId());
 		// System.out.println(staff.getPost());
 		// if (staff.getNo() == null) {
@@ -601,4 +607,49 @@ public class StaffController extends BaseController {
 
 	}
 
+	/**
+	 * 根据多条件获取职工信息
+	 * @param staffSelectModel
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@RequestMapping(value = "getByMultiCondition", method = RequestMethod.POST)
+	@ResponseBody
+	public Msg getByMultiCondition(@RequestBody StaffSelectModel staffSelectModel,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		PageHelper.startPage(page, size);
+		List<StaffVw> staffVws = staffVwService.getByMultiCondition(staffSelectModel);
+		PageInfo pageInfo = new PageInfo(staffVws);
+		return Msg.success().add("data", pageInfo);
+	}
+	
+	/**
+	 * 根据职工号或姓名获取职工信息
+	 * @param conditionValue
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@RequestMapping(value="getByNoAndName", method = RequestMethod.GET)
+	@ResponseBody
+	public Msg getByNoAndName(@RequestParam String conditionValue,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		List<StaffVw> staffVws = new ArrayList<StaffVw>();
+		try {
+			conditionValue = new String(conditionValue.getBytes("8859_1"), "utf8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+//		System.out.println(conditionValue);
+		PageHelper.startPage(page, size);
+		if (conditionValue != null) {
+			staffVws = staffVwService.getByNoAndName(conditionValue);
+		}
+		PageInfo pageInfo = new PageInfo(staffVws);
+		return Msg.success().add("data", pageInfo);
+	}
+	
 }
