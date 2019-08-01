@@ -12,17 +12,22 @@
 	<!-- 扫描除控制器外的所有包 -->
 	<context:component-scan base-package="com.computerdesign.whutHouseMgmt">
 		<context:exclude-filter type="annotation" 
-			expression="org.springframework.stereotype.Controller" /> 
+				expression="org.springframework.stereotype.Controller" /> 
 	</context:component-scan>
-
+	
+	
+	<!-- 
 	<bean id="loggingAspect" class="com.computerdesign.whutHouseMgmt.LoggingAspect"></bean>
-	<aop:config>
-		<aop:pointcut expression="execution(* com.computerdesign.whutHouseMgmt.Test.add())" id="pointcut"/>
-		<aop:aspect ref="loggingAspect">
-			<aop:before method="before" pointcut-ref="pointcut"/>
-		</aop:aspect>
-	</aop:config>
-
+		<bean class="com.computerdesign.whutHouseMgmt.LogTest"></bean>
+		<aop:config>
+			<aop:aspect ref="loggingAspect">
+				<aop:pointcut expression="execution(* com.computerdesign.whutHouseMgmt.LogTest.add())" id="myPointCut"/>
+				<aop:before method="before" pointcut-ref="myPointCut"/>
+			</aop:aspect>
+		</aop:config>
+	 -->
+	
+	
 			
 	<import resource="spring-mybatis.xml"/>
 	<import resource="spring-redis.xml" />

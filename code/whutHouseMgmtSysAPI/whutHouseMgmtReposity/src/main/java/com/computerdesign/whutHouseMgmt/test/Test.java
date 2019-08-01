@@ -2,7 +2,6 @@ package com.computerdesign.whutHouseMgmt.test;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.computerdesign.whutHouseMgmt.dao.staffmanagement.StaffMapper;
 
 public class Test {
@@ -13,12 +12,10 @@ public class Test {
 //		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 //		context.getBean("staffDao",StaffMapper.class);
 		
-//		String a = "0.2";
-//		double b = Double.valueOf(a);
-//		System.out.println(b * 20);
+		String a = "0.2";
+		double b = Double.valueOf(a);
+		System.out.println(b * 20);
 		
-		com.computerdesign.whutHouseMgmt.Test test = new com.computerdesign.whutHouseMgmt.Test();
-		test.add();
 		
 	}
 }

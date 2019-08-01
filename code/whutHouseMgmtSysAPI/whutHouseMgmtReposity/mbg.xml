@@ -21,7 +21,7 @@
  
 		<!-- 指定javabean的生成位置 -->
 
-		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.houseregister"
+		<javaModelGenerator targetPackage="com.computerdesign.whutHouseMgmt.bean.log"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -29,13 +29,13 @@
 
 		<!-- 指定sql映射文件的生成位置 -->
 
-		<sqlMapGenerator targetPackage="mapper.houseregister" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper.log" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" /> 
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口的生成位置 mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.computerdesign.whutHouseMgmt.dao.houseregister" targetProject=".\src\main\java">
+			targetPackage="com.computerdesign.whutHouseMgmt.dao.log" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -57,13 +57,20 @@
 		</table> 
 		 -->
 		 <!-- 
-		 <table tableName="sys_log" domainObjectName="SysLog">
+		  <table tableName="view_hs_staffhouserel" domainObjectName="StaffHouseRel">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> 
 		  -->
-		 <table tableName="view_hs_staffhouserel" domainObjectName="StaffHouseRel">
+		  <!-- 
+		  <table tableName="sys_log" domainObjectName="SysLog">
 			<property name="useActualColumnNames" value="true"></property>
-		</table> 
+		</table>
+		   -->
+		
+		<table tableName="view_sys_log" domainObjectName="ViewSysLog">
+			<property name="useActualColumnNames" value="true"></property>
+		</table>
+		 
 		 <!--
 		 <table tableName="pm_rentaltype" domainObjectName="RentalParameter">
 			<property name="useActualColumnNames" value="true"></property>

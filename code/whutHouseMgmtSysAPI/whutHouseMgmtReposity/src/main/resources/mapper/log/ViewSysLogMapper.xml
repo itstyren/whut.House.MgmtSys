@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.computerdesign.whutHouseMgmt.dao.log.ViewSysLogMapper">
+  <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.log.ViewSysLog">
+    <result column="Id" jdbcType="INTEGER" property="id" />
+    <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="Role" jdbcType="VARCHAR" property="role" />
+    <result column="OperateType" jdbcType="INTEGER" property="operateType" />
+    <result column="OperateTypeName" jdbcType="VARCHAR" property="operateTypeName" />
+    <result column="OperateUrl" jdbcType="VARCHAR" property="operateUrl" />
+    <result column="OperateTime" jdbcType="TIMESTAMP" property="operateTime" />
+    <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
+    <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, StaffId, Role, OperateType, OperateTypeName, OperateUrl, OperateTime, StaffNo, 
+    StaffName
+  </sql>
+  <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.log.ViewSysLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from view_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.log.ViewSysLogExample">
+    delete from view_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.log.ViewSysLog">
+    insert into view_sys_log (Id, StaffId, Role, 
+      OperateType, OperateTypeName, OperateUrl, 
+      OperateTime, StaffNo, StaffName
+      )
+    values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR}, 
+      #{operateType,jdbcType=INTEGER}, #{operateTypeName,jdbcType=VARCHAR}, #{operateUrl,jdbcType=VARCHAR}, 
+      #{operateTime,jdbcType=TIMESTAMP}, #{staffNo,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.log.ViewSysLog">
+    insert into view_sys_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="staffId != null">
+        StaffId,
+      </if>
+      <if test="role != null">
+        Role,
+      </if>
+      <if test="operateType != null">
+        OperateType,
+      </if>
+      <if test="operateTypeName != null">
+        OperateTypeName,
+      </if>
+      <if test="operateUrl != null">
+        OperateUrl,
+      </if>
+      <if test="operateTime != null">
+        OperateTime,
+      </if>
+      <if test="staffNo != null">
+        StaffNo,
+      </if>
+      <if test="staffName != null">
+        StaffName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="operateType != null">
+        #{operateType,jdbcType=INTEGER},
+      </if>
+      <if test="operateTypeName != null">
+        #{operateTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateUrl != null">
+        #{operateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null">
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="staffNo != null">
+        #{staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null">
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.log.ViewSysLogExample" resultType="java.lang.Long">
+    select count(*) from view_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update view_sys_log
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffId != null">
+        StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.role != null">
+        Role = #{record.role,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateType != null">
+        OperateType = #{record.operateType,jdbcType=INTEGER},
+      </if>
+      <if test="record.operateTypeName != null">
+        OperateTypeName = #{record.operateTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateUrl != null">
+        OperateUrl = #{record.operateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateTime != null">
+        OperateTime = #{record.operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.staffNo != null">
+        StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffName != null">
+        StaffName = #{record.staffName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update view_sys_log
+    set Id = #{record.id,jdbcType=INTEGER},
+      StaffId = #{record.staffId,jdbcType=INTEGER},
+      Role = #{record.role,jdbcType=VARCHAR},
+      OperateType = #{record.operateType,jdbcType=INTEGER},
+      OperateTypeName = #{record.operateTypeName,jdbcType=VARCHAR},
+      OperateUrl = #{record.operateUrl,jdbcType=VARCHAR},
+      OperateTime = #{record.operateTime,jdbcType=TIMESTAMP},
+      StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+      StaffName = #{record.staffName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<!-- SpringMVC配置文件 处理业务逻辑跳转 --> 
@@ -31,6 +32,20 @@
  
  	<!-- 配置注解方式 -->
 	<context:annotation-config />
+	
+	
+	 <!-- 	 
+	<bean id="loggingAspect" class="com.computerdesign.whutHouseMgmt.aop.LoggingAspect"></bean>
+	  -->
+	  <!-- 
+	  <aop:config>
+		<aop:aspect>
+			<aop:pointcut expression="execution(* com.computerdesign.whutHouseMgmt.controller.HelloWorld.hello())" id="myPointCut"/>
+			<aop:before method="before" pointcut-ref="myPointCut"/>
+		</aop:aspect>
+	</aop:config>
+	   -->
+	
 
 	<!-- 两个标准配置 -->
 	<!-- 将springmvc不能处理的资源交给tomcat -->
@@ -63,6 +78,7 @@
 			<mvc:exclude-mapping path="/auth/testGetAuth" />	
 			<mvc:exclude-mapping path="/auth/partAuthList/**" />	
 			<mvc:exclude-mapping path="/fileUpload/**" />
+			<mvc:exclude-mapping path="/hello" />
 					 
 			<bean class="com.wf.etp.authz.ApiInterceptor">
 				<property name="userRealm" ref="userRealm" />  <!-- 需要提供UserRealm -->
@@ -91,6 +107,7 @@
 			</bean> </mvc:message-converters> -->
 	</mvc:annotation-driven>
 
+	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 	
 	<!-- 配置MultipartResolver，用于文件上传 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
