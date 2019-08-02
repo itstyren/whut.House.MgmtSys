@@ -472,11 +472,14 @@ public class StaffController extends BaseController {
 				return Msg.error("职工部门不能为空");
 			} else if (staff.getCode() == null) {
 				return Msg.error("职工身份证号不能为空");
-			} else {
+			} else if(staff.getJoinTime() == null){
+				return Msg.error("参加工作时间不能为空");
+			} else{
 				//判断配偶工作单位性质
 				if(staff.getSpouseKind() != null && staff.getSpouseKind() != 211){
 					staff.setFamilyCode(-1);
 				}
+				staff.setRelation("active");
 				staffService.add(staff);
 				return Msg.success("添加成功").add("data", staff);
 			}
