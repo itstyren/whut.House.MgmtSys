@@ -55,7 +55,7 @@
                          align="center"
                          width="150"></el-table-column>
       </el-table>
-      <el-pagination layout="total, prev, pager, next, sizes, jumper"
+      <el-pagination background layout="total, prev, pager, next, sizes, jumper"
                      @size-change="sizeChangeEvent"
                      @current-change="currentChangeEvent"
                      :page-size="size"

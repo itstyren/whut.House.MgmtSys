@@ -315,3 +315,20 @@ export function getAllResidentDataByHouseId(houseId) {
     method: 'get'
   })
 }
+// 多条件获取职工信息
+export function getStaffListByMultiCondition(params, data) {
+  return request({
+    url: `/staff/getByMultiCondition?page=${params.page}&size=${params.size}`,
+    method: 'post',
+    data: data
+  })
+}
+// 基础数据-职工管理
+// 根据职工号或姓名获取职工信息
+export function getStaffByNoOrName(params) {
+  return request({
+    url: '/staff/getByNoAndName',
+    method: 'get',
+    params: params
+  })
+}

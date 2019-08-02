@@ -64,7 +64,7 @@
                     height="93%"
                     v-loading="listLoading">
             <el-table-column type="selection"
-                             width="55"></el-table-column>
+                             width="45"></el-table-column>
             <el-table-column prop="no"
                              label="职工号"
                              sortable
@@ -79,6 +79,7 @@
                              align="center"></el-table-column>
             <el-table-column prop="marriageState"
                              label="婚姻状况"
+                             width="120"
                              sortable
                              align="center"></el-table-column>
             <el-table-column prop="titleName"
@@ -91,6 +92,7 @@
                              align="center"></el-table-column>
             <el-table-column prop="statusName"
                              label="工作状态"
+                             width="120"
                              sortable
                              align="center"></el-table-column>
             <el-table-column prop="groupName"
@@ -115,7 +117,8 @@
               </template>
             </el-table-column>
           </el-table>
-          <el-pagination layout="total, prev, pager, next, sizes, jumper"
+          <el-pagination background
+                         layout="total, prev, pager, next, sizes, jumper"
                          @size-change="SizeChangeEvent"
                          @current-change="CurrentChangeEvent"
                          :page-size="size"

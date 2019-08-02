@@ -217,7 +217,8 @@
                                        label="工作部门"
                                        align="center"></el-table-column>
                     </el-table>
-                    <el-pagination layout="total, prev, pager, next, sizes, jumper"
+                    <el-pagination background
+                                   layout="total, prev, pager, next, sizes, jumper"
                                    @size-change="sizeChangeEvent"
                                    @current-change="currentChangeEvent"
                                    :page-size="size"
@@ -295,7 +296,8 @@
                                        label="工作部门"
                                        align="center"></el-table-column>
                     </el-table>
-                    <el-pagination layout="total, prev, pager, next, sizes, jumper"
+                    <el-pagination background
+                                   layout="total, prev, pager, next, sizes, jumper"
                                    @size-change="sizeChangeEvent1"
                                    @current-change="currentChangeEvent1"
                                    :page-size="size1"
@@ -325,6 +327,7 @@ import {
   postCanSelectmulticondition,
   postSetCanSelect,
   postcancelCanSelect,
+  getStaffByNoOrName
 } from "@/api/online";
 import {
   getStaffParam
@@ -476,7 +479,13 @@ export default {
       };
       //console.log(this.queryForm)
       if (this.queryForm.hasOwnProperty('query')) {
-
+        param.conditionValue = this.queryForm.query
+        getStaffByNoOrName(param).then(res => {
+          utils.statusinfo(this, res.data);
+          this.canSelectData = res.data.data.data.list;
+          this.totalNum = res.data.data.data.total;
+          this.listLoading = false;
+        })
       } else {
         const data = Object.assign({}, this.queryForm);
         postCanSelectmulticondition(param, data).then(res => {

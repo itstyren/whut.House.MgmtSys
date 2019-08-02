@@ -221,7 +221,7 @@ export default {
           utils.statusinfo(this, res.data);
           this.modifyLoading = false;
           this.modifyFormVisible = false;
-          this.rentalData.splice(0, 4);
+          this.rentalData.splice(0, 6);
           this.getList();
         });
       }

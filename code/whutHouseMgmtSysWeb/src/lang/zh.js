@@ -2,6 +2,7 @@ export default {
   route: {
     index: '首页',
     sysManage: '系统管理',
+    sysLog: '操作记录',
     paramSet: '参数设置',
     basiceData: '基础数据',
     region: '区域楼栋管理',

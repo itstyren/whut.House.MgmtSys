@@ -261,7 +261,7 @@
                         :offset="1">
 
                   <el-form-item label="所属用户组"
-                                prop="groupName">
+                                prop="roleId">
                     <el-select v-model="staffForm.roleId"
                                clearable
                                placeholder="请选择角色组">
@@ -285,7 +285,14 @@
                   <el-form-item label="姓名"
                                 prop="spouseName">
                     <el-input v-model="staffForm.spouseName"
-                              placeholder="请输入姓名"></el-input>
+                              :readonly="isCampus"
+                              placeholder="请输入姓名">
+                      <el-button v-if="isCampus"
+                                 slot="append"
+                                 icon="el-icon-search"
+                                 @click="searchStaffDiaVisible=true">
+                      </el-button>
+                    </el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6"
@@ -293,6 +300,7 @@
                   <el-form-item label="单位性质"
                                 prop="spouseKind">
                     <el-select v-model="staffForm.spouseKind"
+                               @change="hanleSpouseKindSelect"
                                placeholder="请选择单位性质">
                       <el-option v-for="param in staffParam[10]"
                                  :key="param.staffParamId"
@@ -305,8 +313,12 @@
                         :offset="1">
                   <el-form-item label="职称"
                                 prop="spouseTitle">
+                    <el-input v-model="staffForm.spouseTitleName"
+                              v-if="isCampus"
+                              :readonly="true"></el-input>
                     <el-select v-model="staffForm.spouseTitle"
                                clearable
+                               v-if="!isCampus"
                                placeholder="请选择职称">
                       <el-option v-for="param in staffParam[7]"
                                  :key="param.staffParamId"
@@ -322,6 +334,7 @@
                   <el-form-item label="身份证号"
                                 prop="spouseCode">
                     <el-input v-model="staffForm.spouseCode"
+                              :readonly="isCampus"
                               placeholder="请输入身份证号"></el-input>
                   </el-form-item>
                 </el-col>
@@ -329,6 +342,7 @@
                         :offset="1">
                   <el-form-item label="工作部门">
                     <el-input v-model="staffForm.spouseDept"
+                              :readonly="isCampus"
                               placeholder="请输入工作部门"></el-input>
                   </el-form-item>
                 </el-col>
@@ -336,8 +350,12 @@
                         :offset="1">
                   <el-form-item label="职务"
                                 prop="spousePost">
+                    <el-input v-model="staffForm.spousePostName"
+                              v-if="isCampus"
+                              :readonly="true"></el-input>
                     <el-select v-model="staffForm.spousePost"
                                clearable
+                               v-if="!isCampus"
                                placeholder="请选择职务">
                       <el-option v-for="param in staffParam[6]"
                                  :key="param.staffParamId"
@@ -352,6 +370,9 @@
         </div>
       </div>
     </div>
+    <!-- 多条件检索员工 -->
+    <search-staff-dialog :show.sync="searchStaffDiaVisible"
+                         @select-one-staff="handleSelectOneStaff"> </search-staff-dialog>
   </div>
 </template>
 
@@ -362,7 +383,12 @@ import { getPartAuthList } from '@/api/auth'
 import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
 import * as OPTION from "@/assets/data/formOption";
 import utils from "@/utils/index.js";
+import SearchStaffDialog from './searchStaffDialog.vue'
+
 export default {
+  components: {
+    SearchStaffDialog
+  },
   data () {
     return {
       // 表单需要的信息
@@ -424,9 +450,7 @@ export default {
             trigger: "blur"
           }
         ],
-        groupName: [
-          { required: true, message: '请选择所属用户组', trigger: 'change' }
-        ],
+        roleId: { required: true, message: '请选择所属用户组', trigger: 'blur' },
         buyAccount: {
           validator: checkNum,
           trigger: "blur"
@@ -456,7 +480,11 @@ export default {
           message: "请选择工作部门"
         }
       },
-      breadcrumbDeptName: ''
+      breadcrumbDeptName: '',
+      // 配偶是否是校内
+      isCampus: false,
+      // 搜索职工对话框
+      searchStaffDiaVisible: false,
     };
   },
   // 监听
@@ -464,7 +492,6 @@ export default {
   created () {
     this.getParam();
     this.getRoleIdByAuthList()
-
   },
   // 方法集合
   methods: {
@@ -486,9 +513,7 @@ export default {
       for (let paramClass = 5; paramClass <= paramNum; paramClass++) {
         getStaffParam(param, paramClass)
           .then(res => {
-            //console.log(res.data.data);
-            this.staffParam[paramClass] = res.data.data.data.list;
-            //console.log(this.staffParam)
+            this.$set(this.staffParam, paramClass, res.data.data.data.list);
             if (this.staffParam[10] != null) this.submitLoading = false;
           })
           .catch(err => {
@@ -506,6 +531,15 @@ export default {
         this.$refs["staffForm"].validate(valid => {
           if (valid) {
             this.listLoading = true;
+            if (this.staffForm.hasOwnProperty("familyCode") && this.isCampus) {
+              delete this.staffForm.spouseName
+              delete this.staffForm.spouseCode
+              delete this.staffForm.spouseTitle
+              delete this.staffForm.spouseDept
+              delete this.staffForm.spousePost
+              delete this.staffForm.spouseTitleName
+              delete this.staffForm.spousePostName
+            }
             let param = Object.assign({}, this.staffForm);
             postStaffData(param).then(res => {
               utils.statusinfo(this, res.data);
@@ -528,6 +562,28 @@ export default {
       }).catch(err => {
         this.$message.error(err)
       })
+    },
+    // 配偶信息中的单位性质下拉框选中值改变时
+    hanleSpouseKindSelect (value) {
+      let spouseKindList = this.staffParam[10]
+      let staffParam = spouseKindList.find((item) => {
+        return item.staffParamId == value
+      })
+      let spouseKind = staffParam.staffParamName
+      if (spouseKind === '校内') {
+        this.isCampus = true
+      } else {
+        this.isCampus = false
+      }
+    },
+    // 获取配偶的信息，并进行填充
+    handleSelectOneStaff (staff) {
+      this.staffForm.familyCode = staff.no
+      this.staffForm.spouseName = `${staff.no}-${staff.name}`
+      this.staffForm.spouseCode = staff.code
+      this.staffForm.spouseTitleName = staff.titleName
+      this.staffForm.spouseDept = staff.deptName
+      this.staffForm.spousePostName = staff.postName
     }
   }
 };

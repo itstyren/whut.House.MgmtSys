@@ -168,7 +168,7 @@
               </el-table-column>
             </el-table>
           </div>
-          <el-pagination layout="total, prev, pager, next, sizes, jumper"
+          <el-pagination background layout="total, prev, pager, next, sizes, jumper"
                          @size-change="SizeChangeEvent"
                          @current-change="CurrentChangeEvent"
                          :page-size="size"

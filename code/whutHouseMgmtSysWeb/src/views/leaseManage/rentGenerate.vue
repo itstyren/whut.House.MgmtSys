@@ -214,7 +214,7 @@
                         </template>
                       </el-table-column>
                     </el-table>
-                    <el-pagination layout="total, prev, pager, next, sizes, jumper"
+                    <el-pagination background layout="total, prev, pager, next, sizes, jumper"
                                    @size-change="sizeChangeEvent"
                                    @current-change="currentChangeEvent"
                                    :page-size="size"
@@ -269,7 +269,7 @@
                                        width="100"
                                        align="center"></el-table-column>
                     </el-table>
-                    <el-pagination layout="total, prev, pager, next, sizes, jumper"
+                    <el-pagination background layout="total, prev, pager, next, sizes, jumper"
                                    @size-change="sizeChangeEvent1"
                                    @current-change="currentChangeEvent1"
                                    :page-size="size"

@@ -66,7 +66,7 @@
                                clearable
                                v-if="ismodify"
                                placeholder="请选择职称">
-                      <el-option v-for="param in staffParam[7].list"
+                      <el-option v-for="param in staffParam[7]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -104,7 +104,7 @@
                                clearable
                                v-if="ismodify"
                                placeholder="请选择职务">
-                      <el-option v-for="param in staffParam[6].list"
+                      <el-option v-for="param in staffParam[6]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -153,7 +153,7 @@
                                clearable
                                v-if="ismodify"
                                placeholder="请选择职工类别">
-                      <el-option v-for="param in staffParam[8].list"
+                      <el-option v-for="param in staffParam[8]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -202,7 +202,7 @@
                                clearable
                                v-if="ismodify"
                                placeholder="请选择工作状态">
-                      <el-option v-for="param in staffParam[9].list"
+                      <el-option v-for="param in staffParam[9]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -243,7 +243,7 @@
                                v-if="ismodify"
                                placeholder="请选择工作部门"
                                @change="handleDeptSelectionChange">
-                      <el-option v-for="param in staffParam[5].list"
+                      <el-option v-for="param in staffParam[5]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -336,19 +336,26 @@
                   <el-form-item label="姓名"
                                 prop="spouseName">
                     <el-input v-model="staffForm.spouseName"
-                              :readonly="!ismodify"></el-input>
+                              :readonly="!ismodify||isCampus">
+                      <el-button v-if="isCampus"
+                                 slot="append"
+                                 icon="el-icon-search"
+                                 @click="searchStaffDiaVisible=true">
+                      </el-button>
+                    </el-input>
+
                   </el-form-item>
                 </el-col>
                 <el-col :span="6"
                         :offset="1">
                   <el-form-item label="单位性质">
-                    <el-input v-model="staffForm.spouseKind"
+                    <el-input v-model="staffForm.spouseKindName"
                               v-if="!ismodify"
                               :readonly="!ismodify"></el-input>
-                    <el-select v-model="staffForm.spouseKind"
-                               v-if="ismodify"
-                               placeholder="请选择职称">
-                      <el-option v-for="param in staffParam[10].list"
+                    <el-select v-model="staffForm.spouseKindName"
+                               @change="hanleSpouseKindSelect"
+                               v-if="ismodify">
+                      <el-option v-for="param in staffParam[10]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -359,13 +366,13 @@
                         :offset="1">
                   <el-form-item label="职称">
                     <el-input v-model="staffForm.spouseTitleName"
-                              v-if="!ismodify"
-                              :readonly="!ismodify"></el-input>
+                              v-if="!ismodify||isCampus"
+                              :readonly="!ismodify||isCampus"></el-input>
                     <el-select v-model="staffForm.spouseTitleName"
                                clearable
-                               v-if="ismodify"
+                               v-if="ismodify &&!isCampus"
                                placeholder="请选择职称">
-                      <el-option v-for="param in staffParam[7].list"
+                      <el-option v-for="param in staffParam[7]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -379,27 +386,27 @@
                   <el-form-item label="身份证号"
                                 prop="spouseCode">
                     <el-input v-model="staffForm.spouseCode"
-                              :readonly="!ismodify"></el-input>
+                              :readonly="!ismodify ||isCampus"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6"
                         :offset="1">
                   <el-form-item label="工作部门">
                     <el-input v-model="staffForm.spouseDept"
-                              :readonly="!ismodify"></el-input>
+                              :readonly="!ismodify||isCampus"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6"
                         :offset="1">
                   <el-form-item label="职务">
                     <el-input v-model="staffForm.spousePostName"
-                              v-if="!ismodify"
-                              :readonly="!ismodify"></el-input>
+                              v-if="!ismodify||isCampus"
+                              :readonly="!ismodify||isCampus"></el-input>
                     <el-select v-model="staffForm.spousePostName"
                                clearable
-                               v-if="ismodify"
+                               v-if="ismodify&&!isCampus"
                                placeholder="请选择职务">
-                      <el-option v-for="param in staffParam[6].list"
+                      <el-option v-for="param in staffParam[6]"
                                  :key="param.staffParamId"
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
@@ -412,7 +419,11 @@
         </div>
       </div>
     </div>
+    <!-- 多条件检索员工 -->
+    <search-staff-dialog :show.sync="searchStaffDiaVisible"
+                         @select-one-staff="handleSelectOneStaff"> </search-staff-dialog>
   </div>
+
 </template>
 
 <script type="text/ecmascript-6">
@@ -423,10 +434,17 @@ import { postPromoteSubStaffID } from "@/api/monetarySub";
 import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
 import * as OPTION from "@/assets/data/formOption";
 import utils from "@/utils/index.js";
+import SearchStaffDialog from './searchStaffDialog.vue'
 export default {
+  components: {
+    SearchStaffDialog
+  },
   data () {
     return {
+      // 搜索职工对话框
+      searchStaffDiaVisible: false,
       // 面包屑显示的工作部门的名称
+      isCampus: false,
       breadcrumbDeptName: '',
       ismodify: false,
       // 表单需要的信息
@@ -489,7 +507,7 @@ export default {
           }
         ],
         groupName: [
-          { required: true, message: '请选择所属用户组', trigger: 'change' }
+          { required: true, message: '请选择所属用户组', trigger: 'blur' }
         ],
         buyAccount: {
           validator: checkNum,
@@ -505,7 +523,7 @@ export default {
   computed: {
     store_ismodify () {
       return this.$store.state.staffModify;
-    }
+    },
   },
   // 监听
   watch: {
@@ -547,9 +565,9 @@ export default {
   methods: {
     // 工作部门下拉框选中值发生变化时，面包屑显示的工作部门名称
     handleDeptSelectionChange (deptId) {
-      let deptList = this.staffParam[5].list
+      let deptList = this.staffParam[5]
       let selectDept = deptList.find((item) => {
-        return item.staffParamId = deptId
+        return item.staffParamId == deptId
       })
       this.breadcrumbDeptName = selectDept.staffParamName
     },
@@ -558,17 +576,23 @@ export default {
       let param = "";
       this.listLoading = true;
       let staffID = this.$route.params.id;
-      // if (this.$store.state.staffData.id == staffID) {
-      //   this.staffForm = this.$store.state.staffData;
-      //   Object.assign(this.oldStaffForm, this.$store.state.staffData);
-      //   return;
-      // }
       getStaff(param, staffID)
         .then(res => {
           this.staffForm = res.data.data.data;
+          let familyCode = res.data.data.data.familyCode
+          if (typeof familyCode !== "undefined" && typeof familyCode !== "null") {
+            getStaff(param, familyCode).then(res => {
+              let spouse = res.data.data.data
+              this.staffForm.spouseCode = spouse.code
+              this.staffForm.spouseDept = spouse.deptName
+              this.staffForm.spouseName = `${spouse.no}-${spouse.name}`
+              this.staffForm.spousePostName = spouse.postName
+              this.staffForm.spouseTitleName = spouse.titleName
+            })
+          }
           this.breadcrumbDeptName = this.staffForm.deptName
           Object.assign(this.oldStaffForm, res.data.data.data);
-          this.listLoading = false;
+          this.listLoading = false
         })
         .catch(err => {
           console.log(err);
@@ -578,6 +602,9 @@ export default {
     modifyForm () {
       this.getParam();
       this.ismodify = !this.ismodify;
+      if (this.staffForm.spouseKindName === '校内') {
+        this.isCampus = true
+      }
     },
     // 点击取消编辑，还原原表单
     handleCancelEdit () {
@@ -596,7 +623,7 @@ export default {
       for (let paramClass = 5; paramClass <= paramNum; paramClass++) {
         getStaffParam(param, paramClass)
           .then(res => {
-            this.$set(this.staffParam, paramClass, res.data.data.data);
+            this.$set(this.staffParam, paramClass, res.data.data.data.list);
             if (this.staffParam[10] != null) this.submitLoading = false;
           })
           .catch(err => {
@@ -610,17 +637,20 @@ export default {
         path: `/basic/houseResident/${this.staffForm.id}`
       });
     },
-    // 编辑之前的处理
+    // 编辑提交之前的处理
     beforModify () {
       const postForm = {};
       postForm.id = this.oldStaffForm.id;
       let newVal = JSON.parse(JSON.stringify(this.staffForm))
       let oldVal = JSON.parse(JSON.stringify(this.oldStaffForm))
+      console.log("newVal:", newVal)
+      console.log("oldVal:", oldVal)
       for (let v in newVal) {
         if (newVal[v] != oldVal[v]) {
           postForm[v] = newVal[v];
         }
       }
+
       if (postForm.hasOwnProperty("postName")) {
         postForm.post = postForm.postName;
         delete postForm.postName;
@@ -641,6 +671,34 @@ export default {
         postForm.dept = postForm.deptName;
         delete postForm.deptName;
       }
+      if (this.isCampus) {
+        delete postForm.spouseName
+        delete postForm.spouseCode
+        delete postForm.spouseTitleName
+        delete postForm.spouseDept
+        delete postForm.spousePostName
+      } else {
+
+        if (postForm.hasOwnProperty("spouseTitleName")) {
+          postForm.spouseTitle = postForm.spouseTitleName;
+          delete postForm.spouseTitleName;
+        }
+        if (postForm.hasOwnProperty("spouseDept")) {
+          postForm.spouseDept = postForm.spouseDept;
+          delete postForm.spouseDept;
+        }
+        if (postForm.hasOwnProperty("spousePostName")) {
+          postForm.spousePost = postForm.spousePostName;
+          delete postForm.spousePostName;
+        }
+        if (postForm.hasOwnProperty("spouseKindName")) {
+          postForm.spouseKind = postForm.spouseKindName
+          delete postForm.spouseKindName;
+        }
+        delete postForm.familyCode
+      }
+      console.log("postForm:", postForm)
+
       this.modifySubmit(postForm);
     },
     // 编辑提交
@@ -686,6 +744,28 @@ export default {
       }).catch(err => {
         this.$message.error(err)
       })
+    },
+    // 配偶信息中的单位性质下拉框选中值改变时
+    hanleSpouseKindSelect (value) {
+      let spouseKindList = this.staffParam[10]
+      let staffParam = spouseKindList.find((item) => {
+        return item.staffParamId == value
+      })
+      let spouseKind = staffParam.staffParamName
+      if (spouseKind === '校内') {
+        this.isCampus = true
+      } else {
+        this.isCampus = false
+      }
+    },
+    // 获取配偶的信息，并进行填充
+    handleSelectOneStaff (staff) {
+      this.staffForm.familyCode = staff.no
+      this.staffForm.spouseName = `${staff.no}-${staff.name}`
+      this.staffForm.spouseCode = staff.code
+      this.staffForm.spouseTitleName = staff.titleName
+      this.staffForm.spouseDept = staff.deptName
+      this.staffForm.spousePostName = staff.postName
     }
   }
 };

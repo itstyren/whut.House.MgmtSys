@@ -62,7 +62,7 @@
                       <el-table-column prop="staffTypeName" label="职工类别" align="center" width="120"></el-table-column>
                       <el-table-column prop="houseTypeName" label="住房类型" align="center" width="120"></el-table-column>
                     </el-table>
-                    <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
+                    <el-pagination background layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
                       :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
                     </el-pagination>
                   </div>
@@ -81,7 +81,7 @@
                       <el-table-column prop="staffSpouseName" label="配偶姓名"  align="center"></el-table-column>                                           
                       <el-table-column prop="houseNum" label="住房套数" align="center"></el-table-column>
                     </el-table>
-                    <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent1" @current-change="currentChangeEvent1"
+                    <el-pagination background layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent1" @current-change="currentChangeEvent1"
                       :page-size="size1" :page-sizes="[10,15,20,25,30]" :total="totalNum1">
                     </el-pagination>
                   </div>

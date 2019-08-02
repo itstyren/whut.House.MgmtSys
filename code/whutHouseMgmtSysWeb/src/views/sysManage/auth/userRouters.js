@@ -1,5 +1,5 @@
 export default [
-  /* 参数设置 */
+  /* 系统管理*/
   {
     path: '/sysmanage',
     component: 'layout/index',
@@ -14,6 +14,14 @@ export default [
         name: 'authManage',
         meta: {
           title: 'authManage'
+        }
+      },
+      {
+        path: 'log',
+        component: 'sysManage/sysLog/index',
+        name: 'sysLog',
+        meta: {
+          title: 'sysLog'
         }
       },
       {

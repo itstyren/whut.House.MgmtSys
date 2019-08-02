@@ -31,7 +31,7 @@
           <el-table-column prop="houseSelectStart" label="选房开始时间" align="center"></el-table-column>
           <el-table-column prop="houseSelectEnd" label="选房结束时间" align="center"></el-table-column>
         </el-table>
-        <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
+        <el-pagination background layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
           :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
         </el-pagination>
       </div>
@@ -52,7 +52,7 @@
           <el-table-column prop="address" label="地址" align="center"></el-table-column>
           <el-table-column prop="rental" label="租金" align="center"></el-table-column>
         </el-table>
-        <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent1" @current-change="currentChangeEvent1"
+        <el-pagination background layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent1" @current-change="currentChangeEvent1"
           :page-size="size1" :page-sizes="[10,15,20,25,30]" :total="totalNum1">
         </el-pagination>
       </div>
