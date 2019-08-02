@@ -336,6 +336,11 @@ public class StaffController extends BaseController {
 				return Msg.error("职工电话号码不能为空");
 			}
 		}
+		
+		//判断配偶工作单位性质
+		if(staff.getSpouseKind() != null && staff.getSpouseKind() != 211){
+			staff.setFamilyCode(-1);
+		}
 
 		if (result.getErrorCount() > 0) {
 			// 根据JSR303验证获取错误信息，并返回前端
@@ -468,6 +473,10 @@ public class StaffController extends BaseController {
 			} else if (staff.getCode() == null) {
 				return Msg.error("职工身份证号不能为空");
 			} else {
+				//判断配偶工作单位性质
+				if(staff.getSpouseKind() != null && staff.getSpouseKind() != 211){
+					staff.setFamilyCode(-1);
+				}
 				staffService.add(staff);
 				return Msg.success("添加成功").add("data", staff);
 			}
