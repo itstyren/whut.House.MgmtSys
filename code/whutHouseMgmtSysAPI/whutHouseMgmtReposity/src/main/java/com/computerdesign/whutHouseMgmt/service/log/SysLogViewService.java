@@ -34,6 +34,9 @@ public class SysLogViewService {
 		if(sysLogCondition.getStaffName() != null){
 			criteria.andStaffNameEqualTo(sysLogCondition.getStaffName());
 		}
+		if(sysLogCondition.getRole() != null){
+			criteria.andRoleEqualTo(sysLogCondition.getRole());
+		}
 		if(sysLogCondition.getStartTime() != null){
 			criteria.andOperateTimeGreaterThanOrEqualTo(sysLogCondition.getStartTime());
 		}
