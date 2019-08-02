@@ -538,7 +538,6 @@ export default {
     },
     oldStaffForm: {
       handler: function (newVal) {
-        //console.log(newVal);
       },
       deep: true
     },
@@ -579,8 +578,11 @@ export default {
       getStaff(param, staffID)
         .then(res => {
           this.staffForm = res.data.data.data;
+          if (this.staffForm.spouseKindName === '校内') {
+            this.isCampus = true
+          }
           let familyCode = res.data.data.data.familyCode
-          if (typeof familyCode !== "undefined" && typeof familyCode !== "null") {
+          if (typeof familyCode !== "undefined" && typeof familyCode !== "null" && familyCode !== -1) {
             getStaff(param, familyCode).then(res => {
               let spouse = res.data.data.data
               this.staffForm.spouseCode = spouse.code
@@ -609,6 +611,7 @@ export default {
     // 点击取消编辑，还原原表单
     handleCancelEdit () {
       this.ismodify = !this.ismodify
+      this.isCampus = false
       this.staffForm = JSON.parse(JSON.stringify(this.oldStaffForm))
       this.$refs["staffForm"].clearValidate()
 
@@ -643,8 +646,6 @@ export default {
       postForm.id = this.oldStaffForm.id;
       let newVal = JSON.parse(JSON.stringify(this.staffForm))
       let oldVal = JSON.parse(JSON.stringify(this.oldStaffForm))
-      console.log("newVal:", newVal)
-      console.log("oldVal:", oldVal)
       for (let v in newVal) {
         if (newVal[v] != oldVal[v]) {
           postForm[v] = newVal[v];
@@ -677,6 +678,9 @@ export default {
         delete postForm.spouseTitleName
         delete postForm.spouseDept
         delete postForm.spousePostName
+        postForm.spouseKind = postForm.spouseKindName
+        delete postForm.spouseKindName;
+
       } else {
 
         if (postForm.hasOwnProperty("spouseTitleName")) {
