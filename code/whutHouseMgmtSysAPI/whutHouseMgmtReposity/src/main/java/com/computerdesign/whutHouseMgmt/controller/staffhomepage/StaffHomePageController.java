@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.computerdesign.whutHouseMgmt.bean.Msg;
@@ -17,10 +20,12 @@ import com.computerdesign.whutHouseMgmt.bean.fix.common.Fix;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastFixRecord;
 import com.computerdesign.whutHouseMgmt.bean.staffhomepage.LastHireRecord;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.service.fix.FixService;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
 import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastFixRecordService;
 import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastHireRecordService;
+import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 
 
@@ -40,6 +45,9 @@ public class StaffHomePageController {
 	@Autowired
 	private LastHireRecordService lastHireRecordService;
 
+	@Autowired
+	private StaffService staffService;
+	
 	/**
 	 * 住房申请状态更新通知
 	 * @param staffId
@@ -88,6 +96,53 @@ public class StaffHomePageController {
 
 		}
 		return Msg.success().add("data", messages);
+	}
+	
+	/**
+	 * 修改手机号
+	 * @param id
+	 * @param phone
+	 * @return
+	 */
+	@RequestMapping(value = "updateStaffPhone/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public Msg updateStaffPhone(@PathVariable("id") Integer id, @RequestParam String phone){
+		
+		Staff staff = staffService.get(id);
+		
+		Pattern pattern = Pattern.compile("^[1][3,4,5,7,8][0-9]{9}$");
+		Matcher matcher = pattern.matcher(phone);
+		if(!matcher.matches()){
+			return Msg.error("请输入合法的手机号");
+		}
+		
+		staff.setTel(phone);
+		staffService.update(staff);
+		
+		return Msg.success();
+	}
+	
+	/**
+	 * 修改邮箱
+	 * @param id
+	 * @param email
+	 * @return
+	 */
+	@RequestMapping(value = "updateStaffEmail/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public Msg updateStaffEmail(@PathVariable("id") Integer id, @RequestParam String email){
+		Staff staff = staffService.get(id);
+		
+		Pattern pattern = Pattern.compile("[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?");
+		Matcher matcher = pattern.matcher(email);
+		if(!matcher.matches()){
+			return Msg.error("请输入合法的手机号");
+		}
+		
+		staff.setEmail(email);
+		staffService.update(staff);
+		
+		return Msg.success();
 	}
 	
 }

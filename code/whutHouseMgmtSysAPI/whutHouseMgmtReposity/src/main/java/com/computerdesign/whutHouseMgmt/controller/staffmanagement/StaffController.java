@@ -340,6 +340,7 @@ public class StaffController extends BaseController {
 		//判断配偶工作单位性质
 		if(staff.getSpouseKind() != null && staff.getSpouseKind() != 211){
 			staff.setFamilyCode(-1);
+//			staff.setSpouseTitle(null);
 		}
 
 		if (result.getErrorCount() > 0) {

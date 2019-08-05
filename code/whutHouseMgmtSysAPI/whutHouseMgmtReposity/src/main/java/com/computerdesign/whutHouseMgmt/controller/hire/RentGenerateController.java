@@ -98,6 +98,7 @@ public class RentGenerateController {
 			rentStaffShowModel.setSpousePostName(staffHouse.getStaffSpousePostName());
 			rentStaffShowModel.setSpouseDeptName(staffHouse.getStaffSpouseDept());
 			rentStaffShowModel.setSpouseKindName(staffHouse.getStaffSpouseKindName());
+			rentStaffShowModel.setHouseId(staffHouse.getHouseId());
 			rentStaffShowModel.setHouseNo(staffHouse.getHouseNo());
 			rentStaffShowModel.setHouseTypeName(staffHouse.getHouseTypeName());
 			rentStaffShowModel.setHouseLayoutName(staffHouse.getHouseLayoutName());
@@ -332,30 +333,30 @@ public class RentGenerateController {
 							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), staffDays - leftDays)));
 					for (int i = 0; i < leftYear; i++){
 						rentMoney += Double.parseDouble(new DecimalFormat("#.00")
-								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), 365))) * Math.pow(1.1, i + 1);
+								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), 365, Math.pow(1.1, i + 1))));
 					}
 					rentMoney += Double.parseDouble(new DecimalFormat("#.00")
-							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), leftLeftDay))) * Math.pow(1.1, leftYear + 1);
+							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), leftLeftDay, Math.pow(1.1, leftYear + 1))));
 				}else{
 					long leftYear = leftDays / 365;
 					long leftLeftDay = leftDays % 365;
 					//总的租金
 					for (int i = 0; i < leftYear; i++){
 						rentMoney += Double.parseDouble(new DecimalFormat("#.00")
-								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), 365))) * Math.pow(1.1, i + 1);
+								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), 365, Math.pow(1.1, i + 1))));
 					}
 					rentMoney += Double.parseDouble(new DecimalFormat("#.00")
-							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), leftLeftDay))) * Math.pow(1.1, leftYear + 1);
+							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), leftLeftDay, Math.pow(1.1, leftYear + 1))));
 					//空挡距离租金（空挡距离是指leftDays与staffDays的差） 查询租金 = 总租金 - 空挡距离租金
 					long disDays = leftDays - staffDays;
 					long disYear = disDays / 365;
 					long disLeft = disDays % 365;
 					for (int i = 0; i < disYear; i++){
 						rentMoney -= Double.parseDouble(new DecimalFormat("#.00")
-								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), 365))) * Math.pow(1.1, i + 1);
+								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), 365, Math.pow(1.1, i + 1))));
 					}
 					rentMoney -= Double.parseDouble(new DecimalFormat("#.00")
-							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), disLeft))) * Math.pow(1.1, leftYear + 1);
+							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), disLeft, Math.pow(1.1, leftYear + 1))));
 				}
 				
 			}
@@ -558,6 +559,7 @@ public class RentGenerateController {
 			rentStaffShowModel.setSpousePostName(staffHouse.getStaffSpousePostName());
 			rentStaffShowModel.setSpouseDeptName(staffHouse.getStaffSpouseDept());
 			rentStaffShowModel.setSpouseKindName(staffHouse.getStaffSpouseKindName());
+			rentStaffShowModel.setHouseId(staffHouse.getHouseId());
 			rentStaffShowModel.setHouseNo(staffHouse.getHouseNo());
 			rentStaffShowModel.setHouseTypeName(staffHouse.getHouseTypeName());
 			rentStaffShowModel.setHouseLayoutName(staffHouse.getHouseLayoutName());

@@ -28,6 +28,7 @@ public class SysLogViewService {
 	public List<ViewSysLog> getByMultiCondition(SysLogCondition sysLogCondition){
 		ViewSysLogExample example = new ViewSysLogExample();
 		Criteria criteria = example.createCriteria();
+		example.setOrderByClause("OperateTime DESC");
 		if(sysLogCondition.getStaffNo() != null){
 			criteria.andStaffNoEqualTo(sysLogCondition.getStaffNo());
 		}
