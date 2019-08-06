@@ -19,6 +19,8 @@ public class ResidentRegister {
     private Date bookTime;
     
     private Integer payType;
+    
+    private Long buyAccount;
 
 	public Integer getStaffId() {
 		return staffId;
@@ -58,6 +60,14 @@ public class ResidentRegister {
 
 	public void setPayType(Integer payType) {
 		this.payType = payType;
+	}
+
+	public Long getBuyAccount() {
+		return buyAccount;
+	}
+
+	public void setBuyAccount(Long buyAccount) {
+		this.buyAccount = buyAccount;
 	}
     
 }

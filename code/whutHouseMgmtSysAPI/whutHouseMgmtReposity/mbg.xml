@@ -48,6 +48,8 @@
 		<!-- <table tableName="hs_monetarysub" domainObjectName="StaffMonetarySub">
 			<property name="useActualColumnNames" value="true"></property>
 		</table> -->
+		<!-- 
+		 -->
 		<table tableName="view_hs_staff" domainObjectName="StaffVw">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>

@@ -33,12 +33,14 @@ import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
 import com.computerdesign.whutHouseMgmt.bean.staffhomepage.houseinfo.ResidentHouse;
+import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.HouseRegisterSelectService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.OutSchoolHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.StaffHouseRelService;
+import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -65,6 +67,9 @@ public class HouseRegisterController {
 	@Autowired
 	private OutSchoolHouseService outSchoolHouseService;
 
+	@Autowired
+	private StaffService staffService;
+	
 	/**
 	 * 根据住房号获取所有的住房关系历史数据
 	 * @param houseId
@@ -257,6 +262,20 @@ public class HouseRegisterController {
 			resident.setHouseRel(residentRegister.getHouseRel());
 			resident.setBookTime(residentRegister.getBookTime());
 			resident.setIsDelete(false);
+			
+			//如果住房登记选择是购房，则添加一个购房款
+			if(resident.getHouseRel() == 26){
+				Staff staff = staffService.get(residentRegister.getStaffId());
+				Long buyAccount = null; 
+				try {
+					buyAccount = (long) residentRegister.getBuyAccount();
+				} catch (Exception e) {
+					return Msg.error("输入正确格式的购房款");
+				}
+				staff.setBuyAccount(buyAccount);
+				staff.setIsOwnPriHouse(true);
+				staffService.update(staff);
+			}
 			
 			//设置缴费方式
 			if(residentRegister.getPayType() != null){				
