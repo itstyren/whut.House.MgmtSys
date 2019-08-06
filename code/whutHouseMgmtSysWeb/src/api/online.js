@@ -144,3 +144,10 @@ export function postHireApply(data) {
     data: data
   })
 }
+// 在线访问统计
+export function getOnLineCount() {
+  return request({
+    url: '/online/onLineCount',
+    method: 'get'
+  })
+}

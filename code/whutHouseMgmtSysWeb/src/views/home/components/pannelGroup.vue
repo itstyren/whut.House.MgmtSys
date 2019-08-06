@@ -39,16 +39,16 @@
           <el-col :span="12"
                   class="card-panel-icon-col">
             <div class="card-panel-icon-wrapper icon-message">
-              <my-icon icon-class="fixApplyManager"
+              <my-icon icon-class="users"
                        class-name="card-panel-icon" />
             </div>
           </el-col>
           <el-col :span="12">
             <div class="card-panel-description">
-              <div class="card-panel-text">今日维修申请</div>
+              <div class="card-panel-text">当前在线人数</div>
               <count-to class="card-panel-num"
                         :startVal="0"
-                        :endVal="todayData.todayFixApply"
+                        :endVal="currentPeopleNum"
                         :duration="3000"></count-to>
             </div>
           </el-col>
@@ -112,20 +112,31 @@
 
 <script type="text/ecmascript-6">
 import countTo from "vue-count-to";
+import { getOnLineCount } from '@/api/online'
 export default {
   data () {
-    return {};
+    return {
+      currentPeopleNum: 0
+    };
   },
   components: {
     countTo
   },
   created () {
+    this.getcurPeopleNum()
   },
   computed: {
     todayData () {
       return this.$store.state.app.todayData;
     }
-  }
+  },
+  methods: {
+    getcurPeopleNum () {
+      getOnLineCount().then((res) => {
+        this.currentPeopleNum = res.data.data.data
+      })
+    }
+  },
 };
 </script>
 

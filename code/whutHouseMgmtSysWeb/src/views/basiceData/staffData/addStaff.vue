@@ -578,7 +578,7 @@ export default {
     },
     // 获取配偶的信息，并进行填充
     handleSelectOneStaff (staff) {
-      this.staffForm.familyCode = staff.no
+      this.staffForm.familyCode = staff.id
       this.staffForm.spouseName = `${staff.no}-${staff.name}`
       this.staffForm.spouseCode = staff.code
       this.staffForm.spouseTitleName = staff.titleName
