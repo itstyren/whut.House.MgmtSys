@@ -75,6 +75,7 @@
                         <el-input v-if="ismodifyTel"
                                   size="medium"
                                   clearable
+                                  class="tel-email-modify-input"
                                   v-model="tel">{{tel}}</el-input>
                         <strong v-else
                                 style="color:#666">{{staffInfo.tel?staffInfo.tel:'暂无'}}</strong>
@@ -107,6 +108,7 @@
                       <!-- 显示邮箱或暂无 -->
                       <el-col :span="14">
                         <el-input v-if="ismodifyEmail"
+                                  class="tel-email-modify-input"
                                   clearable
                                   size="medium"
                                   v-model="email">{{email}}</el-input>
@@ -924,6 +926,9 @@ export default {
         height: 45px;
         .btn-submit-cancel {
           display: flex;
+        }
+        .tel-email-modify-input {
+          width: auto !important;
         }
       }
       .is-change {

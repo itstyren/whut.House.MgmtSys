@@ -34,7 +34,7 @@ export default {
     },
     filtersData: {
       type: Object,
-      default: {}
+      default: () => { }
     }
   },
   data () {
