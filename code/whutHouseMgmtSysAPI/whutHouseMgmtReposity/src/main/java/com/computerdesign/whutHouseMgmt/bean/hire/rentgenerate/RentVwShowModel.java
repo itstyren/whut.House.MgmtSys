@@ -13,6 +13,8 @@ public class RentVwShowModel {
 	//姓名
 	private String staffName;
 	
+	private Integer houseId;
+	
 	//住房号
 	private String houseNo;
 	
@@ -59,6 +61,14 @@ public class RentVwShowModel {
     
     private String staffDeptName;
     
+	public Integer getHouseId() {
+		return houseId;
+	}
+
+	public void setHouseId(Integer houseId) {
+		this.houseId = houseId;
+	}
+
 	public Integer getPayType() {
 		return payType;
 	}

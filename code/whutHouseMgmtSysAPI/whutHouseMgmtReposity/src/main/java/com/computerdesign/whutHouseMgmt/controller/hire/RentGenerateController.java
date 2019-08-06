@@ -137,6 +137,8 @@ public class RentGenerateController {
 		List<RentVwShowModel> rentVwShowModels = new ArrayList<RentVwShowModel>();
 		for (StaffHouse staffHouse : staffHouses) {
 			RentVwShowModel rentVwShowModel = new RentVwShowModel();
+			// 职工id
+			rentVwShowModel.setHouseId(staffHouse.getHouseId());
 			// 职工号
 			rentVwShowModel.setStaffNo(staffHouse.getStaffNo());
 			// // 姓名
@@ -174,6 +176,8 @@ public class RentGenerateController {
 					rentMoney = calculateRentValue(staffHouse, staffHouse.getBookTime(), new Date());
 				}	
 			}
+			
+			rentMoney = Double.parseDouble(new DecimalFormat("#.00").format(rentMoney));
 			
 			rentVwShowModel.setRentInitMoney(rentMoney);
 			rentVwShowModels.add(rentVwShowModel);
