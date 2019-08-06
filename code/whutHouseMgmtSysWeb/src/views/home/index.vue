@@ -1,6 +1,7 @@
 <template>
   <div class="second-container">
-    <div class="special-container">
+    <div class="special-container"
+         style="overflow:hidden">
       <div class="main-container">
         <div class="third-container">
           <!-- 面包屑导航 -->

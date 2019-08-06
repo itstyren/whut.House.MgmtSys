@@ -262,11 +262,11 @@
                                inactive-text="否"
                                :disabled="!ismodify">
                     </el-switch>
-                    <el-button v-if="staffForm.isOwnPriHouse"
+                    <!-- <el-button v-if="staffForm.isOwnPriHouse"
                                @click="checkHouse"
                                :class="{'is-own':staffForm.isOwnPriHouse}"
                                size="mini"
-                               type="info">查看</el-button>
+                               type="info">查看</el-button> -->
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -321,6 +321,18 @@
                                  :label="param.groupName"
                                  :value="param.id"></el-option>
                     </el-select>
+                  </el-form-item>
+                </el-col>
+                <!-- 购房款 -->
+                <el-col :span="6"
+                        :offset="1"
+                        v-if="staffForm.isOwnPriHouse">
+                  <el-form-item label="购房款"
+                                prop="buyAccount">
+                    <el-input v-model="staffForm.buyAccount"
+                              :readonly="!ismodify"
+                              placeholder="无">
+                    </el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -578,7 +590,7 @@ export default {
       getStaff(param, staffID)
         .then(res => {
           this.staffForm = res.data.data.data;
-          if (this.staffForm.spouseKindName === '校内') {
+          if (this.ismodify && this.staffForm.spouseKindName === '校内') {
             this.isCampus = true
           }
           let familyCode = res.data.data.data.familyCode
@@ -612,6 +624,7 @@ export default {
     handleCancelEdit () {
       this.ismodify = !this.ismodify
       this.isCampus = false
+      //  this.getList();
       this.staffForm = JSON.parse(JSON.stringify(this.oldStaffForm))
       this.$refs["staffForm"].clearValidate()
 
@@ -682,23 +695,25 @@ export default {
         delete postForm.spouseKindName;
 
       } else {
-
-        if (postForm.hasOwnProperty("spouseTitleName")) {
-          postForm.spouseTitle = postForm.spouseTitleName;
-          delete postForm.spouseTitleName;
+        if (postForm.hasOwnProperty("spouseKindName")) {
+          postForm.spouseKind = postForm.spouseKindName
+          delete postForm.spouseKindName;
         }
         if (postForm.hasOwnProperty("spouseDept")) {
           postForm.spouseDept = postForm.spouseDept;
           delete postForm.spouseDept;
         }
-        if (postForm.hasOwnProperty("spousePostName")) {
+        if (postForm.hasOwnProperty("spousePostName") && typeof postForm.spousePostName !== 'string') {
           postForm.spousePost = postForm.spousePostName;
           delete postForm.spousePostName;
         }
-        if (postForm.hasOwnProperty("spouseKindName")) {
-          postForm.spouseKind = postForm.spouseKindName
-          delete postForm.spouseKindName;
+
+        if (postForm.hasOwnProperty("spouseTitleName") && typeof postForm.spouseTitleName !== 'string') {
+          postForm.spouseTitle = postForm.spouseTitleName;
+          delete postForm.spouseTitleName;
         }
+        delete postForm.spouseTitleName;
+        delete postForm.spousePostName;
         delete postForm.familyCode
       }
       console.log("postForm:", postForm)

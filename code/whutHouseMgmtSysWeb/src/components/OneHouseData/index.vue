@@ -88,7 +88,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="地下室面积">
+              <el-form-item label="占地面积">
                 <el-input v-model="detailData.basementArea"
                           readonly></el-input>
               </el-form-item>
@@ -122,7 +122,7 @@
           <!-- 多行的 -->
           <el-row>
             <el-col :span="8">
-              <el-form-item label="产权编号">
+              <el-form-item label="产权证号">
                 <el-input v-model="detailData.proId"
                           readonly></el-input>
               </el-form-item>

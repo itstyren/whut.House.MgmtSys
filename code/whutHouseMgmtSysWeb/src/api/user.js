@@ -43,7 +43,7 @@ export function putFixComment(data) {
   return request({
     url: `/fixRatings/fixEvaluation`,
     method: 'put',
-    data:data
+    data: data
   })
 }
 
@@ -101,5 +101,21 @@ export function postUserAvatar(data) {
     url: '/staff/saveIcon',
     method: 'post',
     data: data
+  })
+}
+// 修改手机号
+export function putNewTel(staffID, params) {
+  return request({
+    url: `/staffHomePage/updateStaffPhone/${staffID}`,
+    method: 'put',
+    params: params
+  })
+}
+// 修改邮箱
+export function putNewEmail(staffID, params) {
+  return request({
+    url: `/staffHomePage/updateStaffEmail/${staffID}`,
+    method: 'put',
+    params: params
   })
 }

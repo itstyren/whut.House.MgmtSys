@@ -51,7 +51,8 @@
                           prop="rentalTimeDiv">
               <el-slider v-model="modifyFromBody.rentalTimeDiv"
                          show-input
-                         :max="9999"></el-slider>
+                         :min="1980"
+                         :max="2019"></el-slider>
             </el-form-item>
           </el-col>
         </el-row>
@@ -72,7 +73,8 @@
                           prop="rentalNewDctYear">
               <el-slider v-model="modifyFromBody.rentalNewDctYear"
                          show-input
-                         :max="9999"></el-slider>
+                        :min="0"
+                         :max="20"></el-slider>
             </el-form-item>
           </el-col>
         </el-row>
@@ -93,7 +95,8 @@
                           prop="limitYear">
               <el-slider v-model="modifyFromBody.limitYear"
                          show-input
-                         :max="9999"></el-slider>
+                         :min="0"
+                         :max="20"></el-slider>
             </el-form-item>
           </el-col>
         </el-row>

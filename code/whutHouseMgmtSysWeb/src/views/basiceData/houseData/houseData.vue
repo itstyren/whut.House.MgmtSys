@@ -92,7 +92,7 @@
                                 placement="top">
                       <p>使用面积: {{ scope.row.usedArea }}</p>
                       <p>建筑面积: {{ scope.row.buildArea }}</p>
-                      <p>地下室面积: {{ scope.row.basementArea }}</p>
+                      <p>占地面积: {{ scope.row.basementArea }}</p>
                       <div slot="reference"
                            class="name-wrapper">
                         <el-tag size="medium"
@@ -259,7 +259,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="地下室面积">
+                    <el-form-item label="占地面积">
                       <el-input v-model="detailData.basementArea"
                                 :readonly="!ismodify"></el-input>
                     </el-form-item>
@@ -317,7 +317,7 @@
                 <!-- 多行的 -->
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item label="产权编号">
+                    <el-form-item label="产权证号">
                       <el-input v-model="detailData.proId"
                                 :readonly="!ismodify"></el-input>
                     </el-form-item>
@@ -551,10 +551,10 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="地下室面积"
+                    <el-form-item label="占地面积"
                                   prop="basementArea">
                       <el-input v-model="addFormBody.basementArea"
-                                placeholder="请输入地下室面积"></el-input>
+                                placeholder="请输入占地面积"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -597,12 +597,12 @@
                 </el-row>
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="产权编号"
+                    <el-form-item label="产权证号"
                                   prop="proId">
                       <el-input v-model="addFormBody.proId"
-                                :label='"产权编号"'
+                                :label='"产权证号"'
                                 style="width=80px"
-                                placeholder="请输入产权编号"></el-input>
+                                placeholder="请输入产权证号"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
@@ -871,7 +871,7 @@ export default {
         basementArea: [
           {
             required: true,
-            message: "请输入地下室面积",
+            message: "请输入占地面积",
             trigger: "blur"
           },
           {
@@ -891,7 +891,7 @@ export default {
         proId: [
           {
             required: true,
-            message: "请输入使用产权编号",
+            message: "请输入使用产权证号",
             trigger: "blur"
           },
           {

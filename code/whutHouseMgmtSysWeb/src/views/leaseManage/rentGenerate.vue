@@ -79,6 +79,7 @@
                               class="table"
                               style="width: 100%"
                               height="string"
+                              @cell-click="handleClikHouse"
                               v-loading="listLoading"
                               @selection-change="setSelectionChange">
                       <el-table-column type="selection"></el-table-column>
@@ -195,7 +196,9 @@
                                        align="center"></el-table-column>>
                       <el-table-column label="地址"
                                        fixed="right"
+                                       prop="houseAddress"
                                        width="260"
+                                       class-name="address-cursor"
                                        align="center">
                         <template slot-scope="scope">
                           <el-popover trigger="hover"
@@ -204,17 +207,19 @@
                             <p>竣工时间: {{ scope.row.houseFinishTime }}</p>
                             <p>建筑面积: {{ scope.row.houseBulidArea }}</p>
                             <p>使用面积: {{ scope.row.houseUsedArea }}</p>
-                            <p>地下室面积: {{ scope.row.houseBasementArea }}</p>
+                            <p>占地面积: {{ scope.row.houseBasementArea }}</p>
                             <div slot="reference"
                                  class="name-wrapper">
                               <el-tag size="medium"
+                                      @click="handleClikTagHouse(scope.row,scope.column)"
                                       type="success">{{ scope.row.houseAddress }}</el-tag>
                             </div>
                           </el-popover>
                         </template>
                       </el-table-column>
                     </el-table>
-                    <el-pagination background layout="total, prev, pager, next, sizes, jumper"
+                    <el-pagination background
+                                   layout="total, prev, pager, next, sizes, jumper"
                                    @size-change="sizeChangeEvent"
                                    @current-change="currentChangeEvent"
                                    :page-size="size"
@@ -239,6 +244,7 @@
                               class="table"
                               style="width: 100%"
                               height="string"
+                              @cell-click="handleClikHouse"
                               v-loading="listLoading1">
                       <el-table-column type="index"
                                        label="序号"
@@ -258,6 +264,7 @@
                                        align="center"></el-table-column>
                       <el-table-column prop="address"
                                        label="住房地址"
+                                       class-name="address-cursor"
                                        align="center"></el-table-column>
                       <el-table-column prop="payType"
                                        label="缴费方式"
@@ -269,7 +276,8 @@
                                        width="100"
                                        align="center"></el-table-column>
                     </el-table>
-                    <el-pagination background layout="total, prev, pager, next, sizes, jumper"
+                    <el-pagination background
+                                   layout="total, prev, pager, next, sizes, jumper"
                                    @size-change="sizeChangeEvent1"
                                    @current-change="currentChangeEvent1"
                                    :page-size="size"
@@ -457,12 +465,15 @@
         </el-dialog>
       </div>
     </section>
+    <house-detail-dialog :show.sync="showHouseDetailDialog"
+                         :houseId.sync="houseId"></house-detail-dialog>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import exportPopover from "@/components/exportPopover";
 import staffIndex from "@/views/fixManage/components/staffIndex";
+import HouseDetailDialog from '@/components/OneHouseData'
 import {
   getHouseParam,
   getStaffParam
@@ -523,7 +534,10 @@ export default {
       listLoading1: false,
       totalNum1: 0,
       page1: 1,
-      size1: 10
+      size1: 10,
+      // 是否显示住房详情的对话框 
+      showHouseDetailDialog: false,
+      houseId: 0,
     };
   },
   // watch: {
@@ -535,7 +549,8 @@ export default {
   // },
   components: {
     staffIndex,
-    exportPopover
+    exportPopover,
+    HouseDetailDialog
   },
   methods: {
     // 从组件获取id
@@ -847,6 +862,20 @@ export default {
       this.listLoading1 = true;
       this.page1 = val;
       this.rentalQuery();
+    },
+    // 点击地址弹开对话框
+    handleClikHouse (row, column, cell, event) {
+      if (column.property === "address") {
+        this.showHouseDetailDialog = true
+        this.houseId = row.houseId
+      }
+    },
+    handleClikTagHouse (row, column) {
+      if (column.property === "houseAddress") {
+        this.showHouseDetailDialog = true
+        this.houseId = row.houseId
+      }
+
     }
   }
 };

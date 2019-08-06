@@ -32,6 +32,15 @@
             </el-input>
           </el-form-item>
         </el-col>
+        <el-col :span="5"
+                v-if="isPurchase">
+          <el-form-item label="购房款"
+                        prop="buyAccount"
+                        label-width="100px">
+            <el-input v-model="residentForm.buyAccount"
+                      size="small"></el-input>
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-row type="flex"
               align="middle">
@@ -99,6 +108,8 @@
 <script type="text/ecmascript-6">
 import { putHouseRegister } from "@/api/basiceData";
 import { getHouseParam } from "@/api/sysManage";
+import { checkNum } from "@/assets/function/validator";
+
 import * as types from "@/store/mutation-types";
 import utils from "@/utils/index.js";
 export default {
@@ -123,7 +134,10 @@ export default {
           typeName: '工资代扣'
         }
       ],
+      // 房屋关系是否选择私有
       isPersonal: false,
+      // 房屋关系是否选择购买
+      isPurchase: false,
       // 表格数据
       statusData: [],
       listLoading: false,
@@ -148,7 +162,14 @@ export default {
         bookTime: {
           required: true,
           message: "请登记日期"
-        }
+        },
+        buyAccount: [
+          { required: true, message: '请输入购房款', trigger: 'blur' },
+          {
+            validator: checkNum,
+            trigger: "blur"
+          }
+        ]
       }
     };
   },
@@ -189,6 +210,10 @@ export default {
           this.isPersonal = true;
           return;
         } else this.isPersonal = false;
+        if (item.houseParamId == newVal && item.houseParamName == "购买") {
+          this.isPurchase = true;
+          return;
+        } else this.isPurchase = false;
       }
     }
   },
@@ -250,6 +275,9 @@ export default {
                   staffId: this.$store.state.residentStaffData.id,
                   payType: this.residentForm.payType
                 };
+              }
+              if (this.isPurchase) {
+                params.buyAccount = parseInt(this.residentForm.buyAccount)
               }
               this.listLoading = true;
               putHouseRegister(params)

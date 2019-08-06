@@ -30,6 +30,7 @@
               <!-- 职工当前住房关系表 -->
               <el-col :span="14">
                 <staff-house-rel :staff-id="staffId"
+                                 :isDelete="isDelete"
                                  @remove-resident-success="handleremoveResiSuccess"
                                  :height="'30vh'"></staff-house-rel>
               </el-col>
@@ -163,6 +164,8 @@ export default {
           typeName: '工资代扣'
         }
       ],
+      // 住房记录是否删除
+      isDelete: false
     };
   },
   // 组件信息
@@ -293,7 +296,7 @@ export default {
               // 公共提示方法
               utils.statusinfo(this, res.data);
               this.getAllHouseRelByStaffId(this.staffId)
-            })
+            }).then(() => this.isDelete = !this.isDelete)
         })
         .catch(() => {
           this.$message({

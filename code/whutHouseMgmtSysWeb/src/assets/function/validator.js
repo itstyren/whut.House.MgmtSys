@@ -4,7 +4,7 @@ export const checkNum = (rule, value, callback) => {
   if (!value) {
     callback();
   } else if (!RULES.test(value)) {
-    callback(new Error("必须为数字"));
+    callback(new Error("必须为整数"));
   } else {
     callback();
   }

@@ -1,5 +1,6 @@
 <template>
-  <div class="special-container">
+  <div class="special-container"
+       style="overflow: hidden;">
     <!-- 这里放置index -->
     <section class="main-container">
       <div class="third-container">
@@ -48,7 +49,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="操作时间区间">
+                    <el-form-item label="操作时间">
                       <el-date-picker v-model="time"
                                       size="small"
                                       type="daterange"
@@ -66,7 +67,7 @@
                     <el-form-item label="直接查询">
                       <el-input v-model="queryForm.query"
                                 size="small"
-                                placeholder="请输入搜索"></el-input>
+                                placeholder="输入职工号或姓名"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="4"
@@ -87,9 +88,9 @@
             <div class="card">
               <el-table :data="logData"
                         v-loading="listLoading"
-                        type="border-card"
                         class="table"
                         height="65vh"
+                        style="border-radius: 10px;"
                         @selection-change="selectionChangeEvent">
                 <el-table-column type="selection"
                                  width="55">
@@ -133,6 +134,7 @@
               </el-pagination>
               <div class="bottom-tool">
                 <el-button type="danger"
+                           size="small"
                            :disabled="!tableChecked.length"
                            @click="handleDelLog">删除记录</el-button>
               </div>
@@ -234,6 +236,8 @@ export default {
         this.totalNum = res.data.data.data.total;
       })
         .then(() => this.listLoading = false)
+      delete this.queryForm.staffName
+      delete this.queryForm.staffNo
     },
     // 当前选中项
     selectionChangeEvent (selection) {
@@ -241,20 +245,46 @@ export default {
     },
     // 删除日志记录
     handleDelLog () {
-      this.listLoading = true
-      let logIdList = this.tableChecked.map(item => item.id)
-      delMultiSysLog(logIdList).then(res => {
-        this.getAllSysLog()
-        this.$message({
-          showClose: true,
-          message: res.data.message,
-          type: res.data.status
-        });
+      // 删除关系
+      this.$confirm("此操作将删除记录", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
       })
-        .then(() => this.listLoading = false)
-        .catch(err => {
-          this.$message.error(err)
+        .then(() => {
+          this.listLoading = true
+          let logIdList = this.tableChecked.map(item => item.id)
+          delMultiSysLog(logIdList).then(res => {
+            this.getAllSysLog()
+            this.$message({
+              showClose: true,
+              message: res.data.message,
+              type: res.data.status
+            });
+          })
+            .then(() => this.listLoading = false)
+            .catch(err => {
+              this.$message.error(err)
+            })
         })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+
+
+
+
+
+
+
+
+
+
+
+
     },
     // 重置查询表单
     resseting () {
@@ -296,6 +326,7 @@ export default {
 
 .special-container {
   background-color: $background-grey;
+
   .toolbar {
     .el-form-item {
       margin-bottom: 0;
@@ -307,7 +338,7 @@ export default {
   .bottom-tool {
     position: relative;
     left: 20px;
-    top: -20px;
+    top: -30px;
     width: fit-content;
   }
   .horizontalCenter {

@@ -86,7 +86,8 @@ export default {
     },
     staffId: {
       type: Number
-    }
+    },
+    isDelete: Boolean
   },
   computed: {
     isResident () {
@@ -99,6 +100,9 @@ export default {
       this.getList();
     },
     isResident () {
+      this.getList();
+    },
+    isDelete () {
       this.getList();
     }
   },
