@@ -420,6 +420,7 @@ public class HouseRegisterController {
 			houseAllShowModel.setFinishTime(viewHouse.getFinishTime());
 			houseAllShowModel.setCampusName(viewHouse.getCampusName());
 			houseAllShowModel.setBuildingName(viewHouse.getBuildingName());
+			houseAllShowModel.setStructName(viewHouse.getStructName());
 			houseAllShowModels.add(houseAllShowModel);
 		}
 		PageInfo pageInfo = new PageInfo(viewHouses);
