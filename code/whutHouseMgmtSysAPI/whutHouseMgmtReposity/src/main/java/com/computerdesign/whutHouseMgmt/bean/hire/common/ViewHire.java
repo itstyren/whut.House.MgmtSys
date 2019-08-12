@@ -97,6 +97,12 @@ public class ViewHire {
     
     private String hireFiles;
 
+    private Integer payType;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date contractTime;
+    
     public Integer getId() {
         return id;
     }
@@ -424,5 +430,21 @@ public class ViewHire {
 	public void setHireFiles(String hireFiles) {
 		this.hireFiles = hireFiles;
 	}
-    
+
+	public Integer getPayType() {
+		return payType;
+	}
+
+	public void setPayType(Integer payType) {
+		this.payType = payType;
+	}
+
+	public Date getContractTime() {
+		return contractTime;
+	}
+
+	public void setContractTime(Date contractTime) {
+		this.contractTime = contractTime;
+	}
+	
 }

@@ -103,7 +103,8 @@ public class HireService {
 
 		// 住房登记信息
 		Resident resident = new Resident();
-		resident.setBookTime(new Date());
+//		resident.setBookTime(new Date());
+		resident.setBookTime(hire.getContractTime());
 		resident.setStaffId(hire.getStaffId());
 		resident.setHouseId(hire.getHouseId());
 		resident.setIsDelete(false);
@@ -113,11 +114,12 @@ public class HireService {
 		bookTime.setTime(new Date());
 		bookTime.add(Calendar.YEAR, +1);
 		Date expireTime = bookTime.getTime();
-		resident.setExpireTime(expireTime);
+//		resident.setExpireTime(expireTime);
 
 		resident.setRentType("工资");
 		// TODO 这里的HouseRel应该是租赁，修改数据库后注意审查
 		resident.setHouseRel(78);
+		resident.setPayType(hire.getPayType());
 		residentMapper.insertSelective(resident);
 
 	}

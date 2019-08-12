@@ -22,7 +22,9 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.PersonalHireRecord;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
+import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
+import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
@@ -33,6 +35,7 @@ import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastHireRecordService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
+import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -70,6 +73,7 @@ public class HireController {
 
 	@Autowired
 	private ViewHouseService viewHouseService;
+	
 	@Autowired
 	private LastHireRecordService lastHireRecordService;
 
@@ -249,7 +253,14 @@ public class HireController {
 	public Msg hireAddSignContract(@RequestBody HashMap<String, Object> hashMap) {
 
 		Integer id = (Integer)hashMap.get("id");
-
+		
+		Date contractTime = null;
+		if(hashMap.get("bookTime") != null){			
+			contractTime = DateUtil.parseDate((String) hashMap.get("bookTime"));
+		}else{
+			return Msg.error("请选择签订日期");
+		}
+		
 		// 获取该房屋申请信息
 		Hire hire = hireService.getHireById(id);
 		if (hire.getIsOver()) {
@@ -264,7 +275,9 @@ public class HireController {
 		}
 		// 设置该申请已结束
 		hire.setIsOver(true);
-
+		
+		hire.setContractTime(contractTime);
+		
 		hireService.addSignContract(hire);
 
 		return Msg.success("成功签订合同");

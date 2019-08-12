@@ -13,6 +13,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -177,5 +178,10 @@ public class LoggingAspect {
 //		System.out.println("LogginAspect.logout:" + count2.size());
 //		System.out.println("LogginAspect.logout.userId" + userId);
 	}
+	
+	@Scheduled(cron = "0 0 2 * * *")//每天凌晨2点执行 
+    public void clearOnlineCount(){
+       countSet.clear();
+    } 
 	
 }

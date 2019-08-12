@@ -55,11 +55,9 @@
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		  -->
-		  <!-- 
-		  <table tableName="hs_hire" domainObjectName="Hire">
+		<table tableName="hs_hire" domainObjectName="Hire">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
-		   -->
 		<table tableName="view_hs_hire" domainObjectName="ViewHire">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>

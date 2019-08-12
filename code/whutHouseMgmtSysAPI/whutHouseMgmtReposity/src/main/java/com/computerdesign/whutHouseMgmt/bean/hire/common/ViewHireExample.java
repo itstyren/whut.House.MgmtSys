@@ -2831,6 +2831,126 @@ public class ViewHireExample {
             addCriterion("HireFiles not between", value1, value2, "hireFiles");
             return (Criteria) this;
         }
+
+        public Criteria andPayTypeIsNull() {
+            addCriterion("PayType is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayTypeIsNotNull() {
+            addCriterion("PayType is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayTypeEqualTo(Integer value) {
+            addCriterion("PayType =", value, "payType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayTypeNotEqualTo(Integer value) {
+            addCriterion("PayType <>", value, "payType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayTypeGreaterThan(Integer value) {
+            addCriterion("PayType >", value, "payType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("PayType >=", value, "payType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayTypeLessThan(Integer value) {
+            addCriterion("PayType <", value, "payType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("PayType <=", value, "payType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayTypeIn(List<Integer> values) {
+            addCriterion("PayType in", values, "payType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayTypeNotIn(List<Integer> values) {
+            addCriterion("PayType not in", values, "payType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayTypeBetween(Integer value1, Integer value2) {
+            addCriterion("PayType between", value1, value2, "payType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("PayType not between", value1, value2, "payType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeIsNull() {
+            addCriterion("ContractTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeIsNotNull() {
+            addCriterion("ContractTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeEqualTo(Date value) {
+            addCriterion("ContractTime =", value, "contractTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeNotEqualTo(Date value) {
+            addCriterion("ContractTime <>", value, "contractTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeGreaterThan(Date value) {
+            addCriterion("ContractTime >", value, "contractTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("ContractTime >=", value, "contractTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeLessThan(Date value) {
+            addCriterion("ContractTime <", value, "contractTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeLessThanOrEqualTo(Date value) {
+            addCriterion("ContractTime <=", value, "contractTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeIn(List<Date> values) {
+            addCriterion("ContractTime in", values, "contractTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeNotIn(List<Date> values) {
+            addCriterion("ContractTime not in", values, "contractTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeBetween(Date value1, Date value2) {
+            addCriterion("ContractTime between", value1, value2, "contractTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andContractTimeNotBetween(Date value1, Date value2) {
+            addCriterion("ContractTime not between", value1, value2, "contractTime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

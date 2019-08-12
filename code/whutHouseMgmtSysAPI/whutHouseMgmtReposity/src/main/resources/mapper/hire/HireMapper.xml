@@ -30,6 +30,8 @@
     <result column="FeedBack" jdbcType="VARCHAR" property="feedBack" />
     <result column="Email" jdbcType="VARCHAR" property="email" />
     <result column="HireFiles" jdbcType="VARCHAR" property="hireFiles" />
+    <result column="PayType" jdbcType="INTEGER" property="payType" />
+    <result column="ContractTime" jdbcType="TIMESTAMP" property="contractTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -93,7 +95,7 @@
     Id, StaffId, HouseId, ApplyTime, Reason, Phone, HireState, TotalVal, TitleVal, TimeVal, 
     SpouseVal, OtherVal, AcceptNote, AcceptState, AcceptMan, AcceptTime, AgreeNote, AgreeState, 
     AgreeMan, AgreeTime, ApproveNote, ApproveState, ApproveMan, ApproveTime, IsOver, 
-    FeedBack, Email, HireFiles
+    FeedBack, Email, HireFiles, PayType, ContractTime
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample" resultMap="BaseResultMap">
     select
@@ -135,7 +137,8 @@
       AgreeMan, AgreeTime, ApproveNote, 
       ApproveState, ApproveMan, ApproveTime, 
       IsOver, FeedBack, Email, 
-      HireFiles)
+      HireFiles, PayType, ContractTime
+      )
     values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
       #{applyTime,jdbcType=DATE}, #{reason,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{hireState,jdbcType=VARCHAR}, #{totalVal,jdbcType=DOUBLE}, #{titleVal,jdbcType=DOUBLE}, 
@@ -145,7 +148,8 @@
       #{agreeMan,jdbcType=VARCHAR}, #{agreeTime,jdbcType=DATE}, #{approveNote,jdbcType=VARCHAR}, 
       #{approveState,jdbcType=VARCHAR}, #{approveMan,jdbcType=VARCHAR}, #{approveTime,jdbcType=DATE}, 
       #{isOver,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{hireFiles,jdbcType=VARCHAR})
+      #{hireFiles,jdbcType=VARCHAR}, #{payType,jdbcType=INTEGER}, #{contractTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.Hire">
     insert into hs_hire
@@ -234,6 +238,12 @@
       <if test="hireFiles != null">
         HireFiles,
       </if>
+      <if test="payType != null">
+        PayType,
+      </if>
+      <if test="contractTime != null">
+        ContractTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -319,6 +329,12 @@
       </if>
       <if test="hireFiles != null">
         #{hireFiles,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="contractTime != null">
+        #{contractTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -415,6 +431,12 @@
       <if test="record.hireFiles != null">
         HireFiles = #{record.hireFiles,jdbcType=VARCHAR},
       </if>
+      <if test="record.payType != null">
+        PayType = #{record.payType,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractTime != null">
+        ContractTime = #{record.contractTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -449,7 +471,9 @@
       IsOver = #{record.isOver,jdbcType=BIT},
       FeedBack = #{record.feedBack,jdbcType=VARCHAR},
       Email = #{record.email,jdbcType=VARCHAR},
-      HireFiles = #{record.hireFiles,jdbcType=VARCHAR}
+      HireFiles = #{record.hireFiles,jdbcType=VARCHAR},
+      PayType = #{record.payType,jdbcType=INTEGER},
+      ContractTime = #{record.contractTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -538,6 +562,12 @@
       <if test="hireFiles != null">
         HireFiles = #{hireFiles,jdbcType=VARCHAR},
       </if>
+      <if test="payType != null">
+        PayType = #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="contractTime != null">
+        ContractTime = #{contractTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
@@ -569,7 +599,9 @@
       IsOver = #{isOver,jdbcType=BIT},
       FeedBack = #{feedBack,jdbcType=VARCHAR},
       Email = #{email,jdbcType=VARCHAR},
-      HireFiles = #{hireFiles,jdbcType=VARCHAR}
+      HireFiles = #{hireFiles,jdbcType=VARCHAR},
+      PayType = #{payType,jdbcType=INTEGER},
+      ContractTime = #{contractTime,jdbcType=TIMESTAMP}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
