@@ -47,7 +47,7 @@ public class HireApproveController {
 					"deptName", "houseNo","houseBuildArea","houseUserArea","houseAddress",
 					"acceptNote", "acceptState","acceptMan", "acceptTime",
 					"agreeNote", "agreeState","agreeMan", "agreeTime",
-					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal" };
+					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal", "hireFiles" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
 			
 			return Msg.success("返回所有的待审批的房屋请求信息").add("data", response);
@@ -59,7 +59,7 @@ public class HireApproveController {
 					"acceptNote", "acceptState","acceptMan", "acceptTime",
 					"agreeNote", "agreeState","agreeMan", "agreeTime",
 					"approveNote", "approveState","approveMan", "approveTime",
-					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal" };
+					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal", "hireFiles" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
 			
 			return Msg.success("返回所有的已审批的房屋请求信息").add("data", response);

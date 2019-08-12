@@ -2761,6 +2761,76 @@ public class ViewHireExample {
             addCriterion("Email not between", value1, value2, "email");
             return (Criteria) this;
         }
+
+        public Criteria andHireFilesIsNull() {
+            addCriterion("HireFiles is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesIsNotNull() {
+            addCriterion("HireFiles is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesEqualTo(String value) {
+            addCriterion("HireFiles =", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesNotEqualTo(String value) {
+            addCriterion("HireFiles <>", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesGreaterThan(String value) {
+            addCriterion("HireFiles >", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesGreaterThanOrEqualTo(String value) {
+            addCriterion("HireFiles >=", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesLessThan(String value) {
+            addCriterion("HireFiles <", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesLessThanOrEqualTo(String value) {
+            addCriterion("HireFiles <=", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesLike(String value) {
+            addCriterion("HireFiles like", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesNotLike(String value) {
+            addCriterion("HireFiles not like", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesIn(List<String> values) {
+            addCriterion("HireFiles in", values, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesNotIn(List<String> values) {
+            addCriterion("HireFiles not in", values, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesBetween(String value1, String value2) {
+            addCriterion("HireFiles between", value1, value2, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesNotBetween(String value1, String value2) {
+            addCriterion("HireFiles not between", value1, value2, "hireFiles");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

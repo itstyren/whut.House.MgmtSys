@@ -212,7 +212,7 @@ public class HireController {
 //		}
 		
 		hire.setTotalVal(hire.getOtherVal() + hire.getSpouseVal() + hire.getTitleVal() + hire.getTimeVal());
-
+		
 		hireService.add(hire);
 		return Msg.success("提交申请成功");
 	}

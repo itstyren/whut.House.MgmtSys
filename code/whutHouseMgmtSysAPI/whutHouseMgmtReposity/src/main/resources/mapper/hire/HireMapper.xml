@@ -9,8 +9,8 @@
     <result column="Reason" jdbcType="VARCHAR" property="reason" />
     <result column="Phone" jdbcType="VARCHAR" property="phone" />
     <result column="HireState" jdbcType="VARCHAR" property="hireState" />
-    <result column="TitleVal" jdbcType="DOUBLE" property="titleVal" />
     <result column="TotalVal" jdbcType="DOUBLE" property="totalVal" />
+    <result column="TitleVal" jdbcType="DOUBLE" property="titleVal" />
     <result column="TimeVal" jdbcType="DOUBLE" property="timeVal" />
     <result column="SpouseVal" jdbcType="DOUBLE" property="spouseVal" />
     <result column="OtherVal" jdbcType="DOUBLE" property="otherVal" />
@@ -29,6 +29,7 @@
     <result column="IsOver" jdbcType="BIT" property="isOver" />
     <result column="FeedBack" jdbcType="VARCHAR" property="feedBack" />
     <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="HireFiles" jdbcType="VARCHAR" property="hireFiles" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -89,10 +90,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, StaffId, HouseId, ApplyTime, Reason, Phone, HireState, TitleVal, TotalVal, TimeVal, 
+    Id, StaffId, HouseId, ApplyTime, Reason, Phone, HireState, TotalVal, TitleVal, TimeVal, 
     SpouseVal, OtherVal, AcceptNote, AcceptState, AcceptMan, AcceptTime, AgreeNote, AgreeState, 
     AgreeMan, AgreeTime, ApproveNote, ApproveState, ApproveMan, ApproveTime, IsOver, 
-    FeedBack, Email
+    FeedBack, Email, HireFiles
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample" resultMap="BaseResultMap">
     select
@@ -100,7 +101,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Hs_Hire
+    from hs_hire
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -111,43 +112,43 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from Hs_Hire
+    from hs_hire
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Hs_Hire
+    delete from hs_hire
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample">
-    delete from Hs_Hire
+    delete from hs_hire
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.Hire">
-    insert into Hs_Hire (Id, StaffId, HouseId, 
+    insert into hs_hire (Id, StaffId, HouseId, 
       ApplyTime, Reason, Phone, 
-      HireState, TitleVal, TotalVal, 
+      HireState, TotalVal, TitleVal, 
       TimeVal, SpouseVal, OtherVal, 
       AcceptNote, AcceptState, AcceptMan, 
       AcceptTime, AgreeNote, AgreeState, 
       AgreeMan, AgreeTime, ApproveNote, 
       ApproveState, ApproveMan, ApproveTime, 
-      IsOver, FeedBack, Email
-      )
+      IsOver, FeedBack, Email, 
+      HireFiles)
     values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
       #{applyTime,jdbcType=DATE}, #{reason,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{hireState,jdbcType=VARCHAR}, #{titleVal,jdbcType=DOUBLE}, #{totalVal,jdbcType=DOUBLE}, 
+      #{hireState,jdbcType=VARCHAR}, #{totalVal,jdbcType=DOUBLE}, #{titleVal,jdbcType=DOUBLE}, 
       #{timeVal,jdbcType=DOUBLE}, #{spouseVal,jdbcType=DOUBLE}, #{otherVal,jdbcType=DOUBLE}, 
       #{acceptNote,jdbcType=VARCHAR}, #{acceptState,jdbcType=VARCHAR}, #{acceptMan,jdbcType=VARCHAR}, 
       #{acceptTime,jdbcType=DATE}, #{agreeNote,jdbcType=VARCHAR}, #{agreeState,jdbcType=VARCHAR}, 
       #{agreeMan,jdbcType=VARCHAR}, #{agreeTime,jdbcType=DATE}, #{approveNote,jdbcType=VARCHAR}, 
       #{approveState,jdbcType=VARCHAR}, #{approveMan,jdbcType=VARCHAR}, #{approveTime,jdbcType=DATE}, 
-      #{isOver,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
-      )
+      #{isOver,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{hireFiles,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.Hire">
-    insert into Hs_Hire
+    insert into hs_hire
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
@@ -170,11 +171,11 @@
       <if test="hireState != null">
         HireState,
       </if>
-      <if test="titleVal != null">
-        TitleVal,
-      </if>
       <if test="totalVal != null">
         TotalVal,
+      </if>
+      <if test="titleVal != null">
+        TitleVal,
       </if>
       <if test="timeVal != null">
         TimeVal,
@@ -230,6 +231,9 @@
       <if test="email != null">
         Email,
       </if>
+      <if test="hireFiles != null">
+        HireFiles,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -253,11 +257,11 @@
       <if test="hireState != null">
         #{hireState,jdbcType=VARCHAR},
       </if>
-      <if test="titleVal != null">
-        #{titleVal,jdbcType=DOUBLE},
-      </if>
       <if test="totalVal != null">
         #{totalVal,jdbcType=DOUBLE},
+      </if>
+      <if test="titleVal != null">
+        #{titleVal,jdbcType=DOUBLE},
       </if>
       <if test="timeVal != null">
         #{timeVal,jdbcType=DOUBLE},
@@ -313,16 +317,19 @@
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
       </if>
+      <if test="hireFiles != null">
+        #{hireFiles,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.HireExample" resultType="java.lang.Long">
-    select count(*) from Hs_Hire
+    select count(*) from hs_hire
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Hs_Hire
+    update hs_hire
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
@@ -345,11 +352,11 @@
       <if test="record.hireState != null">
         HireState = #{record.hireState,jdbcType=VARCHAR},
       </if>
-      <if test="record.titleVal != null">
-        TitleVal = #{record.titleVal,jdbcType=DOUBLE},
-      </if>
       <if test="record.totalVal != null">
         TotalVal = #{record.totalVal,jdbcType=DOUBLE},
+      </if>
+      <if test="record.titleVal != null">
+        TitleVal = #{record.titleVal,jdbcType=DOUBLE},
       </if>
       <if test="record.timeVal != null">
         TimeVal = #{record.timeVal,jdbcType=DOUBLE},
@@ -405,13 +412,16 @@
       <if test="record.email != null">
         Email = #{record.email,jdbcType=VARCHAR},
       </if>
+      <if test="record.hireFiles != null">
+        HireFiles = #{record.hireFiles,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Hs_Hire
+    update hs_hire
     set Id = #{record.id,jdbcType=INTEGER},
       StaffId = #{record.staffId,jdbcType=INTEGER},
       HouseId = #{record.houseId,jdbcType=INTEGER},
@@ -419,8 +429,8 @@
       Reason = #{record.reason,jdbcType=VARCHAR},
       Phone = #{record.phone,jdbcType=VARCHAR},
       HireState = #{record.hireState,jdbcType=VARCHAR},
-      TitleVal = #{record.titleVal,jdbcType=DOUBLE},
       TotalVal = #{record.totalVal,jdbcType=DOUBLE},
+      TitleVal = #{record.titleVal,jdbcType=DOUBLE},
       TimeVal = #{record.timeVal,jdbcType=DOUBLE},
       SpouseVal = #{record.spouseVal,jdbcType=DOUBLE},
       OtherVal = #{record.otherVal,jdbcType=DOUBLE},
@@ -438,13 +448,14 @@
       ApproveTime = #{record.approveTime,jdbcType=DATE},
       IsOver = #{record.isOver,jdbcType=BIT},
       FeedBack = #{record.feedBack,jdbcType=VARCHAR},
-      Email = #{record.email,jdbcType=VARCHAR}
+      Email = #{record.email,jdbcType=VARCHAR},
+      HireFiles = #{record.hireFiles,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.Hire">
-    update Hs_Hire
+    update hs_hire
     <set>
       <if test="staffId != null">
         StaffId = #{staffId,jdbcType=INTEGER},
@@ -464,11 +475,11 @@
       <if test="hireState != null">
         HireState = #{hireState,jdbcType=VARCHAR},
       </if>
-      <if test="titleVal != null">
-        TitleVal = #{titleVal,jdbcType=DOUBLE},
-      </if>
       <if test="totalVal != null">
         TotalVal = #{totalVal,jdbcType=DOUBLE},
+      </if>
+      <if test="titleVal != null">
+        TitleVal = #{titleVal,jdbcType=DOUBLE},
       </if>
       <if test="timeVal != null">
         TimeVal = #{timeVal,jdbcType=DOUBLE},
@@ -524,19 +535,22 @@
       <if test="email != null">
         Email = #{email,jdbcType=VARCHAR},
       </if>
+      <if test="hireFiles != null">
+        HireFiles = #{hireFiles,jdbcType=VARCHAR},
+      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.hire.common.Hire">
-    update Hs_Hire
+    update hs_hire
     set StaffId = #{staffId,jdbcType=INTEGER},
       HouseId = #{houseId,jdbcType=INTEGER},
       ApplyTime = #{applyTime,jdbcType=DATE},
       Reason = #{reason,jdbcType=VARCHAR},
       Phone = #{phone,jdbcType=VARCHAR},
       HireState = #{hireState,jdbcType=VARCHAR},
-      TitleVal = #{titleVal,jdbcType=DOUBLE},
       TotalVal = #{totalVal,jdbcType=DOUBLE},
+      TitleVal = #{titleVal,jdbcType=DOUBLE},
       TimeVal = #{timeVal,jdbcType=DOUBLE},
       SpouseVal = #{spouseVal,jdbcType=DOUBLE},
       OtherVal = #{otherVal,jdbcType=DOUBLE},
@@ -554,7 +568,8 @@
       ApproveTime = #{approveTime,jdbcType=DATE},
       IsOver = #{isOver,jdbcType=BIT},
       FeedBack = #{feedBack,jdbcType=VARCHAR},
-      Email = #{email,jdbcType=VARCHAR}
+      Email = #{email,jdbcType=VARCHAR},
+      HireFiles = #{hireFiles,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

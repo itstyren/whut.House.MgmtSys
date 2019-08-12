@@ -582,66 +582,6 @@ public class HireExample {
             return (Criteria) this;
         }
 
-        public Criteria andTitleValIsNull() {
-            addCriterion("TitleVal is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTitleValIsNotNull() {
-            addCriterion("TitleVal is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTitleValEqualTo(Double value) {
-            addCriterion("TitleVal =", value, "titleVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTitleValNotEqualTo(Double value) {
-            addCriterion("TitleVal <>", value, "titleVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTitleValGreaterThan(Double value) {
-            addCriterion("TitleVal >", value, "titleVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTitleValGreaterThanOrEqualTo(Double value) {
-            addCriterion("TitleVal >=", value, "titleVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTitleValLessThan(Double value) {
-            addCriterion("TitleVal <", value, "titleVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTitleValLessThanOrEqualTo(Double value) {
-            addCriterion("TitleVal <=", value, "titleVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTitleValIn(List<Double> values) {
-            addCriterion("TitleVal in", values, "titleVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTitleValNotIn(List<Double> values) {
-            addCriterion("TitleVal not in", values, "titleVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTitleValBetween(Double value1, Double value2) {
-            addCriterion("TitleVal between", value1, value2, "titleVal");
-            return (Criteria) this;
-        }
-
-        public Criteria andTitleValNotBetween(Double value1, Double value2) {
-            addCriterion("TitleVal not between", value1, value2, "titleVal");
-            return (Criteria) this;
-        }
-
         public Criteria andTotalValIsNull() {
             addCriterion("TotalVal is null");
             return (Criteria) this;
@@ -699,6 +639,66 @@ public class HireExample {
 
         public Criteria andTotalValNotBetween(Double value1, Double value2) {
             addCriterion("TotalVal not between", value1, value2, "totalVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValIsNull() {
+            addCriterion("TitleVal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValIsNotNull() {
+            addCriterion("TitleVal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValEqualTo(Double value) {
+            addCriterion("TitleVal =", value, "titleVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValNotEqualTo(Double value) {
+            addCriterion("TitleVal <>", value, "titleVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValGreaterThan(Double value) {
+            addCriterion("TitleVal >", value, "titleVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValGreaterThanOrEqualTo(Double value) {
+            addCriterion("TitleVal >=", value, "titleVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValLessThan(Double value) {
+            addCriterion("TitleVal <", value, "titleVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValLessThanOrEqualTo(Double value) {
+            addCriterion("TitleVal <=", value, "titleVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValIn(List<Double> values) {
+            addCriterion("TitleVal in", values, "titleVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValNotIn(List<Double> values) {
+            addCriterion("TitleVal not in", values, "titleVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValBetween(Double value1, Double value2) {
+            addCriterion("TitleVal between", value1, value2, "titleVal");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleValNotBetween(Double value1, Double value2) {
+            addCriterion("TitleVal not between", value1, value2, "titleVal");
             return (Criteria) this;
         }
 
@@ -1889,6 +1889,76 @@ public class HireExample {
 
         public Criteria andEmailNotBetween(String value1, String value2) {
             addCriterion("Email not between", value1, value2, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesIsNull() {
+            addCriterion("HireFiles is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesIsNotNull() {
+            addCriterion("HireFiles is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesEqualTo(String value) {
+            addCriterion("HireFiles =", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesNotEqualTo(String value) {
+            addCriterion("HireFiles <>", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesGreaterThan(String value) {
+            addCriterion("HireFiles >", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesGreaterThanOrEqualTo(String value) {
+            addCriterion("HireFiles >=", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesLessThan(String value) {
+            addCriterion("HireFiles <", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesLessThanOrEqualTo(String value) {
+            addCriterion("HireFiles <=", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesLike(String value) {
+            addCriterion("HireFiles like", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesNotLike(String value) {
+            addCriterion("HireFiles not like", value, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesIn(List<String> values) {
+            addCriterion("HireFiles in", values, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesNotIn(List<String> values) {
+            addCriterion("HireFiles not in", values, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesBetween(String value1, String value2) {
+            addCriterion("HireFiles between", value1, value2, "hireFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andHireFilesNotBetween(String value1, String value2) {
+            addCriterion("HireFiles not between", value1, value2, "hireFiles");
             return (Criteria) this;
         }
     }

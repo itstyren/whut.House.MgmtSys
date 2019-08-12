@@ -94,6 +94,8 @@ public class ViewHire {
     private String feedBack;
 
     private String email;
+    
+    private String hireFiles;
 
     public Integer getId() {
         return id;
@@ -414,4 +416,13 @@ public class ViewHire {
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
     }
+
+	public String getHireFiles() {
+		return hireFiles;
+	}
+
+	public void setHireFiles(String hireFiles) {
+		this.hireFiles = hireFiles;
+	}
+    
 }

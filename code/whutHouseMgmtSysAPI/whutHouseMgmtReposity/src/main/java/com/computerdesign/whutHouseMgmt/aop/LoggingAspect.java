@@ -1,6 +1,7 @@
 package com.computerdesign.whutHouseMgmt.aop;
 
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -18,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.log.SysLog;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw;
+import com.computerdesign.whutHouseMgmt.controller.BaseController;
 import com.computerdesign.whutHouseMgmt.service.log.SysLogService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 import com.wf.etp.authz.SubjectUtil;
@@ -35,7 +38,8 @@ public class LoggingAspect {
 	
 	@Autowired
 	private SysLogService sysLogService;
-
+	
+	public HashSet<String> countSet = new HashSet<>();
 //	@Before("execution(* com.computerdesign.whutHouseMgmt.controller..*.*(..))")
 //	public void before(JoinPoint joinPoint){
 //		System.out.println("------------Before------------");
@@ -92,6 +96,7 @@ public class LoggingAspect {
 	@AfterReturning(value="execution(* com.computerdesign.whutHouseMgmt.controller.user.UserLoginController.login(..))",
 			returning="result")
 	public void getToken(Object result){
+//		count2 ++;
 		Msg msg = (Msg) result;
 		String userId = null;
 		String token = (String) msg.getData().get("token");
@@ -106,6 +111,7 @@ public class LoggingAspect {
 			e.printStackTrace();
 			throw new ErrorTokenException();
 		}
+		countSet.add(userId);
 		// 校验服务器是否存在token
 		if (!SubjectUtil.getInstance().isValidToken(userId, token)) {
 			throw new ExpiredTokenException();
@@ -114,6 +120,10 @@ public class LoggingAspect {
 		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		HttpServletRequest request = requestAttributes.getRequest();
 		request.setAttribute("userId", userId);
+//		request.getSession().setAttribute("count2", count2.size());
+		request.getSession().getServletContext().setAttribute("countValue", countSet.size());
+//		request.setAttribute("count2", count2.size());
+//		System.out.println("count2:" +  count2.size());
 //		HttpSession session = request.getSession();
 //		session.setAttribute("userId", userId);
 		
@@ -132,10 +142,40 @@ public class LoggingAspect {
 		sysLog.setOperateType(3);
 		
 		sysLogService.insert(sysLog);
+//		System.out.println("LogginAspect.login:" + count2.size());
 	}
 	
 //	@Before("execution(* com.computerdesign.whutHouseMgmt.controller.HelloWorld.hello())")
 //	public void test(){
 //		System.out.println("test");
 //	}
+	
+	//用于注销时减少在线人数
+	@AfterReturning("execution(* com.computerdesign.whutHouseMgmt.controller.user.UserLoginController.logout(..))")
+	public void logout(JoinPoint joinPoint){
+		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+		HttpServletRequest request = requestAttributes.getRequest();
+		String token = request.getHeader("X-token");
+		String userId = null;
+		try { // 解析token
+			userId = SubjectUtil.getInstance().parseToken(token).getSubject();
+//			AttributePrincipal principal = (AttributePrincipal)request.getUserPrincipal();
+//			userId = principal.getName();
+		} catch (ExpiredJwtException e) {
+			SubjectUtil.getInstance().expireToken(userId, token); // 从缓存中移除过期的token
+			throw new ExpiredTokenException();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ErrorTokenException();
+		}
+		if(countSet.contains(userId)){			
+			countSet.remove(userId);
+		}
+//		request.getSession().setAttribute("count2", count2.size());
+//		request.setAttribute("count2", count2.size());
+		request.getSession().getServletContext().setAttribute("countValue", countSet.size());
+//		System.out.println("LogginAspect.logout:" + count2.size());
+//		System.out.println("LogginAspect.logout.userId" + userId);
+	}
+	
 }
