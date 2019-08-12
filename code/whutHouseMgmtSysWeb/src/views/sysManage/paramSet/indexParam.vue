@@ -2,103 +2,112 @@
   <div class="second-container">
     <aside :class="{hideSidebar:isCollapse}">
       <scroll-bar>
-      <!-- 展开关闭按钮 -->
-      <div class="asid-button" @click.prevent="collapse">
-        <my-icon icon-class="next" v-show="isCollapse" />
-        <my-icon icon-class="pre" v-show="!isCollapse" />
-      </div>
-      <!-- 主菜单 -->
-      <el-menu class="aside-menu" :collapse="isCollapse" :default-active="$route.path" router background-color="#373d41" text-color="#fff" active-text-color="#4682B4">
-        <!-- 住房参数 -->
-        <el-submenu index="houseParam">
-          <template slot="title">
-            <i class="el-icon-search"></i>
-            <span slot="title">住房参数</span>
-          </template>
-          <el-menu-item index="/sysmanage/paramSet/houseType">
-            住房类型
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/houseLayout">
-            住房户型
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/houseStatus">
-            使用状态
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/houseStruct">
-            住房结构
-          </el-menu-item>
-        </el-submenu>
-        <!-- 职工参数 -->
-        <el-submenu index="staffParam">
-          <template slot="title">
-            <i class="el-icon-plus"></i>
-            <span>职工参数</span>
-          </template>
-          <el-menu-item index="/sysmanage/paramSet/staffDept">
-            工作部门
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/staffPost">
-            职务
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/staffTitle">
-            职称
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/staffType">
-            职工类别
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/staffStatus">
-            工作状态
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/staffSpouse">
-            配偶单位性质
-          </el-menu-item>
-        </el-submenu>
-        <!-- 租赁参数 -->
-        <el-submenu index="rentParam">
-          <template slot="title">
-            <i class="el-icon-edit "></i>
-            <span slot="title">租赁参数</span>
-          </template>
-          <el-menu-item index="/sysmanage/paramSet/rentPostVal">
-            职务分
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/rentTitleVal">
-            职称分
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/rentPostArea">
-            职务面积
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/rentTitleArea">
-            职务面积
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/rentOption">
-            选房选项
-          </el-menu-item>
-        </el-submenu>
-        <!-- 维修参数 -->
-        <el-submenu index="fixParam">
-          <template slot="title">
-            <i class="el-icon-setting"></i>
-            <span slot="title">维修参数</span>
-          </template>
-          <el-menu-item index="/sysmanage/paramSet/fixContent">
-            维修内容
-          </el-menu-item>
-        </el-submenu>
-        <!-- 租赁参数 -->
-        <el-submenu index="rentalParam">
-          <template slot="title">
-            <i class="el-icon-star-off"></i>
-            <span slot="title">其他参数</span>
-          </template>
-          <el-menu-item index="/sysmanage/paramSet/rentalOption">
-            租金选项
-          </el-menu-item>
-          <el-menu-item index="/sysmanage/paramSet/residentRel">
-            登记关系
-          </el-menu-item>
-        </el-submenu>
-      </el-menu>
+        <!-- 展开关闭按钮 -->
+        <div class="asid-button"
+             @click.prevent="collapse">
+          <my-icon icon-class="next"
+                   v-show="isCollapse" />
+          <my-icon icon-class="pre"
+                   v-show="!isCollapse" />
+        </div>
+        <!-- 主菜单 -->
+        <el-menu class="aside-menu"
+                 :collapse="isCollapse"
+                 :default-active="$route.path"
+                 router
+                 background-color="#373d41"
+                 text-color="#fff"
+                 active-text-color="#4682B4">
+          <!-- 住房参数 -->
+          <el-submenu index="houseParam">
+            <template slot="title">
+              <i class="el-icon-search"></i>
+              <span slot="title">住房参数</span>
+            </template>
+            <el-menu-item index="/sysmanage/paramSet/houseType">
+              住房类型
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/houseLayout">
+              住房户型
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/houseStatus">
+              使用状态
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/houseStruct">
+              住房结构
+            </el-menu-item>
+          </el-submenu>
+          <!-- 职工参数 -->
+          <el-submenu index="staffParam">
+            <template slot="title">
+              <i class="el-icon-plus"></i>
+              <span>职工参数</span>
+            </template>
+            <el-menu-item index="/sysmanage/paramSet/staffDept">
+              工作部门
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/staffPost">
+              职务
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/staffTitle">
+              职称
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/staffType">
+              职工类别
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/staffStatus">
+              工作状态
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/staffSpouse">
+              配偶单位性质
+            </el-menu-item>
+          </el-submenu>
+          <!-- 租赁参数 -->
+          <el-submenu index="rentParam">
+            <template slot="title">
+              <i class="el-icon-edit "></i>
+              <span slot="title">租赁参数</span>
+            </template>
+            <el-menu-item index="/sysmanage/paramSet/rentPostVal">
+              职务分
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/rentTitleVal">
+              职称分
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/rentPostArea">
+              职务面积
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/rentTitleArea">
+              职称面积
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/rentOption">
+              选房选项
+            </el-menu-item>
+          </el-submenu>
+          <!-- 维修参数 -->
+          <el-submenu index="fixParam">
+            <template slot="title">
+              <i class="el-icon-setting"></i>
+              <span slot="title">维修参数</span>
+            </template>
+            <el-menu-item index="/sysmanage/paramSet/fixContent">
+              维修内容
+            </el-menu-item>
+          </el-submenu>
+          <!-- 租赁参数 -->
+          <el-submenu index="rentalParam">
+            <template slot="title">
+              <i class="el-icon-star-off"></i>
+              <span slot="title">其他参数</span>
+            </template>
+            <el-menu-item index="/sysmanage/paramSet/rentalOption">
+              租金选项
+            </el-menu-item>
+            <el-menu-item index="/sysmanage/paramSet/residentRel">
+              登记关系
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
       </scroll-bar>
     </aside>
     <section class="main-container">
@@ -118,26 +127,24 @@
 
 <script type="text/ecmascript-6">
 import ScrollBar from "@/components/ScrollBar";
-  export default {
-    data() {
-      return {
-        isCollapse: false
-      };
-    },
-    components: {
-      ScrollBar
-    },
-    methods: {
-      //折叠
-      collapse: function () {
-        this.isCollapse = !this.isCollapse;
-      }
+export default {
+  data () {
+    return {
+      isCollapse: false
+    };
+  },
+  components: {
+    ScrollBar
+  },
+  methods: {
+    //折叠
+    collapse: function () {
+      this.isCollapse = !this.isCollapse;
     }
-  };
+  }
+};
 
 </script>
 
 <style scoped lang="scss">
-
-
 </style>

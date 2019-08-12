@@ -155,6 +155,9 @@
                             :offset="1">
                       <el-form-item label="预分配住房">
                         <el-input v-model="agreeForm.houseAddress"
+                                  @click.native="handleShowOneHouse(agreeForm.houseId)"
+                                  class="house-input"
+                                  type="button"
                                   readonly>
                         </el-input>
                       </el-form-item>
@@ -206,7 +209,9 @@
                   <el-row type="flex"
                           justify="start"
                           v-if="!status">
-                    <el-col class="agree-col-width">
+                    <el-col class="agree-col-width"
+                            :span="7"
+                            :push="1">
                       <el-form-item label="审核意见"
                                     prop="agreeNote">
                         <el-input v-model="agreeForm.agreeNote"
@@ -219,7 +224,9 @@
                   <el-row type="flex"
                           justify="start"
                           v-if="!status">
-                    <el-col class="agree-col-width">
+                    <el-col class="agree-col-width"
+                            :span="7"
+                            :push="1">
                       <el-form-item label="审核状态"
                                     prop="agreeState">
                         <el-switch v-model="agreeForm.agreeState"
@@ -273,6 +280,9 @@
           </div>
         </div>
         <seach-house @select-house="selectHouse"></seach-house>
+        <!-- 住房详情的对话框 -->
+        <house-detail-dialog :show.sync="showDialog"
+                             :houseId.sync="houseId"></house-detail-dialog>
       </div>
     </section>
   </div>
@@ -283,6 +293,7 @@ import indexNav from "./components/indexNav";
 import seachHouse from "@/views/tools/seachHouse";
 import { putHireAgree, postHireEmail } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
+import HouseDetailDialog from '@/components/OneHouseData'
 export default {
   data () {
     return {
@@ -299,13 +310,17 @@ export default {
           message: "请输入审核意见",
           trigger: "blur"
         }
-      }
+      },
+      // 是否显示住房详情的对话框
+      showDialog: false,
+      houseId: 0
     };
   },
   // 注册组件
   components: {
     seachHouse,
-    indexNav
+    indexNav,
+    HouseDetailDialog
   },
   computed: {
     totalVal: function () {
@@ -323,6 +338,7 @@ export default {
       this.agreeForm = object.content;
       this.agreeForm.otherVal = 0;
       this.status = object.status;
+      console.log(" this.agreeForm", this.agreeForm)
     },
     // 审核信息提交
     agreeSubmit () {
@@ -372,7 +388,12 @@ export default {
     selectHouse (data) {
       this.$set(this.agreeForm, "houseName", data[0]);
       this.selectHouseId = data[1];
-    }
+    },
+    // 点击住址,显示住房详情对话框
+    handleShowOneHouse (houseId) {
+      this.houseId = houseId
+      this.showDialog = true
+    },
   }
 };
 </script>

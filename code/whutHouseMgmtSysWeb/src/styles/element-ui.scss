@@ -224,3 +224,10 @@
     border-radius: 40px;
   }
 }
+
+// 申请单详情的地址输入框,鼠标效果为手柄
+.house-input {
+  .el-input__inner {
+    cursor: pointer !important;
+  }
+}

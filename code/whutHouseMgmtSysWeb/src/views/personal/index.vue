@@ -597,7 +597,7 @@ import {
   getStaffMonetaryByNO
 } from "@/api/monetarySub";
 import utils from "@/utils/index.js";
-var basiceUrl = "http://172.16.65.105:8080/whutHouseMgmtReposity/dataImport/";
+var basiceUrl = "http://172.16.65.105:8080/whutHouseMgmtReposity/";
 // var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
 // var basiceUrl= 'http://120.78.226.24:8080/whutHouseMgmtReposity/dataImport/'
 // var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity' // api的base_url

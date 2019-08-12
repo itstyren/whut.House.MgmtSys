@@ -1,6 +1,16 @@
 <template>
   <div class="content-wrapper">
-    <el-scrollbar style="height:100%;">
+    <div style="height:100%;padding:10px;">
+      <!-- 面包屑导航 -->
+      <div class="warp-breadcrum">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item :to="{ path: '/' }">
+            <b>首页</b>
+          </el-breadcrumb-item>
+          <el-breadcrumb-item>系统管理</el-breadcrumb-item>
+          <el-breadcrumb-item>权限管理</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
       <div class="card"
            :style="{height:height}">
         <div class="title">
@@ -54,6 +64,7 @@
           <el-table :data="tableData2"
                     style="width:100%"
                     ref="authTable"
+                    height='65vh'
                     :select-on-indeterminate="false"
                     @selection-change="selectionChangeEvent"
                     v-loading="listLoading">
@@ -85,7 +96,8 @@
             </el-table-column>
           </el-table>
 
-          <el-pagination background layout="total, prev, pager, next, sizes, jumper"
+          <el-pagination background
+                         layout="total, prev, pager, next, sizes, jumper"
                          :current-page.sync="currentPage"
                          @size-change="sizeChangeEvent"
                          @current-change="currentChangeEvent"
@@ -123,7 +135,7 @@
 
         </el-dialog>
       </div>
-    </el-scrollbar>
+    </div>
   </div>
 </template>
 
@@ -284,11 +296,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../../styles/variables.scss";
 .content-wrapper {
   width: 100%;
   height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
+  background-color: $background-grey;
 }
 .card {
   margin: 20px;
