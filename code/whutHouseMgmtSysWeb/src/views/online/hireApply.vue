@@ -325,7 +325,7 @@ export default {
             email: this.accoutInfo.email,
             phone: this.accoutInfo.Tel,
             staffId: this.$store.getters.userID,
-            hireFields: this.allImageData.join(',')
+            hireFiles: this.allImageData.join(',')
           };
           postHireApply(applyForm).then(res => {
             this.resMessage = res.data.message;

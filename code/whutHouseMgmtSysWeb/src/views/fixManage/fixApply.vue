@@ -309,7 +309,15 @@ export default {
       // 进度信息
       active: 0,
       // 维修类型填充
-      fixType: []
+      fixType: [],
+      fixPayTypes: [{
+        id: 0,
+        typeName: '自费'
+      },
+      {
+        id: 1,
+        typeName: '公费'
+      }]
     };
   },
   // 计算属性

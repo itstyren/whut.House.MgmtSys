@@ -1,11 +1,11 @@
 <template>
   <div>
     <!-- 详情表单 -->
-    <el-dialog title="申请单详情"
+    <el-dialog :title="`申请单编号:${detailData.id}`"
                :visible.sync="visible"
                @close="$emit('update:show', false)"
                :show="show"
-               class="detail-modify">
+               class="apply-detail-modify">
 
       <el-form :model="detailData"
                label-width="85px"
@@ -41,9 +41,10 @@
                          @click="handleReApprove(detailData.id)">重审批</el-button>
             </el-col>
           </el-row>
-
-          <!-- 申请人信息 -->
-          <!-- 第二行 -->
+        </div>
+        <!-- 申请人信息 -->
+        <!-- 第二行 -->
+        <div class="top-line">
           <el-row>
             <el-col :span="8">
               <el-form-item label="职工号">
@@ -249,15 +250,17 @@
           </el-col>
         </el-row>
         <!-- 第二行（审批意见） -->
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="审批意见">
-              <el-input v-model="detailData.approveNote"
-                        type="textarea"
-                        readonly></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
+        <div class="top-line">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="审批意见">
+                <el-input v-model="detailData.approveNote"
+                          type="textarea"
+                          readonly></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </div>
         <!-- 第三行 缴费方式、登记时间 -->
         <el-row>
           <el-col :span="8">
