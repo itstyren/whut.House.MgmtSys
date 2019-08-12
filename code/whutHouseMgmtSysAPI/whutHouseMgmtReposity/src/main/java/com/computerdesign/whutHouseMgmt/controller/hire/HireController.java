@@ -236,7 +236,7 @@ public class HireController {
 				"deptName", "houseNo", "houseBuildArea", "houseUserArea", "houseAddress", "acceptNote", "acceptState",
 				"acceptMan", "acceptTime", "agreeNote", "agreeState", "agreeMan", "agreeTime", "approveNote",
 				"approveState", "approveMan", "approveTime", "totalVal", "titleVal", "timeVal", "spouseVal",
-				"otherVal" };
+				"otherVal", "houseId" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
 		return Msg.success("全部已审批尚未签订合同的房屋申请信息").add("data", response);
 	}

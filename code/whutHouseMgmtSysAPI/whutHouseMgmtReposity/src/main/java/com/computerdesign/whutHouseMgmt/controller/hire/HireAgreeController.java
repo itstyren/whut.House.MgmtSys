@@ -56,7 +56,7 @@ public class HireAgreeController {
 			String[] fileds = { "id", "name", "applyTime", "hireState", "reason", "phone", "titleName", "postName",
 					"deptName", "houseNo","houseBuildArea","houseUserArea","houseAddress",
 					"acceptNote", "acceptState","acceptMan", "acceptTime",
-					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal", "hireFiles" };
+					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal", "hireFiles", "houseId" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
 			
 			return Msg.success("获取全部的未审核信息").add("data", response);
@@ -68,7 +68,7 @@ public class HireAgreeController {
 					"deptName", "houseNo","houseBuildArea","houseUserArea","houseAddress",
 					"acceptNote", "acceptState","acceptMan", "acceptTime",
 					"agreeNote", "agreeState","agreeMan", "agreeTime",
-					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal", "hireFiles" };
+					"totalVal", "titleVal", "timeVal", "spouseVal", "otherVal", "hireFiles", "houseId" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
 			
 			return Msg.success("获取全部的已进行审核操作的信息").add("data", response);
