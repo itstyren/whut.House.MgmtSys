@@ -329,6 +329,7 @@
       <!-- 图片的走马灯 -->
       <el-dialog :title="`相关图片`"
                  :visible.sync="carouselVisible"
+                 class="hire-apply-detail-pic"
                  append-to-body>
         <el-carousel indicator-position="outside"
                      arrow="always"

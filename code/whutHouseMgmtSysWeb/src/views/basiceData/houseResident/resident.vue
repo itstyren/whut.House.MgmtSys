@@ -49,7 +49,7 @@
             <!-- 职工的历史住房表格 -->
             <el-row class="conditionalQuery card">
               <el-col :span="24"
-                      style="height:75%">
+                      style="height:95%">
                 <div class="query-table">
                   <el-table :data="houseRelData"
                             class="table"

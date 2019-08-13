@@ -226,28 +226,32 @@
                             </el-select>
                           </el-form-item>
                         </el-col>
-                        <!-- 费用类型 -->
-                        <el-col :span="12">
-                          <el-form-item label="费用类型"
-                                        prop="fixPayType">
-                            <el-select v-model="accoutInfo.isPaySelf"
-                                       placeholder="请选择费用类型"
-                                       style="width:200px"
-                                       clearable>
-                              <el-option v-for="fix in fixPayTypes"
-                                         :key="fix.id"
-                                         :value="fix.id"
-                                         :label="fix.typeName"></el-option>
-                            </el-select>
-                          </el-form-item>
-                        </el-col>
                       </el-row>
                     </el-col>
                   </el-row>
                   <el-row type="flex"
                           justify="center">
                     <el-col :span="20">
-                      <el-form-item label="上传图片"
+                      <!-- 费用类型 -->
+                      <el-form-item label="费用类型"
+                                    prop="fixPayType">
+                        <el-select v-model="isPaySelf"
+                                   placeholder="请选择费用类型"
+                                   style="width:200px"
+                                   clearable>
+                          <el-option v-for="(fix,index) in fixPayTypes"
+                                     :key="index"
+                                     :value="fix"
+                                     :label="fix"></el-option>
+                        </el-select>
+                      </el-form-item>
+
+                    </el-col>
+                  </el-row>
+                  <el-row type="flex"
+                          justify="center">
+                    <el-col :span="20">
+                      <el-form-item label="报修图片"
                                     prop="picData">
                         <el-upload :action="`${basiceUrl}/fileUpload/multiFileUpload`"
                                    :multiple="true"
@@ -350,19 +354,13 @@ export default {
       active: 0,
       // 维修类型填充
       fixType: [],
-      fixPayTypes: [{
-        id: 0,
-        typeName: '公费'
-      },
-      {
-        id: 1,
-        typeName: '自费'
-      }],
       // 图片上传的域名
       basiceUrl: "http://172.16.65.105:8080/whutHouseMgmtReposity",
       // 已经上传但是未提交的图片数组
       allImageData: [],
       isBeforeRemove: true,
+      fixPayTypes: ['公费', '自费'],
+      isPaySelf: '公费'
     };
   },
   // 计算属性
@@ -444,7 +442,7 @@ export default {
             houseId: this.accoutInfo.houseId,
             phone: this.accoutInfo.tel,
             staffId: this.$store.getters.userID,
-            isPaySelf: Boolean(this.accoutInfo.isPaySelf),
+            isPaySelf: this.isPaySelf === "自费" ? true : false,
             fixFiles: this.allImageData.join(',')
           };
           postFixApply(applyForm).then(res => {

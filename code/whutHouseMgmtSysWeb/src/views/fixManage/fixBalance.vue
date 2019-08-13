@@ -18,166 +18,179 @@
           <!-- 工具栏 -->
           <div class="toolbar">
             <el-form :model="queryForm"
+                     ref="queryForm"
                      label-width="75px">
-              <el-row>
-                <el-col :span="5">
-                  <el-form-item label="查询条件">
-                    <el-select v-model="queryForm.conditionId"
-                               :clearable="true"
-                               placeholder="请选择条件">
-                      <el-option v-for="conditionid in formOption.fixBalanceCondition"
-                                 :key="conditionid.value"
-                                 :value="conditionid.value"
-                                 :label="conditionid.label"></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="5">
-                  <el-form-item label="输入条件">
-                    <el-input v-model="queryForm.conditionContent"
-                              placeholder="输入检索"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="申请时间">
-                    <el-date-picker v-model="setTime"
-                                    type="daterange"
-                                    align="right"
-                                    unlink-panels
-                                    range-separator="-"
-                                    start-placeholder="开始日期"
-                                    end-placeholder="结束日期"
-                                    :picker-options="pickerOptions"
-                                    value-format="yyyy-MM-dd">
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="4"
-                        :sm="6"
-                        :md="6"
-                        :lg="4"
-                        class="horizontalCanter">
-                  <el-button type="danger">重置</el-button>
-                  <el-button type="primary"
-                             @click="multicondition">查询</el-button>
-                  <export-popover :download-loading="downloadLoading"
-                                  @export="exportHandle"></export-popover>
-                </el-col>
-              </el-row>
+              <div class="card">
+
+                <el-row>
+                  <el-col :span="5">
+                    <el-form-item label="查询条件"
+                                  prop="conditionId">
+                      <el-select v-model="queryForm.conditionId"
+                                 :clearable="true"
+                                 placeholder="请选择条件">
+                        <el-option v-for="conditionid in formOption.fixBalanceCondition"
+                                   :key="conditionid.value"
+                                   :value="conditionid.value"
+                                   :label="conditionid.label"></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="5">
+                    <el-form-item label="输入条件"
+                                  prop="conditionContent">
+                      <el-input v-model="queryForm.conditionContent"
+                                placeholder="输入检索"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item label="申请时间"
+                                  prop="setTime">
+                      <el-date-picker v-model="setTime"
+                                      type="daterange"
+                                      align="right"
+                                      unlink-panels
+                                      range-separator="-"
+                                      start-placeholder="开始日期"
+                                      end-placeholder="结束日期"
+                                      :picker-options="pickerOptions"
+                                      value-format="yyyy-MM-dd">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="6"
+                          :sm="6"
+                          :md="6"
+                          :lg="4"
+                          class="horizontalCanter">
+                    <el-button type="danger"
+                               @click="reset">重置</el-button>
+                    <el-button type="primary"
+                               @click="multicondition">查询</el-button>
+                    <export-popover :download-loading="downloadLoading"
+                                    @export="exportHandle"></export-popover>
+                  </el-col>
+                </el-row>
+              </div>
             </el-form>
 
           </div>
           <!-- 表格区 -->
           <div class="main-data">
-            <el-table :data="fixFormData"
-                      class="table"
-                      height="string"
-                      v-loading="listLoading">
-              <el-table-column type="selection"></el-table-column>
-              <el-table-column prop="id"
-                               label="单据号"
-                               sortable
-                               align="center"></el-table-column>
-              <el-table-column prop="fixContentName"
-                               label="维修类型"
-                               align="center"></el-table-column>
-              <el-table-column label="姓名"
-                               align="center">
-                <template slot-scope="scope">
-                  <el-popover trigger="hover"
-                              placement="top">
-                    <p>姓名: {{ scope.row.staffName }}</p>
-                    <p>工作部门: {{ scope.row.deptName }}</p>
-                    <p>住址: {{ scope.row.staffAddress }}</p>
-                    <div slot="reference"
-                         class="name-wrapper">
-                      <el-tag size="medium"
-                              type="info">{{ scope.row.staffName }}</el-tag>
-                    </div>
-                  </el-popover>
-                </template>
-              </el-table-column>
-              <el-table-column label="维修金额（元）"
-                               width="180"
-                               align="center">
-                <template slot-scope="scope">
-                  <template v-if="scope.row.edit">
-                    <el-input class="edit-input"
-                              style="width:78px;"
-                              size="small"
-                              v-model="scope.row.fixMoney"></el-input>
+            <div class="card">
+              <el-table :data="fixFormData"
+                        class="table"
+                        height="65vh"
+                        style="border-radius: 10px;"
+                        v-loading="listLoading">
+                <el-table-column type="selection"></el-table-column>
+                <el-table-column prop="id"
+                                 label="单据号"
+                                 sortable
+                                 align="center"></el-table-column>
+                <el-table-column prop="fixContentName"
+                                 label="维修类型"
+                                 align="center"></el-table-column>
+                <el-table-column label="姓名"
+                                 align="center">
+                  <template slot-scope="scope">
+                    <el-popover trigger="hover"
+                                placement="top">
+                      <p>姓名: {{ scope.row.staffName }}</p>
+                      <p>工作部门: {{ scope.row.deptName }}</p>
+                      <p>住址: {{ scope.row.staffAddress }}</p>
+                      <div slot="reference"
+                           class="name-wrapper">
+                        <el-tag size="medium"
+                                type="info">{{ scope.row.staffName }}</el-tag>
+                      </div>
+                    </el-popover>
                   </template>
-                  <span v-else>{{ scope.row.fixMoney }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column prop="isCheck"
-                               label="是否结算"
-                               align="center">
-                <template slot-scope="scope">
-                  <my-icon v-if="scope.row.isCheck"
-                           icon-class="icon-" />
-                </template>
-              </el-table-column>
-              <el-table-column label="状态"
-                               align="center">
-                <template slot-scope="scope">
-                  <el-tag :type="scope.row.fixState | statusFilter">{{scope.row.fixState}}</el-tag>
-                </template>
-              </el-table-column>
-              <el-table-column prop="houseNo"
-                               label="住房号"
-                               align="center"></el-table-column>
-              <el-table-column prop="staffNo"
-                               label="职工号"
-                               align="center"></el-table-column>
-              <el-table-column prop="postName"
-                               label="职称"
-                               align="center"></el-table-column>
-              <el-table-column prop="titleName"
-                               label="职务"
-                               align="center"></el-table-column>
-              <el-table-column prop="applyTime"
-                               label="申请时间"
-                               align="center"></el-table-column>
-              <el-table-column prop="message"
-                               label="备注"
-                               align="center"></el-table-column>
-              <el-table-column label="操作"
-                               width="250"
-                               align="center">
-                <template slot-scope="scope">
-                  <template v-if="!scope.row.edit">
-                    <el-button size="mini"
-                               @click="showFixBalanceDetail(scope.$index,scope.row)">详情</el-button>
-                    <el-button v-if="!scope.row.edit"
-                               type="primary"
-                               size="mini"
-                               @click="priceEdit(scope.$index,scope.row)">定价</el-button>
-                    <el-button type="success"
-                               size="mini"
-                               @click="setCheck(scope.$index,scope.row)">结算</el-button>
+                </el-table-column>
+                <el-table-column label="维修金额（元）"
+                                 width="180"
+                                 align="center">
+                  <template slot-scope="scope">
+                    <template v-if="scope.row.edit">
+                      <el-input class="edit-input"
+                                style="width:78px;"
+                                size="small"
+                                v-model="scope.row.fixMoney"></el-input>
+                    </template>
+                    <span v-else>{{ scope.row.fixMoney }}</span>
                   </template>
-                  <template v-else>
-                    <el-button type="success"
-                               size="mini"
-                               @click="SavePrice(scope.$index,scope.row)">保存</el-button>
-                    <el-button class='cancel-btn'
-                               size="mini"
-                               type="warning"
-                               @click="cancel(scope.$index,scope.row)">取消</el-button>
+                </el-table-column>
+                <el-table-column prop="isCheck"
+                                 label="是否结算"
+                                 align="center">
+                  <template slot-scope="scope">
+                    <my-icon v-if="scope.row.isCheck"
+                             icon-class="icon-" />
                   </template>
-                </template>
-              </el-table-column>
-            </el-table>
+                </el-table-column>
+                <el-table-column label="状态"
+                                 align="center">
+                  <template slot-scope="scope">
+                    <el-tag :type="scope.row.fixState | statusFilter">{{scope.row.fixState}}</el-tag>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="houseNo"
+                                 label="住房号"
+                                 align="center"></el-table-column>
+                <el-table-column prop="staffNo"
+                                 label="职工号"
+                                 align="center"></el-table-column>
+                <el-table-column prop="postName"
+                                 label="职称"
+                                 align="center"></el-table-column>
+                <el-table-column prop="titleName"
+                                 label="职务"
+                                 align="center"></el-table-column>
+                <el-table-column prop="applyTime"
+                                 label="申请时间"
+                                 align="center"></el-table-column>
+                <el-table-column prop="message"
+                                 label="备注"
+                                 align="center"></el-table-column>
+                <el-table-column label="操作"
+                                 width="250"
+                                 align="center">
+                  <template slot-scope="scope">
+                    <template v-if="!scope.row.edit">
+                      <el-button size="mini"
+                                 @click="showFixBalanceDetail(scope.$index,scope.row)">详情</el-button>
+                      <el-button v-if="!scope.row.edit"
+                                 type="primary"
+                                 size="mini"
+                                 @click="priceEdit(scope.$index,scope.row)">定价</el-button>
+                      <el-button type="success"
+                                 size="mini"
+                                 @click="setCheck(scope.$index,scope.row)">结算</el-button>
+                    </template>
+                    <template v-else>
+                      <el-button type="success"
+                                 size="mini"
+                                 @click="SavePrice(scope.$index,scope.row)">保存</el-button>
+                      <el-button class='cancel-btn'
+                                 size="mini"
+                                 type="warning"
+                                 @click="cancel(scope.$index,scope.row)">取消</el-button>
+                    </template>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <el-pagination background
+                             layout="total, prev, pager, next, sizes, jumper"
+                             @size-change="SizeChangeEvent"
+                             @current-change="CurrentChangeEvent"
+                             :page-size="size"
+                             :page-sizes="[10,15,20,25,30]"
+                             :total="totalNum">
+              </el-pagination>
+              <div style="height:20px;width:100%"></div>
+            </div>
           </div>
-          <el-pagination background
-                         layout="total, prev, pager, next, sizes, jumper"
-                         @size-change="SizeChangeEvent"
-                         @current-change="CurrentChangeEvent"
-                         :page-size="size"
-                         :page-sizes="[10,15,20,25,30]"
-                         :total="totalNum">
-          </el-pagination>
+
         </div>
       </div>
     </section>
@@ -454,6 +467,11 @@ export default {
       this.applyDetailData = row
       console.log("this.applyDetailData:", this.applyDetailData)
       this.applyDetailVisiable = true
+    },
+    // 重置查询表单
+    reset () {
+      this.$refs.queryForm.resetFields()
+      this.setTime = []
     }
   }
 };
@@ -462,9 +480,11 @@ export default {
 
 <style scoped lang="scss">
 .toolbar {
-  padding: 10px 10px;
   & .el-form-item {
-    margin-bottom: 5px;
+    margin-bottom: 0px;
+  }
+  .card {
+    padding: 10px;
   }
 }
 
@@ -473,6 +493,6 @@ export default {
 }
 .horizontalCanter {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 </style>
