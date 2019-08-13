@@ -71,6 +71,10 @@ public class Fix {
 
     private String email;
 
+    private Boolean isPaySelf;
+    
+    private String fixFiles;
+    
     public Integer getId() {
         return id;
     }
@@ -286,4 +290,21 @@ public class Fix {
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
     }
+
+	public Boolean getIsPaySelf() {
+		return isPaySelf;
+	}
+
+	public void setIsPaySelf(Boolean isPaySelf) {
+		this.isPaySelf = isPaySelf;
+	}
+
+	public String getFixFiles() {
+		return fixFiles;
+	}
+
+	public void setFixFiles(String fixFiles) {
+		this.fixFiles = fixFiles;
+	}
+    
 }

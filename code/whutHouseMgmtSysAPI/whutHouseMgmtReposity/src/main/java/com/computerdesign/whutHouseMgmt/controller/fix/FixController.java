@@ -159,6 +159,9 @@ public class FixController {
 		if (fix.getFixContentId() == null) {
 			return Msg.error("维修类型不能为空");
 		}
+		if (fix.getIsPaySelf() == null){
+			return Msg.error("费用类型不能为空");
+		}
 //		if (!fixService.getByStaffId(fix.getStaffId()).isEmpty()) {
 //			return Msg.error("该员工正在进行申请维修，不能重复提交");
 //		}
@@ -331,7 +334,7 @@ public class FixController {
 
 		String[] fileds = { "id", "fixContentId", "fixContentName", "fixState", "description", "applyTime", "staffName",
 				"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote", "acceptTime",
-				"acceptState", "agreeMan", "agreeNote", "agreeTime", "agreeState" };
+				"acceptState", "agreeMan", "agreeNote", "agreeTime", "agreeState", "houseId", "isPaySelf", "fixFiles" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);
 		// 让listViewFix设置好pageInfo中的各项属性，再替换pageInfo中的list
 		PageInfo pageInfo = new PageInfo(listViewFix);
@@ -360,7 +363,7 @@ public class FixController {
 
 		String[] fileds = { "id", "fixContentId", "fixContentName", "fixState", "description", "applyTime", "staffName",
 				"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote", "acceptTime",
-				"acceptState", "agreeMan", "agreeNote", "agreeTime", "agreeState" };
+				"acceptState", "agreeMan", "agreeNote", "agreeTime", "agreeState", "houseId", "isPaySelf", "fixFiles" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewFix, fileds);
 		// 让listViewFix设置好pageInfo中的各项属性，再替换pageInfo中的list
 		PageInfo pageInfo = new PageInfo(listViewFix);

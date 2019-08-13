@@ -57,7 +57,7 @@ public class FixAcceptController {
 		} else if (0 == acceptState) {
 			List<ViewFix> list = viewFixService.getAcceptUntil();
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
-					"titleName", "postName", "deptName", "phone", "address"};
+					"titleName", "postName", "deptName", "phone", "address", "houseId", "isPaySelf", "fixFiles"};
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的待受理信息").add("data", response);
 
@@ -65,7 +65,7 @@ public class FixAcceptController {
 			List<ViewFix> list = viewFixService.getAcceptHasBeen();
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
 					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
-					"acceptTime", "acceptState" };
+					"acceptTime", "acceptState", "houseId", "isPaySelf", "fixFiles" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的已进行受理操作的信息").add("data", response);
 		} else {
@@ -93,7 +93,7 @@ public class FixAcceptController {
 //			List<ViewFix> list = viewFixService.getAcceptUntil();
 			List<ViewFix> list = viewFixService.getAcceptUntilWithMP(campusList);
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
-					"titleName", "postName", "deptName", "phone", "address"};
+					"titleName", "postName", "deptName", "phone", "address", "houseId", "isPaySelf", "fixFiles"};
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的待受理信息").add("data", response);
 
@@ -102,7 +102,7 @@ public class FixAcceptController {
 			List<ViewFix> list = viewFixService.getAcceptHasBeenWithMP(campusList);
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
 					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
-					"acceptTime", "acceptState" };
+					"acceptTime", "acceptState", "houseId", "isPaySelf", "fixFiles" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的已进行受理操作的信息").add("data", response);
 		} else {

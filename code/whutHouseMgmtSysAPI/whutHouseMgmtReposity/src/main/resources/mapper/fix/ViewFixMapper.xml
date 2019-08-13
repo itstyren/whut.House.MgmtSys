@@ -46,6 +46,8 @@
     <result column="Ratings" jdbcType="VARCHAR" property="ratings" />
     <result column="RatingDescription" jdbcType="VARCHAR" property="ratingDescription" />
     <result column="SubmitTime" jdbcType="TIMESTAMP" property="submitTime" />
+    <result column="IsPaySelf" jdbcType="BIT" property="isPaySelf" />
+    <result column="FixFiles" jdbcType="VARCHAR" property="fixFiles" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -111,7 +113,7 @@
     StaffNo, StaffName, TitleName, PostName, DeptName, HouseId, HouseNo, BuildingId, 
     BuildingName, RegionId, RegionName, CampusId, CampusName, Address, Phone, Message, 
     PriceTime, PriceMan, CheckTime, CheckMan, FixTime, FixMoney, IsOver, IsCheck, FeedBack, 
-    Email, Ratings, RatingDescription, SubmitTime
+    Email, Ratings, RatingDescription, SubmitTime, IsPaySelf, FixFiles
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFixExample" resultMap="BaseResultMap">
     select
@@ -148,7 +150,8 @@
       CheckTime, CheckMan, FixTime, 
       FixMoney, IsOver, IsCheck, 
       FeedBack, Email, Ratings, 
-      RatingDescription, SubmitTime)
+      RatingDescription, SubmitTime, IsPaySelf, 
+      FixFiles)
     values (#{id,jdbcType=INTEGER}, #{fixContentId,jdbcType=VARCHAR}, #{fixContentName,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{applyTime,jdbcType=DATE}, #{fixState,jdbcType=VARCHAR}, 
       #{acceptState,jdbcType=VARCHAR}, #{acceptNote,jdbcType=VARCHAR}, #{acceptTime,jdbcType=DATE}, 
@@ -163,7 +166,8 @@
       #{checkTime,jdbcType=DATE}, #{checkMan,jdbcType=VARCHAR}, #{fixTime,jdbcType=DATE}, 
       #{fixMoney,jdbcType=VARCHAR}, #{isOver,jdbcType=BIT}, #{isCheck,jdbcType=BIT}, 
       #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{ratings,jdbcType=VARCHAR}, 
-      #{ratingDescription,jdbcType=VARCHAR}, #{submitTime,jdbcType=TIMESTAMP})
+      #{ratingDescription,jdbcType=VARCHAR}, #{submitTime,jdbcType=TIMESTAMP}, #{isPaySelf,jdbcType=BIT}, 
+      #{fixFiles,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix">
     insert into view_hs_fix
@@ -300,6 +304,12 @@
       <if test="submitTime != null">
         SubmitTime,
       </if>
+      <if test="isPaySelf != null">
+        IsPaySelf,
+      </if>
+      <if test="fixFiles != null">
+        FixFiles,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -433,6 +443,12 @@
       </if>
       <if test="submitTime != null">
         #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isPaySelf != null">
+        #{isPaySelf,jdbcType=BIT},
+      </if>
+      <if test="fixFiles != null">
+        #{fixFiles,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -577,6 +593,12 @@
       <if test="record.submitTime != null">
         SubmitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.isPaySelf != null">
+        IsPaySelf = #{record.isPaySelf,jdbcType=BIT},
+      </if>
+      <if test="record.fixFiles != null">
+        FixFiles = #{record.fixFiles,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -627,7 +649,9 @@
       Email = #{record.email,jdbcType=VARCHAR},
       Ratings = #{record.ratings,jdbcType=VARCHAR},
       RatingDescription = #{record.ratingDescription,jdbcType=VARCHAR},
-      SubmitTime = #{record.submitTime,jdbcType=TIMESTAMP}
+      SubmitTime = #{record.submitTime,jdbcType=TIMESTAMP},
+      IsPaySelf = #{record.isPaySelf,jdbcType=BIT},
+      FixFiles = #{record.fixFiles,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
