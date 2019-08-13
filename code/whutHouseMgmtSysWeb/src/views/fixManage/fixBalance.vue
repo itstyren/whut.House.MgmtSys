@@ -143,10 +143,12 @@
                                label="备注"
                                align="center"></el-table-column>
               <el-table-column label="操作"
-                               width="180"
+                               width="250"
                                align="center">
                 <template slot-scope="scope">
                   <template v-if="!scope.row.edit">
+                    <el-button size="mini"
+                               @click="showFixBalanceDetail(scope.$index,scope.row)">详情</el-button>
                     <el-button v-if="!scope.row.edit"
                                type="primary"
                                size="mini"
@@ -168,7 +170,8 @@
               </el-table-column>
             </el-table>
           </div>
-          <el-pagination background layout="total, prev, pager, next, sizes, jumper"
+          <el-pagination background
+                         layout="total, prev, pager, next, sizes, jumper"
                          @size-change="SizeChangeEvent"
                          @current-change="CurrentChangeEvent"
                          :page-size="size"
@@ -178,6 +181,8 @@
         </div>
       </div>
     </section>
+    <one-fix-apply-detail :show.sync="applyDetailVisiable"
+                          :detailData="applyDetailData"></one-fix-apply-detail>
   </div>
 </template>
 
@@ -194,6 +199,7 @@ import {
   parseTime
 } from "@/utils/time.js";
 import exportPopover from '@/components/exportPopover'
+import OneFixApplyDetail from './components/oneFixApplyDetail'
 export default {
   data () {
     return {
@@ -213,11 +219,14 @@ export default {
       size: 10,
       pickerOptions: {
         shortcuts: staticData.shortSpanPickerOptions
-      }
+      },
+      applyDetailData: {},
+      applyDetailVisiable: false
     };
   },
   components: {
-    exportPopover
+    exportPopover,
+    OneFixApplyDetail
   },
   // 过滤器的哈希表
   filters: {
@@ -437,6 +446,14 @@ export default {
       this.listLoading = true;
       this.page = val;
       this.multicondition();
+    },
+    // 显示申请单详情
+    showFixBalanceDetail (index, row) {
+      row.isPaySelf = row.isPaySelf ? '自费' : '公费'
+      row.pastImageData = row.fixFiles ? row.fixFiles.split(',') : ''
+      this.applyDetailData = row
+      console.log("this.applyDetailData:", this.applyDetailData)
+      this.applyDetailVisiable = true
     }
   }
 };

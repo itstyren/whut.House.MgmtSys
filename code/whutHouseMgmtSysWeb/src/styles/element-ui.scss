@@ -30,9 +30,20 @@
   width: 85%;
 }
 
-.apply-detail-modify .el-dialog {
-  margin-top: 12vh;
+// 租赁申请单的详情
+.hireApply-detail .el-dialog {
+  margin-top: 5vh;
   width: 65%;
+}
+
+// 维修申请单的详情
+.fixApply-detail .el-dialog {
+  margin-top: 2vh !important;
+  width: 65%;
+
+  .el-dialog__body {
+    padding: 30px 20px 0px 20px;
+  }
 }
 
 .house-Resident-dialog .el-dialog {

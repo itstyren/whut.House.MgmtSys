@@ -34,6 +34,11 @@
                                label="维修类型"
                                sortable
                                align="center"></el-table-column>
+              <el-table-column prop="isPaySelf"
+                               label="维修类型"
+                               sortable
+                               :formatter="isPaySelfColFormat"
+                               align="center"></el-table-column>
               <el-table-column prop="applyTime"
                                label="申请时间"
                                sortable
@@ -76,7 +81,8 @@
               </el-table-column>
             </el-table>
           </div>
-          <el-pagination background layout="total, prev, pager, next, sizes, jumper"
+          <el-pagination background
+                         layout="total, prev, pager, next, sizes, jumper"
                          @size-change="SizeChangeEvent"
                          @current-change="CurrentChangeEvent"
                          :page-size="size"
@@ -259,6 +265,10 @@ export default {
       this.listLoading = true;
       this.page = val;
       this.getList();
+    },
+    // 费用类型列的格式化内容
+    isPaySelfColFormat (row, column, cellValue, index) {
+      return cellValue ? '自费' : '公费'
     }
   }
 };

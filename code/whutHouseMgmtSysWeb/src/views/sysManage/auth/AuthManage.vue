@@ -64,7 +64,7 @@
           <el-table :data="tableData2"
                     style="width:100%"
                     ref="authTable"
-                    height='65vh'
+                    height='55vh'
                     :select-on-indeterminate="false"
                     @selection-change="selectionChangeEvent"
                     v-loading="listLoading">

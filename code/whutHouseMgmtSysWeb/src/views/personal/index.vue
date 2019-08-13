@@ -323,7 +323,7 @@
                                          align="center"
                                          width="200">
                           <template slot-scope="scope">
-                            <el-button @click="expand(scope.row)"
+                            <el-button @click="expandFixTable(scope.row)"
                                        type="infor"
                                        size="small">查看</el-button>
                             <el-button type="success"
@@ -412,7 +412,7 @@
                         <el-table-column label="操作"
                                          align="center">
                           <template slot-scope="scope">
-                            <el-button @click="expand(scope.row)"
+                            <el-button @click="expandHireTable(scope.row)"
                                        type="infor"
                                        size="small">查看</el-button>
                             <!-- <el-button type="success" @click="fixComment" v-if="scope.row.fixState=='已审核'" size="small">评价</el-button> -->
@@ -697,6 +697,7 @@ export default {
     imageUpload,
     indexNav
   },
+
   created () {
     this.menuIndex = this.$route.params.menuIndex || "personal";
     this.getStaff();
@@ -830,8 +831,11 @@ export default {
         this.hireFormList = res.data.data.data;
       });
     },
-    expand (row) {
+    expandFixTable (row) {
       this.$refs.fixTable.toggleRowExpansion(row);
+    },
+    expandHireTable (row) {
+      this.$refs.hireTable.toggleRowExpansion(row);
     },
     // 修改密码
     changePass () {

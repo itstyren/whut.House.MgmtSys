@@ -169,6 +169,7 @@
                       <el-form-item label="申请理由">
                         <el-input v-model="contractForm.reason"
                                   type="textarea"
+                                  readonly
                                   :rows="2"></el-input>
                       </el-form-item>
                     </el-col>
@@ -176,6 +177,7 @@
                       <el-form-item label="受理意见">
                         <el-input v-model="contractForm.acceptNote"
                                   type="textarea"
+                                  readonly
                                   :rows="2"></el-input>
                       </el-form-item>
                     </el-col>
@@ -183,6 +185,7 @@
                       <el-form-item label="审核意见">
                         <el-input v-model="contractForm.agreeNote"
                                   type="textarea"
+                                  readonly
                                   :rows="2"></el-input>
                       </el-form-item>
                     </el-col>
@@ -274,10 +277,6 @@ export default {
       dialogVisible: false,
       payTypes: [
         {
-          id: 0,
-          typeName: '无需缴费'
-        },
-        {
           id: 1,
           typeName: '自行缴费'
         },
@@ -318,7 +317,8 @@ export default {
               let contractForm = this.contractForm;
               let param = {
                 bookTime: contractForm.bookTime,
-                id: contractForm.id
+                id: contractForm.id,
+                payType: contractForm.payType
               };
               putHireContract(param).then(res => {
                 this.contractForm = {};

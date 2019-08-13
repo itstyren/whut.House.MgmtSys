@@ -17,7 +17,6 @@
                           :key="index"
                           :index="index">
           <img :src="item"
-               style="height:100%"
                class="imgCenter" />
         </el-carousel-item>
       </el-carousel>
@@ -408,17 +407,5 @@ export default {
     z-index: 1; //left: 5%;
     right: 2%;
   }
-}
-
-img {
-  width: 100%;
-  height: 200px;
-}
-
-.imgCenter {
-  position: relative; /*设置position位置*/
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 }
 </style>

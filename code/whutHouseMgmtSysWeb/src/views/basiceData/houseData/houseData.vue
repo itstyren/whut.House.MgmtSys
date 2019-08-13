@@ -121,7 +121,8 @@
                   </template>
                 </el-table-column>
               </el-table>
-              <el-pagination background layout="total, prev, pager, next, sizes, jumper"
+              <el-pagination background
+                             layout="total, prev, pager, next, sizes, jumper"
                              @size-change="SizeChangeEvent"
                              @current-change="CurrentChangeEvent"
                              :page-size="size"
@@ -149,7 +150,6 @@
                                 :key="index"
                                 :index="index">
                 <img :src="item"
-                     style="height:100%"
                      class="imgCenter" />
               </el-carousel-item>
             </el-carousel>
@@ -1411,12 +1411,7 @@ img {
 // .el-carousel__item:nth-child(2n + 1) {
 //   background-color: #d3dce6;
 // }
-.imgCenter {
-  position: relative; /*设置position位置*/
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
+
 .detail-pic-upload {
   margin-top: -50px;
 }

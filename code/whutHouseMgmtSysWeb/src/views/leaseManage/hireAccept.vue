@@ -337,7 +337,6 @@
                             :key="index"
                             :index="index">
             <img :src="item"
-                 style="height:100%"
                  class="imgCenter" />
           </el-carousel-item>
         </el-carousel>

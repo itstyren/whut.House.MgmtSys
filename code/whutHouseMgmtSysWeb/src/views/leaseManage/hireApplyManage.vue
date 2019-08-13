@@ -99,9 +99,9 @@
         </div>
       </div>
     </div>
-    <one-apply-detail :show.sync="applyDetailVisiable"
-                      :detailData="applyDetailData"
-                      @status-change="hangleStatusChange"></one-apply-detail>
+    <one-hire-apply-detail :show.sync="applyDetailVisiable"
+                           :detailData="applyDetailData"
+                           @status-change="hangleStatusChange"></one-hire-apply-detail>
   </div>
 </template>
 
@@ -114,10 +114,10 @@ import {
   deleteHireForm
 } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
-import OneApplyDetail from './oneApplyDetail.vue'
+import OneHireApplyDetail from './oneHireApplyDetail.vue'
 export default {
   components: {
-    OneApplyDetail
+    OneHireApplyDetail
   },
   data () {
     return {

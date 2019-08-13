@@ -210,17 +210,57 @@
                   <el-row type="flex"
                           justify="center">
                     <el-col :span="20">
-                      <el-form-item label="维修类型"
-                                    prop="fixContentId">
-                        <el-select v-model="accoutInfo.fixContentId"
-                                   placeholder="请选择维修类型"
-                                   style="width:200px"
-                                   clearable>
-                          <el-option v-for="fix in fixType"
-                                     :key="fix.fixParamId"
-                                     :value="fix.fixParamId"
-                                     :label="fix.fixParamName"></el-option>
-                        </el-select>
+                      <el-row>
+                        <!-- 维修类型 -->
+                        <el-col :span="10">
+                          <el-form-item label="维修类型"
+                                        prop="fixContentId">
+                            <el-select v-model="accoutInfo.fixContentId"
+                                       placeholder="请选择维修类型"
+                                       style="width:200px"
+                                       clearable>
+                              <el-option v-for="fix in fixType"
+                                         :key="fix.fixParamId"
+                                         :value="fix.fixParamId"
+                                         :label="fix.fixParamName"></el-option>
+                            </el-select>
+                          </el-form-item>
+                        </el-col>
+                        <!-- 费用类型 -->
+                        <el-col :span="12">
+                          <el-form-item label="费用类型"
+                                        prop="fixPayType">
+                            <el-select v-model="accoutInfo.isPaySelf"
+                                       placeholder="请选择费用类型"
+                                       style="width:200px"
+                                       clearable>
+                              <el-option v-for="fix in fixPayTypes"
+                                         :key="fix.id"
+                                         :value="fix.id"
+                                         :label="fix.typeName"></el-option>
+                            </el-select>
+                          </el-form-item>
+                        </el-col>
+                      </el-row>
+                    </el-col>
+                  </el-row>
+                  <el-row type="flex"
+                          justify="center">
+                    <el-col :span="20">
+                      <el-form-item label="上传图片"
+                                    prop="picData">
+                        <el-upload :action="`${basiceUrl}/fileUpload/multiFileUpload`"
+                                   :multiple="true"
+                                   style="width:350px;"
+                                   ref="addFormImageUpload"
+                                   :on-success="successUpload"
+                                   :on-error="errorUpload"
+                                   :on-remove="handleNowImageRemove"
+                                   :before-remove="beforeRemove"
+                                   :before-upload="beforePicUpload">
+                          <el-button size="small"
+                                     type="primary">点击上传</el-button>
+                        </el-upload>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -312,12 +352,17 @@ export default {
       fixType: [],
       fixPayTypes: [{
         id: 0,
-        typeName: '自费'
+        typeName: '公费'
       },
       {
         id: 1,
-        typeName: '公费'
-      }]
+        typeName: '自费'
+      }],
+      // 图片上传的域名
+      basiceUrl: "http://172.16.65.105:8080/whutHouseMgmtReposity",
+      // 已经上传但是未提交的图片数组
+      allImageData: [],
+      isBeforeRemove: true,
     };
   },
   // 计算属性
@@ -398,7 +443,9 @@ export default {
             fixContentId: this.accoutInfo.fixContentId,
             houseId: this.accoutInfo.houseId,
             phone: this.accoutInfo.tel,
-            staffId: this.$store.getters.userID
+            staffId: this.$store.getters.userID,
+            isPaySelf: Boolean(this.accoutInfo.isPaySelf),
+            fixFiles: this.allImageData.join(',')
           };
           postFixApply(applyForm).then(res => {
             utils.statusinfo(this, res.data);
@@ -408,7 +455,47 @@ export default {
           });
         }
       });
-    }
+    },
+    // 上传未提交的图片成功的钩子
+    successUpload (response, file, fileList) {
+      this.allImageData = this.allImageData.concat(response.data.data[0])
+    },
+    // 图片上传失败的钩子
+    errorUpload (res, file) {
+      this.$message.error("图片上传失败！")
+    },
+    // 删除未提交的图片之后的钩子
+    handleNowImageRemove (file, fileList) {
+      let imageUrl = file.response.data.data[0]
+      let index = this.allImageData.indexOf(imageUrl)
+      this.allImageData.splice(index, 1)
+      console.log("删除未提交的图片之后allImageData:", this.allImageData)
+    },
+    // 删除图片前的钩子
+    beforeRemove (file, fileList) {
+      if (this.isBeforeRemove) {
+        return this.$confirm(`确定移除 ${file.name}？`);
+      } else {
+        this.isBeforeRemove = true
+        return true
+      }
+    },
+    //在图片提交前进行验证
+    beforePicUpload (file) {
+      const isJPG = file.type === "image/jpeg";
+      const isPNG = file.type === "image/png";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG && !isPNG) {
+        this.$message.error("上传头像图片只能是 JPG/PNG 格式!");
+        this.isBeforeRemove = false
+        return false;
+      } else if (!isLt2M) {
+        this.$message.error("上传证明图片大小不能超过 2MB!");
+        this.isBeforeRemove = false
+        return false;
+      }
+      return true;
+    },
   }
 };
 </script>

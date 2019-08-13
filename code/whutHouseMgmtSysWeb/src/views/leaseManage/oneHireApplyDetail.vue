@@ -5,7 +5,7 @@
                :visible.sync="visible"
                @close="$emit('update:show', false)"
                :show="show"
-               class="apply-detail-modify">
+               class="hireApply-detail">
 
       <el-form :model="detailData"
                label-width="85px"
@@ -309,7 +309,7 @@ import utils from "@/utils/index.js";
 import HouseDetailDialog from '@/components/OneHouseData'
 
 export default {
-  name: 'OneApplyDetail',
+  name: 'OneHireApplyDetail',
   components: {
     HouseDetailDialog
   },
@@ -460,11 +460,5 @@ export default {
   display: flex;
   display: -webkit-flex;
   justify-content: space-evenly;
-}
-.imgCenter {
-  position: relative; /*设置position位置*/
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 }
 </style>

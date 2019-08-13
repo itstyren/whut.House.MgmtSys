@@ -112,13 +112,21 @@
                   </el-row>
                   <el-row v-if="!agreeState"
                           :class="{'is-agree':!agreeState}">
-                    <el-col :span="9"
+                    <el-col :span="7"
                             :offset="1">
                       <el-form-item label="受理说明">
                         <el-input v-model="agreeForm.acceptNote"
                                   type="textarea"
                                   :rows="2"
                                   placeholder="请输入受理意见"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                      <el-form-item label="报修图片">
+                        <span v-if="agreeForm.pastImageData==''">暂无图片</span>
+                        <el-button v-else
+                                   type="text"
+                                   @click="carouselVisible=true">点击查看图片</el-button>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -208,6 +216,21 @@
           </div>
         </div>
       </div>
+      <!-- 图片的走马灯 -->
+      <el-dialog :title="`报修图片`"
+                 :visible.sync="carouselVisible"
+                 append-to-body>
+        <el-carousel indicator-position="outside"
+                     arrow="always"
+                     :height="imgHeight">
+          <el-carousel-item v-for="(item, index) in agreeForm.pastImageData"
+                            :key="index"
+                            :index="index">
+            <img :src="item"
+                 class="imgCenter" />
+          </el-carousel-item>
+        </el-carousel>
+      </el-dialog>
     </section>
   </div>
 </template>
@@ -232,7 +255,11 @@ export default {
           message: "请输入审核意见",
           trigger: "blur"
         }
-      }
+      },
+      // 图片走马灯
+      carouselVisible: false,
+      // 走马灯初始高度
+      imgHeight: '500px',
     };
   },
   components: {
@@ -240,6 +267,7 @@ export default {
   },
   methods: {
     getList (object) {
+      object.content.pastImageData = object.content.fixFiles ? object.content.fixFiles.split(',') : ''
       this.agreeForm = object.content;
       this.agreeState = object.status;
     },
