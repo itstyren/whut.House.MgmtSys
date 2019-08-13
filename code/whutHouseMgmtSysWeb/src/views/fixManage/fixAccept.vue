@@ -83,8 +83,12 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
+
                       <el-form-item label="住房地址">
                         <el-input v-model="acceptForm.address"
+                                  @click.native="handleShowOneHouse(acceptForm.houseId)"
+                                  class="house-input"
+                                  type="button"
                                   readonly></el-input>
                       </el-form-item>
                     </el-col>
@@ -213,6 +217,9 @@
         </el-carousel>
       </el-dialog>
     </section>
+    <!-- 住房详情的对话框 -->
+    <house-detail-dialog :show.sync="showDialog"
+                         :houseId.sync="houseId"></house-detail-dialog>
   </div>
 </template>
 
@@ -221,6 +228,8 @@ import { putFixAccept, postFixEmail } from "@/api/fixManage";
 import indexNav from "./components/indexNav";
 import { checkNULL, checkTel } from "@/assets/function/validator";
 import utils from "@/utils/index.js";
+import HouseDetailDialog from '@/components/OneHouseData'
+
 export default {
   data () {
     return {
@@ -241,10 +250,14 @@ export default {
       carouselVisible: false,
       // 走马灯初始高度
       imgHeight: '500px',
+      // 是否显示住房详情的对话框
+      showDialog: false,
+      houseId: 0
     };
   },
   components: {
-    indexNav
+    indexNav,
+    HouseDetailDialog
   },
   methods: {
     // 从子组件获取
@@ -298,7 +311,12 @@ export default {
             message: "已取消审核"
           });
         });
-    }
+    },
+    // 点击住址,显示住房详情对话框
+    handleShowOneHouse (houseId) {
+      this.houseId = houseId
+      this.showDialog = true
+    },
   }
 };
 </script>
