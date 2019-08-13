@@ -203,7 +203,7 @@ export default {
       getPartAuthList().then(res => {
         this.roleOption = res.data.data.data
       }).catch(err => {
-        this.$message.error(err)
+        this.$message1.error(err)
       })
     },
     // 获取日志信息列表
@@ -256,7 +256,7 @@ export default {
           let logIdList = this.tableChecked.map(item => item.id)
           delMultiSysLog(logIdList).then(res => {
             this.getAllSysLog()
-            this.$message({
+            this.$message1({
               showClose: true,
               message: res.data.message,
               type: res.data.status
@@ -264,11 +264,11 @@ export default {
           })
             .then(() => this.listLoading = false)
             .catch(err => {
-              this.$message.error(err)
+              this.$message1.error(err)
             })
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消删除"
           });

@@ -462,7 +462,7 @@ export default {
     },
     // 图片上传失败的钩子
     errorUpload (res, file) {
-      this.$message.error("图片上传失败！")
+      this.$message1.error("图片上传失败！")
     },
     // 删除未提交的图片之后的钩子
     handleNowImageRemove (file, fileList) {
@@ -486,11 +486,11 @@ export default {
       const isPNG = file.type === "image/png";
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isJPG && !isPNG) {
-        this.$message.error("上传头像图片只能是 JPG/PNG 格式!");
+        this.$message1.error("上传头像图片只能是 JPG/PNG 格式!");
         this.isBeforeRemove = false
         return false;
       } else if (!isLt2M) {
-        this.$message.error("上传证明图片大小不能超过 2MB!");
+        this.$message1.error("上传证明图片大小不能超过 2MB!");
         this.isBeforeRemove = false
         return false;
       }

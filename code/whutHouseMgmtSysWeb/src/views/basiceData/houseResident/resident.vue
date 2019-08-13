@@ -299,7 +299,7 @@ export default {
             }).then(() => this.isDelete = !this.isDelete)
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消删除"
           });

@@ -153,7 +153,7 @@
             console.log(err)
           })
         }).catch(() => {
-          this.$message({
+          this.$message1({
             type: 'info',
             message: '已取消删除'
           });

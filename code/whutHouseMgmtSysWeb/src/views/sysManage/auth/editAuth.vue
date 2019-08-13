@@ -222,7 +222,7 @@ export default {
         // 如果对话框是添加用户组
         if (app.AddOrEdit === 'add') {
           addAuth(groupForm).then(res => {
-            app.$message({
+            app.$message1({
               type: res.data.status,
               message: res.data.message
             })
@@ -231,7 +231,7 @@ export default {
         // 如果对话框是修改用户组的话
         if (app.AddOrEdit === 'edit') {
           editAuth(groupForm).then(res => {
-            app.$message({
+            app.$message1({
               type: res.data.status,
               message: res.data.message
             })

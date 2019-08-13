@@ -1,6 +1,8 @@
 <template>
-  <div style="font-size:20px;"  @click='click'> 
-      <my-icon class="screenfull-svg" icon-class="quanping"></my-icon>
+  <div style="font-size:20px;"
+       @click='click'>
+    <my-icon class="screenfull-svg"
+             icon-class="quanping"></my-icon>
   </div>
 </template>
 
@@ -23,15 +25,15 @@ export default {
       default: "#48576a"
     }
   },
-  data() {
+  data () {
     return {
       isFullscreen: false
     };
   },
   methods: {
-    click() {
+    click () {
       if (!screenfull.enabled) {
-        this.$message({
+        this.$message1({
           message: this.$t('screenfull_message'),
           type: "warning"
         });

@@ -747,7 +747,7 @@ export default {
           });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消修改"
           });
@@ -763,7 +763,7 @@ export default {
       getPartAuthList().then(res => {
         this.RoleIDs = res.data.data.data
       }).catch(err => {
-        this.$message.error(err)
+        this.$message1.error(err)
       })
     },
     // 配偶信息中的单位性质下拉框选中值改变时

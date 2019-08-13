@@ -740,7 +740,7 @@ export default {
       }
       putNewTel(this.staffID, data)
         .then(res => {
-          this.$message({
+          this.$message1({
             showClose: true,
             message: res.data.message,
             type: res.data.status
@@ -757,7 +757,7 @@ export default {
       }
       putNewEmail(this.staffID, data)
         .then(res => {
-          this.$message({
+          this.$message1({
             showClose: true,
             message: res.data.message,
             type: res.data.status

@@ -295,7 +295,7 @@ export default {
                 });
             })
             .catch(() => {
-              this.$message({
+              this.$message1({
                 type: "info",
                 message: "已取消登记"
               });

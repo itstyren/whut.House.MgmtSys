@@ -1178,11 +1178,11 @@ export default {
       const isPNG = file.type === "image/png";
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isJPG && !isPNG) {
-        this.$message.error("上传头像图片只能是 JPG/PNG 格式!");
+        this.$message1.error("上传头像图片只能是 JPG/PNG 格式!");
         this.isBeforeRemove = false
         return false;
       } else if (!isLt2M) {
-        this.$message.error("上传证明图片大小不能超过 2MB!");
+        this.$message1.error("上传证明图片大小不能超过 2MB!");
         this.isBeforeRemove = false
         return false;
       }
@@ -1192,7 +1192,7 @@ export default {
     beforeAddFileUpload (file) {
       const isLt30M = file.size / 1024 / 1024 < 30;
       if (!isLt30M) {
-        this.$message.error("上传附件大小不能超过 30MB!");
+        this.$message1.error("上传附件大小不能超过 30MB!");
         return false
         this.isBeforeRemove = false
       } else {
@@ -1263,11 +1263,11 @@ export default {
     // },
     // 图片上传失败的钩子
     errorUpload (res, file) {
-      this.$message.error("图片上传失败！")
+      this.$message1.error("图片上传失败！")
     },
     // 文件上传失败
     errorFileUpload (res, file) {
-      this.$message.error("文件上传失败！")
+      this.$message1.error("文件上传失败！")
     },
     // 获取住房历史使用情况数据
     getAllResidentDataByHouseId (houseId) {
@@ -1292,7 +1292,7 @@ export default {
             this.houseResidentData = data
             this.houseResidentLoading = false
           }).catch(err => {
-            this.$message.error("获取住房历史使用情况失败")
+            this.$message1.error("获取住房历史使用情况失败")
           })
         })
     },
@@ -1321,7 +1321,7 @@ export default {
             });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消删除"
           });
@@ -1348,7 +1348,7 @@ export default {
             });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消删除"
           });
@@ -1399,18 +1399,6 @@ export default {
     right: 2%;
   }
 }
-
-img {
-  width: 100%;
-  height: 200px;
-}
-// .el-carousel__item:nth-child(2n) {
-//   background-color: #99a9bf;
-// }
-
-// .el-carousel__item:nth-child(2n + 1) {
-//   background-color: #d3dce6;
-// }
 
 .detail-pic-upload {
   margin-top: -50px;

@@ -4,6 +4,7 @@ import Vue from 'vue'
 // 引用elementUI
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import Message from 'element-ui/packages/message'
 import VCharts from 'v-charts'
 import VueAMap from 'vue-amap';
 // 全局组件引入
@@ -35,7 +36,10 @@ import 'quill/dist/quill.bubble.css'
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-
+// Element.Message({
+//   showClose: true,
+//   duration: 500
+// })
 Vue.use(Element, {
   //size: 'medium', // set element-ui default size
   i18n: (key, value) => i18n.t(key, value)
@@ -50,8 +54,14 @@ VueAMap.initAMapApiLoader({
   // 默认高德 sdk 版本为 1.4.4
   v: '1.4.4'
 });
-Vue.component('my-icon', myIcon)
 
+Vue.prototype.$message1 = function (option) {
+  this.$message(Object.assign({
+    showClose: true,
+    duration: 1500
+  }, option))
+}
+Vue.component('my-icon', myIcon)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

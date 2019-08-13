@@ -144,7 +144,7 @@ export default {
           //console.log(this.residentRelData);
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消修改"
           });

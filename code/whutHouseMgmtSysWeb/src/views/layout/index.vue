@@ -112,6 +112,9 @@ export default {
 $background-color: #373d41;
 @import "../../styles/variables.scss";
 .home-container {
+  .body-container {
+    background-color: $background-grey;
+  }
   .top-bar {
     background-color: $background-color;
     color: #fff; //display: flex;

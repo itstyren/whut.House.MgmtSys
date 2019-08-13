@@ -320,7 +320,7 @@ export default {
     cancel (index, row) {
       row.fixMoney = row.originFixMoney;
       row.edit = false;
-      this.$message({
+      this.$message1({
         message: "已取消定价操作",
         type: "warning"
       });
@@ -358,7 +358,7 @@ export default {
             });
           })
           .catch(() => {
-            this.$message({
+            this.$message1({
               type: "info",
               message: "已取消结算"
             });

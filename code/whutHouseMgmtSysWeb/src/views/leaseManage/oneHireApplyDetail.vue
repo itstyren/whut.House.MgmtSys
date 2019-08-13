@@ -280,6 +280,7 @@
       <!-- 图片的走马灯 -->
       <el-dialog :title="`相关图片`"
                  :visible.sync="carouselVisible"
+                 class="hire-apply-detail-pic"
                  append-to-body>
         <el-carousel indicator-position="outside"
                      arrow="always"
@@ -365,7 +366,7 @@ export default {
             });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消操作"
           });
@@ -393,7 +394,7 @@ export default {
         })
         .catch((err) => {
           console.log("err:", err)
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消操作"
           });
@@ -421,7 +422,7 @@ export default {
             });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消操作"
           });

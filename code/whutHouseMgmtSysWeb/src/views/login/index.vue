@@ -85,7 +85,7 @@ export default {
           this.$store
             .dispatch("LoginByUsername", param)
             .then(message => {
-              this.$message({
+              this.$message1({
                 type: "success",
                 message: message,
                 duration: 2000
@@ -100,7 +100,7 @@ export default {
             })
             .catch(err => {
               this.tipMessage = "请输入正确的用户名或密码";
-              this.$message({
+              this.$message1({
                 type: "error",
                 message: err
               });
@@ -113,7 +113,7 @@ export default {
       getPartAuthList().then(res => {
         this.RoleIDs = res.data.data.data
       }).catch(err => {
-        this.$message.error(err)
+        this.$message1.error(err)
       })
     }
   }

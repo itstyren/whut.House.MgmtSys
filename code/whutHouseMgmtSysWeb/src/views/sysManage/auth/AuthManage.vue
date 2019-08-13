@@ -223,13 +223,13 @@ export default {
       let authNameList = this.tableChecked.map(item => item.groupName)
       delAuthList(authNameList).then(res => {
         this.getTableData()
-        this.$message({
+        this.$message1({
           showClose: true,
           message: res.data.message,
           type: res.data.status
         });
       }).catch(err => {
-        this.$message.error(err)
+        this.$message1.error(err)
       })
       this.listLoading = false
     },
@@ -260,7 +260,7 @@ export default {
       this.getOneAuthMsg(id).then(() => {
         this.AuthFormAddOrEdit = 'edit'
         this.AuthDialogVisiable = true
-      }).catch(err => this.$message.error(err))
+      }).catch(err => this.$message1.error(err))
     },
     // 获取某一组用户组信息
     getOneAuthMsg (id) {

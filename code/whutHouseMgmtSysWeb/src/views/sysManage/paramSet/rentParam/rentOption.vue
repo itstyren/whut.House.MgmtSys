@@ -268,7 +268,7 @@ export default {
         this.modifyFromBody.dayRentTimeEnd=selectTime[1]
         this.selectRowIndex = index;
       } else {
-        this.$message({
+        this.$message1({
           message: "已过选房阶段，不可编辑",
           type: "warning"
         });
@@ -338,7 +338,7 @@ export default {
             });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消删除"
           });
