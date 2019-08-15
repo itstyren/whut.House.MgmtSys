@@ -63,11 +63,9 @@
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
 		   -->
-		<!-- 
 		<table tableName="hs_fix" domainObjectName="Fix">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>
-		 -->
 		<table tableName="view_hs_fix" domainObjectName="ViewFix">
 			<property name="useActualColumnNames" value="true"></property>
 		</table>

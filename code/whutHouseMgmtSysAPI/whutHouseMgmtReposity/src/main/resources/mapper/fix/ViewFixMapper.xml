@@ -47,7 +47,10 @@
     <result column="RatingDescription" jdbcType="VARCHAR" property="ratingDescription" />
     <result column="SubmitTime" jdbcType="TIMESTAMP" property="submitTime" />
     <result column="IsPaySelf" jdbcType="BIT" property="isPaySelf" />
-    <result column="FixFiles" jdbcType="VARCHAR" property="fixFiles" />
+    <result column="IsPaySelfName" jdbcType="VARCHAR" property="isPaySelfName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix">
+    <result column="FixFiles" jdbcType="LONGVARCHAR" property="fixFiles" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -113,8 +116,27 @@
     StaffNo, StaffName, TitleName, PostName, DeptName, HouseId, HouseNo, BuildingId, 
     BuildingName, RegionId, RegionName, CampusId, CampusName, Address, Phone, Message, 
     PriceTime, PriceMan, CheckTime, CheckMan, FixTime, FixMoney, IsOver, IsCheck, FeedBack, 
-    Email, Ratings, RatingDescription, SubmitTime, IsPaySelf, FixFiles
+    Email, Ratings, RatingDescription, SubmitTime, IsPaySelf, IsPaySelfName
   </sql>
+  <sql id="Blob_Column_List">
+    FixFiles
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFixExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from view_hs_fix
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFixExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -151,7 +173,7 @@
       FixMoney, IsOver, IsCheck, 
       FeedBack, Email, Ratings, 
       RatingDescription, SubmitTime, IsPaySelf, 
-      FixFiles)
+      IsPaySelfName, FixFiles)
     values (#{id,jdbcType=INTEGER}, #{fixContentId,jdbcType=VARCHAR}, #{fixContentName,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{applyTime,jdbcType=DATE}, #{fixState,jdbcType=VARCHAR}, 
       #{acceptState,jdbcType=VARCHAR}, #{acceptNote,jdbcType=VARCHAR}, #{acceptTime,jdbcType=DATE}, 
@@ -167,7 +189,7 @@
       #{fixMoney,jdbcType=VARCHAR}, #{isOver,jdbcType=BIT}, #{isCheck,jdbcType=BIT}, 
       #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{ratings,jdbcType=VARCHAR}, 
       #{ratingDescription,jdbcType=VARCHAR}, #{submitTime,jdbcType=TIMESTAMP}, #{isPaySelf,jdbcType=BIT}, 
-      #{fixFiles,jdbcType=VARCHAR})
+      #{isPaySelfName,jdbcType=VARCHAR}, #{fixFiles,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.ViewFix">
     insert into view_hs_fix
@@ -306,6 +328,9 @@
       </if>
       <if test="isPaySelf != null">
         IsPaySelf,
+      </if>
+      <if test="isPaySelfName != null">
+        IsPaySelfName,
       </if>
       <if test="fixFiles != null">
         FixFiles,
@@ -447,8 +472,11 @@
       <if test="isPaySelf != null">
         #{isPaySelf,jdbcType=BIT},
       </if>
+      <if test="isPaySelfName != null">
+        #{isPaySelfName,jdbcType=VARCHAR},
+      </if>
       <if test="fixFiles != null">
-        #{fixFiles,jdbcType=VARCHAR},
+        #{fixFiles,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -596,10 +624,66 @@
       <if test="record.isPaySelf != null">
         IsPaySelf = #{record.isPaySelf,jdbcType=BIT},
       </if>
+      <if test="record.isPaySelfName != null">
+        IsPaySelfName = #{record.isPaySelfName,jdbcType=VARCHAR},
+      </if>
       <if test="record.fixFiles != null">
-        FixFiles = #{record.fixFiles,jdbcType=VARCHAR},
+        FixFiles = #{record.fixFiles,jdbcType=LONGVARCHAR},
       </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update view_hs_fix
+    set Id = #{record.id,jdbcType=INTEGER},
+      FixContentId = #{record.fixContentId,jdbcType=VARCHAR},
+      FixContentName = #{record.fixContentName,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=VARCHAR},
+      ApplyTime = #{record.applyTime,jdbcType=DATE},
+      FixState = #{record.fixState,jdbcType=VARCHAR},
+      AcceptState = #{record.acceptState,jdbcType=VARCHAR},
+      AcceptNote = #{record.acceptNote,jdbcType=VARCHAR},
+      AcceptTime = #{record.acceptTime,jdbcType=DATE},
+      AcceptMan = #{record.acceptMan,jdbcType=VARCHAR},
+      AgreeState = #{record.agreeState,jdbcType=VARCHAR},
+      AgreeNote = #{record.agreeNote,jdbcType=VARCHAR},
+      AgreeTime = #{record.agreeTime,jdbcType=DATE},
+      AgreeMan = #{record.agreeMan,jdbcType=VARCHAR},
+      StaffId = #{record.staffId,jdbcType=INTEGER},
+      StaffNo = #{record.staffNo,jdbcType=VARCHAR},
+      StaffName = #{record.staffName,jdbcType=VARCHAR},
+      TitleName = #{record.titleName,jdbcType=VARCHAR},
+      PostName = #{record.postName,jdbcType=VARCHAR},
+      DeptName = #{record.deptName,jdbcType=VARCHAR},
+      HouseId = #{record.houseId,jdbcType=INTEGER},
+      HouseNo = #{record.houseNo,jdbcType=VARCHAR},
+      BuildingId = #{record.buildingId,jdbcType=INTEGER},
+      BuildingName = #{record.buildingName,jdbcType=VARCHAR},
+      RegionId = #{record.regionId,jdbcType=INTEGER},
+      RegionName = #{record.regionName,jdbcType=VARCHAR},
+      CampusId = #{record.campusId,jdbcType=INTEGER},
+      CampusName = #{record.campusName,jdbcType=VARCHAR},
+      Address = #{record.address,jdbcType=VARCHAR},
+      Phone = #{record.phone,jdbcType=VARCHAR},
+      Message = #{record.message,jdbcType=VARCHAR},
+      PriceTime = #{record.priceTime,jdbcType=DATE},
+      PriceMan = #{record.priceMan,jdbcType=VARCHAR},
+      CheckTime = #{record.checkTime,jdbcType=DATE},
+      CheckMan = #{record.checkMan,jdbcType=VARCHAR},
+      FixTime = #{record.fixTime,jdbcType=DATE},
+      FixMoney = #{record.fixMoney,jdbcType=VARCHAR},
+      IsOver = #{record.isOver,jdbcType=BIT},
+      IsCheck = #{record.isCheck,jdbcType=BIT},
+      FeedBack = #{record.feedBack,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      Ratings = #{record.ratings,jdbcType=VARCHAR},
+      RatingDescription = #{record.ratingDescription,jdbcType=VARCHAR},
+      SubmitTime = #{record.submitTime,jdbcType=TIMESTAMP},
+      IsPaySelf = #{record.isPaySelf,jdbcType=BIT},
+      IsPaySelfName = #{record.isPaySelfName,jdbcType=VARCHAR},
+      FixFiles = #{record.fixFiles,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -651,7 +735,7 @@
       RatingDescription = #{record.ratingDescription,jdbcType=VARCHAR},
       SubmitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       IsPaySelf = #{record.isPaySelf,jdbcType=BIT},
-      FixFiles = #{record.fixFiles,jdbcType=VARCHAR}
+      IsPaySelfName = #{record.isPaySelfName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

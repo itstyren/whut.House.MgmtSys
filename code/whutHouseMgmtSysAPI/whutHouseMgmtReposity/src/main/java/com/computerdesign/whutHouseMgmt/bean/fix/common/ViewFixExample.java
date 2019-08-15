@@ -3122,73 +3122,73 @@ public class ViewFixExample {
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesIsNull() {
-            addCriterion("FixFiles is null");
+        public Criteria andIsPaySelfNameIsNull() {
+            addCriterion("IsPaySelfName is null");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesIsNotNull() {
-            addCriterion("FixFiles is not null");
+        public Criteria andIsPaySelfNameIsNotNull() {
+            addCriterion("IsPaySelfName is not null");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesEqualTo(String value) {
-            addCriterion("FixFiles =", value, "fixFiles");
+        public Criteria andIsPaySelfNameEqualTo(String value) {
+            addCriterion("IsPaySelfName =", value, "isPaySelfName");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesNotEqualTo(String value) {
-            addCriterion("FixFiles <>", value, "fixFiles");
+        public Criteria andIsPaySelfNameNotEqualTo(String value) {
+            addCriterion("IsPaySelfName <>", value, "isPaySelfName");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesGreaterThan(String value) {
-            addCriterion("FixFiles >", value, "fixFiles");
+        public Criteria andIsPaySelfNameGreaterThan(String value) {
+            addCriterion("IsPaySelfName >", value, "isPaySelfName");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesGreaterThanOrEqualTo(String value) {
-            addCriterion("FixFiles >=", value, "fixFiles");
+        public Criteria andIsPaySelfNameGreaterThanOrEqualTo(String value) {
+            addCriterion("IsPaySelfName >=", value, "isPaySelfName");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesLessThan(String value) {
-            addCriterion("FixFiles <", value, "fixFiles");
+        public Criteria andIsPaySelfNameLessThan(String value) {
+            addCriterion("IsPaySelfName <", value, "isPaySelfName");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesLessThanOrEqualTo(String value) {
-            addCriterion("FixFiles <=", value, "fixFiles");
+        public Criteria andIsPaySelfNameLessThanOrEqualTo(String value) {
+            addCriterion("IsPaySelfName <=", value, "isPaySelfName");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesLike(String value) {
-            addCriterion("FixFiles like", value, "fixFiles");
+        public Criteria andIsPaySelfNameLike(String value) {
+            addCriterion("IsPaySelfName like", value, "isPaySelfName");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesNotLike(String value) {
-            addCriterion("FixFiles not like", value, "fixFiles");
+        public Criteria andIsPaySelfNameNotLike(String value) {
+            addCriterion("IsPaySelfName not like", value, "isPaySelfName");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesIn(List<String> values) {
-            addCriterion("FixFiles in", values, "fixFiles");
+        public Criteria andIsPaySelfNameIn(List<String> values) {
+            addCriterion("IsPaySelfName in", values, "isPaySelfName");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesNotIn(List<String> values) {
-            addCriterion("FixFiles not in", values, "fixFiles");
+        public Criteria andIsPaySelfNameNotIn(List<String> values) {
+            addCriterion("IsPaySelfName not in", values, "isPaySelfName");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesBetween(String value1, String value2) {
-            addCriterion("FixFiles between", value1, value2, "fixFiles");
+        public Criteria andIsPaySelfNameBetween(String value1, String value2) {
+            addCriterion("IsPaySelfName between", value1, value2, "isPaySelfName");
             return (Criteria) this;
         }
 
-        public Criteria andFixFilesNotBetween(String value1, String value2) {
-            addCriterion("FixFiles not between", value1, value2, "fixFiles");
+        public Criteria andIsPaySelfNameNotBetween(String value1, String value2) {
+            addCriterion("IsPaySelfName not between", value1, value2, "isPaySelfName");
             return (Criteria) this;
         }
     }

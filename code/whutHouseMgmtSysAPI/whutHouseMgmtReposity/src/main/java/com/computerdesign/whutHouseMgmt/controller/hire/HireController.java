@@ -261,6 +261,13 @@ public class HireController {
 			return Msg.error("请选择签订日期");
 		}
 		
+		Integer payType = null;
+		if(hashMap.get("payType") != null){
+			payType = (Integer) hashMap.get("payType");
+		}else{
+			return Msg.error("请选择缴费方式");
+		}
+		
 		// 获取该房屋申请信息
 		Hire hire = hireService.getHireById(id);
 		if (hire.getIsOver()) {
@@ -277,6 +284,8 @@ public class HireController {
 		hire.setIsOver(true);
 		
 		hire.setContractTime(contractTime);
+		
+		hire.setPayType(payType);
 		
 		hireService.addSignContract(hire);
 

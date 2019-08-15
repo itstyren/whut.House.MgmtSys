@@ -16,15 +16,21 @@ public interface FixMapper {
 
     int insertSelective(Fix record);
 
+    List<Fix> selectByExampleWithBLOBs(FixExample example);
+
     List<Fix> selectByExample(FixExample example);
 
     Fix selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Fix record, @Param("example") FixExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") Fix record, @Param("example") FixExample example);
+
     int updateByExample(@Param("record") Fix record, @Param("example") FixExample example);
 
     int updateByPrimaryKeySelective(Fix record);
+
+    int updateByPrimaryKeyWithBLOBs(Fix record);
 
     int updateByPrimaryKey(Fix record);
 }

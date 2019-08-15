@@ -111,6 +111,8 @@ public class ViewFix {
 
     private Boolean isPaySelf;
     
+    private String isPaySelfName;
+    
     private String fixFiles;
     
     public Integer getId() {
@@ -471,6 +473,14 @@ public class ViewFix {
 
 	public void setIsPaySelf(Boolean isPaySelf) {
 		this.isPaySelf = isPaySelf;
+	}
+
+	public String getIsPaySelfName() {
+		return isPaySelfName;
+	}
+
+	public void setIsPaySelfName(String isPaySelfName) {
+		this.isPaySelfName = isPaySelfName;
 	}
 
 	public String getFixFiles() {

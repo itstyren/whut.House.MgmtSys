@@ -30,7 +30,9 @@
     <result column="FeedBack" jdbcType="VARCHAR" property="feedBack" />
     <result column="Email" jdbcType="VARCHAR" property="email" />
     <result column="IsPaySelf" jdbcType="BIT" property="isPaySelf" />
-    <result column="FixFiles" jdbcType="VARCHAR" property="fixFiles" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.computerdesign.whutHouseMgmt.bean.fix.common.Fix">
+    <result column="FixFiles" jdbcType="LONGVARCHAR" property="fixFiles" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -94,8 +96,27 @@
     Id, FixContentId, Description, ApplyTime, FixState, AcceptState, AcceptNote, AcceptTime, 
     AcceptMan, AgreeState, AgreeNote, AgreeTime, AgreeMan, StaffId, HouseId, Phone, Message, 
     PriceTime, PriceMan, CheckTime, CheckMan, FixTime, FixMoney, IsOver, IsCheck, FeedBack, 
-    Email, IsPaySelf, FixFiles
+    Email, IsPaySelf
   </sql>
+  <sql id="Blob_Column_List">
+    FixFiles
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from hs_fix
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -110,9 +131,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from hs_fix
     where Id = #{id,jdbcType=INTEGER}
   </select>
@@ -146,9 +169,9 @@
       #{priceMan,jdbcType=VARCHAR}, #{checkTime,jdbcType=DATE}, #{checkMan,jdbcType=VARCHAR}, 
       #{fixTime,jdbcType=DATE}, #{fixMoney,jdbcType=VARCHAR}, #{isOver,jdbcType=BIT}, 
       #{isCheck,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{isPaySelf,jdbcType=BIT}, #{fixFiles,jdbcType=VARCHAR})
+      #{isPaySelf,jdbcType=BIT}, #{fixFiles,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.Fix">
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.Fix" useGeneratedKeys="true" keyProperty="id">
     insert into hs_fix
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -325,7 +348,7 @@
         #{isPaySelf,jdbcType=BIT},
       </if>
       <if test="fixFiles != null">
-        #{fixFiles,jdbcType=VARCHAR},
+        #{fixFiles,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -423,9 +446,44 @@
         IsPaySelf = #{record.isPaySelf,jdbcType=BIT},
       </if>
       <if test="record.fixFiles != null">
-        FixFiles = #{record.fixFiles,jdbcType=VARCHAR},
+        FixFiles = #{record.fixFiles,jdbcType=LONGVARCHAR},
       </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update hs_fix
+    set Id = #{record.id,jdbcType=INTEGER},
+      FixContentId = #{record.fixContentId,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=VARCHAR},
+      ApplyTime = #{record.applyTime,jdbcType=DATE},
+      FixState = #{record.fixState,jdbcType=VARCHAR},
+      AcceptState = #{record.acceptState,jdbcType=VARCHAR},
+      AcceptNote = #{record.acceptNote,jdbcType=VARCHAR},
+      AcceptTime = #{record.acceptTime,jdbcType=DATE},
+      AcceptMan = #{record.acceptMan,jdbcType=VARCHAR},
+      AgreeState = #{record.agreeState,jdbcType=VARCHAR},
+      AgreeNote = #{record.agreeNote,jdbcType=VARCHAR},
+      AgreeTime = #{record.agreeTime,jdbcType=DATE},
+      AgreeMan = #{record.agreeMan,jdbcType=VARCHAR},
+      StaffId = #{record.staffId,jdbcType=INTEGER},
+      HouseId = #{record.houseId,jdbcType=INTEGER},
+      Phone = #{record.phone,jdbcType=VARCHAR},
+      Message = #{record.message,jdbcType=VARCHAR},
+      PriceTime = #{record.priceTime,jdbcType=DATE},
+      PriceMan = #{record.priceMan,jdbcType=VARCHAR},
+      CheckTime = #{record.checkTime,jdbcType=DATE},
+      CheckMan = #{record.checkMan,jdbcType=VARCHAR},
+      FixTime = #{record.fixTime,jdbcType=DATE},
+      FixMoney = #{record.fixMoney,jdbcType=VARCHAR},
+      IsOver = #{record.isOver,jdbcType=BIT},
+      IsCheck = #{record.isCheck,jdbcType=BIT},
+      FeedBack = #{record.feedBack,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      IsPaySelf = #{record.isPaySelf,jdbcType=BIT},
+      FixFiles = #{record.fixFiles,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -459,8 +517,7 @@
       IsCheck = #{record.isCheck,jdbcType=BIT},
       FeedBack = #{record.feedBack,jdbcType=VARCHAR},
       Email = #{record.email,jdbcType=VARCHAR},
-      IsPaySelf = #{record.isPaySelf,jdbcType=BIT},
-      FixFiles = #{record.fixFiles,jdbcType=VARCHAR}
+      IsPaySelf = #{record.isPaySelf,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -550,9 +607,41 @@
         IsPaySelf = #{isPaySelf,jdbcType=BIT},
       </if>
       <if test="fixFiles != null">
-        FixFiles = #{fixFiles,jdbcType=VARCHAR},
+        FixFiles = #{fixFiles,jdbcType=LONGVARCHAR},
       </if>
     </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.Fix">
+    update hs_fix
+    set FixContentId = #{fixContentId,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      ApplyTime = #{applyTime,jdbcType=DATE},
+      FixState = #{fixState,jdbcType=VARCHAR},
+      AcceptState = #{acceptState,jdbcType=VARCHAR},
+      AcceptNote = #{acceptNote,jdbcType=VARCHAR},
+      AcceptTime = #{acceptTime,jdbcType=DATE},
+      AcceptMan = #{acceptMan,jdbcType=VARCHAR},
+      AgreeState = #{agreeState,jdbcType=VARCHAR},
+      AgreeNote = #{agreeNote,jdbcType=VARCHAR},
+      AgreeTime = #{agreeTime,jdbcType=DATE},
+      AgreeMan = #{agreeMan,jdbcType=VARCHAR},
+      StaffId = #{staffId,jdbcType=INTEGER},
+      HouseId = #{houseId,jdbcType=INTEGER},
+      Phone = #{phone,jdbcType=VARCHAR},
+      Message = #{message,jdbcType=VARCHAR},
+      PriceTime = #{priceTime,jdbcType=DATE},
+      PriceMan = #{priceMan,jdbcType=VARCHAR},
+      CheckTime = #{checkTime,jdbcType=DATE},
+      CheckMan = #{checkMan,jdbcType=VARCHAR},
+      FixTime = #{fixTime,jdbcType=DATE},
+      FixMoney = #{fixMoney,jdbcType=VARCHAR},
+      IsOver = #{isOver,jdbcType=BIT},
+      IsCheck = #{isCheck,jdbcType=BIT},
+      FeedBack = #{feedBack,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      IsPaySelf = #{isPaySelf,jdbcType=BIT},
+      FixFiles = #{fixFiles,jdbcType=LONGVARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.Fix">
@@ -583,8 +672,7 @@
       IsCheck = #{isCheck,jdbcType=BIT},
       FeedBack = #{feedBack,jdbcType=VARCHAR},
       Email = #{email,jdbcType=VARCHAR},
-      IsPaySelf = #{isPaySelf,jdbcType=BIT},
-      FixFiles = #{fixFiles,jdbcType=VARCHAR}
+      IsPaySelf = #{isPaySelf,jdbcType=BIT}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

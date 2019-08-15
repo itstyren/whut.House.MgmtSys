@@ -171,6 +171,9 @@ public class FixController {
 		fix.setIsCheck(false);
 		fix.setIsOver(false);
 		fixService.add(fix);
+		
+//		System.out.println("fix_id:" + fix.getId());
+		
 		return Msg.success("维修申请成功").add("data", fix);
 	}
 

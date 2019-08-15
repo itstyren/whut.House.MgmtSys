@@ -134,7 +134,8 @@ public class ViewFixService {
 	public List<ViewFix> getByMultiConditionWithMP(FixGetCheck fixGetCheck, List<Integer> campusIds) {
 		ViewFixExample example = new ViewFixExample();
 		Criteria criteria = example.createCriteria();
-		example.setOrderByClause("IsCheck");
+//		example.setOrderByClause("");
+		example.setOrderByClause("IsCheck, ApplyTime DESC");
 		Date startTime = fixGetCheck.getStartTime();
 		Date endTime = fixGetCheck.getEndTime();
 		Integer conditionId = fixGetCheck.getConditionId();

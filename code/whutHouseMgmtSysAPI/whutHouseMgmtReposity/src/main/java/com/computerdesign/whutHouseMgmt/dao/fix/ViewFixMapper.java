@@ -14,9 +14,13 @@ public interface ViewFixMapper {
 
     int insertSelective(ViewFix record);
 
+    List<ViewFix> selectByExampleWithBLOBs(ViewFixExample example);
+
     List<ViewFix> selectByExample(ViewFixExample example);
 
     int updateByExampleSelective(@Param("record") ViewFix record, @Param("example") ViewFixExample example);
+
+    int updateByExampleWithBLOBs(@Param("record") ViewFix record, @Param("example") ViewFixExample example);
 
     int updateByExample(@Param("record") ViewFix record, @Param("example") ViewFixExample example);
 }
