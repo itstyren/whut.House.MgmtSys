@@ -71,9 +71,13 @@
 			<mvc:exclude-mapping path="/dataImport/houseDataImport" />
 			<mvc:exclude-mapping path="/dataImport/residentDataImport" />
 			<mvc:exclude-mapping path="/dataImport/salaryImport" />
+			<mvc:exclude-mapping path="/dataImport/regionImport" />
+			<mvc:exclude-mapping path="/dataImport/buildingImport" />
 			<mvc:exclude-mapping path="/dataImport/staffDownLoad" />
 			<mvc:exclude-mapping path="/dataImport/houseDownLoad" />
-			<mvc:exclude-mapping path="/dataImport/residentDownLoad" />	
+			<mvc:exclude-mapping path="/dataImport/residentDownLoad" />
+			<mvc:exclude-mapping path="/dataImport/regionDownLoad" />
+			<mvc:exclude-mapping path="/dataImport/buildingDownLoad" />	
 			<mvc:exclude-mapping path="/exportToWord/hire/**" />
 			<mvc:exclude-mapping path="/auth/testGetAuth" />	
 			<mvc:exclude-mapping path="/auth/partAuthList/**" />	

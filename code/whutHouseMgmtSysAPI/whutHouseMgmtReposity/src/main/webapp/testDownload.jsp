@@ -10,5 +10,9 @@
 	<a href="dataImport/staffDownLoad">职工模板下载</a>
 	<br><br>
 	<a href="dataImport/houseDownLoad">住房模板下载</a>
+	<br><br>
+	<a href="dataImport/regionDownLoad">区域模板下载</a>
+	<br><br>
+	<a href="dataImport/buildingDownLoad">楼栋模板下载</a>
 </body>
 </html>

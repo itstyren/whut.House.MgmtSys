@@ -23,6 +23,16 @@
 		<input type="submit" value="Submit">
 	</form>
 	
+	<form action="dataImport/regionImport" method="post" enctype="multipart/form-data">
+		RegionFile:<input type="file" name="regionFile">
+		<input type="submit" value="Submit">
+	</form>
+	
+	<form action="dataImport/buildingImport" method="post" enctype="multipart/form-data">
+		BuildingFile:<input type="file" name="buildingFile">
+		<input type="submit" value="Submit">
+	</form>
+	
 	<form action="dataImport/saveData" method="post">
 		<input type="submit" value="保存">
 	</form>
