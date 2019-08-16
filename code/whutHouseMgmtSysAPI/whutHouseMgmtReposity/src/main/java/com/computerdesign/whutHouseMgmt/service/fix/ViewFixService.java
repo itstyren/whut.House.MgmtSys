@@ -29,6 +29,7 @@ public class ViewFixService {
 	public List<ViewFix> getByStaffId(Integer staffId) {
 		ViewFixExample example = new ViewFixExample();
 		Criteria criteria = example.createCriteria();
+		example.setOrderByClause("ApplyTime DESC");
 		criteria.andStaffIdEqualTo(staffId);
 		return viewFixMapper.selectByExample(example);
 	}

@@ -78,6 +78,7 @@
 			<mvc:exclude-mapping path="/dataImport/residentDownLoad" />
 			<mvc:exclude-mapping path="/dataImport/regionDownLoad" />
 			<mvc:exclude-mapping path="/dataImport/buildingDownLoad" />	
+			<mvc:exclude-mapping path="/dataImport/salaryDownLoad" />	
 			<mvc:exclude-mapping path="/exportToWord/hire/**" />
 			<mvc:exclude-mapping path="/auth/testGetAuth" />	
 			<mvc:exclude-mapping path="/auth/partAuthList/**" />	

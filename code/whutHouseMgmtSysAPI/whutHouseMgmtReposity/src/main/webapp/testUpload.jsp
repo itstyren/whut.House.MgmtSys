@@ -33,6 +33,11 @@
 		<input type="submit" value="Submit">
 	</form>
 	
+	<form action="dataImport/salaryImport" method="post" enctype="multipart/form-data">
+		SalaryFile:<input type="file" name="salaryFile">
+		<input type="submit" value="Submit">
+	</form>
+	
 	<form action="dataImport/saveData" method="post">
 		<input type="submit" value="保存">
 	</form>

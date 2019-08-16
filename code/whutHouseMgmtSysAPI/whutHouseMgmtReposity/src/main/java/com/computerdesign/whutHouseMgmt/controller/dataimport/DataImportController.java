@@ -202,8 +202,10 @@ public class DataImportController {
 					}
 
 					System.out.println("BB");
-					// 将数据封装为Resident
 					String val[] = result.split(",");
+//					for (String str : val){
+//						System.out.println(str);
+//					}
 					StaffMonetarySub staffMonetarySub = new StaffMonetarySub();
 					// 若Excel单元格为数字型，则末尾会多出“.0”，需要去除
 					String staffNo = val[0];
@@ -223,17 +225,23 @@ public class DataImportController {
 					System.out.println("CC");
 
 					// 职工年度工资设置
-					String salary = val[2];
+//					System.out.println(val[1]);
+					String salary = val[1];
 					long annualSal = (long) Double.parseDouble(salary) * 12;
 					staffMonetarySub.setAnnualSal(annualSal);
-
+					
+//					System.out.println(val[1]);
+					
 					// 年份
-					String year = val[3];
+					String year = val[2];
 					if (year.indexOf('.') != -1) {
 						year = year.substring(0, year.indexOf('.'));
 					}
 					staffMonetarySub.setYear(year);
-
+					
+//					System.out.println(val[2]);
+//					System.out.println(year);
+					
 					// 获取补贴比例
 					MonetarySubParam monetarySubParam = monetarySubParamService.getIsUsing();
 					// 根据职工编号获取职工ID
