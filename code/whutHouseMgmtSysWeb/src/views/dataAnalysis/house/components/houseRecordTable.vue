@@ -11,7 +11,7 @@
                 @cell-click="handleClikHouse"
                 height="string"
                 v-loading="listLoading">
-        <el-table-column prop="houseId"
+        <el-table-column prop="houseNo"
                          label="住房号"
                          align="center"
                          width="85"></el-table-column>
@@ -55,7 +55,8 @@
                          align="center"
                          width="150"></el-table-column>
       </el-table>
-      <el-pagination background layout="total, prev, pager, next, sizes, jumper"
+      <el-pagination background
+                     layout="total, prev, pager, next, sizes, jumper"
                      @size-change="sizeChangeEvent"
                      @current-change="currentChangeEvent"
                      :page-size="size"

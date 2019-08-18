@@ -13,7 +13,7 @@ export default {
     addStaff: '新增职工',
     // houseResident: '住房登记',
     houseResident: '住房关系管理',
-    importData: '数据导入',
+    importExportData: '数据导入导出',
     fixManage: '维修管理',
     fixApply: '维修申请',
     fixAccept: '维修受理',

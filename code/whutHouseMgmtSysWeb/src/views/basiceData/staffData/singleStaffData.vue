@@ -76,7 +76,7 @@
                 <el-col :span="6"
                         :offset="1">
                   <el-form-item label="学历"
-                                prop="goUniversityTime">
+                                prop="eduQualifications">
                     <el-input v-model="staffForm.eduQualifications"
                               :readonly="!ismodify"
                               placeholder="请输入学历"></el-input>

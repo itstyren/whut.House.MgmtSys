@@ -286,6 +286,11 @@
                               <el-col :span="8">
                                 <span>{{ scope.row.fixState }}</span>
                               </el-col>
+                              <el-col :span="4" v-if="scope.row.fixState!=='已评价'">
+                                <el-button type="success"
+                                           size="medium"
+                                           @click="handleExportApply(scope.row.fixId)">导出申请单</el-button>
+                              </el-col>
                             </el-row>
                             <el-row style="margin-bottom:20px; font-size:16px">
                               <el-col :span="4">
@@ -895,6 +900,10 @@ export default {
           }
         });
       });
+    },
+    // 导出申请单
+    handleExportApply (fixId) {
+      window.location.href = `http://172.16.65.105:8080/whutHouseMgmtReposity/exportToWord/fix/${fixId}`;
     }
   }
 };

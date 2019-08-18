@@ -19,60 +19,62 @@
           </div>
           <!-- 表格区 -->
           <div class="main-data">
-            <el-table :data="hireFormData"
-                      class="table"
-                      height="string"
-                      v-loading="listLoading">
-              <!-- <el-table-column type="selection" width="55"></el-table-column> -->
-              <!-- <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column> -->
-              <el-table-column prop="id"
-                               label="申请号"
-                               align="center"></el-table-column>
-              <el-table-column prop="applyTime"
-                               label="申请时间"
-                               sortable
-                               align="center"></el-table-column>
-              <el-table-column label="处理状态"
-                               prop="hireState"
-                               align="center"
-                               :filters="statuseArray"
-                               :filter-method="filterHandle">
-                <template slot-scope="scope">
-                  <el-tag :type="scope.row.hireState | statusFilter">{{scope.row.hireState}}</el-tag>
-                </template>
-              </el-table-column>
-              <el-table-column prop="isOver"
-                               label="合同签订"
-                               :formatter="isOverFormat"
-                               align="center">
-                <template slot-scope="scope">
-                  <my-icon v-if="scope.row.approveState=='通过'"
-                           icon-class="dengji1"></my-icon>
-                </template>
-              </el-table-column>
-              <el-table-column prop="name"
-                               label="申请人"
-                               align="center"></el-table-column>
-              <el-table-column prop="postName"
-                               label="职称"
-                               align="center"></el-table-column>
-              <el-table-column prop="titleName"
-                               label="职务"
-                               align="center"></el-table-column>
-              <el-table-column prop="deptName"
-                               label="工作部门"
-                               align="center"></el-table-column>
-              <el-table-column prop="phone"
-                               label="联系电话"
-                               align="center"></el-table-column>
-              <el-table-column label="操作"
-                               width="350"
-                               align="center">
-                <template slot-scope="scope">
-                  <el-button type="infor"
-                             size="small"
-                             @click="showRelDetail(scope.$index,scope.row)">详情</el-button>
-                  <!-- <el-button type="infor"
+            <div class="card">
+              <el-table :data="hireFormData"
+                        class="table"
+                        height="75vh"
+                        style="border-radius: 10px;"
+                        v-loading="listLoading">
+                <!-- <el-table-column type="selection" width="55"></el-table-column> -->
+                <!-- <el-table-column type="index" width="65" label="序号" style="text-aligin:center" align="center"></el-table-column> -->
+                <el-table-column prop="id"
+                                 label="申请号"
+                                 align="center"></el-table-column>
+                <el-table-column prop="applyTime"
+                                 label="申请时间"
+                                 sortable
+                                 align="center"></el-table-column>
+                <el-table-column label="处理状态"
+                                 prop="hireState"
+                                 align="center"
+                                 :filters="statuseArray"
+                                 :filter-method="filterHandle">
+                  <template slot-scope="scope">
+                    <el-tag :type="scope.row.hireState | statusFilter">{{scope.row.hireState}}</el-tag>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="isOver"
+                                 label="合同签订"
+                                 :formatter="isOverFormat"
+                                 align="center">
+                  <template slot-scope="scope">
+                    <my-icon v-if="scope.row.approveState=='通过'"
+                             icon-class="dengji1"></my-icon>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="name"
+                                 label="申请人"
+                                 align="center"></el-table-column>
+                <el-table-column prop="postName"
+                                 label="职称"
+                                 align="center"></el-table-column>
+                <el-table-column prop="titleName"
+                                 label="职务"
+                                 align="center"></el-table-column>
+                <el-table-column prop="deptName"
+                                 label="工作部门"
+                                 align="center"></el-table-column>
+                <el-table-column prop="phone"
+                                 label="联系电话"
+                                 align="center"></el-table-column>
+                <el-table-column label="操作"
+                                 width="350"
+                                 align="center">
+                  <template slot-scope="scope">
+                    <el-button type="infor"
+                               size="small"
+                               @click="showRelDetail(scope.$index,scope.row)">详情</el-button>
+                    <!-- <el-button type="infor"
                              size="small"
                              @click="ReAccept(scope.$index,scope.row)">重受理</el-button>
                   <el-button type="primary"
@@ -81,21 +83,25 @@
                   <el-button type="warning"
                              size="small"
                              @click="ReApprove(scope.$index,scope.row)">重审批</el-button> -->
-                  <el-button type="danger"
-                             size="small"
-                             @click="delectHireForm(scope.$index,scope.row)">删除</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
+                    <el-button type="danger"
+                               size="small"
+                               @click="delectHireForm(scope.$index,scope.row)">删除</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <el-pagination background
+                             layout="total, prev, pager, next, sizes, jumper"
+                             @size-change="SizeChangeEvent"
+                             @current-change="CurrentChangeEvent"
+                             :page-size="size"
+                             :page-sizes="[10,15,20,25,30]"
+                             :total="totalNum">
+              </el-pagination>
+              <div style="height:20px;width:100%"></div>
+
+            </div>
+
           </div>
-          <el-pagination background
-                         layout="total, prev, pager, next, sizes, jumper"
-                         @size-change="SizeChangeEvent"
-                         @current-change="CurrentChangeEvent"
-                         :page-size="size"
-                         :page-sizes="[10,15,20,25,30]"
-                         :total="totalNum">
-          </el-pagination>
         </div>
       </div>
     </div>

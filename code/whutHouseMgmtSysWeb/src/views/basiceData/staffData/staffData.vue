@@ -19,6 +19,7 @@
         <el-form :model="queryOption"
                  :inline="true"
                  :rules="queryRules"
+                 label-width="100px"
                  ref="queryForm">
           <el-form-item label="部门"
                         prop="deptId">
@@ -26,7 +27,7 @@
                        :clearable="true"
                        @clear="clearDept"
                        placeholder="所有部门"
-                       style="width:200px"
+                       style="width:250px"
                        @change="selectDeptChange">
               <el-option v-for="dept in depData"
                          :key="dept.id"
@@ -40,7 +41,7 @@
                        :clearable="true"
                        @clear="clearStaff"
                        placeholder="全部职工"
-                       style="width:200px">
+                       style="width:250px">
               <el-option v-for="staff in staffData"
                          :key="staff.id"
                          :value="staff.id"
@@ -48,7 +49,7 @@
             </el-select>
           </el-form-item>
           <el-button type="primary"
-                     @click="queryData">查询</el-button>
+                     @click="getList(queryOption)">查询</el-button>
           <el-form-item>
             <el-button type="primary"
                        @click="addStaff()">新增员工</el-button>
@@ -136,7 +137,8 @@ import {
   getSingleDept,
   getStaff,
   deleteStaffData,
-  putResetStaffPwd
+  putResetStaffPwd,
+  getStaffListByMultiCondition
 } from "@/api/basiceData";
 import {
   checkNum,
@@ -156,7 +158,6 @@ export default {
       size: 10,
       //查询需要的数据
       staffData: [],
-      queryStatus: 0, //0 代表列表查，1代表全部，2代表部门查，3代表楼栋查
       // 查询选项
       queryOption: {
         deptId: "",
@@ -185,93 +186,77 @@ export default {
       }
     },
     // 监听路由
-    $route () {
-      this.queryStatus = 0;
-      this.getList();
+    $route (newVal) {
+      this.getList({ deptId: newVal.params.id });
     }
   },
   created () {
-    this.getList();
+    this.getList(this.queryOption);
   },
   // 方法集合
   methods: {
     //选择的区域变化时
     selectDeptChange (dept) {
+      this.queryOption.staffId = "";
       this.staffData = dept.buildingList;
     },
-    // 清空搜索的区域时
-    clearDept () {
-      this.queryStatus = 1;
-      this.queryOption.staffId = "";
-    },
-    // 清空搜索的楼栋时
-    clearStaff () {
-      this.queryStatus = 2;
-    },
-
-    // 判定查询的类型
-    queryData () {
-      // this.$refs["queryForm"].validate(valid => {
-      // if (valid) {
-      if (this.queryOption.deptId == "") {
-        this.queryStatus = 1;
-        // this.getList();   //还不能获取全部员工
-      } else if (this.queryOption.staffId == "") {
-        this.queryStatus = 2;
-        this.getList();
-      } else {
-        this.queryStatus = 3;
-        this.getList();
-      }
-      // }
-      // });
-    },
-    // 获取列表
-    getList () {
+    getList (queryData) {
       this.listLoading = true;
+      this.deptStaffData = [];
       let param = {
         page: this.page,
         size: this.size
-      };
-      // 在这里判断执行哪种查询方法
-      if (this.queryStatus == 0) {
-        var switchFunction = getSingleDept;
-        var queryID = this.$route.params.id;
-      } else if (this.queryStatus == 1) var switchFunction = getHouse;
-      else if (this.queryStatus == 2) {
-        var switchFunction = getSingleDept;
-        var queryID = this.queryOption.deptId;
-      } else {
-        var switchFunction = getStaff;
-        var queryID = this.queryOption.staffId;
       }
-      switchFunction(param, queryID)
-        .then(res => {
-          if (this.queryStatus == 3) {
-            this.deptStaffData = [];
-            this.deptStaffData[0] = res.data.data.data;
-          } else {
-            this.deptStaffData = res.data.data.data.list;
-          }
-          if (this.queryStatus !== 2) {
-            if (this.deptStaffData[0] != null)
-              this.depName = this.deptStaffData[0].deptName;
-            else {
-              this.listLoading = false;
-              return;
-            }
-          } else {
-            for (var dept of this.depData) {
-              if (dept.id == queryID) this.depName = dept.label;
-            }
-          }
+      let data = Object.assign({}, queryData)
+      //请求一个部门的员工
+      if (data.deptId) {
+        //请求一个员工
+        if (data.staffId) {
+          getStaff(param, data.staffId)
+            .then(res => {
+              this.deptStaffData.push(res.data.data.data)
+              this.totalNum = 1
+              utils.statusinfo(this, res.data);
 
-          this.totalNum = res.data.data.data.total;
-          this.listLoading = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+            })
+            .then((res) => {
+              for (let dept of this.depData) {
+                if (dept.id == data.deptId) this.depName = dept.label;
+              }
+              this.listLoading = false;
+            })
+          return
+        }
+        getSingleDept(param, data.deptId)
+          .then(res => {
+            this.deptStaffData = res.data.data.data.list;
+            this.totalNum = res.data.data.data.total;
+            utils.statusinfo(this, res.data);
+
+          })
+          //修改面包屑部门名称
+          .then(() => {
+            for (let dept of this.depData) {
+              if (dept.id == data.deptId) this.depName = dept.label;
+            }
+            this.listLoading = false;
+          })
+        return
+      }
+
+      //请求全部员工
+      getStaffListByMultiCondition(param, {}).then(res => {
+        utils.statusinfo(this, res.data);
+        this.deptStaffData = res.data.data.data.list;
+        this.totalNum = res.data.data.data.total;
+        this.listLoading = false;
+      }).then(() => {
+        this.depName = '所有员工'
+      })
+    },
+    // // 清空搜索的区域时
+    clearDept () {
+      this.queryOption.staffId = "";
     },
     // 显示详情页面
     showDetailDialog (index, row) {

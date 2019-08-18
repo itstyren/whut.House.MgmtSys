@@ -286,6 +286,10 @@
                 <div v-if="active==3"
                      class="fix-result">
                   <span>提交成功，请等待审核！</span>
+                  <el-button type="success"
+                             class="btn-export-fixApply"
+                             size="medium"
+                             @click="handleExportApply(fixId)">导出申请单</el-button>
                 </div>
                 <div class="opera-area">
                   <el-button @click="backButton"
@@ -339,15 +343,18 @@ export default {
         // ],
         houseId: {
           required: true,
-          message: "请选择住房"
+          message: "请选择住房",
+          trigger: "blur"
         },
         fixContentId: {
           required: true,
-          message: "请选择类型"
+          message: "请选择类型",
+          trigger: "blur"
         },
         description: {
           required: true,
-          message: "请填写描述"
+          message: "请填写描述",
+          trigger: "blur"
         }
       },
       // 进度信息
@@ -360,7 +367,9 @@ export default {
       allImageData: [],
       isBeforeRemove: true,
       fixPayTypes: ['公费', '自费'],
-      isPaySelf: '公费'
+      isPaySelf: '公费',
+      // 维修单编号
+      fixId: null
     };
   },
   // 计算属性
@@ -403,6 +412,7 @@ export default {
     // 返回一步
     backButton () {
       this.active--;
+      this.$refs["fixApplyForm"].clearValidate()
     },
     // 获取个人信息
     getList () {
@@ -431,28 +441,46 @@ export default {
     },
     // 提交维修申请
     addSubmit () {
-      this.active++;
+
       this.$refs["fixApplyForm"].validate(valid => {
         if (valid) {
-          this.listLoading = true;
-          let applyForm = {
-            description: this.accoutInfo.description,
-            email: this.accoutInfo.email,
-            fixContentId: this.accoutInfo.fixContentId,
-            houseId: this.accoutInfo.houseId,
-            phone: this.accoutInfo.tel,
-            staffId: this.$store.getters.userID,
-            isPaySelf: this.isPaySelf === "自费" ? true : false,
-            fixFiles: this.allImageData.join(',')
-          };
-          postFixApply(applyForm).then(res => {
-            utils.statusinfo(this, res.data);
-            this.listLoading = false;
-            // if (res.data.status == "success")
-            //   this.$refs["fixApplyForm"].resetFields();
-          });
+          this.$confirm("此操作将提交该申请", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+            .then(() => {
+              this.listLoading = true;
+              let applyForm = {
+                description: this.accoutInfo.description,
+                email: this.accoutInfo.email,
+                fixContentId: this.accoutInfo.fixContentId,
+                houseId: this.accoutInfo.houseId,
+                phone: this.accoutInfo.tel,
+                staffId: this.$store.getters.userID,
+                isPaySelf: this.isPaySelf === "自费" ? true : false,
+                fixFiles: this.allImageData.join(',')
+              };
+              postFixApply(applyForm).then(res => {
+                this.active++;
+                utils.statusinfo(this, res.data);
+                this.listLoading = false;
+                if (res.data.status == "success") {
+                  this.$refs["fixApplyForm"].resetFields();
+                  this.fixId = res.data.data.id
+                }
+              });
+
+            })
+            .catch(() => {
+              this.$message1({
+                type: "info",
+                message: "已取消提交"
+              })
+            })
         }
-      });
+
+      })
     },
     // 上传未提交的图片成功的钩子
     successUpload (response, file, fileList) {
@@ -467,7 +495,6 @@ export default {
       let imageUrl = file.response.data.data[0]
       let index = this.allImageData.indexOf(imageUrl)
       this.allImageData.splice(index, 1)
-      console.log("删除未提交的图片之后allImageData:", this.allImageData)
     },
     // 删除图片前的钩子
     beforeRemove (file, fileList) {
@@ -494,6 +521,10 @@ export default {
       }
       return true;
     },
+    // 导出申请单
+    handleExportApply (fixId) {
+      window.location.href = `http://172.16.65.105:8080/whutHouseMgmtReposity/exportToWord/fix/${fixId}`;
+    }
   }
 };
 </script>
@@ -545,5 +576,9 @@ export default {
   .el-input {
     width: 200px;
   }
+}
+.btn-export-fixApply {
+  display: block;
+  margin: 20px auto;
 }
 </style>

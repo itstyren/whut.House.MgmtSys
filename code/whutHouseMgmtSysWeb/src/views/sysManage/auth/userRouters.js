@@ -275,11 +275,11 @@ export default [
       },
       // 数据导入
       {
-        path: 'importData',
+        path: 'importExportData',
         component: 'basiceData/importData/importData',
-        name: 'importData',
+        name: 'importExportData',
         meta: {
-          title: 'importData'
+          title: 'importExportData'
         },
       },
 

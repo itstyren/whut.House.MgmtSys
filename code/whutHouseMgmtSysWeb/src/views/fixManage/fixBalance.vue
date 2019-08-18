@@ -23,8 +23,9 @@
               <div class="card">
 
                 <el-row>
-                  <el-col :span="5">
+                  <el-col :span="6">
                     <el-form-item label="查询条件"
+                                  label-width="30%"
                                   prop="conditionId">
                       <el-select v-model="queryForm.conditionId"
                                  :clearable="true"

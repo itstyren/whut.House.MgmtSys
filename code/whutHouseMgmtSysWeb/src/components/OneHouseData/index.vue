@@ -30,15 +30,15 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="房屋编号"
-                          prop="id">
-              <el-input v-model="detailData.id"
+                          prop="no">
+              <el-input v-model="detailData.no"
                         placeholder="请输入房屋标号"
                         readonly></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="校区"
-                          prop="name">
+                          prop="campusName">
               <el-input v-model="detailData.campusName"
                         readonly></el-input>
             </el-form-item>

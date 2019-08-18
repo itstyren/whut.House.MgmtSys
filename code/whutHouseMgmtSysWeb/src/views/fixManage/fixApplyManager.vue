@@ -14,81 +14,84 @@
         </div>
         <!-- 下方主内容 -->
         <div class="warp-body">
-          <!-- 工具栏 -->
-          <div class="toolbar">
-          </div>
           <!-- 表格区 -->
           <div class="main-data">
-            <el-table :data="fixFormData"
-                      class="table"
-                      height="string"
-                      v-loading="listLoading">
-              <el-table-column type="selection"
-                               width="55"></el-table-column>
-              <el-table-column type="index"
-                               width="65"
-                               label="序号"
-                               style="text-aligin:center"
-                               align="center"></el-table-column>
-              <el-table-column prop="fixContentName"
-                               label="维修类型"
-                               sortable
-                               align="center"></el-table-column>
-              <el-table-column prop="isPaySelf"
-                               label="维修类型"
-                               sortable
-                               :formatter="isPaySelfColFormat"
-                               align="center"></el-table-column>
-              <el-table-column prop="applyTime"
-                               label="申请时间"
-                               sortable
-                               align="center"></el-table-column>
-              <el-table-column prop="fixState"
-                               label="处理状态"
-                               align="center"
-                               :filters="statuseArray"
-                               :filter-method="filterHandle">
-                <template slot-scope="scope">
-                  <el-tag :type="scope.row.fixState | statusFilter">{{scope.row.fixState}}</el-tag>
-                </template>
-              </el-table-column>
-              <el-table-column prop="staffName"
-                               label="申请人"
-                               align="center"></el-table-column>
-              <el-table-column prop="postName"
-                               label="职称"
-                               align="center"></el-table-column>
-              <el-table-column prop="titleName"
-                               label="职务"
-                               align="center"></el-table-column>
-              <el-table-column prop="deptName"
-                               label="工作部门"
-                               align="center"></el-table-column>
-              <el-table-column label="操作"
-                               width="250"
-                               align="center">
-                <template slot-scope="scope">
-                  <el-button type="infor"
-                             size="small"
-                             @click="ReAccept(scope.$index,scope.row)">重受理</el-button>
-                  <el-button type="primary"
-                             size="small"
-                             @click="ReAgree(scope.$index,scope.row)">重审核</el-button>
-                  <el-button type="danger"
-                             size="small"
-                             @click="delectFixForm(scope.$index,scope.row)">删除</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
+            <div class="card">
+              <el-table :data="fixFormData"
+                        class="table"
+                        height="75vh"
+                        style="border-radius: 10px;"
+                        v-loading="listLoading">
+                <el-table-column type="selection"
+                                 width="55"></el-table-column>
+                <el-table-column type="index"
+                                 width="65"
+                                 label="序号"
+                                 style="text-aligin:center"
+                                 align="center"></el-table-column>
+                <el-table-column prop="fixContentName"
+                                 label="维修类型"
+                                 sortable
+                                 align="center"></el-table-column>
+                <el-table-column prop="isPaySelf"
+                                 label="维修类型"
+                                 sortable
+                                 :formatter="isPaySelfColFormat"
+                                 align="center"></el-table-column>
+                <el-table-column prop="applyTime"
+                                 label="申请时间"
+                                 sortable
+                                 align="center"></el-table-column>
+                <el-table-column prop="fixState"
+                                 label="处理状态"
+                                 align="center"
+                                 :filters="statuseArray"
+                                 :filter-method="filterHandle">
+                  <template slot-scope="scope">
+                    <el-tag :type="scope.row.fixState | statusFilter">{{scope.row.fixState}}</el-tag>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="staffName"
+                                 label="申请人"
+                                 align="center"></el-table-column>
+                <el-table-column prop="postName"
+                                 label="职称"
+                                 align="center"></el-table-column>
+                <el-table-column prop="titleName"
+                                 label="职务"
+                                 align="center"></el-table-column>
+                <el-table-column prop="deptName"
+                                 label="工作部门"
+                                 align="center"></el-table-column>
+                <el-table-column label="操作"
+                                 width="250"
+                                 align="center">
+                  <template slot-scope="scope">
+                    <el-button type="infor"
+                               size="small"
+                               @click="ReAccept(scope.$index,scope.row)">重受理</el-button>
+                    <el-button type="primary"
+                               size="small"
+                               @click="ReAgree(scope.$index,scope.row)">重审核</el-button>
+                    <el-button type="danger"
+                               size="small"
+                               @click="delectFixForm(scope.$index,scope.row)">删除</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <el-pagination background
+                             layout="total, prev, pager, next, sizes, jumper"
+                             @size-change="SizeChangeEvent"
+                             @current-change="CurrentChangeEvent"
+                             :page-size="size"
+                             :page-sizes="[10,15,20,25,30]"
+                             :total="totalNum">
+              </el-pagination>
+              <div style="height:20px;width:100%"></div>
+
+            </div>
           </div>
-          <el-pagination background
-                         layout="total, prev, pager, next, sizes, jumper"
-                         @size-change="SizeChangeEvent"
-                         @current-change="CurrentChangeEvent"
-                         :page-size="size"
-                         :page-sizes="[10,15,20,25,30]"
-                         :total="totalNum">
-          </el-pagination>
+
         </div>
       </div>
     </div>

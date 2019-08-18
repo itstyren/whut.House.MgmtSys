@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 详情表单 -->
-    <el-dialog :title="`申请单编号:${detailData.id}`"
+    <el-dialog :title="`维修申请单${detailData.applyTime}-${detailData.staffName}-${detailData.staffNo}`"
                :visible.sync="visible"
                @close="$emit('update:show', false)"
                :show="show"
@@ -33,7 +33,7 @@
               <el-form-item label="导出申请单">
                 <el-button type="success"
                            size="medium"
-                           @click="handleExportApply(detailData.staffId)">点击导出</el-button>
+                           @click="handleExportApply(detailData.id)">点击导出</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -376,8 +376,8 @@ export default {
       this.showDialog = true
     },
     // 导出申请单
-    handleExportApply (staffId) {
-      // window.location.href = `http://172.16.65.105:8080/whutHouseMgmtReposity/exportToWord/hire/${staffId}`;
+    handleExportApply (fixId) {
+      window.location.href = `http://172.16.65.105:8080/whutHouseMgmtReposity/exportToWord/fix/${fixId}`;
     }
   }
 

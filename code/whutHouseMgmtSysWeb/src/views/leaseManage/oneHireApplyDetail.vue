@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 详情表单 -->
-    <el-dialog :title="`申请单编号:${detailData.id}`"
+    <el-dialog :title="`租赁申请单${detailData.applyTime}-${detailData.name}-${detailData.staffNo}`"
                :visible.sync="visible"
                @close="$emit('update:show', false)"
                :show="show"

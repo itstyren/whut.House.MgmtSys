@@ -332,3 +332,20 @@ export function getStaffByNoOrName(params) {
     params: params
   })
 }
+// 区域数据导入
+
+export function postRegionImport(data) {
+  return request({
+    url: `/dataImport/regionImport`,
+    method: 'post',
+    data: data
+  })
+}
+// 楼栋数据导入
+export function postBuildingImport(data) {
+  return request({
+    url: `/dataImport/buildingImport`,
+    method: 'post',
+    data: data
+  })
+}
