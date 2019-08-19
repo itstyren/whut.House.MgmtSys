@@ -467,7 +467,7 @@ export default {
                 this.listLoading = false;
                 if (res.data.status == "success") {
                   this.$refs["fixApplyForm"].resetFields();
-                  this.fixId = res.data.data.id
+                  this.fixId = res.data.data.data.id
                 }
               });
 
@@ -523,7 +523,7 @@ export default {
     },
     // 导出申请单
     handleExportApply (fixId) {
-      window.location.href = `http://172.16.65.105:8080/whutHouseMgmtReposity/exportToWord/fix/${fixId}`;
+      window.location.href = `${this.BASE_URL}exportToWord/fix/${fixId}`;
     }
   }
 };

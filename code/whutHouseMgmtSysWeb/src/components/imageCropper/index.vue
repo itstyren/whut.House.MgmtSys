@@ -3,7 +3,7 @@
     <el-button @click="visible=true">设置头像</el-button>
     <my-upload field="file"
                v-model="visible"
-               :url="`${basiceUrl}/fileUpload/multiFileUpload`"
+               :url="`${basiceUrl}fileUpload/multiFileUpload`"
                :noRotate="false"
                @crop-success="cropSuccess"
                @crop-upload-success="successUpload"
@@ -23,7 +23,7 @@ export default {
       //   token: this.$store.getters.qiniuToken
       // },
       imageURL: "",
-      basiceUrl: "http://172.16.65.105:8080/whutHouseMgmtReposity"
+      basiceUrl: this.BASE_URL
     };
   },
   components: {

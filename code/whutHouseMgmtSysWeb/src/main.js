@@ -29,6 +29,7 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import config from '../config/base'
 
 // if (process.env.NODE_ENV !== 'production') require('./mock')
 // register global utility filters.
@@ -51,12 +52,26 @@ VueAMap.initAMapApiLoader({
   v: '1.4.4'
 });
 
+/**
+ * @description 全局配置lement的Message UI组件
+ */
 Vue.prototype.$message1 = function (option) {
   this.$message(Object.assign({
     showClose: true,
     duration: 1500
   }, option))
 }
+/**
+ * @description 全局基础api接口
+ */
+// Object.defineProperty(Vue.prototype, 'config', {
+//   get() {
+//     return {
+//       basicUrl: 'http://172.16.65.105:8080/whutHouseMgmtReposity/'
+//     }
+//   }
+// })
+Vue.prototype.BASE_URL = config.basicUrl
 Vue.component('my-icon', myIcon)
 /* eslint-disable no-new */
 new Vue({

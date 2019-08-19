@@ -11,7 +11,7 @@
                 @cell-click="handleClikHouse"
                 height="string"
                 v-loading="listLoading">
-        <el-table-column prop="houseNo"
+        <el-table-column prop="no"
                          label="住房号"
                          align="center"
                          width="85"></el-table-column>

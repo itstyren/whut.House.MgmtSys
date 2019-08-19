@@ -139,10 +139,6 @@ import utils from "@/utils/index.js";
 import {
   postHouseStaffRecord
 } from "@/api/dataAnalysis.js";
-var basiceUrl = "http://172.16.65.105:8080/whutHouseMgmtReposity/dataImport/";
-// var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
-// var baseURL= 'http://120.78.226.24:8080/whutHouseMgmtRepositydataImport/'
-// var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity'// api的base_url
 
 export default {
   name: "uploadExcel",
@@ -160,7 +156,8 @@ export default {
       isFull: true,
       houseUseData: [],
       staffData: [],
-      houseData: []
+      houseData: [],
+      basiceUrl: this.BASE_URL
     };
   },
   methods: {
@@ -175,21 +172,21 @@ export default {
       this.isFull = false;
     },
     staffDownload () {
-      window.location.href = `${basiceUrl}staffDownLoad`;
+      window.location.href = `${this.basiceUrl}dataImport/staffDownLoad`;
     },
     regionDownload () {
-      window.location.href = `${basiceUrl}regionDownLoad`;
+      window.location.href = `${this.basiceUrl}dataImport/regionDownLoad`;
 
     },
     buildingDownload () {
-      window.location.href = `${basiceUrl}buildingDownLoad`;
+      window.location.href = `${this.basiceUrl}dataImport/buildingDownLoad`;
 
     },
     houseDownload () {
-      window.location.href = `${basiceUrl}houseDownLoad`;
+      window.location.href = `${this.basiceUrl}dataImport/houseDownLoad`;
     },
     houseRelDownload () {
-      window.location.href = `${basiceUrl}residentDownLoad`;
+      window.location.href = `${this.basiceUrl}dataImport/residentDownLoad`;
     },
 
     unpload () {
@@ -301,7 +298,7 @@ export default {
       this.getHouseUseData().then(data => {
         let filename = "住房使用情况"
         let tHeader = ["住房号", "所属校区", "地址", "住房户型", "住房类型", "使用状态", "使用面积", "现住户", "所在部门", "入住时间"]
-        let filterVal = ["houseNo", "campusName", "address", "layoutName", "typeName", "statusName", "buildArea", "staffName", "staffDeptName", "bookTime"]
+        let filterVal = ["no", "campusName", "address", "layoutName", "typeName", "statusName", "buildArea", "staffName", "staffDeptName", "bookTime"]
         let excelData = this.formatJson(filterVal, data)
         import("@/vendor/Export2Excel").then(excel => {
           excel.export_json_to_excel(tHeader, excelData, filename);

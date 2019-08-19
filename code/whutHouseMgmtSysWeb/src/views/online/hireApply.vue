@@ -180,7 +180,7 @@
                     <el-col :span="20">
                       <el-form-item label="上传图片"
                                     prop="picData">
-                        <el-upload :action="`${basiceUrl}/fileUpload/multiFileUpload`"
+                        <el-upload :action="`${basiceUrl}fileUpload/multiFileUpload`"
                                    :multiple="true"
                                    style="width:350px;"
                                    ref="addFormImageUpload"
@@ -257,7 +257,7 @@ export default {
       listLoading: [],
       resMessage: "",
       // 图片上传的域名
-      basiceUrl: "http://172.16.65.105:8080/whutHouseMgmtReposity",
+      basiceUrl: this.BASE_URL,
       // 已经上传但是未提交的图片数组
       allImageData: [],
       isBeforeRemove: true,
@@ -303,7 +303,7 @@ export default {
     // 导出申请单
     downloadApply () {
       let staffID = this.$store.getters.userID;
-      window.location.href = `http://172.16.65.105:8080/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
+      window.location.href = `${this.basiceUrl}exportToWord/hire/${staffID}`;
     },
     // 前进一步
     nextButton () {

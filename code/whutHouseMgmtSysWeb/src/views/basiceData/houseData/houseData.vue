@@ -366,7 +366,7 @@
                                     label="上传图片"
                                     prop="picEditData">
 
-                        <el-upload :action="`${basiceUrl}/fileUpload/multiFileUpload`"
+                        <el-upload :action="`${basiceUrl}fileUpload/multiFileUpload`"
                                    :multiple="true"
                                    ref="modifyImageUpload"
                                    :on-success="successUpload"
@@ -414,7 +414,7 @@
                     <el-form-item v-if="ismodify"
                                   label="上传附件"
                                   prop="addFileEditData">
-                      <el-upload :action="`${basiceUrl}/fileUpload/multiFileNamedUpload`"
+                      <el-upload :action="`${basiceUrl}fileUpload/multiFileNamedUpload`"
                                  :multiple="true"
                                  name="file"
                                  ref="modifyFileUpload"
@@ -621,7 +621,7 @@
                   <el-col :span="24">
                     <el-form-item label="上传图片"
                                   prop="picData">
-                      <el-upload :action="`${basiceUrl}/fileUpload/multiFileUpload`"
+                      <el-upload :action="`${basiceUrl}fileUpload/multiFileUpload`"
                                  :multiple="true"
                                  ref="addFormImageUpload"
                                  :on-success="successUpload"
@@ -635,7 +635,7 @@
                     </el-form-item>
                     <el-form-item label="上传附件"
                                   prop="addFileEditData">
-                      <el-upload :action="`${basiceUrl}/fileUpload/multiFileNamedUpload`"
+                      <el-upload :action="`${basiceUrl}fileUpload/multiFileNamedUpload`"
                                  :multiple="true"
                                  name="file"
                                  ref="addFormFileUpload"
@@ -760,7 +760,7 @@ export default {
       houseResidentLoading: false,
       houseId: null,
       // 图片上传的域名
-      basiceUrl: "http://172.16.65.105:8080/whutHouseMgmtReposity",
+      basiceUrl: this.BASE_URL,
       // 已经上传但是未提交的图片数组
       nowImageData: [],
       isBeforeRemove: true,
@@ -1241,7 +1241,7 @@ export default {
     },
     // 详情页中点击附件直接进行下载
     handleDownloadFile (fileName) {
-      let url = `${this.basiceUrl}/fileUpload/fileDownLoad?fileName=${fileName}`
+      let url = `${this.basiceUrl}fileUpload/fileDownLoad?fileName=${fileName}`
       window.location.href = url
     },
     // 清空搜索的区域时

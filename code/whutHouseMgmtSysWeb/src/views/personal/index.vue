@@ -286,7 +286,8 @@
                               <el-col :span="8">
                                 <span>{{ scope.row.fixState }}</span>
                               </el-col>
-                              <el-col :span="4" v-if="scope.row.fixState!=='已评价'">
+                              <el-col :span="4"
+                                      v-if="scope.row.fixState!=='已评价'">
                                 <el-button type="success"
                                            size="medium"
                                            @click="handleExportApply(scope.row.fixId)">导出申请单</el-button>
@@ -602,10 +603,6 @@ import {
   getStaffMonetaryByNO
 } from "@/api/monetarySub";
 import utils from "@/utils/index.js";
-var basiceUrl = "http://172.16.65.105:8080/whutHouseMgmtReposity/";
-// var basiceUrl='http://118.126.117.96:8080/whutHouseMgmtReposity/dataImport/'
-// var basiceUrl= 'http://120.78.226.24:8080/whutHouseMgmtReposity/dataImport/'
-// var   baseURL= 'https://www.terryren.com/whutHouseMgmtReposity' // api的base_url
 
 export default {
   data () {
@@ -619,6 +616,7 @@ export default {
       }
     };
     return {
+      basiceUrl: this.BASE_URL,
       avatarURL: "",
       listLoading: false,
       staffID: this.$store.getters.userID,
@@ -881,7 +879,7 @@ export default {
     // 导出申请单
     downloadApply () {
       let staffID = this.$store.getters.userID;
-      window.location.href = `${basiceUrl}exportToWord/hire/${staffID}`;
+      window.location.href = `${this.basiceUrl}exportToWord/hire/${staffID}`;
     },
     uploadURL (url) {
       this.listLoading = true;
@@ -903,7 +901,7 @@ export default {
     },
     // 导出申请单
     handleExportApply (fixId) {
-      window.location.href = `http://172.16.65.105:8080/whutHouseMgmtReposity/exportToWord/fix/${fixId}`;
+      window.location.href = `${this.BASE_URL}exportToWord/fix/${fixId}`;
     }
   }
 };

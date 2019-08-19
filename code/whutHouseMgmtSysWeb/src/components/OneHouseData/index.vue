@@ -264,7 +264,7 @@ export default {
   data () {
     return {
       // 图片上传的域名
-      basiceUrl: "http://172.16.65.105:8080/whutHouseMgmtReposity",
+      basiceUrl: this.BASE_URL,
 
       // 是否显示走马灯内层对话框
       carouselVisible: false,
@@ -328,7 +328,7 @@ export default {
     },
     // 详情页中点击附件直接进行下载
     handleDownloadFile (fileName) {
-      let url = `${this.basiceUrl}/fileUpload/fileDownLoad?fileName=${fileName}`
+      let url = `${this.BASE_URL}fileUpload/fileDownLoad?fileName=${fileName}`
       window.location.href = url
     },
     // 获取住房历史使用情况数据
