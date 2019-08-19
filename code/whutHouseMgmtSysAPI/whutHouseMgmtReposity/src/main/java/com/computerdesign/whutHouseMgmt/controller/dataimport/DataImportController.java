@@ -524,7 +524,7 @@ public class DataImportController {
 					// 设置一些默认值，数据库字段Relation不能为空
 					staff.setRelation("active");
 					staff.setStaffPassword("123");
-					staff.setRoleId(3);
+					staff.setRoleId(4);
 
 					staffs.add(staff);
 
