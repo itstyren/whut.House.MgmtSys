@@ -263,9 +263,6 @@ export default {
   name: 'HouseDetailDialog',
   data () {
     return {
-      // 图片上传的域名
-      basiceUrl: this.BASE_URL,
-
       // 是否显示走马灯内层对话框
       carouselVisible: false,
       // 走马灯初始高度
@@ -328,7 +325,7 @@ export default {
     },
     // 详情页中点击附件直接进行下载
     handleDownloadFile (fileName) {
-      let url = `${this.BASE_URL}fileUpload/fileDownLoad?fileName=${fileName}`
+      let url = `${this.BASE_URL}/fileUpload/fileDownLoad?fileName=${fileName}`
       window.location.href = url
     },
     // 获取住房历史使用情况数据

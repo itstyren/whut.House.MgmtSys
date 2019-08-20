@@ -64,13 +64,6 @@ Vue.prototype.$message1 = function (option) {
 /**
  * @description 全局基础api接口
  */
-// Object.defineProperty(Vue.prototype, 'config', {
-//   get() {
-//     return {
-//       basicUrl: 'http://172.16.65.105:8080/whutHouseMgmtReposity/'
-//     }
-//   }
-// })
 Vue.prototype.BASE_URL = config.basicUrl
 Vue.component('my-icon', myIcon)
 /* eslint-disable no-new */

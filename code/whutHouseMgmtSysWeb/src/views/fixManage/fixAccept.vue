@@ -93,8 +93,7 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row :class="{'is-accept':!acceptStatus}"
-                          v-if="!acceptStatus">
+                  <el-row v-if="!acceptStatus">
                     <el-col :span="10"
                             :offset="1">
                       <el-form-item label="维修描述">
@@ -105,6 +104,14 @@
                                   placeholder="无额外描述"></el-input>
                       </el-form-item>
                     </el-col>
+                    <el-col :span="10">
+                      <el-form-item label="费用类型">
+                        <el-input readonly
+                                  v-model="acceptForm.isPaySelf"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row :class="{'is-accept':!acceptStatus}">
                     <el-col :span="10"
                             :offset="1">
                       <el-form-item label="报修图片">
@@ -115,6 +122,7 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
+
                   <!-- 操作区域 -->
                   <el-row type="flex"
                           justify="center"
@@ -263,6 +271,7 @@ export default {
     // 从子组件获取
     getList (object) {
       object.content.pastImageData = object.content.fixFiles ? object.content.fixFiles.split(',') : ''
+      object.content.isPaySelf = object.content.isPaySelf ? '自费' : '公费'
       this.acceptForm = object.content;
       this.acceptStatus = object.status;
     },

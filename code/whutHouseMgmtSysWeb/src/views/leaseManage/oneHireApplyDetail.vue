@@ -435,7 +435,7 @@ export default {
     },
     // 导出申请单
     handleExportApply (staffId) {
-      window.location.href = `${this.BASE_URL}exportToWord/hire/${staffId}`;
+      window.location.href = `${this.BASE_URL}/exportToWord/hire/${staffId}`;
     }
   }
 

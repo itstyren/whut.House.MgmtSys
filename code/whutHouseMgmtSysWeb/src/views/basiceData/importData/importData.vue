@@ -9,7 +9,7 @@
               <b>首页</b>
             </el-breadcrumb-item>
             <el-breadcrumb-item>基础数据</el-breadcrumb-item>
-            <el-breadcrumb-item>数据导入</el-breadcrumb-item>
+            <el-breadcrumb-item>数据导入导出</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
         <!-- 下方主内容 -->
@@ -32,8 +32,24 @@
                           class="btn-m">
                     <el-button type="primary"
                                size="small"
+                               @click="handleSalaryExport">工资模板下载</el-button>
+                  </el-col>
+
+                  <el-col :span="4"
+                          class="btn-m">
+                    <el-button type="primary"
+                               size="small"
+                               @click="houseRelDownload">住户模板下载</el-button>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="4"
+                          class="btn-m">
+                    <el-button type="primary"
+                               size="small"
                                @click="regionDownload">区域模板下载</el-button>
                   </el-col>
+
                   <el-col :span="4"
                           class="btn-m">
                     <el-button type="primary"
@@ -45,12 +61,6 @@
                     <el-button type="primary"
                                size="small"
                                @click="houseDownload">房屋模板下载</el-button>
-                  </el-col>
-                  <el-col :span="4"
-                          class="btn-m">
-                    <el-button type="primary"
-                               size="small"
-                               @click="houseRelDownload">住户模板下载</el-button>
                   </el-col>
                 </el-row>
                 <el-row>
@@ -89,7 +99,9 @@
                   <el-radio v-model="uploadType"
                             style="margin-right:10px"
                             label="3">住户关系</el-radio>
-
+                  <el-radio v-model="uploadType"
+                            style="margin-right:10px"
+                            label="工资">工资</el-radio>
                   <el-button type="success"
                              size="small"
                              :disabled="isFull"
@@ -133,6 +145,7 @@ import {
   postHouseRelImport,
   postRegionImport,
   postBuildingImport,
+  postSalaryImport,
   getStaffListByMultiCondition
 } from "@/api/basiceData";
 import utils from "@/utils/index.js";
@@ -172,23 +185,25 @@ export default {
       this.isFull = false;
     },
     staffDownload () {
-      window.location.href = `${this.basiceUrl}dataImport/staffDownLoad`;
+      window.location.href = `${this.basiceUrl}/dataImport/staffDownLoad`;
     },
     regionDownload () {
-      window.location.href = `${this.basiceUrl}dataImport/regionDownLoad`;
+      window.location.href = `${this.basiceUrl}/dataImport/regionDownLoad`;
 
     },
     buildingDownload () {
-      window.location.href = `${this.basiceUrl}dataImport/buildingDownLoad`;
+      window.location.href = `${this.basiceUrl}/dataImport/buildingDownLoad`;
 
     },
     houseDownload () {
-      window.location.href = `${this.basiceUrl}dataImport/houseDownLoad`;
+      window.location.href = `${this.basiceUrl}/dataImport/houseDownLoad`;
     },
     houseRelDownload () {
-      window.location.href = `${this.basiceUrl}dataImport/residentDownLoad`;
+      window.location.href = `${this.basiceUrl}/dataImport/residentDownLoad`;
     },
-
+    handleSalaryExport () {
+      window.location.href = `${this.basiceUrl}/dataImport/salaryDownLoad`;
+    },
     unpload () {
       this.uploadLoading = true;
       var formData = new FormData();
@@ -226,6 +241,13 @@ export default {
       else if (this.uploadType == "楼栋") {
         formData.append("buildingFile", this.itemFile, this.fileName);
         postBuildingImport(formData).then(res => {
+          utils.statusinfo(this, res.data);
+          this.uploadLoading = false;
+        });
+      }
+      else if (this.uploadType == "工资") {
+        formData.append("salaryFile", this.itemFile, this.fileName);
+        postSalaryImport(formData).then(res => {
           utils.statusinfo(this, res.data);
           this.uploadLoading = false;
         });
@@ -351,7 +373,7 @@ export default {
     height: 60vh;
   }
   .save-button {
-    position: absolute;
+    // position: absolute;
     bottom: 0;
   }
 }

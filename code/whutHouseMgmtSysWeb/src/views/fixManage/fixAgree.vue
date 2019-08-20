@@ -125,6 +125,12 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="7">
+                      <el-form-item label="费用类型">
+                        <el-input v-model="agreeForm.isPaySelf"
+                                  readonly></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
                       <el-form-item label="报修图片">
                         <span v-if="agreeForm.pastImageData==''">暂无图片</span>
                         <el-button v-else
@@ -280,6 +286,7 @@ export default {
   methods: {
     getList (object) {
       object.content.pastImageData = object.content.fixFiles ? object.content.fixFiles.split(',') : ''
+      object.content.isPaySelf = object.content.isPaySelf ? '自费' : '公费'
       this.agreeForm = object.content;
       this.agreeState = object.status;
     },

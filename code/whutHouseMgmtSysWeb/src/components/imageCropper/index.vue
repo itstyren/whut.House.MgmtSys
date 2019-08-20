@@ -3,7 +3,7 @@
     <el-button @click="visible=true">设置头像</el-button>
     <my-upload field="file"
                v-model="visible"
-               :url="`${basiceUrl}fileUpload/multiFileUpload`"
+               :url="`${basiceUrl}/fileUpload/multiFileUpload`"
                :noRotate="false"
                @crop-success="cropSuccess"
                @crop-upload-success="successUpload"

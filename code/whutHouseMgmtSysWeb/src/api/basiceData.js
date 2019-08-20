@@ -349,3 +349,13 @@ export function postBuildingImport(data) {
     data: data
   })
 }
+
+
+// 工资数据导入
+export function postSalaryImport(data) {
+  return request({
+    url: `/dataImport/salaryImport`,
+    method: 'post',
+    data: data
+  })
+}

@@ -362,7 +362,7 @@ export default {
       // 维修类型填充
       fixType: [],
       // 图片上传的域名
-      basiceUrl: "http://172.16.65.105:8080/whutHouseMgmtReposity",
+      basiceUrl: this.BASE_URL,
       // 已经上传但是未提交的图片数组
       allImageData: [],
       isBeforeRemove: true,
@@ -523,7 +523,7 @@ export default {
     },
     // 导出申请单
     handleExportApply (fixId) {
-      window.location.href = `${this.BASE_URL}exportToWord/fix/${fixId}`;
+      window.location.href = `${this.BASE_URL}/exportToWord/fix/${fixId}`;
     }
   }
 };

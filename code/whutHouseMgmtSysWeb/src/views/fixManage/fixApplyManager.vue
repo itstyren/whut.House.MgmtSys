@@ -34,7 +34,7 @@
                                  sortable
                                  align="center"></el-table-column>
                 <el-table-column prop="isPaySelf"
-                                 label="维修类型"
+                                 label="费用类型"
                                  sortable
                                  :formatter="isPaySelfColFormat"
                                  align="center"></el-table-column>

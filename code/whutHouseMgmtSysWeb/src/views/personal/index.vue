@@ -616,7 +616,6 @@ export default {
       }
     };
     return {
-      basiceUrl: this.BASE_URL,
       avatarURL: "",
       listLoading: false,
       staffID: this.$store.getters.userID,
@@ -879,7 +878,7 @@ export default {
     // 导出申请单
     downloadApply () {
       let staffID = this.$store.getters.userID;
-      window.location.href = `${this.basiceUrl}exportToWord/hire/${staffID}`;
+      window.location.href = `${this.BASE_URL}/exportToWord/hire/${staffID}`;
     },
     uploadURL (url) {
       this.listLoading = true;
@@ -901,7 +900,7 @@ export default {
     },
     // 导出申请单
     handleExportApply (fixId) {
-      window.location.href = `${this.BASE_URL}exportToWord/fix/${fixId}`;
+      window.location.href = `${this.BASE_URL}/exportToWord/fix/${fixId}`;
     }
   }
 };

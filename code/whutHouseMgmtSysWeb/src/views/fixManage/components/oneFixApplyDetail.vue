@@ -377,7 +377,7 @@ export default {
     },
     // 导出申请单
     handleExportApply (fixId) {
-      window.location.href = `${this.BASE_URL}exportToWord/fix/${fixId}`;
+      window.location.href = `${this.BASE_URL}/exportToWord/fix/${fixId}`;
     }
   }
 

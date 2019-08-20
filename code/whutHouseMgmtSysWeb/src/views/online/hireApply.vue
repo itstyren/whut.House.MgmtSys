@@ -180,7 +180,7 @@
                     <el-col :span="20">
                       <el-form-item label="上传图片"
                                     prop="picData">
-                        <el-upload :action="`${basiceUrl}fileUpload/multiFileUpload`"
+                        <el-upload :action="`${basiceUrl}/fileUpload/multiFileUpload`"
                                    :multiple="true"
                                    style="width:350px;"
                                    ref="addFormImageUpload"
@@ -303,7 +303,7 @@ export default {
     // 导出申请单
     downloadApply () {
       let staffID = this.$store.getters.userID;
-      window.location.href = `${this.basiceUrl}exportToWord/hire/${staffID}`;
+      window.location.href = `${this.basiceUrl}/exportToWord/hire/${staffID}`;
     },
     // 前进一步
     nextButton () {
