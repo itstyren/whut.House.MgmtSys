@@ -359,3 +359,18 @@ export function postSalaryImport(data) {
     data: data
   })
 }
+
+// 获取全部部门的id和名称
+export function getAllDept() {
+  return request({
+    url: `/staffParam/getAllDept`,
+    method: 'get'
+  })
+}
+// 根据部门id获取该部门的所有员工
+export function getSimpleStaffInfo(deptId) {
+  return request({
+    url: `/staff/getSimpleStaffInfo/${deptId}`,
+    method: 'get'
+  })
+}

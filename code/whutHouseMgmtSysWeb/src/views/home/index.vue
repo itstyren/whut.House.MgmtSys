@@ -30,13 +30,15 @@ import { mapGetters } from "vuex";
 export default {
   data () {
     return {
-      currentRole: "adminDashboard"
+      currentRole: ""
     };
   },
   computed: {
-    ...mapGetters(["property"])
+    property () {
+      return this.$store.getters.property
+    }
   },
-  mounted () {
+  created () {
     if (this.property === '管理员') {
       this.currentRole = "adminDashboard";
     } else {

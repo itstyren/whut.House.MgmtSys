@@ -5,13 +5,13 @@
         <div class="third-container">
           <!-- 面包屑导航 -->
           <div class="warp-breadcrum">
-          <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }">
-              <b>首页</b>
-            </el-breadcrumb-item>
-            <el-breadcrumb-item>网上选房</el-breadcrumb-item>
-            <el-breadcrumb-item>自助选房</el-breadcrumb-item>
-          </el-breadcrumb>
+            <el-breadcrumb separator="/">
+              <el-breadcrumb-item :to="{ path: '/' }">
+                <b>首页</b>
+              </el-breadcrumb-item>
+              <el-breadcrumb-item>网上选房</el-breadcrumb-item>
+              <el-breadcrumb-item>自助选房</el-breadcrumb-item>
+            </el-breadcrumb>
           </div>
           <!-- 下方主内容 -->
           <div class="warp-body">
@@ -34,16 +34,16 @@ import admin from "./admin/index";
 import staff from "./staff/index";
 import { mapGetters } from "vuex";
 export default {
-  data() {
+  data () {
     return {
-      currentRole: "admin"
+      currentRole: ""
     };
   },
   computed: {
-    ...mapGetters(["roles"])
+    ...mapGetters(["property"])
   },
-  mounted() {
-    if (this.roles[0] == 'ADMIN') {
+  mounted () {
+    if (this.property === '管理员') {
       this.currentRole = "admin";
     } else {
       this.currentRole = "staff";

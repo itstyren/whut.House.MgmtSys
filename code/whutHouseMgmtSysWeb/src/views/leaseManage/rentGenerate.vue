@@ -226,11 +226,11 @@
                                    :page-sizes="[10,15,20,25,30]"
                                    :total="totalNum">
                     </el-pagination>
-                    <div class="bottom-tool">
+                    <!-- <div class="bottom-tool">
                       <el-button type="warning"
                                  size="small"
                                  @click="generateSelectRental">租金生成</el-button>
-                    </div>
+                    </div> -->
                   </div>
                 </keep-alive>
               </el-tab-pane>
@@ -668,12 +668,11 @@ export default {
       let filename = "租金表统计";
       this.downloadLoading = true;
       import("@/vendor/Export2Excel").then(excel => {
-        const tHeader = ["职工号", "姓名", "工作部门", "住房地址", '缴费方式', "租金"];
+        const tHeader = ["职工号", "姓名", "工作部门", '缴费方式', "租金"];
         const filterVal = [
           "staffNo",
           "staffName",
           "staffDeptName",
-          "address",
           "payType",
           "rentInitMoney"
         ];
@@ -807,17 +806,17 @@ export default {
         this.setList.push(v.houseNo);
       });
     },
-    // 生成租金
-    generateSelectRental () {
-      //console.log(this.setList)
-      this.listLoading = true;
-      const data = this.setList;
-      let params = {};
-      postHireGenerateRental(params, data).then(res => {
-        utils.statusinfo(this, res.data);
-        this.listLoading = false;
-      });
-    },
+    // // 生成租金
+    // generateSelectRental () {
+    //   //console.log(this.setList)
+    //   this.listLoading = true;
+    //   const data = this.setList;
+    //   let params = {};
+    //   postHireGenerateRental(params, data).then(res => {
+    //     utils.statusinfo(this, res.data);
+    //     this.listLoading = false;
+    //   });
+    // },
     // 时间段已经生成租金查询
     rentalQuery () {
       let data = {};

@@ -39,7 +39,6 @@
                         prop="staff">
             <el-select v-model="queryOption.staffId"
                        :clearable="true"
-                       @clear="clearStaff"
                        placeholder="全部职工"
                        style="width:250px">
               <el-option v-for="staff in staffData"
@@ -215,14 +214,9 @@ export default {
           getStaff(param, data.staffId)
             .then(res => {
               this.deptStaffData.push(res.data.data.data)
+              this.depName = this.deptStaffData.deptName
               this.totalNum = 1
               utils.statusinfo(this, res.data);
-
-            })
-            .then((res) => {
-              for (let dept of this.depData) {
-                if (dept.id == data.deptId) this.depName = dept.label;
-              }
               this.listLoading = false;
             })
           return
@@ -231,14 +225,8 @@ export default {
           .then(res => {
             this.deptStaffData = res.data.data.data.list;
             this.totalNum = res.data.data.data.total;
+            this.depName = this.deptStaffData[0].deptName
             utils.statusinfo(this, res.data);
-
-          })
-          //修改面包屑部门名称
-          .then(() => {
-            for (let dept of this.depData) {
-              if (dept.id == data.deptId) this.depName = dept.label;
-            }
             this.listLoading = false;
           })
         return

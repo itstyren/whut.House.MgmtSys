@@ -128,6 +128,7 @@ const user = {
           if (res.data.status == 'error') {
             reject('error')
           }
+          console.log("res:", res)
           const data = res.data.data
           const userRouters = JSON.parse(data.userRouters)
           addComponentDir(userRouters)
@@ -138,21 +139,15 @@ const user = {
           commit(types.SET_USERNO, userData.no)
           commit(types.SET_USERID, userData.id)
           commit(types.SET_PROPERTY, res.data.data.property)
-          commit(types.SET_HASGETUSERINFO, true)
           commit(types.SET_USERROUTERS, userRouters)
+          commit(types.SET_HASGETUSERINFO, true)
           if (logindata != null) {
             commit(types.SET_USERIP, logindata.ip)
             commit(types.SET_USERLASTLOGIN, logindata.loginTime)
 
           }
+
           resolve(res)
-          getQiniuToken().then(res => {
-            commit('SET_QINIU_TOKEN', res.data.message)
-            resolve(res)
-          }).catch(error => {
-            reject(error)
-            console.log(error)
-          })
         }).catch(error => {
           reject(error)
         })
@@ -164,6 +159,7 @@ const user = {
     }) {
       return new Promise(resolve => {
         commit(types.SET_TOKEN, '')
+        commit(types.SET_HASGETUSERINFO, false)
         removeToken()
         resolve()
       })
@@ -175,7 +171,9 @@ const user = {
       return new Promise((resolve, reject) => {
         logout().then(() => {
           commit(types.SET_TOKEN, '')
+          commit(types.SET_HASGETUSERINFO, false)
           commit(types.SET_ROLEID, -1)
+          commit(types.SET_PROPERTY, '')
           removeToken()
           resolve()
         }).catch(error => {

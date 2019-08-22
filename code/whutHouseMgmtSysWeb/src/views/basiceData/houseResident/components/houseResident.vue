@@ -219,8 +219,7 @@ export default {
   },
   methods: {
     getStaffName () {
-      //console.log(this.$store.state.residentStaffData.label);
-      this.residentForm.staffId = this.$store.state.residentStaffData.label;
+      this.residentForm.staffId = this.$store.state.residentStaffData.name;
     },
     // 获取房屋状态
     getList () {
