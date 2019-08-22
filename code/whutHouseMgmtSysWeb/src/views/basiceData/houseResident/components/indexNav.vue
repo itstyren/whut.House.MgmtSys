@@ -3,17 +3,20 @@
     <scroll-bar>
       <!-- 展开关闭按钮 -->
       <div class="filter-button">
-        <el-input v-model="filterText"
+        <el-input v-model="searchText"
                   placeholder="输入职工搜索"
                   class="filter"></el-input>
       </div>
       <!-- 主菜单 -->
-      <el-tree v-loading="listLoading"
+      <el-tree class="aside-tree"
+               v-loading="listLoading"
+               element-loading-text="加载中"
+               element-loading-spinner="el-icon-loading"
+               element-loading-background="rgba(0, 0, 0, 0.8)"
                ref="staffTree"
-               accordion
-               lazy
+               :data="depData"
                :props="props"
-               :load="handleLoadNodeData"
+               :default-expand-all="expandAll"
                :render-content="renderContent"
                @node-click="nodeClick"></el-tree>
     </scroll-bar>
@@ -21,7 +24,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getAllDept, getSimpleStaffInfo } from "@/api/basiceData";
+import { getDept, getDeptsByInput } from "@/api/basiceData";
+let _ = require("underscore");
 
 import * as types from "../../../../store/mutation-types";
 import ScrollBar from "@/components/ScrollBar";
@@ -34,23 +38,31 @@ export default {
       allDept: [],
       //搜索一名员工
       searchText: "",
+      // 部门信息加职工
+      depData: [],
       props: {
-        label: 'name',
-        // children: 'zones',
-        isLeaf: 'leaf'
-      }
+        label: (data, node) => {
+          return node.level == 1 ? node.data.staffParamName : node.data.name
+        },
+        children: 'staffModels',
+      },
+      accordion: true,
+      expandAll: false
     };
   },
   components: {
     ScrollBar
   },
   created () {
+    this.getList();
+    this.$watch('searchText', _.debounce((newVal, oldVal) => {
+      if (newVal !== oldVal) {
+        this.getStaffByNoOrName(newVal)
+      }
+    }, 1000, false))
   },
   watch: {
-    // 监听输入值
-    // filterText (val) {
-    //   this.$refs.staffTree.filter(val);
-    // }
+
   },
   methods: {
     //折叠
@@ -86,41 +98,33 @@ export default {
         );
       }
     },
-    // 懒加载部门的员工姓名和Id
-    handleLoadNodeData (node, resolve) {
-      if (node.level == 0) {
-        getAllDept()
-          .then(res => {
-            if (res.data.data.data.length === 0) return resolve([])
-            let data = res.data.data.data
-            if (data.length) {
-              data.forEach(item => {
-                item.name = item.staffParamName
-              })
-            }
-            return resolve(data)
-          })
-      }
-      if (node.data) {
-        getSimpleStaffInfo(node.data.staffParamId)
-          .then(res => {
-            if (res.data.data.data.length === 0) return resolve([])
-            let data = res.data.data.data.slice(0, 500)
-            if (data.length) {
-              data.forEach(item => {
-                item.leaf = true
-              });
-            }
-            resolve(data)
-          })
-      }
-      resolve([])
+    getList () {
+      this.listLoading = true;
+      let param = {};
+      let num = 0;
+      getDept(param)
+        .then(res => {
+          this.depData = res.data.data.deptData;
+          this.listLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
-    // 筛选函数
-    // filterNode (value, data) {
-    //   if (!value) return true;
-    //   return data.label.indexOf(value) !== -1;
-    // },
+    // 根据职工号和姓名搜索员工
+    getStaffByNoOrName (text) {
+      this.listLoading = true;
+      this.expandAll = true
+      getDeptsByInput(text).then(res => {
+        let deptData = res.data.data.deptData;
+        this.depData = deptData.filter(item => {
+          return item.staffModels.length !== 0
+        })
+        this.listLoading = false;
+      })
+
+    },
+
     // 节点被点击时的回调
     nodeClick (object, node, component) {
       if (node.level == 1) {

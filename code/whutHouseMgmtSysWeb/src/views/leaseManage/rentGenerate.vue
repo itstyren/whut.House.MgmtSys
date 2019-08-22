@@ -19,10 +19,11 @@
           <div class="toolbar card">
             <el-row type="flex"
                     align="middle">
-              <el-col :span="2">
+              <el-col :span="2"
+                      :offset="2">
                 <span>关键检索</span>
               </el-col>
-              <el-col :span="3">
+              <el-col :span="4">
                 <el-input v-model="directQuery"
                           placeholder="输入姓名或id检索"></el-input>
               </el-col>
@@ -654,8 +655,6 @@ export default {
             startTime: this.timeRange[0],
             endTime: this.timeRange[1]
           };
-        } else {
-          return true;
         }
         postHireRentalQuery(param, data).then(res => {
           const values = res.data.data.data.list;

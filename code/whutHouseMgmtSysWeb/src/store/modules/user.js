@@ -128,7 +128,6 @@ const user = {
           if (res.data.status == 'error') {
             reject('error')
           }
-          console.log("res:", res)
           const data = res.data.data
           const userRouters = JSON.parse(data.userRouters)
           addComponentDir(userRouters)

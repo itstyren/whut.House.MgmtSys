@@ -1,22 +1,29 @@
 <template>
-    <aside>
-      <scroll-bar>
+  <aside>
+    <scroll-bar>
       <!-- 展开关闭按钮 -->
       <div class="filter-button">
-        <el-input v-model="filterText" placeholder="输入关键词搜索" class="filter"></el-input>
+        <el-input v-model="filterText"
+                  placeholder="输入关键词搜索"
+                  class="filter"></el-input>
       </div>
       <!-- 主菜单 -->
-      <el-tree v-loading="listLoading" ref="hireTree" :data="hireData" :render-content="renderContent" :filter-node-method="filterNode"
-        @node-click="nodeClick"></el-tree>
-      </scroll-bar>
-    </aside>
+      <el-tree v-loading="listLoading"
+               ref="hireTree"
+               :data="hireData"
+               :render-content="renderContent"
+               :filter-node-method="filterNode"
+               @node-click="nodeClick"></el-tree>
+
+    </scroll-bar>
+  </aside>
 </template>
 
 <script type="text/ecmascript-6">
-import { getHireAccept, getHireAgree, getHireApprove,getHireContract } from "@/api/leaseManage";
+import { getHireAccept, getHireAgree, getHireApprove, getHireContract } from "@/api/leaseManage";
 import ScrollBar from "@/components/ScrollBar";
 export default {
-  data() {
+  data () {
     return {
       // 树控件需要的
       listLoading: false,
@@ -37,7 +44,7 @@ export default {
       type: Boolean
     }
   },
-  created() {
+  created () {
     //console.log(this.hireStatus)
     if (this.hireStatus == "accept") this.getHandingList();
     else if (this.hireStatus == "agree") {
@@ -47,21 +54,21 @@ export default {
   },
   watch: {
     // 监听输入值
-    filterText(val) {
+    filterText (val) {
       this.$refs.hireTree.filter(val);
     },
-    isSubmit(newVal) {
+    isSubmit (newVal) {
       this.hireData = [];
-    if (this.hireStatus == "accept") this.getHandingList();
-    else if (this.hireStatus == "agree") {
-      this.getReviewList();
-    } else if (this.hireStatus == "approve") this.getApprove();
-    else this.getContract();
+      if (this.hireStatus == "accept") this.getHandingList();
+      else if (this.hireStatus == "agree") {
+        this.getReviewList();
+      } else if (this.hireStatus == "approve") this.getApprove();
+      else this.getContract();
     }
   },
   methods: {
     // 获取所有需要受理信息
-    getHandingList() {
+    getHandingList () {
       this.listLoading = true;
       let param = {};
       // 获取未受理的
@@ -109,7 +116,7 @@ export default {
         });
     },
     // 获取需要审核的信息
-    getReviewList() {
+    getReviewList () {
       this.listLoading = true;
       let param = {};
       // 获取未受理的
@@ -157,7 +164,7 @@ export default {
         });
     },
     // 获取需要审批的信息
-    getApprove() {
+    getApprove () {
       this.listLoading = true;
       let param = {};
       // 获取审批的
@@ -205,7 +212,7 @@ export default {
         });
     },
     // 获取合同信息
-    getContract(){
+    getContract () {
       this.listLoading = true;
       let param = {};
       // 获取审批的
@@ -225,21 +232,21 @@ export default {
               status: false
             });
           });
-          this.listLoading=false
+          this.listLoading = false
         })
         .catch(err => {
           console.log(err);
         });
     },
     // 渲染函数
-    renderContent(h, { node, data, store }) {
+    renderContent (h, { node, data, store }) {
       // console.log(node);
       if (node.level == 1) {
         return (
           <span>
             <span>
               <span>
-                
+
                 <my-icon icon-class="bumen" />
                 <span class="label">{node.label}</span>
               </span>
@@ -251,7 +258,7 @@ export default {
           <span>
             <span>
               <span>
-                
+
                 <span class="label" style="font-size:13px;">{node.label}</span>
               </span>
             </span>
@@ -260,12 +267,12 @@ export default {
       }
     },
     // 筛选函数
-    filterNode(value, data) {
+    filterNode (value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
     },
     // 节点被点击时的回调
-    nodeClick(object, node, component) {
+    nodeClick (object, node, component) {
       //console.log(node);
       if (node.level == 1) {
         return;

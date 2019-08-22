@@ -374,3 +374,10 @@ export function getSimpleStaffInfo(deptId) {
     method: 'get'
   })
 }
+// 根据职工id或姓名搜索
+export function getDeptsByInput(text) {
+  return request({
+    url: `/staff/getDeptsByInput?input=${text}`,
+    method: 'get'
+  })
+}

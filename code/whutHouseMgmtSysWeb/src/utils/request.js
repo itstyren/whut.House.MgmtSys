@@ -30,8 +30,8 @@ service.interceptors.request.use(config => {
   return config
 }, error => {
   // Do something with request error
-  console.log(error) // for debug
-  Promise.reject(error)
+  console.log("请求error", error) // for debug
+  Promise.reject(`请求错误${error}`)
 })
 
 // respone interceptor
@@ -54,11 +54,10 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
-    //  401:Token 过期了;
     const err = error.response
     console.log('出现错误', err)
-    if (err.status == 401) {
+    //被登出的情况：401且本地有token
+    if (err.status == 401 && store.getters.token) {
       MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
         confirmButtonText: '重新登录',
         cancelButtonText: '取消',
@@ -68,6 +67,17 @@ service.interceptors.response.use(
           location.reload(); // 为了重新实例化vue-router对象 避免bug
         });
       })
+      return
+    }
+    //身份验证错误：401且本地没有token
+    if (err.status == 401 && !store.getters.token) {
+      Message({
+        type: 'error',
+        duration: 1000,
+        showClose: true,
+        message: '身份验证错误！'
+      })
+      return
     }
     // 403: 用户分发
     if (err.status === 403) {
@@ -78,8 +88,18 @@ service.interceptors.response.use(
       }).then(() => {
         router.go(-1);
       })
+      return
     }
-    return Promise.reject("网络异常，请检查链接")
+    if (/^50/.test(err.status)) {
+      Message({
+        type: 'error',
+        duration: 0,
+        showClose: true,
+        message: '网络异常，请检查链接!'
+      })
+      return
+    }
+    return Promise.reject(`错误码：${err.status};错误原因：${err}`)
   })
 
 export default service

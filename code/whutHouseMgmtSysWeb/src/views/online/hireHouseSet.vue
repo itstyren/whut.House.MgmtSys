@@ -21,29 +21,68 @@
           </div>
           <!-- 表格区 -->
           <div class="main-data">
-            <el-tabs v-model="activeName" type="border-card" style="margin:10px 10px 10px">
+            <el-tabs v-model="activeName"
+                     type="border-card"
+                     style="margin:10px 10px 10px">
               <el-tab-pane name="canSelect">
                 <span slot="label">
-                  <my-icon icon-class="users"></my-icon> 可选房源</span>
+                  <my-icon icon-class="users"></my-icon> 可选房源
+                </span>
                 <keep-alive>
                   <!-- 未设置选房的表格 -->
-                  <div v-if="activeName=='canSelect'" class="table-tabs">
-                    <el-table :data="activeHouseData" class="table" height="string" v-loading="listLoading" @selection-change="setSelectionChange">
-                      <el-table-column type="selection" width="55"></el-table-column>
-                      <el-table-column prop="no" label="住房号" sortable width="95" align="center"></el-table-column>
-                      <el-table-column prop="layout" label="户型" sortable width="100" align="center"></el-table-column>
-                      <el-table-column prop="usedArea" label="使用面积" width="100" sortable align="center"></el-table-column>
-                      <el-table-column prop="regionName" label="所属区域" sortable align="center"></el-table-column>
-                      <el-table-column prop="buildingName" label="所属楼栋" align="center"></el-table-column>
-                      <el-table-column prop="address" label="地址" align="center"></el-table-column>
+                  <div v-if="activeName=='canSelect'"
+                       class="table-tabs">
+                    <el-table :data="activeHouseData"
+                              class="table"
+                              height="string"
+                              @cell-click="handleClikHouse"
+                              v-loading="listLoading"
+                              @selection-change="setSelectionChange">
+                      <el-table-column type="selection"
+                                       width="55"></el-table-column>
+                      <el-table-column prop="no"
+                                       label="住房号"
+                                       sortable
+                                       width="95"
+                                       align="center"></el-table-column>
+                      <el-table-column prop="layout"
+                                       label="户型"
+                                       sortable
+                                       width="100"
+                                       align="center"></el-table-column>
+                      <el-table-column prop="usedArea"
+                                       label="使用面积"
+                                       width="100"
+                                       sortable
+                                       align="center"></el-table-column>
+                      <el-table-column prop="regionName"
+                                       label="所属区域"
+                                       sortable
+                                       align="center"></el-table-column>
+                      <el-table-column prop="buildingName"
+                                       label="所属楼栋"
+                                       align="center"></el-table-column>
+                      <el-table-column prop="address"
+                                       label="地址"
+                                       class-name="address-cursor"
+                                       align="center"></el-table-column>
                       <!-- <el-table-column prop="titleName" label="竣工时间" align="center"></el-table-column> -->
-                      <el-table-column prop="rental" label="租金" align="center"></el-table-column>
+                      <el-table-column prop="rental"
+                                       label="租金"
+                                       align="center"></el-table-column>
                     </el-table>
-                    <el-pagination background layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent" @current-change="currentChangeEvent"
-                      :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
+                    <el-pagination background
+                                   layout="total, prev, pager, next, sizes, jumper"
+                                   @size-change="sizeChangeEvent"
+                                   @current-change="currentChangeEvent"
+                                   :page-size="size"
+                                   :page-sizes="[10,15,20,25,30]"
+                                   :total="totalNum">
                     </el-pagination>
                     <div class="bottom-tool">
-                      <el-button type="primary" size="small" @click="setSelect">设为房源</el-button>
+                      <el-button type="primary"
+                                 size="small"
+                                 @click="setSelect">设为房源</el-button>
                     </div>
                   </div>
                 </keep-alive>
@@ -53,23 +92,58 @@
                 <span slot="label">
                   <my-icon icon-class="basisData" />已设置房源</span>
                 <keep-alive>
-                  <div v-if="activeName=='haveSelevt'" class="table-tabs">
-                    <el-table :data="setHouseData" class="table" height="string" v-loading="listLoading1" @selection-change="cancelSelectionChange">
-                      <el-table-column type="selection" width="55"></el-table-column>
-                      <el-table-column prop="no" label="住房号" sortable width="95" align="center"></el-table-column>
-                      <el-table-column prop="layout" label="户型" sortable width="100" align="center"></el-table-column>
-                      <el-table-column prop="usedArea" label="使用面积" width="100" sortable align="center"></el-table-column>
-                      <el-table-column prop="regionName" label="所属区域" sortable align="center"></el-table-column>
-                      <el-table-column prop="buildingName" label="所属楼栋" align="center"></el-table-column>
-                      <el-table-column prop="address" label="地址" align="center"></el-table-column>
+                  <div v-if="activeName=='haveSelevt'"
+                       class="table-tabs">
+                    <el-table :data="setHouseData"
+                              class="table"
+                              height="string"
+                              v-loading="listLoading1"
+                              @selection-change="cancelSelectionChange">
+                      <el-table-column type="selection"
+                                       width="55"></el-table-column>
+                      <el-table-column prop="no"
+                                       label="住房号"
+                                       sortable
+                                       width="95"
+                                       align="center"></el-table-column>
+                      <el-table-column prop="layout"
+                                       label="户型"
+                                       sortable
+                                       width="100"
+                                       align="center"></el-table-column>
+                      <el-table-column prop="usedArea"
+                                       label="使用面积"
+                                       width="100"
+                                       sortable
+                                       align="center"></el-table-column>
+                      <el-table-column prop="regionName"
+                                       label="所属区域"
+                                       sortable
+                                       align="center"></el-table-column>
+                      <el-table-column prop="buildingName"
+                                       label="所属楼栋"
+                                       align="center"></el-table-column>
+                      <el-table-column prop="address"
+                                       label="地址"
+                                       class-name="address-cursor"
+                                       align="center"></el-table-column>
                       <!-- <el-table-column prop="titleName" label="竣工时间" align="center"></el-table-column> -->
-                      <el-table-column prop="rental" label="租金" align="center"></el-table-column>
+                      <el-table-column prop="rental"
+                                       label="租金"
+                                       align="center"></el-table-column>
                     </el-table>
-                    <el-pagination background layout="total, prev, pager, next, sizes, jumper" @size-change="sizeChangeEvent1" @current-change="currentChangeEvent1"
-                      :page-size="size1" :page-sizes="[10,15,20,25,30]" :total="totalNum1">
+                    <el-pagination background
+                                   layout="total, prev, pager, next, sizes, jumper"
+                                   @size-change="sizeChangeEvent1"
+                                   @current-change="currentChangeEvent1"
+                                   :page-size="size1"
+                                   :page-sizes="[10,15,20,25,30]"
+                                   :total="totalNum1">
                     </el-pagination>
                     <div class="bottom-tool">
-                      <el-button type="warning" size="small" @click="cancelSelect">撤销房源</el-button>
+                      <el-button type="warning"
+                                 size="small"
+                                 @click="cancelSelect">撤销房源</el-button>
                     </div>
                   </div>
                 </keep-alive>
@@ -78,7 +152,10 @@
           </div>
         </div>
       </div>
+
     </section>
+    <house-detail-dialog :show.sync="showDialog"
+                         :houseId.sync="houseId"></house-detail-dialog>
   </div>
 </template>
 
@@ -91,8 +168,10 @@ import {
   postcancelHouse
 } from "@/api/online";
 import utils from "@/utils/index.js";
+import HouseDetailDialog from '@/components/OneHouseData'
+
 export default {
-  data() {
+  data () {
     return {
       activeName: "canSelect",
       // 表格区域
@@ -108,19 +187,22 @@ export default {
       totalNum1: 0,
       page1: 1,
       size1: 10,
-      queryData:{}
+      queryData: {},
+      houseId: 0,
+      showDialog: false
     };
   },
   components: {
-    houseFilter
+    houseFilter,
+    HouseDetailDialog
   },
-  created() {
+  created () {
     this.multiplyPostActiveHouse();
     this.multiplyPostSetHouse();
   },
   methods: {
-    queryHandle(data) {
-      this.queryData=data
+    queryHandle (data) {
+      this.queryData = data
       this.activeHouseData = [];
       this.setHouseData = [];
       this.listLoading = true;
@@ -139,7 +221,7 @@ export default {
         });
       });
     },
-    multiplyPostActiveHouse() {
+    multiplyPostActiveHouse () {
       this.activeHouseData = [];
       this.listLoading = true;
       let param = {
@@ -150,10 +232,10 @@ export default {
         utils.statusinfo(this, res.data);
         this.activeHouseData = res.data.data.data.list;
         this.totalNum = res.data.data.data.total;
-        this.listLoading=false
+        this.listLoading = false
       });
     },
-    multiplyPostSetHouse() {
+    multiplyPostSetHouse () {
       this.setHouseData = [];
       this.listLoading1 = true;
       let param = {
@@ -164,18 +246,18 @@ export default {
         utils.statusinfo(this, res.data);
         this.setHouseData = res.data.data.data.list;
         this.totalNum1 = res.data.data.data.total;
-        this.listLoading1=false
+        this.listLoading1 = false
       });
     },
     // 监听带设置房源多选
-    setSelectionChange(selection) {
+    setSelectionChange (selection) {
       this.setList = [];
       selection.forEach(v => {
         this.setList.push(v.id);
       });
     },
     // 设为房源
-    setSelect() {
+    setSelect () {
       this.listLoading = true;
       const data = this.setList;
       postSetHouse(data).then(res => {
@@ -185,14 +267,14 @@ export default {
       });
     },
     // 监听已经是房源多选
-    cancelSelectionChange(selection) {
+    cancelSelectionChange (selection) {
       this.cancelList = [];
       selection.forEach(v => {
         this.cancelList.push(v.id);
       });
     },
     // 取消可选房
-    cancelSelect() {
+    cancelSelect () {
       //console.log(this.cancelList);
       this.listLoading = true;
       const data = this.cancelList;
@@ -203,28 +285,35 @@ export default {
       });
     },
     // 更换每页数量
-    sizeChangeEvent(val) {
+    sizeChangeEvent (val) {
       this.listLoading = true;
       this.size = val;
       this.multiplyPostActiveHouse();
     },
     //页码切换时
-    currentChangeEvent(val) {
+    currentChangeEvent (val) {
       this.listLoading = true;
       this.page = val;
       this.multiplyPostActiveHouse();
     },
     //更换每页数量1
-    sizeChangeEvent1(val) {
+    sizeChangeEvent1 (val) {
       this.listLoading1 = true;
       this.size1 = val;
       this.multiplyPostSetHouse();
     },
     //页码切换时1
-    currentChangeEvent1(val) {
+    currentChangeEvent1 (val) {
       this.listLoading1 = true;
       this.page1 = val;
       this.multiplyPostSetHouse();
+    },
+    // 点击地址弹开对话框
+    handleClikHouse (row, column, cell, event) {
+      if (column.property === "address") {
+        this.showDialog = true
+        this.houseId = row.houseId
+      }
     }
   }
 };
