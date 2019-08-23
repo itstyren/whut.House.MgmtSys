@@ -52,6 +52,7 @@
                   <el-form-item label="职称">
                     <el-select v-model="staffForm.title"
                                clearable
+                               filterable
                                placeholder="请选择职称">
                       <el-option v-for="param in staffParam[7]"
                                  :key="param.staffParamId"
@@ -88,6 +89,7 @@
                                 prop="post">
                     <el-select v-model="staffForm.post"
                                clearable
+                               filterable
                                placeholder="请选择职务">
                       <el-option v-for="param in staffParam[6]"
                                  :key="param.staffParamId"
@@ -129,6 +131,7 @@
                                 prop="type">
                     <el-select v-model="staffForm.type"
                                clearable
+                               filterable
                                placeholder="请选择职工类别">
                       <el-option v-for="param in staffParam[8]"
                                  :key="param.staffParamId"
@@ -206,6 +209,7 @@
                                 prop="dept">
                     <el-select v-model="staffForm.dept"
                                clearable
+                               filterable
                                placeholder="请选择工作部门"
                                @change="handleDeptSelectionChange">
                       <el-option v-for="param in staffParam[5]"
@@ -318,10 +322,12 @@
                               :readonly="true"></el-input>
                     <el-select v-model="staffForm.spouseTitle"
                                clearable
+                               filterable
                                v-if="!isCampus"
                                placeholder="请选择职称">
                       <el-option v-for="param in staffParam[7]"
                                  :key="param.staffParamId"
+                                 filterable
                                  :label="param.staffParamName"
                                  :value="param.staffParamId"></el-option>
                     </el-select>
@@ -355,6 +361,7 @@
                               :readonly="true"></el-input>
                     <el-select v-model="staffForm.spousePost"
                                clearable
+                               filterable
                                v-if="!isCampus"
                                placeholder="请选择职务">
                       <el-option v-for="param in staffParam[6]"
@@ -443,10 +450,6 @@ export default {
           {
             required: true,
             message: "请输入手机号",
-            trigger: "blur"
-          },
-          {
-            validator: checkTel,
             trigger: "blur"
           }
         ],

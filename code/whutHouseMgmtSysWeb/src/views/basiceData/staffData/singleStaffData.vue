@@ -64,6 +64,7 @@
                               :readonly="!ismodify"></el-input>
                     <el-select v-model="staffForm.titleName"
                                clearable
+                               filterable
                                v-if="ismodify"
                                placeholder="请选择职称">
                       <el-option v-for="param in staffParam[7]"
@@ -102,6 +103,7 @@
                               :readonly="!ismodify"></el-input>
                     <el-select v-model="staffForm.postName"
                                clearable
+                               filterable
                                v-if="ismodify"
                                placeholder="请选择职务">
                       <el-option v-for="param in staffParam[6]"
@@ -151,6 +153,7 @@
                               :readonly="!ismodify"></el-input>
                     <el-select v-model="staffForm.typeName"
                                clearable
+                               filterable
                                v-if="ismodify"
                                placeholder="请选择职工类别">
                       <el-option v-for="param in staffParam[8]"
@@ -240,6 +243,7 @@
                               :readonly="!ismodify"></el-input>
                     <el-select v-model="staffForm.deptName"
                                clearable
+                               filterable
                                v-if="ismodify"
                                placeholder="请选择工作部门"
                                @change="handleDeptSelectionChange">
@@ -382,6 +386,7 @@
                               :readonly="!ismodify||isCampus"></el-input>
                     <el-select v-model="staffForm.spouseTitleName"
                                clearable
+                               filterable
                                v-if="ismodify &&!isCampus"
                                placeholder="请选择职称">
                       <el-option v-for="param in staffParam[7]"
@@ -416,6 +421,7 @@
                               :readonly="!ismodify||isCampus"></el-input>
                     <el-select v-model="staffForm.spousePostName"
                                clearable
+                               filterable
                                v-if="ismodify&&!isCampus"
                                placeholder="请选择职务">
                       <el-option v-for="param in staffParam[6]"
@@ -512,10 +518,6 @@ export default {
             required: true,
             message: "请输入手机号码",
             trigger: "blur"
-          },
-          {
-            validator: checkTel,
-            trigger: "blur"
           }
         ],
         groupName: [
@@ -596,7 +598,7 @@ export default {
             this.isCampus = false
           }
           let familyCode = res.data.data.data.familyCode
-          if (typeof familyCode !== "undefined" && typeof familyCode !== "null" && familyCode !== -1) {
+          if (typeof familyCode !== "undefined" && familyCode !== null && familyCode !== -1) {
             getStaff(param, familyCode).then(res => {
               let spouse = res.data.data.data
               this.staffForm.spouseCode = spouse.code

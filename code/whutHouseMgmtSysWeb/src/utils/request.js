@@ -93,7 +93,7 @@ service.interceptors.response.use(
     if (/^50/.test(err.status)) {
       Message({
         type: 'error',
-        duration: 0,
+        duration: 3000,
         showClose: true,
         message: '网络异常，请检查链接!'
       })
