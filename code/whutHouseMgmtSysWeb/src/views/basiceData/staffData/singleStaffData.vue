@@ -520,9 +520,9 @@ export default {
             trigger: "blur"
           }
         ],
-        groupName: [
-          { required: true, message: '请选择所属用户组', trigger: 'blur' }
-        ],
+        // groupName: [
+        //   { required: true, message: '请选择所属用户组', trigger: 'blur' }
+        // ],
         buyAccount: {
           validator: checkNum,
           trigger: "blur"

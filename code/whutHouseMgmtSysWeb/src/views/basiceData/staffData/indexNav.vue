@@ -9,13 +9,30 @@
                     class="filter"></el-input>
         </div>
         <!-- 主菜单 -->
-        <el-tree class="aside-tree"
-                 v-loading="listLoading"
+        <!-- 全部职工的时候的tree控件 -->
+        <el-tree v-show="isAllStaffShow"
+                 class="aside-tree"
+                 v-loading="allStaffListLoading"
                  element-loading-text="加载中"
                  element-loading-spinner="el-icon-loading"
                  element-loading-background="rgba(0, 0, 0, 0.8)"
-                 ref="staffTree"
-                 :data="depData"
+                 ref="AllStaffTree"
+                 accordion
+                 :data="allStaffData"
+                 :props="props"
+                 :render-content="renderContent"
+                 @node-click="nodeClick"></el-tree>
+        <!-- 部分职工的时候的tree控件 -->
+
+        <el-tree v-show="!isAllStaffShow"
+                 class="aside-tree"
+                 v-loading="partStaffListLoading"
+                 element-loading-text="加载中"
+                 element-loading-spinner="el-icon-loading"
+                 element-loading-background="rgba(0, 0, 0, 0.8)"
+                 ref="PartStaffTree"
+                 :default-expand-all="true"
+                 :data="partStaffData"
                  :props="props"
                  :render-content="renderContent"
                  @node-click="nodeClick"></el-tree>
@@ -23,7 +40,7 @@
     </aside>
     <section :class="{'special-container':staffShow,'main-container':!staffShow}">
       <transition mode="out-in">
-        <router-view :dep-data="depData"></router-view>
+        <router-view :dep-data="isAllStaffShow?allStaffData:partStaffData"></router-view>
       </transition>
     </section>
   </div>
@@ -37,13 +54,17 @@ import * as types from "../../../store/mutation-types";
 export default {
   data () {
     return {
+      // 是否显示全部员工的tree控件
+      isAllStaffShow: true,
       // 树控件需要的
-      listLoading: false,
-      allDept: [],
+      allStaffListLoading: false,
+      partStaffListLoading: false,
       //搜索一名员工
       searchText: "",
-      // 部门信息加职工
-      depData: [],
+      // 全部员工
+      allStaffData: [],
+      //搜索到的部分员工
+      partStaffData: [],
       props: {
         label: (data, node) => {
           return node.level == 1 ? node.data.staffParamName : node.data.name
@@ -58,7 +79,12 @@ export default {
   created () {
     this.getList();
     this.$watch('searchText', _.debounce((newVal, oldVal) => {
-      if (newVal !== oldVal) {
+      // 假如搜索框是空的就搜索全部员工
+      if (newVal == '') {
+        this.isAllStaffShow = true
+        this.getList()
+      } else {
+        this.isAllStaffShow = false
         this.getStaffByNoOrName(newVal)
       }
     }, 1000, false))
@@ -71,18 +97,15 @@ export default {
   watch: {
   },
   methods: {
-    //折叠
-    collapse: function () {
-      this.isCollapse = !this.isCollapse;
-    },
+    // 初始化数据
     getList () {
-      this.listLoading = true;
+      this.allStaffListLoading = true;
       let param = {};
       let num = 0;
       getDept(param)
         .then(res => {
-          this.depData = res.data.data.deptData;
-          this.listLoading = false;
+          this.allStaffData = res.data.data.deptData;
+          this.allStaffListLoading = false;
         })
         .catch(err => {
           console.log(err);
@@ -136,13 +159,13 @@ export default {
     },
     // 根据职工号和姓名搜索员工
     getStaffByNoOrName (text) {
-      this.listLoading = true;
+      this.partStaffListLoading = true;
       getDeptsByInput(text).then(res => {
         let deptData = res.data.data.deptData;
-        this.depData = deptData.filter(item => {
+        this.partStaffData = deptData.filter(item => {
           return item.staffModels.length !== 0
         })
-        this.listLoading = false;
+        this.partStaffListLoading = false;
       })
 
     }

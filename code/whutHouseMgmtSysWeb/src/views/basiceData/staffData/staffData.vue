@@ -30,9 +30,9 @@
                        style="width:250px"
                        @change="selectDeptChange">
               <el-option v-for="dept in depData"
-                         :key="dept.id"
-                         :value="dept.id"
-                         :label="dept.label"></el-option>
+                         :key="dept.staffParamId"
+                         :value="dept.staffParamId"
+                         :label="dept.staffParamName"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="姓名"
@@ -44,7 +44,7 @@
               <el-option v-for="staff in staffData"
                          :key="staff.id"
                          :value="staff.id"
-                         :label="staff.label"></el-option>
+                         :label="staff.name"></el-option>
             </el-select>
           </el-form-item>
           <el-button type="primary"
@@ -181,7 +181,7 @@ export default {
     // 监听选项的变动
     selectDept (newval) {
       for (var dept of this.depData) {
-        if (dept.id == newval) this.staffData = dept.children;
+        if (dept.staffParamId == newval) this.staffData = dept.staffModels;
       }
     },
     // 监听路由
