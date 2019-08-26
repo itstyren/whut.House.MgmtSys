@@ -302,11 +302,14 @@ export default {
       return Promise.resolve(this.staffData)
     },
 
-    //获取住房使用情况数据
+    //获取住房数据
     getHouseData () {
       if (!this.houseData.length) {
         return new Promise((resolve, reject) => {
-          getHouse().then(res => {
+          getHouse({
+            page: 1,
+            size: 9999
+          }).then(res => {
             this.houseData = res.data.data.data.list;
             resolve(this.houseData)
           }).catch(err => reject(err))
