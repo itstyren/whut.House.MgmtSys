@@ -9,7 +9,7 @@
         </div>
         <!-- 主菜单 -->
         <!-- 全部职工的时候的tree控件 -->
-        <el-tree v-show="isAllStaffShow"
+        <el-tree v-if="isAllStaffShow"
                  class="aside-tree"
                  v-loading="allStaffListLoading"
                  element-loading-text="加载中"
@@ -50,22 +50,25 @@ import ScrollBar from "@/components/ScrollBar";
 export default {
   data () {
     return {
+      isCollapse: false,
       // 树控件需要的
-      listLoading: false,
-      // 部门信息加职工
-      allDept: [],
+      // 是否显示全部员工的tree控件
+      isAllStaffShow: true,
+      // 树控件需要的
+      allStaffListLoading: false,
+      partStaffListLoading: false,
       //搜索一名员工
       searchText: "",
-      // 部门信息加职工
-      depData: [],
+      // 全部员工
+      allStaffData: [],
+      //搜索到的部分员工
+      partStaffData: [],
       props: {
         label: (data, node) => {
           return node.level == 1 ? node.data.staffParamName : node.data.name
         },
         children: 'staffModels',
       },
-      accordion: true,
-      expandAll: false
     };
   },
   components: {
@@ -161,4 +164,31 @@ export default {
 </script>
 
 <style scoped lang="scss">
+aside {
+  .asid-button {
+    margin: 10px auto 10px;
+    width: 70%;
+  }
+  .el-input__inner {
+    background: #4a5064;
+  }
+  > .el-tree {
+    height: auto;
+  }
+
+  span {
+    padding-left: 20px;
+  }
+  .scroll-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #373d41;
+    .scroll-wrapper {
+      top: 0px;
+      position: absolute;
+      width: 100% !important;
+    }
+  }
+}
 </style>
