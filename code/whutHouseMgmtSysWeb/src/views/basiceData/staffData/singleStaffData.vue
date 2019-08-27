@@ -598,7 +598,7 @@ export default {
             this.isCampus = false
           }
           let familyCode = res.data.data.data.familyCode
-          if (typeof familyCode !== "undefined" && familyCode !== null && familyCode !== -1) {
+          if (Boolean(familyCode) && familyCode !== -1) {
             getStaff(param, familyCode).then(res => {
               let spouse = res.data.data.data
               this.staffForm.spouseCode = spouse.code

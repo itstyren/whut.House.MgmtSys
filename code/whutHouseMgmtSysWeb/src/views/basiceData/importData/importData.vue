@@ -68,18 +68,21 @@
                           class="btn-m">
                     <el-button type="success"
                                size="small"
+                               :loading="staffLoading"
                                @click="handleStaffExport">职工数据导出</el-button>
                   </el-col>
                   <el-col :span="4"
                           class="btn-m">
                     <el-button type="success"
                                size="small"
+                               :loading="houseDataLoading"
                                @click="handleHouseExport">住房数据导出</el-button>
                   </el-col>
                   <el-col :span="4"
                           class="btn-m">
                     <el-button type="success"
                                size="small"
+                               :loading="houseUseLoading"
                                @click="handleHouseUseExport">住房使用情况导出</el-button>
                   </el-col>
 
@@ -160,6 +163,9 @@ export default {
   },
   data () {
     return {
+      staffLoading: false,
+      houseDataLoading: false,
+      houseUseLoading: false,
       tableData: [],
       tableHeader: [],
       itemFile: {},
@@ -255,6 +261,7 @@ export default {
     },
     //获取住房使用情况数据
     getHouseUseData () {
+      this.houseUseLoading = true
       if (!this.houseUseData.length) {
         let roleId = this.$store.getters.roleId
         let params = {
@@ -273,6 +280,7 @@ export default {
 
     //获取职工数据
     getStaffData () {
+      this.staffLoading = true
       if (!this.staffData.length) {
         let params = {
           page: 1,
@@ -284,7 +292,7 @@ export default {
             this.staffData = res.data.data.data.list;
             for (let i = 0, len = this.staffData.length; i < len; i++) {
               let familyCode = this.staffData[i].familyCode
-              if (Boolean(familyCode) > 0) {
+              if (familyCode && familyCode !== -1) {
                 getStaff({}, familyCode).then(res => {
                   let spouse = res.data.data.data
                   this.staffData[i].spouseCode = spouse.code
@@ -304,6 +312,7 @@ export default {
 
     //获取住房数据
     getHouseData () {
+      this.houseDataLoading = true
       if (!this.houseData.length) {
         return new Promise((resolve, reject) => {
           getHouse({
@@ -312,7 +321,10 @@ export default {
           }).then(res => {
             this.houseData = res.data.data.data.list;
             resolve(this.houseData)
-          }).catch(err => reject(err))
+          }).catch(err => {
+            this.houseUseLoading = false
+            reject(err)
+          })
         })
       }
       return Promise.resolve(this.houseData)
@@ -320,6 +332,7 @@ export default {
 
     // 导出住房使用情况
     handleHouseUseExport () {
+
       this.getHouseUseData().then(data => {
         let filename = "住房使用情况"
         let tHeader = ["住房号", "所属校区", "地址", "住房户型", "住房类型", "使用状态", "使用面积", "现住户", "所在部门", "入住时间"]
@@ -327,7 +340,11 @@ export default {
         let excelData = this.formatJson(filterVal, data)
         import("@/vendor/Export2Excel").then(excel => {
           excel.export_json_to_excel(tHeader, excelData, filename);
-        });
+        })
+        this.houseUseLoading = false
+      }).catch(() => {
+        this.houseUseLoading = false
+
       })
     },
     // 二维数组
@@ -338,16 +355,19 @@ export default {
     },
     // 导出职工数据
     handleStaffExport () {
-      this.getStaffData().then(data => {
+      this.getStaffData().then((data) => {
         let filename = "职工数据"
         let tHeader = ["职工编号", "姓名", "性别", "婚姻状况", "身份证号", "联系电话", "所属用户组", "职称", "职务", "职工类别", "工作状态", "工作部门", "学历", "参加工作时间", "来校工作时间", "离退休时间", "货币化补偿金", "购买校内房", "购房款", "配偶单位性质", "配偶姓名", "配偶身份证号", "配偶职称", "配偶职务", "配偶工作部门"]
         let filterVal = ["no", "name", "sex", "marriageState", "code", "tel", "groupName", "titleName", "postName", "typeName", "statusName", "deptName", "eduQualifications", "joinTime", "firstJobTime", "retireTime", "compensate", "isOwnPriHouse", "buyAccount", 'spouseKindName', "spouseName", "spouseCode", "spouseTitleName", "spousePostName", "spouseDept"]
         let excelData = this.formatJson(filterVal, data)
         import("@/vendor/Export2Excel").then(excel => {
           excel.export_json_to_excel(tHeader, excelData, filename);
-        });
-      })
+        })
+        this.staffLoading = false
 
+      }).catch(() => {
+        this.staffLoading = false
+      })
     },
     // 导出住房数据
 
@@ -359,9 +379,16 @@ export default {
         let excelData = this.formatJson(filterVal, data)
         import("@/vendor/Export2Excel").then(excel => {
           excel.export_json_to_excel(tHeader, excelData, filename);
-        });
+        })
+        this.houseDataLoading = false
+      }).catch(() => {
+        this.houseDataLoading = false
       })
     },
+    // 加载动画
+    openFullScreen () {
+      // this.loading = 
+    }
   }
 };
 </script>
