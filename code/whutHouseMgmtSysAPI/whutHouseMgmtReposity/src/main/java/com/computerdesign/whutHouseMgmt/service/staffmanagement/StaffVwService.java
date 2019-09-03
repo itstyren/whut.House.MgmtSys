@@ -110,6 +110,18 @@ public class StaffVwService implements BaseService<StaffVw> {
 	}
 	
 	/**
+	 * 根据no获取单个员工信息
+	 * @param no
+	 * @return
+	 */
+	public StaffVw getByNo(String no){
+		StaffVwExample staffVwExample = new StaffVwExample();
+		Criteria criteria = staffVwExample.createCriteria();
+		criteria.andNoEqualTo(no);
+		return staffVwMapper.selectByExample(staffVwExample).get(0);
+	}
+	
+	/**
 	 * 根据deptName获取对应的所有员工
 	 * @param deptName
 	 * @return

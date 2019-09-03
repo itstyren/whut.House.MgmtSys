@@ -132,63 +132,63 @@ public class HouseStaffExample {
             addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("Id is null");
+        public Criteria andHouseIdIsNull() {
+            addCriterion("HouseId is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("Id is not null");
+        public Criteria andHouseIdIsNotNull() {
+            addCriterion("HouseId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("Id =", value, "id");
+        public Criteria andHouseIdEqualTo(Integer value) {
+            addCriterion("HouseId =", value, "houseId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("Id <>", value, "id");
+        public Criteria andHouseIdNotEqualTo(Integer value) {
+            addCriterion("HouseId <>", value, "houseId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("Id >", value, "id");
+        public Criteria andHouseIdGreaterThan(Integer value) {
+            addCriterion("HouseId >", value, "houseId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("Id >=", value, "id");
+        public Criteria andHouseIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("HouseId >=", value, "houseId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("Id <", value, "id");
+        public Criteria andHouseIdLessThan(Integer value) {
+            addCriterion("HouseId <", value, "houseId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("Id <=", value, "id");
+        public Criteria andHouseIdLessThanOrEqualTo(Integer value) {
+            addCriterion("HouseId <=", value, "houseId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("Id in", values, "id");
+        public Criteria andHouseIdIn(List<Integer> values) {
+            addCriterion("HouseId in", values, "houseId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("Id not in", values, "id");
+        public Criteria andHouseIdNotIn(List<Integer> values) {
+            addCriterion("HouseId not in", values, "houseId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("Id between", value1, value2, "id");
+        public Criteria andHouseIdBetween(Integer value1, Integer value2) {
+            addCriterion("HouseId between", value1, value2, "houseId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("Id not between", value1, value2, "id");
+        public Criteria andHouseIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("HouseId not between", value1, value2, "houseId");
             return (Criteria) this;
         }
 
@@ -1622,76 +1622,6 @@ public class HouseStaffExample {
             return (Criteria) this;
         }
 
-        public Criteria andImageIsNull() {
-            addCriterion("Image is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageIsNotNull() {
-            addCriterion("Image is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageEqualTo(String value) {
-            addCriterion("Image =", value, "image");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageNotEqualTo(String value) {
-            addCriterion("Image <>", value, "image");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGreaterThan(String value) {
-            addCriterion("Image >", value, "image");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGreaterThanOrEqualTo(String value) {
-            addCriterion("Image >=", value, "image");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageLessThan(String value) {
-            addCriterion("Image <", value, "image");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageLessThanOrEqualTo(String value) {
-            addCriterion("Image <=", value, "image");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageLike(String value) {
-            addCriterion("Image like", value, "image");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageNotLike(String value) {
-            addCriterion("Image not like", value, "image");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageIn(List<String> values) {
-            addCriterion("Image in", values, "image");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageNotIn(List<String> values) {
-            addCriterion("Image not in", values, "image");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageBetween(String value1, String value2) {
-            addCriterion("Image between", value1, value2, "image");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageNotBetween(String value1, String value2) {
-            addCriterion("Image not between", value1, value2, "image");
-            return (Criteria) this;
-        }
-
         public Criteria andRentalIsNull() {
             addCriterion("Rental is null");
             return (Criteria) this;
@@ -1989,66 +1919,6 @@ public class HouseStaffExample {
 
         public Criteria andStaffIdNotBetween(Integer value1, Integer value2) {
             addCriterion("StaffId not between", value1, value2, "staffId");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdIsNull() {
-            addCriterion("HouseId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdIsNotNull() {
-            addCriterion("HouseId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdEqualTo(Integer value) {
-            addCriterion("HouseId =", value, "houseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdNotEqualTo(Integer value) {
-            addCriterion("HouseId <>", value, "houseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdGreaterThan(Integer value) {
-            addCriterion("HouseId >", value, "houseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("HouseId >=", value, "houseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdLessThan(Integer value) {
-            addCriterion("HouseId <", value, "houseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdLessThanOrEqualTo(Integer value) {
-            addCriterion("HouseId <=", value, "houseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdIn(List<Integer> values) {
-            addCriterion("HouseId in", values, "houseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdNotIn(List<Integer> values) {
-            addCriterion("HouseId not in", values, "houseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdBetween(Integer value1, Integer value2) {
-            addCriterion("HouseId between", value1, value2, "houseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andHouseIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("HouseId not between", value1, value2, "houseId");
             return (Criteria) this;
         }
 

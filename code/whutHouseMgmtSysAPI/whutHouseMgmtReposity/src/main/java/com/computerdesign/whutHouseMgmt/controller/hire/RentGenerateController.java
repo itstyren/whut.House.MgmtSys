@@ -159,28 +159,35 @@ public class RentGenerateController {
 			
 			double rentMoney = 0.0;
 			
-			//99年以前入职的使用老的计算方法
-			Calendar calendar = Calendar.getInstance();
-			calendar.set(1998, 11, 31, 0, 0, 0);
-			if(staffHouse.getStaffJoinTime().getTime() < calendar.getTime().getTime()){
-				if(rentTimeRange.getStartTime() != null && rentTimeRange.getEndTime() != null){
-					rentMoney = oldCalculateRentValue(staffHouse, rentTimeRange.getStartTime(), rentTimeRange.getEndTime());
-				}else{
-					rentMoney = oldCalculateRentValue(staffHouse, staffHouse.getBookTime(), new Date());
-				}
+			if(staffHouse.getStaffJoinTime() == null){
+				rentMoney = -1;
+				rentVwShowModel.setRentInitMoney(rentMoney);
+				rentVwShowModels.add(rentVwShowModel);
 			}else{
-//				99年以后入职的使用新的计算方法
-				if(rentTimeRange.getStartTime() != null && rentTimeRange.getEndTime() != null){
-					rentMoney = calculateRentValue(staffHouse, rentTimeRange.getStartTime(), rentTimeRange.getEndTime());
+				//99年以前入职的使用老的计算方法
+				Calendar calendar = Calendar.getInstance();
+				calendar.set(1998, 11, 31, 0, 0, 0);
+				if(staffHouse.getStaffJoinTime().getTime() < calendar.getTime().getTime()){
+					if(rentTimeRange.getStartTime() != null && rentTimeRange.getEndTime() != null){
+						rentMoney = oldCalculateRentValue(staffHouse, rentTimeRange.getStartTime(), rentTimeRange.getEndTime());
+					}else{
+						rentMoney = oldCalculateRentValue(staffHouse, staffHouse.getBookTime(), new Date());
+					}
 				}else{
-					rentMoney = calculateRentValue(staffHouse, staffHouse.getBookTime(), new Date());
-				}	
+//					99年以后入职的使用新的计算方法
+					if(rentTimeRange.getStartTime() != null && rentTimeRange.getEndTime() != null){
+						rentMoney = calculateRentValue(staffHouse, rentTimeRange.getStartTime(), rentTimeRange.getEndTime());
+					}else{
+						rentMoney = calculateRentValue(staffHouse, staffHouse.getBookTime(), new Date());
+					}	
+				}
+				
+				rentMoney = Double.parseDouble(new DecimalFormat("#.00").format(rentMoney));
+				
+				rentVwShowModel.setRentInitMoney(rentMoney);
+				rentVwShowModels.add(rentVwShowModel);
 			}
 			
-			rentMoney = Double.parseDouble(new DecimalFormat("#.00").format(rentMoney));
-			
-			rentVwShowModel.setRentInitMoney(rentMoney);
-			rentVwShowModels.add(rentVwShowModel);
 		}
 		PageInfo pageInfo = new PageInfo(staffHouses);
 		pageInfo.setList(rentVwShowModels);

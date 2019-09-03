@@ -46,7 +46,7 @@ public class StaffService implements BaseService<Staff> {
 		Criteria criteria = example.createCriteria();
 		criteria.andNoEqualTo(staffNo);
 		criteria.andNameEqualTo(staffName);
-		if(staffMapper.selectByExample(example).get(0) != null){
+		if(staffMapper.selectByExample(example).size() > 0){
 			return staffMapper.selectByExample(example).get(0).getId();
 		}else{
 			return null;
@@ -146,6 +146,28 @@ public class StaffService implements BaseService<Staff> {
 		//若部门ID传入为0，则查询所有
 		if(dept != 0){			
 			criteria.andDeptEqualTo(dept);
+		}
+		return staffMapper.selectByExample(staffExample);
+		
+	}
+	
+	/**
+	 * 根据员工部门ID及模糊条件获取员工
+	 * @param no
+	 * @return
+	 */
+	public List<Staff> getByStaffDeptAndInput(Integer dept, String input){
+		StaffExample staffExample = new StaffExample();
+		Criteria criteria = staffExample.createCriteria();
+		//若部门ID传入为0，则查询所有
+		if(dept != 0){			
+			criteria.andDeptEqualTo(dept);
+		}
+		try {
+			Integer i = Integer.valueOf(input);
+			criteria.andNoLike("%" + input + "%");
+		} catch (Exception e) {
+			criteria.andNameLike("%" + input + "%");
 		}
 		return staffMapper.selectByExample(staffExample);
 		

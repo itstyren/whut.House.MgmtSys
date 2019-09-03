@@ -23,6 +23,11 @@
 		<input type="submit" value="Submit">
 	</form>
 	
+	<form action="dataImport/residentDataImport" method="post" enctype="multipart/form-data">
+		ResidentFile:<input type="file" name="residentFile">
+		<input type="submit" value="Submit">
+	</form>
+	
 	<form action="dataImport/regionImport" method="post" enctype="multipart/form-data">
 		RegionFile:<input type="file" name="regionFile">
 		<input type="submit" value="Submit">

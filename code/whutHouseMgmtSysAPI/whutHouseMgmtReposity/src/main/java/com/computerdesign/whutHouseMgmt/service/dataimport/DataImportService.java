@@ -71,10 +71,11 @@ public class DataImportService {
 	 * @param houseParamName
 	 * @return
 	 */
-	public Integer getHouseParamId(String houseParamName){
+	public Integer getHouseParamId(String houseParamName, Integer paramType){
 		HouseParameterExample example = new HouseParameterExample();
 		com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameterExample.Criteria criteria= example.createCriteria();
 		criteria.andHouseParamNameEqualTo(houseParamName);
+		criteria.andParamTypeIdEqualTo(paramType);
 		criteria.andIsDeleteEqualTo(false);
 		HouseParameter houseParameter = houseParameterMapper.selectByExample(example).get(0);
 		return houseParameter.getHouseParamId();

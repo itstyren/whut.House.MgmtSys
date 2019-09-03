@@ -3191,6 +3191,76 @@ public class ViewFixExample {
             addCriterion("IsPaySelfName not between", value1, value2, "isPaySelfName");
             return (Criteria) this;
         }
+
+        public Criteria andFixFilesIsNull() {
+            addCriterion("FixFiles is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesIsNotNull() {
+            addCriterion("FixFiles is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesEqualTo(String value) {
+            addCriterion("FixFiles =", value, "fixFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesNotEqualTo(String value) {
+            addCriterion("FixFiles <>", value, "fixFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesGreaterThan(String value) {
+            addCriterion("FixFiles >", value, "fixFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesGreaterThanOrEqualTo(String value) {
+            addCriterion("FixFiles >=", value, "fixFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesLessThan(String value) {
+            addCriterion("FixFiles <", value, "fixFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesLessThanOrEqualTo(String value) {
+            addCriterion("FixFiles <=", value, "fixFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesLike(String value) {
+            addCriterion("FixFiles like", value, "fixFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesNotLike(String value) {
+            addCriterion("FixFiles not like", value, "fixFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesIn(List<String> values) {
+            addCriterion("FixFiles in", values, "fixFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesNotIn(List<String> values) {
+            addCriterion("FixFiles not in", values, "fixFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesBetween(String value1, String value2) {
+            addCriterion("FixFiles between", value1, value2, "fixFiles");
+            return (Criteria) this;
+        }
+
+        public Criteria andFixFilesNotBetween(String value1, String value2) {
+            addCriterion("FixFiles not between", value1, value2, "fixFiles");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

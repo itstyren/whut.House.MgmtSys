@@ -14,9 +14,13 @@ public interface HouseStaffMapper {
 
     int insertSelective(HouseStaff record);
 
+    List<HouseStaff> selectByExampleWithBLOBs(HouseStaffExample example);
+
     List<HouseStaff> selectByExample(HouseStaffExample example);
 
     int updateByExampleSelective(@Param("record") HouseStaff record, @Param("example") HouseStaffExample example);
+
+    int updateByExampleWithBLOBs(@Param("record") HouseStaff record, @Param("example") HouseStaffExample example);
 
     int updateByExample(@Param("record") HouseStaff record, @Param("example") HouseStaffExample example);
 }

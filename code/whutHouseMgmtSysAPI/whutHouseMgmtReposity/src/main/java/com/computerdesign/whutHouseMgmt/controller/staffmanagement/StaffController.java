@@ -1,9 +1,13 @@
 package com.computerdesign.whutHouseMgmt.controller.staffmanagement;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.housesub.BeforePromoteData;
 import com.computerdesign.whutHouseMgmt.bean.housesub.MonetarySubVw;
+import com.computerdesign.whutHouseMgmt.bean.housesub.OneTimeMonetarySub;
 import com.computerdesign.whutHouseMgmt.bean.housesub.StaffForMonSub;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffSelectModel;
@@ -38,10 +43,12 @@ import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameterModel;
 import com.computerdesign.whutHouseMgmt.controller.BaseController;
 import com.computerdesign.whutHouseMgmt.service.housesub.BeforePromoteDataService;
 import com.computerdesign.whutHouseMgmt.service.housesub.MonetarySubVwService;
+import com.computerdesign.whutHouseMgmt.service.housesub.OneTimeMonetarySubService;
 import com.computerdesign.whutHouseMgmt.service.housesub.StaffForMonSubService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffVwService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
+import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -66,7 +73,19 @@ public class StaffController extends BaseController {
 
 	@Autowired
 	private StaffForMonSubService staffForMonSubService;
+	
+	@Autowired
+	private OneTimeMonetarySubService oneTimeMonetarySubService;
 
+	@ResponseBody
+	@RequestMapping(value = "getSimpleStaffInfo/{deptId}", method = RequestMethod.GET)
+	public Msg getSimpleStaffInfo(@PathVariable("deptId") Integer deptId){
+		List<Staff> staffs = staffService.getByStaffDept(deptId);
+		String[] fileds = { "id" ,"no", "name"};
+		List<Map<String, Object>> response = ResponseUtil.getResultMap(staffs, fileds);
+		return Msg.success().add("data", response);
+	}
+	
 	/**
 	 * 该员工设置角色
 	 * 
@@ -300,6 +319,25 @@ public class StaffController extends BaseController {
 		}
 
 	}
+	
+	/**
+	 * 根据no获取单个员工信息
+	 * 
+	 * @param no
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getByNo/{no}", method = RequestMethod.GET)
+	public Msg getByID(@PathVariable("no") String no) {
+		StaffVw staffVw = staffVwService.getByNo(no);
+
+		if (staffVw != null) {
+			return Msg.success().add("data", staffVw);
+		} else {
+			return Msg.error("无信息");
+		}
+
+	}
 
 	/**
 	 * 修改员工信息
@@ -355,42 +393,92 @@ public class StaffController extends BaseController {
 		if (staff.getId() != null) {
 			staffBeforeUpdate = staffService.get(staff.getId());
 		}
-
-		// 当职称或职务改变时，记之为晋升，并将晋升前的数据保存在hs_beforepromotedata表中
-		if (staffBeforeUpdate != null) {
-			// 记晋升
-			if (staffBeforeUpdate.getTitle() != staff.getTitle() || staffBeforeUpdate.getPost() != staff.getPost()) {
-				staff.setPromoteFlag(true);
+		
+		staffService.update(staff);
+		
+		//20190827 晋升补贴重写
+		//获取更新后的职工
+		Staff staffAfterUpdate = staffService.get(staff.getId());
+//		设置新老职工分界
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(1998, 11, 31, 0, 0, 0);
+		//老职工晋升才有补贴
+		if(staffAfterUpdate.getJoinTime() != null && staffAfterUpdate.getJoinTime().getTime() < calendar.getTime().getTime()){
+//			获取更新前的职称和职务
+			Integer beforeTitle = staffBeforeUpdate.getTitle();
+			Integer beforePost = staffBeforeUpdate.getPost();
+//			获取更新前享受的最大面积
+			Float beforeTitleArea = staffParameterSerivce.get(beforeTitle).getStaffParamHouseArea();
+			Float beforePostArea = staffParameterSerivce.get(beforePost).getStaffParamHouseArea();
+			Float beforeMaxArea = Math.max(beforeTitleArea, beforePostArea);
+//			System.out.println("beforeTitleArea:" + beforeTitleArea);
+//			System.out.println("beforePostArea:" + beforePostArea);
+//			System.out.println("beforeMaxArea:" + beforeMaxArea);
+			
+//			获取更新后的职称和职务
+			Integer afterTitle = staffAfterUpdate.getTitle();
+			Integer afterPost = staffAfterUpdate.getPost();
+//			获取更新后享受的最大面积
+			Float afterTitleArea = staffParameterSerivce.get(afterTitle).getStaffParamHouseArea();
+			Float afterPostArea = staffParameterSerivce.get(afterPost).getStaffParamHouseArea();
+			Float afterMaxArea = Math.max(afterTitleArea, afterPostArea);
+//			System.out.println("afterTitleArea:" + afterTitleArea);
+//			System.out.println("afterPostArea:" + afterPostArea);
+//			System.out.println("afterMaxArea:" + afterMaxArea);
+			if(afterMaxArea - beforeMaxArea > 0){
+				OneTimeMonetarySub oneTimeMonetarySub = new OneTimeMonetarySub();
+				oneTimeMonetarySub.setStaffNo(staffAfterUpdate.getNo());
+				Calendar calendar2 = Calendar.getInstance();
+				calendar2.setTime(new Date());
+				oneTimeMonetarySub.setOneTimeSubYear(calendar2.get(Calendar.YEAR) + "");
+				oneTimeMonetarySub.setRemark(calendar2.get(Calendar.YEAR) + "年晋升补贴");
+				BigDecimal subsidy = new BigDecimal(698 * (afterMaxArea - beforeMaxArea));
+				oneTimeMonetarySub.setOneTimeSubsidy(subsidy);
+				oneTimeMonetarySubService.add(oneTimeMonetarySub);
+			}else{
+				System.out.println("该职工享受面积没有增加");
 			}
-			// 保存晋升前的数据
-			// 1.查询补贴视图view_hs_monetarysub
-			// MonetarySubVw monetarySubVw =
-			// monetarySubVwService.getByStaffId(staff.getId());
-			// 修改： 1. 查询view_hs_staffformonsub
-			StaffForMonSub staffForMonSub = staffForMonSubService.getByStaffId(staff.getId());
-			// 2.保存
-			BeforePromoteData beforePromoteData = new BeforePromoteData();
-			beforePromoteData.setStaffId(staffForMonSub.getStaffId());
-			beforePromoteData.setTitleId(staffForMonSub.getTitleId());
-			beforePromoteData.setTitleName(staffForMonSub.getTitleName());
-			beforePromoteData.setPostId(staffForMonSub.getPostId());
-			beforePromoteData.setPostName(staffForMonSub.getPostName());
-			if (staffForMonSub.getMaxEnjoyArea() != null) {
-				beforePromoteData.setMaxEnjoyArea(staffForMonSub.getMaxEnjoyArea().floatValue());
-			} else {
-				beforePromoteData.setMaxEnjoyArea((float) 0.0);
-			}
-
-			// 判断该职工的记录是否存在（是否之前晋升过），若存在，则更新记录；若不存在，则插入记录
-			BeforePromoteData example = beforePromoteDataService.selectByStaffId(beforePromoteData.getStaffId());
-			if (example != null) {
-				beforePromoteData.setId(example.getId());
-				beforePromoteDataService.update(beforePromoteData);
-			} else {
-				beforePromoteDataService.add(beforePromoteData);
-			}
-
+			
+		}else{
+//			return Msg.success("");
+			System.out.println("参加工作时间为空或该职工不为老职工无法给予晋升补贴");
 		}
+
+//		// 当职称或职务改变时，记之为晋升，并将晋升前的数据保存在hs_beforepromotedata表中
+//		if (staffBeforeUpdate != null) {
+//			// 记晋升
+//			if (staffBeforeUpdate.getTitle() != staff.getTitle() || staffBeforeUpdate.getPost() != staff.getPost()) {
+//				staff.setPromoteFlag(true);
+//			}
+//			// 保存晋升前的数据
+//			// 1.查询补贴视图view_hs_monetarysub
+//			// MonetarySubVw monetarySubVw =
+//			// monetarySubVwService.getByStaffId(staff.getId());
+//			// 修改： 1. 查询view_hs_staffformonsub
+//			StaffForMonSub staffForMonSub = staffForMonSubService.getByStaffId(staff.getId());
+//			// 2.保存
+//			BeforePromoteData beforePromoteData = new BeforePromoteData();
+//			beforePromoteData.setStaffId(staffForMonSub.getStaffId());
+//			beforePromoteData.setTitleId(staffForMonSub.getTitleId());
+//			beforePromoteData.setTitleName(staffForMonSub.getTitleName());
+//			beforePromoteData.setPostId(staffForMonSub.getPostId());
+//			beforePromoteData.setPostName(staffForMonSub.getPostName());
+//			if (staffForMonSub.getMaxEnjoyArea() != null) {
+//				beforePromoteData.setMaxEnjoyArea(staffForMonSub.getMaxEnjoyArea().floatValue());
+//			} else {
+//				beforePromoteData.setMaxEnjoyArea((float) 0.0);
+//			}
+//
+//			// 判断该职工的记录是否存在（是否之前晋升过），若存在，则更新记录；若不存在，则插入记录
+//			BeforePromoteData example = beforePromoteDataService.selectByStaffId(beforePromoteData.getStaffId());
+//			if (example != null) {
+//				beforePromoteData.setId(example.getId());
+//				beforePromoteDataService.update(beforePromoteData);
+//			} else {
+//				beforePromoteDataService.add(beforePromoteData);
+//			}
+//
+//		}
 
 		// staff = staffService.get(staff.getId());
 		// System.out.println(staff.getPost());
@@ -422,7 +510,7 @@ public class StaffController extends BaseController {
 		// staffService.update(staff);
 		// return Msg.success("修改成功").add("data", staff);
 		// }
-		staffService.update(staff);
+
 		return Msg.success("修改成功").add("data", staff);
 	}
 
@@ -515,7 +603,7 @@ public class StaffController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("getDepts")
+	@RequestMapping(value = "getDepts", method = RequestMethod.GET)
 	public Msg getDepts() {
 		List<StaffParameter> depts = staffParameterSerivce.getAllByParamTypeId(5);
 		List<StaffParameterModel> deptModels = new ArrayList<StaffParameterModel>();
@@ -523,12 +611,60 @@ public class StaffController extends BaseController {
 
 			List<Staff> staffers = staffService.getByStaffDept(dept.getStaffParamId());
 			List<StaffModel> staffModels = new ArrayList<StaffModel>();
+			int i = 0;
 			for (Staff staff : staffers) {
+				i ++;
 				StaffModel staffModel = new StaffModel();
 				staffModel.setId(staff.getId());
 				staffModel.setNo(staff.getNo());
 				staffModel.setName(staff.getName());
 				staffModels.add(staffModel);
+				if(i == 50){
+					break;
+				}
+			}
+
+			StaffParameterModel deptModel = new StaffParameterModel();
+			deptModel.setStaffParamId(dept.getStaffParamId());
+			deptModel.setStaffParamName(dept.getStaffParamName());
+			deptModel.setStaffModels(staffModels);
+			deptModels.add(deptModel);
+		}
+		return Msg.success().add("deptData", deptModels);
+	}
+	
+	/**
+	 * 模糊查询获取部门职工
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getDeptsByInput", method = RequestMethod.GET)
+	public Msg getDeptsByInput(@RequestParam(value = "input") String input) {
+		try {
+			input = new String(input.getBytes("iso8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		List<StaffParameter> depts = staffParameterSerivce.getAllByParamTypeId(5);
+		List<StaffParameterModel> deptModels = new ArrayList<StaffParameterModel>();
+		for (StaffParameter dept : depts) {
+
+//			List<Staff> staffers = staffService.getByStaffDept(dept.getStaffParamId());
+			List<Staff> staffers = staffService.getByStaffDeptAndInput(dept.getStaffParamId(), input);
+			List<StaffModel> staffModels = new ArrayList<StaffModel>();
+			int i = 0;
+			for (Staff staff : staffers) {
+				i ++;
+				StaffModel staffModel = new StaffModel();
+				staffModel.setId(staff.getId());
+				staffModel.setNo(staff.getNo());
+				staffModel.setName(staff.getName());
+				staffModels.add(staffModel);
+				if(i == 50){
+					break;
+				}
 			}
 
 			StaffParameterModel deptModel = new StaffParameterModel();
@@ -575,7 +711,7 @@ public class StaffController extends BaseController {
 
 			// 用于封装需要返回的人员信息
 			List<StaffModel> staffModels = new ArrayList<StaffModel>();
-
+			
 			for (Staff staff : staffers) {
 				if (staff.getDept() == id) {
 					StaffModel staffModel = new StaffModel();
