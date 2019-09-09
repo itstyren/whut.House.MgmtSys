@@ -178,6 +178,13 @@
                               :readonly="!ismodify"></el-input>
                   </el-form-item>
                 </el-col>
+                <el-col :span="8">
+                  <el-form-item label="当前户主"
+                                prop="curHouseHostName">
+                    <el-input v-model="curHouseHostName"
+                              readonly></el-input>
+                  </el-form-item>
+                </el-col>
               </el-row>
             </div>
             <!-- 中间部分 -->
@@ -447,7 +454,7 @@
                         type="flex"
                         justify="center"
                         style="margin-left:15px;">
-                  <el-button @click="getAllResidentDataByHouseId(detailData.id)">历史使用情况</el-button>
+                  <el-button @click="residentDialogVisiable=true">历史使用情况</el-button>
                 </el-row>
 
                 <!-- 提交-取消按钮 -->
@@ -754,6 +761,8 @@ export default {
       residentDialogVisiable: false,
       // 住房历史入住记录数据
       houseResidentData: [],
+      // 当前户主名字
+      curHouseHostName: '',
       // 住房历史入住记录表格是否加载
       houseRelLoading: false,
       // 住房历史使用情况的表格是否加载
@@ -915,7 +924,8 @@ export default {
           message: "请选择使用竣工时间",
           trigger: "blur"
         }
-      }
+      },
+      houseId: 0
     };
   },
   computed: {
@@ -1060,9 +1070,35 @@ export default {
     // 显示详情页面
     showDetailDialog (index, row) {
       this.title = "房屋详情";
+      this.houseId = row.id
       this.ismodify = false;
       this.detailFormVisible = true;
       this.detailData = Object.assign({}, row);
+      getAllResidentDataByHouseId(row.id)
+        .then(res => {
+          return res.data.data.data
+        })
+        .then(data => {
+          let promises = data.map((item, index, array) => {
+            return new Promise((resolve, reject) => {
+              getStaff({}, item.staffId).then(res => {
+                data[index].staffName = res.data.data.data.name
+                data[index].deptName = res.data.data.data.deptName
+                resolve()
+              })
+            })
+          })
+          Promise.all(promises).then(() => {
+            this.houseResidentData = data
+            if (data.length !== 0 && !data[0].expireTime) {
+              this.curHouseHostName = data[0].staffName
+            } else {
+              this.curHouseHostName = "空"
+            }
+          }).catch(err => {
+            this.$message.error("获取住房历史使用情况失败")
+          })
+        })
       // 获取走马灯的图片地址
       this.allImageData = this.detailData.image ? this.detailData.image.split(',') : []
       if (this.detailData.files) {
@@ -1254,14 +1290,6 @@ export default {
       this.queryStatus = 2;
     },
 
-    // 七牛云-上传成功钩子
-    // successUpload (res, file, fileLis) {
-    //   /*       if (this.addFormVisible == false) {
-    //           this.detailData.image = this.$store.getters.qiniuURL + res.key;
-    //         } else this.addFormBody.image = this.$store.state.qiniuURL + res.key; */
-
-    // },
-    // 图片上传失败的钩子
     errorUpload (res, file) {
       this.$message1.error("图片上传失败！")
     },
@@ -1271,9 +1299,6 @@ export default {
     },
     // 获取住房历史使用情况数据
     getAllResidentDataByHouseId (houseId) {
-      this.residentDialogVisiable = true
-      this.houseResidentLoading = true
-      this.houseId = houseId
       getAllResidentDataByHouseId(houseId)
         .then(res => {
           return res.data.data.data
@@ -1290,9 +1315,13 @@ export default {
           })
           Promise.all(promises).then(() => {
             this.houseResidentData = data
-            this.houseResidentLoading = false
+            if (data.length !== 0 && !data[0].expireTime) {
+              this.curHouseHostName = data[0].staffName
+            } else {
+              this.curHouseHostName = "空"
+            }
           }).catch(err => {
-            this.$message1.error("获取住房历史使用情况失败")
+            this.$message.error("获取住房历史使用情况失败")
           })
         })
     },

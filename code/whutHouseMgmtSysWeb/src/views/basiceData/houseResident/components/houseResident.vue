@@ -286,8 +286,8 @@ export default {
                   this.listLoading = false;
                   this.$store.commit(types.RESIDENT_SUCCESS);
                   this.$emit("resident-success")
-                  this.$refs["residentForm"].resetFields();
-                  this.residentForm.staffId = this.$store.state.residentStaffData.label;
+                  // this.$refs["residentForm"].resetFields();
+                  // this.residentForm.staffId = this.$store.state.residentStaffData.label;
                 })
                 .catch(err => {
                   console.log(err);

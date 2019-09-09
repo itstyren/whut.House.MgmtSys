@@ -43,6 +43,13 @@
                         readonly></el-input>
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item label="当前户主"
+                          prop="curHouseHostName">
+              <el-input v-model="curHouseHostName"
+                        readonly></el-input>
+            </el-form-item>
+          </el-col>
         </el-row>
       </div>
       <!-- 中间部分 -->
@@ -193,7 +200,7 @@
           <el-row style="margin-left:15px;"
                   type="flex"
                   justify="center">
-            <el-button @click="getAllResidentDataByHouseId(detailData.id)">历史使用情况</el-button>
+            <el-button @click="residentDialogVisiable=true">历史使用情况</el-button>
           </el-row>
         </el-col>
       </el-row>
@@ -283,6 +290,8 @@ export default {
       houseResidentData: [],
       // 住房历史使用情况的表格是否加载
       houseResidentLoading: false,
+      // 当前户主名字
+      curHouseHostName: ''
     };
   },
   props: {
@@ -302,7 +311,8 @@ export default {
   methods: {
     // 显示住房详情的数据
     getHouseDetailDataByHouseId (houseId) {
-      getOneHouseData(this.houseId).then(res => {
+      this.detailLoading = true
+      let p1 = getOneHouseData(houseId).then(res => {
         // this.$nextTick(() => {
         this.detailData = Object.assign({}, res.data.data.data);
         // 获取走马灯的图片地址
@@ -320,18 +330,43 @@ export default {
           this.pastFileList = []
         }
       })
-      // })
-
+      // 获取住房历史纪录
+      let p2 = getAllResidentDataByHouseId(houseId)
+        .then(res => {
+          return res.data.data.data
+        })
+        .then(data => {
+          let promises = data.map((item, index, array) => {
+            return new Promise((resolve, reject) => {
+              getStaff({}, item.staffId).then(res => {
+                data[index].staffName = res.data.data.data.name
+                data[index].deptName = res.data.data.data.deptName
+                resolve()
+              })
+            })
+          })
+          Promise.all(promises).then(() => {
+            this.houseResidentData = data
+            if (data.length !== 0 && !data[0].expireTime) {
+              this.curHouseHostName = data[0].staffName
+            } else {
+              this.curHouseHostName = "空"
+            }
+          }).catch(err => {
+            this.$message.error("获取住房历史使用情况失败")
+          })
+        })
+      Promise.all([p1, p2]).then(() => {
+        this.detailLoading = false
+      })
     },
     // 详情页中点击附件直接进行下载
     handleDownloadFile (fileName) {
       let url = `${this.BASE_URL}/fileUpload/fileDownLoad?fileName=${fileName}`
       window.location.href = url
     },
-    // 获取住房历史使用情况数据
+    // 删除之后，获取住房历史使用情况数据
     getAllResidentDataByHouseId (houseId) {
-      this.residentDialogVisiable = true
-      this.houseResidentLoading = true
       getAllResidentDataByHouseId(houseId)
         .then(res => {
           return res.data.data.data
@@ -348,7 +383,11 @@ export default {
           })
           Promise.all(promises).then(() => {
             this.houseResidentData = data
-            this.houseResidentLoading = false
+            if (data.length !== 0 && !data[0].expireTime) {
+              this.curHouseHostName = data[0].staffName
+            } else {
+              this.curHouseHostName = "空"
+            }
           }).catch(err => {
             this.$message.error("获取住房历史使用情况失败")
           })
