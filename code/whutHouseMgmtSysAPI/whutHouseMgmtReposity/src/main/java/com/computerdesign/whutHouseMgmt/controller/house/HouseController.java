@@ -273,11 +273,17 @@ public class HouseController {
 		
 		// 根据传入的编号获取数据库中的该house
 		List<House> housePres = houseService.getHouseByNo(house.getNo());
+//		System.out.println("housePres:" + housePres.get(0).getId());
 		// 根据传入的id获取数据库中的该house
 		House housePre = houseService.get(house.getId());
+//		System.out.println("housePre:" + housePre.getId());
+//		System.out.println(housePre.getId().toString() == housePres.get(0).getId().toString());
+//		System.out.println(housePre.getId().toString().equals(housePres.get(0).getId().toString()));
 		if (!housePres.isEmpty()) {
 			// 根据id获取的house和根据编号获取的house不一样
-			if (housePre.getId() != housePres.get(0).getId()) {
+//			if (housePre.getId() != housePres.get(0).getId()) {
+			if (!housePre.getId().toString().equals(housePres.get(0).getId().toString())) {
+//				System.out.println("aaa");
 				return Msg.error("房屋已经存在");
 			}
 		}
