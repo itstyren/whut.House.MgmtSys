@@ -235,7 +235,12 @@ public class RentGenerateController {
 			 // 若不传查询时间区间，则显示从入住到当前时间的租金
 			 // 预定时间（入住时间先以预定时间为主）
 			 Calendar c1 = Calendar.getInstance();
-			 c1.setTime(staffHouse.getBookTime());
+			 // 若数据库中没有
+			 try {
+				c1.setTime(staffHouse.getBookTime());
+			} catch (Exception e) {
+				c1.setTime(new Date());
+			}
 			
 			 // 当前时间
 			 Calendar c2 = Calendar.getInstance();
@@ -274,11 +279,29 @@ public class RentGenerateController {
 			}
 		}
 		
+		// 当数据库中没有入住时间时，直接设置为当前时间
+		Date bookTime = null;
+		
+		if (staffHouse.getBookTime() != null){
+			bookTime = staffHouse.getBookTime();
+		}else{
+			bookTime = new Date();
+		}
+		
+		//若传入开始时间和结束时间没有设置，也给予默认值
+		if (startTime == null){
+			startTime = bookTime;
+		}
+		
+		if(endTime == null){
+			endTime = new Date();
+		}
+		
 		//当前的天数
-		long staffNowDays = MyUtils.calculateDays(staffHouse.getBookTime(), endTime);
+		long staffNowDays = MyUtils.calculateDays(bookTime, endTime);
 		
 //		查询范围有效天数
-		long staffDays = MyUtils.calculateDays(staffHouse.getBookTime(), startTime, endTime);
+		long staffDays = MyUtils.calculateDays(bookTime, startTime, endTime);
 		
 		// 每平方米的租金
 		double rentPer = houseParamService.getRentalByStruce(staffHouse.getHouseStruct());
