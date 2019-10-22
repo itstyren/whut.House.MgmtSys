@@ -298,10 +298,13 @@ public class HouseController {
 		House housePre = houseService.get(house.getId());
 		if (!housePres.isEmpty()) {
 			// 根据id获取的house和根据编号获取的house不一样
-			if (housePre.getId() != housePres.get(0).getId()) {
+//			if (housePre.getId() != housePres.get(0).getId()) {
+			if (!housePre.getId().toString().equals(housePres.get(0).getId().toString())) {
+//				System.out.println("aaa");
 				return Msg.error("房屋已经存在");
 			}
 		}
+
 		
 
 		List<Integer> houseTypeParamIds = houseParamService.getHouseParamId(1);
