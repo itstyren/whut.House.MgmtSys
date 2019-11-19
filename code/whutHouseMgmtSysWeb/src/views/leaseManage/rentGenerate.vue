@@ -756,8 +756,8 @@ export default {
       this.listLoading = true;
       let params = {
         conditionValue: this.directQuery,
-        page: this.page,
-        size: this.size
+        page: 1,
+        size: 10
       };
       getHireRenter(params).then(res => {
         utils.statusinfo(this, res.data);

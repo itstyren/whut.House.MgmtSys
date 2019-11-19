@@ -118,9 +118,10 @@ $background-color: #373d41;
   .top-bar {
     background-color: $background-color;
     color: #fff; //display: flex;
+    width: 100%;
     > .logo {
       float: left;
-      width: 59px;
+      width: 4%;
       height: 55px;
       display: flex;
       background-image: url("../../assets/logo.png");
@@ -129,9 +130,12 @@ $background-color: #373d41;
         flex-grow: 1;
       }
     }
+    > .title {
+      width: 20%;
+    }
     > .main-menu {
       float: left;
-      margin-left: 50px;
+      width: 62%;
       > .el-menu {
         height: 100%;
         /*写给不支持calc()的浏览器*/
@@ -169,8 +173,8 @@ $background-color: #373d41;
       }
     }
     > .account {
-      float: right;
-      padding-right: 12px;
+      float: left;
+      width: 14%;
       font-size: 12px;
       .right-menu-item {
         display: inline-block;
