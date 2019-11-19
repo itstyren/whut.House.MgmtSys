@@ -20,7 +20,7 @@
     "iview": "^3.4.1",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "mockjs": "^1.0.1-beta3",
     "nprogress": "^0.2.0",
     "screenfull": "^3.3.2",
