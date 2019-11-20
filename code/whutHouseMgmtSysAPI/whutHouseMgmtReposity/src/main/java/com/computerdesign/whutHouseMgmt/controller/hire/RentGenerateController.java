@@ -201,6 +201,12 @@ public class RentGenerateController {
 			// 租金
 			// 先以预定时间计算，实际应该是签订合同时间
 			Calendar c1 = Calendar.getInstance();
+			
+//			若住房没有租金时间BookTime，则自定义初始化为当前时间
+			if(staffHouse.getBookTime() == null){
+				staffHouse.setBookTime(new Date());
+			}
+			
 			c1.setTime(staffHouse.getBookTime());
 
 			// 开始时间
@@ -229,7 +235,7 @@ public class RentGenerateController {
 			
 			// 每平方米的价格*面积*天数
 			rentMoney = Double.parseDouble(new DecimalFormat("#.00")
-					.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), days)));
+					.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseUsedArea(), days)));
 			
 		}else{
 			 // 若不传查询时间区间，则显示从入住到当前时间的租金
@@ -253,7 +259,7 @@ public class RentGenerateController {
 			 60 * 24);
 			
 			 // 每平方米的价格*面积
-			 rentMoney = Double.parseDouble(new DecimalFormat("#.00").format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(),days)));
+			 rentMoney = Double.parseDouble(new DecimalFormat("#.00").format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseUsedArea(),days)));
 			}
 		return rentMoney;
 	}
@@ -353,7 +359,7 @@ public class RentGenerateController {
 			long maxDays = Math.max(staffOldDays + staffNowDays, spouseDays + staffNowDays);
 			if(maxDays <= 365 * limitYear){
 				rentMoney = Double.parseDouble(new DecimalFormat("#.00")
-						.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), staffDays)));
+						.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseUsedArea(), staffDays)));
 			}else{
 				//多出来的天数
 				long leftDays = maxDays - 365 * limitYear;
@@ -364,33 +370,33 @@ public class RentGenerateController {
 					long leftLeftDay = leftDays % 365;
 //					初始化limitYear之前的租金
 					rentMoney = Double.parseDouble(new DecimalFormat("#.00")
-							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), staffDays - leftDays)));
+							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseUsedArea(), staffDays - leftDays)));
 					for (int i = 0; i < leftYear; i++){
 						rentMoney += Double.parseDouble(new DecimalFormat("#.00")
-								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), 365, Math.pow(1.1, i + 1))));
+								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseUsedArea(), 365, Math.pow(1.1, i + 1))));
 					}
 					rentMoney += Double.parseDouble(new DecimalFormat("#.00")
-							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), leftLeftDay, Math.pow(1.1, leftYear + 1))));
+							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseUsedArea(), leftLeftDay, Math.pow(1.1, leftYear + 1))));
 				}else{
 					long leftYear = leftDays / 365;
 					long leftLeftDay = leftDays % 365;
 					//总的租金
 					for (int i = 0; i < leftYear; i++){
 						rentMoney += Double.parseDouble(new DecimalFormat("#.00")
-								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), 365, Math.pow(1.1, i + 1))));
+								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseUsedArea(), 365, Math.pow(1.1, i + 1))));
 					}
 					rentMoney += Double.parseDouble(new DecimalFormat("#.00")
-							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), leftLeftDay, Math.pow(1.1, leftYear + 1))));
+							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseUsedArea(), leftLeftDay, Math.pow(1.1, leftYear + 1))));
 					//空挡距离租金（空挡距离是指leftDays与staffDays的差） 查询租金 = 总租金 - 空挡距离租金
 					long disDays = leftDays - staffDays;
 					long disYear = disDays / 365;
 					long disLeft = disDays % 365;
 					for (int i = 0; i < disYear; i++){
 						rentMoney -= Double.parseDouble(new DecimalFormat("#.00")
-								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), 365, Math.pow(1.1, i + 1))));
+								.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseUsedArea(), 365, Math.pow(1.1, i + 1))));
 					}
 					rentMoney -= Double.parseDouble(new DecimalFormat("#.00")
-							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseBuildArea(), disLeft, Math.pow(1.1, leftYear + 1))));
+							.format(Arith.mulVariableParam(rentPer / 30, staffHouse.getHouseUsedArea(), disLeft, Math.pow(1.1, leftYear + 1))));
 				}
 				
 			}

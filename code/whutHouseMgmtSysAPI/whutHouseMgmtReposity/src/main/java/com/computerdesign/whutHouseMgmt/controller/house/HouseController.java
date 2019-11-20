@@ -74,7 +74,8 @@ public class HouseController {
 		// 每平方米的价格
 		double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
 		// 每平方米的价格*面积
-		viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+//		viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+		viewHouse.setRental(Arith.mul(rentPer, viewHouse.getUsedArea()));
 		return Msg.success().add("data", viewHouse);
 	}
 
