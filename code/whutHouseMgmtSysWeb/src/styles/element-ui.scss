@@ -257,7 +257,9 @@
 
 // 搜索员工时的加载框位置
 
-.el-loading-spinner {
-  top: 0%;
-  margin-top: 21px;
+.aside-tree {
+  .el-loading-spinner {
+    top: 0%;
+    margin-top: 21px;
+  }
 }

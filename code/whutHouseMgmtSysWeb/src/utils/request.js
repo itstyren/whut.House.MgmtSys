@@ -94,7 +94,7 @@ service.interceptors.response.use(
         type: 'error',
         duration: 3000,
         showClose: true,
-        message: '网络异常，请检查链接!'
+        message: '服务器异常！请联系管理员。'
       })
       return
     }

@@ -387,7 +387,7 @@
 import { postStaffData } from "@/api/basiceData";
 import { getStaffParam } from "@/api/sysManage";
 import { getPartAuthList } from '@/api/auth'
-import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
+import { checkNum, checkNULL, checkTel, checkCode } from "@/assets/function/validator";
 import * as OPTION from "@/assets/data/formOption";
 import utils from "@/utils/index.js";
 import SearchStaffDialog from './searchStaffDialog.vue'
@@ -442,7 +442,7 @@ export default {
             trigger: "blur"
           },
           {
-            validator: checkNum,
+            validator: checkCode,
             trigger: "blur"
           }
         ],
@@ -459,7 +459,7 @@ export default {
           trigger: "blur"
         },
         spouseCode: {
-          validator: checkNum,
+          validator: checkCode,
           trigger: "blur"
         },
         title: {

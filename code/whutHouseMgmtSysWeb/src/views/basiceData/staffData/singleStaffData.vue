@@ -445,11 +445,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getStaff, putStaffData } from "@/api/basiceData";
+import { getStaff, putStaffData, getStaffByNoOrName } from "@/api/basiceData";
 import { getStaffParam } from "@/api/sysManage";
 import { getPartAuthList } from '@/api/auth'
 import { postPromoteSubStaffID } from "@/api/monetarySub";
-import { checkNum, checkNULL, checkTel } from "@/assets/function/validator";
+import { checkNum, checkNULL, checkTel,checkCode } from "@/assets/function/validator";
 import * as OPTION from "@/assets/data/formOption";
 import utils from "@/utils/index.js";
 import SearchStaffDialog from './searchStaffDialog.vue'
@@ -509,7 +509,7 @@ export default {
             trigger: "blur"
           },
           {
-            validator: checkNum,
+            validator: checkCode,
             trigger: "blur"
           }
         ],
@@ -528,7 +528,7 @@ export default {
           trigger: "blur"
         },
         spouseCode: {
-          validator: checkNum,
+          validator: checkCode,
           trigger: "blur"
         }
       }
@@ -599,13 +599,15 @@ export default {
           }
           let familyCode = res.data.data.data.familyCode
           if (Boolean(familyCode) && familyCode !== -1) {
-            getStaff(param, familyCode).then(res => {
-              let spouse = res.data.data.data
-              this.staffForm.spouseCode = spouse.code
-              this.staffForm.spouseDept = spouse.deptName
-              this.staffForm.spouseName = `${spouse.no}-${spouse.name}`
-              this.staffForm.spousePostName = spouse.postName
-              this.staffForm.spouseTitleName = spouse.titleName
+            getStaffByNoOrName({ "conditionValue": familyCode }).then(res => {
+              let spouse = res.data.data.list
+              if (spouse.length) {
+                this.staffForm.spouseCode = spouse.code
+                this.staffForm.spouseDept = spouse.deptName
+                this.staffForm.spouseName = `${spouse.no}-${spouse.name}`
+                this.staffForm.spousePostName = spouse.postName
+                this.staffForm.spouseTitleName = spouse.titleName
+              }
             })
           }
           this.breadcrumbDeptName = this.staffForm.deptName

@@ -120,7 +120,7 @@
                                        width="100"
                                        align="center"></el-table-column>
                       <el-table-column prop="joinTime"
-                                       label="来校时间"
+                                       label="参加工作时间"
                                        width="100"
                                        align="center"></el-table-column>
                       <el-table-column prop="sex"
@@ -643,7 +643,19 @@ export default {
     },
     // 处理导出情况
     exportHandle (exportType) {
-      if (exportType == 1) this.handleDownload();
+      const loading = this.$loading({
+        lock: true,
+        text: '加载中，请稍等。',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)',
+        customClass: 'custom-download-loading'
+      });
+      if (exportType == 1) {
+        this.handleDownload();
+        this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+          loading.close();
+        });
+      }
       else {
         let param = {
           page: 1,
@@ -659,13 +671,16 @@ export default {
         postHireRentalQuery(param, data).then(res => {
           const values = res.data.data.data.list;
           this.handleDownload(values);
+          this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+            loading.close();
+          });
         });
       }
     },
     // 导出
     handleDownload (values) {
       let filename = "租金表统计";
-      this.downloadLoading = true;
+
       import("@/vendor/Export2Excel").then(excel => {
         const tHeader = ["职工号", "姓名", "工作部门", '缴费方式', "租金"];
         const filterVal = [
@@ -682,8 +697,8 @@ export default {
         let date = new Date();
         filename = filename + `(${parseTime(date, "{y}-{m}-{d}")})`;
         excel.export_json_to_excel(tHeader, data, filename);
-        this.downloadLoading = false;
-      });
+
+      })
     },
     // 缴租方式的代号替换：1：自缴。2：代扣
     payTypeFormat (id) {
@@ -749,7 +764,7 @@ export default {
     // 显示多条件查询时候
     showDialog () {
       this.dialogVisible = true;
-      this.initalGet().then((this.dialogLoading = false));
+      this.initalGet().then(() => this.dialogLoading = false).catch(err => this.dialogLoading = false);
     },
     // 直接查询的方法
     directQueryMthod () {
@@ -764,7 +779,7 @@ export default {
         this.hireStaffData = res.data.data.data.list;
         this.totalNum = res.data.data.data.total;
         this.listLoading = false;
-      });
+      }).catch(err => { this.listLoading = false })
     },
     // 多条件查询操作
     multiplyQuery () {
@@ -796,7 +811,10 @@ export default {
         this.totalNum = res.data.data.data.total;
         this.listLoading = false;
         this.listLoading1 = false;
-      });
+      }).catch(err => {
+        this.listLoading = false;
+        this.listLoading1 = false;
+      })
     },
     // 监听多选生成租金
     setSelectionChange (selection) {
@@ -835,7 +853,9 @@ export default {
         this.rentalData = res.data.data.data.list;
         this.totalNum1 = res.data.data.data.total;
         this.listLoading1 = false;
-      });
+      }).catch(err => {
+        this.listLoading1 = false;
+      })
     },
     //更换每页数量
     sizeChangeEvent (val) {
@@ -916,5 +936,8 @@ export default {
       margin-bottom: 5px;
     }
   }
+}
+.custom-download-loading {
+  font-size: 4vw;
 }
 </style>

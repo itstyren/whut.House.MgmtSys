@@ -142,6 +142,7 @@
 import UploadExcelComponent from "@/components/UploadExcel/index.vue";
 import {
   getStaff,
+  getStaffByNoOrName,
   getHouse,
   postStaffImport,
   postHouseImport,
@@ -277,37 +278,37 @@ export default {
       }
       return Promise.resolve(this.houseUseData)
     },
-
-    //获取职工数据
-    getStaffData () {
+    async getStaffData () {
       this.staffLoading = true
       if (!this.staffData.length) {
+        let data = []
         let params = {
           page: 1,
-          size: 9999
+          size: 99999
         };
-        return new Promise((resolve, reject) => {
-          //请求全部员工
-          getStaffListByMultiCondition(params, {}).then(res => {
-            this.staffData = res.data.data.data.list;
-            for (let i = 0, len = this.staffData.length; i < len; i++) {
-              let familyCode = this.staffData[i].familyCode
-              if (familyCode && familyCode !== -1) {
-                getStaff({}, familyCode).then(res => {
-                  let spouse = res.data.data.data
-                  this.staffData[i].spouseCode = spouse.code
-                  this.staffData[i].spouseDept = spouse.deptName
-                  this.staffData[i].spouseName = `${spouse.no}-${spouse.name}`
-                  this.staffData[i].spousePostName = spouse.postName
-                  this.staffData[i].spouseTitleName = spouse.titleName
-                })
-              }
-            }
-            resolve(this.staffData)
-          }).catch(err => reject(err))
+        await getStaffListByMultiCondition(params, {}).then(res => {
+          data = res.data.data.data.list
         })
+        let promises = data.map(async staff => {
+          if (staff.familyCode && staff.familyCode !== -1) {
+            await getStaffByNoOrName({ "conditionValue": staff.familyCode }).then(res => {
+              let spouse = res.data.data.data.list[0]
+              if (spouse) {
+                staff.spouseCode = spouse["code"]
+                staff.spouseDept = spouse["deptName"]
+                staff.spouseName = `${spouse["no"]}-${spouse["name"]}`
+                staff.spousePostName = spouse["postName"]
+                staff.spouseTitleName = spouse["titleName"]
+              }
+            })
+          }
+          return staff
+        })
+        for await (const promise of promises) {
+          this.staffData.push(promise)
+        }
       }
-      return Promise.resolve(this.staffData)
+      return this.staffData
     },
 
     //获取住房数据
@@ -365,7 +366,8 @@ export default {
         })
         this.staffLoading = false
 
-      }).catch(() => {
+      }).catch((err) => {
+        console.log(err)
         this.staffLoading = false
       })
     },

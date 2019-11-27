@@ -51,3 +51,15 @@ export const checkEmail = (rule, value, callback) => {
     callback();
   }
 };
+
+export const checkCode = (rule, value, callback) => {
+  // 身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X 
+  const RULES = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+  if (!value) {
+    callback();
+  } else if (!RULES.test(value)) {
+    callback(new Error("身份证格式不正确"));
+  } else {
+    callback();
+  }
+}

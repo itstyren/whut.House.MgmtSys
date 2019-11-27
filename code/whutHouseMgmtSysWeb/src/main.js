@@ -58,7 +58,7 @@ VueAMap.initAMapApiLoader({
 Vue.prototype.$message1 = function (option) {
   this.$message(Object.assign({
     showClose: true,
-    duration: 1500
+    duration: 500
   }, option))
 }
 /**
