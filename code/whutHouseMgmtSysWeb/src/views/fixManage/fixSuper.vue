@@ -1,6 +1,6 @@
 <template>
   <div class="second-container">
-    <staffIndex @emit-staff="getStaff"></staffIndex>
+    <staff-index @emit-staff="getStaff"></staff-index>
     <section class="special-container">
       <div class="third-container">
         <!-- 面包屑导航 -->
@@ -121,7 +121,7 @@ import { postFixSuper, postFixEmail } from "@/api/fixManage";
 import { getFixParam } from "@/api/sysManage";
 import utils from "@/utils/index.js";
 export default {
-  data () {
+  data() {
     return {
       // 查询需要相关的
       propQuery: "",
@@ -139,7 +139,7 @@ export default {
     };
   },
   watch: {
-    propQuery (newVal) {
+    propQuery(newVal) {
       if (typeof newVal == "number") {
         this.queryData.param = newVal;
         this.queryData.type = 0;
@@ -149,7 +149,7 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.getFixType();
   },
   components: {
@@ -159,23 +159,23 @@ export default {
   },
   methods: {
     // 从组件获取id
-    getStaff (object) {
+    getStaff(object) {
       this.propQuery = object.id;
     },
     //查询方法
-    queryMethod () {
+    queryMethod() {
       this.propQuery = this.query;
     },
-    getPropHouse (selectHouse) {
+    getPropHouse(selectHouse) {
       this.houseName = selectHouse.name;
       this.superForm.houseId = selectHouse.id;
     },
-    getPropsStaff (selectStaff) {
+    getPropsStaff(selectStaff) {
       this.staffName = selectStaff.name;
       this.superForm.staffId = selectStaff.id;
     },
     // 获取维修类型
-    getFixType () {
+    getFixType() {
       this.listLoading = true;
       let param = {};
       getFixParam(param, 16)
@@ -189,7 +189,7 @@ export default {
         });
     },
     // 维修直批提交
-    superSubmit () {
+    superSubmit() {
       this.listLoading = true;
       let params = Object.assign({}, this.superForm);
       params.directApplyMan = this.$store.getters.userName;

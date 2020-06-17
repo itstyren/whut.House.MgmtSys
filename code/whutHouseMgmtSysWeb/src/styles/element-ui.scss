@@ -255,11 +255,18 @@
   }
 }
 
-// 搜索员工时的加载框位置
+
 
 .aside-tree {
+
+  // 搜索员工时的加载框位置
   .el-loading-spinner {
     top: 0%;
     margin-top: 21px;
   }
+}
+
+//侧边栏字体统一
+aside {
+  font-size: 14px;
 }

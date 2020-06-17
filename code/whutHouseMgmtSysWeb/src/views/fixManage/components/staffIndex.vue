@@ -2,52 +2,55 @@
 
   <aside>
     <!-- 展开关闭按钮 -->
-    <div class="scroll-container">
-      <div class="scroll-wrapper">
-        <div class="asid-button">
-          <el-input v-model="searchText"
-                    placeholder="输入职工搜索"
-                    class="filter"></el-input>
-        </div>
-        <!-- 主菜单 -->
-        <!-- 全部职工的时候的tree控件 -->
-        <el-tree v-if="isAllStaffShow"
-                 class="aside-tree"
-                 v-loading="allStaffListLoading"
-                 element-loading-text="加载中"
-                 element-loading-spinner="el-icon-loading"
-                 element-loading-background="rgba(0, 0, 0, 0.8)"
-                 ref="AllStaffTree"
-                 accordion
-                 :data="allStaffData"
-                 :props="props"
-                 :render-content="renderContent"
-                 @node-click="nodeClick"></el-tree>
-        <!-- 部分职工的时候的tree控件 -->
-
-        <el-tree v-show="!isAllStaffShow"
-                 class="aside-tree"
-                 v-loading="partStaffListLoading"
-                 element-loading-text="加载中"
-                 element-loading-spinner="el-icon-loading"
-                 element-loading-background="rgba(0, 0, 0, 0.8)"
-                 ref="PartStaffTree"
-                 :default-expand-all="true"
-                 :data="partStaffData"
-                 :props="props"
-                 :render-content="renderContent"
-                 @node-click="nodeClick"></el-tree>
-
+    <scroll-bar>
+      <div class="asid-button">
+        <el-input v-model="searchText"
+                  placeholder="输入职工搜索"
+                  class="filter"></el-input>
       </div>
-    </div>
+      <!-- 主菜单 -->
+      <!-- 全部职工的时候的tree控件 -->
+      <el-tree v-if="isAllStaffShow"
+               class="aside-tree"
+               v-loading="allStaffListLoading"
+               element-loading-text="加载中"
+               element-loading-spinner="el-icon-loading"
+               element-loading-background="rgba(0, 0, 0, 0.8)"
+               ref="AllStaffTree"
+               accordion
+               :data="allStaffData"
+               :props="props"
+               :render-content="renderContent"
+               @node-click="nodeClick"></el-tree>
+      <!-- 部分职工的时候的tree控件 -->
+
+      <el-tree v-show="!isAllStaffShow"
+               class="aside-tree"
+               v-loading="partStaffListLoading"
+               element-loading-text="加载中"
+               element-loading-spinner="el-icon-loading"
+               element-loading-background="rgba(0, 0, 0, 0.8)"
+               ref="PartStaffTree"
+               :default-expand-all="true"
+               :data="partStaffData"
+               :props="props"
+               :render-content="renderContent"
+               @node-click="nodeClick"></el-tree>
+
+    </scroll-bar>
   </aside>
 </template>
 
 <script type="text/ecmascript-6">
 import { getDept, getDeptsByInput } from "@/api/basiceData";
+import ScrollBar from "@/components/ScrollBar";
+
 let _ = require("underscore");
 export default {
-  data () {
+  components: {
+    ScrollBar
+  },
+  data() {
     return {
       isCollapse: false,
       // 树控件需要的
@@ -70,7 +73,7 @@ export default {
       },
     };
   },
-  created () {
+  created() {
     this.getList();
     this.$watch('searchText', _.debounce((newVal, oldVal) => {
       // 假如搜索框是空的就搜索全部员工
@@ -96,7 +99,7 @@ export default {
     },
 
     // 渲染函数
-    renderContent (h, { node, data, store }) {
+    renderContent(h, { node, data, store }) {
       // console.log(node);
       if (node.level == 1) {
         return (
@@ -124,7 +127,7 @@ export default {
         );
       }
     },
-    getList () {
+    getList() {
       this.allStaffListLoading = true;
       let param = {};
       let num = 0;
@@ -138,7 +141,7 @@ export default {
         });
     },
     // 根据职工号和姓名搜索员工
-    getStaffByNoOrName (text) {
+    getStaffByNoOrName(text) {
       this.partStaffListLoading = true;
       getDeptsByInput(text).then(res => {
         let deptData = res.data.data.deptData;
@@ -150,7 +153,7 @@ export default {
 
     },
     // 节点被点击时的回调
-    nodeClick (object, node, component) {
+    nodeClick(object, node, component) {
       //console.log(node);
       if (node.level == 1) {
         return

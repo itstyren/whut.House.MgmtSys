@@ -1,7 +1,6 @@
 <template>
   <aside>
-    <div class="scroll-container">
-      <div class="scroll-wrapper">
+      <scroll-bar>
         <div class="asid-button">
           <el-input v-model="searchText"
                     placeholder="输入职工搜索"
@@ -36,8 +35,7 @@
                  :render-content="renderContent"
                  @node-click="nodeClick"></el-tree>
 
-      </div>
-    </div>
+         </scroll-bar>
   </aside>
 </template>
 
