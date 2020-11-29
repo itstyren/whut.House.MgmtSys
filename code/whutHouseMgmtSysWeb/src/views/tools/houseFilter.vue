@@ -303,11 +303,9 @@ export default {
       this.regionId = "";
       this.buildingId = "";
     },
-    // handleSelectChange(selectBool){
-    //   if(selectBool){
-
-    //   }
-    // }
+    handleSelectChange (selectBool) {
+      // 
+    }
   }
 };
 
