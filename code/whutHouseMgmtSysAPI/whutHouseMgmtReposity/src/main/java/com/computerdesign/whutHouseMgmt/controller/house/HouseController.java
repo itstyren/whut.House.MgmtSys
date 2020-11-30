@@ -130,7 +130,10 @@ public class HouseController {
 			// 每平方米的价格
 			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
 			// 每平方米的价格*面积
-			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea())); 
+//			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea())); 
+//			20201127 修改
+			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getUsedArea()));
+//			System.out.println(viewHouse.getUsedArea());
 		}
 		PageInfo pageInfo = new PageInfo(viewHouseList);
 
@@ -158,7 +161,10 @@ public class HouseController {
 			// 每平方米的价格
 			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
 			// 每平方米的价格*面积
-			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+//			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+//			20201127 修改
+			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getUsedArea()));
+//			System.out.println(viewHouse.getUsedArea());
 		}
 		PageInfo pageInfo = new PageInfo(viewHouseList);
 
@@ -177,7 +183,10 @@ public class HouseController {
 			// 每平方米的价格
 			double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
 			// 每平方米的价格*面积
-			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+//			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
+//			20201127 修改
+			viewHouse.setRental(Arith.mul(rentPer, viewHouse.getUsedArea()));
+//			System.out.println(viewHouse.getUsedArea());
 		}
 		PageInfo pageInfo = new PageInfo(viewHouseList);
 
