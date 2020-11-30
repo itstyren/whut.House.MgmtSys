@@ -29,8 +29,6 @@
     <result column="IsCheck" jdbcType="BIT" property="isCheck" />
     <result column="FeedBack" jdbcType="VARCHAR" property="feedBack" />
     <result column="Email" jdbcType="VARCHAR" property="email" />
-    <result column="IsPaySelf" jdbcType="BIT" property="isPaySelf" />
-    <result column="FixFiles" jdbcType="VARCHAR" property="fixFiles" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -94,7 +92,7 @@
     Id, FixContentId, Description, ApplyTime, FixState, AcceptState, AcceptNote, AcceptTime, 
     AcceptMan, AgreeState, AgreeNote, AgreeTime, AgreeMan, StaffId, HouseId, Phone, Message, 
     PriceTime, PriceMan, CheckTime, CheckMan, FixTime, FixMoney, IsOver, IsCheck, FeedBack, 
-    Email, IsPaySelf, FixFiles
+    Email
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.FixExample" resultMap="BaseResultMap">
     select
@@ -135,8 +133,8 @@
       Phone, Message, PriceTime, 
       PriceMan, CheckTime, CheckMan, 
       FixTime, FixMoney, IsOver, 
-      IsCheck, FeedBack, Email, 
-      IsPaySelf, FixFiles)
+      IsCheck, FeedBack, Email
+      )
     values (#{id,jdbcType=INTEGER}, #{fixContentId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{applyTime,jdbcType=DATE}, #{fixState,jdbcType=VARCHAR}, #{acceptState,jdbcType=VARCHAR}, 
       #{acceptNote,jdbcType=VARCHAR}, #{acceptTime,jdbcType=DATE}, #{acceptMan,jdbcType=VARCHAR}, 
@@ -145,10 +143,10 @@
       #{phone,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{priceTime,jdbcType=DATE}, 
       #{priceMan,jdbcType=VARCHAR}, #{checkTime,jdbcType=DATE}, #{checkMan,jdbcType=VARCHAR}, 
       #{fixTime,jdbcType=DATE}, #{fixMoney,jdbcType=VARCHAR}, #{isOver,jdbcType=BIT}, 
-      #{isCheck,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{isPaySelf,jdbcType=BIT}, #{fixFiles,jdbcType=VARCHAR})
+      #{isCheck,jdbcType=BIT}, #{feedBack,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.Fix" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.fix.common.Fix">
     insert into hs_fix
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -232,12 +230,6 @@
       <if test="email != null">
         Email,
       </if>
-      <if test="isPaySelf != null">
-        IsPaySelf,
-      </if>
-      <if test="fixFiles != null">
-        FixFiles,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -320,12 +312,6 @@
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="isPaySelf != null">
-        #{isPaySelf,jdbcType=BIT},
-      </if>
-      <if test="fixFiles != null">
-        #{fixFiles,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -419,12 +405,6 @@
       <if test="record.email != null">
         Email = #{record.email,jdbcType=VARCHAR},
       </if>
-      <if test="record.isPaySelf != null">
-        IsPaySelf = #{record.isPaySelf,jdbcType=BIT},
-      </if>
-      <if test="record.fixFiles != null">
-        FixFiles = #{record.fixFiles,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -458,9 +438,7 @@
       IsOver = #{record.isOver,jdbcType=BIT},
       IsCheck = #{record.isCheck,jdbcType=BIT},
       FeedBack = #{record.feedBack,jdbcType=VARCHAR},
-      Email = #{record.email,jdbcType=VARCHAR},
-      IsPaySelf = #{record.isPaySelf,jdbcType=BIT},
-      FixFiles = #{record.fixFiles,jdbcType=VARCHAR}
+      Email = #{record.email,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -546,12 +524,6 @@
       <if test="email != null">
         Email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="isPaySelf != null">
-        IsPaySelf = #{isPaySelf,jdbcType=BIT},
-      </if>
-      <if test="fixFiles != null">
-        FixFiles = #{fixFiles,jdbcType=VARCHAR},
-      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
@@ -582,9 +554,7 @@
       IsOver = #{isOver,jdbcType=BIT},
       IsCheck = #{isCheck,jdbcType=BIT},
       FeedBack = #{feedBack,jdbcType=VARCHAR},
-      Email = #{email,jdbcType=VARCHAR},
-      IsPaySelf = #{isPaySelf,jdbcType=BIT},
-      FixFiles = #{fixFiles,jdbcType=VARCHAR}
+      Email = #{email,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

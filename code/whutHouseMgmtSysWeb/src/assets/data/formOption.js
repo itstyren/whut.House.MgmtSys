@@ -37,7 +37,7 @@ export const fixBalanceCondition = [{
 }, {
   value: '4',
   label: '职工姓名'
-},]
+}, ]
 
 // 租赁管理-租金生成部分是否到期
 export const hireIsExpire = [{
@@ -47,3 +47,23 @@ export const hireIsExpire = [{
   value: 'false',
   label: '未到期'
 }, ]
+
+export const sysLogOperateType = [{
+    value: '0',
+    label: '增加',
+    type: 'success'
+  },
+  {
+    value: 1,
+    label: '删除',
+    type: 'danger'
+  }, {
+    value: 2,
+    label: '更改',
+    type: 'info'
+  }, {
+    value: 3,
+    label: '登录',
+    type: ''
+  },
+]

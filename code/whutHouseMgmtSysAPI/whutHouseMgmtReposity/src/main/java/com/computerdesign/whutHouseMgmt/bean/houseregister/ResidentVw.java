@@ -55,8 +55,6 @@ public class ResidentVw {
 
     private Boolean isDelete;
 
-    private Integer payType;
-
     public Integer getResidentId() {
         return residentId;
     }
@@ -263,13 +261,5 @@ public class ResidentVw {
 
     public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
-    }
-
-    public Integer getPayType() {
-        return payType;
-    }
-
-    public void setPayType(Integer payType) {
-        this.payType = payType;
     }
 }

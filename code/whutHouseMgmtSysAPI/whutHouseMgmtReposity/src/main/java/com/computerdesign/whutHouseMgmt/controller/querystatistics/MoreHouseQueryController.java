@@ -121,8 +121,7 @@ public class MoreHouseQueryController {
 			moreHouseQueryShows.add(moreHouseQueryShow);
 		}
 
-		PageInfo pageInfo = new PageInfo(residentVws);
-		pageInfo.setList(moreHouseQueryShows);
+		PageInfo pageInfo = new PageInfo(moreHouseQueryShows);
 
 		// MoreHouseResult moreHouseResult = new MoreHouseResult();
 		// moreHouseResult.setMoreHouseResidentNum(staffIds.size());

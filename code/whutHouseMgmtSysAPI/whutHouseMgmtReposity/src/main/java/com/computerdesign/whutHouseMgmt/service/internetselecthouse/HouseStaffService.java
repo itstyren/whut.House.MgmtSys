@@ -37,7 +37,7 @@ public class HouseStaffService {
 		HouseStaffExample houseStaffExample = new HouseStaffExample();
 		houseStaffExample.setOrderByClause("StaffId Desc");
 		Criteria criteria = houseStaffExample.createCriteria();
-		criteria.andHouseIdIn(houseIdList);
+		criteria.andIdIn(houseIdList);
 		return houseStaffMapper.selectByExample(houseStaffExample);
 	}
 

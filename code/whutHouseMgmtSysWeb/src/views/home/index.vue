@@ -1,6 +1,7 @@
 <template>
   <div class="second-container">
-    <div class="special-container">
+    <div class="special-container"
+         style="overflow:hidden">
       <div class="main-container">
         <div class="third-container">
           <!-- 面包屑导航 -->
@@ -29,13 +30,15 @@ import { mapGetters } from "vuex";
 export default {
   data () {
     return {
-      currentRole: "adminDashboard"
+      currentRole: ""
     };
   },
   computed: {
-    ...mapGetters(["property"])
+    property () {
+      return this.$store.getters.property
+    }
   },
-  mounted () {
+  created () {
     if (this.property === '管理员') {
       this.currentRole = "adminDashboard";
     } else {

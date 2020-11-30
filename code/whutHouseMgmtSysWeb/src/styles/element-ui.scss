@@ -24,9 +24,36 @@
   text-align: right;
 }
 
+// 住房详情的对话框
 .detail-modify .el-dialog {
-  margin-top: 12vh ! important;
-  width: 60%;
+  margin-top: 12vh !important;
+  width: 85%;
+}
+
+// 租赁申请单的详情
+.hireApply-detail .el-dialog {
+  margin-top: 5vh !important;
+  width: 65%;
+}
+
+.hire-apply-detail-pic {
+  .el-dialog {
+    width: 35%;
+  }
+}
+
+// 维修申请单的详情
+.fixApply-detail .el-dialog {
+  margin-top: 2vh !important;
+  width: 65%;
+
+  .el-dialog__body {
+    padding: 30px 20px 0px 20px;
+  }
+}
+
+.house-Resident-dialog .el-dialog {
+  width: 70%;
 }
 
 // 住房登记组件
@@ -193,21 +220,6 @@
   }
 }
 
-// 覆盖fixForm-filter筛选器的label字体大小
-.fixForm-filter {
-  .el-form-item__label {
-    font-size: 1.05vw;
-  }
-}
-
-// 覆盖house-filter筛选器的label字体大小
-
-.house-filter {
-  .el-form-item__label {
-    font-size: 1.1vw;
-  }
-}
-
 // 给对话框的header部分底部添加一条实线
 .el-dialog__header {
   border-bottom: 1px solid #909399;
@@ -234,4 +246,27 @@
   .el-input__inner {
     border-radius: 40px;
   }
+}
+
+// 申请单详情的地址输入框,鼠标效果为手柄
+.house-input {
+  .el-input__inner {
+    cursor: pointer !important;
+  }
+}
+
+
+
+.aside-tree {
+
+  // 搜索员工时的加载框位置
+  .el-loading-spinner {
+    top: 0%;
+    margin-top: 21px;
+  }
+}
+
+//侧边栏字体统一
+aside {
+  font-size: 14px;
 }

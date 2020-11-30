@@ -146,6 +146,9 @@
                             :offset="1">
                       <el-form-item label="预分配住房">
                         <el-input v-model="approveForm.houseAddress"
+                                  @click.native="handleShowOneHouse(approveForm.houseId)"
+                                  class="house-input"
+                                  type="button"
                                   readonly>
                         </el-input>
                       </el-form-item>
@@ -192,7 +195,9 @@
                   <el-row type="flex"
                           justify="start"
                           v-if="!status">
-                    <el-col class="agree-col-width">
+                    <el-col class="agree-col-width"
+                            :span="7"
+                            :push="1">
                       <el-form-item label="审批意见"
                                     prop="approveNote">
                         <el-input v-model="approveForm.approveNote"
@@ -205,7 +210,9 @@
                   <el-row type="flex"
                           justify="start"
                           v-if="!status">
-                    <el-col class="agree-col-width">
+                    <el-col class="agree-col-width"
+                            :span="7"
+                            :push="1">
                       <el-form-item label="审核状态"
                                     prop="approveState">
                         <el-switch v-model="approveForm.approveState"
@@ -259,6 +266,11 @@
           </div>
         </div>
       </div>
+
+      <!-- 住房详情的对话框 -->
+      <house-detail-dialog :show.sync="showDialog"
+                           :houseId.sync="houseId"></house-detail-dialog>
+
     </section>
   </div>
 </template>
@@ -267,6 +279,7 @@
 import indexNav from "./components/indexNav";
 import { putHireApprove, postHireEmail } from "@/api/leaseManage";
 import utils from "@/utils/index.js";
+import HouseDetailDialog from '@/components/OneHouseData'
 export default {
   data () {
     return {
@@ -283,12 +296,16 @@ export default {
           trigger: "blur"
         }
       },
-      dialogVisible: false
+      dialogVisible: false,
+      // 是否显示住房详情的对话框
+      showDialog: false,
+      houseId: 0
     };
   },
   // 注册组件
   components: {
-    indexNav
+    indexNav,
+    HouseDetailDialog
   },
   methods: {
     // 从子组件获取
@@ -333,12 +350,17 @@ export default {
           });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消审批"
           });
         });
-    }
+    },
+    // 点击住址,显示住房详情对话框
+    handleShowOneHouse (houseId) {
+      this.houseId = houseId
+      this.showDialog = true
+    },
   }
 };
 </script>

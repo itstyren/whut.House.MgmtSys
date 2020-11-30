@@ -29,7 +29,6 @@ public class ViewFixService {
 	public List<ViewFix> getByStaffId(Integer staffId) {
 		ViewFixExample example = new ViewFixExample();
 		Criteria criteria = example.createCriteria();
-		example.setOrderByClause("ApplyTime DESC");
 		criteria.andStaffIdEqualTo(staffId);
 		return viewFixMapper.selectByExample(example);
 	}
@@ -135,8 +134,7 @@ public class ViewFixService {
 	public List<ViewFix> getByMultiConditionWithMP(FixGetCheck fixGetCheck, List<Integer> campusIds) {
 		ViewFixExample example = new ViewFixExample();
 		Criteria criteria = example.createCriteria();
-//		example.setOrderByClause("");
-		example.setOrderByClause("IsCheck, ApplyTime DESC");
+		example.setOrderByClause("IsCheck");
 		Date startTime = fixGetCheck.getStartTime();
 		Date endTime = fixGetCheck.getEndTime();
 		Integer conditionId = fixGetCheck.getConditionId();

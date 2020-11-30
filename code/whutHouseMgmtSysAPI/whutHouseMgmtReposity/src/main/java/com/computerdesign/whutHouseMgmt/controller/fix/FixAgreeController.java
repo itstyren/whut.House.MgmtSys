@@ -55,7 +55,7 @@ public class FixAgreeController {
 			
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
 					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
-					"acceptTime", "acceptState", "houseId", "isPaySelf", "fixFiles" };
+					"acceptTime", "acceptState" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的待审核信息").add("data", response);
 		}else if (1 == agreeState) {
@@ -63,7 +63,7 @@ public class FixAgreeController {
 			
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
 					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
-					"acceptTime", "acceptState" ,"agreeMan", "agreeNote","agreeTime", "agreeState", "houseId", "isPaySelf", "fixFiles"};
+					"acceptTime", "acceptState" ,"agreeMan", "agreeNote","agreeTime", "agreeState"};
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的已经过审核操作的信息").add("data", response);
 		}else{
@@ -89,7 +89,7 @@ public class FixAgreeController {
 			
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
 					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
-					"acceptTime", "acceptState", "houseId", "isPaySelf", "fixFiles" };
+					"acceptTime", "acceptState" };
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的待审核信息").add("data", response);
 		}else if (1 == agreeState) {
@@ -97,7 +97,7 @@ public class FixAgreeController {
 			
 			String[] fileds = { "id", "fixContentId", "fixContentName", "description", "applyTime", "staffName",
 					"titleName", "postName", "deptName", "phone", "address", "acceptMan", "acceptNote",
-					"acceptTime", "acceptState" ,"agreeMan", "agreeNote","agreeTime", "agreeState", "houseId", "isPaySelf", "fixFiles"};
+					"acceptTime", "acceptState" ,"agreeMan", "agreeNote","agreeTime", "agreeState"};
 			List<Map<String, Object>> response = ResponseUtil.getResultMap(list, fileds);
 			return Msg.success("获取全部的已经过审核操作的信息").add("data", response);
 		}else{

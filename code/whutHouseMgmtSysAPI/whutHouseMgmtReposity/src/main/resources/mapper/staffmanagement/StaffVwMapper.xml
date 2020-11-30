@@ -30,7 +30,6 @@
     <result column="SpousePostName" jdbcType="VARCHAR" property="spousePostName" />
     <result column="SpouseDept" jdbcType="VARCHAR" property="spouseDept" />
     <result column="SpouseKind" jdbcType="INTEGER" property="spouseKind" />
-    <result column="SpouseKindName" jdbcType="VARCHAR" property="spouseKindName" />
     <result column="IsDeptManage" jdbcType="BIT" property="isDeptManage" />
     <result column="StaffPassword" jdbcType="VARCHAR" property="staffPassword" />
     <result column="BuyAccount" jdbcType="DECIMAL" property="buyAccount" />
@@ -110,9 +109,9 @@
     Id, No, Name, Sex, MarriageState, TitleId, TitleName, PostId, PostName, TypeId, TypeName, 
     StatusId, StatusName, deptId, DeptName, Code, EduQualifications, JoinTime, RetireTime, 
     Tel, Email, Remark, SpouseName, SpouseCode, SpouseTitleName, SpousePostName, SpouseDept, 
-    SpouseKind, SpouseKindName, IsDeptManage, StaffPassword, BuyAccount, Compensate, 
-    FixFund, SecondJoinTime, SecondRetireTime, StaffDual, Relation, DiscountRate, FamilyCode, 
-    FirstJobTime, UserName, IsOwnPriHouse, RoleId, GroupName
+    SpouseKind, IsDeptManage, StaffPassword, BuyAccount, Compensate, FixFund, SecondJoinTime, 
+    SecondRetireTime, StaffDual, Relation, DiscountRate, FamilyCode, FirstJobTime, UserName, 
+    IsOwnPriHouse, RoleId, GroupName
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVwExample" resultMap="BaseResultMap">
     select
@@ -144,13 +143,12 @@
       RetireTime, Tel, Email, 
       Remark, SpouseName, SpouseCode, 
       SpouseTitleName, SpousePostName, SpouseDept, 
-      SpouseKind, SpouseKindName, IsDeptManage, 
-      StaffPassword, BuyAccount, Compensate, 
-      FixFund, SecondJoinTime, SecondRetireTime, 
-      StaffDual, Relation, DiscountRate, 
-      FamilyCode, FirstJobTime, UserName, 
-      IsOwnPriHouse, RoleId, GroupName
-      )
+      SpouseKind, IsDeptManage, StaffPassword, 
+      BuyAccount, Compensate, FixFund, 
+      SecondJoinTime, SecondRetireTime, StaffDual, 
+      Relation, DiscountRate, FamilyCode, 
+      FirstJobTime, UserName, IsOwnPriHouse, 
+      RoleId, GroupName)
     values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{marriageState,jdbcType=VARCHAR}, #{titleId,jdbcType=INTEGER}, 
       #{titleName,jdbcType=VARCHAR}, #{postId,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR}, 
@@ -160,13 +158,12 @@
       #{retireTime,jdbcType=DATE}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{spouseName,jdbcType=VARCHAR}, #{spouseCode,jdbcType=VARCHAR}, 
       #{spouseTitleName,jdbcType=VARCHAR}, #{spousePostName,jdbcType=VARCHAR}, #{spouseDept,jdbcType=VARCHAR}, 
-      #{spouseKind,jdbcType=INTEGER}, #{spouseKindName,jdbcType=VARCHAR}, #{isDeptManage,jdbcType=BIT}, 
-      #{staffPassword,jdbcType=VARCHAR}, #{buyAccount,jdbcType=DECIMAL}, #{compensate,jdbcType=DECIMAL}, 
-      #{fixFund,jdbcType=DECIMAL}, #{secondJoinTime,jdbcType=DATE}, #{secondRetireTime,jdbcType=DATE}, 
-      #{staffDual,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, #{discountRate,jdbcType=DOUBLE}, 
-      #{familyCode,jdbcType=INTEGER}, #{firstJobTime,jdbcType=DATE}, #{userName,jdbcType=VARCHAR}, 
-      #{isOwnPriHouse,jdbcType=BIT}, #{roleId,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR}
-      )
+      #{spouseKind,jdbcType=INTEGER}, #{isDeptManage,jdbcType=BIT}, #{staffPassword,jdbcType=VARCHAR}, 
+      #{buyAccount,jdbcType=DECIMAL}, #{compensate,jdbcType=DECIMAL}, #{fixFund,jdbcType=DECIMAL}, 
+      #{secondJoinTime,jdbcType=DATE}, #{secondRetireTime,jdbcType=DATE}, #{staffDual,jdbcType=VARCHAR}, 
+      #{relation,jdbcType=VARCHAR}, #{discountRate,jdbcType=DOUBLE}, #{familyCode,jdbcType=INTEGER}, 
+      #{firstJobTime,jdbcType=DATE}, #{userName,jdbcType=VARCHAR}, #{isOwnPriHouse,jdbcType=BIT}, 
+      #{roleId,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.staffmanagement.StaffVw">
     insert into view_hs_staff
@@ -254,9 +251,6 @@
       </if>
       <if test="spouseKind != null">
         SpouseKind,
-      </if>
-      <if test="spouseKindName != null">
-        SpouseKindName,
       </if>
       <if test="isDeptManage != null">
         IsDeptManage,
@@ -391,9 +385,6 @@
       </if>
       <if test="spouseKind != null">
         #{spouseKind,jdbcType=INTEGER},
-      </if>
-      <if test="spouseKindName != null">
-        #{spouseKindName,jdbcType=VARCHAR},
       </if>
       <if test="isDeptManage != null">
         #{isDeptManage,jdbcType=BIT},
@@ -538,9 +529,6 @@
       <if test="record.spouseKind != null">
         SpouseKind = #{record.spouseKind,jdbcType=INTEGER},
       </if>
-      <if test="record.spouseKindName != null">
-        SpouseKindName = #{record.spouseKindName,jdbcType=VARCHAR},
-      </if>
       <if test="record.isDeptManage != null">
         IsDeptManage = #{record.isDeptManage,jdbcType=BIT},
       </if>
@@ -624,7 +612,6 @@
       SpousePostName = #{record.spousePostName,jdbcType=VARCHAR},
       SpouseDept = #{record.spouseDept,jdbcType=VARCHAR},
       SpouseKind = #{record.spouseKind,jdbcType=INTEGER},
-      SpouseKindName = #{record.spouseKindName,jdbcType=VARCHAR},
       IsDeptManage = #{record.isDeptManage,jdbcType=BIT},
       StaffPassword = #{record.staffPassword,jdbcType=VARCHAR},
       BuyAccount = #{record.buyAccount,jdbcType=DECIMAL},

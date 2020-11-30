@@ -65,9 +65,6 @@ public class OneTimeMonetarySubController {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1998, 11, 31, 0, 0, 0);
 		
-		System.out.println(staff.getJoinTime().getTime());
-		System.out.println(calendar.getTime().getTime());
-		
 		if(staff.getPromoteFlag() && staff.getJoinTime().getTime() < calendar.getTime().getTime()){
 			OneTimeMonetarySub oneTimeMonetarySub = new OneTimeMonetarySub();
 			oneTimeMonetarySub.setStaffNo(staff.getNo());
@@ -79,23 +76,10 @@ public class OneTimeMonetarySubController {
 			//计算补贴额
 			BeforePromoteData beforePromoteData = beforePromoteDataService.selectByStaffId(staffId);
 			//晋升前享受面积
-			double beforePromoteArea = 0;
-			try {
-				beforePromoteArea = beforePromoteData.getMaxEnjoyArea();
-			} catch (Exception e) {
-				// TODO: handle exception
-				return Msg.success();
-			}
-			
+			double beforePromoteArea = beforePromoteData.getMaxEnjoyArea();
 			//晋升后享受面积
 			MonetarySubVw monetarySubVw = monetarySubVwService.getByStaffId(staffId);
-			double afterPromoteArea = 0;
-			try {
-				afterPromoteArea = monetarySubVw.getMaxEnjoyArea();
-			} catch (Exception e) {
-				// TODO: handle exception
-				return Msg.success();
-			}
+			double afterPromoteArea = monetarySubVw.getMaxEnjoyArea();
 			if(afterPromoteArea > beforePromoteArea){
 				BigDecimal subsidy = new BigDecimal(698 * (afterPromoteArea - beforePromoteArea));
 				oneTimeMonetarySub.setOneTimeSubsidy(subsidy);

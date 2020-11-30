@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class HouseStaff {
-    private Integer houseId;
+    private Integer id;
 
     private String no;
 
@@ -53,8 +53,10 @@ public class HouseStaff {
 
     private String remark;
 
+    private String image;
+
     private Double rental;
-    
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date finishTime;
@@ -64,6 +66,8 @@ public class HouseStaff {
     private Integer residentId;
 
     private Integer staffId;
+
+    private Integer houseId;
 
     private String staffName;
 
@@ -99,14 +103,12 @@ public class HouseStaff {
 
     private Boolean isDelete;
 
-    private String image;
-
-    public Integer getHouseId() {
-        return houseId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setHouseId(Integer houseId) {
-        this.houseId = houseId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNo() {
@@ -285,6 +287,14 @@ public class HouseStaff {
         this.remark = remark == null ? null : remark.trim();
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image == null ? null : image.trim();
+    }
+
     public Double getRental() {
         return rental;
     }
@@ -323,6 +333,14 @@ public class HouseStaff {
 
     public void setStaffId(Integer staffId) {
         this.staffId = staffId;
+    }
+
+    public Integer getHouseId() {
+        return houseId;
+    }
+
+    public void setHouseId(Integer houseId) {
+        this.houseId = houseId;
     }
 
     public String getStaffName() {
@@ -435,13 +453,5 @@ public class HouseStaff {
 
     public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image == null ? null : image.trim();
     }
 }

@@ -43,7 +43,7 @@
           </el-table-column>
         </el-table>
       </div>
-      <el-pagination layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent"
+      <el-pagination background layout="total, prev, pager, next, sizes, jumper" @size-change="SizeChangeEvent" @current-change="CurrentChangeEvent"
         :page-size="size" :page-sizes="[10,15,20,25,30]" :total="totalNum">
       </el-pagination>
     </div>
@@ -268,7 +268,7 @@ export default {
         this.modifyFromBody.dayRentTimeEnd=selectTime[1]
         this.selectRowIndex = index;
       } else {
-        this.$message({
+        this.$message1({
           message: "已过选房阶段，不可编辑",
           type: "warning"
         });
@@ -338,7 +338,7 @@ export default {
             });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消删除"
           });

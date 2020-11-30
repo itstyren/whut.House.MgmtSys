@@ -9,8 +9,6 @@
     <result column="RentalNewDct" jdbcType="VARCHAR" property="rentalNewDct" />
     <result column="ParamTypeId" jdbcType="INTEGER" property="paramTypeId" />
     <result column="ParamTypeName" jdbcType="VARCHAR" property="paramTypeName" />
-    <result column="RentUpRate" jdbcType="VARCHAR" property="rentUpRate" />
-    <result column="LimitYear" jdbcType="INTEGER" property="limitYear" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -73,7 +71,7 @@
   </sql>
   <sql id="Base_Column_List">
     RentalParamId, RentalTimeDiv, RentalOldDct, RentalNewDctYear, RentalNewDct, ParamTypeId, 
-    ParamTypeName, RentUpRate, LimitYear, IsDelete
+    ParamTypeName, IsDelete
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameterExample" resultMap="BaseResultMap">
     select
@@ -81,7 +79,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from pm_rentaltype
+    from PM_RentalType
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,31 +90,29 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from pm_rentaltype
+    from PM_RentalType
     where RentalParamId = #{rentalParamId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from pm_rentaltype
+    delete from PM_RentalType
     where RentalParamId = #{rentalParamId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameterExample">
-    delete from pm_rentaltype
+    delete from PM_RentalType
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameter">
-    insert into pm_rentaltype (RentalParamId, RentalTimeDiv, RentalOldDct, 
+    insert into PM_RentalType (RentalParamId, RentalTimeDiv, RentalOldDct, 
       RentalNewDctYear, RentalNewDct, ParamTypeId, 
-      ParamTypeName, RentUpRate, LimitYear, 
-      IsDelete)
+      ParamTypeName, IsDelete)
     values (#{rentalParamId,jdbcType=INTEGER}, #{rentalTimeDiv,jdbcType=INTEGER}, #{rentalOldDct,jdbcType=VARCHAR}, 
       #{rentalNewDctYear,jdbcType=INTEGER}, #{rentalNewDct,jdbcType=VARCHAR}, #{paramTypeId,jdbcType=INTEGER}, 
-      #{paramTypeName,jdbcType=VARCHAR}, #{rentUpRate,jdbcType=VARCHAR}, #{limitYear,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=BIT})
+      #{paramTypeName,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameter">
-    insert into pm_rentaltype
+    insert into PM_RentalType
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="rentalParamId != null">
         RentalParamId,
@@ -138,12 +134,6 @@
       </if>
       <if test="paramTypeName != null">
         ParamTypeName,
-      </if>
-      <if test="rentUpRate != null">
-        RentUpRate,
-      </if>
-      <if test="limitYear != null">
-        LimitYear,
       </if>
       <if test="isDelete != null">
         IsDelete,
@@ -171,25 +161,19 @@
       <if test="paramTypeName != null">
         #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="rentUpRate != null">
-        #{rentUpRate,jdbcType=VARCHAR},
-      </if>
-      <if test="limitYear != null">
-        #{limitYear,jdbcType=INTEGER},
-      </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=BIT},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameterExample" resultType="java.lang.Long">
-    select count(*) from pm_rentaltype
+    select count(*) from PM_RentalType
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update pm_rentaltype
+    update PM_RentalType
     <set>
       <if test="record.rentalParamId != null">
         RentalParamId = #{record.rentalParamId,jdbcType=INTEGER},
@@ -212,12 +196,6 @@
       <if test="record.paramTypeName != null">
         ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.rentUpRate != null">
-        RentUpRate = #{record.rentUpRate,jdbcType=VARCHAR},
-      </if>
-      <if test="record.limitYear != null">
-        LimitYear = #{record.limitYear,jdbcType=INTEGER},
-      </if>
       <if test="record.isDelete != null">
         IsDelete = #{record.isDelete,jdbcType=BIT},
       </if>
@@ -227,7 +205,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update pm_rentaltype
+    update PM_RentalType
     set RentalParamId = #{record.rentalParamId,jdbcType=INTEGER},
       RentalTimeDiv = #{record.rentalTimeDiv,jdbcType=INTEGER},
       RentalOldDct = #{record.rentalOldDct,jdbcType=VARCHAR},
@@ -235,15 +213,13 @@
       RentalNewDct = #{record.rentalNewDct,jdbcType=VARCHAR},
       ParamTypeId = #{record.paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{record.paramTypeName,jdbcType=VARCHAR},
-      RentUpRate = #{record.rentUpRate,jdbcType=VARCHAR},
-      LimitYear = #{record.limitYear,jdbcType=INTEGER},
       IsDelete = #{record.isDelete,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameter">
-    update pm_rentaltype
+    update PM_RentalType
     <set>
       <if test="rentalTimeDiv != null">
         RentalTimeDiv = #{rentalTimeDiv,jdbcType=INTEGER},
@@ -263,12 +239,6 @@
       <if test="paramTypeName != null">
         ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="rentUpRate != null">
-        RentUpRate = #{rentUpRate,jdbcType=VARCHAR},
-      </if>
-      <if test="limitYear != null">
-        LimitYear = #{limitYear,jdbcType=INTEGER},
-      </if>
       <if test="isDelete != null">
         IsDelete = #{isDelete,jdbcType=BIT},
       </if>
@@ -276,15 +246,13 @@
     where RentalParamId = #{rentalParamId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.computerdesign.whutHouseMgmt.bean.rentalparam.RentalParameter">
-    update pm_rentaltype
+    update PM_RentalType
     set RentalTimeDiv = #{rentalTimeDiv,jdbcType=INTEGER},
       RentalOldDct = #{rentalOldDct,jdbcType=VARCHAR},
       RentalNewDctYear = #{rentalNewDctYear,jdbcType=INTEGER},
       RentalNewDct = #{rentalNewDct,jdbcType=VARCHAR},
       ParamTypeId = #{paramTypeId,jdbcType=INTEGER},
       ParamTypeName = #{paramTypeName,jdbcType=VARCHAR},
-      RentUpRate = #{rentUpRate,jdbcType=VARCHAR},
-      LimitYear = #{limitYear,jdbcType=INTEGER},
       IsDelete = #{isDelete,jdbcType=BIT}
     where RentalParamId = #{rentalParamId,jdbcType=INTEGER}
   </update>

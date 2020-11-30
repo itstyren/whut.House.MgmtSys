@@ -1,70 +1,103 @@
 <template>
-    <aside :class="{showSidebar:!isCollapse}">
-      <!-- 展开关闭按钮 -->
+
+  <aside>
+    <!-- 展开关闭按钮 -->
+    <scroll-bar>
       <div class="asid-button">
-        <el-input v-model="filterText" placeholder="输入职工搜索" class="filter"></el-input>
+        <el-input v-model="searchText"
+                  placeholder="输入职工搜索"
+                  class="filter"></el-input>
       </div>
       <!-- 主菜单 -->
-      <el-tree v-loading="listLoading" ref="staffTree" :data="depData" :render-content="renderContent" :filter-node-method="filterNode"
-        @node-click="nodeClick"></el-tree>
-    </aside>
+      <!-- 全部职工的时候的tree控件 -->
+      <el-tree v-if="isAllStaffShow"
+               class="aside-tree"
+               v-loading="allStaffListLoading"
+               element-loading-text="加载中"
+               element-loading-spinner="el-icon-loading"
+               element-loading-background="rgba(0, 0, 0, 0.8)"
+               ref="AllStaffTree"
+               accordion
+               :data="allStaffData"
+               :props="props"
+               :render-content="renderContent"
+               @node-click="nodeClick"></el-tree>
+      <!-- 部分职工的时候的tree控件 -->
+
+      <el-tree v-show="!isAllStaffShow"
+               class="aside-tree"
+               v-loading="partStaffListLoading"
+               element-loading-text="加载中"
+               element-loading-spinner="el-icon-loading"
+               element-loading-background="rgba(0, 0, 0, 0.8)"
+               ref="PartStaffTree"
+               :default-expand-all="true"
+               :data="partStaffData"
+               :props="props"
+               :render-content="renderContent"
+               @node-click="nodeClick"></el-tree>
+
+    </scroll-bar>
+  </aside>
 </template>
 
 <script type="text/ecmascript-6">
-import { getDept } from "@/api/basiceData";
+import { getDept, getDeptsByInput } from "@/api/basiceData";
+import ScrollBar from "@/components/ScrollBar";
+
+let _ = require("underscore");
 export default {
+  components: {
+    ScrollBar
+  },
   data() {
     return {
       isCollapse: false,
       // 树控件需要的
-      listLoading: false,
-      // 部门信息加职工
-      depData: [],
-      filterText: ""
+      // 是否显示全部员工的tree控件
+      isAllStaffShow: true,
+      // 树控件需要的
+      allStaffListLoading: false,
+      partStaffListLoading: false,
+      //搜索一名员工
+      searchText: "",
+      // 全部员工
+      allStaffData: [],
+      //搜索到的部分员工
+      partStaffData: [],
+      props: {
+        label: (data, node) => {
+          return node.level == 1 ? node.data.staffParamName : node.data.name
+        },
+        children: 'staffModels',
+      },
     };
   },
   created() {
     this.getList();
+    this.$watch('searchText', _.debounce((newVal, oldVal) => {
+      // 假如搜索框是空的就搜索全部员工
+      if (newVal == '') {
+        this.isAllStaffShow = true
+        this.getList()
+      } else {
+        this.isAllStaffShow = false
+        this.getStaffByNoOrName(newVal)
+      }
+    }, 1000, false))
   },
   watch: {
     // 监听输入值
-    filterText(val) {
-      this.$refs.staffTree.filter(val);
-    }
+    // filterText(val) {
+    //   this.$refs.staffTree.filter(val);
+    // }
   },
   methods: {
     //折叠
-    collapse: function() {
+    collapse: function () {
       this.isCollapse = !this.isCollapse;
     },
-    // 获取部门信息包括职工
-    getList() {
-      this.listLoading = true;
-      let param = {};
-      let num = 0;
-      getDept(param)
-        .then(res => {
-          let deptData = res.data.data.deptData;
-          deptData.forEach(dept => {
-            this.depData.push({
-              id: dept.staffParamId,
-              label: dept.staffParamName,
-              children: []
-            });
-            dept.staffModels.forEach(staff => {
-              this.depData[num].children.push({
-                id: staff.id,
-                label: staff.name
-              });
-            });
-            num++;
-          });
-          this.listLoading = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+
     // 渲染函数
     renderContent(h, { node, data, store }) {
       // console.log(node);
@@ -74,7 +107,7 @@ export default {
             <span>
               <span>
                 {" "}
-                <my-icon icon-class="bumen" />               
+                <my-icon icon-class="bumen" />
                 <span class="label">{node.label}</span>{" "}
               </span>
             </span>
@@ -86,7 +119,7 @@ export default {
             <span>
               <span>
                 {" "}
-                <my-icon icon-class="account" />               
+                <my-icon icon-class="account" />
                 <span class="label">{node.label}</span>{" "}
               </span>
             </span>
@@ -94,18 +127,38 @@ export default {
         );
       }
     },
-    // 筛选函数
-    filterNode(value, data) {
-      if (!value) return true;
-      return data.label.indexOf(value) !== -1;
+    getList() {
+      this.allStaffListLoading = true;
+      let param = {};
+      let num = 0;
+      getDept(param)
+        .then(res => {
+          this.allStaffData = res.data.data.deptData;
+          this.allStaffListLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 根据职工号和姓名搜索员工
+    getStaffByNoOrName(text) {
+      this.partStaffListLoading = true;
+      getDeptsByInput(text).then(res => {
+        let deptData = res.data.data.deptData;
+        this.partStaffData = deptData.filter(item => {
+          return item.staffModels.length !== 0
+        })
+        this.partStaffListLoading = false;
+      })
+
     },
     // 节点被点击时的回调
     nodeClick(object, node, component) {
       //console.log(node);
       if (node.level == 1) {
-          return
+        return
       } else if (node.level == 2) {
-            this.$emit("emit-staff", object);
+        this.$emit("emit-staff", object);
       }
     }
   }
@@ -127,6 +180,17 @@ aside {
 
   span {
     padding-left: 20px;
+  }
+  .scroll-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #373d41;
+    .scroll-wrapper {
+      top: 0px;
+      position: absolute;
+      width: 100% !important;
+    }
   }
 }
 </style>

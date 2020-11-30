@@ -144,7 +144,8 @@ export default {
       };
       if (arguments[0] !== undefined) var data = arguments[0];
       else var data = {};
-      postFixFormTotalRecord(data).then(res => {
+      let roleId = this.$store.getters.roleId
+      postFixFormTotalRecord(data, roleId).then(res => {
         this.numList = res.data.data
       });
     }

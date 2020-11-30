@@ -48,7 +48,6 @@ public class HouseInfoController {
 				residentHouseShowInfo.setRegionName(residentHouse.getRegionName());
 				residentHouseShowInfo.setStructName(residentHouse.getHouseStructName());
 				residentHouseShowInfo.setLayoutName(residentHouse.getHouseLayoutName());
-				residentHouseShowInfo.setHouseRelName(residentHouse.getHouseRelName());
 				residentHouseShowInfo.setIsResidentHouse(true);
 				residentHouseShowInfos.add(residentHouseShowInfo);
 			}

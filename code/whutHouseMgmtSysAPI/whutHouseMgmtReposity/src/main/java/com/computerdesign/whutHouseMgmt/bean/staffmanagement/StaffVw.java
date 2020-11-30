@@ -67,8 +67,6 @@ public class StaffVw {
     private String spouseDept;
 
     private Integer spouseKind;
-    
-    private String spouseKindName;
 
     private Boolean isDeptManage;
 
@@ -148,15 +146,7 @@ public class StaffVw {
         this.marriageState = marriageState == null ? null : marriageState.trim();
     }
 
-    public String getSpouseKindName() {
-		return spouseKindName;
-	}
-
-	public void setSpouseKindName(String spouseKindName) {
-		this.spouseKindName = spouseKindName;
-	}
-
-	public Integer getTitleId() {
+    public Integer getTitleId() {
         return titleId;
     }
 

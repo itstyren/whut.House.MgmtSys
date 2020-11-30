@@ -2552,66 +2552,6 @@ public class StaffHouseExample {
             return (Criteria) this;
         }
 
-        public Criteria andStaffSpouseNoIsNull() {
-            addCriterion("StaffSpouseNo is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffSpouseNoIsNotNull() {
-            addCriterion("StaffSpouseNo is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffSpouseNoEqualTo(Integer value) {
-            addCriterion("StaffSpouseNo =", value, "staffSpouseNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffSpouseNoNotEqualTo(Integer value) {
-            addCriterion("StaffSpouseNo <>", value, "staffSpouseNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffSpouseNoGreaterThan(Integer value) {
-            addCriterion("StaffSpouseNo >", value, "staffSpouseNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffSpouseNoGreaterThanOrEqualTo(Integer value) {
-            addCriterion("StaffSpouseNo >=", value, "staffSpouseNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffSpouseNoLessThan(Integer value) {
-            addCriterion("StaffSpouseNo <", value, "staffSpouseNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffSpouseNoLessThanOrEqualTo(Integer value) {
-            addCriterion("StaffSpouseNo <=", value, "staffSpouseNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffSpouseNoIn(List<Integer> values) {
-            addCriterion("StaffSpouseNo in", values, "staffSpouseNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffSpouseNoNotIn(List<Integer> values) {
-            addCriterion("StaffSpouseNo not in", values, "staffSpouseNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffSpouseNoBetween(Integer value1, Integer value2) {
-            addCriterion("StaffSpouseNo between", value1, value2, "staffSpouseNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffSpouseNoNotBetween(Integer value1, Integer value2) {
-            addCriterion("StaffSpouseNo not between", value1, value2, "staffSpouseNo");
-            return (Criteria) this;
-        }
-
         public Criteria andStaffSpouseKindIsNull() {
             addCriterion("StaffSpouseKind is null");
             return (Criteria) this;
@@ -5289,66 +5229,6 @@ public class StaffHouseExample {
 
         public Criteria andLastRentTimeNotBetween(Date value1, Date value2) {
             addCriterion("LastRentTime not between", value1, value2, "lastRentTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeIsNull() {
-            addCriterion("PayType is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeIsNotNull() {
-            addCriterion("PayType is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeEqualTo(Integer value) {
-            addCriterion("PayType =", value, "payType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeNotEqualTo(Integer value) {
-            addCriterion("PayType <>", value, "payType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeGreaterThan(Integer value) {
-            addCriterion("PayType >", value, "payType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("PayType >=", value, "payType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeLessThan(Integer value) {
-            addCriterion("PayType <", value, "payType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("PayType <=", value, "payType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeIn(List<Integer> values) {
-            addCriterion("PayType in", values, "payType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeNotIn(List<Integer> values) {
-            addCriterion("PayType not in", values, "payType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeBetween(Integer value1, Integer value2) {
-            addCriterion("PayType between", value1, value2, "payType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPayTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("PayType not between", value1, value2, "payType");
             return (Criteria) this;
         }
     }

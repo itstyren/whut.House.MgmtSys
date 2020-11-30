@@ -140,7 +140,7 @@ export default {
   },
   watch: {
     filterText (val) {
-      this.$refs.permissionTree.filter(val);
+      this.$refs.tree.filter(val);
     }
   },
   methods: {
@@ -162,7 +162,6 @@ export default {
       return newArr
     },
     setCheckedKeys (checkedKeys) {
-      console.log("checkedKeys:", checkedKeys)
       if (checkedKeys) {
         let checkedRouter = JSON.parse(checkedKeys)
         this.$refs.tree.setCheckedKeys(this.recursiveCheckedKeys(checkedRouter))
@@ -220,11 +219,10 @@ export default {
         let groupForm = app.groupForm
         groupForm.manageCampus = campusToNumber(groupForm.manageCampus, this.campusList.id, this.campusList.name)
         groupForm.userRouters = JSON.stringify(newRouters)
-        console.log("groupForm:", groupForm)
         // 如果对话框是添加用户组
         if (app.AddOrEdit === 'add') {
           addAuth(groupForm).then(res => {
-            app.$message({
+            app.$message1({
               type: res.data.status,
               message: res.data.message
             })
@@ -233,7 +231,7 @@ export default {
         // 如果对话框是修改用户组的话
         if (app.AddOrEdit === 'edit') {
           editAuth(groupForm).then(res => {
-            app.$message({
+            app.$message1({
               type: res.data.status,
               message: res.data.message
             })

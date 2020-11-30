@@ -15,10 +15,6 @@ public class RentalParameter {
 
     private String paramTypeName;
 
-    private String rentUpRate;
-
-    private Integer limitYear;
-
     private Boolean isDelete;
 
     public Integer getRentalParamId() {
@@ -75,22 +71,6 @@ public class RentalParameter {
 
     public void setParamTypeName(String paramTypeName) {
         this.paramTypeName = paramTypeName == null ? null : paramTypeName.trim();
-    }
-
-    public String getRentUpRate() {
-        return rentUpRate;
-    }
-
-    public void setRentUpRate(String rentUpRate) {
-        this.rentUpRate = rentUpRate == null ? null : rentUpRate.trim();
-    }
-
-    public Integer getLimitYear() {
-        return limitYear;
-    }
-
-    public void setLimitYear(Integer limitYear) {
-        this.limitYear = limitYear;
     }
 
     public Boolean getIsDelete() {

@@ -29,6 +29,7 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import config from '../config/base'
 
 // if (process.env.NODE_ENV !== 'production') require('./mock')
 // register global utility filters.
@@ -50,8 +51,21 @@ VueAMap.initAMapApiLoader({
   // 默认高德 sdk 版本为 1.4.4
   v: '1.4.4'
 });
-Vue.component('my-icon', myIcon)
 
+/**
+ * @description 全局配置lement的Message UI组件
+ */
+Vue.prototype.$message1 = function (option) {
+  this.$message(Object.assign({
+    showClose: true,
+    duration: 500
+  }, option))
+}
+/**
+ * @description 全局基础api接口
+ */
+Vue.prototype.BASE_URL = config.basicUrl
+Vue.component('my-icon', myIcon)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -114,6 +114,14 @@ export function getHouse(params) {
     params: params
   })
 }
+// 获取方法--根据house的id获取一个house
+export function getOneHouseData(houseId) {
+  return request({
+    url: `/house/get/${houseId}`,
+    method: 'get'
+  })
+}
+
 // 获取方法--根据楼栋id
 export function getHouseByBuildingID(params, buildingID) {
   return request({
@@ -221,16 +229,16 @@ export function getStaffHouseRel(params, staffID) {
   })
 }
 // 房屋关系解除--不保留历史记录
-export function removeResidentLog(staffID) {
+export function removeResidentLog(residentId) {
   return request({
-    url: `/houseRegister/relieveHouseRel/${staffID}`,
+    url: `/houseRegister/relieveHouseRel/${residentId}`,
     method: 'delete',
   })
 }
-// 房屋关系解除--不保留历史记录
-export function deleteResidentLog(staffID) {
+// 房屋关系删除--不保留历史记录
+export function deleteResidentLog(residentId) {
   return request({
-    url: `/houseRegister/deleteHouseRel/${staffID}`,
+    url: `/houseRegister/deleteHouseRel/${residentId}`,
     method: 'delete',
   })
 }
@@ -280,5 +288,96 @@ export function postHouseRelImport(data) {
     url: `/dataImport/residentDataImport`,
     method: 'post',
     data: data
+  })
+}
+// 根据文件名下载附件
+export function downloadFileByFileName(fileName) {
+  return request({
+    url: '/fileUpload/fileDownLoad',
+    method: 'get',
+    params: {
+      fileName: fileName
+    }
+  })
+}
+
+// 获取某一职工与其所有房子的住房关系的数据
+export function getAllHouseRelByStaffId(staffId) {
+  return request({
+    url: `/houseRegister/getAllResidentDataByStaffId/${staffId}`,
+    method: 'get'
+  })
+}
+// 获取某一住房与职工的关系
+export function getAllResidentDataByHouseId(houseId) {
+  return request({
+    url: `/houseRegister/getAllResidentDataByHouseId/${houseId}`,
+    method: 'get'
+  })
+}
+// 多条件获取职工信息
+export function getStaffListByMultiCondition(params, data) {
+  return request({
+    url: `/staff/getByMultiCondition?page=${params.page}&size=${params.size}`,
+    method: 'post',
+    data: data
+  })
+}
+// 基础数据-职工管理
+// 根据职工号或姓名获取职工信息
+export function getStaffByNoOrName(params) {
+  return request({
+    url: '/staff/getByNoAndName',
+    method: 'get',
+    params: params
+  })
+}
+// 区域数据导入
+
+export function postRegionImport(data) {
+  return request({
+    url: `/dataImport/regionImport`,
+    method: 'post',
+    data: data
+  })
+}
+// 楼栋数据导入
+export function postBuildingImport(data) {
+  return request({
+    url: `/dataImport/buildingImport`,
+    method: 'post',
+    data: data
+  })
+}
+
+
+// 工资数据导入
+export function postSalaryImport(data) {
+  return request({
+    url: `/dataImport/salaryImport`,
+    method: 'post',
+    data: data
+  })
+}
+
+// 获取全部部门的id和名称
+export function getAllDept() {
+  return request({
+    url: `/staffParam/getAllDept`,
+    method: 'get'
+  })
+}
+// 根据部门id获取该部门的所有员工
+export function getSimpleStaffInfo(deptId) {
+  return request({
+    url: `/staff/getSimpleStaffInfo/${deptId}`,
+    method: 'get'
+  })
+}
+// 根据职工id或姓名搜索
+export function getDeptsByInput(text) {
+  return request({
+    url: `/staff/getDeptsByInput?input=${text}`,
+    method: 'get'
   })
 }

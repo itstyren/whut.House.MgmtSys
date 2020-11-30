@@ -3,7 +3,6 @@ package com.computerdesign.whutHouseMgmt.controller.houseregister;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -32,16 +31,12 @@ import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentRegister;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw;
 import com.computerdesign.whutHouseMgmt.bean.houseregister.StaffHouseRel;
 import com.computerdesign.whutHouseMgmt.bean.param.houseparam.HouseParameter;
-import com.computerdesign.whutHouseMgmt.bean.staffhomepage.houseinfo.ResidentHouse;
-import com.computerdesign.whutHouseMgmt.bean.staffmanagement.Staff;
 import com.computerdesign.whutHouseMgmt.service.house.HouseService;
 import com.computerdesign.whutHouseMgmt.service.houseparam.HouseParamService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.HouseRegisterSelectService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.OutSchoolHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.StaffHouseRelService;
-import com.computerdesign.whutHouseMgmt.service.staffmanagement.StaffService;
-import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -67,43 +62,28 @@ public class HouseRegisterController {
 	@Autowired
 	private OutSchoolHouseService outSchoolHouseService;
 
-	@Autowired
-	private StaffService staffService;
-	
 	/**
-	 * 根据住房号获取所有的住房关系历史数据
-	 * @param houseId
+	 * 删除住房关系，即删除住房关系，但是保存住房登记历史记录
+	 * 
 	 * @return
 	 */
+	@RequestMapping(value = "deleteHouseRel/{residentId}", method = RequestMethod.DELETE)
 	@ResponseBody
-	@RequestMapping(value="getAllResidentDataByHouseId/{houseId}", method = RequestMethod.GET)
-	public Msg getAllResidentDataByHouseId(@PathVariable("houseId") Integer houseId){
-		List<ResidentHouse> residentHouses = staffHouseRelService.getAllResidentByHouseId(houseId);
-		
-		String[] fileds = { "residentId" ,"staffId", "staffNo", "houseRelName", "usedArea", "bookTime", "expireTime"};
-		List<Map<String, Object>> response = ResponseUtil.getResultMap(residentHouses, fileds);
-		
-		return Msg.success().add("data", response);
+	public Msg deleteHouseRel(@PathVariable("residentId") Integer residentId) {
+		// 获取该住房登记记录
+		Resident resident = registerService.getResident(residentId);
+		if (resident == null) {
+			return Msg.error("无该id的记录");
+		}
+		// 删除，即设置isDelete字段为1
+		resident.setIsDelete(true);
+		registerService.deleteResident(resident);
+
+		return Msg.success("删除成功");
 	}
-	
+
 	/**
-	 * 根据职工号获取所有的住房关系数据，包括历史数据  添加缴费方式（通过view_hs_residentHouse表实现，根据isDelete字段判断是否删除）
-	 * @param residentId
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value = "getAllResidentDataByStaffId/{staffId}", method = RequestMethod.GET)
-	public Msg getAllResidentDataByStaffId(@PathVariable("staffId") Integer staffId){
-		List<ResidentHouse> residentHouses = staffHouseRelService.getAllResidentByStaffId(staffId);
-		
-		String[] fileds = { "residentId" ,"houseId" ,"houseNo", "houseTypeName", "houseRelName", "usedArea", "bookTime", "expireTime", "address", "payType" };
-		List<Map<String, Object>> response = ResponseUtil.getResultMap(residentHouses, fileds);
-		
-		return Msg.success().add("data", response);
-	}
-	
-	/**
-	 * 解除住房关系，即删除住房关系，但是保存住房登记历史记录
+	 * 解除住房关系，即删除住房关系和住房登记历史记录
 	 * 
 	 * @return
 	 */
@@ -117,58 +97,11 @@ public class HouseRegisterController {
 		}
 		// 删除，即设置isDelete字段为1
 		resident.setIsDelete(true);
-		
-		//20190726 添加
-		resident.setExpireTime(new Date());
-		House house = houseService.get(resident.getHouseId());
-		
-		//状态修改为空闲，空闲在pm_housetype表中的值为24
-		house.setStatus(24);
-		houseService.update(house);
-				
 		registerService.deleteResident(resident);
 
-		return Msg.success("解除成功");
-	}
-
-	/**
-	 * 20190729修改 删除住房历史租赁信息，在租金核算过程中租赁天数也会被删除
-	 * 删除住房关系，即删除住房关系和住房登记历史记录
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "deleteHouseRel/{residentId}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public Msg deleteHouseRel(@PathVariable("residentId") Integer residentId) {
-		// 获取该住房登记记录
-//		Resident resident = registerService.getResident(residentId);
-//		if (resident == null) {
-//			return Msg.error("无该id的记录");
-//		}
-		// 删除，即设置isDelete字段为1
-//		resident.setIsDelete(true);
-//		registerService.deleteResident(resident);
-
-		//若该住房正在被租赁，则需将该住房的状态设置为空闲
-			// 获取该住房登记记录
-		Resident resident = registerService.getResident(residentId);
-			// 获取房屋信息
-		House house = houseService.get(resident.getHouseId());
-		house.setStatus(24);
-		houseService.update(house);
-		
-		//从数据库删除住房记录
-		registerService.delete(residentId);
-		
-		
 		// 删除住房登记历史记录
-		try {
-			registerService.deleteResidentHistory(residentId);
-		} catch (Exception e) {
-			System.out.println("住房登记历史记录表中没有该数据");
-		}
-		
-		return Msg.success("删除成功").add("data", resident);
+		registerService.deleteResidentHistory(residentId);
+		return Msg.success("解除成功");
 	}
 
 	/**
@@ -262,28 +195,6 @@ public class HouseRegisterController {
 			resident.setHouseRel(residentRegister.getHouseRel());
 			resident.setBookTime(residentRegister.getBookTime());
 			resident.setIsDelete(false);
-			
-			//如果住房登记选择是购房，则添加一个购房款
-			if(resident.getHouseRel() == 26){
-				Staff staff = staffService.get(residentRegister.getStaffId());
-				Long buyAccount = null; 
-				try {
-					buyAccount = (long) residentRegister.getBuyAccount();
-				} catch (Exception e) {
-					return Msg.error("输入正确格式的购房款");
-				}
-				staff.setBuyAccount(buyAccount);
-				staff.setIsOwnPriHouse(true);
-				staffService.update(staff);
-			}
-			
-			//设置缴费方式
-			if(residentRegister.getPayType() != null){				
-				resident.setPayType(residentRegister.getPayType());
-			}else{
-				return Msg.error("请选择缴费方式");
-			}
-			
 			if (resident.getStaffId() == null) {
 				return Msg.error("请选择一个员工");
 			}
@@ -420,7 +331,6 @@ public class HouseRegisterController {
 			houseAllShowModel.setFinishTime(viewHouse.getFinishTime());
 			houseAllShowModel.setCampusName(viewHouse.getCampusName());
 			houseAllShowModel.setBuildingName(viewHouse.getBuildingName());
-			houseAllShowModel.setStructName(viewHouse.getStructName());
 			houseAllShowModels.add(houseAllShowModel);
 		}
 		PageInfo pageInfo = new PageInfo(viewHouses);

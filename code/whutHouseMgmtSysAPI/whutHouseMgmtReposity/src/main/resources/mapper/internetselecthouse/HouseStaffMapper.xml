@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.computerdesign.whutHouseMgmt.dao.internetselecthouse.HouseStaffMapper">
   <resultMap id="BaseResultMap" type="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HouseStaff">
-    <result column="HouseId" jdbcType="INTEGER" property="houseId" />
+    <result column="Id" jdbcType="INTEGER" property="id" />
     <result column="No" jdbcType="VARCHAR" property="no" />
     <result column="IsOutSchool" jdbcType="BIT" property="isOutSchool" />
     <result column="Type" jdbcType="INTEGER" property="type" />
@@ -25,11 +25,13 @@
     <result column="CampusName" jdbcType="VARCHAR" property="campusName" />
     <result column="ProId" jdbcType="VARCHAR" property="proId" />
     <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="Image" jdbcType="VARCHAR" property="image" />
     <result column="Rental" jdbcType="DOUBLE" property="rental" />
     <result column="FinishTime" jdbcType="DATE" property="finishTime" />
     <result column="RecordStatus" jdbcType="INTEGER" property="recordStatus" />
     <result column="ResidentId" jdbcType="INTEGER" property="residentId" />
     <result column="StaffId" jdbcType="INTEGER" property="staffId" />
+    <result column="HouseId" jdbcType="INTEGER" property="houseId" />
     <result column="StaffName" jdbcType="VARCHAR" property="staffName" />
     <result column="BookTime" jdbcType="TIMESTAMP" property="bookTime" />
     <result column="StaffNo" jdbcType="VARCHAR" property="staffNo" />
@@ -44,9 +46,6 @@
     <result column="LastRentTime" jdbcType="TIMESTAMP" property="lastRentTime" />
     <result column="RentType" jdbcType="VARCHAR" property="rentType" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HouseStaff">
-    <result column="Image" jdbcType="LONGVARCHAR" property="image" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -107,32 +106,13 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    HouseId, No, IsOutSchool, Type, TypeName, Layout, LayoutName, Struct, StructName, 
-    Status, StatusName, BuildArea, UsedArea, BasementArea, Address, BuildingId, BuildingName, 
-    RegionId, RegionName, CampusId, CampusName, ProId, Remark, Rental, FinishTime, RecordStatus, 
-    ResidentId, StaffId, StaffName, BookTime, StaffNo, StaffSex, StaffDeptId, StaffDeptName, 
-    StaffSpouseName, StaffType, StaffTypeName, FamilyCode, ExpireTime, LastRentTime, 
-    RentType, IsDelete
+    Id, No, IsOutSchool, Type, TypeName, Layout, LayoutName, Struct, StructName, Status, 
+    StatusName, BuildArea, UsedArea, BasementArea, Address, BuildingId, BuildingName, 
+    RegionId, RegionName, CampusId, CampusName, ProId, Remark, Image, Rental, FinishTime, 
+    RecordStatus, ResidentId, StaffId, HouseId, StaffName, BookTime, StaffNo, StaffSex, 
+    StaffDeptId, StaffDeptName, StaffSpouseName, StaffType, StaffTypeName, FamilyCode, 
+    ExpireTime, LastRentTime, RentType, IsDelete
   </sql>
-  <sql id="Blob_Column_List">
-    Image
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HouseStaffExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from view_hs_housestaff
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HouseStaffExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -154,42 +134,42 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HouseStaff">
-    insert into view_hs_housestaff (HouseId, No, IsOutSchool, 
+    insert into view_hs_housestaff (Id, No, IsOutSchool, 
       Type, TypeName, Layout, 
       LayoutName, Struct, StructName, 
       Status, StatusName, BuildArea, 
       UsedArea, BasementArea, Address, 
       BuildingId, BuildingName, RegionId, 
       RegionName, CampusId, CampusName, 
-      ProId, Remark, Rental, 
-      FinishTime, RecordStatus, ResidentId, 
-      StaffId, StaffName, BookTime, 
-      StaffNo, StaffSex, StaffDeptId, 
-      StaffDeptName, StaffSpouseName, StaffType, 
-      StaffTypeName, FamilyCode, ExpireTime, 
-      LastRentTime, RentType, IsDelete, 
-      Image)
-    values (#{houseId,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{isOutSchool,jdbcType=BIT}, 
+      ProId, Remark, Image, 
+      Rental, FinishTime, RecordStatus, 
+      ResidentId, StaffId, HouseId, 
+      StaffName, BookTime, StaffNo, 
+      StaffSex, StaffDeptId, StaffDeptName, 
+      StaffSpouseName, StaffType, StaffTypeName, 
+      FamilyCode, ExpireTime, LastRentTime, 
+      RentType, IsDelete)
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{isOutSchool,jdbcType=BIT}, 
       #{type,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{layout,jdbcType=INTEGER}, 
       #{layoutName,jdbcType=VARCHAR}, #{struct,jdbcType=INTEGER}, #{structName,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{statusName,jdbcType=VARCHAR}, #{buildArea,jdbcType=DOUBLE}, 
       #{usedArea,jdbcType=DOUBLE}, #{basementArea,jdbcType=DOUBLE}, #{address,jdbcType=VARCHAR}, 
       #{buildingId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, #{regionId,jdbcType=INTEGER}, 
       #{regionName,jdbcType=VARCHAR}, #{campusId,jdbcType=INTEGER}, #{campusName,jdbcType=VARCHAR}, 
-      #{proId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{rental,jdbcType=DOUBLE}, 
-      #{finishTime,jdbcType=DATE}, #{recordStatus,jdbcType=INTEGER}, #{residentId,jdbcType=INTEGER}, 
-      #{staffId,jdbcType=INTEGER}, #{staffName,jdbcType=VARCHAR}, #{bookTime,jdbcType=TIMESTAMP}, 
-      #{staffNo,jdbcType=VARCHAR}, #{staffSex,jdbcType=VARCHAR}, #{staffDeptId,jdbcType=INTEGER}, 
-      #{staffDeptName,jdbcType=VARCHAR}, #{staffSpouseName,jdbcType=VARCHAR}, #{staffType,jdbcType=INTEGER}, 
-      #{staffTypeName,jdbcType=VARCHAR}, #{familyCode,jdbcType=INTEGER}, #{expireTime,jdbcType=TIMESTAMP}, 
-      #{lastRentTime,jdbcType=TIMESTAMP}, #{rentType,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}, 
-      #{image,jdbcType=LONGVARCHAR})
+      #{proId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{rental,jdbcType=DOUBLE}, #{finishTime,jdbcType=DATE}, #{recordStatus,jdbcType=INTEGER}, 
+      #{residentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
+      #{staffName,jdbcType=VARCHAR}, #{bookTime,jdbcType=TIMESTAMP}, #{staffNo,jdbcType=VARCHAR}, 
+      #{staffSex,jdbcType=VARCHAR}, #{staffDeptId,jdbcType=INTEGER}, #{staffDeptName,jdbcType=VARCHAR}, 
+      #{staffSpouseName,jdbcType=VARCHAR}, #{staffType,jdbcType=INTEGER}, #{staffTypeName,jdbcType=VARCHAR}, 
+      #{familyCode,jdbcType=INTEGER}, #{expireTime,jdbcType=TIMESTAMP}, #{lastRentTime,jdbcType=TIMESTAMP}, 
+      #{rentType,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HouseStaff">
     insert into view_hs_housestaff
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="houseId != null">
-        HouseId,
+      <if test="id != null">
+        Id,
       </if>
       <if test="no != null">
         No,
@@ -257,6 +237,9 @@
       <if test="remark != null">
         Remark,
       </if>
+      <if test="image != null">
+        Image,
+      </if>
       <if test="rental != null">
         Rental,
       </if>
@@ -271,6 +254,9 @@
       </if>
       <if test="staffId != null">
         StaffId,
+      </if>
+      <if test="houseId != null">
+        HouseId,
       </if>
       <if test="staffName != null">
         StaffName,
@@ -314,13 +300,10 @@
       <if test="isDelete != null">
         IsDelete,
       </if>
-      <if test="image != null">
-        Image,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="houseId != null">
-        #{houseId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="no != null">
         #{no,jdbcType=VARCHAR},
@@ -388,6 +371,9 @@
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
       <if test="rental != null">
         #{rental,jdbcType=DOUBLE},
       </if>
@@ -402,6 +388,9 @@
       </if>
       <if test="staffId != null">
         #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=INTEGER},
       </if>
       <if test="staffName != null">
         #{staffName,jdbcType=VARCHAR},
@@ -445,9 +434,6 @@
       <if test="isDelete != null">
         #{isDelete,jdbcType=BIT},
       </if>
-      <if test="image != null">
-        #{image,jdbcType=LONGVARCHAR},
-      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.internetselecthouse.HouseStaffExample" resultType="java.lang.Long">
@@ -459,8 +445,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update view_hs_housestaff
     <set>
-      <if test="record.houseId != null">
-        HouseId = #{record.houseId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.no != null">
         No = #{record.no,jdbcType=VARCHAR},
@@ -528,6 +514,9 @@
       <if test="record.remark != null">
         Remark = #{record.remark,jdbcType=VARCHAR},
       </if>
+      <if test="record.image != null">
+        Image = #{record.image,jdbcType=VARCHAR},
+      </if>
       <if test="record.rental != null">
         Rental = #{record.rental,jdbcType=DOUBLE},
       </if>
@@ -542,6 +531,9 @@
       </if>
       <if test="record.staffId != null">
         StaffId = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseId != null">
+        HouseId = #{record.houseId,jdbcType=INTEGER},
       </if>
       <if test="record.staffName != null">
         StaffName = #{record.staffName,jdbcType=VARCHAR},
@@ -585,66 +577,14 @@
       <if test="record.isDelete != null">
         IsDelete = #{record.isDelete,jdbcType=BIT},
       </if>
-      <if test="record.image != null">
-        Image = #{record.image,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update view_hs_housestaff
-    set HouseId = #{record.houseId,jdbcType=INTEGER},
-      No = #{record.no,jdbcType=VARCHAR},
-      IsOutSchool = #{record.isOutSchool,jdbcType=BIT},
-      Type = #{record.type,jdbcType=INTEGER},
-      TypeName = #{record.typeName,jdbcType=VARCHAR},
-      Layout = #{record.layout,jdbcType=INTEGER},
-      LayoutName = #{record.layoutName,jdbcType=VARCHAR},
-      Struct = #{record.struct,jdbcType=INTEGER},
-      StructName = #{record.structName,jdbcType=VARCHAR},
-      Status = #{record.status,jdbcType=INTEGER},
-      StatusName = #{record.statusName,jdbcType=VARCHAR},
-      BuildArea = #{record.buildArea,jdbcType=DOUBLE},
-      UsedArea = #{record.usedArea,jdbcType=DOUBLE},
-      BasementArea = #{record.basementArea,jdbcType=DOUBLE},
-      Address = #{record.address,jdbcType=VARCHAR},
-      BuildingId = #{record.buildingId,jdbcType=INTEGER},
-      BuildingName = #{record.buildingName,jdbcType=VARCHAR},
-      RegionId = #{record.regionId,jdbcType=INTEGER},
-      RegionName = #{record.regionName,jdbcType=VARCHAR},
-      CampusId = #{record.campusId,jdbcType=INTEGER},
-      CampusName = #{record.campusName,jdbcType=VARCHAR},
-      ProId = #{record.proId,jdbcType=VARCHAR},
-      Remark = #{record.remark,jdbcType=VARCHAR},
-      Rental = #{record.rental,jdbcType=DOUBLE},
-      FinishTime = #{record.finishTime,jdbcType=DATE},
-      RecordStatus = #{record.recordStatus,jdbcType=INTEGER},
-      ResidentId = #{record.residentId,jdbcType=INTEGER},
-      StaffId = #{record.staffId,jdbcType=INTEGER},
-      StaffName = #{record.staffName,jdbcType=VARCHAR},
-      BookTime = #{record.bookTime,jdbcType=TIMESTAMP},
-      StaffNo = #{record.staffNo,jdbcType=VARCHAR},
-      StaffSex = #{record.staffSex,jdbcType=VARCHAR},
-      StaffDeptId = #{record.staffDeptId,jdbcType=INTEGER},
-      StaffDeptName = #{record.staffDeptName,jdbcType=VARCHAR},
-      StaffSpouseName = #{record.staffSpouseName,jdbcType=VARCHAR},
-      StaffType = #{record.staffType,jdbcType=INTEGER},
-      StaffTypeName = #{record.staffTypeName,jdbcType=VARCHAR},
-      FamilyCode = #{record.familyCode,jdbcType=INTEGER},
-      ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
-      LastRentTime = #{record.lastRentTime,jdbcType=TIMESTAMP},
-      RentType = #{record.rentType,jdbcType=VARCHAR},
-      IsDelete = #{record.isDelete,jdbcType=BIT},
-      Image = #{record.image,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update view_hs_housestaff
-    set HouseId = #{record.houseId,jdbcType=INTEGER},
+    set Id = #{record.id,jdbcType=INTEGER},
       No = #{record.no,jdbcType=VARCHAR},
       IsOutSchool = #{record.isOutSchool,jdbcType=BIT},
       Type = #{record.type,jdbcType=INTEGER},
@@ -667,11 +607,13 @@
       CampusName = #{record.campusName,jdbcType=VARCHAR},
       ProId = #{record.proId,jdbcType=VARCHAR},
       Remark = #{record.remark,jdbcType=VARCHAR},
+      Image = #{record.image,jdbcType=VARCHAR},
       Rental = #{record.rental,jdbcType=DOUBLE},
       FinishTime = #{record.finishTime,jdbcType=DATE},
       RecordStatus = #{record.recordStatus,jdbcType=INTEGER},
       ResidentId = #{record.residentId,jdbcType=INTEGER},
       StaffId = #{record.staffId,jdbcType=INTEGER},
+      HouseId = #{record.houseId,jdbcType=INTEGER},
       StaffName = #{record.staffName,jdbcType=VARCHAR},
       BookTime = #{record.bookTime,jdbcType=TIMESTAMP},
       StaffNo = #{record.staffNo,jdbcType=VARCHAR},

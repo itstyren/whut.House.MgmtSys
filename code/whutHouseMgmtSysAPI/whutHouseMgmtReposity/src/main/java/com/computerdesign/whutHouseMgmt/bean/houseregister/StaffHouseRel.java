@@ -19,8 +19,6 @@ public class StaffHouseRel {
 
     private Boolean isDelete;
 
-    private Integer houseId;
-
     public Integer getResidentId() {
         return residentId;
     }
@@ -91,13 +89,5 @@ public class StaffHouseRel {
 
     public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
-    }
-
-    public Integer getHouseId() {
-        return houseId;
-    }
-
-    public void setHouseId(Integer houseId) {
-        this.houseId = houseId;
     }
 }

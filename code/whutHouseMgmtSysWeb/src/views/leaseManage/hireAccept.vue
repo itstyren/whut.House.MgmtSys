@@ -156,6 +156,14 @@
                           v-if="!acceptStatus">
                     <el-col :span="10"
                             :offset="1">
+                      <el-form-item label="相关图片">
+                        <span v-if="acceptForm.pastImageData==''">暂无图片</span>
+                        <el-button v-else
+                                   type="text"
+                                   @click="carouselVisible=true">点击查看图片</el-button>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="10">
                       <el-form-item label="申请理由">
                         <el-input v-model="acceptForm.reason"
                                   type="textarea"
@@ -201,7 +209,9 @@
                   <el-row type="flex"
                           justify="start"
                           v-if="!acceptStatus">
-                    <el-col class="agree-col-width">
+                    <el-col class="agree-col-width"
+                            :span="7"
+                            :push="1">
                       <el-form-item label="受理意见"
                                     prop="acceptNote">
                         <el-input v-model="acceptForm.acceptNote"
@@ -214,7 +224,9 @@
                   <el-row type="flex"
                           justify="start"
                           v-if="!acceptStatus">
-                    <el-col class="agree-col-width">
+                    <el-col class="agree-col-width"
+                            :span="7"
+                            :push="1">
                       <el-form-item label="受理状态">
                         <el-switch v-model="acceptForm.acceptState"
                                    active-color="#ff4949"
@@ -273,6 +285,17 @@
                   <el-row v-if="acceptStatus">
                     <el-col :span="10"
                             :offset="1">
+                      <el-form-item label="相关图片">
+                        <span v-if="acceptForm.pastImageData==''">暂无图片</span>
+                        <el-button v-else
+                                   type="text"
+                                   @click="carouselVisible=true">点击查看图片</el-button>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row v-if="acceptStatus">
+                    <el-col :span="10"
+                            :offset="1">
                       <el-form-item label="受理说明">
                         <el-input v-model="acceptForm.acceptNote"
                                   type="textarea"
@@ -303,6 +326,22 @@
           </div>
         </div>
       </div>
+      <!-- 图片的走马灯 -->
+      <el-dialog :title="`相关图片`"
+                 :visible.sync="carouselVisible"
+                 class="hire-apply-detail-pic"
+                 append-to-body>
+        <el-carousel indicator-position="outside"
+                     arrow="always"
+                     :height="imgHeight">
+          <el-carousel-item v-for="(item, index) in acceptForm.pastImageData"
+                            :key="index"
+                            :index="index">
+            <img :src="item"
+                 class="imgCenter" />
+          </el-carousel-item>
+        </el-carousel>
+      </el-dialog>
     </section>
   </div>
 </template>
@@ -326,7 +365,11 @@ export default {
           message: "请输入受理意见",
           trigger: "blur"
         }
-      }
+      },
+      // 图片走马灯
+      carouselVisible: false,
+      // 走马灯初始高度
+      imgHeight: '500px',
     };
   },
   computed: {
@@ -345,6 +388,7 @@ export default {
   methods: {
     // 从子组件获取
     getList (object) {
+      object.content.pastImageData = object.content.hireFiles ? object.content.hireFiles.split(',') : ''
       this.acceptForm = object.content;
       this.acceptForm.otherVal = 0;
       this.acceptStatus = object.status;
@@ -394,7 +438,7 @@ export default {
           });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消受理"
           });

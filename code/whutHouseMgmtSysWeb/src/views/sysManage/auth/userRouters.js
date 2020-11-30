@@ -1,5 +1,5 @@
 export default [
-  /* 参数设置 */
+  /* 系统管理*/
   {
     path: '/sysmanage',
     component: 'layout/index',
@@ -14,6 +14,14 @@ export default [
         name: 'authManage',
         meta: {
           title: 'authManage'
+        }
+      },
+      {
+        path: 'log',
+        component: 'sysManage/sysLog/index',
+        name: 'sysLog',
+        meta: {
+          title: 'sysLog'
         }
       },
       {
@@ -256,7 +264,7 @@ export default [
           }
         }, ]
       },
-      // 住房登记
+      // 住房关系管理
       {
         path: 'houseResident',
         component: 'basiceData/houseResident/resident',
@@ -265,13 +273,22 @@ export default [
           title: 'houseResident'
         },
       },
-      // 数据导入
+      // 多套住房核对
       {
-        path: 'importData',
-        component: 'basiceData/importData/importData',
-        name: 'importData',
+        path: 'scanning',
+        component: 'basiceData/houseData/scanning',
+        name: 'scanning',
         meta: {
-          title: 'importData'
+          title: 'scanning'
+        }
+      },
+      // 数据导入导出
+      {
+        path: 'importExportData',
+        component: 'basiceData/importData/importData',
+        name: 'importExportData',
+        meta: {
+          title: 'importExportData'
         },
       },
 
@@ -433,6 +450,21 @@ export default [
       },
     ]
   },
+
+  /* 货币化补贴 */
+  {
+    path: '/monetarySub',
+    component: 'layout/index',
+    name: 'monetarySub',
+    children: [{
+      path: 'monetarySub',
+      component: 'monetarySub/monetarySub',
+      name: 'monetarySub',
+      meta: {
+        title: 'monetarySub'
+      }
+    }]
+  },
   /* 数据分析 */
   {
     path: '/analysis',
@@ -456,21 +488,7 @@ export default [
         meta: {
           title: 'fixFormAnalysis'
         }
-      }, {
-        path: 'scanning',
-        component: 'dataAnalysis/scanning',
-        name: 'scanning',
-        meta: {
-          title: 'scanning'
-        }
-      }, {
-        path: 'monetarySub',
-        component: 'dataAnalysis/monetarySub',
-        name: 'monetarySub',
-        meta: {
-          title: 'monetarySub'
-        }
-      },
+      }
     ]
   },
   /* 个人设置 */

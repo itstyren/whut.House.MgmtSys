@@ -38,27 +38,6 @@ public class HouseController {
 	private ViewHouseService viewHouseService;
 
 	/**
-	 * 根据houseNo获取一个House
-	 * 
-	 * @param houseNo
-	 * @return
-	 */
-	@RequestMapping(value = "getByNo/{houseNo}", method = RequestMethod.GET)
-	@ApiOperation(value = "根据house的houseNo获取一个house")
-	public Msg get(@PathVariable("houseNo") String houseNo) {
-		System.out.println(houseNo);
-		if (viewHouseService.getByNo(houseNo).isEmpty()) {
-			return Msg.error("查找不到数据");
-		}
-		ViewHouse viewHouse = viewHouseService.getByNo(houseNo).get(0);
-		// 每平方米的价格
-		double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
-		// 每平方米的价格*面积
-		viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
-		return Msg.success().add("data", viewHouse);
-	}
-	
-	/**
 	 * 根据id获取一个House
 	 * 
 	 * @param id
@@ -74,8 +53,7 @@ public class HouseController {
 		// 每平方米的价格
 		double rentPer = houseParamService.getRentalByStruce(viewHouse.getStruct());
 		// 每平方米的价格*面积
-//		viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
-		viewHouse.setRental(Arith.mul(rentPer, viewHouse.getUsedArea()));
+		viewHouse.setRental(Arith.mul(rentPer, viewHouse.getBuildArea()));
 		return Msg.success().add("data", viewHouse);
 	}
 
@@ -308,13 +286,10 @@ public class HouseController {
 		House housePre = houseService.get(house.getId());
 		if (!housePres.isEmpty()) {
 			// 根据id获取的house和根据编号获取的house不一样
-//			if (housePre.getId() != housePres.get(0).getId()) {
-			if (!housePre.getId().toString().equals(housePres.get(0).getId().toString())) {
-//				System.out.println("aaa");
+			if (housePre.getId() != housePres.get(0).getId()) {
 				return Msg.error("房屋已经存在");
 			}
 		}
-
 		
 
 		List<Integer> houseTypeParamIds = houseParamService.getHouseParamId(1);

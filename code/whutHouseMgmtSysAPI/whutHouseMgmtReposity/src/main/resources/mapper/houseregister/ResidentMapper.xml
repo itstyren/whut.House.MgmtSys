@@ -10,7 +10,6 @@
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
     <result column="ExpireTime" jdbcType="TIMESTAMP" property="expireTime" />
     <result column="RentType" jdbcType="VARCHAR" property="rentType" />
-    <result column="PayType" jdbcType="INTEGER" property="payType" />
     <result column="LastRentTime" jdbcType="TIMESTAMP" property="lastRentTime" />
     <result column="FamilyCode" jdbcType="VARCHAR" property="familyCode" />
   </resultMap>
@@ -73,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, StaffId, HouseId, HouseRel, BookTime, IsDelete, ExpireTime, RentType, PayType, 
-    LastRentTime, FamilyCode
+    Id, StaffId, HouseId, HouseRel, BookTime, IsDelete, ExpireTime, RentType, LastRentTime, 
+    FamilyCode
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentExample" resultMap="BaseResultMap">
     select
@@ -109,12 +108,12 @@
   <insert id="insert" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.Resident">
     insert into hs_resident (Id, StaffId, HouseId, 
       HouseRel, BookTime, IsDelete, 
-      ExpireTime, RentType, PayType, 
-      LastRentTime, FamilyCode)
+      ExpireTime, RentType, LastRentTime, 
+      FamilyCode)
     values (#{id,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
       #{houseRel,jdbcType=INTEGER}, #{bookTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=BIT}, 
-      #{expireTime,jdbcType=TIMESTAMP}, #{rentType,jdbcType=VARCHAR}, #{payType,jdbcType=INTEGER}, 
-      #{lastRentTime,jdbcType=TIMESTAMP}, #{familyCode,jdbcType=VARCHAR})
+      #{expireTime,jdbcType=TIMESTAMP}, #{rentType,jdbcType=VARCHAR}, #{lastRentTime,jdbcType=TIMESTAMP}, 
+      #{familyCode,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.Resident">
     insert into hs_resident
@@ -142,9 +141,6 @@
       </if>
       <if test="rentType != null">
         RentType,
-      </if>
-      <if test="payType != null">
-        PayType,
       </if>
       <if test="lastRentTime != null">
         LastRentTime,
@@ -177,9 +173,6 @@
       </if>
       <if test="rentType != null">
         #{rentType,jdbcType=VARCHAR},
-      </if>
-      <if test="payType != null">
-        #{payType,jdbcType=INTEGER},
       </if>
       <if test="lastRentTime != null">
         #{lastRentTime,jdbcType=TIMESTAMP},
@@ -222,9 +215,6 @@
       <if test="record.rentType != null">
         RentType = #{record.rentType,jdbcType=VARCHAR},
       </if>
-      <if test="record.payType != null">
-        PayType = #{record.payType,jdbcType=INTEGER},
-      </if>
       <if test="record.lastRentTime != null">
         LastRentTime = #{record.lastRentTime,jdbcType=TIMESTAMP},
       </if>
@@ -246,7 +236,6 @@
       IsDelete = #{record.isDelete,jdbcType=BIT},
       ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
       RentType = #{record.rentType,jdbcType=VARCHAR},
-      PayType = #{record.payType,jdbcType=INTEGER},
       LastRentTime = #{record.lastRentTime,jdbcType=TIMESTAMP},
       FamilyCode = #{record.familyCode,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -277,9 +266,6 @@
       <if test="rentType != null">
         RentType = #{rentType,jdbcType=VARCHAR},
       </if>
-      <if test="payType != null">
-        PayType = #{payType,jdbcType=INTEGER},
-      </if>
       <if test="lastRentTime != null">
         LastRentTime = #{lastRentTime,jdbcType=TIMESTAMP},
       </if>
@@ -298,7 +284,6 @@
       IsDelete = #{isDelete,jdbcType=BIT},
       ExpireTime = #{expireTime,jdbcType=TIMESTAMP},
       RentType = #{rentType,jdbcType=VARCHAR},
-      PayType = #{payType,jdbcType=INTEGER},
       LastRentTime = #{lastRentTime,jdbcType=TIMESTAMP},
       FamilyCode = #{familyCode,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}

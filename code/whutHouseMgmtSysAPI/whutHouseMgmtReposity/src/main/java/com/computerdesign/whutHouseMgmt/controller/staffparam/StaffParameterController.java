@@ -20,7 +20,6 @@ import com.computerdesign.whutHouseMgmt.bean.staffparam.HouseSub;
 import com.computerdesign.whutHouseMgmt.bean.staffparam.StaffParameter;
 import com.computerdesign.whutHouseMgmt.service.paramclass.ParamClassService;
 import com.computerdesign.whutHouseMgmt.service.staffparam.StaffParameterService;
-import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -34,15 +33,6 @@ public class StaffParameterController {
 	@Autowired
 	private ParamClassService paramClassService;
 
-	@ResponseBody
-	@RequestMapping(value = "getAllDept", method = RequestMethod.GET)
-	public Msg getAllDept(){
-		List<StaffParameter> staffParameters = staffParameterService.getAllByParamTypeId(5);
-		String[] fileds = { "staffParamId" ,"staffParamName"};
-		List<Map<String, Object>> response = ResponseUtil.getResultMap(staffParameters, fileds);
-		return Msg.success().add("data", response);
-	}
-	
 	/**
 	 * 获取所有住房补贴参数
 	 * @param page
@@ -203,7 +193,7 @@ public class StaffParameterController {
 	@RequestMapping(value = "get/{paramTypeId}", method = RequestMethod.GET)
 	public Msg getStaffParameter(@PathVariable("paramTypeId") Integer paramTypeId,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
-			@RequestParam(value = "size", defaultValue = "999") Integer size) {
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
 		// // 从数据库获取所有的记录
 		// List<StaffParameter> staffParams = staffParameterService.getAll();
 		//

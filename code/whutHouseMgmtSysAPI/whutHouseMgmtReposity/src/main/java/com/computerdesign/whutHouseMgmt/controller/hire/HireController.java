@@ -22,9 +22,7 @@ import com.computerdesign.whutHouseMgmt.bean.Msg;
 import com.computerdesign.whutHouseMgmt.bean.hire.PersonalHireRecord;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.Hire;
 import com.computerdesign.whutHouseMgmt.bean.hire.common.ViewHire;
-import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.House;
 import com.computerdesign.whutHouseMgmt.bean.houseManagement.house.ViewHouse;
-import com.computerdesign.whutHouseMgmt.bean.houseregister.Resident;
 import com.computerdesign.whutHouseMgmt.bean.internetselecthouse.StaffHouse;
 import com.computerdesign.whutHouseMgmt.bean.staffmanagement.ViewStaff;
 import com.computerdesign.whutHouseMgmt.service.hire.HireService;
@@ -35,7 +33,6 @@ import com.computerdesign.whutHouseMgmt.service.house.ViewHouseService;
 import com.computerdesign.whutHouseMgmt.service.houseregister.RegisterService;
 import com.computerdesign.whutHouseMgmt.service.staffhomepage.LastHireRecordService;
 import com.computerdesign.whutHouseMgmt.service.staffmanagement.ViewStaffService;
-import com.computerdesign.whutHouseMgmt.utils.DateUtil;
 import com.computerdesign.whutHouseMgmt.utils.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -73,7 +70,6 @@ public class HireController {
 
 	@Autowired
 	private ViewHouseService viewHouseService;
-	
 	@Autowired
 	private LastHireRecordService lastHireRecordService;
 
@@ -216,7 +212,7 @@ public class HireController {
 //		}
 		
 		hire.setTotalVal(hire.getOtherVal() + hire.getSpouseVal() + hire.getTitleVal() + hire.getTimeVal());
-		
+
 		hireService.add(hire);
 		return Msg.success("提交申请成功");
 	}
@@ -236,7 +232,7 @@ public class HireController {
 				"deptName", "houseNo", "houseBuildArea", "houseUserArea", "houseAddress", "acceptNote", "acceptState",
 				"acceptMan", "acceptTime", "agreeNote", "agreeState", "agreeMan", "agreeTime", "approveNote",
 				"approveState", "approveMan", "approveTime", "totalVal", "titleVal", "timeVal", "spouseVal",
-				"otherVal", "houseId" };
+				"otherVal" };
 		List<Map<String, Object>> response = ResponseUtil.getResultMap(listViewHire, fileds);
 		return Msg.success("全部已审批尚未签订合同的房屋申请信息").add("data", response);
 	}
@@ -253,21 +249,7 @@ public class HireController {
 	public Msg hireAddSignContract(@RequestBody HashMap<String, Object> hashMap) {
 
 		Integer id = (Integer)hashMap.get("id");
-		
-		Date contractTime = null;
-		if(hashMap.get("bookTime") != null){			
-			contractTime = DateUtil.parseDate((String) hashMap.get("bookTime"));
-		}else{
-			return Msg.error("请选择签订日期");
-		}
-		
-		Integer payType = null;
-		if(hashMap.get("payType") != null){
-			payType = (Integer) hashMap.get("payType");
-		}else{
-			return Msg.error("请选择缴费方式");
-		}
-		
+
 		// 获取该房屋申请信息
 		Hire hire = hireService.getHireById(id);
 		if (hire.getIsOver()) {
@@ -282,11 +264,7 @@ public class HireController {
 		}
 		// 设置该申请已结束
 		hire.setIsOver(true);
-		
-		hire.setContractTime(contractTime);
-		
-		hire.setPayType(payType);
-		
+
 		hireService.addSignContract(hire);
 
 		return Msg.success("成功签订合同");

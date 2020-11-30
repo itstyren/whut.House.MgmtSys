@@ -23,26 +23,6 @@
 		<input type="submit" value="Submit">
 	</form>
 	
-	<form action="dataImport/residentDataImport" method="post" enctype="multipart/form-data">
-		ResidentFile:<input type="file" name="residentFile">
-		<input type="submit" value="Submit">
-	</form>
-	
-	<form action="dataImport/regionImport" method="post" enctype="multipart/form-data">
-		RegionFile:<input type="file" name="regionFile">
-		<input type="submit" value="Submit">
-	</form>
-	
-	<form action="dataImport/buildingImport" method="post" enctype="multipart/form-data">
-		BuildingFile:<input type="file" name="buildingFile">
-		<input type="submit" value="Submit">
-	</form>
-	
-	<form action="dataImport/salaryImport" method="post" enctype="multipart/form-data">
-		SalaryFile:<input type="file" name="salaryFile">
-		<input type="submit" value="Submit">
-	</form>
-	
 	<form action="dataImport/saveData" method="post">
 		<input type="submit" value="保存">
 	</form>

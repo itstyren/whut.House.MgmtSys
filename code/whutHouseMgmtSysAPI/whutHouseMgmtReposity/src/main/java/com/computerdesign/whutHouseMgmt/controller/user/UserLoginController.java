@@ -15,7 +15,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
 import org.jasig.cas.client.authentication.AttributePrincipal;
@@ -225,7 +224,7 @@ public class UserLoginController extends BaseController {
 	 */
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	@ResponseBody
-	public Msg login(@RequestBody UserLogin userLogin, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+	public Msg login(@RequestBody UserLogin userLogin, HttpServletRequest request, HttpServletResponse response) {
 
 		String no = userLogin.getNo();
 		String password = userLogin.getPassword();
@@ -246,7 +245,6 @@ public class UserLoginController extends BaseController {
 
 		String userId = viewStaff.getId().toString();
 		String token = SubjectUtil.getInstance().createToken(userId, DateUtil.getAppointHour(new Date(), 10));
-
 		return Msg.success().add("token", token);
 
 	}

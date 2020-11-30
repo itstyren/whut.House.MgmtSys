@@ -1,9 +1,11 @@
 <template>
-  <div class="card" :style="{height:height,width:width}">
+  <div class="card"
+       :style="{height:height,width:width}">
     <div class="title">
       <strong>入住率分析</strong>
     </div>
-    <div class="chart" ref="structPie"></div>
+    <div class="chart"
+         ref="structPie"></div>
   </div>
 </template>
 
@@ -32,15 +34,15 @@ export default {
     },
     filtersData: {
       type: Object,
-      default: {}
+      default: () => { }
     }
   },
-  data() {
+  data () {
     return {
       chart: null
     };
   },
-  mounted() {
+  mounted () {
     this.initChart();
     this.getData();
     if (this.autoResize) {
@@ -55,24 +57,25 @@ export default {
   watch: {
     chartData: {
       deep: true,
-      handler(val) {
+      handler (val) {
         this.setOptions(val);
       }
     }
   },
   methods: {
-    getData() {
+    getData () {
       if (arguments[0] !== undefined) var data = arguments[0];
       else var data = {};
+      let roleId = this.$store.getters.roleId
       this.chart.showLoading();
-      postHouseRecordCampus(data).then(res => {
+      postHouseRecordCampus(data, roleId).then(res => {
         let _series = [];
         res.data.data.data.forEach((data, index) => {
           // console.log(data)
           _series.push({
             data: data.data
           });
-           _series[index].data[0].name=res.data.data.name[index]
+          _series[index].data[0].name = res.data.data.name[index]
           _series[index].data[1].itemStyle = {
             normal: {
               color: "rgba(0,0,0,0)",
@@ -86,15 +89,15 @@ export default {
         });
         console.log(_series)
         this.chart.setOption({
-            legend:{
-                data:res.data.data.name
-            },
-          series:_series
+          legend: {
+            data: res.data.data.name
+          },
+          series: _series
         });
         this.chart.hideLoading();
       });
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions ({ expectedData, actualData } = {}) {
       var dataStyle = {
         normal: {
           label: { show: false },
@@ -237,7 +240,7 @@ export default {
         animationEasing: "cubicInOut"
       });
     },
-    initChart() {
+    initChart () {
       this.chart = echarts.init(this.$refs.structPie);
       this.setOptions(this.chartData);
     }

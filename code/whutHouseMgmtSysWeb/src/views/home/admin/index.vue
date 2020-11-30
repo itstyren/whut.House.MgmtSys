@@ -1,18 +1,23 @@
 <template>
   <div class="dashboard-admin">
     <el-row :gutter="14">
+      <!-- 首页左侧 -->
       <el-col :span="6"
               class="col-height">
+        <!-- 个人信息 -->
         <el-row class="row-height-23">
           <info-card></info-card>
         </el-row>
-        <el-row class="row-height-44">
+        <!-- 工作清单 -->
+        <el-row class="row-height-42">
           <todo-list></todo-list>
         </el-row>
-        <el-row class="row-height-33">
+        <!-- 服务器负载量 -->
+        <!-- <el-row class="row-height-33">
           <flowmeter height="100%"></flowmeter>
-        </el-row>
+        </el-row> -->
       </el-col>
+      <!-- 首页右侧 -->
       <el-col :span="18"
               class="col-height">
         <!-- 每日业务 -->
@@ -23,22 +28,28 @@
         </el-row>
 
         <el-row class="row-height-28">
-          <!-- 周维修类型统计 -->
-          <el-col :span="11">
-            <fix-pie :height="'35.84vh'"></fix-pie>
-          </el-col>
           <!-- 近7天访问量 -->
-          <el-col :span="12"
-                  style="float:right;">
-            <page-view :height="'35.84vh'"></page-view>
+          <el-col :span="15">
+            <page-view :height="'33.5vh'"></page-view>
           </el-col>
+          <!-- 入住率分析 -->
+          <el-col :span="8"
+                  style="float:right;">
+            <occupancy-rate :height="'33.5vh'"></occupancy-rate>
+
+          </el-col>
+          <!-- 周维修类型统计 -->
+          <!-- <el-col :span="11">
+            <fix-pie :height="'33.5vh'"></fix-pie>
+          </el-col> -->
+
         </el-row>
         <!-- 周维修处理情况分析 -->
-        <el-row>
+        <!-- <el-row>
           <el-col class="fix-bar">
             <fix-bar :height="'42.24vh'"></fix-bar>
           </el-col>
-        </el-row>
+        </el-row> -->
       </el-col>
     </el-row>
 
@@ -54,6 +65,8 @@ import fixPie from "./components/fixPie";
 import fixBar from "./components/fixBar";
 import flowmeter from "./components/flowmeter";
 import channel from './components/channel'
+import occupancyRate from "@/views/dataAnalysis/house/components/occupancyRate1.vue";
+
 export default {
   data () {
     return {};
@@ -66,7 +79,8 @@ export default {
     fixPie,
     fixBar,
     flowmeter,
-    channel
+    channel,
+    occupancyRate
   }
 };
 </script>
@@ -103,5 +117,8 @@ export default {
 }
 .row-height-44 {
   height: 44%;
+}
+.row-height-42 {
+  height: 42%;
 }
 </style>

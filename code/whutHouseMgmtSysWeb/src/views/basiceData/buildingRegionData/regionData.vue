@@ -58,7 +58,7 @@
               </template>
             </el-table-column>
           </el-table>
-          <el-pagination layout="total, prev, pager, next, sizes, jumper"
+          <el-pagination background layout="total, prev, pager, next, sizes, jumper"
                          @size-change="SizeChangeEvent"
                          @current-change="CurrentChangeEvent"
                          :page-size="size"
@@ -354,7 +354,7 @@ export default {
             });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消删除"
           });

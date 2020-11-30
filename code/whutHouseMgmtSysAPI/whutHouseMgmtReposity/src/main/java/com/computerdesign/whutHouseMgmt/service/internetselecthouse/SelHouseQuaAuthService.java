@@ -129,8 +129,7 @@ public class SelHouseQuaAuthService {
 		if (staffSelectModel.getSex() != null) {
 			criteria.andStaffSexEqualTo(staffSelectModel.getSex());
 		}
-		
-		criteria.andIsDeleteEqualTo(false);
+
 		criteria.andStaffRelationEqualTo("active");
 
 		return staffHouseMapper.selectByExample(example);

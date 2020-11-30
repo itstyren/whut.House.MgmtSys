@@ -19,10 +19,11 @@
           <div class="toolbar card">
             <el-row type="flex"
                     align="middle">
-              <el-col :span="2">
+              <el-col :span="2"
+                      :offset="2">
                 <span>关键检索</span>
               </el-col>
-              <el-col :span="3">
+              <el-col :span="4">
                 <el-input v-model="directQuery"
                           placeholder="输入姓名或id检索"></el-input>
               </el-col>
@@ -79,6 +80,7 @@
                               class="table"
                               style="width: 100%"
                               height="string"
+                              @cell-click="handleClikHouse"
                               v-loading="listLoading"
                               @selection-change="setSelectionChange">
                       <el-table-column type="selection"></el-table-column>
@@ -118,7 +120,7 @@
                                        width="100"
                                        align="center"></el-table-column>
                       <el-table-column prop="joinTime"
-                                       label="来校时间"
+                                       label="参加工作时间"
                                        width="100"
                                        align="center"></el-table-column>
                       <el-table-column prop="sex"
@@ -195,7 +197,9 @@
                                        align="center"></el-table-column>>
                       <el-table-column label="地址"
                                        fixed="right"
+                                       prop="houseAddress"
                                        width="260"
+                                       class-name="address-cursor"
                                        align="center">
                         <template slot-scope="scope">
                           <el-popover trigger="hover"
@@ -204,28 +208,30 @@
                             <p>竣工时间: {{ scope.row.houseFinishTime }}</p>
                             <p>建筑面积: {{ scope.row.houseBulidArea }}</p>
                             <p>使用面积: {{ scope.row.houseUsedArea }}</p>
-                            <p>地下室面积: {{ scope.row.houseBasementArea }}</p>
+                            <p>占地面积: {{ scope.row.houseBasementArea }}</p>
                             <div slot="reference"
                                  class="name-wrapper">
                               <el-tag size="medium"
+                                      @click="handleClikTagHouse(scope.row,scope.column)"
                                       type="success">{{ scope.row.houseAddress }}</el-tag>
                             </div>
                           </el-popover>
                         </template>
                       </el-table-column>
                     </el-table>
-                    <el-pagination layout="total, prev, pager, next, sizes, jumper"
+                    <el-pagination background
+                                   layout="total, prev, pager, next, sizes, jumper"
                                    @size-change="sizeChangeEvent"
                                    @current-change="currentChangeEvent"
                                    :page-size="size"
                                    :page-sizes="[10,15,20,25,30]"
                                    :total="totalNum">
                     </el-pagination>
-                    <div class="bottom-tool">
+                    <!-- <div class="bottom-tool">
                       <el-button type="warning"
                                  size="small"
                                  @click="generateSelectRental">租金生成</el-button>
-                    </div>
+                    </div> -->
                   </div>
                 </keep-alive>
               </el-tab-pane>
@@ -239,6 +245,7 @@
                               class="table"
                               style="width: 100%"
                               height="string"
+                              @cell-click="handleClikHouse"
                               v-loading="listLoading1">
                       <el-table-column type="index"
                                        label="序号"
@@ -258,13 +265,20 @@
                                        align="center"></el-table-column>
                       <el-table-column prop="address"
                                        label="住房地址"
+                                       class-name="address-cursor"
+                                       align="center"></el-table-column>
+                      <el-table-column prop="payType"
+                                       label="缴费方式"
+                                       width="100"
+                                       :formatter="payTypeColFormat"
                                        align="center"></el-table-column>
                       <el-table-column prop="rentInitMoney"
                                        label="租金"
                                        width="100"
                                        align="center"></el-table-column>
                     </el-table>
-                    <el-pagination layout="total, prev, pager, next, sizes, jumper"
+                    <el-pagination background
+                                   layout="total, prev, pager, next, sizes, jumper"
                                    @size-change="sizeChangeEvent1"
                                    @current-change="currentChangeEvent1"
                                    :page-size="size"
@@ -452,12 +466,15 @@
         </el-dialog>
       </div>
     </section>
+    <house-detail-dialog :show.sync="showHouseDetailDialog"
+                         :houseId.sync="houseId"></house-detail-dialog>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import exportPopover from "@/components/exportPopover";
 import staffIndex from "@/views/fixManage/components/staffIndex";
+import HouseDetailDialog from '@/components/OneHouseData'
 import {
   getHouseParam,
   getStaffParam
@@ -518,7 +535,10 @@ export default {
       listLoading1: false,
       totalNum1: 0,
       page1: 1,
-      size1: 10
+      size1: 10,
+      // 是否显示住房详情的对话框 
+      showHouseDetailDialog: false,
+      houseId: 0,
     };
   },
   // watch: {
@@ -530,7 +550,8 @@ export default {
   // },
   components: {
     staffIndex,
-    exportPopover
+    exportPopover,
+    HouseDetailDialog
   },
   methods: {
     // 从组件获取id
@@ -622,8 +643,19 @@ export default {
     },
     // 处理导出情况
     exportHandle (exportType) {
-      //console.log(33)
-      if (exportType == 1) this.handleDownload();
+      const loading = this.$loading({
+        lock: true,
+        text: '加载中，请稍等。',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)',
+        customClass: 'custom-download-loading'
+      });
+      if (exportType == 1) {
+        this.handleDownload();
+        this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+          loading.close();
+        });
+      }
       else {
         let param = {
           page: 1,
@@ -635,26 +667,27 @@ export default {
             startTime: this.timeRange[0],
             endTime: this.timeRange[1]
           };
-        } else {
-          return true;
         }
         postHireRentalQuery(param, data).then(res => {
           const values = res.data.data.data.list;
           this.handleDownload(values);
+          this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+            loading.close();
+          });
         });
       }
     },
     // 导出
-    handleDownload (...values) {
+    handleDownload (values) {
       let filename = "租金表统计";
-      this.downloadLoading = true;
+
       import("@/vendor/Export2Excel").then(excel => {
-        const tHeader = ["职工号", "姓名", "工作部门", "住房地址", "租金"];
+        const tHeader = ["职工号", "姓名", "工作部门", '缴费方式', "租金"];
         const filterVal = [
           "staffNo",
           "staffName",
           "staffDeptName",
-          "address",
+          "payType",
           "rentInitMoney"
         ];
         let list = [];
@@ -664,39 +697,89 @@ export default {
         let date = new Date();
         filename = filename + `(${parseTime(date, "{y}-{m}-{d}")})`;
         excel.export_json_to_excel(tHeader, data, filename);
-        this.downloadLoading = false;
-      });
+
+      })
+    },
+    // 缴租方式的代号替换：1：自缴。2：代扣
+    payTypeFormat (id) {
+      let value = ''
+      let payTypes = [
+        {
+          id: 0,
+          typeName: '无需'
+        },
+        {
+          id: 1,
+          typeName: '自缴'
+        },
+        {
+          id: 2,
+          typeName: '代扣'
+        }
+      ]
+      payTypes.forEach(item => {
+        if (item.id == id) {
+          value = item.typeName
+        }
+      })
+      return value
+    },
+    // 格式化缴费方式的内容
+    payTypeColFormat (row, column, cellValue, index) {
+      let value = ''
+      let payTypes = [
+        {
+          id: 0,
+          typeName: '无需'
+        },
+        {
+          id: 1,
+          typeName: '自缴'
+        },
+        {
+          id: 2,
+          typeName: '代扣'
+        }
+      ]
+      payTypes.forEach(item => {
+        if (item.id == cellValue) {
+          value = item.typeName
+        }
+      })
+      return value
     },
     formatJson (filterVal, jsonData) {
       return jsonData.map(v =>
         filterVal.map(j => {
           if (j === "timestamp") {
             return parseTime(v[j]);
-          } else {
-            return v[j];
           }
+          if (j === "payType") {
+            return this.payTypeFormat(v[j])
+          }
+          return v[j];
         })
       );
     },
     // 显示多条件查询时候
     showDialog () {
       this.dialogVisible = true;
-      this.initalGet().then((this.dialogLoading = false));
+      this.initalGet().then(() => this.dialogLoading = false).catch(err => this.dialogLoading = false);
     },
     // 直接查询的方法
     directQueryMthod () {
       this.listLoading = true;
       let params = {
         conditionValue: this.directQuery,
-        page: this.page,
-        size: this.size
+        page: 1,
+        size: 10
       };
       getHireRenter(params).then(res => {
         utils.statusinfo(this, res.data);
         this.hireStaffData = res.data.data.data.list;
         this.totalNum = res.data.data.data.total;
         this.listLoading = false;
-      });
+      }).catch(err => { this.listLoading = false })
     },
     // 多条件查询操作
     multiplyQuery () {
@@ -728,7 +811,10 @@ export default {
         this.totalNum = res.data.data.data.total;
         this.listLoading = false;
         this.listLoading1 = false;
-      });
+      }).catch(err => {
+        this.listLoading = false;
+        this.listLoading1 = false;
+      })
     },
     // 监听多选生成租金
     setSelectionChange (selection) {
@@ -737,17 +823,17 @@ export default {
         this.setList.push(v.houseNo);
       });
     },
-    // 生成租金
-    generateSelectRental () {
-      //console.log(this.setList)
-      this.listLoading = true;
-      const data = this.setList;
-      let params = {};
-      postHireGenerateRental(params, data).then(res => {
-        utils.statusinfo(this, res.data);
-        this.listLoading = false;
-      });
-    },
+    // // 生成租金
+    // generateSelectRental () {
+    //   //console.log(this.setList)
+    //   this.listLoading = true;
+    //   const data = this.setList;
+    //   let params = {};
+    //   postHireGenerateRental(params, data).then(res => {
+    //     utils.statusinfo(this, res.data);
+    //     this.listLoading = false;
+    //   });
+    // },
     // 时间段已经生成租金查询
     rentalQuery () {
       let data = {};
@@ -767,7 +853,9 @@ export default {
         this.rentalData = res.data.data.data.list;
         this.totalNum1 = res.data.data.data.total;
         this.listLoading1 = false;
-      });
+      }).catch(err => {
+        this.listLoading1 = false;
+      })
     },
     //更换每页数量
     sizeChangeEvent (val) {
@@ -792,6 +880,20 @@ export default {
       this.listLoading1 = true;
       this.page1 = val;
       this.rentalQuery();
+    },
+    // 点击地址弹开对话框
+    handleClikHouse (row, column, cell, event) {
+      if (column.property === "address") {
+        this.showHouseDetailDialog = true
+        this.houseId = row.houseId
+      }
+    },
+    handleClikTagHouse (row, column) {
+      if (column.property === "houseAddress") {
+        this.showHouseDetailDialog = true
+        this.houseId = row.houseId
+      }
+
     }
   }
 };
@@ -834,5 +936,8 @@ export default {
       margin-bottom: 5px;
     }
   }
+}
+.custom-download-loading {
+  font-size: 4vw;
 }
 </style>

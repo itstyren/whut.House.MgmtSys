@@ -23,7 +23,7 @@ public class StaffHouse {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date expireTime;
 
-	private String rentType;
+    private String rentType;
 
     private String familyCode;
 
@@ -88,8 +88,6 @@ public class StaffHouse {
     private String staffSpousePostName;
 
     private String staffSpouseDept;
-
-    private Integer staffSpouseNo;
 
     private Integer staffSpouseKind;
 
@@ -184,18 +182,8 @@ public class StaffHouse {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date lastRentTime;
-    
-    private Integer payType;
 
-    public Integer getPayType() {
-		return payType;
-	}
-
-	public void setPayType(Integer payType) {
-		this.payType = payType;
-	}
-
-	public Integer getResidentId() {
+    public Integer getResidentId() {
         return residentId;
     }
 
@@ -826,13 +814,4 @@ public class StaffHouse {
     public void setLastRentTime(Date lastRentTime) {
         this.lastRentTime = lastRentTime;
     }
-    
-    public Integer getStaffSpouseNo() {
-		return staffSpouseNo;
-	}
-
-	public void setStaffSpouseNo(Integer staffSpouseNo) {
-		this.staffSpouseNo = staffSpouseNo;
-	}
-
 }

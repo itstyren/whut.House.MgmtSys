@@ -28,7 +28,6 @@
     <result column="LastRentTime" jdbcType="TIMESTAMP" property="lastRentTime" />
     <result column="RentType" jdbcType="VARCHAR" property="rentType" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
-    <result column="PayType" jdbcType="INTEGER" property="payType" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -92,7 +91,7 @@
     ResidentId, StaffId, HouseId, StaffName, Address, HouseRel, BookTime, StaffNo, StaffSex, 
     StaffDeptId, StaffDeptName, StaffSpouseName, HouseNo, HouseType, HouseTypeName, StaffType, 
     StaffTypeName, BuildArea, UsedArea, HouseFinishTime, BuildingName, FamilyCode, ExpireTime, 
-    LastRentTime, RentType, IsDelete, PayType
+    LastRentTime, RentType, IsDelete
   </sql>
   <select id="selectByExample" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVwExample" resultMap="BaseResultMap">
     select
@@ -127,8 +126,7 @@
       StaffType, StaffTypeName, BuildArea, 
       UsedArea, HouseFinishTime, BuildingName, 
       FamilyCode, ExpireTime, LastRentTime, 
-      RentType, IsDelete, PayType
-      )
+      RentType, IsDelete)
     values (#{residentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, 
       #{staffName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{houseRel,jdbcType=VARCHAR}, 
       #{bookTime,jdbcType=TIMESTAMP}, #{staffNo,jdbcType=VARCHAR}, #{staffSex,jdbcType=VARCHAR}, 
@@ -137,8 +135,7 @@
       #{staffType,jdbcType=INTEGER}, #{staffTypeName,jdbcType=VARCHAR}, #{buildArea,jdbcType=DOUBLE}, 
       #{usedArea,jdbcType=DOUBLE}, #{houseFinishTime,jdbcType=DATE}, #{buildingName,jdbcType=VARCHAR}, 
       #{familyCode,jdbcType=INTEGER}, #{expireTime,jdbcType=TIMESTAMP}, #{lastRentTime,jdbcType=TIMESTAMP}, 
-      #{rentType,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}, #{payType,jdbcType=INTEGER}
-      )
+      #{rentType,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.computerdesign.whutHouseMgmt.bean.houseregister.ResidentVw">
     insert into view_hs_resident
@@ -221,9 +218,6 @@
       <if test="isDelete != null">
         IsDelete,
       </if>
-      <if test="payType != null">
-        PayType,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="residentId != null">
@@ -303,9 +297,6 @@
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=BIT},
-      </if>
-      <if test="payType != null">
-        #{payType,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -396,9 +387,6 @@
       <if test="record.isDelete != null">
         IsDelete = #{record.isDelete,jdbcType=BIT},
       </if>
-      <if test="record.payType != null">
-        PayType = #{record.payType,jdbcType=INTEGER},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -431,8 +419,7 @@
       ExpireTime = #{record.expireTime,jdbcType=TIMESTAMP},
       LastRentTime = #{record.lastRentTime,jdbcType=TIMESTAMP},
       RentType = #{record.rentType,jdbcType=VARCHAR},
-      IsDelete = #{record.isDelete,jdbcType=BIT},
-      PayType = #{record.payType,jdbcType=INTEGER}
+      IsDelete = #{record.isDelete,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

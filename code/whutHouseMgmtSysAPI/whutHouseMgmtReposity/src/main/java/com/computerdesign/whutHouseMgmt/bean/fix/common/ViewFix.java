@@ -109,12 +109,6 @@ public class ViewFix {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date submitTime;
 
-    private Boolean isPaySelf;
-    
-    private String isPaySelfName;
-    
-    private String fixFiles;
-    
     public Integer getId() {
         return id;
     }
@@ -466,29 +460,4 @@ public class ViewFix {
     public void setSubmitTime(Date submitTime) {
         this.submitTime = submitTime;
     }
-
-	public Boolean getIsPaySelf() {
-		return isPaySelf;
-	}
-
-	public void setIsPaySelf(Boolean isPaySelf) {
-		this.isPaySelf = isPaySelf;
-	}
-
-	public String getIsPaySelfName() {
-		return isPaySelfName;
-	}
-
-	public void setIsPaySelfName(String isPaySelfName) {
-		this.isPaySelfName = isPaySelfName;
-	}
-
-	public String getFixFiles() {
-		return fixFiles;
-	}
-
-	public void setFixFiles(String fixFiles) {
-		this.fixFiles = fixFiles;
-	}
-    
 }

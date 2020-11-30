@@ -1,6 +1,16 @@
 <template>
   <div class="content-wrapper">
-    <el-scrollbar style="height:100%;">
+    <div style="height:100%;padding:10px;">
+      <!-- 面包屑导航 -->
+      <div class="warp-breadcrum">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item :to="{ path: '/' }">
+            <b>首页</b>
+          </el-breadcrumb-item>
+          <el-breadcrumb-item>系统管理</el-breadcrumb-item>
+          <el-breadcrumb-item>权限管理</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
       <div class="card"
            :style="{height:height}">
         <div class="title">
@@ -54,6 +64,7 @@
           <el-table :data="tableData2"
                     style="width:100%"
                     ref="authTable"
+                    height='55vh'
                     :select-on-indeterminate="false"
                     @selection-change="selectionChangeEvent"
                     v-loading="listLoading">
@@ -85,7 +96,8 @@
             </el-table-column>
           </el-table>
 
-          <el-pagination layout="total, prev, pager, next, sizes, jumper"
+          <el-pagination background
+                         layout="total, prev, pager, next, sizes, jumper"
                          :current-page.sync="currentPage"
                          @size-change="sizeChangeEvent"
                          @current-change="currentChangeEvent"
@@ -123,7 +135,7 @@
 
         </el-dialog>
       </div>
-    </el-scrollbar>
+    </div>
   </div>
 </template>
 
@@ -211,13 +223,13 @@ export default {
       let authNameList = this.tableChecked.map(item => item.groupName)
       delAuthList(authNameList).then(res => {
         this.getTableData()
-        this.$message({
+        this.$message1({
           showClose: true,
           message: res.data.message,
           type: res.data.status
         });
       }).catch(err => {
-        this.$message.error(err)
+        this.$message1.error(err)
       })
       this.listLoading = false
     },
@@ -248,7 +260,7 @@ export default {
       this.getOneAuthMsg(id).then(() => {
         this.AuthFormAddOrEdit = 'edit'
         this.AuthDialogVisiable = true
-      }).catch(err => this.$message.error(err))
+      }).catch(err => this.$message1.error(err))
     },
     // 获取某一组用户组信息
     getOneAuthMsg (id) {
@@ -257,11 +269,9 @@ export default {
           if (res.data.status === 'success') {
             let data = res.data.data.data
             data.checkedKeys = data.userRouters
-            console.log("this.campusList:", this.campusList)
             data.manageCampus = numberToCampus(data.manageCampus, this.campusList.id, this.campusList.name)
             delete data.userRouters
             this.groupFormData = data
-            console.log("this.groupFormData:", this.groupFormData)
             resolve()
           } else {
             reject(new Error('获取该用户组信息失败，无法操作！'))
@@ -286,11 +296,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../../styles/variables.scss";
 .content-wrapper {
   width: 100%;
   height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
+  background-color: $background-grey;
 }
 .card {
   margin: 20px;

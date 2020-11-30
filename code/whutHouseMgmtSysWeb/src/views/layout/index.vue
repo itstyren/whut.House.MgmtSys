@@ -25,6 +25,7 @@
         </el-tooltip>
         <lang-select class="international right-menu-item"></lang-select>
         <el-dropdown trigger="click"
+                     @command="handleCommand"
                      class=" right-menu-item">
           <span class="dropdown-main">
             <my-icon icon-class="account" />
@@ -32,18 +33,15 @@
             <my-icon icon-class="more_unfold" />
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>
-              <router-link to="/user">
-                <span style=" color: #000; font-size: 14px;">个人设置</span>
-              </router-link>
+            <el-dropdown-item command="userSetting">
+              <span style=" color: #000; font-size: 14px;">个人设置</span>
             </el-dropdown-item>
-            <el-dropdown-item>
-              <router-link :to="{name:'personal',params:{menuIndex:'password'}}">
-                <span style=" color: #000; font-size: 14px;">修改密码</span>
-              </router-link>
+            <el-dropdown-item command="userPasswd">
+              <span style=" color: #000; font-size: 14px;">修改密码</span>
             </el-dropdown-item>
-            <el-dropdown-item divided>
-              <span @click.prevent="logout">退出登录</span>
+            <el-dropdown-item divided
+                              command="logout">
+              <span>退出登录</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -83,6 +81,28 @@ export default {
       this.$store.dispatch("LogOut").then(() => {
         location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
       });
+    },
+    handleCommand (command) {
+      if (command === 'userSetting') {
+        this.$router.push({
+          path: '/user'
+        })
+        return
+      }
+      if (command === 'userPasswd') {
+        this.$router.push({
+          name: 'personal',
+          params: { menuIndex: 'password' }
+        })
+        return
+      }
+      if (command === 'logout') {
+        this.$store.dispatch("LogOut").then(() => {
+          this.$router.push({
+            path: '/login'
+          })
+        });
+      }
     }
   }
 };
@@ -92,12 +112,16 @@ export default {
 $background-color: #373d41;
 @import "../../styles/variables.scss";
 .home-container {
+  .body-container {
+    background-color: $background-grey;
+  }
   .top-bar {
     background-color: $background-color;
     color: #fff; //display: flex;
+    width: 100%;
     > .logo {
       float: left;
-      width: 59px;
+      width: 4%;
       height: 55px;
       display: flex;
       background-image: url("../../assets/logo.png");
@@ -106,9 +130,12 @@ $background-color: #373d41;
         flex-grow: 1;
       }
     }
+    > .title {
+      width: 20%;
+    }
     > .main-menu {
       float: left;
-      margin-left: 50px;
+      width: 62%;
       > .el-menu {
         height: 100%;
         /*写给不支持calc()的浏览器*/
@@ -146,8 +173,8 @@ $background-color: #373d41;
       }
     }
     > .account {
-      float: right;
-      padding-right: 12px;
+      float: left;
+      width: 14%;
       font-size: 12px;
       .right-menu-item {
         display: inline-block;

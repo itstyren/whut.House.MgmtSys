@@ -25,8 +25,6 @@ public class ResidentHouseInfoService {
 		ResidentHouseExample example = new ResidentHouseExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andStaffIdEqualTo(staffId);
-		//仅显示当前的
-		criteria.andIsDeleteEqualTo(false);
 		return residentHouseMapper.selectByExample(example);
 	}
 	

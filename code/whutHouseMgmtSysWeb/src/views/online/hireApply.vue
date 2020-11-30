@@ -20,125 +20,212 @@
           <!-- 表格区 -->
           <div class="main-data">
             <!-- 申请表单区 -->
-            <div class="apply-from card" v-loading="listLoading">
-              <el-steps :active="active" finish-status="success">
+            <div class="apply-from card"
+                 v-loading="listLoading">
+              <el-steps :active="active"
+                        finish-status="success">
                 <el-step title="个人信息"></el-step>
                 <el-step title="信息确认"></el-step>
                 <el-step title="填写原因"></el-step>
               </el-steps>
-              <el-form :model="accoutInfo" label-width="100px" inline ref="hireApplyForm" :rules="rules">
+              <el-form :model="accoutInfo"
+                       label-width="100px"
+                       inline
+                       ref="hireApplyForm"
+                       :rules="rules">
                 <!-- 个人信息区域 -->
-                <div v-if="active==0" class="personal-info">
-                  <el-row type="flex" justify="center">
+                <div v-if="active==0"
+                     class="personal-info">
+                  <el-row type="flex"
+                          justify="center">
                     <el-col :span="10">
                       <el-form-item label="职工号">
-                        <el-input v-model="accoutInfo.No" :readonly="true"></el-input>
+                        <el-input v-model="accoutInfo.No"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
                       <el-form-item label="姓名">
-                        <el-input v-model="accoutInfo.Name" :readonly="true"></el-input>
+                        <el-input v-model="accoutInfo.Name"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center">
+                  <el-row type="flex"
+                          justify="center">
                     <el-col :span="10">
                       <el-form-item label="身份证号">
-                        <el-input v-model="accoutInfo.Code" :readonly="true"></el-input>
+                        <el-input v-model="accoutInfo.Code"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
                       <el-form-item label="性别">
-                        <el-input v-model="accoutInfo.Sex" :readonly="true"></el-input>
+                        <el-input v-model="accoutInfo.Sex"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center">
+                  <el-row type="flex"
+                          justify="center">
                     <el-col :span="10">
                       <el-form-item label="职务">
-                        <el-input v-model="accoutInfo.TitleName" :readonly="true"></el-input>
+                        <el-input v-model="accoutInfo.TitleName"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
                       <el-form-item label="单位">
-                        <el-input v-model="accoutInfo.DeptName" :readonly="true"></el-input>
+                        <el-input v-model="accoutInfo.DeptName"
+                                  :readonly="true"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center">
+                  <el-row type="flex"
+                          justify="center">
                     <el-col :span="10">
-                      <el-form-item label="手机号" prop="Tel">
-                        <el-input v-model="accoutInfo.Tel" placeholder="请输入手机号"></el-input>
+                      <el-form-item label="手机号"
+                                    prop="Tel">
+                        <el-input v-model="accoutInfo.Tel"
+                                  placeholder="请输入手机号"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="10">
-                      <el-form-item label="邮箱" prop="email">
-                        <el-input v-model="accoutInfo.email" placeholder="请输入邮箱"></el-input>
+                      <el-form-item label="邮箱"
+                                    prop="email">
+                        <el-input v-model="accoutInfo.email"
+                                  placeholder="请输入邮箱"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </div>
                 <!-- 信息确认 -->
-                <div v-if="active==1" class="house-info">
-                  <el-row type="flex" justify="center" class="list-title">
+                <div v-if="active==1"
+                     class="house-info">
+                  <el-row type="flex"
+                          justify="center"
+                          class="list-title">
                     <el-col :span="3">
                       <span>已有住房</span>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center" class="house-list">
+                  <el-row type="flex"
+                          justify="center"
+                          class="house-list">
                     <el-col :span="20">
-                      <el-table :data="accoutInfo.listHouseGetApply" border class="table" height="string" v-loading="listLoading">
-                        <el-table-column label="住房号" prop="houseNo"></el-table-column>
-                        <el-table-column label="住房类型" prop="houseTypeName"></el-table-column>
-                        <el-table-column label="住房地址" prop="houseAddress"></el-table-column>
-                        <el-table-column label="住房面积" prop="houseBuildArea"></el-table-column>
-                        <el-table-column label="使用面积" prop="houseUsedArea"></el-table-column>
-                        <el-table-column label="产权关系" prop="houseRelName"></el-table-column>
+                      <el-table :data="accoutInfo.listHouseGetApply"
+                                border
+                                class="table"
+                                height="string"
+                                v-loading="listLoading">
+                        <el-table-column label="住房号"
+                                         prop="houseNo"></el-table-column>
+                        <el-table-column label="住房类型"
+                                         prop="houseTypeName"></el-table-column>
+                        <el-table-column label="住房地址"
+                                         prop="houseAddress"></el-table-column>
+                        <el-table-column label="住房面积"
+                                         prop="houseBuildArea"></el-table-column>
+                        <el-table-column label="使用面积"
+                                         prop="houseUsedArea"></el-table-column>
+                        <el-table-column label="产权关系"
+                                         prop="houseRelName"></el-table-column>
                       </el-table>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center" class="list-title">
+                  <el-row type="flex"
+                          justify="center"
+                          class="list-title">
                     <el-col :span="3">
                       <span>已申请信息</span>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center" class="apply-list">
+                  <el-row type="flex"
+                          justify="center"
+                          class="apply-list">
                     <el-col :span="20">
-                      <el-table :data="accoutInfo.array" border class="table" height="string" v-loading="listLoading">
-                        <el-table-column label="职工号" align="center" prop="staffNo"></el-table-column>
-                        <el-table-column label="申请号" align="center" prop="id"></el-table-column>
-                        <el-table-column label="职工积分" align="center" prop="totalVal"></el-table-column>
-                        <el-table-column label="处理情况" align="center" prop="hireState"></el-table-column>
+                      <el-table :data="accoutInfo.array"
+                                border
+                                class="table"
+                                height="string"
+                                v-loading="listLoading">
+                        <el-table-column label="职工号"
+                                         align="center"
+                                         prop="staffNo"></el-table-column>
+                        <el-table-column label="申请号"
+                                         align="center"
+                                         prop="id"></el-table-column>
+                        <el-table-column label="职工积分"
+                                         align="center"
+                                         prop="totalVal"></el-table-column>
+                        <el-table-column label="处理情况"
+                                         align="center"
+                                         prop="hireState"></el-table-column>
                       </el-table>
                     </el-col>
                   </el-row>
-                  <el-row type="flex" justify="center" class="remark">
+                  <el-row type="flex"
+                          justify="center"
+                          class="remark">
                     <el-col :span="20">
                       <span>如有疑问，请联系单位管理员</span>
                     </el-col>
                   </el-row>
                 </div>
                 <!-- 维修填写区域 -->
-                <div v-if="active==2" class="hire-reason">
-                  <el-row type="flex" justify="center">
+                <div v-if="active==2"
+                     class="hire-reason">
+                  <el-row type="flex"
+                          justify="center">
                     <el-col :span="20">
-                      <el-form-item label="申请原因" prop="reason">
-                        <el-input v-model="accoutInfo.reason" type="textarea" style="width:600px" :rows="6" placeholder="请详细说明您的住房困难及需求，谢谢！">
+                      <el-form-item label="上传图片"
+                                    prop="picData">
+                        <el-upload :action="`${basiceUrl}/fileUpload/multiFileUpload`"
+                                   :multiple="true"
+                                   style="width:350px;"
+                                   ref="addFormImageUpload"
+                                   :on-success="successUpload"
+                                   :on-error="errorUpload"
+                                   :on-remove="handleNowImageRemove"
+                                   :before-remove="beforeRemove"
+                                   :before-upload="beforePicUpload">
+                          <el-button size="small"
+                                     type="primary">点击上传</el-button>
+                        </el-upload>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row type="flex"
+                          justify="center">
+                    <el-col :span="20">
+                      <el-form-item label="申请原因"
+                                    prop="reason">
+                        <el-input v-model="accoutInfo.reason"
+                                  type="textarea"
+                                  style="width:600px"
+                                  :rows="6"
+                                  placeholder="请详细说明您的住房困难及需求，谢谢！">
                         </el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </div>
-                <div v-if="active==3" class="apply-result" v-loading="listLoading">
+                <div v-if="active==3"
+                     class="apply-result"
+                     v-loading="listLoading">
                   <div class="tool">
-                    <el-button type="primary" @click="downloadApply">导出申请单</el-button>
+                    <el-button type="primary"
+                               @click="downloadApply">导出申请单</el-button>
                   </div>
                   <span>{{resMessage}}</span>
                 </div>
                 <div class="opera-area">
-                  <el-button @click="backButton" v-if="active>=1&&active<3">上一步</el-button>
-                  <el-button @click="nextButton" v-if="active<2">下一步</el-button>
-                  <el-button @click="addSubmit" v-if="active==2">提交</el-button>
+                  <el-button @click="backButton"
+                             v-if="active>=1&&active<3">上一步</el-button>
+                  <el-button @click="nextButton"
+                             v-if="active<2">下一步</el-button>
+                  <el-button @click="addSubmit"
+                             v-if="active==2">提交</el-button>
                 </div>
               </el-form>
             </div>
@@ -156,7 +243,7 @@ import utils from "@/utils/index.js";
 import { MessageBox } from "element-ui";
 import router from "../../router";
 export default {
-  data() {
+  data () {
     return {
       listLoading: false,
       // 进度信息
@@ -168,15 +255,20 @@ export default {
       rules: {},
       // 信息确认区域
       listLoading: [],
-      resMessage: ""
+      resMessage: "",
+      // 图片上传的域名
+      basiceUrl: this.BASE_URL,
+      // 已经上传但是未提交的图片数组
+      allImageData: [],
+      isBeforeRemove: true,
     };
   },
-  created() {
+  created () {
     this.getList();
   },
   methods: {
     // 获取个人信息
-    getList() {
+    getList () {
       this.listLoading = true;
       let staffID = this.$store.getters.userID;
       let param = {};
@@ -209,21 +301,21 @@ export default {
         });
     },
     // 导出申请单
-    downloadApply() {
+    downloadApply () {
       let staffID = this.$store.getters.userID;
-      window.location.href = `http://172.16.65.105:8080/whutHouseMgmtReposity/exportToWord/hire/${staffID}`;
+      window.location.href = `${this.basiceUrl}/exportToWord/hire/${staffID}`;
     },
     // 前进一步
-    nextButton() {
+    nextButton () {
       let vaild = true;
       if (this.active++ > 2) this.active = 0;
     },
     // 返回一步
-    backButton() {
+    backButton () {
       this.active--;
     },
     // 提交住房申请
-    addSubmit() {
+    addSubmit () {
       this.active++;
       this.listLoading = true;
       this.$refs["hireApplyForm"].validate(valid => {
@@ -232,7 +324,8 @@ export default {
             reason: this.accoutInfo.reason,
             email: this.accoutInfo.email,
             phone: this.accoutInfo.Tel,
-            staffId: this.$store.getters.userID
+            staffId: this.$store.getters.userID,
+            hireFiles: this.allImageData.join(',')
           };
           postHireApply(applyForm).then(res => {
             this.resMessage = res.data.message;
@@ -243,7 +336,47 @@ export default {
           });
         }
       });
-    }
+    },
+    // 上传未提交的图片成功的钩子
+    successUpload (response, file, fileList) {
+      this.allImageData = this.allImageData.concat(response.data.data[0])
+    },
+    // 图片上传失败的钩子
+    errorUpload (res, file) {
+      this.$message1.error("图片上传失败！")
+    },
+    // 删除未提交的图片之后的钩子
+    handleNowImageRemove (file, fileList) {
+      let imageUrl = file.response.data.data[0]
+      let index = this.allImageData.indexOf(imageUrl)
+      this.allImageData.splice(index, 1)
+      console.log("删除未提交的图片之后allImageData:", this.allImageData)
+    },
+    // 删除图片前的钩子
+    beforeRemove (file, fileList) {
+      if (this.isBeforeRemove) {
+        return this.$confirm(`确定移除 ${file.name}？`);
+      } else {
+        this.isBeforeRemove = true
+        return true
+      }
+    },
+    //在图片提交前进行验证
+    beforePicUpload (file) {
+      const isJPG = file.type === "image/jpeg";
+      const isPNG = file.type === "image/png";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG && !isPNG) {
+        this.$message1.error("上传头像图片只能是 JPG/PNG 格式!");
+        this.isBeforeRemove = false
+        return false;
+      } else if (!isLt2M) {
+        this.$message1.error("上传证明图片大小不能超过 2MB!");
+        this.isBeforeRemove = false
+        return false;
+      }
+      return true;
+    },
   }
 };
 </script>
@@ -297,10 +430,10 @@ export default {
       & > span {
         font-size: 22px;
       }
-      & > .tool{
+      & > .tool {
         position: absolute;
         right: 200px;
-        top:150px;
+        top: 150px;
       }
     }
     & .opera-area {

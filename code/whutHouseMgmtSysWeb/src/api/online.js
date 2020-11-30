@@ -17,6 +17,15 @@ export function getHaveSelectStaff(params) {
     params: params
   })
 }
+// 在线选房-选房资格认定
+// 根据id或者姓名查询员工
+export function getStaffByNoOrName(params) {
+  return request({
+    url: `/selHouseQuaAuth/selectByNoOrName`,
+    method: 'get',
+    params: params
+  })
+}
 // 多条件查询后可选房员工
 export function postCanSelectmulticondition(params, data) {
   return request({
@@ -133,5 +142,12 @@ export function postHireApply(data) {
     url: `/hire/addApply`,
     method: 'post',
     data: data
+  })
+}
+// 在线访问统计
+export function getOnLineCount() {
+  return request({
+    url: '/online/onLineCount',
+    method: 'get'
   })
 }

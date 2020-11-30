@@ -77,15 +77,6 @@ public class RegisterService{
 	public void deleteResident(Resident resident){
 		residentMapper.updateByPrimaryKey(resident);
 	}
-	
-	/**
-	 * 从数据库删除住房记录
-	 * @param id
-	 */
-	public void delete(Integer id){
-		residentMapper.deleteByPrimaryKey(id);
-	}
-	
 	public Resident getResident(Integer residentId){
 		return residentMapper.selectByPrimaryKey(residentId);
 	}

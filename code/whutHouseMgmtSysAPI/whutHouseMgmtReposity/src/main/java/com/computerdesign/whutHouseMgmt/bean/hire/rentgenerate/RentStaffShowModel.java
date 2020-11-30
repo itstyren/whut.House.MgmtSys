@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class RentStaffShowModel {
-	
 	private String staffNo;
 
 	private String staffName;
@@ -93,8 +92,6 @@ public class RentStaffShowModel {
 	// 配偶单位性质
 	private String spouseKindName;
 
-	private Integer houseId;
-	
 	// 住房号
 	private String houseNo;
 
@@ -121,7 +118,6 @@ public class RentStaffShowModel {
 
 	// 地址
 	private String houseAddress;
-	
 
 	// 竣工时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -321,14 +317,6 @@ public class RentStaffShowModel {
 
 	public void setSpouseKindName(String spouseKindName) {
 		this.spouseKindName = spouseKindName;
-	}
-
-	public Integer getHouseId() {
-		return houseId;
-	}
-
-	public void setHouseId(Integer houseId) {
-		this.houseId = houseId;
 	}
 
 	public String getHouseNo() {

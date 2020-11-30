@@ -350,20 +350,24 @@ public class RentEventController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "get", method = RequestMethod.GET)
+	@RequestMapping("get")
 	public Msg getRentEvent(@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
 
 		PageHelper.startPage(page, size);
 
 		List<RentEvent> rentEvents = rentEventService.getAll();
-//		System.out.println(rentEvents.get(0).getRentIsOpenSel());
+		System.out.println(rentEvents.get(0).getRentIsOpenSel());
 
 		// 获取StaffSelectHouse数据库中所有canselect数据，并根据选房时间排序
 		List<StaffSelectHouse> staffSelectHouses = staffSelectHouseService.getAllAndOrderBySelectTime();
-//		System.out.println(staffSelectHouses.get(0).getSelectEnd());
+		System.out.println(staffSelectHouses.get(0).getSelectEnd());
 
-		
+		if (rentEvents.get(0).getRentIsOpenSel()
+				&& staffSelectHouses.get(0).getSelectEnd().getTime() < new Date().getTime()) {
+			rentEvents.get(0).setRentIsOpenSel(false);
+			rentEventService.update(rentEvents.get(0));
+		}
 		// 格式化日期后封装在另一个bean的list
 		// List<RentEventModel> rentEventModels = dateFormat(rentEvents);
 		// isBegin(rentEvents);
@@ -376,18 +380,14 @@ public class RentEventController {
 		// }
 		// }
 
+		PageInfo pageInfo = new PageInfo(rentEvents);
 		// 将封装好的数据设置到pageInfo返回
 		// pageInfo.setList(rentEventModels);
-		if (rentEvents.size() > 0) {
-			if (rentEvents.get(0).getRentIsOpenSel()
-					&& staffSelectHouses.get(0).getSelectEnd().getTime() < new Date().getTime()) {
-				rentEvents.get(0).setRentIsOpenSel(false);
-				rentEventService.update(rentEvents.get(0));
-			}
-			
+		if (rentEvents != null) {
+			return Msg.success().add("data", pageInfo);
+		} else {
+			return Msg.error("无数据");
 		}
-		PageInfo pageInfo = new PageInfo(rentEvents);
-		return Msg.success().add("data", pageInfo);
 	}
 
 	// 判断当前日期是否在开始时间和结束时间之间(待修改，选房结束时间需要根据选房人数确定)

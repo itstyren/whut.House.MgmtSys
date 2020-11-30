@@ -10,6 +10,7 @@
                ref="loginForm"
                label-position="left"
                label-width="0px"
+               :rules="rules"
                class=" login-container">
         <!-- <h3 class="title">系统登录</h3> -->
         <el-form-item prop="no">
@@ -67,7 +68,21 @@ export default {
       },
       tipMessage: "",
       //角色
-      RoleIDs: []
+      RoleIDs: [],
+      rules: {
+        no: {
+          required: true,
+          message: '请输入账号！'
+        },
+        password: {
+          required: true,
+          message: '请输入密码！'
+        },
+        roleId: {
+          required: true,
+          message: '请选择角色！'
+        },
+      }
     };
   },
   mounted () {
@@ -85,7 +100,7 @@ export default {
           this.$store
             .dispatch("LoginByUsername", param)
             .then(message => {
-              this.$message({
+              this.$message1({
                 type: "success",
                 message: message,
                 duration: 2000
@@ -99,11 +114,7 @@ export default {
               });
             })
             .catch(err => {
-              this.tipMessage = "请输入正确的用户名或密码";
-              this.$message({
-                type: "error",
-                message: err
-              });
+              this.tipMessage = "请核对账号，密码和角色是否正确";
               this.loginLoading = false;
             });
         }
@@ -113,7 +124,7 @@ export default {
       getPartAuthList().then(res => {
         this.RoleIDs = res.data.data.data
       }).catch(err => {
-        this.$message.error(err)
+        this.$message1.error(err)
       })
     }
   }

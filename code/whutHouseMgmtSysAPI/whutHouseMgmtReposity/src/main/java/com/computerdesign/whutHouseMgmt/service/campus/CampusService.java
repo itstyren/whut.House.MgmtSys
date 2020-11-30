@@ -23,18 +23,6 @@ public class CampusService {
 	private CampusMapper campusMapper;
 	
 	/**
-	 * 通过校区名称获取ID
-	 * @param name
-	 * @return
-	 */
-	public Integer getIdByName(String name){
-		CampusExample example = new CampusExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andNameEqualTo(name);
-		return campusMapper.selectByExample(example).get(0).getId();
-	}
-	
-	/**
 	 * 根据id获取
 	 * @param id
 	 * @return

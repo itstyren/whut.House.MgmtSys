@@ -14,11 +14,12 @@
     <!-- 下方主内容 -->
     <div class="warp-body">
       <!-- 工具栏 -->
-      <div class="toolbar"
+      <div class="toolbar card"
            style="margin-left:10px;">
         <el-form :model="queryOption"
                  :inline="true"
                  :rules="queryRules"
+                 label-width="100px"
                  ref="queryForm">
           <el-form-item label="部门"
                         prop="deptId">
@@ -26,29 +27,28 @@
                        :clearable="true"
                        @clear="clearDept"
                        placeholder="所有部门"
-                       style="width:200px"
+                       style="width:250px"
                        @change="selectDeptChange">
               <el-option v-for="dept in depData"
-                         :key="dept.id"
-                         :value="dept.id"
-                         :label="dept.label"></el-option>
+                         :key="dept.staffParamId"
+                         :value="dept.staffParamId"
+                         :label="dept.staffParamName"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="姓名"
                         prop="staff">
             <el-select v-model="queryOption.staffId"
                        :clearable="true"
-                       @clear="clearStaff"
                        placeholder="全部职工"
-                       style="width:200px">
+                       style="width:250px">
               <el-option v-for="staff in staffData"
                          :key="staff.id"
                          :value="staff.id"
-                         :label="staff.label"></el-option>
+                         :label="staff.name"></el-option>
             </el-select>
           </el-form-item>
           <el-button type="primary"
-                     @click="queryData">查询</el-button>
+                     @click="getList(queryOption)">查询</el-button>
           <el-form-item>
             <el-button type="primary"
                        @click="addStaff()">新增员工</el-button>
@@ -57,71 +57,76 @@
       </div>
       <!-- 表格区 -->
       <div class="main-data">
-        <el-table :data="deptStaffData"
-                  border
-                  class="table"
-                  height="string"
-                  v-loading="listLoading">
-          <el-table-column type="selection"
-                           width="55"></el-table-column>
-          <el-table-column prop="no"
-                           label="职工号"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="name"
-                           label="姓名"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="sex"
-                           label="性别"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="marriageState"
-                           label="婚姻状况"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="titleName"
-                           label="职称"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="postName"
-                           label="职务"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="statusName"
-                           label="工作状态"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column prop="groupName"
-                           label="用户组"
-                           sortable
-                           align="center"></el-table-column>
-          <el-table-column label="操作"
-                           width="350"
-                           align="center">
-            <template slot-scope="scope">
-              <el-button size="small"
-                         @click="showDetailDialog(scope.$index,scope.row)">详情</el-button>
-              <el-button type="success"
-                         size="small"
-                         @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
-              <el-button type="warning"
-                         size="small"
-                         @click="resetStaffPwd(scope.$index,scope.row)">重置</el-button>
-              <el-button type="danger"
-                         size="small"
-                         @click="delectStaff(scope.$index,scope.row)">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+        <div class="card"
+             style="height:95%">
+          <el-table :data="deptStaffData"
+                    class="table"
+                    height="93%"
+                    v-loading="listLoading">
+            <el-table-column type="selection"
+                             width="45"></el-table-column>
+            <el-table-column prop="no"
+                             label="职工号"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="name"
+                             label="姓名"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="sex"
+                             label="性别"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="marriageState"
+                             label="婚姻状况"
+                             width="120"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="titleName"
+                             label="职称"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="postName"
+                             label="职务"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="statusName"
+                             label="工作状态"
+                             width="120"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column prop="groupName"
+                             label="用户组"
+                             sortable
+                             align="center"></el-table-column>
+            <el-table-column label="操作"
+                             width="350"
+                             align="center">
+              <template slot-scope="scope">
+                <el-button size="small"
+                           @click="showDetailDialog(scope.$index,scope.row)">详情</el-button>
+                <el-button type="success"
+                           size="small"
+                           @click="showModifyDialog(scope.$index,scope.row)">编辑</el-button>
+                <el-button type="warning"
+                           size="small"
+                           @click="resetStaffPwd(scope.$index,scope.row)">重置</el-button>
+                <el-button type="danger"
+                           size="small"
+                           @click="delectStaff(scope.$index,scope.row)">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <el-pagination background
+                         layout="total, prev, pager, next, sizes, jumper"
+                         @size-change="SizeChangeEvent"
+                         @current-change="CurrentChangeEvent"
+                         :page-size="size"
+                         :page-sizes="[10,15,20,25,30]"
+                         :total="totalNum">
+          </el-pagination>
+        </div>
       </div>
-      <el-pagination layout="total, prev, pager, next, sizes, jumper"
-                     @size-change="SizeChangeEvent"
-                     @current-change="CurrentChangeEvent"
-                     :page-size="size"
-                     :page-sizes="[10,15,20,25,30]"
-                     :total="totalNum">
-      </el-pagination>
     </div>
   </div>
 </template>
@@ -131,7 +136,8 @@ import {
   getSingleDept,
   getStaff,
   deleteStaffData,
-  putResetStaffPwd
+  putResetStaffPwd,
+  getStaffListByMultiCondition
 } from "@/api/basiceData";
 import {
   checkNum,
@@ -151,7 +157,6 @@ export default {
       size: 10,
       //查询需要的数据
       staffData: [],
-      queryStatus: 0, //0 代表列表查，1代表全部，2代表部门查，3代表楼栋查
       // 查询选项
       queryOption: {
         deptId: "",
@@ -176,110 +181,83 @@ export default {
     // 监听选项的变动
     selectDept (newval) {
       for (var dept of this.depData) {
-        if (dept.id == newval) this.staffData = dept.children;
+        if (dept.staffParamId == newval) this.staffData = dept.staffModels;
       }
     },
     // 监听路由
-    $route () {
-      this.queryStatus = 0;
-      this.getList();
+    $route (newVal) {
+      this.getList({ deptId: newVal.params.id });
     }
   },
   created () {
-    this.getList();
+    this.getList(this.queryOption);
   },
   // 方法集合
   methods: {
     //选择的区域变化时
     selectDeptChange (dept) {
+      this.queryOption.staffId = "";
       this.staffData = dept.buildingList;
     },
-    // 清空搜索的区域时
-    clearDept () {
-      this.queryStatus = 1;
-      this.queryOption.staffId = "";
-    },
-    // 清空搜索的楼栋时
-    clearStaff () {
-      this.queryStatus = 2;
-    },
-
-    // 判定查询的类型
-    queryData () {
-      // this.$refs["queryForm"].validate(valid => {
-      // if (valid) {
-      if (this.queryOption.deptId == "") {
-        this.queryStatus = 1;
-        // this.getList();   //还不能获取全部员工
-      } else if (this.queryOption.staffId == "") {
-        this.queryStatus = 2;
-        this.getList();
-      } else {
-        this.queryStatus = 3;
-        this.getList();
-      }
-      // }
-      // });
-    },
-    // 获取列表
-    getList () {
+    getList (queryData) {
       this.listLoading = true;
+      this.deptStaffData = [];
       let param = {
         page: this.page,
         size: this.size
-      };
-      // 在这里判断执行哪种查询方法
-      if (this.queryStatus == 0) {
-        var switchFunction = getSingleDept;
-        var queryID = this.$route.params.id;
-      } else if (this.queryStatus == 1) var switchFunction = getHouse;
-      else if (this.queryStatus == 2) {
-        var switchFunction = getSingleDept;
-        var queryID = this.queryOption.deptId;
-      } else {
-        var switchFunction = getStaff;
-        var queryID = this.queryOption.staffId;
       }
-      switchFunction(param, queryID)
-        .then(res => {
-          if (this.queryStatus == 3) {
-            this.deptStaffData = [];
-            this.deptStaffData[0] = res.data.data.data;
-          } else {
-            this.deptStaffData = res.data.data.data.list;
-          }
-          if (this.queryStatus !== 2) {
-            if (this.deptStaffData[0] != null)
-              this.depName = this.deptStaffData[0].deptName;
-            else {
+      let data = Object.assign({}, queryData)
+      //请求一个部门的员工
+      if (data.deptId) {
+        //请求一个员工
+        if (data.staffId) {
+          getStaff(param, data.staffId)
+            .then(res => {
+              this.deptStaffData.push(res.data.data.data)
+              this.depName = this.deptStaffData.deptName
+              this.totalNum = 1
+              utils.statusinfo(this, res.data);
               this.listLoading = false;
-              return;
-            }
-          } else {
-            for (var dept of this.depData) {
-              if (dept.id == queryID) this.depName = dept.label;
-            }
-          }
+            })
+          return
+        }
+        getSingleDept(param, data.deptId)
+          .then(res => {
+            this.deptStaffData = res.data.data.data.list;
+            this.totalNum = res.data.data.data.total;
+            this.depName = this.deptStaffData[0].deptName
+            utils.statusinfo(this, res.data);
+            this.listLoading = false;
+          })
+        return
+      }
 
-          this.totalNum = res.data.data.data.total;
-          this.listLoading = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      //请求全部员工
+      getStaffListByMultiCondition(param, {}).then(res => {
+        utils.statusinfo(this, res.data);
+        this.deptStaffData = res.data.data.data.list;
+        this.totalNum = res.data.data.data.total;
+        this.listLoading = false;
+      }).then(() => {
+        this.depName = '所有员工'
+      })
+    },
+    // // 清空搜索的区域时
+    clearDept () {
+      this.queryOption.staffId = "";
     },
     // 显示详情页面
     showDetailDialog (index, row) {
-      this.$store.commit(types.STAFF_DATA, row);
+      // this.$store.commit(types.STAFF_DATA, row);
       this.$store.commit(types.STAFF_MODIFY, false);
       this.$store.commit('SET_STAFF_SHOW', true)
       this.$router.push({
-        path: `/basic/staff/byId/${row.id}`,
+        path: `/basic/staff/byId/${row.id}`
       });
     },
     //切换到编辑
     showModifyDialog (index, row) {
-      this.$store.commit(types.STAFF_DATA, row);
+      // this.$store.commit(types.STAFF_DATA, row);
       this.$store.commit(types.STAFF_MODIFY, true);
       this.$store.commit('SET_STAFF_SHOW', true)
       this.$router.push({
@@ -314,7 +292,7 @@ export default {
             });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消重置"
           });
@@ -341,7 +319,7 @@ export default {
             });
         })
         .catch(() => {
-          this.$message({
+          this.$message1({
             type: "info",
             message: "已取消删除"
           });
@@ -365,4 +343,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../../../styles/variables.scss";
+
+.second-container {
+  background-color: $background-grey;
+  .toolbar {
+    .el-form-item {
+      margin-bottom: 5px;
+    }
+  }
+  .card {
+    padding: 10px;
+  }
+}
 </style>

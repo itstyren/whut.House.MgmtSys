@@ -2,16 +2,16 @@ export default {
   //公共提示方法，传入当前的vue以及res.data。 返回状态判断并给出提示
   statusinfo(vue, data) {
     if (data.status == 'success') {
-      vue.$message({
+      vue.$message1({
         type: 'success',
         message: data.message,
-        duration: 2000
+        duration: 1500
       })
     } else {
-      vue.$message({
+      vue.$message1({
         type: 'error',
         message: data.message,
-        duration: 2000
+        duration: 1500
 
       })
     }
