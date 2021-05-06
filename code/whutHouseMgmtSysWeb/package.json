@@ -24,7 +24,7 @@
     "mockjs": "^1.0.1-beta3",
     "nprogress": "^0.2.0",
     "screenfull": "^3.3.2",
-    "underscore": "^1.8.3",
+    "underscore": "^1.12.1",
     "v-charts": "^1.16.6",
     "vue": "^2.5.2",
     "vue-amap": "^0.5.4",
